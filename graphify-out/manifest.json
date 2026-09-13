@@ -400,7 +400,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/bin/svforge.mjs": {
-    "ast_hash": "2c9a8447ffcae9b26ffd9b3d12f50c05",
+    "ast_hash": "1a2428ff20d69e9bcc65583bb96e0384",
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
@@ -1680,7 +1680,7 @@
     "semantic_hash": ""
   },
   "tests/real-bin.test.ts": {
-    "ast_hash": "37474d339dc96583626d9e7d7e0335df",
+    "ast_hash": "5ad6d5d6171daddc1f84bcb7228ffa17",
     "semantic_hash": ""
   }
 }

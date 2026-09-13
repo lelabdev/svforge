@@ -119,6 +119,7 @@ async function main() {
 			const parsed = parseAddArgs(args);
 			const result = await runAddCommand(projectRoot, {
 				...parsed,
+				svCmd: parsed.svCmd ?? process.env.SVFORGE_SV_CMD,
 				devRoot: parsed.devRoot ?? process.env.SVFORGE_DEV_ROOT,
 				interactive: process.stdin.isTTY === true && !parsed.yes,
 				prompt: await realPrompt(),

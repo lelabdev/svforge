@@ -83,6 +83,18 @@ describe('real bin — svforge add (#426 review)', () => {
 		rmSync(cwd, { recursive: true, force: true });
 	});
 
+	it('SVFORGE_SV_CMD alone (no --sv-cmd flag) drives the sv invocation (#426 review)', () => {
+		const cwd = scaffoldedProject();
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+
+		const run = runBin(['add', 'dnd', '--yes'], cwd, { SVFORGE_SV_CMD: stub });
+		expect(run.code).toBe(0);
+		expect(run.stubLog).toHaveLength(1);
+		expect(run.stubLog[0]).toBe('add @svforge/dnd --install npm --no-download-check --no-git-check');
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
 	it('realtime without an attestation fails through the bin; with --runtime it installs', () => {
 		const cwd = scaffoldedProject();
 		const stub = join(cwd, 'stub-sv.sh');
