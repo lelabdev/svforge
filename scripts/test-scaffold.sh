@@ -57,6 +57,32 @@ if [ "$TEMPLATE" = "create-cli" ]; then
 	test -f src/lib/components/svforge/ui/Toaster.svelte || { echo "❌ ui_toast module missing (create-cli #417)"; exit 1; }
 	"$SVFORGE_BIN" doctor || { echo "❌ doctor unhealthy (create-cli #417)"; exit 1; }
 	"$SVFORGE_BIN" check || { echo "❌ design-system check failed (create-cli #417)"; exit 1; }
+
+	# The REQUIRED all-modules consumer test (#417): dashboard implied by the
+	# registry, runtime attested with a stable flag, complete composition —
+	# its TESTS and BUILD must pass against real PostgreSQL.
+	"$SVFORGE_BIN" create all-modules-app --pm "$SF_PM" --modules all --runtime long-lived-node --yes --dev-root "$REPO_ROOT" \
+		|| { echo "❌ svforge create --modules all failed (#417)"; exit 1; }
+	cd all-modules-app
+	test -f .svforge.json || { echo "❌ .svforge.json missing (all-modules #417)"; exit 1; }
+	grep -q '"profile": "long-lived-node"' .svforge.json || { echo "❌ runtime profile not recorded (#417)"; exit 1; }
+	node -e "const m=require('./.svforge.json'); process.exit((m.modules||[]).length >= 13 ? 0 : 1)" \
+		|| { echo "❌ incomplete module set in .svforge.json (#417)"; exit 1; }
+
+	# Real PostgreSQL setup — same harness as the dashboard profiles (#312).
+	bash scripts/setup.sh >/dev/null 2>&1
+	export TEST_DATABASE_URL="${TEST_DATABASE_URL:-postgres://postgres:postgres@localhost:5432/sf_dashboard_test}"
+	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
+	if [ "${CI:-}" = "true" ]; then
+		bunx drizzle-kit push --force >/tmp/drizzle-push-all-modules.log 2>&1 \
+			|| { cat /tmp/drizzle-push-all-modules.log; echo "❌ drizzle-kit push failed (all-modules #417)"; exit 1; }
+	fi
+	# Build FIRST: it generates src/lib/paraglide (the i18n runtime the
+	# shipped suites import) — testing before building fails on a fresh
+	# scaffold (#426 review: all-modules consumer test).
+	bun run build || { echo "❌ all-modules composition build failed (#417)"; exit 1; }
+	bun run test || { echo "❌ all-modules composition tests failed (#417)"; exit 1; }
+
 	echo "✅ Scaffold test passed for template=create-cli"
 	exit 0
 fi

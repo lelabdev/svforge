@@ -92,7 +92,7 @@
     "semantic_hash": ""
   },
   "packages/blog/src/index.ts": {
-    "ast_hash": "47cb6b64d27bad1afe46f1e8a27e7bbf",
+    "ast_hash": "9a9bb1a18a9fc965d2c6a64ec2e8358e",
     "semantic_hash": ""
   },
   "packages/blog/src/templates.ts": {
@@ -468,7 +468,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-composition.ts": {
-    "ast_hash": "ce32ea473db2b264806ccbfb3cb8cd39",
+    "ast_hash": "3e550912bdff2231a90298061580cdb1",
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "95aede6d8024746945a9d3e3414f098d",
+    "ast_hash": "abe8b570bc9ac023c503c35f7098d6e0",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1140,7 +1140,7 @@
     "semantic_hash": ""
   },
   "tests/blog-mdsvex.test.ts": {
-    "ast_hash": "4fbc35187096535af11abac63f362aee",
+    "ast_hash": "092b18f13e6dfaaa9c1b880ec06c992d",
     "semantic_hash": ""
   },
   "tests/blog-transport-compose.test.ts": {
@@ -1660,19 +1660,19 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/cli/add.ts": {
-    "ast_hash": "45cfd1ffe36d04bceb12cdb86403605a",
+    "ast_hash": "273e4a839da42ae7285ec8788621631b",
     "semantic_hash": ""
   },
   "packages/svforge/src/cli/create.ts": {
-    "ast_hash": "09bbc29181a5e6aa44f997b6fc840e84",
+    "ast_hash": "a0c7cc8b2fc53388b946ab77c15a21c0",
     "semantic_hash": ""
   },
   "tests/cli-add.test.ts": {
-    "ast_hash": "adee9108722b35e2175a5186c5cf26de",
+    "ast_hash": "717230dbc06eda7d6d5fe01bfb49bdd7",
     "semantic_hash": ""
   },
   "tests/cli-create.test.ts": {
-    "ast_hash": "11eb822a526c8550e2ef71786f1f6f2b",
+    "ast_hash": "ce35facbe96a53e12cc6d6111ecd5813",
     "semantic_hash": ""
   },
   "tests/module-resolver.test.ts": {

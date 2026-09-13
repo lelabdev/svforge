@@ -34,6 +34,12 @@ export interface AddCommandOptions {
 	pm?: string;
 	/** Pinned `sv` binary (deterministic CI); default: the pm dlx runner. */
 	svCmd?: string;
+	/**
+	 * Explicit runtime attestation (#419 review): required non-interactively
+	 * when the plan carries runtime.* requirements. Only long-lived Node is
+	 * supported today.
+	 */
+	runtime?: 'long-lived-node';
 	/** Non-interactive policy for supporting modules. Default 'fail'. */
 	resolve?: AddResolvePolicy;
 	/** Skip every prompt (implies --resolve install). */
@@ -119,6 +125,57 @@ function readState(cwd: string): ProjectState {
 	}
 	state.declaredProvides = readDeclaredProvides(cwd).provides;
 	return state;
+}
+
+/** Flags that CONSUME the next argument — values must never become module ids. */
+const ADD_FLAGS_WITH_VALUES = ['--pm', '--resolve', '--sv-cmd', '--dev-root', '--runtime'] as const;
+
+export interface ParsedAddArgs {
+	modules: string[];
+	pm?: string;
+	resolve?: AddResolvePolicy;
+	svCmd?: string;
+	devRoot?: string;
+	runtime?: 'long-lived-node';
+	yes?: boolean;
+}
+
+/**
+ * Value-aware parser for `svforge add` (#419 review): `--pm bun` must never
+ * turn `bun` into a module id.
+ */
+export function parseAddArgs(args: string[]): ParsedAddArgs {
+	const parsed: ParsedAddArgs = { modules: [] };
+	for (let i = 0; i < args.length; i++) {
+		const arg = args[i];
+		if ((ADD_FLAGS_WITH_VALUES as readonly string[]).includes(arg)) {
+			const value = args[++i];
+			switch (arg) {
+				case '--pm':
+					parsed.pm = value;
+					break;
+				case '--resolve':
+					parsed.resolve = value as AddResolvePolicy;
+					break;
+				case '--sv-cmd':
+					parsed.svCmd = value;
+					break;
+				case '--dev-root':
+					parsed.devRoot = value;
+					break;
+				case '--runtime':
+					parsed.runtime = value as 'long-lived-node';
+					break;
+			}
+			continue;
+		}
+		if (arg === '--yes') {
+			parsed.yes = true;
+			continue;
+		}
+		if (!arg.startsWith('-')) parsed.modules.push(arg);
+	}
+	return parsed;
 }
 
 export async function runAddCommand(cwd: string, options: AddCommandOptions): Promise<AddCommandResult> {
@@ -223,10 +280,17 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 			if (!ok) {
 				return { code: 0, plan, aborted: 'declined', message: 'Declined — nothing was written.' };
 			}
+		} else if (options.runtime === 'long-lived-node') {
+			// #419 review: non-interactive installs need an EXPLICIT attestation,
+			// not a silent warning.
+			plan.warnings.push(`Runtime requirement ${token} attested via --runtime long-lived-node.`);
 		} else {
-			plan.warnings.push(
-				`Runtime requirement ${token} could not be verified — the non-interactive install proceeds (the deployment target must provide it).`
-			);
+			return {
+				code: 1,
+				plan,
+				aborted: 'policy',
+				message: `Runtime requirement(s) ${plan.runtimeAttestations.join(', ')}: a non-interactive install must attest the deployment target explicitly with --runtime long-lived-node (serverless/edge cannot host them). Nothing was written.`
+			};
 		}
 	}
 
@@ -238,7 +302,7 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 		return { code: 0, plan, specs };
 	}
 	const sv = svRunner(pm, options.svCmd);
-	const code = await spawn(sv.command, [...sv.prefix, 'add', ...specs, '--install', pm, '--no-download-check'], {
+	const code = await spawn(sv.command, [...sv.prefix, 'add', ...specs, '--install', pm, '--no-download-check', '--no-git-check'], {
 		cwd,
 		stdio: 'inherit'
 	});

@@ -121,13 +121,63 @@ describe('svforge add — confirmations (#419)', () => {
 		rmSync(dir, { recursive: true, force: true });
 	});
 
-	it('non-interactive install proceeds with a warning for attestations', async () => {
+	it('non-interactive WITHOUT attestation fails before any mutation (#419 review)', async () => {
 		const dir = tempProject({ template: 'dashboard', modules: [] });
 		const { spawn, calls } = fakeSpawn();
 		const result = await runAddCommand(dir, { modules: ['realtime'], interactive: false, spawn });
+		expect(result.code).toBe(1);
+		expect(result.aborted).toBe('policy');
+		expect(result.message).toMatch(/--runtime long-lived-node/);
+		expect(result.message).toMatch(/nothing was written/i);
+		expect(calls).toEqual([]);
+		rmSync(dir, { recursive: true, force: true });
+	});
+
+	it('non-interactive WITH the explicit --runtime attestation proceeds', async () => {
+		const dir = tempProject({ template: 'dashboard', modules: [] });
+		const { spawn, calls } = fakeSpawn();
+		const result = await runAddCommand(dir, {
+			modules: ['realtime'],
+			interactive: false,
+			runtime: 'long-lived-node',
+			spawn
+		});
 		expect(result.code).toBe(0);
-		expect(result.plan?.warnings.join(' ')).toMatch(/runtime\.websocket/);
+		expect(result.plan?.warnings.join(' ')).toMatch(/attested via --runtime long-lived-node/);
 		expect(calls).toHaveLength(1);
+		rmSync(dir, { recursive: true, force: true });
+	});
+
+	it('parses value-aware flags — option values never become module ids (#419 review)', async () => {
+		const { parseAddArgs } = await import('../packages/svforge/src/cli/add');
+		const parsed = parseAddArgs(['chat', '--pm', 'bun', '--resolve', 'install']);
+		expect(parsed.modules).toEqual(['chat']);
+		expect(parsed.pm).toBe('bun');
+		expect(parsed.resolve).toBe('install');
+
+		const full = parseAddArgs([
+			'chat', '--pm', 'pnpm', '--resolve', 'fail', '--sv-cmd', '/bin/sv',
+			'--dev-root', '/repo', '--runtime', 'long-lived-node', '--yes'
+		]);
+		expect(full.modules).toEqual(['chat']);
+		expect(full.svCmd).toBe('/bin/sv');
+		expect(full.devRoot).toBe('/repo');
+		expect(full.runtime).toBe('long-lived-node');
+		expect(full.yes).toBe(true);
+	});
+
+	it('end-to-end: the documented command reaches ONE sv add for the right module', async () => {
+		// The exact reviewer scenario: svforge add chat --pm bun --resolve install
+		// on a dashboard project (all capabilities satisfied) must install chat.
+		const dir = tempProject({ template: 'dashboard', modules: [] });
+		const { spawn, calls } = fakeSpawn();
+		const { parseAddArgs } = await import('../packages/svforge/src/cli/add');
+		const parsed = parseAddArgs(['chat', '--pm', 'bun', '--resolve', 'install']);
+		const result = await runAddCommand(dir, { ...parsed, interactive: false, spawn });
+		expect(result.code).toBe(0);
+		expect(result.specs).toEqual(['@svforge/chat']);
+		expect(calls).toHaveLength(1);
+		expect(calls[0]!.args).toEqual(['sv', 'add', '@svforge/chat', '--install', 'bun', '--no-download-check', '--no-git-check']);
 		rmSync(dir, { recursive: true, force: true });
 	});
 });
@@ -147,7 +197,8 @@ describe('svforge add — invocation shape (#419)', () => {
 			'@svforge/ui_toast',
 			'--install',
 			'bun',
-			'--no-download-check'
+			'--no-download-check',
+			'--no-git-check'
 		]);
 		rmSync(dir, { recursive: true, force: true });
 	});

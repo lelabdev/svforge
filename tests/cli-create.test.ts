@@ -21,6 +21,11 @@ function fakeSpawn(): { spawn: SpawnPort; calls: { command: string; args: string
 	const calls: { command: string; args: string[]; options: { cwd: string } }[] = [];
 	const spawn: SpawnPort = async (command, args, options) => {
 		calls.push({ command, args, options });
+		// Faithful to the real sv add: the addons write the project manifest.
+		if (args[1] === 'add') {
+			mkdirSync(options.cwd, { recursive: true });
+			writeFileSync(join(options.cwd, '.svforge.json'), JSON.stringify({ schema: 1, modules: [] }));
+		}
 		return 0;
 	};
 	return { spawn, calls };
@@ -35,6 +40,7 @@ function flagsToOptions(flags: Record<string, string | string[] | boolean | unde
 		hooks: flags.hooks as 'none' | 'lefthook' | undefined,
 		modules: flags.modules as string[] | 'all' | undefined,
 		runtime: flags.runtime as 'long-lived-node' | undefined,
+		gitInit: flags.gitInit as boolean | undefined,
 		yes: true,
 		interactive: false,
 		...extra
@@ -160,7 +166,7 @@ describe('two-stage orchestration (#417)', () => {
 				)
 			);
 			expect(result.code).toBe(0);
-			expect(calls).toHaveLength(2);
+			expect(calls).toHaveLength(3);
 
 			// Stage 1: the OFFICIAL generator, minimal, no add-ons, no install.
 			expect(calls[0]!.args).toEqual([
@@ -183,8 +189,14 @@ describe('two-stage orchestration (#417)', () => {
 				'@svforge/ui_toast',
 				'--install',
 				'bun',
-				'--no-download-check'
+				'--no-download-check',
+				'--no-git-check'
 			]);
+
+			// #417: Git initialization is part of the orchestration (default on).
+			expect(calls[2]!.command).toBe('git');
+			expect(calls[2]!.args).toEqual(['init']);
+			expect(calls[2]!.options.cwd).toBe(join(cwd, 'app'));
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
 		}
@@ -253,6 +265,74 @@ describe('runtime honesty is recorded (#417)', () => {
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
 		}
+	});
+});
+
+describe('git initialization choice (#417)', () => {
+	it('a declined choice removes the .git OUR orchestration created — and spawns no git init', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		try {
+			const spawn: SpawnPort = async (_command, args, options) => {
+				if (args[1] === 'create') {
+					mkdirSync(join(options.cwd, 'app', '.git'), { recursive: true }); // sv init'ed git
+				}
+				if (args[1] === 'add') {
+					// the real sv add delivers the manifest (ground truth)
+					mkdirSync(options.cwd, { recursive: true });
+					writeFileSync(join(options.cwd, '.svforge.json'), '{}');
+				}
+				return 0;
+			};
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions({ dir: 'app', template: 'base', pm: 'bun', modules: ['dnd'], gitInit: false }, { spawn, validate: async () => 0 })
+			);
+			expect(result.code).toBe(0);
+			expect(result.plan?.gitInit).toBe(false);
+			expect(existsSync(join(cwd, 'app', '.git'))).toBe(false);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+});
+
+describe('value-aware flag parsing (#419 review applies to create too)', () => {
+	it('flag values never shadow the positional directory', () => {
+		const parsed = parseCreateArgs(['--template', 'dashboard', '--pm', 'bun', 'my-app', '--modules', 'dnd']);
+		expect(parsed.dir).toBe('my-app');
+		expect(parsed.pm).toBe('bun');
+		expect(parsed.template).toBe('dashboard');
+	});
+
+	it('parses the git choice and the runtime flag', () => {
+		const declined = parseCreateArgs(['app', '--no-git-init']);
+		expect(declined.gitInit).toBe(false);
+		const forced = parseCreateArgs(['app', '--git-init', '--runtime', 'long-lived-node', '--sv-cmd', '/bin/sv']);
+		expect(forced.gitInit).toBe(true);
+		expect(forced.runtime).toBe('long-lived-node');
+		expect(forced.svCmd).toBe('/bin/sv');
+	});
+});
+
+describe('addon options registry contract (#417)', () => {
+	it('MODULES addonOptions mirror the built addons defaults — headless composition never prompts', { timeout: 120_000 }, async () => {
+		const { MODULES } = await import('../packages/svforge/src/module-composition');
+		const { join } = await import('node:path');
+		const { ROOT } = await import('./helpers');
+		for (const [id, meta] of Object.entries(MODULES)) {
+			const distPath = join(ROOT, 'packages', id, 'dist', 'index.js');
+			const addon = await import(distPath);
+			const defaults: Record<string, unknown> = {};
+			for (const [key, option] of Object.entries((addon.default?.options ?? {}) as Record<string, { default?: unknown }>)) {
+				// sv renders boolean defaults as yes/no in the add-on spec.
+				defaults[key] = typeof option.default === 'boolean' ? (option.default ? 'yes' : 'no') : String(option.default);
+			}
+			const declared = meta.addonOptions ?? {};
+			expect(declared, `${id} must declare every addon option default`).toEqual(defaults);
+		}
+		// uploads is exactly why this contract exists: it is the only module
+		// with an interactive option today.
+		expect(MODULES.uploads.addonOptions).toEqual({ testpack: 'no' });
 	});
 });
 

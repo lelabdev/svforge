@@ -1,8 +1,8 @@
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { MODULES } from '../module-composition';
 import { regenerateLlmstxt } from '../ai-context';
-import { resolveModules, type ResolutionPlan } from '@svforge/addon-kit';
+import { MODULE_CONTRACTS, resolveModules, type ResolutionPlan } from '@svforge/addon-kit';
 import { addonSpec, svRunner, type SpawnPort } from './add';
 
 /**
@@ -29,6 +29,8 @@ export interface CreateCommandOptions {
 	modules?: string[] | 'all';
 	/** Explicit runtime attestation — currently only 'long-lived-node'. */
 	runtime?: 'long-lived-node';
+	/** Initialize a Git repository (#417). Default true. */
+	gitInit?: boolean;
 	yes?: boolean;
 	interactive?: boolean;
 	devRoot?: string;
@@ -57,14 +59,16 @@ export interface CreatePlan {
 	allModules: boolean;
 	/** Chosen (or attested) runtime profile, when one is required. */
 	runtime?: 'long-lived-node';
+	/** Whether the project gets a Git repository (#417 choice). */
+	gitInit: boolean;
 	plan: ResolutionPlan;
 }
 
 export interface CreateCommandResult {
 	code: number;
 	plan?: CreatePlan;
-	/** The stage that failed: create | add | record | validate. */
-	failedStage?: 'create' | 'add' | 'record' | 'validate';
+	/** The stage that failed: create | add | git | record | validate. */
+	failedStage?: 'create' | 'add' | 'git' | 'record' | 'validate';
 	aborted?: 'declined' | 'invalid' | 'safety';
 	message?: string;
 }
@@ -74,26 +78,54 @@ export function expandAllModules(): string[] {
 	return Object.keys(MODULES).sort();
 }
 
-const RUNTIME_CAPABILITY_MODULES = ['realtime', 'jobs'];
+/**
+ * Modules whose REQUIRED capabilities include a runtime.* constraint —
+ * derived from the canonical registry, never hard-coded (#419/#417 review):
+ * a future module requiring runtime.* lands here automatically.
+ */
+export function runtimeRequiringModules(moduleIds: string[]): string[] {
+	return moduleIds.filter((id) =>
+		MODULE_CONTRACTS[id]?.requires.some((capability) => capability.startsWith('runtime.'))
+	);
+}
 
-/** Non-interactive flag parser for `svforge create`. */
-export function parseCreateArgs(args: string[]): CreateCommandOptions & { dir?: string } {
-	const flag = (name: string): string | undefined => {
-		const index = args.indexOf(name);
-		return index === -1 ? undefined : args[index + 1];
+/**
+ * Non-interactive flag parser for `svforge create` — value-aware (#419
+ * review): flag values must never be mistaken for the positional directory.
+ */
+export function parseCreateArgs(args: string[]): CreateCommandOptions & { dir?: string; yes?: boolean } {
+	const parsed: CreateCommandOptions & { dir?: string; yes?: boolean } = {};
+	const valueFlags: Record<string, (value: string) => void> = {
+		'--template': (v) => (parsed.template = v as 'base' | 'dashboard'),
+		'--pm': (v) => (parsed.pm = v),
+		'--testing': (v) => (parsed.testing = v as 'vitest' | 'playwright'),
+		'--hooks': (v) => (parsed.hooks = v as 'none' | 'lefthook'),
+		'--runtime': (v) => (parsed.runtime = v as 'long-lived-node'),
+		'--sv-cmd': (v) => (parsed.svCmd = v),
+		'--dev-root': (v) => (parsed.devRoot = v),
+		'--modules': (v) => (parsed.modules = v === 'all' ? 'all' : v.split(',').map((m) => m.trim()))
 	};
-	const modulesFlag = flag('--modules');
-	return {
-		dir: args.find((a, i) => !a.startsWith('-') && args[i - 1] !== '--modules'),
-		template: flag('--template') as 'base' | 'dashboard' | undefined,
-		pm: flag('--pm'),
-		testing: flag('--testing') as 'vitest' | 'playwright' | undefined,
-		hooks: flag('--hooks') as 'none' | 'lefthook' | undefined,
-		modules: modulesFlag === 'all' ? 'all' : modulesFlag ? modulesFlag.split(',').map((m) => m.trim()) : undefined,
-		runtime: flag('--runtime') as 'long-lived-node' | undefined,
-		yes: args.includes('--yes'),
-		devRoot: flag('--dev-root')
-	};
+	for (let i = 0; i < args.length; i++) {
+		const arg = args[i];
+		if (valueFlags[arg]) {
+			valueFlags[arg](args[++i]);
+			continue;
+		}
+		if (arg === '--git-init') {
+			parsed.gitInit = true;
+			continue;
+		}
+		if (arg === '--no-git-init') {
+			parsed.gitInit = false;
+			continue;
+		}
+		if (arg === '--yes') {
+			parsed.yes = true;
+			continue;
+		}
+		if (!arg.startsWith('-') && !parsed.dir) parsed.dir = arg;
+	}
+	return parsed;
 }
 
 export async function runCreateCommand(
@@ -110,6 +142,8 @@ export async function runCreateCommand(
 	let testing = options.testing ?? 'vitest';
 	let hooks = options.hooks ?? 'none';
 	let modulesChoice = options.modules;
+	// #417: Git initialization is a product choice (default true).
+	let gitInit = options.gitInit ?? true;
 	const wantsAll = modulesChoice === 'all';
 
 	if (interactive && prompt) {
@@ -148,6 +182,9 @@ export async function runCreateCommand(
 			const picked = await prompt.multiselect('Which modules?', choices);
 			modulesChoice = picked.includes('__all__') ? 'all' : picked;
 		}
+		if (options.gitInit === undefined) {
+			gitInit = await prompt.confirm('Initialize a Git repository?');
+		}
 	}
 
 	// ── 2. Non-interactive completeness: never pause for a hidden prompt ──
@@ -182,7 +219,7 @@ export async function runCreateCommand(
 	}
 
 	// ── 4. Runtime honesty: realtime/jobs cannot live on serverless (#417) ──
-	const runtimeCaps = requestedModules.filter((id) => RUNTIME_CAPABILITY_MODULES.includes(id));
+	const runtimeCaps = runtimeRequiringModules(requestedModules);
 	let runtime: 'long-lived-node' | undefined = options.runtime;
 	if (runtimeCaps.length > 0) {
 		if (!runtime && interactive && prompt) {
@@ -235,6 +272,7 @@ export async function runCreateCommand(
 		modules: resolution.order,
 		allModules,
 		runtime,
+		gitInit,
 		plan: resolution
 	};
 
@@ -246,7 +284,8 @@ export async function runCreateCommand(
 		`Testing:          ${testing}`,
 		`Pre-commit hook:  ${hooks}`,
 		`Modules (${resolution.order.length}): ${resolution.order.join(', ')}`,
-		runtime ? `Runtime:          ${runtime} (realtime/jobs require it)` : undefined
+		runtime ? `Runtime:          ${runtime} (the selected modules require it)` : undefined,
+		`Git:              ${gitInit ? 'initialize' : 'skip'}`
 	].filter(Boolean) as string[];
 	if (interactive && prompt && !options.yes) {
 		const approved = await prompt.confirm(`Create the project with this plan?\n${summary.map((l) => `  ${l}`).join('\n')}`);
@@ -283,10 +322,17 @@ export async function runCreateCommand(
 		? `file:${join(options.devRoot, 'packages', 'svforge')}`
 		: 'svforge';
 	const templateSpec = `${templateAddon}=template:${effectiveTemplate}+testing:${testing}+hooks:${hooks}`;
-	const moduleSpecs = resolution.order.map((id) => addonSpec(id, options.devRoot));
+	// Headless composition must never prompt: module options come from the
+	// canonical registry's addonOptions (defaults mirrored from the addons —
+	// contract-tested), rendered as `pkg=opt:value`.
+	const moduleSpecs = resolution.order.map((id) => {
+		const spec = addonSpec(id, options.devRoot);
+		const addonOptions = Object.entries(MODULES[id]?.addonOptions ?? {});
+		return addonOptions.length === 0 ? spec : `${spec}=${addonOptions.map(([k, v]) => `${k}:${v}`).join('+')}`;
+	});
 	const addCode = await spawn(
 		sv.command,
-		[...sv.prefix, 'add', templateSpec, ...moduleSpecs, '--install', pm!, '--no-download-check'],
+		[...sv.prefix, 'add', templateSpec, ...moduleSpecs, '--install', pm!, '--no-download-check', '--no-git-check'],
 		{ cwd: target, stdio: 'inherit' }
 	);
 	if (addCode !== 0) {
@@ -296,6 +342,39 @@ export async function runCreateCommand(
 			failedStage: 'add',
 			message: '`sv add` failed — see its output above. The project exists but is not fully configured; it is NOT ready to use.'
 		};
+	}
+	// #426 review: sv can CANCEL the add silently (verifications prompt
+	// answered by its non-TTY default) while still exiting 0. The manifest
+	// written by the addons is the ground truth — its absence fails loudly.
+	if (!existsSync(join(target, '.svforge.json'))) {
+		return {
+			code: 1,
+			plan: createPlan,
+			failedStage: 'add',
+			message: '`sv add` completed without applying any add-on (no .svforge.json). The project is NOT configured — remove it manually and re-run, or run the sv add step yourself to see the prompt.'
+		};
+	}
+
+	// ── 8b. Git initialization choice (#417) ──
+	// sv create has no supported switch: it initializes git itself. The
+	// default keeps it (verifying it happened); a declined choice removes
+	// the .git OUR orchestration just created — never a pre-existing one
+	// (non-empty targets are refused earlier, so .git can only come from sv).
+	const gitDir = join(target, '.git');
+	if (createPlan.gitInit) {
+		if (!existsSync(gitDir)) {
+			const gitCode = await spawn('git', ['init'], { cwd: target, stdio: 'inherit' });
+			if (gitCode !== 0) {
+				return {
+					code: gitCode,
+					plan: createPlan,
+					failedStage: 'git',
+					message: '`git init` failed — the project files are complete; initialize Git manually.'
+				};
+			}
+		}
+	} else if (existsSync(gitDir)) {
+		rmSync(gitDir, { recursive: true, force: true });
 	}
 
 	// ── 9. Record the chosen runtime honestly ──
@@ -325,10 +404,14 @@ export async function runCreateCommand(
 	}
 
 	// ── 10. Validate: a partially configured project is never a success ──
+	// A fresh dashboard legitimately carries configuration WARNINGS (S3
+	// credentials to fill, etc.) — they are surfaced by the doctor report
+	// but only hard ERRORS fail the delivery (#417 review follow-up).
 	const validate = options.validate ?? (async (dir: string) => {
 		const { doctor } = await import('../doctor');
 		const report = await doctor(dir);
-		return report.healthy ? 0 : 1;
+		const errors = (report.results ?? []).filter((r) => r.status === 'error');
+		return errors.length === 0 ? 0 : 1;
 	});
 	const validateCode = await validate(target);
 	if (validateCode !== 0) {
