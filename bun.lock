@@ -28,7 +28,7 @@
     },
     "packages/addon-kit": {
       "name": "@svforge/addon-kit",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
@@ -36,7 +36,7 @@
     },
     "packages/audit": {
       "name": "@svforge/audit",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -49,7 +49,7 @@
     },
     "packages/blog": {
       "name": "@svforge/blog",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -62,7 +62,7 @@
     },
     "packages/chat": {
       "name": "@svforge/chat",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -75,7 +75,7 @@
     },
     "packages/dnd": {
       "name": "@svforge/dnd",
-      "version": "0.0.2",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -89,7 +89,7 @@
     },
     "packages/email": {
       "name": "@svforge/email",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -102,7 +102,7 @@
     },
     "packages/graph": {
       "name": "@svforge/graph",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -116,7 +116,7 @@
     },
     "packages/jobs": {
       "name": "@svforge/jobs",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -129,7 +129,7 @@
     },
     "packages/notifications": {
       "name": "@svforge/notifications",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -142,7 +142,7 @@
     },
     "packages/oauth": {
       "name": "@svforge/oauth",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -155,7 +155,7 @@
     },
     "packages/realtime": {
       "name": "@svforge/realtime",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -168,7 +168,7 @@
     },
     "packages/svforge": {
       "name": "svforge",
-      "version": "1.2.0",
+      "version": "2.0.1",
       "bin": {
         "svforge": "./bin/svforge.mjs",
       },
@@ -184,7 +184,7 @@
     },
     "packages/tiptap": {
       "name": "@svforge/tiptap",
-      "version": "0.0.2",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -198,7 +198,7 @@
     },
     "packages/ui_toast": {
       "name": "@svforge/ui_toast",
-      "version": "0.0.2",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",
@@ -212,7 +212,7 @@
     },
     "packages/uploads": {
       "name": "@svforge/uploads",
-      "version": "0.0.1",
+      "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^0.15.3",

@@ -19765,6 +19765,43 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_hooks_prompt_test",
+      "label": "hooks-prompt.test.ts",
+      "file_type": "code",
+      "source_file": "tests/hooks-prompt.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_hooks_prompt_test_addonoption",
+      "label": "AddonOption",
+      "file_type": "code",
+      "source_file": "tests/hooks-prompt.test.ts",
+      "source_location": "L13",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_hooks_prompt_test_hooksoption",
+      "label": "HooksOption",
+      "file_type": "code",
+      "source_file": "tests/hooks-prompt.test.ts",
+      "source_location": "L17",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_hooks_prompt_test_nextsteps",
+      "label": "nextSteps()",
+      "file_type": "code",
+      "source_file": "tests/hooks-prompt.test.ts",
+      "source_location": "L27",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_jobs_leases_test",
       "label": "jobs-leases.test.ts",
       "file_type": "code",
@@ -55700,6 +55737,44 @@
       "source_file": "tests/helpers/skeleton-theme-validator.ts",
       "source_location": "L188",
       "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_hooks_prompt_test",
+      "target": "tests_hooks_prompt_test_addonoption",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/hooks-prompt.test.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_hooks_prompt_test",
+      "target": "tests_hooks_prompt_test_hooksoption",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/hooks-prompt.test.ts",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_hooks_prompt_test",
+      "target": "tests_hooks_prompt_test_nextsteps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/hooks-prompt.test.ts",
+      "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_hooks_prompt_test",
+      "target": "packages_svforge_src_index",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/hooks-prompt.test.ts",
       "_origin": "ast"
     },
     {

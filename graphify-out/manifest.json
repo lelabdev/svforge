@@ -452,7 +452,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "c37444a1e5f4336a692bc17f60906dcc",
+    "ast_hash": "35b20abf23c1dcb0cc30768aaf85dc1a",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -1649,6 +1649,10 @@
   },
   "scripts/normalize-graphify.mjs": {
     "ast_hash": "7933073d5bf46e9c19fa926cf07ca9eb",
+    "semantic_hash": ""
+  },
+  "tests/hooks-prompt.test.ts": {
+    "ast_hash": "8495a7b4497c2bd63acfd3f7376dbe32",
     "semantic_hash": ""
   }
 }
