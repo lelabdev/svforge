@@ -98,3 +98,10 @@ jobs:
         run: bash scripts/test-scaffold.sh dashboard-integrations
         env:
           CI: 'true'
+
+      # One-command project creator (#417): the real `svforge create` bin
+      # end-to-end (plan → sv create → grouped sv add → doctor + check).
+      - name: Scaffold test (create-cli)
+        run: bash scripts/test-scaffold.sh create-cli
+        env:
+          CI: 'true'

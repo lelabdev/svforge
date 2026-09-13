@@ -20,11 +20,11 @@
     "semantic_hash": ""
   },
   "packages/addon-kit/src/capabilities.ts": {
-    "ast_hash": "cd7ec9006ffaa945a98fff3a996f0eed",
+    "ast_hash": "0b14091f79a5c4e7412c4222bee58c55",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/index.ts": {
-    "ast_hash": "9394b4d0da47094c14f02ab4773a81b3",
+    "ast_hash": "04363da7d6bfc3812fd98b59036fcc54",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/json.ts": {
@@ -400,7 +400,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/bin/svforge.mjs": {
-    "ast_hash": "2461cfacb7ecb7b727f3cac95bd1b012",
+    "ast_hash": "8371d8b8b00039585dc6e844e974ef53",
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
@@ -452,7 +452,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "35b20abf23c1dcb0cc30768aaf85dc1a",
+    "ast_hash": "08b2f13ac3f1c19435323a9afa0cdade",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "9b892e19dddf81d5cdb8369bb2d57a5e",
+    "ast_hash": "95aede6d8024746945a9d3e3414f098d",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1476,7 +1476,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "58fae590ae3b16d727ac0652fabf2386",
+    "ast_hash": "64a8c286aa32be521cd324925c281168",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
@@ -1653,6 +1653,30 @@
   },
   "tests/hooks-prompt.test.ts": {
     "ast_hash": "8495a7b4497c2bd63acfd3f7376dbe32",
+    "semantic_hash": ""
+  },
+  "packages/addon-kit/src/resolve.ts": {
+    "ast_hash": "ebf415e75b94a3461b33fd937659a1df",
+    "semantic_hash": ""
+  },
+  "packages/svforge/src/cli/add.ts": {
+    "ast_hash": "45cfd1ffe36d04bceb12cdb86403605a",
+    "semantic_hash": ""
+  },
+  "packages/svforge/src/cli/create.ts": {
+    "ast_hash": "09bbc29181a5e6aa44f997b6fc840e84",
+    "semantic_hash": ""
+  },
+  "tests/cli-add.test.ts": {
+    "ast_hash": "adee9108722b35e2175a5186c5cf26de",
+    "semantic_hash": ""
+  },
+  "tests/cli-create.test.ts": {
+    "ast_hash": "11eb822a526c8550e2ef71786f1f6f2b",
+    "semantic_hash": ""
+  },
+  "tests/module-resolver.test.ts": {
+    "ast_hash": "47bd809bf8c033c7995b277034cddf59",
     "semantic_hash": ""
   }
 }

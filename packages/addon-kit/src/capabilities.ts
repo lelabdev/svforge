@@ -1,5 +1,8 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+// #419: the gate consults the resolver for declared capabilities and the
+// guided-path hint. Function-level usage only — the ESM cycle is safe.
+import { formatResolverHint, readDeclaredProvides } from './resolve';
 
 /**
  * SVForge capability contract (#323).
@@ -487,6 +490,11 @@ export type CapabilityGate =
  * path): returns an ok=false result with a readable, derived failure message
  * when a required capability is structurally absent, and warning lines for
  * unverifiable runtime constraints.
+ *
+ * #419: capabilities declared externally by the project (.svforge.json
+ * `capabilities.provides`) are honored as satisfied — a declared provider is
+ * never replaced by a SVForge module — and the failure message carries a
+ * resolver plan hint pointing at the guided `svforge add` path.
  */
 export function checkModuleCapabilities(cwd: string, moduleId: string): CapabilityGate {
 	const contract = MODULE_CONTRACTS[moduleId];
@@ -497,11 +505,33 @@ export function checkModuleCapabilities(cwd: string, moduleId: string): Capabili
 			message: `Unknown module "${moduleId}" — no capability contract is registered in @svforge/addon-kit. This is an SVForge packaging bug; please report it.`
 		};
 	}
+	const declared = readDeclaredProvides(cwd);
+	const warnings = [...declared.warnings];
+	const effectiveRequires = contract.requires.filter((token) => !declared.provides.includes(token));
 	const project = snapshotProject(cwd);
-	const evaluation = evaluateRequirements(contract.requires, project);
-	const warnings = formatCapabilityWarnings(moduleId, evaluation.unverifiable, evaluation.unverified);
+	const evaluation = evaluateRequirements(effectiveRequires, project);
+	warnings.push(...formatCapabilityWarnings(moduleId, evaluation.unverifiable, evaluation.unverified));
 	if (evaluation.missing.length > 0) {
-		return { ok: false, warnings, message: formatCapabilityFailure(moduleId, evaluation) };
+		let template: 'base' | 'dashboard' | undefined;
+		let installed: string[] = [];
+		try {
+			const manifest = JSON.parse(readFileSync(join(cwd, '.svforge.json'), 'utf8')) as {
+				template?: 'base' | 'dashboard';
+				modules?: string[];
+			};
+			template = manifest.template;
+			installed = manifest.modules ?? [];
+		} catch {
+			// No manifest or unreadable: the resolver works from structure alone.
+		}
+		const hint = formatResolverHint(moduleId, {
+			template,
+			installed,
+			declaredProvides: declared.provides,
+			snapshot: project
+		});
+		const message = `${formatCapabilityFailure(moduleId, evaluation)}\n\n${hint}`;
+		return { ok: false, warnings, message };
 	}
 	return { ok: true, warnings };
 }

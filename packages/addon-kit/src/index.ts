@@ -12,6 +12,7 @@
  *   a readable diagnostic BEFORE anything is written.
  */
 export * from './capabilities';
+export * from './resolve';
 export * from './json';
 export * from './patch';
 export * from './upgrade';

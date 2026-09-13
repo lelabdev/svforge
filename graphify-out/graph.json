@@ -1120,7 +1120,7 @@
       "label": "DeploymentProfile",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L30",
+      "source_location": "L33",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1130,7 +1130,7 @@
       "label": "ModuleDeploymentSupport",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L32",
+      "source_location": "L35",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1140,7 +1140,7 @@
       "label": "MODULE_DEPLOYMENT_SUPPORT",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L39",
+      "source_location": "L42",
       "_origin": "ast"
     },
     {
@@ -1148,7 +1148,7 @@
       "label": "CAPABILITY_TOKENS",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L56",
+      "source_location": "L59",
       "_origin": "ast"
     },
     {
@@ -1156,7 +1156,7 @@
       "label": "Capability",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L68",
+      "source_location": "L71",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1166,7 +1166,7 @@
       "label": "CapabilityInfo",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L70",
+      "source_location": "L73",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1176,7 +1176,7 @@
       "label": "CAPABILITIES",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L86",
+      "source_location": "L89",
       "_origin": "ast"
     },
     {
@@ -1184,7 +1184,7 @@
       "label": "TEMPLATE_PROVIDES",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L141",
+      "source_location": "L144",
       "_origin": "ast"
     },
     {
@@ -1192,7 +1192,7 @@
       "label": "ModuleCapabilityContract",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L154",
+      "source_location": "L157",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1202,7 +1202,7 @@
       "label": "MODULE_CONTRACTS",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L172",
+      "source_location": "L175",
       "_origin": "ast"
     },
     {
@@ -1210,7 +1210,7 @@
       "label": "ProjectSnapshot",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L272",
+      "source_location": "L275",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1220,7 +1220,7 @@
       "label": ".hasDir()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L283",
+      "source_location": "L286",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1229,7 +1229,7 @@
       "label": ".hasFile()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L284",
+      "source_location": "L287",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1238,7 +1238,7 @@
       "label": "snapshotProject()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L288",
+      "source_location": "L291",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1247,7 +1247,7 @@
       "label": "Detection",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L333",
+      "source_location": "L336",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1257,7 +1257,7 @@
       "label": "AUTH_HOOKS_SIGNALS",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L336",
+      "source_location": "L339",
       "_origin": "ast"
     },
     {
@@ -1265,7 +1265,7 @@
       "label": "detectCapability()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L358",
+      "source_location": "L361",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1274,7 +1274,7 @@
       "label": "CapabilityEvaluation",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L409",
+      "source_location": "L412",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1284,7 +1284,7 @@
       "label": "evaluateRequirements()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L423",
+      "source_location": "L426",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1293,7 +1293,7 @@
       "label": "describeCapability()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L438",
+      "source_location": "L441",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1302,7 +1302,7 @@
       "label": "formatCapabilityFailure()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L448",
+      "source_location": "L451",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1311,7 +1311,7 @@
       "label": "formatCapabilityWarnings()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L461",
+      "source_location": "L464",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1320,7 +1320,7 @@
       "label": "CapabilityGate",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L481",
+      "source_location": "L484",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1330,7 +1330,7 @@
       "label": "checkModuleCapabilities()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L491",
+      "source_location": "L499",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1339,7 +1339,7 @@
       "label": "templateCapabilities()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L510",
+      "source_location": "L540",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1348,7 +1348,7 @@
       "label": "compositionGaps()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L523",
+      "source_location": "L553",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1570,6 +1570,108 @@
       "file_type": "code",
       "source_file": "packages/addon-kit/src/patch.ts",
       "source_location": "L32",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve",
+      "label": "resolve.ts",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_resolveinput",
+      "label": "ResolveInput",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L37",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_planprovider",
+      "label": "PlanProvider",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L58",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_planerror",
+      "label": "PlanError",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L65",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_resolutionplan",
+      "label": "ResolutionPlan",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L71",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_readdeclaredprovides",
+      "label": "readDeclaredProvides()",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L92",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_resolvemodules",
+      "label": "resolveModules()",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L119",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_resolvemodules_satisfy",
+      "label": "satisfy()",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L127",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_resolvemodules_ensuremodule",
+      "label": "ensureModule()",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L178",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_capability_tokens_map",
+      "label": "CAPABILITY_TOKENS_MAP()",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L269",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_resolve_formatresolverhint",
+      "label": "formatResolverHint()",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L278",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6141,12 +6243,47 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_bin_svforge_flagvalue",
+      "label": "flagValue()",
+      "file_type": "code",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L25",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_bin_svforge_realprompt",
+      "label": "realPrompt()",
+      "file_type": "code",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L30",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_bin_svforge_realspawn",
+      "label": "realSpawn()",
+      "file_type": "code",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L76",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_bin_svforge_main",
       "label": "main()",
       "file_type": "code",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L20",
+      "source_location": "L86",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "node_child_process",
+      "label": "node:child_process",
+      "file_type": "code",
+      "source_file": "node:child_process",
+      "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
@@ -6905,6 +7042,273 @@
       "source_file": "packages/svforge/src/changelog.ts",
       "source_location": "L114",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add",
+      "label": "add.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_addresolvepolicy",
+      "label": "AddResolvePolicy",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L19",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_promptport",
+      "label": "PromptPort",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L21",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_promptport_confirm",
+      "label": ".confirm()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L22",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_promptport_select",
+      "label": ".select()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L24",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_spawnport",
+      "label": "SpawnPort",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L27",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_addcommandoptions",
+      "label": "AddCommandOptions",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L31",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_addcommandresult",
+      "label": "AddCommandResult",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L48",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_detectpackagemanager",
+      "label": "detectPackageManager()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L58",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_dlxrunner",
+      "label": "dlxRunner()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L66",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_svrunner",
+      "label": "svRunner()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L83",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_addonspec",
+      "label": "addonSpec()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L90",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_projectstate",
+      "label": "ProjectState",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L97",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_readstate",
+      "label": "readState()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L103",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_add_runaddcommand",
+      "label": "runAddCommand()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L124",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create",
+      "label": "create.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createcommandoptions",
+      "label": "CreateCommandOptions",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L20",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createpromptport",
+      "label": "CreatePromptPort",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L41",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createpromptport_text",
+      "label": ".text()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L42",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createpromptport_select",
+      "label": ".select()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L43",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createpromptport_multiselect",
+      "label": ".multiselect()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L44",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createpromptport_confirm",
+      "label": ".confirm()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L45",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createplan",
+      "label": "CreatePlan",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L48",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createcommandresult",
+      "label": "CreateCommandResult",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L63",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_expandallmodules",
+      "label": "expandAllModules()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L73",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_runtime_capability_modules",
+      "label": "RUNTIME_CAPABILITY_MODULES",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L77",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_parsecreateargs",
+      "label": "parseCreateArgs()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L80",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_runcreatecommand",
+      "label": "runCreateCommand()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L99",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_rationale_281",
+      "label": "NOTE: the template package is the UNSCOPED `svforge`, unlike @svforge/*.",
+      "file_type": "rationale",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L281",
       "_origin": "ast"
     },
     {
@@ -18216,7 +18620,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L559",
+      "source_location": "L580",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -18988,6 +19392,66 @@
       "file_type": "code",
       "source_file": "tests/check-generated.test.ts",
       "source_location": "L43",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_cli_add_test",
+      "label": "cli-add.test.ts",
+      "file_type": "code",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_cli_add_test_tempproject",
+      "label": "tempProject()",
+      "file_type": "code",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L21",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_cli_add_test_fakespawn",
+      "label": "fakeSpawn()",
+      "file_type": "code",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L28",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_cli_add_test_silentprompt",
+      "label": "silentPrompt",
+      "file_type": "code",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L37",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_cli_create_test",
+      "label": "cli-create.test.ts",
+      "file_type": "code",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_cli_create_test_fakespawn",
+      "label": "fakeSpawn()",
+      "file_type": "code",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L20",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_cli_create_test_flagstooptions",
+      "label": "flagsToOptions()",
+      "file_type": "code",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L29",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19907,6 +20371,23 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_module_resolver_test",
+      "label": "module-resolver.test.ts",
+      "file_type": "code",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_module_resolver_test_plan",
+      "label": "plan()",
+      "file_type": "code",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L21",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_modules_test",
       "label": "modules.test.ts",
       "file_type": "code",
@@ -20559,14 +21040,6 @@
       "source_file": "tests/skeleton-markup.test.ts",
       "source_location": "L174",
       "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "node_child_process",
-      "label": "node:child_process",
-      "file_type": "code",
-      "source_file": "node:child_process",
-      "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
@@ -26175,11 +26648,44 @@
     },
     {
       "source": "packages_addon_kit_src_capabilities",
+      "target": "packages_addon_kit_src_resolve",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/capabilities.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_capabilities",
+      "target": "packages_addon_kit_src_resolve_formatresolverhint",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/capabilities.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_capabilities",
+      "target": "packages_addon_kit_src_resolve_readdeclaredprovides",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/capabilities.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_capabilities",
       "target": "packages_addon_kit_src_capabilities_deploymentprofile",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L30",
+      "source_location": "L33",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26189,7 +26695,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L32",
+      "source_location": "L35",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26199,7 +26705,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L39",
+      "source_location": "L42",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26209,7 +26715,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L56",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26219,7 +26725,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L68",
+      "source_location": "L71",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26229,7 +26735,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L70",
+      "source_location": "L73",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26239,7 +26745,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L86",
+      "source_location": "L89",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26249,7 +26755,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L141",
+      "source_location": "L144",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26259,7 +26765,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L154",
+      "source_location": "L157",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26269,7 +26775,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L172",
+      "source_location": "L175",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26279,7 +26785,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L272",
+      "source_location": "L275",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26289,7 +26795,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L283",
+      "source_location": "L286",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26299,7 +26805,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L284",
+      "source_location": "L287",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26309,7 +26815,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L288",
+      "source_location": "L291",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26319,7 +26825,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L333",
+      "source_location": "L336",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26329,7 +26835,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L336",
+      "source_location": "L339",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26339,7 +26845,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L358",
+      "source_location": "L361",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26349,7 +26855,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L409",
+      "source_location": "L412",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26359,7 +26865,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L423",
+      "source_location": "L426",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26369,7 +26875,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L438",
+      "source_location": "L441",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26379,7 +26885,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L448",
+      "source_location": "L451",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26389,7 +26895,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L461",
+      "source_location": "L464",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26399,7 +26905,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L481",
+      "source_location": "L484",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26409,7 +26915,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L491",
+      "source_location": "L499",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26419,7 +26925,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L510",
+      "source_location": "L540",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26429,7 +26935,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L523",
+      "source_location": "L553",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26440,7 +26946,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L363",
+      "source_location": "L366",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26451,7 +26957,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L378",
+      "source_location": "L381",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26462,7 +26968,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L429",
+      "source_location": "L432",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26473,7 +26979,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L453",
+      "source_location": "L456",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26484,7 +26990,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L500",
+      "source_location": "L511",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26495,7 +27001,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L501",
+      "source_location": "L512",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26506,7 +27012,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L502",
+      "source_location": "L513",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26517,7 +27023,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L504",
+      "source_location": "L533",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26534,7 +27040,7 @@
     },
     {
       "source": "packages_addon_kit_src_index",
-      "target": "packages_addon_kit_src_json",
+      "target": "packages_addon_kit_src_resolve",
       "relation": "imports_from",
       "context": "re-export",
       "confidence": "EXTRACTED",
@@ -26545,7 +27051,7 @@
     },
     {
       "source": "packages_addon_kit_src_index",
-      "target": "packages_addon_kit_src_patch",
+      "target": "packages_addon_kit_src_json",
       "relation": "imports_from",
       "context": "re-export",
       "confidence": "EXTRACTED",
@@ -26556,12 +27062,23 @@
     },
     {
       "source": "packages_addon_kit_src_index",
-      "target": "packages_addon_kit_src_upgrade",
+      "target": "packages_addon_kit_src_patch",
       "relation": "imports_from",
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/index.ts",
       "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_index",
+      "target": "packages_addon_kit_src_upgrade",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/index.ts",
+      "source_location": "L18",
       "weight": 1,
       "_origin": "ast"
     },
@@ -26959,6 +27476,260 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/patch.ts",
       "source_location": "L38",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_capabilities",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_capabilities_capability_tokens",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_capabilities_module_contracts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_capabilities_template_provides",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_capabilities_detectcapability",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_capabilities_capability",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_capabilities_modulecapabilitycontract",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_capabilities_projectsnapshot",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_resolve_resolveinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L37",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_resolve_planprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L58",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_resolve_planerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L65",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_resolve_resolutionplan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L71",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_resolve_readdeclaredprovides",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L92",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_resolve_resolvemodules",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L119",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolvemodules",
+      "target": "packages_addon_kit_src_resolve_resolvemodules_satisfy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L127",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolvemodules",
+      "target": "packages_addon_kit_src_resolve_resolvemodules_ensuremodule",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L178",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_resolve_capability_tokens_map",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L269",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve",
+      "target": "packages_addon_kit_src_resolve_formatresolverhint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L278",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolvemodules",
+      "target": "packages_addon_kit_src_resolve_capability_tokens_map",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L141",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolvemodules",
+      "target": "packages_addon_kit_src_resolve_resolvemodules_satisfy",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L143",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolvemodules",
+      "target": "packages_addon_kit_src_resolve_resolvemodules_ensuremodule",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L245",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolvemodules_ensuremodule",
+      "target": "packages_addon_kit_src_resolve_resolvemodules_satisfy",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L206",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolvemodules_ensuremodule",
+      "target": "packages_addon_kit_src_resolve_resolvemodules_ensuremodule",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L233",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_formatresolverhint",
+      "target": "packages_addon_kit_src_resolve_resolvemodules",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L282",
       "weight": 1,
       "_origin": "ast"
     },
@@ -33370,12 +34141,83 @@
     },
     {
       "source": "packages_svforge_bin_svforge",
+      "target": "packages_svforge_bin_svforge_flagvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L25",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge",
+      "target": "packages_svforge_bin_svforge_realprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge",
+      "target": "packages_svforge_bin_svforge_realspawn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L76",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge",
       "target": "packages_svforge_bin_svforge_main",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L20",
+      "source_location": "L86",
       "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge_main",
+      "target": "packages_svforge_bin_svforge_flagvalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L125",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge_main",
+      "target": "packages_svforge_bin_svforge_realprompt",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L130",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge_main",
+      "target": "packages_svforge_bin_svforge_realspawn",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L131",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge",
+      "target": "node_child_process",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
       "_origin": "ast"
     },
     {
@@ -34439,6 +35281,538 @@
       "source_file": "packages/svforge/src/changelog.ts",
       "source_location": "L117",
       "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_addon_kit_src_index",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_addresolvepolicy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L19",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_promptport",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L21",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_promptport",
+      "target": "packages_svforge_src_cli_add_promptport_confirm",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L22",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_promptport",
+      "target": "packages_svforge_src_cli_add_promptport_select",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L24",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_spawnport",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_addcommandoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_addcommandresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L48",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_detectpackagemanager",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L58",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_dlxrunner",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L66",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_svrunner",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_addonspec",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L90",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_projectstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L97",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_readstate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L103",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_add_runaddcommand",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L124",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_svrunner",
+      "target": "packages_svforge_src_cli_add_dlxrunner",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L85",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_svforge_src_cli_add_detectpackagemanager",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L127",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_svforge_src_cli_add_readstate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L148",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_svforge_src_cli_add_promptport_select",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L169",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_svforge_src_cli_add_promptport_confirm",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L202",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_svforge_src_cli_add_addonspec",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L233",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_svforge_src_cli_add_svrunner",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L240",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_module_composition",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_module_composition_modules",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_ai_context",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_ai_context_regeneratellmstxt",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_addon_kit_src_index",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_add",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_add_addonspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_add_svrunner",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_add_spawnport",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_createcommandoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_createpromptport",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_createpromptport",
+      "target": "packages_svforge_src_cli_create_createpromptport_text",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_createpromptport",
+      "target": "packages_svforge_src_cli_create_createpromptport_select",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L43",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_createpromptport",
+      "target": "packages_svforge_src_cli_create_createpromptport_multiselect",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L44",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_createpromptport",
+      "target": "packages_svforge_src_cli_create_createpromptport_confirm",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L45",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_createplan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L48",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_createcommandresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L63",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_expandallmodules",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L73",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_runtime_capability_modules",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L77",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_parsecreateargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L80",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_runcreatecommand",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L99",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_cli_create_createpromptport_text",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L116",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_cli_create_createpromptport_select",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L118",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_cli_create_createpromptport_multiselect",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L148",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_cli_create_expandallmodules",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L168",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_cli_create_createpromptport_confirm",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L189",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_doctor",
+      "relation": "imports_from",
+      "context": "import",
+      "deferred": true,
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L329",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_rationale_281",
+      "target": "packages_svforge_src_cli_create",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L281",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_doctor",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
       "_origin": "ast"
     },
     {
@@ -36990,6 +38364,201 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
       "source_location": "L80",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_runaddcommand",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_detectpackagemanager",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_dlxrunner",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_addonspec",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_addcommandoptions",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L82",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_addcommandresult",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L82",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_addresolvepolicy",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L82",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_promptport",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L82",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add_spawnport",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L82",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_create",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_create_runcreatecommand",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_create_expandallmodules",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_create_parsecreateargs",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_create_createcommandoptions",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L84",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_create_createcommandresult",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L84",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_create_createplan",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L84",
       "weight": 1,
       "_origin": "ast"
     },
@@ -52589,7 +54158,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L559",
+      "source_location": "L580",
       "weight": 1,
       "_origin": "ast"
     },
@@ -52599,7 +54168,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L567",
+      "source_location": "L588",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -54254,6 +55823,200 @@
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "tests/check-generated.test.ts",
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add_runaddcommand",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add_detectpackagemanager",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add_dlxrunner",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add_addonspec",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add_spawnport",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add_promptport",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "tests_cli_add_test_tempproject",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L21",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "tests_cli_add_test_fakespawn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L28",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "tests_cli_add_test_silentprompt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L37",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_create_test",
+      "target": "packages_svforge_src_cli_create",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_create_test",
+      "target": "packages_svforge_src_cli_create_runcreatecommand",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_create_test",
+      "target": "packages_svforge_src_cli_create_expandallmodules",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_create_test",
+      "target": "packages_svforge_src_cli_create_parsecreateargs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_create_test",
+      "target": "packages_svforge_src_cli_add",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "type_only": true,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_create_test",
+      "target": "packages_svforge_src_cli_add_spawnport",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_create_test",
+      "target": "tests_cli_create_test_fakespawn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_create_test",
+      "target": "tests_cli_create_test_flagstooptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L29",
+      "weight": 1,
       "_origin": "ast"
     },
     {
@@ -56072,6 +57835,87 @@
       "source_file": "tests/module-metadata.test.ts",
       "source_location": "L7",
       "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_module_resolver_test",
+      "target": "packages_addon_kit_src_resolve",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_module_resolver_test",
+      "target": "packages_addon_kit_src_resolve_resolvemodules",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_module_resolver_test",
+      "target": "packages_addon_kit_src_resolve_readdeclaredprovides",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_module_resolver_test",
+      "target": "packages_addon_kit_src_resolve_resolveinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_module_resolver_test",
+      "target": "packages_addon_kit_src_resolve_resolutionplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_module_resolver_test",
+      "target": "tests_module_resolver_test_plan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L21",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_module_resolver_test",
+      "target": "packages_addon_kit_src_capabilities",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_module_resolver_test",
+      "target": "packages_addon_kit_src_resolve",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
       "_origin": "ast"
     },
     {
@@ -62514,7 +64358,7 @@
     },
     {
       "source": "packages_addon_kit_src_index",
-      "target": "packages_addon_kit_src_json",
+      "target": "packages_addon_kit_src_resolve",
       "relation": "re_exports",
       "context": "export",
       "confidence": "EXTRACTED",
@@ -62525,7 +64369,7 @@
     },
     {
       "source": "packages_addon_kit_src_index",
-      "target": "packages_addon_kit_src_patch",
+      "target": "packages_addon_kit_src_json",
       "relation": "re_exports",
       "context": "export",
       "confidence": "EXTRACTED",
@@ -62536,12 +64380,23 @@
     },
     {
       "source": "packages_addon_kit_src_index",
-      "target": "packages_addon_kit_src_upgrade",
+      "target": "packages_addon_kit_src_patch",
       "relation": "re_exports",
       "context": "export",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/index.ts",
       "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_index",
+      "target": "packages_addon_kit_src_upgrade",
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/index.ts",
+      "source_location": "L18",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62697,6 +64552,28 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
       "source_location": "L79",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_add",
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_create",
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L83",
       "weight": 1,
       "_origin": "ast"
     },
@@ -63347,6 +65224,94 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/ai-context.ts",
       "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_addon_kit_src_capabilities_module_contracts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_addon_kit_src_resolve_readdeclaredprovides",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_addon_kit_src_resolve_resolvemodules",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_addon_kit_src_capabilities_snapshotproject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_addon_kit_src_resolve_resolutionplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_addon_kit_src_resolve_resolveinput",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_addon_kit_src_resolve_resolvemodules",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_addon_kit_src_resolve_resolutionplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64011,6 +65976,17 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_src_cli_add_readstate",
+      "target": "packages_addon_kit_src_resolve_readdeclaredprovides",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L120",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_addon_json_guard_test_runaddon",
       "target": "tests_helpers_fixtures_disksv",
       "relation": "calls",
@@ -64055,6 +66031,17 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_module_resolver_test_plan",
+      "target": "packages_addon_kit_src_resolve_resolvemodules",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/module-resolver.test.ts",
+      "source_location": "L22",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_theme_v5_test_violationsof",
       "target": "tests_helpers_skeleton_theme_validator_validateskeletontheme",
       "relation": "calls",
@@ -64062,6 +66049,61 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/theme-v5.test.ts",
       "source_location": "L37",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolveinput",
+      "target": "packages_addon_kit_src_capabilities_capability",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L45",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolveinput",
+      "target": "packages_addon_kit_src_capabilities_projectsnapshot",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L47",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolveinput",
+      "target": "packages_addon_kit_src_capabilities_modulecapabilitycontract",
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L49",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_planerror",
+      "target": "packages_addon_kit_src_capabilities_capability",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L67",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolutionplan",
+      "target": "packages_addon_kit_src_capabilities_capability",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L77",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64084,6 +66126,39 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/templates/src/lib/utils/posts.ts",
       "source_location": "L32",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_addcommandresult",
+      "target": "packages_addon_kit_src_resolve_resolutionplan",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L50",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_createcommandoptions",
+      "target": "packages_svforge_src_cli_add_spawnport",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L36",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_createplan",
+      "target": "packages_addon_kit_src_resolve_resolutionplan",
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L60",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64172,6 +66247,42 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/upgrade.ts",
       "source_location": "L90",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_capabilities_checkmodulecapabilities",
+      "target": "packages_addon_kit_src_resolve_readdeclaredprovides",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/addon-kit/src/capabilities.ts",
+      "source_location": "L508",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_capabilities_checkmodulecapabilities",
+      "target": "packages_addon_kit_src_resolve_formatresolverhint",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/addon-kit/src/capabilities.ts",
+      "source_location": "L527",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_resolve_resolvemodules",
+      "target": "packages_addon_kit_src_capabilities_detectcapability",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/addon-kit/src/resolve.ts",
+      "source_location": "L148",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64268,6 +66379,78 @@
       "confidence_score": 1,
       "source_file": "packages/svforge/src/ai-context.ts",
       "source_location": "L338",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_addon_kit_src_capabilities_snapshotproject",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L149",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_addon_kit_src_resolve_resolvemodules",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L160",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_addon_kit_src_resolve_resolvemodules",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L210",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_cli_add_svrunner",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L265",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_cli_add_addonspec",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L286",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_ai_context_regeneratellmstxt",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L312",
       "weight": 1,
       "_origin": "ast"
     },

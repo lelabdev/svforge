@@ -40,6 +40,27 @@ trap cleanup_tmp EXIT
 cd "$REPO_ROOT/packages/svforge"
 bun run build
 
+# create-cli (#417): the one-command creator orchestrates EVERYTHING —
+# official `sv create`, ONE grouped `sv add`, post-create validation. This
+# profile runs the REAL bin end-to-end (dev mode: --dev-root resolves the
+# module addons from this checkout) and asserts the delivered project.
+if [ "$TEMPLATE" = "create-cli" ]; then
+	SVFORGE_BIN="$REPO_ROOT/packages/svforge/bin/svforge.mjs"
+	export SVFORGE_SV_CMD="${SV_CMD:-$REPO_ROOT/node_modules/.bin/sv}"
+	cd "$TMP_DIR"
+	"$SVFORGE_BIN" create app --template base --pm "$SF_PM" --modules dnd,ui_toast --yes --dev-root "$REPO_ROOT" \
+		|| { echo "❌ svforge create failed (#417)"; exit 1; }
+	cd app
+	test -f .svforge.json || { echo "❌ .svforge.json missing (create-cli #417)"; exit 1; }
+	test -f svforge-check.mjs || { echo "❌ svforge-check.mjs missing (create-cli #417)"; exit 1; }
+	test -f src/lib/components/svforge/dnd/SortableList.svelte || { echo "❌ dnd module missing (create-cli #417)"; exit 1; }
+	test -f src/lib/components/svforge/ui/Toaster.svelte || { echo "❌ ui_toast module missing (create-cli #417)"; exit 1; }
+	"$SVFORGE_BIN" doctor || { echo "❌ doctor unhealthy (create-cli #417)"; exit 1; }
+	"$SVFORGE_BIN" check || { echo "❌ design-system check failed (create-cli #417)"; exit 1; }
+	echo "✅ Scaffold test passed for template=create-cli"
+	exit 0
+fi
+
 # 1. Create a fresh SvelteKit project (same baseline as end users)
 #    SV_CMD controls the CLI version: pinned workspace sv (PR CI, deterministic,
 #    #191) vs ecosystem `bunx sv` (canary, latest, #205).
