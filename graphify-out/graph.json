@@ -21094,6 +21094,31 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_vite_config_patch_test",
+      "label": "vite-config-patch.test.ts",
+      "file_type": "code",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_vite_config_patch_test_patchconfig",
+      "label": "patchConfig()",
+      "file_type": "code",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "source_location": "L53",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "typescript",
+      "label": "typescript",
+      "file_type": "code",
+      "source_file": "typescript",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_vite_design_system_test",
       "label": "vite-design-system.test.ts",
       "file_type": "code",
@@ -37166,7 +37191,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L156",
+      "source_location": "L176",
       "weight": 1,
       "_origin": "ast"
     },
@@ -58541,6 +58566,66 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_vite_config_patch_test",
+      "target": "tests_helpers_fixtures",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_vite_config_patch_test",
+      "target": "tests_helpers_fixtures_disksv",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_vite_config_patch_test",
+      "target": "tests_vite_config_patch_test_patchconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "source_location": "L53",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_vite_config_patch_test_patchconfig",
+      "target": "packages_svforge_src_modes_base",
+      "relation": "imports_from",
+      "context": "import",
+      "deferred": true,
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "source_location": "L58",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_vite_config_patch_test",
+      "target": "packages_svforge_src_modes_base",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_vite_config_patch_test",
+      "target": "typescript",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "_origin": "ast"
+    },
+    {
       "source": "tests_vite_design_system_test",
       "target": "packages_svforge_src_templates",
       "relation": "imports_from",
@@ -63991,6 +64076,17 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_vite_config_patch_test_patchconfig",
+      "target": "tests_helpers_fixtures_disksv",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-patch.test.ts",
+      "source_location": "L59",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_audit_templates_src_lib_server_audit_index_auditfilters",
       "target": "packages_audit_templates_src_lib_server_audit_index_auditlistoptions",
       "relation": "inherits",
@@ -64216,7 +64312,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L177",
+      "source_location": "L198",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64228,7 +64324,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L194",
+      "source_location": "L215",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64240,7 +64336,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L200",
+      "source_location": "L221",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64252,7 +64348,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L204",
+      "source_location": "L225",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64264,7 +64360,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L210",
+      "source_location": "L231",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64276,7 +64372,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L212",
+      "source_location": "L233",
       "weight": 1,
       "_origin": "ast"
     },

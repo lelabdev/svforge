@@ -460,7 +460,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/base.ts": {
-    "ast_hash": "c8ad88c482d10319c98351f60a2fe5fd",
+    "ast_hash": "8213bee56fa420ecdbb44fea642ae891",
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/dashboard.ts": {
@@ -1649,6 +1649,10 @@
   },
   "scripts/normalize-graphify.mjs": {
     "ast_hash": "7933073d5bf46e9c19fa926cf07ca9eb",
+    "semantic_hash": ""
+  },
+  "tests/vite-config-patch.test.ts": {
+    "ast_hash": "f6982b6cbae0d98ee2c2d3edc4576558",
     "semantic_hash": ""
   }
 }

@@ -151,9 +151,29 @@ export function applyBaseMode(
 		// When the single-line form no longer fits, render one plugin per line
 		// (exactly what prettier would produce), so `prettier --check .` is
 		// green on a fresh scaffold without reformatting user files.
-		const pluginsMatch = updated.match(/plugins:\s*\[([^\]]*)\]/);
-		if (pluginsMatch) {
-			const items = splitTopLevel(pluginsMatch[1])
+	const pluginsStart = updated.search(/plugins:\s*\[/);
+	if (pluginsStart !== -1) {
+		// #415: find the MATCHING close bracket with a depth-aware scan. The old
+		// matcher (`/plugins:\s*\[([^\]]*)\]/`) stopped at the first `]` — which
+		// sv >= 0.17 now places INSIDE the scaffolded `runes` regex
+		// (`filename.split(/[/\\]/)…`) — so the re-render truncated the config
+		// mid-regex and inserted a newline inside the character class, leaving
+		// vite.config.ts unparsable (`bun run dev` died on fresh scaffolds).
+		const open = updated.indexOf('[', pluginsStart);
+		let depth = 0;
+		let close = -1;
+		for (let i = open; i < updated.length; i++) {
+			if (updated[i] === '[') depth++;
+			else if (updated[i] === ']') {
+				depth--;
+				if (depth === 0) {
+					close = i;
+					break;
+				}
+			}
+		}
+		if (close !== -1) {
+			const items = splitTopLevel(updated.slice(open + 1, close))
 				.map((item) => item.trim())
 				.filter(Boolean);
 			if (items.length > 0) {
@@ -165,9 +185,10 @@ export function applyBaseMode(
 					single.length + 1 <= 100
 						? single
 						: `plugins: [\n${items.map((item) => `\t\t${item}`).join(',\n')}\n\t]`;
-				updated = updated.replace(/plugins:\s*\[[^\]]*\]/, () => rendered);
+				updated = updated.slice(0, pluginsStart) + rendered + updated.slice(close + 1);
 			}
 		}
+	}
 		return updated;
 	});
 
