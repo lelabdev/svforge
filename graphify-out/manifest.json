@@ -276,7 +276,7 @@
     "semantic_hash": ""
   },
   "packages/jobs/src/templates.ts": {
-    "ast_hash": "b3a7d1288b754e7346b03673eb32755f",
+    "ast_hash": "eb9b98fa47b8b2f3ba872dae6fb0f919",
     "semantic_hash": ""
   },
   "packages/jobs/templates/src/lib/server/jobs/index.ts": {
@@ -284,7 +284,7 @@
     "semantic_hash": ""
   },
   "packages/jobs/templates/src/lib/server/jobs/jobs-claim.test.ts": {
-    "ast_hash": "c06d947179f908740b5797fa4b447da3",
+    "ast_hash": "28e784707dcda9aa16c14e851ba4693a",
     "semantic_hash": ""
   },
   "packages/jobs/templates/src/lib/server/jobs/leases.ts": {
@@ -472,7 +472,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "ec45db86679f6fbbe69462436eba0b39",
+    "ast_hash": "d5511abe136f2d7caeb5edbce68c5188",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {

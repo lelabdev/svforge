@@ -79,8 +79,18 @@ d('jobs claim contract (#328, real PostgreSQL)', () => {
 			return { ok: runs };
 		});
 		const first = jobsApi.processNextBatch(1, 50); // 50ms lease, dies at +200ms
-		await new Promise((r) => setTimeout(r, 120)); // second worker reclaims: even a progress() at t+50 kept the lease alive only until t+100
-		const second = jobsApi.processNextBatch(1, 50);
+		// Wait for the first claim to actually hold the lease, then expire it
+		// IN THE DATABASE — racing real timers (sleep 120 vs a progress()
+		// renewal at t+50..70) was flaky under load (#426 CI).
+		await vi.waitFor(async () => {
+			const [claimed] = await db.select().from(jobs).where(eq(jobs.type, `${TEST_PREFIX}lease`));
+			expect(claimed?.status).toBe('running');
+		});
+		await db
+			.update(jobs)
+			.set({ leaseUntil: new Date(Date.now() - 1000) })
+			.where(eq(jobs.type, `${TEST_PREFIX}lease`));
+		const second = jobsApi.processNextBatch(1, 50); // second worker reclaims the expired lease
 		await Promise.all([first, second]);
 		expect(runs).toBe(2); // at-least-once: replayed after crash
 		const [row] = await db.select().from(jobs).where(eq(jobs.type, `${TEST_PREFIX}lease`));
