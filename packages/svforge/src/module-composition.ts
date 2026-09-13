@@ -39,6 +39,13 @@ export interface ModuleMeta extends ModuleCapabilityContract {
 	optionalModules: string[];
 	/** Files/capabilities added (documentation + #234 manifest). */
 	files: string[];
+	/**
+	 * Non-interactive addon options (sv add spec `pkg=opt:value`), so tools
+	 * composing modules headlessly (svforge create, #417) never prompt. The
+	 * values MUST mirror the addon's defineAddonOptions defaults — enforced
+	 * by a contract test against the built addon dists.
+	 */
+	addonOptions?: Record<string, string>;
 }
 
 /** Build one module's metadata from its shared contract + local identity. */
@@ -61,11 +68,16 @@ export const MODULES: Record<string, ModuleMeta> = {
 	graph: meta('graph', 'Knowledge graph visualization (force-graph)', ['src/lib/components/svforge/graph/']),
 	email: meta('email', 'Transactional emails (Resend)', ['src/lib/server/email.ts', 'src/lib/server/templates/']),
 	oauth: meta('oauth', 'Social auth buttons (Google, GitHub)', ['src/lib/components/svforge/ui/OAuthButtons.svelte']),
-	uploads: meta('uploads', 'File uploads (S3-compatible POST hard limit, PUT best-effort fallback)', [
-		'src/lib/components/svforge/uploads/',
-		'src/lib/server/s3.ts',
-		'src/routes/api/upload/'
-	]),
+	uploads: {
+		...meta('uploads', 'File uploads (S3-compatible POST hard limit, PUT best-effort fallback)', [
+			'src/lib/components/svforge/uploads/',
+			'src/lib/server/s3.ts',
+			'src/routes/api/upload/'
+		]),
+		// Headless composition (#417): the test pack stays opt-in, as in the
+		// interactive flow — the addon default (false) rendered as a spec.
+		addonOptions: { testpack: 'no' }
+	},
 	blog: meta('blog', 'MDsveX blog (posts + list + detail)', ['src/posts/', 'src/lib/utils/posts.ts', 'src/routes/blog/']),
 	realtime: meta('realtime', 'WebSocket transport (publish/subscribe, channels isolés)', [
 		'src/lib/server/realtime/',

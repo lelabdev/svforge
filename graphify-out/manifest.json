@@ -20,11 +20,11 @@
     "semantic_hash": ""
   },
   "packages/addon-kit/src/capabilities.ts": {
-    "ast_hash": "cd7ec9006ffaa945a98fff3a996f0eed",
+    "ast_hash": "0b14091f79a5c4e7412c4222bee58c55",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/index.ts": {
-    "ast_hash": "9394b4d0da47094c14f02ab4773a81b3",
+    "ast_hash": "04363da7d6bfc3812fd98b59036fcc54",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/json.ts": {
@@ -92,7 +92,7 @@
     "semantic_hash": ""
   },
   "packages/blog/src/index.ts": {
-    "ast_hash": "47cb6b64d27bad1afe46f1e8a27e7bbf",
+    "ast_hash": "9a9bb1a18a9fc965d2c6a64ec2e8358e",
     "semantic_hash": ""
   },
   "packages/blog/src/templates.ts": {
@@ -276,7 +276,7 @@
     "semantic_hash": ""
   },
   "packages/jobs/src/templates.ts": {
-    "ast_hash": "b3a7d1288b754e7346b03673eb32755f",
+    "ast_hash": "eb9b98fa47b8b2f3ba872dae6fb0f919",
     "semantic_hash": ""
   },
   "packages/jobs/templates/src/lib/server/jobs/index.ts": {
@@ -284,7 +284,7 @@
     "semantic_hash": ""
   },
   "packages/jobs/templates/src/lib/server/jobs/jobs-claim.test.ts": {
-    "ast_hash": "c06d947179f908740b5797fa4b447da3",
+    "ast_hash": "28e784707dcda9aa16c14e851ba4693a",
     "semantic_hash": ""
   },
   "packages/jobs/templates/src/lib/server/jobs/leases.ts": {
@@ -400,7 +400,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/bin/svforge.mjs": {
-    "ast_hash": "2461cfacb7ecb7b727f3cac95bd1b012",
+    "ast_hash": "1a2428ff20d69e9bcc65583bb96e0384",
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
@@ -452,7 +452,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "c37444a1e5f4336a692bc17f60906dcc",
+    "ast_hash": "8bb2c7b4252df42895b8f8d3d050550b",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -468,11 +468,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-composition.ts": {
-    "ast_hash": "ce32ea473db2b264806ccbfb3cb8cd39",
+    "ast_hash": "3e550912bdff2231a90298061580cdb1",
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "ec45db86679f6fbbe69462436eba0b39",
+    "ast_hash": "d5511abe136f2d7caeb5edbce68c5188",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "9b892e19dddf81d5cdb8369bb2d57a5e",
+    "ast_hash": "abe8b570bc9ac023c503c35f7098d6e0",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1140,7 +1140,7 @@
     "semantic_hash": ""
   },
   "tests/blog-mdsvex.test.ts": {
-    "ast_hash": "4fbc35187096535af11abac63f362aee",
+    "ast_hash": "092b18f13e6dfaaa9c1b880ec06c992d",
     "semantic_hash": ""
   },
   "tests/blog-transport-compose.test.ts": {
@@ -1476,7 +1476,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "58fae590ae3b16d727ac0652fabf2386",
+    "ast_hash": "64a8c286aa32be521cd324925c281168",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
@@ -1649,6 +1649,38 @@
   },
   "scripts/normalize-graphify.mjs": {
     "ast_hash": "7933073d5bf46e9c19fa926cf07ca9eb",
+    "semantic_hash": ""
+  },
+  "tests/hooks-prompt.test.ts": {
+    "ast_hash": "8495a7b4497c2bd63acfd3f7376dbe32",
+    "semantic_hash": ""
+  },
+  "packages/addon-kit/src/resolve.ts": {
+    "ast_hash": "ebf415e75b94a3461b33fd937659a1df",
+    "semantic_hash": ""
+  },
+  "packages/svforge/src/cli/add.ts": {
+    "ast_hash": "273e4a839da42ae7285ec8788621631b",
+    "semantic_hash": ""
+  },
+  "packages/svforge/src/cli/create.ts": {
+    "ast_hash": "a0c7cc8b2fc53388b946ab77c15a21c0",
+    "semantic_hash": ""
+  },
+  "tests/cli-add.test.ts": {
+    "ast_hash": "717230dbc06eda7d6d5fe01bfb49bdd7",
+    "semantic_hash": ""
+  },
+  "tests/cli-create.test.ts": {
+    "ast_hash": "ce35facbe96a53e12cc6d6111ecd5813",
+    "semantic_hash": ""
+  },
+  "tests/module-resolver.test.ts": {
+    "ast_hash": "47bd809bf8c033c7995b277034cddf59",
+    "semantic_hash": ""
+  },
+  "tests/real-bin.test.ts": {
+    "ast_hash": "5ad6d5d6171daddc1f84bcb7228ffa17",
     "semantic_hash": ""
   }
 }

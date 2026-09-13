@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 /**
- * SVForge CLI — doctor (diagnostics), check (design-system harness) and
- * upgrade (module upgrades).
+ * SVForge CLI — doctor (diagnostics), check (design-system harness),
+ * preset (composition recipes), context (AI context), upgrade (module
+ * upgrades), add (guided module install, #419) and create (one-command
+ * project creator, #417).
  *
  * Exposed via the `svforge` bin (#189, #240):
  *   npx svforge doctor
  *   npx svforge check [--strict]
+ *   npx svforge add <module…> [--pm <pm>] [--resolve install|fail] [--yes]
+ *   npx svforge create <dir> [--template t] [--pm pm] [--testing x]
+ *                            [--hooks h] [--modules a,b|all]
+ *                            [--runtime long-lived-node] [--yes]
  *   npx svforge upgrade <module> [--to <version>] [--force]
  */
-
 
 
 
@@ -16,6 +21,62 @@
 const api = await import('../dist/index.js');
 
 const [, , command, ...args] = process.argv;
+
+async function realPrompt() {
+	// Zero-dependency prompts on raw stdin/stdout: the sv add packaging
+	// contract forbids runtime dependencies on @svforge/* packages, and no
+	// readline built-in is assumed (minimal node builds lack it).
+	const ask = (question) =>
+		new Promise((resolvePromise) => {
+			process.stdout.write(question);
+			let buffer = '';
+			const onData = (chunk) => {
+				buffer += chunk;
+				if (buffer.includes('\n')) {
+					process.stdin.removeListener('data', onData);
+					resolvePromise(buffer.split('\n')[0].trim());
+				}
+			};
+			process.stdin.on('data', onData);
+		});
+	return {
+		confirm: async (message) => {
+			const answer = (await ask(`${message} [y/N] `)).trim().toLowerCase();
+			return answer === 'y' || answer === 'yes';
+		},
+		select: async (message, options) => {
+			console.log(message);
+			options.forEach((option, index) => console.log(`  ${index + 1}. ${option}`));
+			const answer = Number((await ask('Choose [1]: ')).trim() || '1');
+			return options[Number.isInteger(answer) && answer >= 1 && answer <= options.length ? answer - 1 : 0];
+		},
+		text: async (message, defaultValue) => {
+			const answer = (await ask(`${message}${defaultValue ? ` [${defaultValue}]` : ''} `)).trim();
+			return answer.length > 0 ? answer : (defaultValue ?? '');
+		},
+		multiselect: async (message, options) => {
+			console.log(message);
+			options.forEach((option, index) => console.log(`  ${index + 1}. ${option}`));
+			const answer = (await ask('Comma-separated numbers (empty = none): ')).trim();
+			if (answer.length === 0) return [];
+			return answer
+				.split(',')
+				.map((part) => Number(part.trim()))
+				.filter((n) => Number.isInteger(n) && n >= 1 && n <= options.length)
+				.map((n) => options[n - 1]);
+		}
+	};
+}
+
+async function realSpawn() {
+	const { spawn } = await import('node:child_process');
+	return (command, args, options) =>
+		new Promise((resolvePromise, rejectPromise) => {
+			const child = spawn(command, args, { cwd: options.cwd, stdio: 'inherit', shell: false });
+			child.on('exit', (code) => resolvePromise(code ?? 1));
+			child.on('error', rejectPromise);
+		});
+}
 
 async function main() {
 	const projectRoot = process.cwd();
@@ -46,6 +107,58 @@ async function main() {
 			console.log('\n✓ Design system is clean.');
 		}
 		process.exitCode = errors.length || (strict && warnings.length) ? 1 : 0;
+		return;
+	}
+
+	if (command === 'add') {
+		// Guided module install (#419): plan → confirm → ONE grouped sv add.
+		// Parse with the TESTED value-aware parser (#426 review): option values
+		// (--pm bun, --resolve install) must never become module ids.
+		try {
+			const { runAddCommand, parseAddArgs } = api;
+			const parsed = parseAddArgs(args);
+			const result = await runAddCommand(projectRoot, {
+				...parsed,
+				svCmd: parsed.svCmd ?? process.env.SVFORGE_SV_CMD,
+				devRoot: parsed.devRoot ?? process.env.SVFORGE_DEV_ROOT,
+				interactive: process.stdin.isTTY === true && !parsed.yes,
+				prompt: await realPrompt(),
+				spawn: await realSpawn()
+			});
+			if (result.message) console.error(result.message);
+			process.exitCode = result.code;
+		} catch (e) {
+			console.error(`Add failed: ${e instanceof Error ? e.message : e}`);
+			process.exitCode = 1;
+		}
+		return;
+	}
+
+	if (command === 'create') {
+		// One-command project creator (#417): plan → official sv create →
+		// ONE grouped sv add → validate. Parsing comes from the TESTED
+		// value-aware parser (#426 review) — including --git-init/--no-git-init
+		// and --runtime, which MUST reach the orchestration.
+		try {
+			const { runCreateCommand, parseCreateArgs } = api;
+			const parsed = parseCreateArgs(args);
+			const result = await runCreateCommand(projectRoot, {
+				...parsed,
+				svCmd: parsed.svCmd ?? process.env.SVFORGE_SV_CMD,
+				devRoot: parsed.devRoot ?? process.env.SVFORGE_DEV_ROOT,
+				interactive: process.stdin.isTTY === true && !parsed.yes,
+				prompt: await realPrompt(),
+				spawn: await realSpawn()
+			});
+			if (result.message) console.error(result.message);
+			if (result.code === 0 && result.plan) {
+				console.log(`\n✓ Project ready in ${result.plan.dir} — run \`${result.plan.pm} run dev\` to start developing.`);
+			}
+			process.exitCode = result.code;
+		} catch (e) {
+			console.error(`Create failed: ${e instanceof Error ? e.message : e}`);
+			process.exitCode = 1;
+		}
 		return;
 	}
 
@@ -131,7 +244,7 @@ async function main() {
 		return;
 	}
 
-	console.error('Usage: svforge <doctor|check [--strict]|preset|context|upgrade>');
+	console.error('Usage: svforge <doctor|check [--strict]|preset|context|upgrade|add|create>');
 	process.exitCode = 1;
 }
 

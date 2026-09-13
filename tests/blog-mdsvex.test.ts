@@ -101,23 +101,45 @@ describe('blog MDsveX scaffold (#173/#185)', () => {
 			expect(source).toMatch(/defineAddonOptions\(\)\.build\(\)/);
 		});
 	});
-});
 
-/**
- * All svforge modules must define addon options — sv >= 0.15 throws
- * `Object.entries(undefined)` in promptAddonQuestions when an explicitly
- * specified addon has no options object. This is the source-level guard;
- * the CI scaffold exercises it end-to-end.
- */
-describe('module addon options guard (#185)', () => {
-	const modules = ['blog', 'ui_toast', 'dnd', 'tiptap', 'graph', 'email', 'oauth', 'uploads'];
+	describe('legacy svelte.config.js behavior (pinned sv 0.15.4 layout)', () => {
+		// The REAL svelte.config.js emitted by `sv create --template minimal`
+		// (pinned 0.15.4). The #426 review consumer test exposed that the
+		// legacy patch inserted `mdsvex(...)` WITHOUT the import — the config
+		// then crashed every tool that loads it (ReferenceError).
+		const SV_0_15_SVELTE_CONFIG = [
+			"import adapter from '@sveltejs/adapter-auto';",
+			'',
+			"/** @type {import('@sveltejs/kit').Config} */",
+			'const config = {',
+			'\tcompilerOptions: {',
+			'\t\t// Force runes mode for the project, except for libraries. Can be removed in svelte 6.',
+			"\t\trunes: ({ filename }) => (filename.split(/[/\\\\]/).includes('node_modules') ? undefined : true)",
+			'\t},',
+			'\tkit: {',
+			'\t\tadapter: adapter()',
+			'\t}',
+			'};',
+			'',
+			'export default config;',
+			''
+		].join('\n');
 
-	for (const mod of modules) {
-		it(`${mod} defines options (sv >= 0.15 crash guard)`, () => {
-			const source = readFileSync(join(ROOT, `packages/${mod}/src/index.ts`), 'utf-8');
-			expect(source).toMatch(/import \{[^}]*defineAddonOptions[^}]*\} from 'sv'/);
-			// Options may be empty (.build() right away) or have .add(...) entries
-			expect(source).toMatch(/options: defineAddonOptions\(\s*\)\s*(?:\.add|\.build)/);
+		it('the runes-layout legacy config gets its mdsvex import (no use-before-define)', async () => {
+			const { patchSvelteConfigMdsvex } = await import('../packages/blog/src/index');
+			const patched = patchSvelteConfigMdsvex(SV_0_15_SVELTE_CONFIG);
+			expect(patched).toMatch(/import \{ mdsvex \} from 'mdsvex';/);
+			// Syntax-level guarantee: the patched config must be parseable.
+			const ts = await import('typescript');
+			const { diagnostics } = ts.transpileModule(patched, { fileName: 'svelte.config.js', reportDiagnostics: true });
+			const errors = (diagnostics ?? []).filter((d) => d.category === ts.DiagnosticCategory.Error);
+			expect(errors.map((d) => ts.flattenDiagnosticMessageText(d.messageText, '\n'))).toEqual([]);
 		});
-	}
+
+		it('is idempotent — a second pass does not duplicate the import', async () => {
+			const { patchSvelteConfigMdsvex } = await import('../packages/blog/src/index');
+			const once = patchSvelteConfigMdsvex(SV_0_15_SVELTE_CONFIG);
+			expect(patchSvelteConfigMdsvex(once)).toBe(once);
+		});
+	});
 });

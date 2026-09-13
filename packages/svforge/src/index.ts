@@ -78,6 +78,11 @@ export type {
 } from './upgrade';
 export { RELEASE_NOTES, entriesBetween } from './changelog';
 export type { ChangelogEntry } from './changelog';
+export { runAddCommand, parseAddArgs, detectPackageManager, dlxRunner, addonSpec } from './cli/add';
+export type { ParsedAddArgs } from './cli/add';
+export type { AddCommandOptions, AddCommandResult, AddResolvePolicy, PromptPort, SpawnPort } from './cli/add';
+export { runCreateCommand, expandAllModules, parseCreateArgs } from './cli/create';
+export type { CreateCommandOptions, CreateCommandResult, CreatePlan } from './cli/create';
 
 export default defineAddon({
 	id: 'svelteforge',
@@ -96,12 +101,16 @@ export default defineAddon({
 			]
 		})
 		.add('hooks', {
-			question: 'Install the optional strict pre-commit hook?',
+			// #416: the choice must be understandable without prior Git-hook
+			// knowledge — the question states WHEN it runs, each label states
+			// its practical consequence. Longer explanations live in the
+			// generated next steps, not in this prompt.
+			question: 'Run strict SVForge design checks before Git commits?',
 			type: 'select',
 			default: 'none',
 			options: [
-				{ value: 'none', label: 'None — do not install a Git hook' },
-				{ value: 'lefthook', label: 'Lefthook — block staged UI changes with svforge check --strict' }
+				{ value: 'none', label: 'None — no automatic commit check' },
+				{ value: 'lefthook', label: 'Lefthook — block commits containing design-system errors or warnings' }
 			]
 		})
 		.add('testing', {
@@ -178,8 +187,29 @@ export default defineAddon({
 		}
 	},
 
-	nextSteps: ({ options }) => [
-		`SvelteForge ${(options.template as string)} template applied!`,
-		'Run `npm run dev` (or `bun dev`) to start developing.'
-	]
+	nextSteps: ({ options, packageManager }) => {
+		// #325: the pm the user selected — scaffolded advice must never invoke
+		// an unselected package manager (#416 extends this to the hook docs).
+		const pm = (packageManager ?? 'npm').split('@')[0];
+		const hooks = options.hooks as 'none' | 'lefthook';
+		const lines = [
+			`SvelteForge ${(options.template as string)} template applied!`,
+			`Run \`${pm} run dev\` to start developing.`
+		];
+		if (hooks === 'lefthook') {
+			// #416: state the practical consequence and the removal path.
+			lines.push(
+				'Lefthook runs `node svforge-check.mjs --strict` before commits that touch staged UI files — errors AND warnings block the commit.',
+				'This is a development safeguard only: the app runs and builds without it. Remove anytime — remove the lefthook devDependency, delete .lefthook.yml, and drop the `prepare` script line.',
+				`Run the same check manually: \`node svforge-check.mjs --strict\` (or \`${pm} run check\` for the full check).`
+			);
+		} else {
+			// #416: a None user must know the check exists, is manual, and is
+			// not required for the app to work.
+			lines.push(
+				'No automatic commit check installed (optional). You can still check manually anytime: `node svforge-check.mjs --strict` (or `' + pm + ' run check` for the full check).'
+			);
+		}
+		return lines;
+	}
 });

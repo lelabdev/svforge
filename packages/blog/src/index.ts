@@ -117,6 +117,27 @@ function findTransportDeclEnd(src: string, start: number): number {
 	return src.length;
 }
 
+/**
+ * Legacy projects carry a svelte.config.js (pinned sv 0.15.4 still emits
+ * one). The mdsvex import is inserted right after the leading patch marker —
+ * position-independent: the previous export-lookahead regex missed the
+ * runes layout (#426 review) and left `mdsvex(...)` called without its
+ * import, crashing every tool that loads the config.
+ */
+export function patchSvelteConfigMdsvex(content: string): string {
+	if (hasPatchApplied(content, 'svelte-config-mdsvex', ['mdsvex({ extensions'])) return content;
+	let updated = `// ${svforgePatchMarker('svelte-config-mdsvex')}\n${content}`;
+	if (!updated.includes("from 'mdsvex'")) {
+		updated = updated.replace(/^(\/\/[^\n]*\n)/, `$1import { mdsvex } from 'mdsvex';\n`);
+	}
+	// Add extensions to the config object and mdsvex to preprocess
+	return updated
+		.replace(/compilerOptions:/, "extensions: ['.svelte', '.md'],\n\tcompilerOptions:")
+		.replace(/preprocess:\s*\[/, "preprocess: [mdsvex({ extensions: ['.md'] })]")
+		.replace(/preprocess:\s*undefined,?/, 'preprocess: [mdsvex({ extensions: [".md"] })]')
+		.replace(/kit:\s*\{/, "preprocess: [mdsvex({ extensions: ['.md'] })],\n\tkit: {");
+}
+
 export default defineAddon({
 	id: 'svforge-blog',
 	alias: 'forge-blog',
@@ -177,34 +198,7 @@ export default defineAddon({
 			return updated;
 		});
 
-		sv.file('svelte.config.js', (content) => {
-			if (hasPatchApplied(content, 'svelte-config-mdsvex', ['mdsvex({ extensions'])) return content;
-			let updated = `// ${svforgePatchMarker('svelte-config-mdsvex')}\n${content}`;
-			if (!updated.includes("from 'mdsvex'")) {
-				updated = updated.replace(
-					/(import\s+.*?;?\s*\n)(?=\n*export)/,
-					"$1import { mdsvex } from 'mdsvex';\n"
-				);
-			}
-			// Add extensions to the config object and mdsvex to preprocess
-			return updated
-				.replace(
-					/compilerOptions:/,
-					"extensions: ['.svelte', '.md'],\n\tcompilerOptions:"
-				)
-				.replace(
-					/preprocess:\s*\[/,
-					"preprocess: [mdsvex({ extensions: ['.md'] })]"
-				)
-				.replace(
-					/preprocess:\s*undefined,?/,
-					'preprocess: [mdsvex({ extensions: [".md"] })]'
-				)
-				.replace(
-					/kit:\s*\{/,
-					"preprocess: [mdsvex({ extensions: ['.md'] })],\n\tkit: {"
-				);
-		});
+		sv.file('svelte.config.js', (content) => patchSvelteConfigMdsvex(content));
 
 		for (const [path, content] of Object.entries(files)) {
 			sv.file(`src${path}`, () => content);
