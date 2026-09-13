@@ -400,7 +400,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/bin/svforge.mjs": {
-    "ast_hash": "8371d8b8b00039585dc6e844e974ef53",
+    "ast_hash": "2c9a8447ffcae9b26ffd9b3d12f50c05",
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
@@ -452,7 +452,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "08b2f13ac3f1c19435323a9afa0cdade",
+    "ast_hash": "8bb2c7b4252df42895b8f8d3d050550b",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -1677,6 +1677,10 @@
   },
   "tests/module-resolver.test.ts": {
     "ast_hash": "47bd809bf8c033c7995b277034cddf59",
+    "semantic_hash": ""
+  },
+  "tests/real-bin.test.ts": {
+    "ast_hash": "37474d339dc96583626d9e7d7e0335df",
     "semantic_hash": ""
   }
 }

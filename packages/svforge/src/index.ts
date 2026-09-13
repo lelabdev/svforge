@@ -78,7 +78,8 @@ export type {
 } from './upgrade';
 export { RELEASE_NOTES, entriesBetween } from './changelog';
 export type { ChangelogEntry } from './changelog';
-export { runAddCommand, detectPackageManager, dlxRunner, addonSpec } from './cli/add';
+export { runAddCommand, parseAddArgs, detectPackageManager, dlxRunner, addonSpec } from './cli/add';
+export type { ParsedAddArgs } from './cli/add';
 export type { AddCommandOptions, AddCommandResult, AddResolvePolicy, PromptPort, SpawnPort } from './cli/add';
 export { runCreateCommand, expandAllModules, parseCreateArgs } from './cli/create';
 export type { CreateCommandOptions, CreateCommandResult, CreatePlan } from './cli/create';

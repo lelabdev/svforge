@@ -22,11 +22,6 @@ const api = await import('../dist/index.js');
 
 const [, , command, ...args] = process.argv;
 
-function flagValue(name) {
-	const index = args.indexOf(name);
-	return index === -1 ? undefined : args[index + 1];
-}
-
 async function realPrompt() {
 	// Zero-dependency prompts on raw stdin/stdout: the sv add packaging
 	// contract forbids runtime dependencies on @svforge/* packages, and no
@@ -117,16 +112,15 @@ async function main() {
 
 	if (command === 'add') {
 		// Guided module install (#419): plan → confirm → ONE grouped sv add.
-		const modules = args.filter((a) => !a.startsWith('-'));
+		// Parse with the TESTED value-aware parser (#426 review): option values
+		// (--pm bun, --resolve install) must never become module ids.
 		try {
-			const { runAddCommand } = api;
+			const { runAddCommand, parseAddArgs } = api;
+			const parsed = parseAddArgs(args);
 			const result = await runAddCommand(projectRoot, {
-				modules,
-				pm: flagValue('--pm'),
-				svCmd: flagValue('--sv-cmd') ?? process.env.SVFORGE_SV_CMD,
-				resolve: flagValue('--resolve'),
-				yes: args.includes('--yes'),
-				devRoot: flagValue('--dev-root') ?? process.env.SVFORGE_DEV_ROOT,
+				...parsed,
+				devRoot: parsed.devRoot ?? process.env.SVFORGE_DEV_ROOT,
+				interactive: process.stdin.isTTY === true && !parsed.yes,
 				prompt: await realPrompt(),
 				spawn: await realSpawn()
 			});
@@ -141,25 +135,17 @@ async function main() {
 
 	if (command === 'create') {
 		// One-command project creator (#417): plan → official sv create →
-		// ONE grouped sv add → validate.
-		const dir = args.find((a, i) => !a.startsWith('-') && args[i - 1] !== '--modules' && args[i - 1] !== '--pm' && args[i - 1] !== '--template' && args[i - 1] !== '--testing' && args[i - 1] !== '--hooks' && args[i - 1] !== '--runtime' && args[i - 1] !== '--dev-root');
+		// ONE grouped sv add → validate. Parsing comes from the TESTED
+		// value-aware parser (#426 review) — including --git-init/--no-git-init
+		// and --runtime, which MUST reach the orchestration.
 		try {
-			const { runCreateCommand } = api;
+			const { runCreateCommand, parseCreateArgs } = api;
+			const parsed = parseCreateArgs(args);
 			const result = await runCreateCommand(projectRoot, {
-				dir,
-				template: flagValue('--template'),
-				pm: flagValue('--pm'),
-				svCmd: flagValue('--sv-cmd') ?? process.env.SVFORGE_SV_CMD,
-				testing: flagValue('--testing'),
-				hooks: flagValue('--hooks'),
-				modules: (() => {
-					const raw = flagValue('--modules');
-					if (raw === undefined) return undefined;
-					return raw === 'all' ? 'all' : raw.split(',').map((m) => m.trim());
-				})(),
-				runtime: flagValue('--runtime'),
-				yes: args.includes('--yes'),
-				devRoot: flagValue('--dev-root') ?? process.env.SVFORGE_DEV_ROOT,
+				...parsed,
+				svCmd: parsed.svCmd ?? process.env.SVFORGE_SV_CMD,
+				devRoot: parsed.devRoot ?? process.env.SVFORGE_DEV_ROOT,
+				interactive: process.stdin.isTTY === true && !parsed.yes,
 				prompt: await realPrompt(),
 				spawn: await realSpawn()
 			});
