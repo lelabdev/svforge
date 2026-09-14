@@ -52,7 +52,7 @@ const BASE_DEPS = {
 
 const DASHBOARD_DEPS = {
 	dependencies: {
-		'better-auth': '~1.7.3',
+		'better-auth': '~1.7.4',
 		'drizzle-orm': '^0.45.2'
 	},
 	devDependencies: { ...BASE_DEPS.devDependencies, 'drizzle-kit': '^0.31.10' }

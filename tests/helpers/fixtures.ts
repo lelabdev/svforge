@@ -77,7 +77,7 @@ export function createDashboardProject(dir: string, options: { messages?: boolea
 				type: 'module',
 				dependencies: {
 					'@inlang/paraglide-js': '^2.24.0',
-					'better-auth': '~1.7.3',
+					'better-auth': '~1.7.4',
 					drizzle: '^0.45.2',
 					'drizzle-orm': '^0.45.2',
 					postgres: '^3.4.5'

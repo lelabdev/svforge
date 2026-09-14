@@ -62,7 +62,7 @@ export function applyDashboardMode(
 	// GHSA-g38m-r43w-p2q7 (OAuth auto-link account takeover, fixed 1.6.11).
 	// Upgrades are automated by .github/workflows/better-auth-upgrade.yml
 	// (policy + gate: docs/better-auth-upgrades.md).
-	sv.dependency('better-auth', '~1.7.3');
+	sv.dependency('better-auth', '~1.7.4');
 
 	// Dashboard-specific dev dependencies
 	sv.devDependency('drizzle-kit', '^0.31.10');
