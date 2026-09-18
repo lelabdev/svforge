@@ -22144,6 +22144,33 @@
       "_origin": "ast"
     },
     {
+      "id": "agents_utiliser_svforge_pour_un_nouveau_projet_la_règle_puis_la_procédure",
+      "label": "Utiliser svforge pour un nouveau projet — la règle, puis la procédure",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "AGENTS.md",
+      "source_location": "L146",
+      "_origin": "ast"
+    },
+    {
+      "id": "agents_règles_non_négociables",
+      "label": "Règles non négociables",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "AGENTS.md",
+      "source_location": "L166",
+      "_origin": "ast"
+    },
+    {
+      "id": "agents_avant_de_demander_à_publier",
+      "label": "Avant de demander à publier",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "AGENTS.md",
+      "source_location": "L176",
+      "_origin": "ast"
+    },
+    {
       "id": "changelog",
       "label": "CHANGELOG.md",
       "file_type": "document",
@@ -61261,6 +61288,36 @@
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
       "source_location": "L140",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "agents_agents_md_svelteforge",
+      "target": "agents_utiliser_svforge_pour_un_nouveau_projet_la_règle_puis_la_procédure",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L146",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "agents_utiliser_svforge_pour_un_nouveau_projet_la_règle_puis_la_procédure",
+      "target": "agents_règles_non_négociables",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L166",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "agents_utiliser_svforge_pour_un_nouveau_projet_la_règle_puis_la_procédure",
+      "target": "agents_avant_de_demander_à_publier",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L176",
       "weight": 1,
       "_origin": "ast"
     },

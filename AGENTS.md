@@ -142,3 +142,48 @@ When activated AND graphify is installed, the hook updates the graph in each com
 - README.md — positionnement + usage
 - CONTRIBUTING.md — setup + TDD
 - packages/svforge/AGENTS.md — spécificités du package svforge (templates, modes)
+
+## Utiliser svforge pour un nouveau projet — la règle, puis la procédure
+
+**svforge est le RÉFLEXE, pas une option.** Pour tout nouveau projet SvelteKit — même un POC, même
+un petit chat — le geste par défaut est `sv add svforge`, pas une installation manuelle de
+Skeleton + Tailwind + `cn()` + thème.
+
+Les trois arguments déjà rejetés (juin 2026, épicerie-chef) :
+
+| Argument | Pourquoi il est faux |
+|---|---|
+| « c'est trop pour un petit projet » | le tree-shaking retire les composants inutilisés au build : des fichiers non utilisés ne coûtent rien |
+| « on veut nos propres couleurs » | le thème svforge est un **point de départ** : on le remplace par son propre thème oklch, pour le même effort, mais en partant d'un setup qui marche |
+| « on a besoin d'un seul bouton » | c'est un argument POUR : un `Button.svelte` à variantes vaut mieux que des classes Tailwind brutes dans le markup |
+
+Coût réel de ne pas l'utiliser : 30+ minutes de boilerplate à chaque projet (Skeleton, `cn()`, imports
+CSS, système de thème, wrappers de composants).
+
+Projet existant créé sans svforge : l'ajouter tôt avec `npx sv add svforge` (recopie composants, CSS et
+thème). S'il est trop tard (CSS, composants et thème déjà custom), ne pas forcer la migration.
+
+### Règles non négociables
+
+- Template de base **lean** : pas de toast, pas de modal, pas de composant optionnel. Chaque module est
+  un package séparé (`packages/<name>/`).
+- Nommage npm : **underscore** pour l'UI atomique (`@svforge/ui_toast`), pas de séparateur pour les
+  modules complexes (`@svforge/dnd`, `@svforge/charts`).
+- Chaque module est un vrai addon avec son build et son `defineAddon()` ; la base ne porte pas les
+  dépendances des modules.
+- **Jamais de publication sans le go explicite de Ludo** : pas de bump, pas de `npm publish`, pas de push.
+
+### Avant de demander à publier
+
+Le pipeline complet est dans `docs/RELEASE.md`. Exigence à ne pas contourner : un **vrai `sv create`**
+(celui que Ludo tape) doit passer de bout en bout —
+
+```bash
+cd /tmp && rm -rf sf-test-real
+bunx sv create sf-test-real --template minimal --types ts --add 'svforge=template:base' --install bun --no-download-check
+cd sf-test-real && bun dev --host --port 5178
+# attendu : aucun message PostCSS, data-theme="svelteForge" présent, 200 sur toutes les pages
+```
+
+Après tout changement majeur, vérifier aussi `llms.txt` (liste des composants, templates, stack) et
+`README.md`, qui peut être très en retard après une refonte.
