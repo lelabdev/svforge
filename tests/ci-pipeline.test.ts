@@ -21,6 +21,15 @@ const SCAFFOLD_PROFILES = [
 	'create-cli'
 ];
 
+/** Extract a top-level job block from a workflow file (2-space indented keys). */
+function jobBlock(workflow: string, job: string): string {
+	const start = workflow.indexOf(`\n  ${job}:\n`);
+	if (start === -1) throw new Error(`job ${job} not found in workflow`);
+	const rest = workflow.slice(start + 1);
+	const next = rest.search(/\n {2}[a-zA-Z][a-zA-Z0-9_-]*:\s*\n/);
+	return next === -1 ? rest : rest.slice(0, next);
+}
+
 describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 	it('runs only the fast guards on every pull request', () => {
 		expect(ci).toContain('bun run lint');
@@ -72,5 +81,18 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 	it('keeps the canary independent on the latest ecosystem', () => {
 		expect(canary).toContain('bun-version: latest');
 		expect(canary).toContain('scripts/canary-issue.mjs');
+	});
+
+	it('builds every scaffold runner and runs the release suite sequentially (#467 review)', () => {
+		// Each matrix runner is a fresh checkout and `test-scaffold.sh` only
+		// rebuilds svforge, so the module dists must be built first.
+		const scaffoldsJob = jobBlock(publish, 'scaffolds');
+		const build = scaffoldsJob.indexOf("bun run --filter '*' build");
+		expect(build).toBeGreaterThan(-1);
+		expect(build).toBeLessThan(scaffoldsJob.indexOf('run: bash scripts/test-scaffold.sh'));
+
+		// The full suite must stay deterministic, like PR CI.
+		expect(ci).toContain('bun x vitest run --no-file-parallelism');
+		expect(jobBlock(publish, 'quality')).toContain('bun x vitest run --no-file-parallelism');
 	});
 });

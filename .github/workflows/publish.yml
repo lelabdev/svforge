@@ -60,7 +60,7 @@ jobs:
         run: bun run --filter '*' build
 
       - name: Run tests
-        run: bun x vitest run
+        run: bun x vitest run --no-file-parallelism
 
   # Full scaffold matrix (#413): never publish a package whose scaffold cannot
   # build. Runs in parallel — releases are infrequent, so wall-clock time is
@@ -103,6 +103,12 @@ jobs:
 
       - name: Install dependencies
         run: bun install --frozen-lockfile --ignore-scripts
+
+      # Each matrix runner starts clean and `test-scaffold.sh` only rebuilds
+      # `packages/svforge`, so every module dist (blog, dnd, audit, oauth, …)
+      # must be built here before the scaffold consumes it (#467 review).
+      - name: Build all packages
+        run: bun run --filter '*' build
 
       - name: Scaffold test (${{ matrix.scaffold }})
         run: bash scripts/test-scaffold.sh ${{ matrix.scaffold }}
