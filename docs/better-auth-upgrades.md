@@ -155,5 +155,7 @@ AUDIT_DIR=$(mktemp -d)
 node scripts/better-auth-audit.mjs "$AUDIT_DIR/bun.lock"
 ```
 
-Then open a normal PR. CI re-runs the repository tests, the dashboard
-scaffold gate and the Better Auth stack audit (`.github/workflows/ci.yml`).
+Then open a normal PR. PR CI re-runs the repository tests and the Better Auth
+stack audit (`.github/workflows/ci.yml`). The dashboard schema/runtime gate is
+part of the release scaffold matrix (`.github/workflows/publish.yml`, #413), so
+it runs before publication instead of on every pull request.

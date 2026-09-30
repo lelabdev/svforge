@@ -133,8 +133,8 @@ Tests run sequentially (`--no-file-parallelism`) because build tests regenerate
 The packaged user journey is a separate release smoke test (#462, hardened in
 #465): from a clean temporary directory it acquires `sv` from the registry
 (never the repository's `node_modules`), packs the add-on, and runs the
-`scripts/test-scaffold.sh`-style checks from the extracted tarball. It also runs
-in PR CI and in the release workflow:
+`scripts/test-scaffold.sh`-style checks from the extracted tarball. It is a
+release blocker and a canary check, not a pull-request check (#413):
 
 ```bash
 bun run test:user-journey                   # base + dashboard from local tarballs

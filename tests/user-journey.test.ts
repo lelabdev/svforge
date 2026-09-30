@@ -195,4 +195,9 @@ describe('external user journey smoke test (#462, #465)', () => {
 		expect(publish).toMatch(/release-plan\.json/);
 		expect(publish).toMatch(/--published "\$VERSION"/);
 	});
+
+	it('keeps the heavy journey out of the default PR pipeline (#413)', () => {
+		const ci = readFileSync(join(process.cwd(), '.github', 'workflows', 'ci.yml'), 'utf8');
+		expect(ci).not.toContain('test-user-journey.sh');
+	});
 });
