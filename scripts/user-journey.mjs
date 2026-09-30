@@ -37,10 +37,11 @@ export function parseUserJourneyArgs(argv) {
 		if (arg === '--published') {
 			mode = 'published';
 			const next = argv[index + 1];
-			if (next && !next.startsWith('-')) {
-				version = next;
-				index += 1;
+			if (!next || next.startsWith('-')) {
+				throw new Error('--published requires an exact version (for example --published 2.0.1)');
 			}
+			version = next;
+			index += 1;
 		} else if (arg === '--template') {
 			const value = argv[index + 1];
 			if (!value || value.startsWith('-')) throw new Error('--template requires a value (base or dashboard)');
@@ -155,7 +156,10 @@ export function resolveSource(argv, { root = REPO_ROOT, run = execFileSync } = {
 	const publishedFlag = argv.indexOf('--published');
 	if (publishedFlag !== -1) {
 		const version = argv[publishedFlag + 1];
-		return version && !version.startsWith('-') ? `${PRIMARY_PACKAGE}@${version}` : PRIMARY_PACKAGE;
+		if (!version || version.startsWith('-')) {
+			throw new Error('--published requires an exact version (for example --published 2.0.1)');
+		}
+		return `${PRIMARY_PACKAGE}@${version}`;
 	}
 	const tarball = packLocalAddon(join(root, 'packages', PRIMARY_PACKAGE), join(scratch, 'packs'));
 	const extracted = extractAddon(tarball, join(scratch, 'registry', PRIMARY_PACKAGE));

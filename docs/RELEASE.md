@@ -158,12 +158,15 @@ bash scripts/test-user-journey.sh --sv latest            # acquire the latest `s
 
 Local mode runs `npm pack`, extracts the tarball under the scratch prefix and
 uses `sv add file:<extracted>` — never `file:<repo>/packages/...` and never
-`--dev-root`. A file missing from the npm artifact, a broken documented install,
-or a project that cannot build/start therefore fails the gate instead of being
-masked by the monorepo checkout. The dashboard journey needs a reachable
-PostgreSQL (`TEST_DATABASE_URL`, same contract as the scaffold suite); run
-`--template base` locally without one. The work is done in a temporary
-directory that is removed at the end of the run (`--keep` to inspect it).
+`--dev-root`. `--published` **requires an explicit version** (there is no
+`latest` fallback), so the post-publish signal always tests the exact artifact
+that was just shipped. A file missing from the npm artifact, a broken
+documented install, or a project that cannot build/start therefore fails the
+gate instead of being masked by the monorepo checkout. The dashboard journey
+needs a reachable PostgreSQL (`TEST_DATABASE_URL`, same contract as the scaffold
+suite); run `--template base` locally without one. The work is done in a
+temporary directory that is removed at the end of the run (`--keep` to inspect
+it).
 
 Where it runs:
 

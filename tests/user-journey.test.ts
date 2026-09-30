@@ -57,7 +57,6 @@ function journeyRoot(root: string) {
 describe('external user journey smoke test (#462, #465)', () => {
 	it('defaults to a local run of both journeys and keeps explicit selections', () => {
 		expect(parseUserJourneyArgs([])).toEqual({ mode: 'local', version: null, templates: ['base', 'dashboard'] });
-		expect(parseUserJourneyArgs(['--published'])).toEqual({ mode: 'published', version: null, templates: ['base', 'dashboard'] });
 		expect(parseUserJourneyArgs(['--published', '2.0.1'])).toEqual({ mode: 'published', version: '2.0.1', templates: ['base', 'dashboard'] });
 		expect(parseUserJourneyArgs(['--template', 'base'])).toEqual({ mode: 'local', version: null, templates: ['base'] });
 		expect(parseUserJourneyArgs(['--published', '2.0.1', '--template', 'dashboard', '--template', 'base'])).toEqual({
@@ -69,6 +68,21 @@ describe('external user journey smoke test (#462, #465)', () => {
 
 	it('rejects an unknown argument instead of silently running the wrong journey', () => {
 		expect(() => parseUserJourneyArgs(['--nope'])).toThrow(/Unknown argument/);
+	});
+
+	it('rejects --published without an exact version instead of falling back to latest', () => {
+		expect(() => parseUserJourneyArgs(['--published'])).toThrow(/requires an exact version/);
+		expect(() => parseUserJourneyArgs(['--published', '--template', 'base'])).toThrow(/requires an exact version/);
+
+		const root = mkdtempSync(join(tmpdir(), 'svforge-journey-no-version-'));
+		try {
+			journeyRoot(root);
+			expect(() => resolveSource(['--published', '--dest', join(root, 'scratch')], { root, run: noopRun })).toThrow(
+				/requires an exact version/
+			);
+		} finally {
+			rmSync(root, { recursive: true, force: true });
+		}
 	});
 
 	it('builds the documented add-on specifier for a local tarball and an npm version', () => {
@@ -161,7 +175,6 @@ describe('external user journey smoke test (#462, #465)', () => {
 			journeyRoot(root);
 			const scratch = join(root, 'scratch');
 			expect(resolveSource(['--published', '2.0.1', '--dest', scratch], { root, run: noopRun })).toBe('svforge@2.0.1');
-			expect(resolveSource(['--published', '--dest', scratch], { root, run: noopRun })).toBe('svforge');
 			expect(resolveSource(['--published', '2.0.1', '--sv', 'latest', '--dest', scratch], { root, run: noopRun })).toBe('svforge@2.0.1');
 		} finally {
 			rmSync(root, { recursive: true, force: true });

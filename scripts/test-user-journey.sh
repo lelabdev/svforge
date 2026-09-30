@@ -52,10 +52,12 @@ while [ $# -gt 0 ]; do
 		--published)
 			MODE="published"
 			shift
-			if [ $# -gt 0 ] && [ "${1#-}" = "$1" ]; then
-				VERSION="$1"
-				shift
+			if [ $# -eq 0 ] || [ "${1#-}" != "$1" ]; then
+				echo "❌ --published requires an exact version (for example --published 2.0.1)" >&2
+				exit 1
 			fi
+			VERSION="$1"
+			shift
 			;;
 		--sv)
 			shift
@@ -119,7 +121,7 @@ trap cleanup EXIT
 SOURCE_ARGS=(source --dest "$WORK_DIR")
 [ -n "$SV_VERSION" ] && SOURCE_ARGS+=(--sv "$SV_VERSION")
 if [ "$MODE" = "published" ]; then
-	if [ -n "$VERSION" ]; then SOURCE_ARGS+=(--published "$VERSION"); else SOURCE_ARGS+=(--published); fi
+	SOURCE_ARGS+=(--published "$VERSION")
 fi
 SOURCE="$(cd "$REPO_ROOT" && node scripts/user-journey.mjs "${SOURCE_ARGS[@]}")"
 echo "add-on source: $SOURCE"
@@ -140,7 +142,7 @@ if [ "$MODE" = "local" ]; then
 elif [ -n "$VERSION" ]; then
 	SVFORGE_CLI=(npx --yes "$PRIMARY_PACKAGE@$VERSION")
 else
-	SVFORGE_CLI=(npx --yes "$PRIMARY_PACKAGE")
+	fail "published mode requires an exact version"
 fi
 
 # Wait for a dev server to answer on `$1/` (any status), up to ~3 minutes.
