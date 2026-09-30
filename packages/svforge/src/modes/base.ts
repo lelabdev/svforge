@@ -49,6 +49,83 @@ function splitTopLevel(input: string): string[] {
 	return parts;
 }
 
+/**
+ * Index of the `]` matching the `[` at `open` (string literals are skipped).
+ * A naive `[^\]]*` stops at the FIRST `]` — which may belong to a regex
+ * character class inside a plugin option (e.g. the runes matcher `/[/\\]/`
+ * inside `sveltekit({ compilerOptions })`). Re-rendering then injected a
+ * newline into that class and broke the generated config (#415).
+ */
+function matchBracket(input: string, open: number): number {
+	let depth = 0;
+	let quote: string | null = null;
+	for (let i = open; i < input.length; i++) {
+		const ch = input[i];
+		if (quote) {
+			if (ch === '\\') i++;
+			else if (ch === quote) quote = null;
+			continue;
+		}
+		if (ch === "'" || ch === '"' || ch === '`') quote = ch;
+		else if (ch === '[') depth++;
+		else if (ch === ']' && --depth === 0) return i;
+	}
+	return -1;
+}
+
+/**
+ * Wire the SVForge Vite plugins (Paraglide + the production design-system
+ * gate) into the generated `vite.config.ts`, keeping the `plugins:` array
+ * prettier-stable (#325). Bracket matching is BALANCED (#415) so a plugin
+ * option containing `[`/`]` — a regex character class, an array — can never
+ * truncate the array and corrupt the config.
+ */
+export function patchViteConfig(content: string): string {
+	let updated = content;
+	if (!updated.includes("from '@inlang/paraglide-js'")) {
+		updated = `import { paraglideVitePlugin } from '@inlang/paraglide-js';\n${updated}`;
+	}
+	if (!updated.includes("from './svforge-design-system-vite-plugin.mjs'")) {
+		updated = `import { svforgeDesignSystemPlugin } from './svforge-design-system-vite-plugin.mjs';\n${updated}`;
+	}
+	if (!updated.includes('paraglideVitePlugin({')) {
+		updated = updated.replace(
+			/plugins:\s*\[/,
+			'plugins: [paraglideVitePlugin({ project: \'./project.inlang\', outdir: \'./src/lib/paraglide\' }), '
+		);
+	}
+	if (!updated.includes('svforgeDesignSystemPlugin()')) {
+		updated = updated.replace(/plugins:\s*\[/, 'plugins: [svforgeDesignSystemPlugin(), ');
+	}
+	// #325: the scaffold ships `lint: prettier --check . && eslint .` — the
+	// patched plugins array must be prettier-stable (printWidth 100). When the
+	// single-line form no longer fits, render one plugin per line (exactly what
+	// prettier would produce), so `prettier --check .` is green on a fresh
+	// scaffold without reformatting user files.
+	const pluginsStart = updated.search(/plugins:\s*\[/);
+	if (pluginsStart !== -1) {
+		const bracket = updated.indexOf('[', pluginsStart);
+		const close = matchBracket(updated, bracket);
+		if (close !== -1) {
+			const items = splitTopLevel(updated.slice(bracket + 1, close))
+				.map((item) => item.trim())
+				.filter(Boolean);
+			if (items.length > 0) {
+				// The statement keeps ITS original indentation — only the array
+				// body is re-rendered (items one level deeper, closing bracket
+				// one level shallower) — exactly prettier's canonical output.
+				const single = `plugins: [${items.join(', ')}]`;
+				const rendered =
+					single.length + 1 <= 100
+						? single
+						: `plugins: [\n${items.map((item) => `\t\t${item}`).join(',\n')}\n\t]`;
+				updated = `${updated.slice(0, pluginsStart)}${rendered}${updated.slice(close + 1)}`;
+			}
+		}
+	}
+	return updated;
+}
+
 // `sv add --install` is valid before `git init`. The conditional preserves an
 // installation failure inside a repository while making the lifecycle script a
 // successful no-op outside one.
@@ -129,47 +206,7 @@ export function applyBaseMode(
 	// Paraglide (#239) and the production-only design-system gate (#350)
 	// share vite.config.ts. The gate imports the scaffolded checker, so Vite
 	// builds and `bun run check` produce the same diagnostics.
-	sv.file('vite.config.ts', (content) => {
-		let updated = content;
-		if (!updated.includes("from '@inlang/paraglide-js'")) {
-			updated = `import { paraglideVitePlugin } from '@inlang/paraglide-js';\n${updated}`;
-		}
-		if (!updated.includes("from './svforge-design-system-vite-plugin.mjs'")) {
-			updated = `import { svforgeDesignSystemPlugin } from './svforge-design-system-vite-plugin.mjs';\n${updated}`;
-		}
-		if (!updated.includes('paraglideVitePlugin({')) {
-			updated = updated.replace(
-				/plugins:\s*\[/,
-				'plugins: [paraglideVitePlugin({ project: \'./project.inlang\', outdir: \'./src/lib/paraglide\' }), '
-			);
-		}
-		if (!updated.includes('svforgeDesignSystemPlugin()')) {
-			updated = updated.replace(/plugins:\s*\[/, 'plugins: [svforgeDesignSystemPlugin(), ');
-		}
-		// #325: the scaffold ships `lint: prettier --check . && eslint .` —
-		// the patched plugins array must be prettier-stable (printWidth 100).
-		// When the single-line form no longer fits, render one plugin per line
-		// (exactly what prettier would produce), so `prettier --check .` is
-		// green on a fresh scaffold without reformatting user files.
-		const pluginsMatch = updated.match(/plugins:\s*\[([^\]]*)\]/);
-		if (pluginsMatch) {
-			const items = splitTopLevel(pluginsMatch[1])
-				.map((item) => item.trim())
-				.filter(Boolean);
-			if (items.length > 0) {
-				// The statement keeps ITS original indentation — only the array
-				// body is re-rendered (items one level deeper, closing bracket
-				// one level shallower) — exactly prettier's canonical output.
-				const single = `plugins: [${items.join(', ')}]`;
-				const rendered =
-					single.length + 1 <= 100
-						? single
-						: `plugins: [\n${items.map((item) => `\t\t${item}`).join(',\n')}\n\t]`;
-				updated = updated.replace(/plugins:\s*\[[^\]]*\]/, () => rendered);
-			}
-		}
-		return updated;
-	});
+	sv.file('vite.config.ts', (content) => patchViteConfig(content));
 
 	// Write all base template files — destinations come from the ONE canonical
 	// resolver shared with the upgrade engine (#327): no install/upgrade drift.
