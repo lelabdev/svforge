@@ -241,6 +241,13 @@ describe('golden path one-command creator (#470)', () => {
 		expect(published.join(' ')).not.toMatch(/@latest/);
 	});
 
+	it('carries the release compatibility manifest for post-publish validation', () => {
+		const args = goldenPathCreateArgs({ dir: 'app', template: 'dashboard', compatManifest: '/tmp/svforge-compat.json' });
+		expect(args).toContain('--compat-manifest');
+		expect(args).toContain('/tmp/svforge-compat.json');
+		expect(args).not.toContain('--addon-version');
+	});
+
 	it('packs and extracts every module add-on into the addon-root registry', () => {
 		const root = mkdtempSync(join(tmpdir(), 'svforge-golden-root-'));
 		try {
@@ -274,5 +281,9 @@ describe('golden path one-command creator (#470)', () => {
 		// Pre-publish must block the publish; post-publish asserts the registry.
 		expect(prePublish).toBeLessThan(publishStep);
 		expect(postPublish).toBeGreaterThan(publishStep);
+		// Post-publish resolves the EXACT per-package versions from the release
+		// plan's compatibility manifest — never a single shared version (#470).
+		expect(publish).toContain('plan.compatibility');
+		expect(publish).toContain('--compat-manifest /tmp/svforge-compat.json');
 	});
 });

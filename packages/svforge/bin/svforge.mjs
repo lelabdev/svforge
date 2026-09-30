@@ -111,6 +111,15 @@ async function main() {
 		return;
 	}
 
+	if (command === 'modules') {
+		// Canonical module registry (#470): the release golden path derives the
+		// expected `--modules all` set from here instead of a duplicated list.
+		const ids = api.expandAllModules();
+		if (args.includes('--json')) console.log(JSON.stringify(ids));
+		else for (const id of ids) console.log(id);
+		return;
+	}
+
 	if (command === 'verify') {
 		// Project readiness (#470): doctor → check → project check → build →
 		// test. The same light validation a human or agent runs by hand.
@@ -260,7 +269,7 @@ async function main() {
 		return;
 	}
 
-	console.error('Usage: svforge <doctor|check [--strict]|verify|preset|context|upgrade|add|create>');
+	console.error('Usage: svforge <doctor|check [--strict]|verify|modules|preset|context|upgrade|add|create>');
 	process.exitCode = 1;
 }
 

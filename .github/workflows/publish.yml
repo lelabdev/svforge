@@ -232,10 +232,11 @@ jobs:
           bash scripts/test-user-journey.sh --published "$VERSION"
 
       # Golden path post-publish (#470): the SAME one-command journey against
-      # the exact published version, pinned with --addon-version so it can
-      # never validate an implicit `latest`.
+      # the exact published version, using the release plan's per-package
+      # compatibility manifest (independent module versions) — never `latest`.
       - name: Golden path (published)
         run: |
           VERSION=$(node -e "const plan=require('/tmp/release-plan.json'); const pkg=plan.packages.find((p)=>p.name==='svforge'); if(!pkg) throw new Error('svforge missing from the release plan'); process.stdout.write(pkg.version)")
-          echo "Testing published svforge@$VERSION golden path"
-          bash scripts/test-user-journey.sh --path create --published "$VERSION"
+          node -e "const plan=require('/tmp/release-plan.json'); if(!plan.compatibility) throw new Error('release plan has no compatibility manifest'); require('fs').writeFileSync('/tmp/svforge-compat.json', JSON.stringify(plan.compatibility));"
+          echo "Testing published svforge@$VERSION golden path (exact per-package versions)"
+          bash scripts/test-user-journey.sh --path create --published "$VERSION" --compat-manifest /tmp/svforge-compat.json

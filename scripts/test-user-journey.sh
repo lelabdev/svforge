@@ -42,6 +42,7 @@ MODE="local"
 VERSION=""
 SV_VERSION="${SV_VERSION:-}"
 PATH_MODE="manual"
+COMPAT_MANIFEST_FILE=""
 TEMPLATES=()
 KEEP=0
 
@@ -52,6 +53,8 @@ Usage: scripts/test-user-journey.sh [options]
   --published <version>   install the exact published npm version
   --path <manual|create>  manual two-step install (default) or the ONE-COMMAND
                           `svforge create` golden path (#470)
+  --compat-manifest <p>   exact per-package version map (release plan) for the
+                          published golden path (#470)
   --template <name>       run only one journey (base or dashboard); may repeat
   --sv <version>          override the `sv` CLI version to acquire (default: repo pin,
                           use "latest" for the ecosystem canary)
@@ -94,6 +97,12 @@ while [ $# -gt 0 ]; do
 				manual | create) PATH_MODE="$1" ;;
 				*) echo "❌ Unknown path: $1 (expected manual or create)" >&2; exit 1 ;;
 			esac
+			shift
+			;;
+		--compat-manifest)
+			shift
+			[ $# -gt 0 ] || { echo "❌ --compat-manifest requires a path" >&2; exit 1; }
+			COMPAT_MANIFEST_FILE="$1"
 			shift
 			;;
 		--keep)
@@ -180,6 +189,11 @@ if [ "$PATH_MODE" = "create" ]; then
 		echo "addon-root: $ADDON_ROOT"
 	else
 		ADDON_SPEC_VERSION="$VERSION"
+		if [ -n "$COMPAT_MANIFEST_FILE" ]; then
+			# The plan's per-package map must describe the exact published version.
+			node -e 'const c=require(process.argv[1]); const compat=c.compatibility??c; if(compat.template?.version !== process.argv[2]) { console.error(`compat template ${compat.template?.version} != ${process.argv[2]}`); process.exit(1); }' \
+				"$COMPAT_MANIFEST_FILE" "$VERSION" || fail "compatibility manifest template version does not match the published $VERSION"
+		fi
 	fi
 fi
 
@@ -382,6 +396,9 @@ create_command_args() {
 	fi
 	if [ "$MODE" = "local" ]; then
 		CREATE_ARGS+=(--addon-root "$ADDON_ROOT")
+	elif [ -n "$COMPAT_MANIFEST_FILE" ]; then
+		# Exact per-package versions from the release plan (#470).
+		CREATE_ARGS+=(--compat-manifest "$COMPAT_MANIFEST_FILE")
 	else
 		CREATE_ARGS+=(--addon-version "$ADDON_SPEC_VERSION")
 	fi
@@ -412,7 +429,13 @@ run_dashboard_create() {
 	# All modules are implied — the manifest must not silently drop any.
 	test -f drizzle.config.ts || fail "dashboard: drizzle.config.ts missing at the project root"
 	test -f scripts/setup.sh || fail "dashboard: scripts/setup.sh missing at the project root"
-	assert_create_project dashboard "" long-lived-node
+	# Derive the expected `--modules all` set from the canonical registry, never
+	# a duplicated count/list (#470 Blocker A).
+	local expected_modules
+	expected_modules="$("${SVFORGE_CLI[@]}" modules | tr '\n' ',' | sed 's/,$//')"
+	[ -n "$expected_modules" ] || fail "dashboard: could not read the canonical module list from svforge"
+	echo "expected modules (${expected_modules//,/ })"
+	assert_create_project dashboard "$expected_modules" long-lived-node
 	dashboard_database_setup "$port"
 	project_verify
 	dashboard_auth_journey "$port"

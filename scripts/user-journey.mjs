@@ -183,8 +183,8 @@ export function resolveSource(argv, { root = REPO_ROOT, run = execFileSync } = {
  * The exact argv for the ONE `svforge create` command the golden path runs
  * (#470). Pure so the non-interactive contract is unit-tested: every choice is
  * a flag, so no prompt can ever block the journey, and the add-on source is
- * explicit (`--addon-root` for packed artifacts, `--addon-version` for the
- * exact published version) — never an implicit `latest`.
+ * explicit (`--addon-root` for packed artifacts, `--compat-manifest` for the
+ * exact per-package published versions) — never an implicit `latest`.
  *
  * @param {{
  *   dir: string,
@@ -195,7 +195,8 @@ export function resolveSource(argv, { root = REPO_ROOT, run = execFileSync } = {
  *   modules?: string[] | 'all',
  *   runtime?: 'long-lived-node',
  *   addonRoot?: string,
- *   addonVersion?: string
+ *   addonVersion?: string,
+ *   compatManifest?: string
  * }} options
  */
 export function goldenPathCreateArgs(options = {}) {
@@ -208,7 +209,8 @@ export function goldenPathCreateArgs(options = {}) {
 		modules = GOLDEN_PATH_MODULES[template] ?? 'all',
 		runtime = GOLDEN_PATH_RUNTIME[template],
 		addonRoot,
-		addonVersion
+		addonVersion,
+		compatManifest
 	} = options;
 	const args = [
 		'create',
@@ -228,6 +230,7 @@ export function goldenPathCreateArgs(options = {}) {
 	if (runtime) args.push('--runtime', runtime);
 	if (addonRoot) args.push('--addon-root', addonRoot);
 	if (addonVersion) args.push('--addon-version', addonVersion);
+	if (compatManifest) args.push('--compat-manifest', compatManifest);
 	return args;
 }
 

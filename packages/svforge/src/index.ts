@@ -19,6 +19,8 @@ export {
 export type { CatalogEntry, Severity, DesignSystemCheckOptions } from './design-system';
 export { runVerify, printVerifyResult } from './verify';
 export type { VerifyResult, VerifyStepResult, VerifyStepName, VerifyOptions } from './verify';
+export { COMPAT_MANIFEST, assertCompatManifest, loadCompatManifest, compatibleModuleVersion } from './compat';
+export type { CompatManifest } from './compat';
 export {
 	checkStructuralDuplicates,
 	fingerprintSvelte,
