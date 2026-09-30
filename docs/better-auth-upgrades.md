@@ -1,4 +1,4 @@
-# Better Auth upgrades — policy & automation (#319)
+# Better Auth upgrades — manual bump & CI validation (#319, #460)
 
 The dashboard scaffold ships a **pinned** Better Auth stack. The pin lives in
 `packages/svforge/src/modes/dashboard.ts` and is mirrored in
@@ -13,25 +13,32 @@ at runtime, so it never goes stale after an upgrade PR merges (#319 review). His
 migrated the pin from ~1.4.21 to the 1.6.x/1.7.x fix stream to cover GHSA-g38m-r43w-p2q7 —
 OAuth auto-link account takeover, fixed in 1.6.11.
 
-## Upgrade policy
+## Policy — manual bump, CI validated
 
-| Change type                                              | Automation                                                        |
-| -------------------------------------------------------- | ----------------------------------------------------------------- |
-| **Blocking security patch** (critical/high advisory on the pin, fixed by latest) | Auto-PR **immediately** — daily escalation check |
-| **Minor / patch**, gate-green                            | Auto-PR **weekly** (Monday 07:00 UTC)                             |
-| **Major**                                                | Explicit migration issue — **never a PR**                          |
-| **Prerelease** (`-beta`, `-rc`, …)                       | Never upgraded automatically                                       |
+There is **no autonomous Better Auth dependency bot** (#460). A maintainer
+decides when to move the pin, opens a normal PR, and CI validates it before
+review and merge. One upgrade process for the whole repository, instead of a
+bespoke workflow per package.
 
-Automation lives in
-[.github/workflows/better-auth-upgrade.yml](../.github/workflows/better-auth-upgrade.yml)
-(`workflow_dispatch` with an optional `version` input for manual runs).
+| Step | Who |
+| --- | --- |
+| Change the pinned version and every carrier | maintainer, normal branch |
+| Repository tests + scaffold gate + stack audit | CI, on the PR |
+| Review and merge | maintainer, after CI is green |
 
-## The gate — "tested" is part of the policy
+The old scheduled cadence (daily security escalation, weekly minor/patch
+publication, automatic migration issue for majors) was removed. Majors and
+prereleases are no longer special-cased: they follow the same manual PR + CI
+validation, and a major still needs a human migration review of the
+auth/schema/runtime behavior before merging.
 
-An upgrade PR opens **only after** the full gate is green on the bumped tree:
+## The gate — CI validates every bump
+
+CI runs the full gate on every bump PR. All of it must be green before a
+Better Auth upgrade is merged:
 
 1. **Repository tests** (`bun x vitest run`) — including the pin-coherence
-   drift guards and the upgrade-policy unit tests.
+   drift guards and the manual-bump helper's unit tests.
 2. **`bash scripts/test-scaffold.sh dashboard`** — a real scaffold against
    real PostgreSQL:
    - production build + `svelte-check` (0 errors),
@@ -59,8 +66,7 @@ An upgrade PR opens **only after** the full gate is green on the bumped tree:
    Documented reachability exceptions use the existing
    [`docs/audit-baseline.json`](audit-baseline.json) mechanism (#351): a
    scoped `{ package, version, advisory, path, reason }` entry with a written
-   justification. If the gate fails, no PR opens — a GitHub issue is filed
-   instead ("only tested versions auto-PR").
+   justification.
 
 ## The CLI (`@better-auth/cli`) is NOT a scaffold dependency
 
@@ -114,8 +120,6 @@ committed schema stays the runtime-gated source of truth.
   persisted `user.role` column (#318: `admin` granted only by the atomic
   first-admin bootstrap) + `disabled` lifecycle. Adopting the plugin is a
   product decision, not a dependency upgrade.
-- The daily security escalation and the weekly pass share the same gate; the
-  only difference is cadence.
 
 ## Known follow-ups
 
@@ -134,13 +138,22 @@ committed schema stays the runtime-gated source of truth.
 # Print the LIVE pin (parsed from packages/svforge/src/modes/dashboard.ts)
 node scripts/better-auth-upgrade.mjs pin
 
-# Detect what would happen (pin, latest, mode)
-node scripts/better-auth-upgrade.mjs apply --root /somewhere --better-auth X.Y.Z  # dry: apply to a copy
-
-# Full upgrade locally
+# Bump every carrier to the chosen version
 node scripts/better-auth-upgrade.mjs apply --better-auth <version>
+
+# Validate locally, exactly like CI
+bun install
+bun run lint && bun run typecheck
 bun run --filter '*' build && bun run test
-bash scripts/test-scaffold.sh dashboard   # needs PostgreSQL
+bash scripts/test-scaffold.sh dashboard   # schema/runtime smoke + real PostgreSQL
+
+# Stack audit against the PINNED version (better-auth is not in the repo
+# lockfile — resolve it in a scratch project, as ci.yml does)
+PIN=$(node --input-type=module -e "import { currentPin } from './scripts/better-auth-upgrade.mjs'; console.log(currentPin().version)")
+AUDIT_DIR=$(mktemp -d)
+( cd "$AUDIT_DIR" && echo '{"name":"audit","private":true}' > package.json && bun add "better-auth@$PIN" )
+node scripts/better-auth-audit.mjs "$AUDIT_DIR/bun.lock"
 ```
 
-Or trigger the automation: `gh workflow run better-auth-upgrade.yml -f version=X.Y.Z`.
+Then open a normal PR. CI re-runs the repository tests, the dashboard
+scaffold gate and the Better Auth stack audit (`.github/workflows/ci.yml`).

@@ -7,17 +7,14 @@ const ROOT = join(import.meta.dirname, '..');
 
 const {
 	bumpRangeInSource,
-	classifyBump,
-	changelogUrl,
 	currentPin,
-	planUpgrade,
 	readPinnedVersions,
 	applyUpgrades
 } = await import('../scripts/better-auth-upgrade.mjs');
 
 const DASHBOARD_TS = join(ROOT, 'packages/svforge/src/modes/dashboard.ts');
 
-describe('better-auth upgrade policy (#319)', () => {
+describe('better-auth manual bump helper (#319, #460)', () => {
 	describe('readPinnedVersions', () => {
 		it('reads the better-auth pin from the real dashboard mode source', () => {
 			const source = readFileSync(DASHBOARD_TS, 'utf8');
@@ -47,95 +44,6 @@ describe('better-auth upgrade policy (#319)', () => {
 			expect(Object.keys({ ...templatePkg.dependencies, ...templatePkg.devDependencies })).not.toContain(
 				'@better-auth/cli'
 			);
-		});
-	});
-
-	describe('classifyBump', () => {
-		it('classifies patch, minor and major bumps', () => {
-			expect(classifyBump('1.7.3', '1.7.4')).toBe('patch');
-			expect(classifyBump('1.7.3', '1.8.0')).toBe('minor');
-			expect(classifyBump('1.7.3', '2.0.0')).toBe('major');
-		});
-
-		it('treats identical and lower versions as none', () => {
-			expect(classifyBump('1.7.3', '1.7.3')).toBe('none');
-			expect(classifyBump('1.7.3', '1.7.2')).toBe('none');
-		});
-
-		it('never upgrades to a prerelease', () => {
-			expect(classifyBump('1.7.3', '1.8.0-beta.1')).toBe('prerelease');
-			expect(classifyBump('1.7.3', '2.0.0-rc.1')).toBe('prerelease');
-		});
-	});
-
-	describe('changelogUrl', () => {
-		it('links the GitHub release of the target version', () => {
-			expect(changelogUrl('better-auth', '1.7.4')).toBe(
-				'https://github.com/better-auth/better-auth/releases/tag/v1.7.4'
-			);
-		});
-	});
-
-	describe('planUpgrade', () => {
-		it('returns none when the pin equals latest', () => {
-			const plan = planUpgrade({
-				name: 'better-auth',
-				pinned: '1.7.3',
-				latest: '1.7.3',
-				advisories: []
-			});
-			expect(plan.mode).toBe('none');
-		});
-
-		it('auto-PRs a clean minor weekly', () => {
-			const plan = planUpgrade({
-				name: 'better-auth',
-				pinned: '1.7.3',
-				latest: '1.8.0',
-				advisories: []
-			});
-			expect(plan.mode).toBe('weekly');
-			expect(plan.bump).toBe('minor');
-		});
-
-		it('escalates to an immediate security PR when a critical/high advisory affects the pin', () => {
-			const plan = planUpgrade({
-				name: 'better-auth',
-				pinned: '1.6.10',
-				latest: '1.6.11',
-				advisories: [{ id: 'GHSA-g38m-r43w-p2q7', severity: 'HIGH' }]
-			});
-			expect(plan.mode).toBe('security');
-		});
-
-		it('moderate/low advisories do not escalate the weekly cadence', () => {
-			const plan = planUpgrade({
-				name: 'better-auth',
-				pinned: '1.7.3',
-				latest: '1.7.4',
-				advisories: [{ id: 'GHSA-xxxx', severity: 'LOW' }]
-			});
-			expect(plan.mode).toBe('weekly');
-		});
-
-		it('never auto-PRs a major — an explicit migration issue is required', () => {
-			const plan = planUpgrade({
-				name: 'better-auth',
-				pinned: '1.7.3',
-				latest: '2.0.0',
-				advisories: [{ id: 'GHSA-crit', severity: 'CRITICAL' }]
-			});
-			expect(plan.mode).toBe('major');
-		});
-
-		it('never auto-PRs a prerelease target', () => {
-			const plan = planUpgrade({
-				name: 'better-auth',
-				pinned: '1.7.3',
-				latest: '1.8.0-beta.3',
-				advisories: []
-			});
-			expect(plan.mode).toBe('none');
 		});
 	});
 
@@ -223,7 +131,7 @@ describe('better-auth upgrade policy (#319)', () => {
 		});
 	});
 
-	describe('repository pin coherence (the upgrade bot relies on it)', () => {
+	describe('repository pin coherence (the manual bump relies on it)', () => {
 		it('the template package.json carries exactly the dashboard.ts better-auth range', () => {
 			const dashboardTs = readFileSync(DASHBOARD_TS, 'utf8');
 			const templatePkg = JSON.parse(
@@ -263,7 +171,7 @@ describe('better-auth upgrade policy (#319)', () => {
 		});
 
 		it('tracks a bumped source instead of reporting a frozen version', async () => {
-			// After the first upgrade PR merges, currentPin must move with the pin.
+			// After a bump merges, currentPin must move with the pin.
 			const { mkdtempSync, mkdirSync, writeFileSync, rmSync } = await import('node:fs');
 			const { tmpdir } = await import('node:os');
 			const dir = mkdtempSync(join(tmpdir(), 'sf-pin-'));

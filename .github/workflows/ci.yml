@@ -57,6 +57,22 @@ jobs:
       - name: Dependency audit (OSV)
         run: bun run audit
 
+      # Better Auth ships in generated projects, not in this repo's lockfile,
+      # so the repository audit above cannot see it. Resolve the PINNED stack in
+      # a scratch project and audit its full closure (#319, #460). This — plus
+      # the `Scaffold test (dashboard)` schema/runtime gate below — is how an
+      # intentional Better Auth bump is validated now that there is no
+      # dedicated dependency bot.
+      - name: Better Auth stack audit
+        run: |
+          PIN=$(node --input-type=module -e "import { currentPin } from './scripts/better-auth-upgrade.mjs'; console.log(currentPin().version)")
+          AUDIT_DIR="$(mktemp -d)"
+          cd "$AUDIT_DIR"
+          echo '{ "name": "better-auth-stack-audit", "private": true }' > package.json
+          bun add "better-auth@$PIN" >/dev/null
+          cd "$GITHUB_WORKSPACE"
+          node scripts/better-auth-audit.mjs "$AUDIT_DIR/bun.lock"
+
       # Generated-manifest freshness gate (#329): regenerate every manifest on
       # the clean checkout and fail on any diff BEFORE the build step can
       # regenerate over it and hide the drift.

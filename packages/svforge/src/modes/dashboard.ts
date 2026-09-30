@@ -60,8 +60,9 @@ export function applyDashboardMode(
 	// Pinned, never floating (#197). The stack carries security fixes only up
 	// to the pinned minor — #319 migrated 1.4.21 → 1.7.3 to cover
 	// GHSA-g38m-r43w-p2q7 (OAuth auto-link account takeover, fixed 1.6.11).
-	// Upgrades are automated by .github/workflows/better-auth-upgrade.yml
-	// (policy + gate: docs/better-auth-upgrades.md).
+	// Upgrades are manual (normal PR) and validated by CI: repository tests,
+	// the dashboard scaffold gate and the stack audit. See
+	// docs/better-auth-upgrades.md (#460).
 	sv.dependency('better-auth', '~1.7.3');
 
 	// Dashboard-specific dev dependencies

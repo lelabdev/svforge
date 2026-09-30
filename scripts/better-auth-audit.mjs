@@ -29,7 +29,8 @@
  *
  * Threshold: critical and high BLOCK (exit 1). Moderate/low findings are
  * reported but do not fail the job — the policy lives in
- * .github/workflows/better-auth-upgrade.yml and docs/better-auth-upgrades.md.
+ * docs/better-auth-upgrades.md and this audit runs in .github/workflows/ci.yml
+ * (there is no dedicated Better Auth dependency bot since #460).
  *
  * Documented reachability exceptions use the SAME mechanism as the
  * repository audit: a scoped { package, version, advisory, path, reason }

@@ -1,22 +1,15 @@
 #!/usr/bin/env node
 /**
- * Better Auth upgrade policy engine (#319).
+ * Better Auth manual-bump helper (#319, #460).
  *
  * The scaffold pins better-auth with a concrete tilde range (never `latest`,
- * per #197). This module is the single source of upgrade-policy logic shared
- * by the `better-auth-upgrade.yml` workflow and its own tests.
+ * per #197). Since #460 there is NO autonomous dependency bot: a maintainer
+ * bumps the pin in a normal PR and CI validates it (see
+ * docs/better-auth-upgrades.md). This module keeps the shared logic the
+ * manual bump and the drift tests rely on:
  *
- * POLICY (mirrored in .github/workflows/better-auth-upgrade.yml and
- * docs/better-auth-upgrades.md — keep the three in sync):
- *
- *   - BLOCKING SECURITY PATCHES  → auto-PR immediately (daily check).
- *     A critical/high advisory against the pinned version that the latest
- *     stable fixes escalates the cadence from weekly to immediate.
- *   - TESTED MINORS AND PATCHES  → auto-PR weekly. The PR opens ONLY after
- *     the full dashboard scaffold gate (scripts/test-scaffold.sh dashboard)
- *     passes against real PostgreSQL.
- *   - MAJORS                     → explicit migration issue, NEVER a PR.
- *   - PRERELEASES                → never upgraded automatically.
+ *   - the LIVE pin reader (`pin`),
+ *   - the multi-carrier rewriter (`apply`).
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -24,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Files carrying a better-auth stack pin; the bot rewrites all of them. */
+/** Files carrying a better-auth stack pin; the manual `apply` rewrites all of them. */
 export const PIN_FILES = [
 	'packages/svforge/src/modes/dashboard.ts',
 	'packages/svforge/templates/dashboard/package.json',
@@ -46,8 +39,8 @@ export function readPinnedVersions(source) {
 /**
  * The LIVE better-auth pin, parsed from the dashboard mode source at call
  * time (#319 review): any prose claiming a "current pin" goes stale after
- * the first upgrade PR merges — this never does. Fails loudly when the pin
- * disappears (a silent empty answer would mislead the upgrade bot).
+ * the pin changes — this never does. Fails loudly when the pin disappears
+ * (a silent empty answer would mislead the bump helper).
  */
 export function currentPin(root = ROOT) {
 	const source = readFileSync(join(root, 'packages/svforge/src/modes/dashboard.ts'), 'utf8');
@@ -56,71 +49,6 @@ export function currentPin(root = ROOT) {
 		throw new Error('currentPin: no better-auth pin found in packages/svforge/src/modes/dashboard.ts');
 	}
 	return pin;
-}
-
-/** Compares two dotted versions: returns -1 | 0 | 1 (prereleases ignored). */
-function compareVersions(a, b) {
-	const [aCore, aPre] = a.split('-');
-	const [bCore, bPre] = b.split('-');
-	const aParts = aCore.split('.').map(Number);
-	const bParts = bCore.split('.').map(Number);
-	for (let i = 0; i < 3; i++) {
-		if ((aParts[i] ?? 0) !== (bParts[i] ?? 0)) return (aParts[i] ?? 0) < (bParts[i] ?? 0) ? -1 : 1;
-	}
-	if (aPre && bPre) return aPre === bPre ? 0 : aPre < bPre ? -1 : 1;
-	if (aPre) return -1;
-	if (bPre) return 1;
-	return 0;
-}
-
-/**
- * Classifies a version bump: none | prerelease | major | minor | patch.
- * Prerelease targets are never upgraded automatically — the caller treats
- * them like `none`.
- */
-export function classifyBump(current, next) {
-	if (compareVersions(next, current) <= 0) return 'none';
-	if (/-/.test(next)) return 'prerelease';
-	if (next.split('.')[0] !== current.split('.')[0]) return 'major';
-	if (next.split('.')[1] !== current.split('.')[1]) return 'minor';
-	return 'patch';
-}
-
-/** Changelog link for a better-auth stack release (same monorepo). */
-export function changelogUrl(name, version) {
-	return `https://github.com/better-auth/better-auth/releases/tag/v${version}`;
-}
-
-const BLOCKING_SEVERITIES = new Set(['CRITICAL', 'HIGH']);
-
-/**
- * Decides the upgrade mode for one package.
- *
- * @param {{ name: string, pinned: string, latest: string, advisories?: Array<{id: string, severity: string}> }} input
- *   name: package name (better-auth | @better-auth/cli); pinned: currently
- *   pinned version; latest: npm dist-tags.latest; advisories: advisories
- *   affecting the PINNED version (OSV query for the pin) with their
- *   normalized severity.
- * @returns {{mode: 'none'|'weekly'|'security'|'major', bump?: string, advisories?: unknown[]}}
- */
-export function planUpgrade({ name, pinned, latest, advisories = [] }) {
-	const bump = classifyBump(pinned, latest);
-	if (bump === 'none' || bump === 'prerelease') {
-		return { mode: 'none', name, pinned, latest };
-	}
-	if (bump === 'major') {
-		return { mode: 'major', bump, name, pinned, latest, changelog: changelogUrl(name, latest) };
-	}
-	const blockingAdvisories = advisories.filter((a) => BLOCKING_SEVERITIES.has(a.severity));
-	return {
-		mode: blockingAdvisories.length ? 'security' : 'weekly',
-		bump,
-		name,
-		pinned,
-		latest,
-		advisories: blockingAdvisories,
-		changelog: changelogUrl(name, latest)
-	};
 }
 
 /**
