@@ -36,11 +36,13 @@
 
 			<form method="POST" use:enhance={() => {
 				loading = true;
-				return async ({ update }) => {
-					const result = await update({ reset: false });
+				return async ({ result, update }) => {
+					// update() returns Promise<void>: it applies the action response
+					// to `form` (so failed logins stay visible) but the outcome is
+					// read from the callback's `result`.
+					await update({ reset: false });
 					loading = false;
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					if ((result as any)?.type === 'success') {
+					if (result.type === 'success') {
 						const callbackURL = normalizeInternalCallback(
 							new URLSearchParams(window.location.search).get('callbackURL')
 						);
