@@ -10,26 +10,18 @@ on:
 permissions:
   contents: read
 
+# A new push to a pull request cancels the previous run (#413): daily
+# development stays fast instead of queueing redundant pipelines.
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build-and-test:
+  # Fast guards that ALWAYS run (pull requests and pushes). No PostgreSQL, no
+  # scaffold, no user journey: the heavy battery gates the release instead
+  # (#413). These steps must stay cheap enough to run on every commit.
+  quality:
     runs-on: ubuntu-latest
-
-    # PostgreSQL service for real DB scaffolds (#255): dashboard and
-    # dashboard-foundations run drizzle-kit push against this instance.
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: sf_dashboard_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - uses: actions/checkout@v5
 
@@ -41,10 +33,9 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile --ignore-scripts
 
-      # Repository quality gates (#351) — ALL THREE BLOCK MERGING:
+      # Repository quality gates (#351) — ALL BLOCK MERGING:
       #   lint       (eslint)  repository source, tests, scripts
-      #   typecheck  (tsc)     strict, incl. test files; scaffold templates
-      #                        stay covered by the scaffold tests
+      #   typecheck  (tsc)     strict, incl. test files
       #   audit      (OSV.dev) bun.lock vulnerabilities; retries transient
       #                        network errors 3x, then FAILS (never passes
       #                        silently on an unverified dependency tree)
@@ -59,10 +50,7 @@ jobs:
 
       # Better Auth ships in generated projects, not in this repo's lockfile,
       # so the repository audit above cannot see it. Resolve the PINNED stack in
-      # a scratch project and audit its full closure (#319, #460). This — plus
-      # the `Scaffold test (dashboard)` schema/runtime gate below — is how an
-      # intentional Better Auth bump is validated now that there is no
-      # dedicated dependency bot.
+      # a scratch project and audit its full closure (#319, #460).
       - name: Better Auth stack audit
         run: |
           PIN=$(node --input-type=module -e "import { currentPin } from './scripts/better-auth-upgrade.mjs'; console.log(currentPin().version)")
@@ -85,48 +73,23 @@ jobs:
       - name: Run tests
         run: bun x vitest run --no-file-parallelism
 
+  # One representative scaffold after a merge to `main` (#413): catches a
+  # fundamental composition break between releases without replaying the full
+  # matrix on every merge. `base` does not need PostgreSQL.
+  main-smoke:
+    needs: quality
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile --ignore-scripts
+
       - name: Scaffold test (base)
         run: bash scripts/test-scaffold.sh base
-
-      - name: Scaffold test (dashboard)
-        run: bash scripts/test-scaffold.sh dashboard
-
-      - name: Scaffold test (dashboard + playwright)
-        run: bash scripts/test-scaffold.sh dashboard-playwright
-
-      - name: Scaffold test (base + blog)
-        run: bash scripts/test-scaffold.sh base-blog
-
-      - name: Scaffold test (base + module composition)
-        run: bash scripts/test-scaffold.sh base-modules
-
-      # Permanent composition of the new foundations (#258): dashboard +
-      # audit + notifications + jobs + chat + realtime against real PostgreSQL.
-      - name: Scaffold test (dashboard-foundations)
-        run: bash scripts/test-scaffold.sh dashboard-foundations
-
-      # Consumer coverage of the historical modules (#284): UI modules on a
-      # real base scaffold, integrations on a real dashboard with PostgreSQL.
-      - name: Scaffold test (base-ui-modules)
-        run: bash scripts/test-scaffold.sh base-ui-modules
-
-      - name: Scaffold test (dashboard-integrations)
-        run: bash scripts/test-scaffold.sh dashboard-integrations
-        env:
-          CI: 'true'
-
-      # One-command project creator (#417): the real `svforge create` bin
-      # end-to-end (plan → sv create → grouped sv add → doctor + check).
-      - name: Scaffold test (create-cli)
-        run: bash scripts/test-scaffold.sh create-cli
-        env:
-          CI: 'true'
-
-      # External user journey (#462, hardened in #465): acquire `sv` from the
-      # registry, pack the current build, and complete the real install path
-      # (base + dashboard) against the PostgreSQL service — BEFORE merge, so a
-      # broken journey harness is caught in review, not during a release.
-      - name: User journey smoke test (local package)
-        run: bash scripts/test-user-journey.sh
-        env:
-          CI: 'true'

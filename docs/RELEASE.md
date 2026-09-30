@@ -60,13 +60,29 @@ The SvelteForge package embeds the validated entries during its prebuild.
 notes between the installed recipe version and the target recipe version. Use
 `--to <version>` to select an explicit target available in the installed addon.
 
+## Pipeline levels (#413)
+
+Validation cost sits where it belongs:
+
+| Trigger | Runs |
+|---------|------|
+| **Pull request** (`ci.yml`) | install, lint, typecheck, OSV audit, Better Auth stack audit, generated-manifest freshness, build, Vitest. **No PostgreSQL, no scaffold, no user journey.** A new push cancels the previous run. |
+| **Push to `main`** (`ci.yml`) | the same fast checks + **one** representative scaffold (`test-scaffold.sh base`). |
+| **Release** (`publish.yml`) | the full superset: quality + the 9-profile scaffold matrix + the external user journey, all **blocking** before the first `npm publish`. |
+| **Weekly** (`canary.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening a drift issue on failure. |
+
 ## Workflow gates
 
-Before the first publication, the workflow:
+`publish.yml` runs as separate jobs; the `publish` job starts only once
+`quality`, `scaffolds` and `user-journey` are green. Before the first
+publication, the workflow:
 
 1. installs the pinned Bun and Node versions;
-2. builds all 15 packages and runs the repository tests;
-3. runs the base, dashboard, foundation and integration scaffold gates;
+2. builds all 15 packages and runs the repository tests (quality job);
+3. runs the FULL scaffold matrix — `base`, `dashboard`,
+   `dashboard-playwright`, `base-blog`, `base-modules`,
+   `dashboard-foundations`, `base-ui-modules`, `dashboard-integrations`,
+   `create-cli` — with PostgreSQL for the DB profiles;
 4. verifies npm authentication with `npm whoami`;
 5. generates and prints the complete commit/version/registry plan;
 6. verifies read-only npm package access for every already-published package;

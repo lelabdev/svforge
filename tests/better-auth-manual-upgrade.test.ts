@@ -22,10 +22,12 @@ describe('Better Auth upgrades are manual and CI-validated (#460)', () => {
 
 	it('validates an intentional bump in the normal CI path', () => {
 		const ci = readFileSync(join(WORKFLOWS, 'ci.yml'), 'utf8');
+		const publish = readFileSync(join(WORKFLOWS, 'publish.yml'), 'utf8');
 
-		// schema/runtime smoke + real PostgreSQL scaffold gate
-		expect(ci).toContain('bash scripts/test-scaffold.sh dashboard');
-		// vulnerability audit of the pinned better-auth stack
+		// schema/runtime smoke (release gate: scaffolds left PR CI in #413)
+		expect(publish).toMatch(/^\s*- dashboard$/m);
+		expect(publish).toContain('bash scripts/test-scaffold.sh ${{ matrix.scaffold }}');
+		// vulnerability audit of the pinned better-auth stack (fast PR guard)
 		expect(ci).toContain('scripts/better-auth-audit.mjs');
 		// repository tests carry the pin drift guards
 		expect(ci).toContain('bun x vitest run');
