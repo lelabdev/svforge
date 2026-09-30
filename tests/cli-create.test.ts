@@ -8,6 +8,7 @@ import {
 	parseCreateArgs,
 } from '../packages/svforge/src/cli/create';
 import type { SpawnPort } from '../packages/svforge/src/cli/add';
+import { COMPAT_MANIFEST } from '../packages/svforge/src/compat';
 
 /**
  * Tests for `svforge create` (#417): registry-driven all-modules expansion,
@@ -17,14 +18,31 @@ import type { SpawnPort } from '../packages/svforge/src/cli/add';
  * profile `create-cli`.
  */
 
+/** Extract the template + module ids a given `sv add` invocation requested. */
+function manifestFromAddArgs(args: string[]): { schema: number; template: string; modules: string[] } {
+	const template = /template:([a-z]+)/.exec(args.join(' '))?.[1] ?? 'base';
+	const modules: string[] = [];
+	for (const spec of args.slice(2).filter((arg) => !arg.startsWith('--'))) {
+		const scoped = /@svforge\/([a-z0-9_]+)/.exec(spec);
+		if (scoped) {
+			modules.push(scoped[1]);
+			continue;
+		}
+		const file = /^file:(.+)$/.exec(spec);
+		if (file && !spec.includes('=template:')) modules.push(file[1].split('=')[0].split('/').pop() as string);
+	}
+	return { schema: 1, template, modules };
+}
+
 function fakeSpawn(): { spawn: SpawnPort; calls: { command: string; args: string[]; options: { cwd: string } }[] } {
 	const calls: { command: string; args: string[]; options: { cwd: string } }[] = [];
 	const spawn: SpawnPort = async (command, args, options) => {
 		calls.push({ command, args, options });
-		// Faithful to the real sv add: the addons write the project manifest.
+		// Faithful to the real sv add: the addons write the project manifest,
+		// recording exactly the template and modules that were requested.
 		if (args[1] === 'add') {
 			mkdirSync(options.cwd, { recursive: true });
-			writeFileSync(join(options.cwd, '.svforge.json'), JSON.stringify({ schema: 1, modules: [] }));
+			writeFileSync(join(options.cwd, '.svforge.json'), JSON.stringify(manifestFromAddArgs(args)));
 		}
 		return 0;
 	};
@@ -178,15 +196,17 @@ describe('two-stage orchestration (#417)', () => {
 			// Stage 2: ONE grouped sv add — template spec + modules, single install.
 			expect(calls[1]!.args[0]).toBe('sv');
 			expect(calls[1]!.args[1]).toBe('add');
-			expect(calls[1]!.args[2]).toBe('svforge=template:dashboard+testing:vitest+hooks:none');
-			expect(calls[1]!.args).toContain('@svforge/dnd');
-			expect(calls[1]!.args).toContain('@svforge/ui_toast');
+			// #470: an ordinary `svforge create` pins the exact compatible
+			// versions from the embedded distribution manifest — never `latest`.
+			expect(calls[1]!.args[2]).toBe(`svforge@${COMPAT_MANIFEST.packages.svforge}=template:dashboard+testing:vitest+hooks:none`);
+			expect(calls[1]!.args).toContain(`@svforge/dnd@${COMPAT_MANIFEST.packages['@svforge/dnd']}`);
+			expect(calls[1]!.args).toContain(`@svforge/ui_toast@${COMPAT_MANIFEST.packages['@svforge/ui_toast']}`);
 			expect(calls[1]!.args).toEqual([
 				'sv',
 				'add',
-				'svforge=template:dashboard+testing:vitest+hooks:none',
-				'@svforge/dnd',
-				'@svforge/ui_toast',
+				`svforge@${COMPAT_MANIFEST.packages.svforge}=template:dashboard+testing:vitest+hooks:none`,
+				`@svforge/dnd@${COMPAT_MANIFEST.packages['@svforge/dnd']}`,
+				`@svforge/ui_toast@${COMPAT_MANIFEST.packages['@svforge/ui_toast']}`,
 				'--install',
 				'bun',
 				'--no-download-check',
@@ -236,6 +256,148 @@ describe('two-stage orchestration (#417)', () => {
 	});
 });
 
+describe('packaged-artifact and exact-version resolution (#470)', () => {
+	it('resolves the template and module add-ons from an extracted artifact directory', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		const addonRoot = mkdtempSync(join(tmpdir(), 'sf-addons-'));
+		try {
+			for (const id of ['svforge', 'dnd', 'ui_toast']) mkdirSync(join(addonRoot, id), { recursive: true });
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions(
+					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd', 'ui_toast'] },
+					{ spawn, validate: async () => 0, addonRoot }
+				)
+			);
+			expect(result.code).toBe(0);
+			const addArgs = calls[1]!.args;
+			expect(addArgs).toContain(`file:${join(addonRoot, 'svforge')}=template:dashboard+testing:vitest+hooks:none`);
+			expect(addArgs).toContain(`file:${join(addonRoot, 'dnd')}`);
+			expect(addArgs).toContain(`file:${join(addonRoot, 'ui_toast')}`);
+			// No monorepo checkout path ever leaks into the composition.
+			expect(addArgs.join(' ')).not.toMatch(/packages\//);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+			rmSync(addonRoot, { recursive: true, force: true });
+		}
+	});
+
+	it('pins the exact npm version for the template and every module — never an implicit latest', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions(
+					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd', 'ui_toast'] },
+					{ spawn, validate: async () => 0, addonVersion: '2.0.1' }
+				)
+			);
+			expect(result.code).toBe(0);
+			const addArgs = calls[1]!.args;
+			expect(addArgs).toContain('svforge@2.0.1=template:dashboard+testing:vitest+hooks:none');
+			expect(addArgs).toContain('@svforge/dnd@2.0.1');
+			expect(addArgs).toContain('@svforge/ui_toast@2.0.1');
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('parses --addon-root and --addon-version', () => {
+		const parsed = parseCreateArgs(['app', '--addon-root', '/tmp/addons', '--addon-version', '2.0.1']);
+		expect(parsed.addonRoot).toBe('/tmp/addons');
+		expect(parsed.addonVersion).toBe('2.0.1');
+		expect(parsed.dir).toBe('app');
+	});
+});
+
+describe('compatibility manifest + fail-closed packaging (#470)', () => {
+	it('applies the exact per-package versions from an explicit compatibility manifest', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const compatManifest = {
+				schema: 1 as const,
+				template: { name: 'svforge' as const, version: '2.1.0' },
+				packages: { svforge: '2.1.0', '@svforge/dnd': '2.0.3', '@svforge/ui_toast': '2.0.1' }
+			};
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions(
+					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd', 'ui_toast'] },
+					{ spawn, validate: async () => 0, compatManifest }
+				)
+			);
+			expect(result.code).toBe(0);
+			const addArgs = calls[1]!.args;
+			// Intentionally divergent versions: each package keeps its own exact version.
+			expect(addArgs).toContain('svforge@2.1.0=template:dashboard+testing:vitest+hooks:none');
+			expect(addArgs).toContain('@svforge/dnd@2.0.3');
+			expect(addArgs).toContain('@svforge/ui_toast@2.0.1');
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('fails before creating anything when --addon-root is missing a requested module', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		const addonRoot = mkdtempSync(join(tmpdir(), 'sf-addonroot-partial-'));
+		try {
+			mkdirSync(join(addonRoot, 'svforge'), { recursive: true });
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions(
+					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd'] },
+					{ spawn, validate: async () => 0, addonRoot }
+				)
+			);
+			expect(result.code).toBe(1);
+			expect(result.aborted).toBe('invalid');
+			expect(result.message).toMatch(/missing the packaged artifact/);
+			expect(result.message).toMatch(/dnd/);
+			// Fail closed BEFORE any sv create / sv add spawn.
+			expect(calls).toEqual([]);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+			rmSync(addonRoot, { recursive: true, force: true });
+		}
+	});
+
+	it('fails when a requested module is absent from the installed manifest', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		try {
+			const spawn: SpawnPort = async (_command, args, options) => {
+				if (args[1] === 'create') mkdirSync(join(options.cwd, 'app'), { recursive: true });
+				if (args[1] === 'add') {
+					mkdirSync(options.cwd, { recursive: true });
+					// ui_toast was requested but silently dropped.
+					writeFileSync(join(options.cwd, '.svforge.json'), JSON.stringify({ schema: 1, template: 'dashboard', modules: ['dnd'] }));
+				}
+				return 0;
+			};
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions(
+					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd', 'ui_toast'] },
+					{ spawn, validate: async () => 0 }
+				)
+			);
+			expect(result.code).toBe(1);
+			expect(result.failedStage).toBe('validate');
+			expect(result.message).toMatch(/ui_toast/);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('parses --compat-manifest', () => {
+		const parsed = parseCreateArgs(['app', '--compat-manifest', '/tmp/compat.json']);
+		expect(parsed.compatManifestPath).toBe('/tmp/compat.json');
+	});
+});
+
 describe('runtime honesty is recorded (#417)', () => {
 	it('patches deployment.profile in the created manifest', async () => {
 		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
@@ -246,7 +408,7 @@ describe('runtime honesty is recorded (#417)', () => {
 					mkdirSync(join(options.cwd, 'app'), { recursive: true });
 					writeFileSync(
 						join(options.cwd, 'app', '.svforge.json'),
-						JSON.stringify({ schema: 1, template: 'dashboard', modules: [], capabilities: [], deployment: { profile: 'serverless' } })
+						JSON.stringify({ schema: 1, template: 'dashboard', modules: ['realtime', 'jobs'], capabilities: [], deployment: { profile: 'serverless' } })
 					);
 				}
 				return 0;
@@ -279,7 +441,7 @@ describe('git initialization choice (#417)', () => {
 				if (args[1] === 'add') {
 					// the real sv add delivers the manifest (ground truth)
 					mkdirSync(options.cwd, { recursive: true });
-					writeFileSync(join(options.cwd, '.svforge.json'), '{}');
+					writeFileSync(join(options.cwd, '.svforge.json'), JSON.stringify({ schema: 1, template: 'base', modules: ['dnd'] }));
 				}
 				return 0;
 			};

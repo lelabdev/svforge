@@ -46,6 +46,12 @@ export interface AddCommandOptions {
 	yes?: boolean;
 	/** Monorepo override: install addons from file:<devRoot>/packages/<id>. */
 	devRoot?: string;
+	/** Packaged-artifact override: install addons from file:<addonRoot>/<id>. */
+	addonRoot?: string;
+	/** Pin npm addon versions (post-release). Never an implicit `latest`. */
+	addonVersion?: string;
+	/** Per-package compatible versions (distro release validation). */
+	compatVersions?: Record<string, string>;
 	interactive?: boolean;
 	prompt?: PromptPort;
 	spawn?: SpawnPort;
@@ -92,12 +98,58 @@ export function svRunner(pm: string, svCmd?: string): { command: string; prefix:
 	return { command: runner.command, prefix: [...runner.prefix, 'sv'] };
 }
 
-/** Addon spec for one module: npm by default, file: in dev checkouts. */
-export function addonSpec(moduleId: string, devRoot?: string): string {
+/**
+ * Addon spec for one module.
+ *
+ * Resolution order (first match wins):
+ *   1. `file:` from a dev checkout (`--dev-root`, monorepo contributors);
+ *   2. `file:` from a directory of EXTRACTED packaged artifacts (`--addon-root`,
+ *      the release golden path / offline installs). FAILS CLOSED: a missing
+ *      artifact is an error, never a silent npm fallback — otherwise a
+ *      pre-publish run could validate an older registry package instead of the
+ *      current artifacts (#470);
+ *   3. the exact per-package compatible version from the compatibility manifest
+ *      (embedded in the published `svforge`, or supplied for post-publish
+ *      validation). A requested module missing from the map is an error, so the
+ *      CLI never silently resolves an implicit `latest` (#470);
+ *   4. an explicit single `version` override (legacy, all packages);
+ *   5. the unpinned npm specifier (standalone `svforge add` only).
+ */
+export interface AddonSpecOptions {
+	devRoot?: string;
+	addonRoot?: string;
+	/** Single explicit version applied to the module (legacy override). */
+	version?: string;
+	/** Per-package compatible versions, keyed by npm package name. */
+	compatVersions?: Record<string, string>;
+}
+
+export function addonSpec(moduleId: string, options: AddonSpecOptions = {}): string {
+	const { devRoot, addonRoot, version, compatVersions } = options;
 	if (devRoot && existsSync(join(devRoot, 'packages', moduleId))) {
 		return `file:${join(devRoot, 'packages', moduleId)}`;
 	}
-	return `@svforge/${moduleId}`;
+	if (addonRoot) {
+		const artifact = join(addonRoot, moduleId);
+		if (!existsSync(artifact)) {
+			throw new Error(
+				`Required packaged add-on "${moduleId}" is missing from --addon-root "${addonRoot}" (expected ${artifact}). ` +
+					`Refusing to fall back to npm: the pre-publish gate must only validate the current packaged artifacts.`
+			);
+		}
+		return `file:${artifact}`;
+	}
+	if (compatVersions) {
+		const resolved = compatVersions[`@svforge/${moduleId}`];
+		if (!resolved) {
+			throw new Error(
+				`No compatible version for module "${moduleId}" in the SVForge compatibility manifest. ` +
+					`Refusing to resolve an implicit \`latest\`.`
+			);
+		}
+		return `@svforge/${moduleId}@${resolved}`;
+	}
+	return `@svforge/${moduleId}${version ? `@${version}` : ''}`;
 }
 
 interface ProjectState {
@@ -128,7 +180,7 @@ function readState(cwd: string): ProjectState {
 }
 
 /** Flags that CONSUME the next argument — values must never become module ids. */
-const ADD_FLAGS_WITH_VALUES = ['--pm', '--resolve', '--sv-cmd', '--dev-root', '--runtime'] as const;
+const ADD_FLAGS_WITH_VALUES = ['--pm', '--resolve', '--sv-cmd', '--dev-root', '--addon-root', '--addon-version', '--runtime'] as const;
 
 export interface ParsedAddArgs {
 	modules: string[];
@@ -136,6 +188,8 @@ export interface ParsedAddArgs {
 	resolve?: AddResolvePolicy;
 	svCmd?: string;
 	devRoot?: string;
+	addonRoot?: string;
+	addonVersion?: string;
 	runtime?: 'long-lived-node';
 	yes?: boolean;
 }
@@ -162,6 +216,12 @@ export function parseAddArgs(args: string[]): ParsedAddArgs {
 					break;
 				case '--dev-root':
 					parsed.devRoot = value;
+					break;
+				case '--addon-root':
+					parsed.addonRoot = value;
+					break;
+				case '--addon-version':
+					parsed.addonVersion = value;
 					break;
 				case '--runtime':
 					parsed.runtime = value as 'long-lived-node';
@@ -294,7 +354,14 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 		}
 	}
 
-	const specs = plan.order.map((id) => addonSpec(id, options.devRoot));
+	const specs = plan.order.map((id) =>
+		addonSpec(id, {
+			devRoot: options.devRoot,
+			addonRoot: options.addonRoot,
+			version: options.addonVersion,
+			compatVersions: options.compatVersions
+		})
+	);
 	const spawn = options.spawn;
 	if (!spawn) {
 		// No spawn port: report the exact plan and specs without executing

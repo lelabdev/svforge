@@ -207,11 +207,43 @@ describe('svforge add — invocation shape (#419)', () => {
 		const repo = mkdtempSync(join(tmpdir(), 'sf-devroot-'));
 		try {
 			mkdirSync(join(repo, 'packages', 'dnd'), { recursive: true });
-			expect(addonSpec('dnd', repo)).toBe(`file:${join(repo, 'packages', 'dnd')}`);
+			expect(addonSpec('dnd', { devRoot: repo })).toBe(`file:${join(repo, 'packages', 'dnd')}`);
 		} finally {
 			rmSync(repo, { recursive: true, force: true });
 		}
 		expect(addonSpec('dnd')).toBe('@svforge/dnd');
+	});
+
+	it('packaged artifacts resolve from --addon-root', () => {
+		const addonRoot = mkdtempSync(join(tmpdir(), 'sf-addonroot-'));
+		try {
+			mkdirSync(join(addonRoot, 'dnd'), { recursive: true });
+			expect(addonSpec('dnd', { addonRoot })).toBe(`file:${join(addonRoot, 'dnd')}`);
+		} finally {
+			rmSync(addonRoot, { recursive: true, force: true });
+		}
+	});
+
+	it('--addon-root fails closed instead of falling back to npm (#470 Blocker B)', () => {
+		const addonRoot = mkdtempSync(join(tmpdir(), 'sf-addonroot-missing-'));
+		try {
+			expect(() => addonSpec('dnd', { addonRoot })).toThrow(/missing from --addon-root/);
+			expect(() => addonSpec('dnd', { addonRoot })).toThrow(/dnd/);
+		} finally {
+			rmSync(addonRoot, { recursive: true, force: true });
+		}
+	});
+
+	it('resolves the exact per-package compatible versions (#470)', () => {
+		const compatVersions = { '@svforge/dnd': '2.0.3', '@svforge/ui_toast': '2.0.1' };
+		expect(addonSpec('dnd', { compatVersions })).toBe('@svforge/dnd@2.0.3');
+		expect(addonSpec('ui_toast', { compatVersions })).toBe('@svforge/ui_toast@2.0.1');
+		// A requested module absent from the manifest must fail, never resolve `latest`.
+		expect(() => addonSpec('blog', { compatVersions })).toThrow(/No compatible version/);
+	});
+
+	it('keeps the legacy single-version override', () => {
+		expect(addonSpec('dnd', { version: '2.0.1' })).toBe('@svforge/dnd@2.0.1');
 	});
 
 	it('dlx runner matches the package manager', () => {

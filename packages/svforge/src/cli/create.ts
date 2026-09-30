@@ -4,6 +4,7 @@ import { MODULES } from '../module-composition';
 import { regenerateLlmstxt } from '../ai-context';
 import { MODULE_CONTRACTS, resolveModules, type ResolutionPlan } from '@svforge/addon-kit';
 import { addonSpec, svRunner, type SpawnPort } from './add';
+import { COMPAT_MANIFEST, assertCompatManifest, loadCompatManifest, type CompatManifest } from '../compat';
 
 /**
  * `svforge create <dir>` — the one-command project creator (#417).
@@ -34,6 +35,23 @@ export interface CreateCommandOptions {
 	yes?: boolean;
 	interactive?: boolean;
 	devRoot?: string;
+	/**
+	 * Directory of EXTRACTED packaged add-ons (`<addonRoot>/<moduleId>`), used by
+	 * the release golden path (#470) so a pre-publish run resolves the CURRENT
+	 * artifacts instead of the checkout or the registry. Fails closed: a missing
+	 * artifact is an error, never a silent npm fallback.
+	 */
+	addonRoot?: string;
+	/**
+	 * Exact npm version for the template + module add-ons (#470). Legacy single
+	 * override; prefer `compatManifest`, which carries the exact per-package
+	 * versions of a release.
+	 */
+	addonVersion?: string;
+	/** Path to a compatibility manifest (or a release plan carrying one). */
+	compatManifestPath?: string;
+	/** In-memory compatibility manifest (programmatic/tests). */
+	compatManifest?: CompatManifest;
 	prompt?: CreatePromptPort;
 	spawn?: SpawnPort;
 	/** Post-create validation (defaults to `svforge doctor`). */
@@ -103,6 +121,9 @@ export function parseCreateArgs(args: string[]): CreateCommandOptions & { dir?: 
 		'--runtime': (v) => (parsed.runtime = v as 'long-lived-node'),
 		'--sv-cmd': (v) => (parsed.svCmd = v),
 		'--dev-root': (v) => (parsed.devRoot = v),
+		'--addon-root': (v) => (parsed.addonRoot = v),
+		'--addon-version': (v) => (parsed.addonVersion = v),
+		'--compat-manifest': (v) => (parsed.compatManifestPath = v),
 		'--modules': (v) => (parsed.modules = v === 'all' ? 'all' : v.split(',').map((m) => m.trim()))
 	};
 	for (let i = 0; i < args.length; i++) {
@@ -253,6 +274,39 @@ export async function runCreateCommand(
 		};
 	}
 
+	// ── 5b. Add-on source resolution (#470) ──
+	// `--addon-root` and `--dev-root` source the add-ons from explicit
+	// directories; `--addon-version` is a single legacy override. Otherwise the
+	// exact per-package compatible versions come from the compatibility
+	// manifest — the embedded one by default (so a user's `svforge create
+	// --modules all` installs the versions shipped with their `svforge`), or an
+	// explicit one for post-publish validation. Nothing silently falls back to
+	// npm `latest`.
+	const useCompatManifest = !options.devRoot && !options.addonRoot && !options.addonVersion;
+	const compatManifest = useCompatManifest
+		? assertCompatManifest(
+				options.compatManifest ??
+					(options.compatManifestPath ? loadCompatManifest(options.compatManifestPath) : COMPAT_MANIFEST)
+			)
+		: undefined;
+	const compatVersions = compatManifest?.packages;
+	// Fail closed BEFORE creating anything: with an explicit --addon-root every
+	// requested template + module artifact must be present in it.
+	if (options.addonRoot) {
+		const missingArtifacts: string[] = [];
+		if (!existsSync(join(options.addonRoot, 'svforge'))) missingArtifacts.push('svforge');
+		for (const id of resolution.order) {
+			if (!existsSync(join(options.addonRoot, id))) missingArtifacts.push(id);
+		}
+		if (missingArtifacts.length > 0) {
+			return {
+				code: 1,
+				aborted: 'invalid',
+				message: `--addon-root "${options.addonRoot}" is missing the packaged artifact(s): ${missingArtifacts.join(', ')}. Refusing to fall back to npm — the pre-publish gate must validate the current packaged artifacts only. Nothing was created.`
+			};
+		}
+	}
+
 	// ── 6. Safety: never touch an existing non-empty directory ──
 	const target = resolve(cwd, dir!);
 	if (existsSync(target) && readdirSync(target).length > 0) {
@@ -316,17 +370,36 @@ export async function runCreateCommand(
 		};
 	}
 
-	// Dev checkouts install the template addon from file: too — npm otherwise.
+	// Dev checkouts and packaged-artifact directories install the template addon
+	// from file: too — otherwise the exact compatible version from the
+	// compatibility manifest is used. `--addon-version` remains a single legacy
+	// override. Nothing resolves to an implicit `latest`.
 	// NOTE: the template package is the UNSCOPED `svforge`, unlike @svforge/*.
-	const templateAddon = options.devRoot && existsSync(join(options.devRoot, 'packages', 'svforge'))
-		? `file:${join(options.devRoot, 'packages', 'svforge')}`
-		: 'svforge';
+	const devTemplate =
+		options.devRoot && existsSync(join(options.devRoot, 'packages', 'svforge'))
+			? `file:${join(options.devRoot, 'packages', 'svforge')}`
+			: undefined;
+	const packagedTemplate = options.addonRoot ? `file:${join(options.addonRoot, 'svforge')}` : undefined;
+	const compatibleTemplate = compatVersions?.svforge;
+	const templateAddon =
+		devTemplate ??
+		packagedTemplate ??
+		(compatibleTemplate
+			? `svforge@${compatibleTemplate}`
+			: options.addonVersion
+				? `svforge@${options.addonVersion}`
+				: 'svforge');
 	const templateSpec = `${templateAddon}=template:${effectiveTemplate}+testing:${testing}+hooks:${hooks}`;
 	// Headless composition must never prompt: module options come from the
 	// canonical registry's addonOptions (defaults mirrored from the addons —
 	// contract-tested), rendered as `pkg=opt:value`.
 	const moduleSpecs = resolution.order.map((id) => {
-		const spec = addonSpec(id, options.devRoot);
+		const spec = addonSpec(id, {
+			devRoot: options.devRoot,
+			addonRoot: options.addonRoot,
+			version: options.addonVersion,
+			compatVersions
+		});
 		const addonOptions = Object.entries(MODULES[id]?.addonOptions ?? {});
 		return addonOptions.length === 0 ? spec : `${spec}=${addonOptions.map(([k, v]) => `${k}:${v}`).join('+')}`;
 	});
@@ -353,6 +426,41 @@ export async function runCreateCommand(
 			failedStage: 'add',
 			message: '`sv add` completed without applying any add-on (no .svforge.json). The project is NOT configured — remove it manually and re-run, or run the sv add step yourself to see the prompt.'
 		};
+	}
+	// #470 Blocker A: `sv add` can exit 0 while silently dropping a requested
+	// module. The manifest written by the add-ons is the ground truth — a
+	// partially configured project is never reported as success.
+	{
+		const installedManifestPath = join(target, '.svforge.json');
+		let installedManifest: { template?: string; modules?: unknown };
+		try {
+			installedManifest = JSON.parse(readFileSync(installedManifestPath, 'utf8'));
+		} catch (error) {
+			return {
+				code: 1,
+				plan: createPlan,
+				failedStage: 'validate',
+				message: `Could not parse .svforge.json to verify the installed modules: ${error instanceof Error ? error.message : error}. The project is NOT ready.`
+			};
+		}
+		const installedModules = new Set(Array.isArray(installedManifest.modules) ? installedManifest.modules : []);
+		const missingModules = resolution.order.filter((id) => !installedModules.has(id));
+		if (missingModules.length > 0) {
+			return {
+				code: 1,
+				plan: createPlan,
+				failedStage: 'validate',
+				message: `Requested module(s) missing after installation: ${missingModules.join(', ')}. The project is NOT ready — remove it manually and re-run, or install the missing modules explicitly.`
+			};
+		}
+		if (installedManifest.template && installedManifest.template !== effectiveTemplate) {
+			return {
+				code: 1,
+				plan: createPlan,
+				failedStage: 'validate',
+				message: `Installed template "${installedManifest.template}" does not match the requested "${effectiveTemplate}". The project is NOT ready.`
+			};
+		}
 	}
 
 	// ── 8b. Git initialization choice (#417) ──

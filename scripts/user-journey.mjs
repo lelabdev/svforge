@@ -14,13 +14,25 @@
  * prefix exactly as an external consumer would.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /** The add-on that carries the base and dashboard templates. */
 export const PRIMARY_PACKAGE = 'svforge';
 export const JOURNEY_TEMPLATES = ['base', 'dashboard'];
+
+/**
+ * Golden path (#470) module selection per template. The one-command creator
+ * must configure everything requested in a single non-interactive command.
+ * `dashboard` exercises the complete canonical set (which requires the
+ * long-lived runtime); `base` exercises an opt-in module.
+ */
+export const GOLDEN_PATH_MODULES = {
+	base: ['ui_toast'],
+	dashboard: 'all'
+};
+export const GOLDEN_PATH_RUNTIME = { dashboard: 'long-lived-node' };
 
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -167,17 +179,104 @@ export function resolveSource(argv, { root = REPO_ROOT, run = execFileSync } = {
 	return `file:${extracted}`;
 }
 
+/**
+ * The exact argv for the ONE `svforge create` command the golden path runs
+ * (#470). Pure so the non-interactive contract is unit-tested: every choice is
+ * a flag, so no prompt can ever block the journey, and the add-on source is
+ * explicit (`--addon-root` for packed artifacts, `--compat-manifest` for the
+ * exact per-package published versions) — never an implicit `latest`.
+ *
+ * @param {{
+ *   dir: string,
+ *   template?: 'base' | 'dashboard',
+ *   pm?: string,
+ *   testing?: 'vitest' | 'playwright',
+ *   hooks?: 'none' | 'lefthook',
+ *   modules?: string[] | 'all',
+ *   runtime?: 'long-lived-node',
+ *   addonRoot?: string,
+ *   addonVersion?: string,
+ *   compatManifest?: string
+ * }} options
+ */
+export function goldenPathCreateArgs(options = {}) {
+	const {
+		dir,
+		template = 'base',
+		pm = 'bun',
+		testing = 'vitest',
+		hooks = 'none',
+		modules = GOLDEN_PATH_MODULES[template] ?? 'all',
+		runtime = GOLDEN_PATH_RUNTIME[template],
+		addonRoot,
+		addonVersion,
+		compatManifest
+	} = options;
+	const args = [
+		'create',
+		dir,
+		'--template',
+		template,
+		'--pm',
+		pm,
+		'--testing',
+		testing,
+		'--hooks',
+		hooks,
+		'--modules',
+		Array.isArray(modules) ? modules.join(',') : modules,
+		'--yes'
+	];
+	if (runtime) args.push('--runtime', runtime);
+	if (addonRoot) args.push('--addon-root', addonRoot);
+	if (addonVersion) args.push('--addon-version', addonVersion);
+	if (compatManifest) args.push('--compat-manifest', compatManifest);
+	return args;
+}
+
+/**
+ * Pack + extract the CURRENT module add-ons into `destination/registry/<id>`,
+ * so `svforge create --addon-root` resolves the release's packaged artifacts
+ * instead of the checkout or the registry (pre-publish golden path, #470).
+ *
+ * `svforge` itself is packed separately by `resolveSource`, so it is skipped
+ * here to avoid a redundant pack.
+ */
+export function packModuleSet({ root = REPO_ROOT, destination, skip = [PRIMARY_PACKAGE] }) {
+	const registry = join(destination, 'registry');
+	const packagesDir = join(root, 'packages');
+	const ids = readdirSync(packagesDir, { withFileTypes: true })
+		.filter((entry) => entry.isDirectory() && existsSync(join(packagesDir, entry.name, 'package.json')))
+		.map((entry) => entry.name)
+		.filter((id) => !skip.includes(id))
+		.sort();
+	for (const id of ids) {
+		const tarball = packLocalAddon(join(packagesDir, id), join(destination, 'packs'));
+		const extracted = extractAddon(tarball, join(registry, id));
+		assertPackagedEntrypoints(extracted);
+	}
+	return registry;
+}
+
 if (import.meta.url === `file://${process.argv[1]}`) {
 	const [command, ...args] = process.argv.slice(2);
-	if (command !== 'source') {
-		console.error('Usage: node scripts/user-journey.mjs source [--published [version]] [--sv <version>] --dest <directory>');
-		process.exitCode = 1;
-	} else {
-		try {
+	const flag = (name) => {
+		const index = args.indexOf(name);
+		return index === -1 ? undefined : args[index + 1];
+	};
+	try {
+		if (command === 'source') {
 			console.log(resolveSource(args));
-		} catch (error) {
-			console.error(`User journey source resolution failed: ${error.message}`);
+		} else if (command === 'addon-set') {
+			const destination = flag('--dest');
+			if (!destination) throw new Error('addon-set requires --dest <directory>');
+			console.log(packModuleSet({ destination }));
+		} else {
+			console.error('Usage: node scripts/user-journey.mjs <source|addon-set> [--published [version]] [--sv <version>] --dest <directory>');
 			process.exitCode = 1;
 		}
+	} catch (error) {
+		console.error(`User journey helper failed: ${error.message}`);
+		process.exitCode = 1;
 	}
 }

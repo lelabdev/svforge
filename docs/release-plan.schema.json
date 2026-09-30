@@ -3,7 +3,7 @@
   "$id": "https://github.com/lelabdev/svelteforge/release-plan.schema.json",
   "title": "SVForge release plan",
   "type": "object",
-  "required": ["schemaVersion", "versionPolicy", "commit", "changelog", "packages"],
+  "required": ["schemaVersion", "versionPolicy", "commit", "changelog", "compatibility", "packages"],
   "properties": {
     "schemaVersion": { "const": 1 },
     "versionPolicy": { "const": "independent" },
@@ -14,6 +14,29 @@
       "properties": {
         "path": { "const": "CHANGELOG.md" },
         "entries": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "compatibility": {
+      "description": "Exact compatible version of every package in this distribution, embedded into the published svforge CLI.",
+      "type": "object",
+      "required": ["schema", "template", "packages"],
+      "properties": {
+        "schema": { "const": 1 },
+        "template": {
+          "type": "object",
+          "required": ["name", "version"],
+          "properties": {
+            "name": { "const": "svforge" },
+            "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$" }
+          },
+          "additionalProperties": false
+        },
+        "packages": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$" }
+        }
       },
       "additionalProperties": false
     },

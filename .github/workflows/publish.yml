@@ -143,8 +143,21 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile --ignore-scripts
 
+      # The golden path packs the CURRENT module packages too, so every dist
+      # must exist before `npm pack` runs (#470).
+      - name: Build all packages
+        run: bun run --filter '*' build
+
       - name: User journey smoke test (local package)
         run: bash scripts/test-user-journey.sh
+        env:
+          CI: 'true'
+
+      # Golden path pre-publish (#470): ONE `svforge create` command from the
+      # packed artifacts (never --dev-root / the checkout). Blocking: a release
+      # whose real one-command creator is broken must never be published.
+      - name: Golden path (local package)
+        run: bash scripts/test-user-journey.sh --path create
         env:
           CI: 'true'
 
@@ -217,3 +230,13 @@ jobs:
           VERSION=$(node -e "const plan=require('/tmp/release-plan.json'); const pkg=plan.packages.find((p)=>p.name==='svforge'); if(!pkg) throw new Error('svforge missing from the release plan'); process.stdout.write(pkg.version)")
           echo "Testing published svforge@$VERSION"
           bash scripts/test-user-journey.sh --published "$VERSION"
+
+      # Golden path post-publish (#470): the SAME one-command journey against
+      # the exact published version, using the release plan's per-package
+      # compatibility manifest (independent module versions) — never `latest`.
+      - name: Golden path (published)
+        run: |
+          VERSION=$(node -e "const plan=require('/tmp/release-plan.json'); const pkg=plan.packages.find((p)=>p.name==='svforge'); if(!pkg) throw new Error('svforge missing from the release plan'); process.stdout.write(pkg.version)")
+          node -e "const plan=require('/tmp/release-plan.json'); if(!plan.compatibility) throw new Error('release plan has no compatibility manifest'); require('fs').writeFileSync('/tmp/svforge-compat.json', JSON.stringify(plan.compatibility));"
+          echo "Testing published svforge@$VERSION golden path (exact per-package versions)"
+          bash scripts/test-user-journey.sh --path create --published "$VERSION" --compat-manifest /tmp/svforge-compat.json

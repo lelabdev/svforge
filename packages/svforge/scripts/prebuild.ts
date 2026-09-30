@@ -5,6 +5,7 @@ import { tmpdir } from 'os';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { parseChangelog, readChangelog } from '../../../scripts/changelog.mjs';
+import { buildCompatManifest } from '../../../scripts/compat-manifest.mjs';
 import { buildAddonComponents, buildSkeletonInventory } from './generate-skeleton-inventory';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -176,6 +177,29 @@ writeFileSync(
 	`// AUTO-GENERATED - DO NOT EDIT\n// Run bun run prebuild to regenerate (canonical version = package.json)\n\nexport const SDFORGE_RECIPE_VERSION = ${JSON.stringify(pkg.version)};\n`
 );
 
+// ── Release compatibility manifest (#470) ───────────────────────────────
+// svforge keeps INDEPENDENT package versions; the unscoped `svforge` package
+// carries the public distribution version. This manifest embeds the exact
+// compatible version of every package so `svforge create --modules all`
+// installs the versions that shipped with the user's `svforge` release —
+// never an implicit `latest`. DERIVED from the package manifests.
+const compatManifest = buildCompatManifest(join(__dirname, '../../..'));
+writeFileSync(
+	join(__dirname, '../src/compat-manifest.ts'),
+	`// AUTO-GENERATED - DO NOT EDIT
+// Run bun run prebuild to regenerate from the actual package manifests (#470).
+// Exact compatible version of every package in this SVForge distribution.
+
+export interface CompatManifest {
+	schema: 1;
+	template: { name: 'svforge'; version: string };
+	packages: Record<string, string>;
+}
+
+export const COMPAT_MANIFEST: CompatManifest = ${JSON.stringify(compatManifest, null, 2)};
+`
+);
+
 writeFileSync(
 	join(__dirname, '../src/addon-components.ts'),
 	`// AUTO-GENERATED - DO NOT EDIT\n// Exact component paths each SVForge addon delivers under src/lib/components/svforge/,\n// keyed by addon id. An addon's paths are only exemptions while that addon is\n// installed (.svforge.json modules). Run bun run prebuild to regenerate.\n\nexport const ADDON_COMPONENTS: Record<string, string[]> = ${JSON.stringify(addonComponents)};\n`
@@ -344,7 +368,7 @@ export function entriesBetween(entries: ChangelogEntry[], packageName: string, f
 `
 );
 
-console.log('✅ Generated src/templates.ts + src/recipe-version.ts + src/changelog.ts + src/skeleton-inventory.ts + src/module-recipes.ts');
+console.log('✅ Generated src/templates.ts + src/recipe-version.ts + src/compat-manifest.ts + src/changelog.ts + src/skeleton-inventory.ts + src/module-recipes.ts');
 console.log(`   approved addon components: ${Object.keys(addonComponents).length} addons`);
 console.log(`   ${Object.keys(baseFiles).length} base files`);
 console.log(`   ${Object.keys(dashboardFiles).length} dashboard files`);

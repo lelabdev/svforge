@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { mkdtempSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { ROOT } from './helpers';
+import { COMPAT_MANIFEST } from '../packages/svforge/src/compat';
 
 /**
  * REAL-BIN behavioral coverage (#426 review): the previous review round
@@ -125,8 +126,12 @@ describe('real bin — svforge create (#426 review)', () => {
 		expect(kept.code).toBe(0);
 		expect(existsSync(join(withGit, 'app', '.git'))).toBe(true);
 		expect(kept.stubLog[0]).toContain('create app');
-		expect(kept.stubLog[1]).toContain('add svforge=template:dashboard+testing:vitest+hooks:none');
-		expect(kept.stubLog[1]).toContain('@svforge/chat');
+		expect(kept.stubLog[1]).toContain(
+			`add svforge@${COMPAT_MANIFEST.packages.svforge}=template:dashboard+testing:vitest+hooks:none`
+		);
+		// Module versions come from the embedded compatibility manifest — never
+		// hardcoded and never an implicit `latest`.
+		expect(kept.stubLog[1]).toContain(`@svforge/chat@${COMPAT_MANIFEST.packages['@svforge/chat']}`);
 		// Git init went through the real git binary.
 		expect(kept.stubLog.every((line) => !line.startsWith('init'))).toBe(true);
 

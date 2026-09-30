@@ -4,6 +4,7 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readChangelog, validateChangelog } from './changelog.mjs';
+import { assertCompatManifestMatchesPlan, assertCompatibilityFreshness, buildCompatManifest } from './compat-manifest.mjs';
 
 const SCRIPT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REQUIRED_FILES = ['README.md', 'package.json', 'LICENSE', 'dist/index.js', 'dist/index.d.ts'];
@@ -151,11 +152,17 @@ export function buildReleasePlan(root = SCRIPT_ROOT, commit = process.env.GITHUB
 		throw new Error(`Release plan rejected: ${changelog.errors.join(' ')}`);
 	}
 
+	// #470: the compatibility manifest is DERIVED from the same manifests, so
+	// the plan and the version embedded into the published `svforge` cannot
+	// diverge. Validated here, consumed by the golden path.
+	const compatibility = assertCompatManifestMatchesPlan(buildCompatManifest(root), orderedPackages);
+
 	return {
 		schemaVersion: 1,
 		versionPolicy: 'independent',
 		commit,
 		changelog: { path: 'CHANGELOG.md', entries: changelog.entries.length },
+		compatibility,
 		packages: orderedPackages
 	};
 }
@@ -198,6 +205,9 @@ export function checkRegistry(plan, root = SCRIPT_ROOT, npm = runNpm) {
 		return { ...pkg, registry: { published, latest, availableVersions: versions } };
 	});
 	const checkedPlan = { ...plan, registry: 'https://registry.npmjs.org', packages: checked };
+	// #470: never ship a distribution whose embedded manifest would point at
+	// outdated modules because `svforge` was not bumped alongside them.
+	assertCompatibilityFreshness(checkedPlan);
 	printPlan(checkedPlan, root);
 	return checkedPlan;
 }
