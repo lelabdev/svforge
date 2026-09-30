@@ -279,7 +279,7 @@ Permanent scaffold profiles cover the base/dashboard templates, Playwright, Blog
 
 The publish workflow uses the same scaffold gates before package publication.
 
-The Better Auth stack is pinned (never `latest`) and upgraded automatically — blocking security patches immediately, gate-tested minors/patches weekly, majors via a migration issue. See [docs/better-auth-upgrades.md](docs/better-auth-upgrades.md) (#319).
+The Better Auth stack is pinned (never `latest`) and bumped manually in a normal PR. CI validates every bump with the dashboard scaffold (real PostgreSQL), the schema/runtime smoke and the Better Auth stack audit. See [docs/better-auth-upgrades.md](docs/better-auth-upgrades.md) (#319, #460).
 
 ## Repository
 

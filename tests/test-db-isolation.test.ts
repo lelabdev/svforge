@@ -150,7 +150,7 @@ describe('scaffold harness and CI provision a dedicated test database (#312)', (
 	});
 
 	it('CI services create the test database', () => {
-		for (const workflow of ['ci.yml', 'canary.yml', 'better-auth-upgrade.yml', 'publish.yml']) {
+		for (const workflow of ['ci.yml', 'canary.yml', 'publish.yml']) {
 			const content = read(`.github/workflows/${workflow}`);
 			expect(content, workflow).toContain('POSTGRES_DB: sf_dashboard_test');
 		}
