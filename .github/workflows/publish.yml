@@ -109,6 +109,14 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      # Published user journey (#462): pack the current build, then run the real
+      # external path (install tarball → sv create → sv add → setup → server →
+      # minimal journey) from a clean temporary directory. No monorepo import
+      # and no `--dev-root`, so a file missing from the npm artifact fails here
+      # BEFORE anything is published.
+      - name: User journey smoke test (local package)
+        run: bash scripts/test-user-journey.sh
+
       # This command skips exact versions already in the registry, so rerunning
       # after a partial failure safely resumes the release.
       - name: Publish release plan
@@ -120,3 +128,8 @@ jobs:
       # generated imports from a clean external project.
       - name: Consumer installation smoke test
         run: node scripts/npm-consumer-smoke.mjs --plan /tmp/release-plan.json
+
+      # Post-publication signal (#462): the journey now runs against the real
+      # npm package, from a clean temporary directory, exactly as documented.
+      - name: User journey smoke test (published)
+        run: bash scripts/test-user-journey.sh --published

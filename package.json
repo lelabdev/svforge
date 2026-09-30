@@ -14,6 +14,7 @@
     "audit": "node scripts/audit.mjs",
     "test": "vitest run --no-file-parallelism",
     "test:watch": "vitest",
+    "test:user-journey": "bash scripts/test-user-journey.sh",
     "release:plan": "node scripts/release-plan.mjs",
     "graphify:update": "graphify update . --no-cluster && node scripts/normalize-graphify.mjs"
   },

@@ -75,10 +75,15 @@ Before the first publication, the workflow:
 7. runs `npm pack --dry-run --json --ignore-scripts` for every package and
    verifies exports, JavaScript, declarations, README, LICENSE and packaged
    paths;
-8. publishes the plan in dependency order;
-9. installs every exact published version in a clean consumer, imports every
-   package from a generated TypeScript consumer, and runs `tsc --noEmit` to
-   validate package export and declaration resolution.
+8. packs the current build and completes the **published user journey**
+   (base + dashboard: `sv create` → `sv add` from the tarball → `svforge
+   doctor`/`check` → setup → server → minimal flow) from a clean temporary
+   directory, without importing the monorepo (#462);
+9. publishes the plan in dependency order;
+10. installs every exact published version in a clean consumer, imports every
+    package from a generated TypeScript consumer, and runs `tsc --noEmit` to
+    validate package export and declaration resolution;
+11. reruns the user journey against the real npm package (`--published`).
 
 The workflow uses a repository-global concurrency group so a production push
 and a manual dispatch cannot publish simultaneously, even from different refs.
@@ -134,3 +139,23 @@ with NodeNext resolution. This validates the real package exports and
 TypeScript declarations, not just the existence of a `.d.ts` file. The smoke
 test is intentionally run only after publication; unpublished local versions
 cannot be tested from npm.
+
+## Published user journey
+
+`scripts/test-user-journey.sh` reproduces the external path from an
+installable package (#462):
+
+```bash
+bun run test:user-journey              # pack the current build, run from tarballs
+bash scripts/test-user-journey.sh --published [version]  # run the real npm package
+bun run test:user-journey --template base  # one journey only (no PostgreSQL needed)
+```
+
+Local mode runs `npm pack`, extracts the tarball into a temporary directory and
+uses `sv add file:<extracted>` — never `file:<repo>/packages/...` and never
+`--dev-root`. A file missing from the npm artifact, a broken documented install,
+or a project that cannot build/start therefore fails the gate instead of being
+masked by the monorepo checkout. The dashboard journey needs a reachable
+PostgreSQL (`TEST_DATABASE_URL`, same contract as the scaffold suite); run
+`--template base` locally without one. The work is done in a temporary
+directory that is removed at the end of the run (`--keep` to inspect it).
