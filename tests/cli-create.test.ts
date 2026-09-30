@@ -236,6 +236,62 @@ describe('two-stage orchestration (#417)', () => {
 	});
 });
 
+describe('packaged-artifact and exact-version resolution (#470)', () => {
+	it('resolves the template and module add-ons from an extracted artifact directory', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		const addonRoot = mkdtempSync(join(tmpdir(), 'sf-addons-'));
+		try {
+			for (const id of ['svforge', 'dnd', 'ui_toast']) mkdirSync(join(addonRoot, id), { recursive: true });
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions(
+					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd', 'ui_toast'] },
+					{ spawn, validate: async () => 0, addonRoot }
+				)
+			);
+			expect(result.code).toBe(0);
+			const addArgs = calls[1]!.args;
+			expect(addArgs).toContain(`file:${join(addonRoot, 'svforge')}=template:dashboard+testing:vitest+hooks:none`);
+			expect(addArgs).toContain(`file:${join(addonRoot, 'dnd')}`);
+			expect(addArgs).toContain(`file:${join(addonRoot, 'ui_toast')}`);
+			// No monorepo checkout path ever leaks into the composition.
+			expect(addArgs.join(' ')).not.toMatch(/packages\//);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+			rmSync(addonRoot, { recursive: true, force: true });
+		}
+	});
+
+	it('pins the exact npm version for the template and every module — never an implicit latest', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions(
+					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd', 'ui_toast'] },
+					{ spawn, validate: async () => 0, addonVersion: '2.0.1' }
+				)
+			);
+			expect(result.code).toBe(0);
+			const addArgs = calls[1]!.args;
+			expect(addArgs).toContain('svforge@2.0.1=template:dashboard+testing:vitest+hooks:none');
+			expect(addArgs).toContain('@svforge/dnd@2.0.1');
+			expect(addArgs).toContain('@svforge/ui_toast@2.0.1');
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('parses --addon-root and --addon-version', () => {
+		const parsed = parseCreateArgs(['app', '--addon-root', '/tmp/addons', '--addon-version', '2.0.1']);
+		expect(parsed.addonRoot).toBe('/tmp/addons');
+		expect(parsed.addonVersion).toBe('2.0.1');
+		expect(parsed.dir).toBe('app');
+	});
+});
+
 describe('runtime honesty is recorded (#417)', () => {
 	it('patches deployment.profile in the created manifest', async () => {
 		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));

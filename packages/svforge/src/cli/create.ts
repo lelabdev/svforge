@@ -34,6 +34,18 @@ export interface CreateCommandOptions {
 	yes?: boolean;
 	interactive?: boolean;
 	devRoot?: string;
+	/**
+	 * Directory of EXTRACTED packaged add-ons (`<addonRoot>/<moduleId>`), used by
+	 * the release golden path (#470) so a pre-publish run resolves the CURRENT
+	 * artifacts instead of the checkout or the registry.
+	 */
+	addonRoot?: string;
+	/**
+	 * Exact npm version for the template + module add-ons (#470). The
+	 * post-publish golden path pins the version from the release plan so it
+	 * never validates an implicit `latest`.
+	 */
+	addonVersion?: string;
 	prompt?: CreatePromptPort;
 	spawn?: SpawnPort;
 	/** Post-create validation (defaults to `svforge doctor`). */
@@ -103,6 +115,8 @@ export function parseCreateArgs(args: string[]): CreateCommandOptions & { dir?: 
 		'--runtime': (v) => (parsed.runtime = v as 'long-lived-node'),
 		'--sv-cmd': (v) => (parsed.svCmd = v),
 		'--dev-root': (v) => (parsed.devRoot = v),
+		'--addon-root': (v) => (parsed.addonRoot = v),
+		'--addon-version': (v) => (parsed.addonVersion = v),
 		'--modules': (v) => (parsed.modules = v === 'all' ? 'all' : v.split(',').map((m) => m.trim()))
 	};
 	for (let i = 0; i < args.length; i++) {
@@ -316,17 +330,24 @@ export async function runCreateCommand(
 		};
 	}
 
-	// Dev checkouts install the template addon from file: too — npm otherwise.
+	// Dev checkouts and packaged-artifact directories install the template addon
+	// from file: too — npm otherwise. `--addon-version` pins the npm spec so a
+	// post-publish run never resolves an implicit `latest`.
 	// NOTE: the template package is the UNSCOPED `svforge`, unlike @svforge/*.
-	const templateAddon = options.devRoot && existsSync(join(options.devRoot, 'packages', 'svforge'))
-		? `file:${join(options.devRoot, 'packages', 'svforge')}`
-		: 'svforge';
+	const devTemplate =
+		options.devRoot && existsSync(join(options.devRoot, 'packages', 'svforge'))
+			? `file:${join(options.devRoot, 'packages', 'svforge')}`
+			: undefined;
+	const packagedTemplate =
+		options.addonRoot && existsSync(join(options.addonRoot, 'svforge')) ? `file:${join(options.addonRoot, 'svforge')}` : undefined;
+	const templateAddon =
+		devTemplate ?? packagedTemplate ?? `svforge${options.addonVersion ? `@${options.addonVersion}` : ''}`;
 	const templateSpec = `${templateAddon}=template:${effectiveTemplate}+testing:${testing}+hooks:${hooks}`;
 	// Headless composition must never prompt: module options come from the
 	// canonical registry's addonOptions (defaults mirrored from the addons —
 	// contract-tested), rendered as `pkg=opt:value`.
 	const moduleSpecs = resolution.order.map((id) => {
-		const spec = addonSpec(id, options.devRoot);
+		const spec = addonSpec(id, options.devRoot, options.addonRoot, options.addonVersion);
 		const addonOptions = Object.entries(MODULES[id]?.addonOptions ?? {});
 		return addonOptions.length === 0 ? spec : `${spec}=${addonOptions.map(([k, v]) => `${k}:${v}`).join('+')}`;
 	});

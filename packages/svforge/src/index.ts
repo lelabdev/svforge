@@ -17,6 +17,8 @@ export {
 	duplicatedSkeletonPrimitiveName
 } from './design-system';
 export type { CatalogEntry, Severity, DesignSystemCheckOptions } from './design-system';
+export { runVerify, printVerifyResult } from './verify';
+export type { VerifyResult, VerifyStepResult, VerifyStepName, VerifyOptions } from './verify';
 export {
 	checkStructuralDuplicates,
 	fingerprintSvelte,

@@ -214,6 +214,19 @@ describe('svforge add — invocation shape (#419)', () => {
 		expect(addonSpec('dnd')).toBe('@svforge/dnd');
 	});
 
+	it('packaged artifacts and exact npm versions are honoured (#470)', () => {
+		const addonRoot = mkdtempSync(join(tmpdir(), 'sf-addonroot-'));
+		try {
+			mkdirSync(join(addonRoot, 'dnd'), { recursive: true });
+			expect(addonSpec('dnd', undefined, addonRoot)).toBe(`file:${join(addonRoot, 'dnd')}`);
+			// A module absent from the artifact directory falls back to npm — pinned.
+			expect(addonSpec('blog', undefined, addonRoot, '2.0.1')).toBe('@svforge/blog@2.0.1');
+		} finally {
+			rmSync(addonRoot, { recursive: true, force: true });
+		}
+		expect(addonSpec('dnd', undefined, undefined, '2.0.1')).toBe('@svforge/dnd@2.0.1');
+	});
+
 	it('dlx runner matches the package manager', () => {
 		expect(dlxRunner('bun').command).toBe('bunx');
 		expect(dlxRunner('pnpm')).toMatchObject({ command: 'pnpm', prefix: ['dlx'] });

@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
-# External user journey smoke test (#462, hardened in #465).
+# External user journey smoke test (#462, hardened in #465, golden path #470).
 #
 # Reproduces the path a REAL external user follows — from a clean temporary
 # directory, with tooling acquired from the registry (never the repository's
 # own node_modules):
 #
-#   acquire sv → sv create → sv add (packed tarball | exact npm version)
-#   → setup → check/test/build → boot the app → minimal journey
+#   manual path: acquire sv → sv create → sv add (packed tarball | exact npm)
+#                → setup → check/test/build → boot → minimal journey
+#   create path: acquire sv → ONE `svforge create` (#417, the promised UX)
+#                → project manifest/diagnostics → setup → build/tests
+#                → boot → minimal journey
 #
 # Modes:
 #   * local (default)   — `npm pack` the add-on and run the journey from the
@@ -14,6 +17,13 @@
 #                         `--dev-root`, no checkout tooling. Release gate that
 #                         must pass BEFORE publishing (and in PR CI).
 #   * --published <v>   — install the EXACT npm version (the one just published).
+#
+# Paths:
+#   * --path manual (default) — the documented two-step `sv create` + `sv add`.
+#   * --path create           — the ONE-COMMAND `svforge create` golden path
+#                               (#470). Pre-publish it resolves the current
+#                               PACKAGED artifacts via `--addon-root`; published
+#                               it pins `--addon-version`.
 #
 # This is a SHORT smoke test: exhaustive behaviour stays in
 # `scripts/test-scaffold.sh`. Its job is to catch packaging gaps, a broken
@@ -31,6 +41,7 @@ SF_PM="${SF_PM:-bun}"
 MODE="local"
 VERSION=""
 SV_VERSION="${SV_VERSION:-}"
+PATH_MODE="manual"
 TEMPLATES=()
 KEEP=0
 
@@ -39,6 +50,8 @@ usage() {
 Usage: scripts/test-user-journey.sh [options]
 
   --published <version>   install the exact published npm version
+  --path <manual|create>  manual two-step install (default) or the ONE-COMMAND
+                          `svforge create` golden path (#470)
   --template <name>       run only one journey (base or dashboard); may repeat
   --sv <version>          override the `sv` CLI version to acquire (default: repo pin,
                           use "latest" for the ecosystem canary)
@@ -74,6 +87,15 @@ while [ $# -gt 0 ]; do
 			esac
 			shift
 			;;
+		--path)
+			shift
+			[ $# -gt 0 ] || { echo "❌ --path requires a value (manual or create)" >&2; exit 1; }
+			case "$1" in
+				manual | create) PATH_MODE="$1" ;;
+				*) echo "❌ Unknown path: $1 (expected manual or create)" >&2; exit 1 ;;
+			esac
+			shift
+			;;
 		--keep)
 			KEEP=1
 			shift
@@ -94,7 +116,7 @@ done
 step() { echo; echo "▶ $*"; }
 fail() { echo "❌ $*" >&2; exit 1; }
 
-echo "User journey smoke test: mode=$MODE${VERSION:+ version=$VERSION}${SV_VERSION:+ sv=$SV_VERSION} templates=${TEMPLATES[*]}"
+echo "User journey smoke test: mode=$MODE${VERSION:+ version=$VERSION}${SV_VERSION:+ sv=$SV_VERSION} path=$PATH_MODE templates=${TEMPLATES[*]}"
 
 # 1. Local mode packs the CURRENT build, so build the add-on first. The
 #    published mode must never touch the checkout's sources.
@@ -145,13 +167,83 @@ else
 	fail "published mode requires an exact version"
 fi
 
+# 5. Golden path (#470): the ONE-COMMAND creator resolves the add-ons from an
+#    explicit source. Pre-publish packs + extracts the CURRENT module packages
+#    into a local addon-root (never the checkout, never --dev-root); published
+#    pins the exact npm version so it can never validate an implicit `latest`.
+ADDON_ROOT=""
+if [ "$PATH_MODE" = "create" ]; then
+	if [ "$MODE" = "local" ]; then
+		step "Packing the current module packages for the addon-root"
+		ADDON_ROOT="$(cd "$REPO_ROOT" && node scripts/user-journey.mjs addon-set --dest "$WORK_DIR")"
+		[ -d "$ADDON_ROOT/$PRIMARY_PACKAGE" ] || fail "addon-root missing the packed $PRIMARY_PACKAGE package"
+		echo "addon-root: $ADDON_ROOT"
+	else
+		ADDON_SPEC_VERSION="$VERSION"
+	fi
+fi
+
+# Assert the delivered project records every requested choice (#470).
+assert_create_project() {
+	local template="$1" expected_modules="$2" runtime="${3:-}"
+	test -f .svforge.json || fail "create: .svforge.json missing (the one-command creator did not configure the project)"
+	test -f AGENTS.md || fail "create: AGENTS.md missing (AI-ready artifact)"
+	test -f llms.txt || fail "create: llms.txt missing (AI-ready artifact)"
+	TEMPLATE="$template" EXPECTED_MODULES="$expected_modules" EXPECTED_RUNTIME="$runtime" node -e '
+		const fs = require("fs");
+		const manifest = JSON.parse(fs.readFileSync(".svforge.json", "utf8"));
+		const fail = (message) => { console.error(message); process.exit(1); };
+		if (manifest.template !== process.env.TEMPLATE) fail(`template ${manifest.template} != ${process.env.TEMPLATE}`);
+		const modules = manifest.modules ?? [];
+		const expected = process.env.EXPECTED_MODULES ? process.env.EXPECTED_MODULES.split(",").filter(Boolean) : [];
+		const missing = expected.filter((id) => !modules.includes(id));
+		if (missing.length > 0) fail(`module(s) requested but not installed: ${missing.join(", ")}`);
+		if (process.env.EXPECTED_RUNTIME && manifest.deployment?.profile !== process.env.EXPECTED_RUNTIME) {
+			fail(`runtime ${manifest.deployment?.profile} != ${process.env.EXPECTED_RUNTIME}`);
+		}
+	' || fail "create: manifest does not match the requested configuration"
+}
+
+# Boot the generated base project and probe the root page (#470).
+base_dev_smoke() {
+	local port="$1"
+	step "base: dev server answers 200 on /"
+	bun run dev --port "$port" --strictPort >"$WORK_DIR/base-dev.log" 2>&1 &
+	SERVER_PIDS+=("$!")
+	wait_for_port "$port" || { cat "$WORK_DIR/base-dev.log" >&2; fail "base: dev server never became ready"; }
+	local status
+	status="$(curl -s -L -o /dev/null -w '%{http_code}' "http://localhost:$port/")"
+	[ "$status" = "200" ] || fail "base: GET / returned HTTP $status"
+	kill "${SERVER_PIDS[-1]}" 2>/dev/null || true
+}
+
+# Real PostgreSQL setup + schema push, shared by both dashboard paths.
+dashboard_database_setup() {
+	local port="$1"
+	step "dashboard: setup + real PostgreSQL schema"
+	bash scripts/setup.sh >/dev/null 2>&1 || fail "dashboard: scripts/setup.sh failed"
+	test -f .env || fail "dashboard: setup.sh did not create .env"
+	export TEST_DATABASE_URL="${TEST_DATABASE_URL:-postgres://postgres:postgres@localhost:5432/sf_dashboard_test}"
+	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
+	# Better Auth trusts ORIGIN only — align it with the journey port.
+	sed -i.bak "s|^ORIGIN=.*|ORIGIN=http://localhost:$port|" .env && rm -f .env.bak
+	bunx drizzle-kit push --force >"$WORK_DIR/drizzle-push.log" 2>&1 \
+		|| { cat "$WORK_DIR/drizzle-push.log" >&2; fail "dashboard: drizzle-kit push failed (is PostgreSQL reachable?)"; }
+}
+
+# Build the generated project and run the ONE-COMMAND readiness check (#470).
+project_verify() {
+	step "project: svforge verify (#470)"
+	"${SVFORGE_CLI[@]}" verify || fail "svforge verify: the generated project is not ready"
+}
+
 # Wait for a dev server to answer on `$1/` (any status), up to ~3 minutes.
 wait_for_port() {
 	local port="$1"
 	for _ in $(seq 1 90); do
 		curl -sf -o /dev/null "http://localhost:$port/" 2>/dev/null && return 0
 		sleep 2
-	done
+		done
 	return 1
 }
 
@@ -186,54 +278,16 @@ run_base() {
 	bun run check
 	bun run test
 
-	step "base: dev server answers 200 on /"
-	bun run dev --port "$port" --strictPort >"$WORK_DIR/base-dev.log" 2>&1 &
-	SERVER_PIDS+=("$!")
-	wait_for_port "$port" || { cat "$WORK_DIR/base-dev.log" >&2; fail "base: dev server never became ready"; }
-	local status
-	status="$(curl -s -L -o /dev/null -w '%{http_code}' "http://localhost:$port/")"
-	[ "$status" = "200" ] || fail "base: GET / returned HTTP $status"
-	kill "${SERVER_PIDS[-1]}" 2>/dev/null || true
+	base_dev_smoke "$port"
 	echo "✅ base journey passed"
 }
 
-run_dashboard() {
-	local addon="$SOURCE=template:dashboard+testing:vitest+hooks:none"
-	local port=4212
-
-	step "dashboard: sv create"
-	mkdir -p "$WORK_DIR/dashboard"
-	cd "$WORK_DIR/dashboard"
-	$SV_CMD create app --template minimal --types ts --no-install --no-add-ons --no-download-check
-	cd app
-
-	step "dashboard: sv add (documented install)"
-	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check
-
-	test -f .svforge.json || fail "dashboard: .svforge.json missing from the package"
-	test -f drizzle.config.ts || fail "dashboard: drizzle.config.ts missing at the project root"
-	test -f scripts/setup.sh || fail "dashboard: scripts/setup.sh missing at the project root"
-	test -f src/lib/components/svforge/primitives/Button.svelte || fail "dashboard: primitives/Button.svelte missing (packaging gap)"
-
-	step "dashboard: setup + real PostgreSQL schema"
-	bash scripts/setup.sh >/dev/null 2>&1 || fail "dashboard: scripts/setup.sh failed"
-	test -f .env || fail "dashboard: setup.sh did not create .env"
-	export TEST_DATABASE_URL="${TEST_DATABASE_URL:-postgres://postgres:postgres@localhost:5432/sf_dashboard_test}"
-	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
-	# Better Auth trusts ORIGIN only — align it with the journey port.
-	sed -i.bak "s|^ORIGIN=.*|ORIGIN=http://localhost:$port|" .env && rm -f .env.bak
-	bunx drizzle-kit push --force >"$WORK_DIR/drizzle-push.log" 2>&1 \
-		|| { cat "$WORK_DIR/drizzle-push.log" >&2; fail "dashboard: drizzle-kit push failed (is PostgreSQL reachable?)"; }
-
-	step "dashboard: svforge doctor + check"
-	"${SVFORGE_CLI[@]}" doctor
-	"${SVFORGE_CLI[@]}" check
-
-	step "dashboard: build + test"
-	# Build FIRST: it generates src/lib/paraglide, which the shipped suites import.
-	bun run build
-	bun run test
-
+# Shared dashboard journey (#470): boot the generated app and exercise the
+# minimal real user flow (anonymous redirect → setup → login → /admin).
+# Both the manual `sv create → sv add` path and the one-command golden path
+# call it, so the two journeys can never drift apart.
+dashboard_auth_journey() {
+	local port="$1"
 	step "dashboard: auth journey (setup → redirect → login → /admin)"
 	SMOKE_RUN="$$-$(date +%s)"
 	SMOKE_ADMIN_EMAIL="journey-admin-${SMOKE_RUN}@sf-test.example"
@@ -278,12 +332,100 @@ run_dashboard() {
 		await sql`DELETE FROM "user" WHERE email LIKE ${"%-" + process.env.SMOKE_RUN + "@sf-test.example"}`;
 		await sql.end();
 	' || true
+}
+
+run_dashboard() {
+	local addon="$SOURCE=template:dashboard+testing:vitest+hooks:none"
+	local port=4212
+
+	step "dashboard: sv create"
+	mkdir -p "$WORK_DIR/dashboard"
+	cd "$WORK_DIR/dashboard"
+	$SV_CMD create app --template minimal --types ts --no-install --no-add-ons --no-download-check
+	cd app
+
+	step "dashboard: sv add (documented install)"
+	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check
+
+	test -f .svforge.json || fail "dashboard: .svforge.json missing from the package"
+	test -f drizzle.config.ts || fail "dashboard: drizzle.config.ts missing at the project root"
+	test -f scripts/setup.sh || fail "dashboard: scripts/setup.sh missing at the project root"
+	test -f src/lib/components/svforge/primitives/Button.svelte || fail "dashboard: primitives/Button.svelte missing (packaging gap)"
+
+	dashboard_database_setup "$port"
+
+	step "dashboard: svforge doctor + check"
+	"${SVFORGE_CLI[@]}" doctor
+	"${SVFORGE_CLI[@]}" check
+
+	step "dashboard: build + test"
+	# Build FIRST: it generates src/lib/paraglide, which the shipped suites import.
+	bun run build
+	bun run test
+
+	dashboard_auth_journey "$port"
 	echo "✅ dashboard journey passed"
 }
 
+# ── Golden path: ONE `svforge create` command (#470) ─────────────────
+
+# Assemble the argv for `svforge create` from the shell (the pure helper in
+# scripts/user-journey.mjs owns the unit-tested contract).
+create_command_args() {
+	local template="$1"
+	CREATE_ARGS=(create app --template "$template" --pm "$SF_PM" --testing vitest --hooks none --yes)
+	if [ "$template" = "dashboard" ]; then
+		# The complete canonical set requires a long-lived runtime.
+		CREATE_ARGS+=(--modules all --runtime long-lived-node)
+	else
+		CREATE_ARGS+=(--modules ui_toast)
+	fi
+	if [ "$MODE" = "local" ]; then
+		CREATE_ARGS+=(--addon-root "$ADDON_ROOT")
+	else
+		CREATE_ARGS+=(--addon-version "$ADDON_SPEC_VERSION")
+	fi
+}
+
+run_base_create() {
+	local port=4211
+	step "base: ONE svforge create (golden path)"
+	mkdir -p "$WORK_DIR/base-create"
+	cd "$WORK_DIR/base-create"
+	create_command_args base
+	SVFORGE_SV_CMD="$SV_CMD" "${SVFORGE_CLI[@]}" "${CREATE_ARGS[@]}" || fail "base: svforge create failed"
+	cd app
+	assert_create_project base ui_toast
+	project_verify
+	base_dev_smoke "$port"
+	echo "✅ base golden path passed"
+}
+
+run_dashboard_create() {
+	local port=4212
+	step "dashboard: ONE svforge create (golden path)"
+	mkdir -p "$WORK_DIR/dashboard-create"
+	cd "$WORK_DIR/dashboard-create"
+	create_command_args dashboard
+	SVFORGE_SV_CMD="$SV_CMD" "${SVFORGE_CLI[@]}" "${CREATE_ARGS[@]}" || fail "dashboard: svforge create --modules all failed"
+	cd app
+	# All modules are implied — the manifest must not silently drop any.
+	test -f drizzle.config.ts || fail "dashboard: drizzle.config.ts missing at the project root"
+	test -f scripts/setup.sh || fail "dashboard: scripts/setup.sh missing at the project root"
+	assert_create_project dashboard "" long-lived-node
+	dashboard_database_setup "$port"
+	project_verify
+	dashboard_auth_journey "$port"
+	echo "✅ dashboard golden path passed"
+}
+
 for template in "${TEMPLATES[@]}"; do
-	"run_$template"
+	if [ "$PATH_MODE" = "create" ]; then
+		"run_${template}_create"
+	else
+		"run_$template"
+	fi
 done
 
 echo
-echo "✅ User journey smoke test passed (mode=$MODE${VERSION:+ version=$VERSION} templates=${TEMPLATES[*]})"
+echo "✅ User journey smoke test passed (mode=$MODE${VERSION:+ version=$VERSION} path=$PATH_MODE templates=${TEMPLATES[*]})"

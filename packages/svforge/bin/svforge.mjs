@@ -2,12 +2,13 @@
 /**
  * SVForge CLI — doctor (diagnostics), check (design-system harness),
  * preset (composition recipes), context (AI context), upgrade (module
- * upgrades), add (guided module install, #419) and create (one-command
- * project creator, #417).
+ * upgrades), add (guided module install, #419), create (one-command
+ * project creator, #417) and verify (project readiness, #470).
  *
  * Exposed via the `svforge` bin (#189, #240):
  *   npx svforge doctor
  *   npx svforge check [--strict]
+ *   npx svforge verify
  *   npx svforge add <module…> [--pm <pm>] [--resolve install|fail] [--yes]
  *   npx svforge create <dir> [--template t] [--pm pm] [--testing x]
  *                            [--hooks h] [--modules a,b|all]
@@ -107,6 +108,21 @@ async function main() {
 			console.log('\n✓ Design system is clean.');
 		}
 		process.exitCode = errors.length || (strict && warnings.length) ? 1 : 0;
+		return;
+	}
+
+	if (command === 'verify') {
+		// Project readiness (#470): doctor → check → project check → build →
+		// test. The same light validation a human or agent runs by hand.
+		try {
+			const { runVerify, printVerifyResult } = api;
+			const result = await runVerify(projectRoot, { spawn: await realSpawn() });
+			printVerifyResult(result);
+			process.exitCode = result.ok ? 0 : 1;
+		} catch (e) {
+			console.error(`Verify failed: ${e instanceof Error ? e.message : e}`);
+			process.exitCode = 1;
+		}
 		return;
 	}
 
@@ -244,7 +260,7 @@ async function main() {
 		return;
 	}
 
-	console.error('Usage: svforge <doctor|check [--strict]|preset|context|upgrade|add|create>');
+	console.error('Usage: svforge <doctor|check [--strict]|verify|preset|context|upgrade|add|create>');
 	process.exitCode = 1;
 }
 

@@ -46,6 +46,10 @@ export interface AddCommandOptions {
 	yes?: boolean;
 	/** Monorepo override: install addons from file:<devRoot>/packages/<id>. */
 	devRoot?: string;
+	/** Packaged-artifact override: install addons from file:<addonRoot>/<id>. */
+	addonRoot?: string;
+	/** Pin npm addon versions (post-release). Never an implicit `latest`. */
+	addonVersion?: string;
 	interactive?: boolean;
 	prompt?: PromptPort;
 	spawn?: SpawnPort;
@@ -92,12 +96,24 @@ export function svRunner(pm: string, svCmd?: string): { command: string; prefix:
 	return { command: runner.command, prefix: [...runner.prefix, 'sv'] };
 }
 
-/** Addon spec for one module: npm by default, file: in dev checkouts. */
-export function addonSpec(moduleId: string, devRoot?: string): string {
+/**
+ * Addon spec for one module.
+ *
+ * Resolution order (first match wins):
+ *   1. `file:` from a dev checkout (`--dev-root`, monorepo contributors);
+ *   2. `file:` from a directory of EXTRACTED packaged artifacts (`--addon-root`,
+ *      the release golden path / offline installs — never the checkout);
+ *   3. the npm registry, optionally pinned to an exact `--addon-version`
+ *      (post-publish golden path: never an implicit `latest`).
+ */
+export function addonSpec(moduleId: string, devRoot?: string, addonRoot?: string, version?: string): string {
 	if (devRoot && existsSync(join(devRoot, 'packages', moduleId))) {
 		return `file:${join(devRoot, 'packages', moduleId)}`;
 	}
-	return `@svforge/${moduleId}`;
+	if (addonRoot && existsSync(join(addonRoot, moduleId))) {
+		return `file:${join(addonRoot, moduleId)}`;
+	}
+	return `@svforge/${moduleId}${version ? `@${version}` : ''}`;
 }
 
 interface ProjectState {
@@ -128,7 +144,7 @@ function readState(cwd: string): ProjectState {
 }
 
 /** Flags that CONSUME the next argument — values must never become module ids. */
-const ADD_FLAGS_WITH_VALUES = ['--pm', '--resolve', '--sv-cmd', '--dev-root', '--runtime'] as const;
+const ADD_FLAGS_WITH_VALUES = ['--pm', '--resolve', '--sv-cmd', '--dev-root', '--addon-root', '--addon-version', '--runtime'] as const;
 
 export interface ParsedAddArgs {
 	modules: string[];
@@ -136,6 +152,8 @@ export interface ParsedAddArgs {
 	resolve?: AddResolvePolicy;
 	svCmd?: string;
 	devRoot?: string;
+	addonRoot?: string;
+	addonVersion?: string;
 	runtime?: 'long-lived-node';
 	yes?: boolean;
 }
@@ -162,6 +180,12 @@ export function parseAddArgs(args: string[]): ParsedAddArgs {
 					break;
 				case '--dev-root':
 					parsed.devRoot = value;
+					break;
+				case '--addon-root':
+					parsed.addonRoot = value;
+					break;
+				case '--addon-version':
+					parsed.addonVersion = value;
 					break;
 				case '--runtime':
 					parsed.runtime = value as 'long-lived-node';
@@ -294,7 +318,7 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 		}
 	}
 
-	const specs = plan.order.map((id) => addonSpec(id, options.devRoot));
+	const specs = plan.order.map((id) => addonSpec(id, options.devRoot, options.addonRoot, options.addonVersion));
 	const spawn = options.spawn;
 	if (!spawn) {
 		// No spawn port: report the exact plan and specs without executing

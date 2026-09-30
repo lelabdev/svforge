@@ -7,8 +7,10 @@ const {
 	addonSpec,
 	assertPackagedEntrypoints,
 	extractAddon,
+	goldenPathCreateArgs,
 	installSv,
 	packLocalAddon,
+	packModuleSet,
 	parseUserJourneyArgs,
 	resolveSource,
 	resolveSvVersion
@@ -199,5 +201,78 @@ describe('external user journey smoke test (#462, #465)', () => {
 	it('keeps the heavy journey out of the default PR pipeline (#413)', () => {
 		const ci = readFileSync(join(process.cwd(), '.github', 'workflows', 'ci.yml'), 'utf8');
 		expect(ci).not.toContain('test-user-journey.sh');
+	});
+});
+
+describe('golden path one-command creator (#470)', () => {
+	it('builds the exact non-interactive svforge create argv per template', () => {
+		// A base project: an opt-in module, no runtime requirement.
+		expect(goldenPathCreateArgs({ dir: 'app', template: 'base' })).toEqual([
+			'create',
+			'app',
+			'--template',
+			'base',
+			'--pm',
+			'bun',
+			'--testing',
+			'vitest',
+			'--hooks',
+			'none',
+			'--modules',
+			'ui_toast',
+			'--yes'
+		]);
+
+		// A dashboard project: the complete canonical set implies the runtime.
+		const dashboard = goldenPathCreateArgs({ dir: 'app', template: 'dashboard' });
+		expect(dashboard).toEqual(expect.arrayContaining(['--modules', 'all', '--runtime', 'long-lived-node', '--yes']));
+	});
+
+	it('carries the explicit add-on source — packed artifacts or the exact published version', () => {
+		const local = goldenPathCreateArgs({ dir: 'app', template: 'base', addonRoot: '/tmp/registry' });
+		expect(local).toContain('--addon-root');
+		expect(local).toContain('/tmp/registry');
+		expect(local).not.toContain('--addon-version');
+
+		const published = goldenPathCreateArgs({ dir: 'app', template: 'dashboard', addonVersion: '2.0.1' });
+		expect(published).toContain('--addon-version');
+		expect(published).toContain('2.0.1');
+		// Post-publish must never fall back to an implicit `latest`.
+		expect(published.join(' ')).not.toMatch(/@latest/);
+	});
+
+	it('packs and extracts every module add-on into the addon-root registry', () => {
+		const root = mkdtempSync(join(tmpdir(), 'svforge-golden-root-'));
+		try {
+			// A repository checkout with two module packages, no node_modules.
+			writeFileSync(
+				join(root, 'package.json'),
+				`${JSON.stringify({ name: 'repo', private: true, devDependencies: { sv: '^0.15.3' } }, null, 2)}\n`
+			);
+			fixtureAddon(join(root, 'packages', 'svforge'));
+			fixtureAddon(join(root, 'packages', 'dnd'));
+			fixtureAddon(join(root, 'packages', 'ui_toast'));
+
+			const registry = packModuleSet({ root, destination: join(root, 'scratch') });
+			expect(registry).toBe(join(root, 'scratch', 'registry'));
+			// svforge is packed separately by resolveSource — skipped here.
+			expect(existsSync(join(registry, 'svforge'))).toBe(false);
+			expect(existsSync(join(registry, 'dnd', 'bin', 'cli.mjs'))).toBe(true);
+			expect(existsSync(join(registry, 'ui_toast', 'dist', 'index.js'))).toBe(true);
+		} finally {
+			rmSync(root, { recursive: true, force: true });
+		}
+	}, 60_000);
+
+	it('wires the pre-publish golden path before publication and the exact published version after it (#470)', () => {
+		const publish = readFileSync(join(process.cwd(), '.github', 'workflows', 'publish.yml'), 'utf8');
+		const prePublish = publish.indexOf('Golden path (local package)');
+		const publishStep = publish.indexOf('name: Publish release plan');
+		const postPublish = publish.indexOf('Golden path (published)');
+		expect(prePublish).toBeGreaterThan(-1);
+		expect(postPublish).toBeGreaterThan(-1);
+		// Pre-publish must block the publish; post-publish asserts the registry.
+		expect(prePublish).toBeLessThan(publishStep);
+		expect(postPublish).toBeGreaterThan(publishStep);
 	});
 });
