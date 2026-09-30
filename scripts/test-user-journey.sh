@@ -1,21 +1,24 @@
 #!/usr/bin/env bash
-# Published user journey smoke test (#462).
+# External user journey smoke test (#462, hardened in #465).
 #
-# Reproduces the EXTERNAL user path from an installable package:
+# Reproduces the path a REAL external user follows — from a clean temporary
+# directory, with tooling acquired from the registry (never the repository's
+# own node_modules):
 #
-#   package → sv create → sv add → setup → server → minimal journey
+#   acquire sv → sv create → sv add (packed tarball | exact npm version)
+#   → setup → check/test/build → boot the app → minimal journey
 #
-# Two modes:
+# Modes:
 #   * local (default)   — `npm pack` the add-on and run the journey from the
 #                         EXTRACTED tarball. No `file:<repo>/packages/...`, no
-#                         `--dev-root`, no monorepo import. This is the release
-#                         gate that must pass BEFORE publishing.
-#   * --published [v]   — install the real npm package (latest by default) in a
-#                         clean temporary directory. Post-publication signal.
+#                         `--dev-root`, no checkout tooling. Release gate that
+#                         must pass BEFORE publishing (and in PR CI).
+#   * --published <v>   — install the EXACT npm version (the one just published).
 #
 # This is a SHORT smoke test: exhaustive behaviour stays in
 # `scripts/test-scaffold.sh`. Its job is to catch packaging gaps, a broken
-# documented install, and runtime failures that local `file:` scaffolds hide.
+# documented install, registry acquisition failures, and runtime failures that
+# local `file:` scaffolds hide.
 #
 # The dashboard journey needs a reachable PostgreSQL (same URL contract as the
 # scaffold suite: TEST_DATABASE_URL). Run `--template base` locally without one.
@@ -27,6 +30,7 @@ SF_PM="${SF_PM:-bun}"
 
 MODE="local"
 VERSION=""
+SV_VERSION="${SV_VERSION:-}"
 TEMPLATES=()
 KEEP=0
 
@@ -34,8 +38,10 @@ usage() {
 	cat <<'EOF'
 Usage: scripts/test-user-journey.sh [options]
 
-  --published [version]   install the published npm package (default: local tarballs)
+  --published <version>   install the exact published npm version
   --template <name>       run only one journey (base or dashboard); may repeat
+  --sv <version>          override the `sv` CLI version to acquire (default: repo pin,
+                          use "latest" for the ecosystem canary)
   --keep                  keep the temporary directory for inspection
   -h, --help              show this help
 EOF
@@ -46,10 +52,18 @@ while [ $# -gt 0 ]; do
 		--published)
 			MODE="published"
 			shift
-			if [ $# -gt 0 ] && [ "${1#-}" = "$1" ]; then
-				VERSION="$1"
-				shift
+			if [ $# -eq 0 ] || [ "${1#-}" != "$1" ]; then
+				echo "❌ --published requires an exact version (for example --published 2.0.1)" >&2
+				exit 1
 			fi
+			VERSION="$1"
+			shift
+			;;
+		--sv)
+			shift
+			[ $# -gt 0 ] || { echo "❌ --sv requires a version" >&2; exit 1; }
+			SV_VERSION="$1"
+			shift
 			;;
 		--template)
 			shift
@@ -80,18 +94,7 @@ done
 step() { echo; echo "▶ $*"; }
 fail() { echo "❌ $*" >&2; exit 1; }
 
-# `sv` symlinks a `file:` add-on into its OWN node_modules and only removes the
-# previous link when the (followed) target still exists. Our tarball lives in a
-# per-run temporary directory, so a previous run leaves a BROKEN symlink that
-# makes the next `sv add` fail with EEXIST. Clear it before a local run.
-clean_sv_addon_cache() {
-	local sv_real
-	sv_real="$(readlink -f "$REPO_ROOT/node_modules/sv" 2>/dev/null || true)"
-	[ -n "$sv_real" ] || return 0
-	rm -rf "$(dirname "$sv_real")/node_modules/$PRIMARY_PACKAGE" 2>/dev/null || true
-}
-
-echo "User journey smoke test: mode=$MODE${VERSION:+ version=$VERSION} templates=${TEMPLATES[*]}"
+echo "User journey smoke test: mode=$MODE${VERSION:+ version=$VERSION}${SV_VERSION:+ sv=$SV_VERSION} templates=${TEMPLATES[*]}"
 
 # 1. Local mode packs the CURRENT build, so build the add-on first. The
 #    published mode must never touch the checkout's sources.
@@ -103,7 +106,6 @@ fi
 WORK_DIR="$(mktemp -d "${TMPDIR:-/tmp}/sf-user-journey-XXXXXX")"
 SERVER_PIDS=()
 cleanup() {
-	clean_sv_addon_cache
 	for pid in "${SERVER_PIDS[@]:-}"; do kill "$pid" 2>/dev/null || true; done
 	if [ "$KEEP" = "1" ]; then
 		echo "ℹ keeping $WORK_DIR (--keep)"
@@ -114,17 +116,23 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# 2. Resolve the `sv add` source. Local: extracted tarball; published: npm spec.
-SOURCE_ARGS=(source --dest "$WORK_DIR/registry")
-if [ "$MODE" = "published" ] && [ -n "$VERSION" ]; then
-	SOURCE_ARGS=(source --published "$VERSION" --dest "$WORK_DIR/registry")
-elif [ "$MODE" = "published" ]; then
-	SOURCE_ARGS=(source --published --dest "$WORK_DIR/registry")
+# 2. Resolve the `sv add` source AND acquire `sv` externally into the scratch
+#    prefix. Local: extracted tarball; published: exact npm specifier.
+SOURCE_ARGS=(source --dest "$WORK_DIR")
+[ -n "$SV_VERSION" ] && SOURCE_ARGS+=(--sv "$SV_VERSION")
+if [ "$MODE" = "published" ]; then
+	SOURCE_ARGS+=(--published "$VERSION")
 fi
 SOURCE="$(cd "$REPO_ROOT" && node scripts/user-journey.mjs "${SOURCE_ARGS[@]}")"
 echo "add-on source: $SOURCE"
 
-# 3. The packaged CLI a real user invokes, exactly from the chosen artifact.
+# 3. The `sv` CLI comes from the scratch prefix installed above — never
+#    `$REPO_ROOT/node_modules/.bin/sv`.
+SV_CMD="$WORK_DIR/node_modules/.bin/sv"
+[ -x "$SV_CMD" ] || fail "external sv CLI missing at $SV_CMD (registry acquisition failed)"
+echo "sv CLI: $SV_CMD"
+
+# 4. The packaged CLI a real user invokes, exactly from the chosen artifact.
 if [ "$MODE" = "local" ]; then
 	SVFORGE_CLI=(node "$WORK_DIR/registry/$PRIMARY_PACKAGE/bin/svforge.mjs")
 	# A local run must not resolve the add-on from the checkout.
@@ -134,13 +142,9 @@ if [ "$MODE" = "local" ]; then
 elif [ -n "$VERSION" ]; then
 	SVFORGE_CLI=(npx --yes "$PRIMARY_PACKAGE@$VERSION")
 else
-	SVFORGE_CLI=(npx --yes "$PRIMARY_PACKAGE")
+	fail "published mode requires an exact version"
 fi
 
-if [ -z "${SV_CMD:-}" ]; then
-	SV_CMD="$REPO_ROOT/node_modules/.bin/sv"
-fi
-clean_sv_addon_cache
 # Wait for a dev server to answer on `$1/` (any status), up to ~3 minutes.
 wait_for_port() {
 	local port="$1"
@@ -176,10 +180,11 @@ run_base() {
 	step "base: svforge check"
 	"${SVFORGE_CLI[@]}" check
 
-	step "base: check + test + build"
+	step "base: build + check + test"
+	# Build FIRST: it generates src/lib/paraglide, which the shipped suites import.
+	bun run build
 	bun run check
 	bun run test
-	bun run build
 
 	step "base: dev server answers 200 on /"
 	bun run dev --port "$port" --strictPort >"$WORK_DIR/base-dev.log" 2>&1 &
@@ -224,9 +229,10 @@ run_dashboard() {
 	"${SVFORGE_CLI[@]}" doctor
 	"${SVFORGE_CLI[@]}" check
 
-	step "dashboard: test + build"
-	bun run test
+	step "dashboard: build + test"
+	# Build FIRST: it generates src/lib/paraglide, which the shipped suites import.
 	bun run build
+	bun run test
 
 	step "dashboard: auth journey (setup → redirect → login → /admin)"
 	SMOKE_RUN="$$-$(date +%s)"

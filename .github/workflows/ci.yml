@@ -121,3 +121,12 @@ jobs:
         run: bash scripts/test-scaffold.sh create-cli
         env:
           CI: 'true'
+
+      # External user journey (#462, hardened in #465): acquire `sv` from the
+      # registry, pack the current build, and complete the real install path
+      # (base + dashboard) against the PostgreSQL service — BEFORE merge, so a
+      # broken journey harness is caught in review, not during a release.
+      - name: User journey smoke test (local package)
+        run: bash scripts/test-user-journey.sh
+        env:
+          CI: 'true'

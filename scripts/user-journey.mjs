@@ -1,26 +1,28 @@
 #!/usr/bin/env node
 /**
- * Published user-journey smoke test helpers (#462).
+ * External user journey smoke test helpers (#462, hardened in #465).
  *
- * `scripts/test-user-journey.sh` reproduces the EXTERNAL user path:
- * an installable package → project creation → setup → server → minimal
- * functional journey. This module owns the parts that must be asserted in
- * unit tests: argument parsing, the documented add-on specifier, and the
- * local tarball round-trip (`npm pack` → extract → entrypoint check).
+ * `scripts/test-user-journey.sh` reproduces the path a REAL external user
+ * follows: acquire the `sv` CLI, create a project, add SVForge from a packed
+ * tarball (pre-publish) or the exact published version (post-publish), run the
+ * documented commands, boot the app, and exercise the dashboard flow.
  *
- * Local mode packs the package exactly like `npm publish` would and runs the
- * journey from the EXTRACTED tarball (never `file:<repo>/packages/...`), so a
- * file missing from the npm artifact fails the smoke test instead of being
- * masked by the monorepo checkout.
+ * This module owns the parts asserted in unit tests: argument parsing, the
+ * documented add-on specifier, the local tarball round-trip, external `sv`
+ * acquisition, and source resolution. It NEVER reads or executes the
+ * repository's own `node_modules` tooling — `sv` is installed into a scratch
+ * prefix exactly as an external consumer would.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, realpathSync, symlinkSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /** The add-on that carries the base and dashboard templates. */
 export const PRIMARY_PACKAGE = 'svforge';
 export const JOURNEY_TEMPLATES = ['base', 'dashboard'];
+
+const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 /**
  * Parse the smoke-test CLI. `--published [version]` selects the registry
@@ -35,10 +37,11 @@ export function parseUserJourneyArgs(argv) {
 		if (arg === '--published') {
 			mode = 'published';
 			const next = argv[index + 1];
-			if (next && !next.startsWith('-')) {
-				version = next;
-				index += 1;
+			if (!next || next.startsWith('-')) {
+				throw new Error('--published requires an exact version (for example --published 2.0.1)');
 			}
+			version = next;
+			index += 1;
 		} else if (arg === '--template') {
 			const value = argv[index + 1];
 			if (!value || value.startsWith('-')) throw new Error('--template requires a value (base or dashboard)');
@@ -54,6 +57,34 @@ export function parseUserJourneyArgs(argv) {
 /** Build the exact `sv add` specifier documented for a template. */
 export function addonSpec({ source, template, testing = 'vitest', hooks = 'none' }) {
 	return `${source}=template:${template}+testing:${testing}+hooks:${hooks}`;
+}
+
+/** The `sv` version the repository targets, e.g. `0.15.4` — never a checkout path. */
+export function resolveSvVersion(root = REPO_ROOT, { override } = {}) {
+	if (override) return override;
+	const manifest = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
+	const raw = manifest.devDependencies?.sv;
+	if (typeof raw !== 'string' || raw.length === 0) {
+		throw new Error('The repository manifest does not pin the `sv` CLI');
+	}
+	return raw.replace(/^[\^~>=<\s]*/, '').trim();
+}
+
+/**
+ * Install `sv` EXTERNALLY into `scratch` (the registry acquisition a real user
+ * gets through `npx`/`npm`). Returns the CLI path inside the scratch prefix, so
+ * the journey never touches `$REPO_ROOT/node_modules`.
+ */
+export function installSv(scratch, version, { run = execFileSync } = {}) {
+	mkdirSync(scratch, { recursive: true });
+	run(
+		'npm',
+		['install', '--prefix', scratch, '--no-save', '--no-package-lock', '--ignore-scripts', `sv@${version}`],
+		// npm writes progress to stdout; keep stdout clean so the resolved source
+		// can be printed safely, and surface npm diagnostics on stderr.
+		{ stdio: ['ignore', 'ignore', 'inherit'] }
+	);
+	return join(scratch, 'node_modules', '.bin', 'sv');
 }
 
 /** `npm pack` the package as it would be published; return the tarball path. */
@@ -72,7 +103,7 @@ export function packLocalAddon(packageDir, destination) {
 /** Extract a packed tarball into `destination` (tarball root becomes the package root). */
 export function extractAddon(tarball, destination) {
 	mkdirSync(destination, { recursive: true });
-	execFileSync('tar', ['-xzf', tarball, '-C', destination, '--strip-components=1'], { stdio: 'inherit' });
+	execFileSync('tar', ['-xzf', tarball, '-C', destination, '--strip-components=1'], { stdio: ['ignore', 'ignore', 'inherit'] });
 	return destination;
 }
 
@@ -109,40 +140,37 @@ export function assertPackagedEntrypoints(packageDir) {
 }
 
 /**
- * The add-on imports its `sv` peerDependency at load time. A bare tarball
- * extracted into a temporary directory has no node_modules, so make the CLI's
- * own `sv` resolvable from the extraction root (the project/npx provides it
- * for real users). This never touches the SVForge sources under test.
+ * Resolve the `sv add` source and install external `sv` into the scratch
+ * prefix. Local: pack the current build and extract it under
+ * `scratch/registry/<package>` (never `file:<repo>/packages/...`). Published:
+ * the exact npm specifier (`svforge@<version>` or `svforge` for latest).
  */
-export function linkPeerSv(destination, root) {
-	const modules = join(destination, 'node_modules');
-	mkdirSync(modules, { recursive: true });
-	const link = join(modules, 'sv');
-	if (!existsSync(link)) symlinkSync(realpathSync(join(root, 'node_modules', 'sv')), link, 'dir');
-	return link;
-}
+export function resolveSource(argv, { root = REPO_ROOT, run = execFileSync } = {}) {
+	const destFlag = argv.indexOf('--dest');
+	const scratch = destFlag === -1 ? null : argv[destFlag + 1];
+	if (!scratch) throw new Error('resolveSource requires --dest <directory>');
+	const svFlag = argv.indexOf('--sv');
+	const svVersion = resolveSvVersion(root, { override: svFlag === -1 ? undefined : argv[svFlag + 1] });
+	installSv(scratch, svVersion, { run });
 
-/** Resolve the `sv add` source: an extracted local tarball or a registry version. */
-export function resolveSource(argv, { root = resolve(dirname(fileURLToPath(import.meta.url)), '..') } = {}) {
-	const destinationFlag = argv.indexOf('--dest');
-	const destination = destinationFlag === -1 ? null : argv[destinationFlag + 1];
-	if (!destination) throw new Error('resolveSource requires --dest <directory>');
 	const publishedFlag = argv.indexOf('--published');
 	if (publishedFlag !== -1) {
 		const version = argv[publishedFlag + 1];
-		return version && !version.startsWith('-') ? `${PRIMARY_PACKAGE}@${version}` : PRIMARY_PACKAGE;
+		if (!version || version.startsWith('-')) {
+			throw new Error('--published requires an exact version (for example --published 2.0.1)');
+		}
+		return `${PRIMARY_PACKAGE}@${version}`;
 	}
-	const tarball = packLocalAddon(join(root, 'packages', PRIMARY_PACKAGE), join(destination, 'packs'));
-	const extracted = extractAddon(tarball, join(destination, PRIMARY_PACKAGE));
+	const tarball = packLocalAddon(join(root, 'packages', PRIMARY_PACKAGE), join(scratch, 'packs'));
+	const extracted = extractAddon(tarball, join(scratch, 'registry', PRIMARY_PACKAGE));
 	assertPackagedEntrypoints(extracted);
-	linkPeerSv(destination, root);
 	return `file:${extracted}`;
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
 	const [command, ...args] = process.argv.slice(2);
 	if (command !== 'source') {
-		console.error('Usage: node scripts/user-journey.mjs source [--published [version]] --dest <directory>');
+		console.error('Usage: node scripts/user-journey.mjs source [--published [version]] [--sv <version>] --dest <directory>');
 		process.exitCode = 1;
 	} else {
 		try {

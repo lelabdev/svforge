@@ -73,6 +73,17 @@ jobs:
           set +e
           bash scripts/test-scaffold.sh ${{ matrix.scaffold }} > /tmp/canary.log 2>&1
           status=$?
+          # The external user journey (latest `sv`) runs once from the `base`
+          # matrix entry (#465): it exercises the REAL registry install path
+          # against the floating ecosystem versions this canary tracks.
+          if [ "${{ matrix.scaffold }}" = "base" ] && [ $status -eq 0 ]; then
+            {
+              echo ""
+              echo "--- external user journey (latest sv) ---"
+            } >> /tmp/canary.log
+            SV_VERSION=latest bash scripts/test-user-journey.sh >> /tmp/canary.log 2>&1
+            status=$?
+          fi
           set -e
           echo "status=$status" >> "$GITHUB_OUTPUT"
           if [ $status -ne 0 ]; then

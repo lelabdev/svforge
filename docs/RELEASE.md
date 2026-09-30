@@ -75,15 +75,17 @@ Before the first publication, the workflow:
 7. runs `npm pack --dry-run --json --ignore-scripts` for every package and
    verifies exports, JavaScript, declarations, README, LICENSE and packaged
    paths;
-8. packs the current build and completes the **published user journey**
-   (base + dashboard: `sv create` → `sv add` from the tarball → `svforge
-   doctor`/`check` → setup → server → minimal flow) from a clean temporary
-   directory, without importing the monorepo (#462);
+8. acquires `sv` from the registry into a scratch prefix and completes the
+   **external user journey** (base + dashboard: `sv create` → `sv add` from
+   the tarball → `svforge doctor`/`check` → setup → server → minimal flow)
+   from a clean temporary directory, without touching the monorepo's
+   `node_modules` (#462, #465);
 9. publishes the plan in dependency order;
 10. installs every exact published version in a clean consumer, imports every
     package from a generated TypeScript consumer, and runs `tsc --noEmit` to
     validate package export and declaration resolution;
-11. reruns the user journey against the real npm package (`--published`).
+11. reruns the user journey against the EXACT published `svforge` version from
+    the release plan (`--published "$VERSION"`).
 
 The workflow uses a repository-global concurrency group so a production push
 and a manual dispatch cannot publish simultaneously, even from different refs.
@@ -142,20 +144,34 @@ cannot be tested from npm.
 
 ## Published user journey
 
-`scripts/test-user-journey.sh` reproduces the external path from an
-installable package (#462):
+`scripts/test-user-journey.sh` reproduces the path a **real external user**
+follows (#462, hardened in #465). It starts from an empty temporary directory
+and acquires the `sv` CLI from the registry into a scratch prefix — it never
+reads `$REPO_ROOT/node_modules`:
 
 ```bash
-bun run test:user-journey              # pack the current build, run from tarballs
-bash scripts/test-user-journey.sh --published [version]  # run the real npm package
-bun run test:user-journey --template base  # one journey only (no PostgreSQL needed)
+bun run test:user-journey                   # pack the current build, run from tarballs
+bun run test:user-journey --template base   # one journey only (no PostgreSQL needed)
+bash scripts/test-user-journey.sh --published <version>  # the exact published npm version
+bash scripts/test-user-journey.sh --sv latest            # acquire the latest `sv` (canary)
 ```
 
-Local mode runs `npm pack`, extracts the tarball into a temporary directory and
+Local mode runs `npm pack`, extracts the tarball under the scratch prefix and
 uses `sv add file:<extracted>` — never `file:<repo>/packages/...` and never
-`--dev-root`. A file missing from the npm artifact, a broken documented install,
-or a project that cannot build/start therefore fails the gate instead of being
-masked by the monorepo checkout. The dashboard journey needs a reachable
-PostgreSQL (`TEST_DATABASE_URL`, same contract as the scaffold suite); run
-`--template base` locally without one. The work is done in a temporary
-directory that is removed at the end of the run (`--keep` to inspect it).
+`--dev-root`. `--published` **requires an explicit version** (there is no
+`latest` fallback), so the post-publish signal always tests the exact artifact
+that was just shipped. A file missing from the npm artifact, a broken
+documented install, or a project that cannot build/start therefore fails the
+gate instead of being masked by the monorepo checkout. The dashboard journey
+needs a reachable PostgreSQL (`TEST_DATABASE_URL`, same contract as the scaffold
+suite); run `--template base` locally without one. The work is done in a
+temporary directory that is removed at the end of the run (`--keep` to inspect
+it).
+
+Where it runs:
+
+| Workflow | Invocation | Purpose |
+|----------|-----------|---------|
+| **PR CI** (`ci.yml`) | `bash scripts/test-user-journey.sh` | local-package base + dashboard against the CI PostgreSQL, before merge |
+| **Publish** (`publish.yml`) | local, then `--published "$VERSION"` (exact `svforge` version from the release plan) | pre-publish gate + post-publish signal for the artifact just shipped |
+| **Canary** (`canary.yml`) | `SV_VERSION=latest bash scripts/test-user-journey.sh` from the `base` matrix entry | real install path against the floating ecosystem `sv` |

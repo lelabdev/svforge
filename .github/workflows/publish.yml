@@ -129,7 +129,10 @@ jobs:
       - name: Consumer installation smoke test
         run: node scripts/npm-consumer-smoke.mjs --plan /tmp/release-plan.json
 
-      # Post-publication signal (#462): the journey now runs against the real
-      # npm package, from a clean temporary directory, exactly as documented.
+      # Post-publication signal (#462, #465): run the journey against the EXACT
+      # `svforge` version from the release plan, not an unpinned `latest`.
       - name: User journey smoke test (published)
-        run: bash scripts/test-user-journey.sh --published
+        run: |
+          VERSION=$(node -e "const plan=require('/tmp/release-plan.json'); const pkg=plan.packages.find((p)=>p.name==='svforge'); if(!pkg) throw new Error('svforge missing from the release plan'); process.stdout.write(pkg.version)")
+          echo "Testing published svforge@$VERSION"
+          bash scripts/test-user-journey.sh --published "$VERSION"
