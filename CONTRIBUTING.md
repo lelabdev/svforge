@@ -130,6 +130,16 @@ bun run test:watch              # watch mode (parallel OK for development)
 Tests run sequentially (`--no-file-parallelism`) because build tests regenerate
 `dist/` artifacts that other tests check. Watch mode uses parallelism for speed.
 
+The packaged user journey is a separate release smoke test (#462): it packs the
+add-on and runs `scripts/test-scaffold.sh`-style checks from the extracted
+tarball. It is heavier than the unit suite and run by the publish workflow:
+
+```bash
+bun run test:user-journey                 # base + dashboard from local tarballs
+bun run test:user-journey --template base  # base only (no PostgreSQL needed)
+bash scripts/test-user-journey.sh --published  # real npm package
+```
+
 ## Building
 
 ```bash
