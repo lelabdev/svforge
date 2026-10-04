@@ -28,6 +28,18 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
     "body": "## @svforge/notifications@2.0.2 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Replace the invalid Skeleton unread-surface pairing with a generated utility.\n\n### Deprecations\n- None."
   },
   {
+    "package": "@svforge/dnd",
+    "version": "2.0.2",
+    "date": "2026-10-04",
+    "body": "## @svforge/dnd@2.0.2 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Use generated Tailwind utilities for sortable drag states instead of custom classes.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/graph",
+    "version": "2.0.2",
+    "date": "2026-10-04",
+    "body": "## @svforge/graph@2.0.2 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Remove an unused graph container class marker.\n\n### Deprecations\n- None."
+  },
+  {
     "package": "svforge",
     "version": "2.0.1",
     "date": "2026-09-12",

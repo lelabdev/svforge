@@ -84,13 +84,9 @@ export default defineConfig(
 		rules: {
 			// Deterministic design-system violations are editor diagnostics too.
 			'svforge/no-design-violations': 'error',
-			// Validate static class candidates through the configured Tailwind
-			// compiler instead of a duplicated list of Skeleton utilities. These
-			// exceptions are local CSS hooks used by the optional modules.
-			'tailwindcss/no-custom-classname': [
-				'error',
-				{ whitelist: ['logo', 'dragging', 'drag-over', 'graph-container', 'tiptap-preview'] }
-			]
+			// Validate static class candidates against the configured compiler.
+			// Keep only this exact exception for TipTap's local renderer CSS.
+			'tailwindcss/no-custom-classname': ['error', { whitelist: ['tiptap-preview'] }]
 		}
 	}
 );

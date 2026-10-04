@@ -58,6 +58,38 @@ and `svforge upgrade`.
 - None.
 
 
+<!-- svforge-release package="@svforge/dnd" version="2.0.2" date="2026-10-04" -->
+## @svforge/dnd@2.0.2 — 2026-10-04
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Use generated Tailwind utilities for sortable drag states instead of custom classes.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/graph" version="2.0.2" date="2026-10-04" -->
+## @svforge/graph@2.0.2 — 2026-10-04
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Remove an unused graph container class marker.
+
+### Deprecations
+- None.
+
+
 <!-- svforge-release package="svforge" version="2.0.1" date="2026-09-12" -->
 ## svforge@2.0.1 — 2026-09-12
 

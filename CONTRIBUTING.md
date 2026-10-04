@@ -93,22 +93,19 @@ to ensure it stays green.
 | **Behavior** | Template logic works as intended | `tests/blog-mdsvex.test.ts`, `tests/admin-delete.test.ts` |
 | **Quality** | A11y, reactivity, declaration publishing | `tests/a11y-reactivity.test.ts`, `tests/oauth-declarations.test.ts` |
 
-## Tailwind/Skeleton utility lint (#482)
+## Tailwind/Skeleton class lint (#482)
 
-`bun run lint` also lints Svelte source from the base, dashboard and addon
-templates with `tailwindcss/no-custom-classname`. The rule compiles the actual Tailwind v4 CSS
-entrypoint (`src/routes/layout.css`), including Skeleton and the SvelteForge
-theme, so generated utilities and variants are checked by the design system
-rather than by a copied color-pair inventory. Scaffolded projects receive the
-same rule in their generated ESLint configuration.
+`bun run lint` validates Svelte source from the base, dashboard, and addon
+templates with `tailwindcss/no-custom-classname`, using the base template's
+actual Tailwind v4 entrypoint and Skeleton theme. Keep static utility candidates
+in markup or supported helpers (`cn`, `clsx`, `twMerge`) so the rule can inspect
+them; run the focused regression tests when changing this configuration.
 
-This check covers statically readable class strings (including supported
-variants and literal class fragments); opaque values assembled at runtime
-cannot be reliably validated and are intentionally outside the guarantee. Keep
-class candidates as complete literals where practical instead of building
-utility names from fragments. The local `logo` CSS hook is explicitly allowed;
-new intentional non-utility CSS class hooks should be narrowly documented in
-the Tailwind ESLint whitelist.
+Do not add whitelist entries merely to silence a template finding. The sole
+current exception is TipTap's component-local `tiptap-preview` styling hook;
+redesigning that renderer is outside #482. Strict styling guidance and the
+consumer customization escape hatch are scaffolded in the generated project's
+`AGENTS.md`, not documented here.
 
 ## Test Helpers
 

@@ -292,10 +292,10 @@ if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = 
 	bun run check || { echo "❌ svelte-check failed on $TEMPLATE scaffold (#266)"; exit 1; }
 fi
 
-# ESLint design diagnostics (#346): the config and plugin must be delivered
-# to BOTH base and dashboard projects. Real lint verifies JS, TS, and Svelte
-# violations with their source files and positions — never a silently omitted rule.
-if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ]; then
+# ESLint design diagnostics (#346/#482): verify generated ESLint for base,
+# dashboard and a representative optional-module composition. Real lint checks
+# JS/TS/Svelte diagnostics plus Tailwind classes in the Svelte files.
+if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "base-ui-modules" ]; then
 	test -f eslint.config.js || { echo "❌ eslint.config.js missing at project root (#346)"; exit 1; }
 	test -f eslint-plugin-svforge.mjs || { echo "❌ eslint-plugin-svforge.mjs missing (#346)"; exit 1; }
 	mkdir -p src/lib/lint-probe

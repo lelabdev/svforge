@@ -78,8 +78,8 @@ describe('scaffolded ESLint configuration (#346)', () => {
 		expect(config).toContain("'svforge/no-design-violations': 'error'");
 		expect(config).toContain("import tailwindcss from 'eslint-plugin-tailwindcss';");
 		expect(config).toContain("cssConfigPath: 'src/routes/layout.css'");
-		expect(config).toContain("'tailwindcss/no-custom-classname': [");
-		expect(config).toContain("'graph-container', 'tiptap-preview'");
+		expect(config).toContain("'tailwindcss/no-custom-classname': ['error', { whitelist: ['tiptap-preview'] }]");
+		expect(config).not.toMatch(/whitelist:.*(?:logo|dragging|drag-over|graph-container)/);
 		expect(config).not.toContain('try {');
 		// #325: the advertised lint chain — prettier check runs BEFORE eslint,
 		// and the .prettierignore (prebuild-generated from the delivery

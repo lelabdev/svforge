@@ -71,6 +71,17 @@ behavior with Tailwind or custom CSS.
 \`svforge check\` validates every class against the actually installed Skeleton inventory: inventing a
 utility or stacking two incompatible primitives fails before merge.
 
+## Tailwind/Skeleton class lint (#482)
+
+ESLint validates class names against this project's actual Tailwind v4 + Skeleton CSS entrypoint.
+Unknown or custom class names are errors by default; do not invent classes or add custom utilities
+just to work around a diagnostic. Keep static class candidates literal in markup and in helpers such
+as \`cn()\`, \`clsx()\`, and \`twMerge()\` so lint can inspect them.
+
+This is the generated project's default convention, not a lock on human choices. If custom styling is
+intentionally required, a human can add a targeted ESLint disable or change/remove the rule in
+\`eslint.config.js\`.
+
 ## Advisory vs enforced
 
 This file is **advisory**: it tells agents what to prefer. The mechanical

@@ -74,10 +74,7 @@ export default tseslint.config(
 			// remains responsible for its unrelated TypeScript/Svelte rules.
 			'@typescript-eslint/no-unused-vars': 'off',
 			'@typescript-eslint/no-explicit-any': 'off',
-			'tailwindcss/no-custom-classname': [
-				'error',
-				{ whitelist: ['logo', 'dragging', 'drag-over', 'graph-container', 'tiptap-preview'] }
-			]
+			'tailwindcss/no-custom-classname': ['error', { whitelist: ['tiptap-preview'] }]
 		}
 	},
 	{

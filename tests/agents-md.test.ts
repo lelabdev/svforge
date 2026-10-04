@@ -19,6 +19,9 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		expect(canonical).toContain('# AGENTS.md');
 		expect(canonical).toContain('svforge check');
 		expect(canonical).toMatch(/advisory/i);
+		expect(canonical).toContain('## Tailwind/Skeleton class lint (#482)');
+		expect(canonical).toContain('Unknown or custom class names are errors by default');
+		expect(canonical).toContain('targeted ESLint disable');
 	});
 
 	it('explicitly separates advisory instructions from enforced checks', () => {
