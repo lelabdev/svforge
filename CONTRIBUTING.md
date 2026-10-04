@@ -101,11 +101,9 @@ actual Tailwind v4 entrypoint and Skeleton theme. Keep static utility candidates
 in markup or supported helpers (`cn`, `clsx`, `twMerge`) so the rule can inspect
 them; run the focused regression tests when changing this configuration.
 
-Do not add whitelist entries merely to silence a template finding. The sole
-current exception is TipTap's component-local `tiptap-preview` styling hook;
-redesigning that renderer is outside #482. Strict styling guidance and the
-consumer customization escape hatch are scaffolded in the generated project's
-`AGENTS.md`, not documented here.
+Do not add whitelist entries merely to silence a template finding. The generated
+project's default remains strict; the consumer customization escape hatch is
+scaffolded in its `AGENTS.md`, not documented here.
 
 ## Test Helpers
 

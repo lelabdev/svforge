@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/tiptap",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"type": "module",
 	"description": "SVForge Tiptap — rich text editor with toolbar and preview",
 	"author": "Ludo (https://lelab.dev)",

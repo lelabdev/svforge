@@ -11,9 +11,21 @@ export interface ChangelogEntry {
 export const RELEASE_NOTES: ChangelogEntry[] = [
   {
     "package": "svforge",
+    "version": "2.1.1",
+    "date": "2026-10-04",
+    "body": "## svforge@2.1.1 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Remove the TipTap preview class exception from the generated strict styling lint configuration.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "svforge",
     "version": "2.1.0",
     "date": "2026-10-04",
     "body": "## svforge@2.1.0 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Add Tailwind v4-aware ESLint validation against the scaffold's real Tailwind/Skeleton CSS design system.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/tiptap",
+    "version": "2.0.2",
+    "date": "2026-10-04",
+    "body": "## @svforge/tiptap@2.0.2 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Replace repeated toolbar buttons with Skeleton ToggleGroup controls and the base Button primitive.\n- Render headings semantically and use theme-aware Tailwind Typography styles, removing the preview-class lint exception.\n\n### Deprecations\n- None."
   },
   {
     "package": "@svforge/chat",

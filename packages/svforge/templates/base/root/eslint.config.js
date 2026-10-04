@@ -85,8 +85,7 @@ export default defineConfig(
 			// Deterministic design-system violations are editor diagnostics too.
 			'svforge/no-design-violations': 'error',
 			// Validate static class candidates against the configured compiler.
-			// Keep only this exact exception for TipTap's local renderer CSS.
-			'tailwindcss/no-custom-classname': ['error', { whitelist: ['tiptap-preview'] }]
+			'tailwindcss/no-custom-classname': 'error'
 		}
 	}
 );

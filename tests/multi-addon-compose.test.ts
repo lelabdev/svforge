@@ -158,7 +158,18 @@ describe('multi-addon composition in one sv add invocation', () => {
 		// ── 2. Message catalogs: FR/EN parity, neither addon's keys lost. ──
 		const fr = JSON.parse(readFileSync(join(dir, 'messages/fr.json'), 'utf8'));
 		const en = JSON.parse(readFileSync(join(dir, 'messages/en.json'), 'utf8'));
-		for (const key of ['uploads_uploading', 'uploads_failed', 'tiptap_bold', 'tiptap_loading']) {
+		for (const key of [
+			'uploads_uploading',
+			'uploads_failed',
+			'tiptap_bold',
+			'tiptap_loading',
+			'tiptap_link_prompt',
+			'tiptap_toolbar',
+			'tiptap_toolbar_formatting',
+			'tiptap_toolbar_headings',
+			'tiptap_toolbar_lists',
+			'tiptap_toolbar_blocks'
+		]) {
 			expect(fr, `fr ${key}`).toHaveProperty(key);
 			expect(en, `en ${key}`).toHaveProperty(key);
 		}

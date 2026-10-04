@@ -2,6 +2,9 @@
 	import type { JSONContent } from '@tiptap/core';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
+	import * as m from '$lib/paraglide/messages.js';
+	import { cn } from '$lib/utils/cn';
+	import { getToolbarState } from './toolbar-state';
 	import TiptapToolbar from './TiptapToolbar.svelte';
 
 	interface Props {
@@ -16,6 +19,20 @@
 	let editorInstance: any = $state(null);
 	let editorElement: HTMLElement;
 	let loading = $state(true);
+	let activeFormats = $state<string[]>([]);
+	let activeHeading = $state<string[]>([]);
+	let activeLists = $state<string[]>([]);
+	let activeBlocks = $state<string[]>([]);
+	let activeLink = $state(false);
+
+	function syncToolbarState(editor = editorInstance) {
+		const state = getToolbarState(editor);
+		activeFormats = state.activeFormats;
+		activeHeading = state.activeHeading;
+		activeLists = state.activeLists;
+		activeBlocks = state.activeBlocks;
+		activeLink = state.activeLink;
+	}
 
 	onMount(async () => {
 		if (!browser) return;
@@ -52,13 +69,18 @@
 				content: content,
 				editorProps: {
 					attributes: {
-						class: 'prose focus:outline-none min-h-[300px] max-w-none p-4'
+						class: 'prose max-w-none dark:prose-invert prose-a:text-primary-600 dark:prose-a:text-primary-300 prose-headings:text-surface-950-50 prose-blockquote:border-primary-500 prose-pre:bg-surface-100-900 prose-pre:text-surface-950-50 prose-code:bg-surface-100-900 prose-code:text-surface-950-50 focus:outline-none min-h-[300px] p-4'
 					}
 				},
 				onUpdate: ({ editor }: { editor: typeof editorInstance }) => {
 					onUpdate?.(editor.getJSON());
+					syncToolbarState(editor);
+				},
+				onSelectionUpdate: ({ editor }: { editor: typeof editorInstance }) => {
+					syncToolbarState(editor);
 				}
 			});
+			syncToolbarState();
 		} catch (error) {
 			console.error('Failed to load Tiptap editor:', error);
 		} finally {
@@ -83,22 +105,25 @@
 		toggleBlockquote: () => editorInstance?.chain().focus().toggleBlockquote().run(),
 		toggleCode: () => editorInstance?.chain().focus().toggleCodeBlock().run(),
 		setHeading: (level: 1 | 2 | 3) =>
-			editorInstance?.chain().focus().toggleVisualHeading({ level }).run(),
+			editorInstance?.chain().focus().setVisualHeading({ level }).run(),
+		unsetHeading: () => editorInstance?.chain().focus().unsetVisualHeading().run(),
 		setLink: () => {
-			const url = window.prompt('URL:');
+			const url = window.prompt(m.tiptap_link_prompt());
 			if (url) {
 				editorInstance?.chain().focus().setLink({ href: url }).run();
 			}
-		},
-		isActive: (type: string, attrs?: Record<string, unknown>) =>
-			editorInstance?.isActive(type, attrs) ?? false
+		}
 	};
 </script>
 
-<div class="rounded-xl overflow-hidden border border-surface-200-800 bg-surface-50-950 {className}">
+<div class={cn('overflow-hidden rounded-container border border-surface-200-800 bg-surface-50-950', className)}>
 	<TiptapToolbar
 		{loading}
-		isActive={actions.isActive}
+		{activeFormats}
+		{activeHeading}
+		{activeLists}
+		{activeBlocks}
+		{activeLink}
 		onToggleBold={actions.toggleBold}
 		onToggleItalic={actions.toggleItalic}
 		onToggleUnderline={actions.toggleUnderline}
@@ -109,6 +134,7 @@
 		onToggleCode={actions.toggleCode}
 		onSetLink={actions.setLink}
 		onSetHeading={actions.setHeading}
+		onUnsetHeading={actions.unsetHeading}
 	/>
 
 	<div class="min-h-[300px] relative" bind:this={editorElement} class:opacity-50={loading}>
