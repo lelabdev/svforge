@@ -27246,7 +27246,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_typescript_eslint",
@@ -27254,7 +27255,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_globals",
@@ -27262,7 +27264,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_eslint_plugin_svelte",
@@ -27270,7 +27273,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_eslint_plugin_tailwindcss",
@@ -27278,7 +27282,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_fs",
@@ -27286,7 +27291,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_path",
@@ -27294,7 +27300,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_crypto",
@@ -27302,7 +27309,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_tsdown",
@@ -27310,7 +27318,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_path",
@@ -27318,7 +27327,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_url",
@@ -27326,7 +27336,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_sv",
@@ -27334,7 +27345,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_checkmodulecapabilities",
@@ -27342,7 +27354,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_plancatalogmerges",
@@ -27350,7 +27363,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_planaddoncontext",
@@ -27358,7 +27372,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_haspatchapplied",
@@ -27366,7 +27381,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_lib",
@@ -27374,7 +27390,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_sveltejs_kit",
@@ -27382,7 +27399,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_types",
@@ -27390,7 +27408,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_svforgepatchmarker",
@@ -27398,7 +27417,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_svelte",
@@ -27406,7 +27426,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_vitest",
@@ -27414,7 +27435,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_resend",
@@ -27422,7 +27444,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_env",
@@ -27430,7 +27453,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "home_loops_1dev_svforge_hub_svforge_worktrees_485_packages_jobs_templates_src_lib_server_test_db",
@@ -27438,7 +27462,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "auth",
@@ -27446,7 +27471,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_http",
@@ -27454,7 +27480,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_child_process",
@@ -27462,7 +27489,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_fs",
@@ -27470,7 +27498,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_os",
@@ -27478,7 +27507,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_child_process",
@@ -27486,7 +27516,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_jsonguarderror",
@@ -27494,7 +27525,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_parsejsonfile",
@@ -27502,7 +27534,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_planmanifestenrichcontent",
@@ -27510,7 +27543,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_validatemanifestshape",
@@ -27518,7 +27552,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_template_provides",
@@ -27526,7 +27561,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_module_deployment_support",
@@ -27534,7 +27570,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_deploymentprofile",
@@ -27542,7 +27579,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_moduledeploymentsupport",
@@ -27550,7 +27588,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_module_contracts",
@@ -27558,7 +27597,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_readdeclaredprovides",
@@ -27566,7 +27606,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_resolvemodules",
@@ -27574,7 +27615,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_snapshotproject",
@@ -27582,7 +27624,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_resolutionplan",
@@ -27590,7 +27633,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_resolveinput",
@@ -27598,7 +27642,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_compat_compat_manifest",
@@ -27606,7 +27651,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_compat_compatmanifest",
@@ -27614,7 +27660,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_planupgrade",
@@ -27622,7 +27669,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_applyplan",
@@ -27630,7 +27678,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_sha256",
@@ -27638,7 +27687,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_resolvedestination",
@@ -27646,7 +27696,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_tracking_file",
@@ -27654,7 +27705,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_upgradeplan",
@@ -27662,7 +27714,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_plannedoperation",
@@ -27670,7 +27723,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_applyresult",
@@ -27678,7 +27732,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_upgrade_upgraderecipe",
@@ -27686,7 +27741,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_url",
@@ -27694,7 +27750,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_resolvedestination",
@@ -27702,7 +27759,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_inittrackingjson",
@@ -27710,7 +27768,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_capabilities",
@@ -27718,7 +27777,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_compositiongaps",
@@ -27726,7 +27786,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_capability",
@@ -27734,7 +27795,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_modulecapabilitycontract",
@@ -27742,7 +27804,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_applyplan",
@@ -27750,7 +27813,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_loadtrackingfile",
@@ -27758,7 +27822,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_planupgrade",
@@ -27766,7 +27831,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_readpackagejson",
@@ -27774,7 +27840,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_applyresult",
@@ -27782,7 +27849,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_plannedoperation",
@@ -27790,7 +27858,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_upgradeplan",
@@ -27798,7 +27867,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_upgraderecipe",
@@ -27806,7 +27876,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_sha256",
@@ -27814,7 +27885,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_assertsaferelativepath",
@@ -27822,7 +27894,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_safeprojectpath",
@@ -27830,7 +27903,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_tracking_file",
@@ -27838,7 +27912,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_eslint_config_prettier",
@@ -27846,7 +27921,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_eslint_compat",
@@ -27854,7 +27930,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_eslint",
@@ -27862,7 +27939,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_svelte_config_js",
@@ -27870,7 +27948,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_clsx",
@@ -27878,7 +27957,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_tailwind_merge",
@@ -27886,7 +27966,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_sveltejs_adapter_auto",
@@ -27894,7 +27975,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_tailwindcss_vite",
@@ -27902,7 +27984,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_vite",
@@ -27910,7 +27993,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_util",
@@ -27918,7 +28002,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_src_lib_server_db_schema_js",
@@ -27926,7 +28011,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_src_lib_server_first_admin_js",
@@ -27934,7 +28020,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_app",
@@ -27942,7 +28029,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_alert_svelte",
@@ -27950,7 +28038,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_card_svelte",
@@ -27958,7 +28047,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_logo_svelte",
@@ -27966,7 +28056,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_seo_svelte",
@@ -27974,7 +28065,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_table_svelte",
@@ -27982,7 +28074,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_themetoggle_svelte",
@@ -27990,7 +28083,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_sitemap",
@@ -27998,7 +28092,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_templates_dashboard_src_lib_server_db_schema_user",
@@ -28006,7 +28101,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_templates_dashboard_src_lib_server_db_schema_account",
@@ -28014,7 +28110,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_sveltejs_vite_plugin_svelte",
@@ -28022,7 +28119,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_tiptap_core",
@@ -28030,7 +28128,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_skeletonlabs_skeleton_svelte",
@@ -28038,7 +28137,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_aws_sdk_client_s3",
@@ -28046,7 +28146,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_aws_sdk_s3_presigned_post",
@@ -28054,7 +28155,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_aws_sdk_s3_request_presigner",
@@ -28062,7 +28164,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_module",
@@ -28070,7 +28173,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_node_os",
@@ -28078,7 +28182,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_planmanifestenrich",
@@ -28086,7 +28191,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_typescript",
@@ -28094,7 +28200,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_module_composition_capabilities",
@@ -28102,7 +28209,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_testing_library_svelte",
@@ -28110,7 +28218,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_testing_library_jest_dom",
@@ -28118,7 +28227,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_index_sha256",
@@ -28126,7 +28236,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_index_resolvedestination",
@@ -28134,7 +28245,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_svforge_src_index_tracking_file",
@@ -28142,7 +28254,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_computebaseline",
@@ -28150,7 +28263,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_issha256",
@@ -28158,7 +28272,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "packages_addon_kit_src_index_definemodulerecipe",
@@ -28166,7 +28281,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     },
     {
       "id": "ref_jsdom",
@@ -28174,7 +28290,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
