@@ -492,7 +492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "22b019d06fee7eaa415a486be9f16ab1",
+    "ast_hash": "0845bf2ec47a3bbc6d59b277956ae130",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -616,7 +616,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/ui/Card.svelte": {
-    "ast_hash": "7c566992b43ca6ac82b5227ba4414450",
+    "ast_hash": "d1bb81eca4a21a8c87af46317eb36855",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/ui/Logo.svelte": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "b8ed72e79011d7548a81239e7c323357",
+    "ast_hash": "b8a7f7ed02d8821750e30f35f75a8b0f",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1372,7 +1372,7 @@
     "semantic_hash": ""
   },
   "tests/skeleton-native.test.ts": {
-    "ast_hash": "06f86d9515c9487c071555f85e28f38b",
+    "ast_hash": "35aae053b9606021dc59db30467071b4",
     "semantic_hash": ""
   },
   "tests/strict-check.test.ts": {
@@ -1749,6 +1749,10 @@
   },
   "tests/vite-config-regex.test.ts": {
     "ast_hash": "a76d4ff051caaa6ad18c43e3a5a9a397",
+    "semantic_hash": ""
+  },
+  "tests/card-surface.test.ts": {
+    "ast_hash": "77ed256bfdb5ba397861925eab943fb5",
     "semantic_hash": ""
   }
 }

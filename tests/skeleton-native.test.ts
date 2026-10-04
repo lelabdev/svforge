@@ -35,7 +35,7 @@ function scanTemplates(pattern: RegExp): string[] {
 describe('wrappers do not duplicate Skeleton primitives (#317)', () => {
 	it('canonical Card never combines card with rounded-container', () => {
 		const card = readFileSync(baseTemplateFile('lib', 'components', 'svforge', 'ui', 'Card.svelte'), 'utf-8');
-		expect(card).toContain("'card'");
+		expect(card).toContain('card preset-filled-surface-50-950');
 		expect(card).not.toContain('rounded-container');
 	});
 
