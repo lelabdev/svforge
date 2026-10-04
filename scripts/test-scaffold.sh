@@ -242,7 +242,7 @@ for ghost in btn-md badge-sm badge-md badge-lg preset-tonal-info input-error rou
 		echo "❌ ghost class .${ghost} compiled into the scaffold CSS (#320)"; exit 1
 	fi
 done
-for canonical in btn-base btn-sm btn-lg badge preset-tonal-primary; do
+for canonical in btn-base btn-sm btn-lg badge preset-tonal-primary preset-filled-surface-50-950 preset-outlined-surface-200-800; do
 	if ! printf '%s' "$CSS_BUILT" | grep -q "\\.${canonical}[^a-z0-9-]"; then
 		echo "❌ canonical .${canonical} missing from compiled CSS (#320)"; exit 1
 	fi

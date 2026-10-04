@@ -16,9 +16,9 @@
 	let { variant = 'flat', class: className = '', children, header, footer, ...rest }: Props = $props();
 
 	const variantClasses: Record<Variant, string> = {
-		flat: 'card',
-		elevated: 'card shadow-lg',
-		outlined: 'card ring-1 ring-surface-200-800'
+		flat: 'card preset-filled-surface-50-950',
+		elevated: 'card preset-filled-surface-50-950 shadow-lg',
+		outlined: 'card preset-filled-surface-50-950 preset-outlined-surface-200-800'
 	};
 
 	// #317: the Skeleton `card` utility owns the container radius

@@ -20302,6 +20302,31 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_card_surface_test",
+      "label": "card-surface.test.ts",
+      "file_type": "code",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_card_surface_test_children",
+      "label": "children",
+      "file_type": "code",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_card_surface_test_rendercard",
+      "label": "renderCard()",
+      "file_type": "code",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_changelog_test",
       "label": "changelog.test.ts",
       "file_type": "code",
@@ -28292,6 +28317,14 @@
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_473_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_473_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
     }
   ],
   "links": [
@@ -36654,7 +36687,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_485_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_473_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -66283,6 +66316,103 @@
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "tests/capability-contracts.test.ts",
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "ref_testing_library_svelte",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "ref_svelte",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "packages_svforge_templates_base_src_lib_components_svforge_ui_card",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "packages_svforge_src_skeleton_inventory",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "packages_svforge_src_skeleton_inventory_skeleton_utilities",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "tests_card_surface_test_children",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "tests_card_surface_test_rendercard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_card_surface_test",
+      "target": "tests_card_surface_test_rendercard",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/card-surface.test.ts",
+      "source_location": "L22",
+      "weight": 1,
       "_origin": "ast"
     },
     {
