@@ -29,6 +29,15 @@ describe('dependency audit (#351)', () => {
 		expect(packages).toHaveLength(3);
 	});
 
+	it('keeps every resolved devalue version on the patched 5.9.3+ line (#485)', () => {
+		const packages = resolvedPackages().filter((pkg) => pkg.name === 'devalue');
+
+		expect(packages.length).toBeGreaterThan(0);
+		for (const pkg of packages) {
+			expect(pkg.version.localeCompare('5.9.3', 'en', { numeric: true })).toBeGreaterThanOrEqual(0);
+		}
+	});
+
 	it('sends version beside package, per the official querybatch schema (#359)', async () => {
 		const fetchImpl = okFetch({ results: [] });
 
