@@ -10,6 +10,22 @@ and `svforge upgrade`.
 - `Breaking changes`, `Migrations`, `Fixes`, and `Deprecations`: explicit sections;
   use `None.` when a section has no items
 
+<!-- svforge-release package="svforge" version="2.1.1" date="2026-10-04" -->
+## svforge@2.1.1 — 2026-10-04
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Remove the TipTap preview class exception from the generated strict styling lint configuration.
+
+### Deprecations
+- None.
+
+
 <!-- svforge-release package="svforge" version="2.1.0" date="2026-10-04" -->
 ## svforge@2.1.0 — 2026-10-04
 
@@ -21,6 +37,23 @@ and `svforge upgrade`.
 
 ### Fixes
 - Add Tailwind v4-aware ESLint validation against the scaffold's real Tailwind/Skeleton CSS design system.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/tiptap" version="2.0.2" date="2026-10-04" -->
+## @svforge/tiptap@2.0.2 — 2026-10-04
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Replace repeated toolbar buttons with Skeleton ToggleGroup controls and the base Button primitive.
+- Render headings semantically and use theme-aware Tailwind Typography styles, removing the preview-class lint exception.
 
 ### Deprecations
 - None.

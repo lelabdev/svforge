@@ -46,6 +46,12 @@ export default defineAddon({
 					tiptap_heading: 'Titre {level}',
 					tiptap_link: 'Lien',
 					tiptap_insert_link: 'Insérer un lien',
+					tiptap_link_prompt: "Saisissez l'URL du lien :",
+					tiptap_toolbar: 'Barre de mise en forme',
+					tiptap_toolbar_formatting: 'Mise en forme du texte',
+					tiptap_toolbar_headings: 'Titres',
+					tiptap_toolbar_lists: 'Listes',
+					tiptap_toolbar_blocks: 'Blocs',
 					tiptap_loading: 'Chargement…'
 				}
 			},
@@ -63,6 +69,12 @@ export default defineAddon({
 					tiptap_heading: 'Heading {level}',
 					tiptap_link: 'Link',
 					tiptap_insert_link: 'Insert link',
+					tiptap_link_prompt: 'Enter the link URL:',
+					tiptap_toolbar: 'Text formatting toolbar',
+					tiptap_toolbar_formatting: 'Inline formatting',
+					tiptap_toolbar_headings: 'Headings',
+					tiptap_toolbar_lists: 'Lists',
+					tiptap_toolbar_blocks: 'Blocks',
 					tiptap_loading: 'Loading…'
 				}
 			}

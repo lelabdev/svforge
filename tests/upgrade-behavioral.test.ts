@@ -18,6 +18,7 @@ import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
 import { baseFiles, baseRootFiles } from '../packages/svforge/src/templates';
 import { diskSv } from './helpers/fixtures';
 import { SDFORGE_RECIPE_VERSION } from '../packages/svforge/src/recipe-version';
+import { RELEASE_NOTES } from '../packages/svforge/src/changelog';
 
 /**
  * Behavioral tests for #189/#283/#327 — the upgrade command against the REAL
@@ -78,7 +79,11 @@ describe('svforge upgrade — shipped recipes (#327)', () => {
 	it('writes src AND root files on first upgrade, with changelog release notes (#348)', async () => {
 		const result = await upgrade('base', project);
 		expect(result.updatedCount).toBeGreaterThan(0);
-		expect(result.changes.map((change) => change.version)).toEqual(['2.0.1']);
+		expect(result.changes.map((change) => change.version)).toEqual(
+			RELEASE_NOTES.filter((entry) => entry.package === changelogPackageOf('base'))
+				.map((entry) => entry.version)
+				.reverse()
+		);
 		expect(changelogPackageOf('base')).toBe('svforge');
 
 		// A src file AND a root file exist at their canonical destinations.

@@ -78,7 +78,7 @@ Bold, Italic, Underline, Strikethrough, H1-H3, Bullet list, Ordered list, Blockq
 ## What's included
 
 - `TiptapEditor.svelte` — full editor with toolbar
-- `TiptapToolbar.svelte` — formatting toolbar
+- `TiptapToolbar.svelte` — accessible Skeleton ToggleGroup controls and the base Button primitive
 - `TiptapPreview.svelte` — lightweight JSON→HTML renderer (no editor loaded)
 - `tiptap-extensions.ts` — VisualHeading node
 
@@ -89,4 +89,4 @@ Bold, Italic, Underline, Strikethrough, H1-H3, Bullet list, Ordered list, Blockq
 - `@tiptap/extension-underline` — underline formatting
 - `@tiptap/extension-link` — link support
 
-> Requiert le template svforge `base` pour les classes de thème Skeleton (`surface-*`, `primary-*`). Pas d'import runtime de `@skeletonlabs/skeleton-svelte`.
+> Requires the SVForge `base` template for Skeleton theme utilities, the `Button` primitive, Paraglide messages, and the `@skeletonlabs/skeleton-svelte` ToggleGroup. No extra UI library is added.

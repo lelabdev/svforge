@@ -50,19 +50,20 @@ describe('TiptapPreview XSS hardening (#282)', () => {
 			])
 		);
 		expect(html).not.toMatch(/onclick/i);
-		expect(html).toContain('tiptap-heading-1');
+		expect(html).toContain('<h1>Title</h1>');
+		expect(html).not.toContain('tiptap-heading');
 	});
 
-	it('heading level from the valid range is preserved (1..6)', () => {
-		expect(renderTiptap(doc([{ type: 'heading', attrs: { level: 3 }, content: [text('H3')] }]))).toContain(
-			'tiptap-heading-3'
+	it('renders semantic heading elements and clamps their level to 1..6', () => {
+		expect(renderTiptap(doc([{ type: 'heading', attrs: { level: 3 }, content: [text('H3')] }]))).toBe(
+			'<h3>H3</h3>'
 		);
-		// non-integer / out of range -> 1
-		expect(renderTiptap(doc([{ type: 'heading', attrs: { level: 99 }, content: [text('x')] }]))).toContain(
-			'tiptap-heading-1'
+		// non-integer / out of range -> h1
+		expect(renderTiptap(doc([{ type: 'heading', attrs: { level: 99 }, content: [text('x')] }]))).toBe(
+			'<h1>x</h1>'
 		);
-		expect(renderTiptap(doc([{ type: 'heading', attrs: { level: 2.5 }, content: [text('x')] }]))).toContain(
-			'tiptap-heading-1'
+		expect(renderTiptap(doc([{ type: 'heading', attrs: { level: 2.5 }, content: [text('x')] }]))).toBe(
+			'<h1>x</h1>'
 		);
 	});
 

@@ -2,9 +2,10 @@
  * SVForge Tiptap Extensions
  */
 import { Node, mergeAttributes } from '@tiptap/core';
+import { clampHeadingLevel } from './render-tiptap';
 
 // ============================================================
-// Visual Heading - Non-semantic heading (span with class)
+// Visual Heading - semantic heading element styled by Tailwind Typography
 // ============================================================
 
 export interface VisualHeadingOptions {
@@ -53,14 +54,8 @@ export const VisualHeading = Node.create<VisualHeadingOptions>({
 	},
 
 	renderHTML({ node, HTMLAttributes }) {
-		const level = node.attrs.level as number;
-		return [
-			'span',
-			mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
-				class: `tiptap-heading tiptap-heading-${level}`
-			}),
-			0
-		];
+		const level = clampHeadingLevel(node.attrs.level);
+		return [`h${level}`, mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
 	},
 
 	addCommands() {

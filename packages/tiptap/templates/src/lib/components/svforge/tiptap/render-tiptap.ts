@@ -127,7 +127,7 @@ function renderNode(node: JSONContent): string {
 			return `<p>${children || '<br>'}</p>`;
 		case 'heading': {
 			const level = clampHeadingLevel(node.attrs?.level);
-			return `<span class="tiptap-heading tiptap-heading-${level}">${children}</span>`;
+			return `<h${level}>${children}</h${level}>`;
 		}
 		case 'bulletList':
 			return `<ul>${children}</ul>`;
