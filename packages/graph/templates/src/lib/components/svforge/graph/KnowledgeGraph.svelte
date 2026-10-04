@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { cn } from '$lib/utils/cn';
 	import type { HTMLAttributes } from 'svelte/elements';
 
 	/**
@@ -205,7 +204,7 @@
 
 <div
 	bind:this={container}
-	class={cn('graph-container', className)}
+	class={className}
 	style="width: {width}; height: {height};"
 	{...rest}
 ></div>

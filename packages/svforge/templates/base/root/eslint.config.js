@@ -5,6 +5,7 @@ import js from '@eslint/js';
 import svelte from 'eslint-plugin-svelte';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
+import tailwindcss from 'eslint-plugin-tailwindcss';
 import ts from 'typescript-eslint';
 import svelteConfig from './svelte.config.js';
 import svforge from './eslint-plugin-svforge.mjs';
@@ -72,10 +73,20 @@ export default defineConfig(
 		}
 	},
 	{
-		plugins: { svforge },
+		plugins: { svforge, tailwindcss },
+		settings: {
+			tailwindcss: {
+				// Load the scaffold's real Tailwind v4 entrypoint, including Skeleton,
+				// the SvelteForge theme and configured plugins.
+				cssConfigPath: 'src/routes/layout.css'
+			}
+		},
 		rules: {
 			// Deterministic design-system violations are editor diagnostics too.
-			'svforge/no-design-violations': 'error'
+			'svforge/no-design-violations': 'error',
+			// Validate static class candidates against the configured compiler.
+			// Keep only this exact exception for TipTap's local renderer CSS.
+			'tailwindcss/no-custom-classname': ['error', { whitelist: ['tiptap-preview'] }]
 		}
 	}
 );

@@ -43,7 +43,7 @@
 			'flex items-center gap-3 rounded-container px-3 py-2 transition-colors',
 			currentPath === href
 				? 'bg-primary-100-900 text-primary-700-300'
-				: 'text-surface-600-400 hover:bg-surface-100-800'
+				: 'text-surface-600-400 hover:bg-surface-100-900'
 		);
 	}
 </script>

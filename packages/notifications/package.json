@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/notifications",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"type": "module",
 	"description": "SVForge Notifications — persistent business notifications (read/unread)",
 	"author": "Ludo (https://lelab.dev)",

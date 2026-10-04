@@ -73,7 +73,7 @@
 		</thead>
 		<tbody>
 			{#each rows as row (rowKeyOf(row))}
-				<tr class="hover:bg-surface-50-900">
+				<tr class="hover:bg-surface-100-900">
 					{#each columns as col (col.key)}
 						<td class={col.class}>
 							{#if children}

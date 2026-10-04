@@ -6,6 +6,7 @@ import svforge from '../packages/svforge/templates/base/root/eslint-plugin-svfor
 import { baseFiles, baseRootFiles, dashboardFiles, dashboardRootFiles } from '../packages/svforge/src/templates';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
+import svforgeAddon from '../packages/svforge/src/index';
 
 const eslint = new ESLint({
 	overrideConfigFile: true,
@@ -75,6 +76,10 @@ describe('scaffolded ESLint configuration (#346)', () => {
 		const config = scaffoldFiles(template).get('eslint.config.js');
 		expect(config).toContain("import svforge from './eslint-plugin-svforge.mjs';");
 		expect(config).toContain("'svforge/no-design-violations': 'error'");
+		expect(config).toContain("import tailwindcss from 'eslint-plugin-tailwindcss';");
+		expect(config).toContain("cssConfigPath: 'src/routes/layout.css'");
+		expect(config).toContain("'tailwindcss/no-custom-classname': ['error', { whitelist: ['tiptap-preview'] }]");
+		expect(config).not.toMatch(/whitelist:.*(?:logo|dragging|drag-over|graph-container)/);
 		expect(config).not.toContain('try {');
 		// #325: the advertised lint chain — prettier check runs BEFORE eslint,
 		// and the .prettierignore (prebuild-generated from the delivery
@@ -83,5 +88,28 @@ describe('scaffolded ESLint configuration (#346)', () => {
 			'prettier --check . && eslint .'
 		);
 		expect(scaffoldFiles(template).get('.prettierignore')).toBeTruthy();
+	});
+
+	it('declares the Tailwind-aware plugin for generated projects', () => {
+		const dependencies = new Map<string, string>();
+		const files = new Map<string, string>();
+		const sv = {
+			dependency() {},
+			devDependency(name: string, version: string) {
+				dependencies.set(name, version);
+			},
+			file(path: string, transform: (content: string) => string) {
+				const seed = files.get(path) ?? (path === 'package.json' ? '{"scripts":{}}' : '');
+				files.set(path, transform(seed));
+			}
+		};
+
+		svforgeAddon.run({
+			sv: sv as never,
+			options: { template: 'base', testing: 'vitest', hooks: 'none' },
+			packageManager: 'bun'
+		} as never);
+
+		expect(dependencies.get('eslint-plugin-tailwindcss')).toBe('^4.4.0');
 	});
 });

@@ -11,6 +11,36 @@ export interface ChangelogEntry {
 export const RELEASE_NOTES: ChangelogEntry[] = [
   {
     "package": "svforge",
+    "version": "2.1.0",
+    "date": "2026-10-04",
+    "body": "## svforge@2.1.0 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Add Tailwind v4-aware ESLint validation against the scaffold's real Tailwind/Skeleton CSS design system.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/chat",
+    "version": "2.0.2",
+    "date": "2026-10-04",
+    "body": "## @svforge/chat@2.0.2 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Replace the invalid Skeleton surface hover pairing with a generated utility.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/notifications",
+    "version": "2.0.2",
+    "date": "2026-10-04",
+    "body": "## @svforge/notifications@2.0.2 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Replace the invalid Skeleton unread-surface pairing with a generated utility.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/dnd",
+    "version": "2.0.2",
+    "date": "2026-10-04",
+    "body": "## @svforge/dnd@2.0.2 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Use generated Tailwind utilities for sortable drag states instead of custom classes.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/graph",
+    "version": "2.0.2",
+    "date": "2026-10-04",
+    "body": "## @svforge/graph@2.0.2 — 2026-10-04\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Remove an unused graph container class marker.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "svforge",
     "version": "2.0.1",
     "date": "2026-09-12",
     "body": "## svforge@2.0.1 — 2026-09-12\n\n### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Repository metadata republished against the renamed GitHub repo (`lelabdev/svforge`): `repository`, `homepage`, and `bugs` URLs corrected on npm.\n\n### Deprecations\n- None."

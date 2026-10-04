@@ -1,16 +1,25 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
+import svelte from 'eslint-plugin-svelte';
+import tailwindcss from 'eslint-plugin-tailwindcss';
+
+const templateSvelteFiles = [
+	'packages/*/templates/src/**/*.svelte',
+	'packages/svforge/templates/*/src/**/*.svelte'
+];
+const svelteParser = svelte.configs.base.find((config) => config.files?.includes('**/*.svelte'))
+	.languageOptions.parser;
 
 export default tseslint.config(
 	{
-		// Repository source code only. Files under templates/ are scaffolded
-		// into user projects and are validated by the scaffold tests, not by
-		// the repository lint gate. tests/__gen__/ holds generated fixtures.
+		// The generic repository pass excludes scaffold sources; the dedicated
+		// Tailwind/Svelte pass below targets their static class candidates.
+		// tests/__gen__/ holds generated fixtures.
 		ignores: [
 			'**/node_modules/**',
 			'**/dist/**',
-			'**/templates/**',
+			'**/templates/**/*',
 			'**/docs/**',
 			'**/*.md',
 			'tests/__gen__/**'
@@ -41,6 +50,31 @@ export default tseslint.config(
 		files: ['packages/svforge/src/doctor.ts'],
 		rules: {
 			'@typescript-eslint/no-require-imports': 'off'
+		}
+	},
+	{
+		files: templateSvelteFiles,
+		plugins: { svelte, tailwindcss },
+		linterOptions: { reportUnusedDisableDirectives: 'off' },
+		languageOptions: {
+			parser: svelteParser,
+			globals: { ...globals.browser, ...globals.node },
+			parserOptions: {
+				parser: tseslint.parser,
+				extraFileExtensions: ['.svelte']
+			}
+		},
+		settings: {
+			tailwindcss: {
+				cssConfigPath: `${import.meta.dirname}/packages/svforge/templates/base/src/routes/layout.css`
+			}
+		},
+		rules: {
+			// This pass validates classes only; each package's own lint config
+			// remains responsible for its unrelated TypeScript/Svelte rules.
+			'@typescript-eslint/no-unused-vars': 'off',
+			'@typescript-eslint/no-explicit-any': 'off',
+			'tailwindcss/no-custom-classname': ['error', { whitelist: ['tiptap-preview'] }]
 		}
 	},
 	{

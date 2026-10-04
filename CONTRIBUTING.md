@@ -93,6 +93,20 @@ to ensure it stays green.
 | **Behavior** | Template logic works as intended | `tests/blog-mdsvex.test.ts`, `tests/admin-delete.test.ts` |
 | **Quality** | A11y, reactivity, declaration publishing | `tests/a11y-reactivity.test.ts`, `tests/oauth-declarations.test.ts` |
 
+## Tailwind/Skeleton class lint (#482)
+
+`bun run lint` validates Svelte source from the base, dashboard, and addon
+templates with `tailwindcss/no-custom-classname`, using the base template's
+actual Tailwind v4 entrypoint and Skeleton theme. Keep static utility candidates
+in markup or supported helpers (`cn`, `clsx`, `twMerge`) so the rule can inspect
+them; run the focused regression tests when changing this configuration.
+
+Do not add whitelist entries merely to silence a template finding. The sole
+current exception is TipTap's component-local `tiptap-preview` styling hook;
+redesigning that renderer is outside #482. Strict styling guidance and the
+consumer customization escape hatch are scaffolded in the generated project's
+`AGENTS.md`, not documented here.
+
 ## Test Helpers
 
 Shared utilities are in `tests/helpers.ts`:

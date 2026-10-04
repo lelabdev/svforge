@@ -8,7 +8,7 @@
 	let { class: className = '' }: Props = $props();
 </script>
 
-<span class={cn('logo text-xl font-extrabold', className)}>SVForge</span>
+<span data-logo class={cn('text-xl font-extrabold', className)}>SVForge</span>
 
 <style>
 	@keyframes metalFlow {
@@ -23,12 +23,12 @@
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.logo {
+		[data-logo] {
 			animation: none;
 		}
 	}
 
-	.logo {
+	[data-logo] {
 		/* #317: the brand font comes from the theme (--typo-heading--font-family
 		   = Space Grotesk), not a second hard-coded copy of the family. */
 		font-family: var(--typo-heading--font-family, 'Space Grotesk Variable', sans-serif);

@@ -292,16 +292,20 @@ if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = 
 	bun run check || { echo "❌ svelte-check failed on $TEMPLATE scaffold (#266)"; exit 1; }
 fi
 
-# ESLint design diagnostics (#346): the config and plugin must be delivered
-# to BOTH base and dashboard projects. Real lint verifies JS, TS, and Svelte
-# violations with their source files and positions — never a silently omitted rule.
-if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ]; then
+# ESLint design diagnostics (#346/#482): verify generated ESLint for base,
+# dashboard and a representative optional-module composition. Real lint checks
+# JS/TS/Svelte diagnostics plus Tailwind classes in the Svelte files.
+if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "base-ui-modules" ]; then
 	test -f eslint.config.js || { echo "❌ eslint.config.js missing at project root (#346)"; exit 1; }
 	test -f eslint-plugin-svforge.mjs || { echo "❌ eslint-plugin-svforge.mjs missing (#346)"; exit 1; }
 	mkdir -p src/lib/lint-probe
 	printf "import { Dialog } from 'bits-ui';\n" > src/lib/lint-probe/Violation.js
 	printf "import { Dialog } from 'bits-ui';\n" > src/lib/lint-probe/Violation.ts
-	printf "<script>\n\timport { Dialog } from 'bits-ui';\n</script>\n" > src/lib/lint-probe/Violation.svelte
+	printf "<script>\n\timport { Dialog } from 'bits-ui';\n</script>\n<div class=\"hover:bg-surface-50-900\"></div>\n" > src/lib/lint-probe/Violation.svelte
+	printf '<div class="bg-surface-50-950 hover:bg-surface-100-900 focus:bg-surface-200-800 md:bg-surface-50-950"></div>\n' > src/lib/lint-probe/Valid.svelte
+	# The lint script runs Prettier before ESLint; format these temporary probes
+	# so the intended ESLint diagnostics, not fixture formatting, determine the result.
+	bunx prettier --write src/lib/lint-probe/Violation.svelte src/lib/lint-probe/Valid.svelte >/dev/null
 	if bun run lint >/tmp/sf-eslint.log 2>&1; then
 		cat /tmp/sf-eslint.log; echo "❌ ESLint did not report design violations (#346)"; exit 1
 	fi
@@ -309,6 +313,8 @@ if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ]; then
 		grep -q "src/lib/lint-probe/$file" /tmp/sf-eslint.log || { cat /tmp/sf-eslint.log; echo "❌ ESLint missing $file location (#346)"; exit 1; }
 	done
 	grep -q "svforge/no-design-violations" /tmp/sf-eslint.log || { cat /tmp/sf-eslint.log; echo "❌ ESLint missing svforge rule identifier (#346)"; exit 1; }
+	grep -q "tailwindcss/no-custom-classname" /tmp/sf-eslint.log || { cat /tmp/sf-eslint.log; echo "❌ ESLint did not validate generated Tailwind utilities (#482)"; exit 1; }
+	if grep -q "Valid.svelte" /tmp/sf-eslint.log; then cat /tmp/sf-eslint.log; echo "❌ ESLint rejected valid Tailwind/Skeleton variants (#482)"; exit 1; fi
 	rm -rf src/lib/lint-probe
 fi
 
