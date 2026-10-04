@@ -15,7 +15,11 @@ describe('package changelog (#348)', () => {
 
 		expect(result.valid).toBe(true);
 		expect(result.errors).toEqual([]);
-		expect(result.entries).toHaveLength(packages.length);
+		for (const pkg of packages) {
+			expect(result.entries).toContainEqual(
+				expect.objectContaining({ package: pkg.name, version: pkg.version })
+			);
+		}
 	});
 
 	it('rejects a release whose package entry is missing', () => {
@@ -23,7 +27,8 @@ describe('package changelog (#348)', () => {
 		const result = validateChangelog(withoutSvforge, packages);
 
 		expect(result.valid).toBe(false);
-		expect(result.errors).toContain('svforge@2.0.1: missing current release entry.');
+		const svforge = packages.find((pkg: { name: string }) => pkg.name === 'svforge')!;
+		expect(result.errors).toContain(`${svforge.name}@${svforge.version}: missing current release entry.`);
 	});
 
 	it('selects only the installed-to-target package releases', () => {

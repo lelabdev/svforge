@@ -10,6 +10,54 @@ and `svforge upgrade`.
 - `Breaking changes`, `Migrations`, `Fixes`, and `Deprecations`: explicit sections;
   use `None.` when a section has no items
 
+<!-- svforge-release package="svforge" version="2.1.0" date="2026-10-04" -->
+## svforge@2.1.0 — 2026-10-04
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Add Tailwind v4-aware ESLint validation against the scaffold's real Tailwind/Skeleton CSS design system.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/chat" version="2.0.2" date="2026-10-04" -->
+## @svforge/chat@2.0.2 — 2026-10-04
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Replace the invalid Skeleton surface hover pairing with a generated utility.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/notifications" version="2.0.2" date="2026-10-04" -->
+## @svforge/notifications@2.0.2 — 2026-10-04
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Replace the invalid Skeleton unread-surface pairing with a generated utility.
+
+### Deprecations
+- None.
+
+
 <!-- svforge-release package="svforge" version="2.0.1" date="2026-09-12" -->
 ## svforge@2.0.1 — 2026-09-12
 

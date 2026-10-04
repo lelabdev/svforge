@@ -5,6 +5,7 @@ import js from '@eslint/js';
 import svelte from 'eslint-plugin-svelte';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
+import tailwindcss from 'eslint-plugin-tailwindcss';
 import ts from 'typescript-eslint';
 import svelteConfig from './svelte.config.js';
 import svforge from './eslint-plugin-svforge.mjs';
@@ -72,10 +73,24 @@ export default defineConfig(
 		}
 	},
 	{
-		plugins: { svforge },
+		plugins: { svforge, tailwindcss },
+		settings: {
+			tailwindcss: {
+				// Load the scaffold's real Tailwind v4 entrypoint, including Skeleton,
+				// the SvelteForge theme and configured plugins.
+				cssConfigPath: 'src/routes/layout.css'
+			}
+		},
 		rules: {
 			// Deterministic design-system violations are editor diagnostics too.
-			'svforge/no-design-violations': 'error'
+			'svforge/no-design-violations': 'error',
+			// Validate static class candidates through the configured Tailwind
+			// compiler instead of a duplicated list of Skeleton utilities. These
+			// exceptions are local CSS hooks used by the optional modules.
+			'tailwindcss/no-custom-classname': [
+				'error',
+				{ whitelist: ['logo', 'dragging', 'drag-over', 'graph-container', 'tiptap-preview'] }
+			]
 		}
 	}
 );

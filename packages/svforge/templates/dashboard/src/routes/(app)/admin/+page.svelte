@@ -73,7 +73,7 @@
 
 		<div class="space-y-3">
 			{#each data.recentUsers as u (u.id)}
-				<div class="flex items-center justify-between border-b border-surface-100-800 py-2 last:border-0">
+				<div class="flex items-center justify-between border-b border-surface-200-800 py-2 last:border-0">
 					<div class="flex items-center gap-3">
 						<AvatarInitial name={u.name} />
 						<div>

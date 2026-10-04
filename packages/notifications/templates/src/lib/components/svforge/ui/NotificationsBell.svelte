@@ -52,7 +52,7 @@
 			{:else}
 				<ul class="divide-y divide-surface-200-800">
 					{#each items as item (item.id)}
-						<li class="px-4 py-3 {item.readAt ? '' : 'bg-surface-100-800/50'}">
+						<li class="px-4 py-3 {item.readAt ? '' : 'bg-surface-100-900/50'}">
 							{#if item.actionUrl}
 								<a href={item.actionUrl} class="block hover:text-primary-500">
 									<span class="font-semibold text-sm">{item.title}</span>

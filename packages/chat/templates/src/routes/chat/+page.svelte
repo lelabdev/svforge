@@ -17,7 +17,7 @@
 		<ul class="divide-y divide-surface-200-800 rounded-container border border-surface-200-800 overflow-hidden">
 			{#each conversations as conv (conv.id)}
 				<li>
-					<a href={`/chat/${conv.id}`} class="flex items-center justify-between px-4 py-3 hover:bg-surface-100-800 transition-colors">
+					<a href={`/chat/${conv.id}`} class="flex items-center justify-between px-4 py-3 hover:bg-surface-100-900 transition-colors">
 						<div>
 							<span class="font-semibold text-sm">{m.chat_conversation()} #{conv.id}</span>
 							{#if conv.lastMessage}
