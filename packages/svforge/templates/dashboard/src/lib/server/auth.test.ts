@@ -5,14 +5,13 @@ import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 // enforced by resolveTestDbUrl().
 vi.mock('$app/server', () => ({ getRequestEvent: () => undefined }));
 
-vi.mock('$env/dynamic/private', async () => {
+vi.mock('$app/env/private', async () => {
 	const { resolveTestDbUrl } = await import('./test-db');
 	return {
-		env: {
-			DATABASE_URL: resolveTestDbUrl(),
-			ORIGIN: 'http://localhost:5173',
-			BETTER_AUTH_SECRET: 'sforge-integration-secret-0123456789abcdef'
-		}
+		DATABASE_URL: resolveTestDbUrl(),
+		ORIGIN: 'http://localhost:5173',
+		BETTER_AUTH_SECRET: 'sforge-integration-secret-0123456789abcdef',
+		SIGNUP_MODE: 'closed'
 	};
 });
 

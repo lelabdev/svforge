@@ -1,6 +1,6 @@
-import type { Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit/hooks';
 // `building` is used to skip auth during prerender/build (SvelteKit builds pages statically).
-import { building } from '$app/environment';
+import { building } from '$app/env';
 import { getTextDirection } from '$lib/paraglide/runtime';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { auth } from '$lib/server/auth';
@@ -25,9 +25,9 @@ import { svelteKitHandler } from 'better-auth/svelte-kit';
  */
 export const handle: Handle = async ({ event, resolve }) =>
 	paraglideMiddleware(event.request, async ({ request, locale }) => {
-		event.request = request;
+		const localizedEvent = { ...event, request };
 
-		const session = await auth.api.getSession({ headers: event.request.headers });
+		const session = await auth.api.getSession({ headers: localizedEvent.request.headers });
 		if (session) {
 			// A disabled identity may be retained for domain/audit references, but
 			// it must never retain access through an old or newly-created session.
@@ -43,7 +43,7 @@ export const handle: Handle = async ({ event, resolve }) =>
 		}
 
 		return svelteKitHandler({
-			event,
+			event: localizedEvent,
 			auth,
 			building,
 			// svelteKitHandler calls resolve(event) with a single argument — the

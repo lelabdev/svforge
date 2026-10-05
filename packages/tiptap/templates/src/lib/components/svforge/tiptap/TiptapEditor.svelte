@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { JSONContent } from '@tiptap/core';
 	import { onMount, onDestroy } from 'svelte';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import * as m from '$lib/paraglide/messages.js';
 	import { cn } from '$lib/utils/cn';
 	import { getToolbarState } from './toolbar-state';

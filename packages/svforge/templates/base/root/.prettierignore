@@ -43,6 +43,7 @@ scripts/create-admin.ts
 scripts/setup.sh
 src/app.d.ts
 src/app.html
+src/env.ts
 src/hooks.server.test.ts
 src/hooks.server.ts
 src/hooks.ts

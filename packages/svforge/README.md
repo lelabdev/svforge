@@ -8,6 +8,10 @@ SVForge starts from a normal SvelteKit app and adds the pieces you would otherwi
 
 Choose a target before architecture work: see [deployment profiles](docs/deployment-profiles.md) for Node, serverless, edge, and separate-worker constraints.
 
+### CLI compatibility
+
+SVForge and its modules support `sv` 1.x from `1.1.0` (`^1.1.0` peer range). Real user journeys and scaffold builds are validated against `sv@1.1.0`, including the SvelteKit 3 project it generates.
+
 ## Install
 
 Create a SvelteKit project, then apply a template:

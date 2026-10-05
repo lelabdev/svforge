@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeAll, vi } from 'vitest';
 import type postgres from 'postgres';
 
-// $env/dynamic/private is a SvelteKit virtual module — not resolvable by the
+// $app/env/private is a SvelteKit virtual module — not resolvable by the
 // bare vitest environment. Read DATABASE_URL from the project .env (created
 // by scripts/setup.sh before the CI runs `bun run test`).
-vi.mock('$env/dynamic/private', async () => {
+vi.mock('$app/env/private', async () => {
 	const { readFileSync } = await import('node:fs');
 	const dotenv = readFileSync('.env', 'utf8');
 	const m = dotenv.match(/^DATABASE_URL="?([^"\n]+)"?$/m);
-	return { env: { DATABASE_URL: m ? m[1].trim() : undefined } };
+	return { DATABASE_URL: m ? m[1].trim() : undefined };
 });
 
 // #401 — thin recorder: a Proxy over the real drizzle instance that snapshots

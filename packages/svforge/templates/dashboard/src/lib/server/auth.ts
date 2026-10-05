@@ -2,7 +2,7 @@ import { betterAuth } from 'better-auth/minimal';
 import { APIError } from 'better-auth/api';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { sveltekitCookies } from 'better-auth/svelte-kit';
-import { env } from '$env/dynamic/private';
+import * as env from '$app/env/private';
 import { getRequestEvent } from '$app/server';
 import { eq } from 'drizzle-orm';
 import { db } from '$lib/server/db';

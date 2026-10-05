@@ -1,4 +1,4 @@
-import { dev } from '$app/environment';
+import { dev } from '$app/env';
 import { fail, redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { setupSchema } from '$lib/server/schemas';

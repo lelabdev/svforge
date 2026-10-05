@@ -1,5 +1,5 @@
 <script lang="ts" generics="Row">
-	import { dev } from '$app/environment';
+	import { dev } from '$app/env';
 	import { cn } from '$lib/utils/cn';
 	import type { TableProps } from '../primitives/types';
 

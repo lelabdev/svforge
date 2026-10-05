@@ -11,7 +11,7 @@ import { afterAll, describe, expect, it, vi } from 'vitest';
 
 const state = vi.hoisted(() => ({ overrides: {} as Record<string, string | undefined> }));
 
-vi.mock('$env/dynamic/private', async () => {
+vi.mock('$app/env/private', async () => {
 	// #312 — no .env read: the database comes exclusively from the dedicated
 	// TEST_DATABASE_URL; the other variables are hermetic literals.
 	const { resolveTestDbUrl } = await import('./test-db');
@@ -23,23 +23,21 @@ vi.mock('$env/dynamic/private', async () => {
 		if (key === 'BETTER_AUTH_SECRET') return 'sforge-integration-secret-0123456789abcdef';
 		return undefined;
 	};
+	// Getters, not values: the mock factory result is cached across
+	// vi.resetModules() re-imports, but auth.ts re-reads env.SIGNUP_MODE at
+	// every module init — the getter makes each init see the CURRENT mode.
 	return {
-		// Getters, not values: the mock factory result is cached across
-		// vi.resetModules() re-imports, but auth.ts re-reads env.SIGNUP_MODE at
-		// every module init — the getter makes each init see the CURRENT mode.
-		env: {
-			get DATABASE_URL() {
-				return value('DATABASE_URL');
-			},
-			get ORIGIN() {
-				return value('ORIGIN');
-			},
-			get BETTER_AUTH_SECRET() {
-				return value('BETTER_AUTH_SECRET');
-			},
-			get SIGNUP_MODE() {
-				return state.overrides.SIGNUP_MODE;
-			}
+		get DATABASE_URL() {
+			return value('DATABASE_URL');
+		},
+		get ORIGIN() {
+			return value('ORIGIN');
+		},
+		get BETTER_AUTH_SECRET() {
+			return value('BETTER_AUTH_SECRET');
+		},
+		get SIGNUP_MODE() {
+			return state.overrides.SIGNUP_MODE;
 		}
 	};
 });
@@ -49,7 +47,7 @@ vi.mock('$app/server', () => ({ getRequestEvent: () => undefined }));
 // One real db instance, frozen for every module graph below (mode switching
 // re-evaluates ./auth and ./invitations, which must keep using THIS pool).
 const dbModule = await import('$lib/server/db');
-const envModule = await import('$env/dynamic/private');
+const envModule = await import('$app/env/private');
 vi.doMock('$lib/server/db', () => ({ db: dbModule.db, closeDb: dbModule.closeDb }));
 
 import { createInvitation, findValidInvitation } from './invitations';
@@ -66,7 +64,7 @@ afterAll(function cleanupRunUsers() {
 	return db.delete(user).where(like(user.email, `%@${RUN_DOMAIN}`));
 });
 
-const ORIGIN = envModule.env.ORIGIN ?? 'http://localhost:5173';
+const ORIGIN = envModule.ORIGIN ?? 'http://localhost:5173';
 const RUN_DOMAIN = runEmailDomain(crypto.randomUUID().slice(0, 8));
 const uniqueEmail = (tag: string) => `signup-${tag}-${crypto.randomUUID()}@${RUN_DOMAIN}`;
 

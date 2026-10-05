@@ -1,5 +1,5 @@
 import { defineAddon, defineAddonOptions } from 'sv';
-import { planAddonContext } from '@svforge/addon-kit';
+import { mergeSvelteKitEnvVars, planAddonContext } from '@svforge/addon-kit';
 import { files } from './templates';
 
 
@@ -25,6 +25,9 @@ export default defineAddon({
 		for (const [path, content] of Object.entries(files)) {
 			sv.file(`src${path}`, () => content);
 		}
+		sv.file('src/env.ts', (content) =>
+			mergeSvelteKitEnvVars(content, { RESEND_API_KEY: 'Resend API key' })
+		);
 		// AI context (#234): planned in memory first (#324) — an invalid
 		// .svforge.json cancels the install instead of resetting the file.
 		for (const write of context.writes) {

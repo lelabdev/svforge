@@ -50,7 +50,7 @@ Add social providers to your `src/lib/server/auth.ts`:
 
 ```ts
 import { betterAuth } from 'better-auth';
-import { env } from '$env/dynamic/private';
+import * as env from '$app/env/private';
 
 export const auth = betterAuth({
   // ... your existing config
@@ -66,6 +66,9 @@ export const auth = betterAuth({
   }
 });
 ```
+
+The add-on declares the OAuth variables in `src/env.ts` for SvelteKit 3. Add their values to `.env`:
+`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GITHUB_CLIENT_ID`, and `GITHUB_CLIENT_SECRET`.
 
 ## Usage
 

@@ -1,8 +1,6 @@
 import { defineAddon, defineAddonOptions } from 'sv';
-import { checkModuleCapabilities, planCatalogMerges, planAddonContext } from '@svforge/addon-kit';
+import { checkModuleCapabilities, mergeSvelteKitEnvVars, planCatalogMerges, planAddonContext } from '@svforge/addon-kit';
 import { files } from './templates';
-
-
 
 export default defineAddon({
 	id: 'svforge-uploads',
@@ -95,6 +93,16 @@ export default defineAddon({
 			if (path === '/routes/api/upload/upload-security.test.ts' && !options.testpack) continue;
 			sv.file(`src${path}`, () => content);
 		}
+		sv.file('src/env.ts', (content) =>
+			mergeSvelteKitEnvVars(content, {
+				S3_ENDPOINT: 'S3-compatible storage endpoint',
+				S3_REGION: 'S3-compatible storage region',
+				S3_BUCKET: 'S3-compatible storage bucket',
+				S3_ACCESS_KEY_ID: 'S3 access key ID',
+				S3_SECRET_ACCESS_KEY: 'S3 secret access key',
+				S3_UPLOAD_SIZE_POLICY: 'Optional upload size policy'
+			})
+		);
 
 		for (const write of [...catalogs.writes, ...context.writes]) {
 			sv.file(write.path, () => write.content);

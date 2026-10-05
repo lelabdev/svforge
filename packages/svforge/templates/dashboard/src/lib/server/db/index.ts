@@ -1,5 +1,5 @@
 import { createDb } from './client';
-import { env } from '$env/dynamic/private';
+import * as env from '$app/env/private';
 
 export { createDb } from './client';
 export type { DatabaseOptions } from './client';

@@ -76,6 +76,7 @@ if [ "$TEMPLATE" = "create-cli" ]; then
 	# Real PostgreSQL setup — same harness as the dashboard profiles (#312).
 	bash scripts/setup.sh >/dev/null 2>&1
 	export TEST_DATABASE_URL="${TEST_DATABASE_URL:-postgres://postgres:postgres@localhost:5432/sf_dashboard_test}"
+	export DATABASE_URL="$TEST_DATABASE_URL"
 	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
 	if [ "${CI:-}" = "true" ]; then
 		bunx drizzle-kit push --force >/tmp/drizzle-push-all-modules.log 2>&1 \
@@ -167,6 +168,9 @@ if [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	$SV_CMD add "file:$REPO_ROOT/packages/oauth" --install "$SF_PM" --no-download-check
 	$SV_CMD add "file:$REPO_ROOT/packages/email" --install "$SF_PM" --no-download-check
 	$SV_CMD add "file:$REPO_ROOT/packages/uploads=testpack:yes" --install "$SF_PM" --no-download-check
+	for variable in GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET GITHUB_CLIENT_ID GITHUB_CLIENT_SECRET RESEND_API_KEY S3_ENDPOINT S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY S3_BUCKET S3_REGION S3_UPLOAD_SIZE_POLICY; do
+		grep -q "$variable:" src/env.ts || { echo "❌ $variable not declared in src/env.ts (#491)"; exit 1; }
+	done
 	# delivered endpoints/components
 	test -f src/routes/api/upload/+server.ts || { echo "❌ upload endpoint missing (#284)"; exit 1; }
 	test -f src/lib/components/svforge/uploads/FileUpload.svelte || { echo "❌ FileUpload.svelte missing (#284)"; exit 1; }
@@ -220,6 +224,8 @@ if [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "dashboard-playwright" ] || 
 	# points the scaffold's .env at the SAME isolated instance so the build
 	# and dev-server smoke tests never touch a developer database either.
 	export TEST_DATABASE_URL="${TEST_DATABASE_URL:-postgres://postgres:postgres@localhost:5432/sf_dashboard_test}"
+	# Kit 3 evaluates dynamic private env vars during build-time route analysis.
+	export DATABASE_URL="$TEST_DATABASE_URL"
 	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
 
 	# PostgreSQL is real in CI (#255): require the drizzle push to actually
