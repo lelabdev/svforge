@@ -9102,7 +9102,7 @@
       "label": "dashboardRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L95",
+      "source_location": "L96",
       "_origin": "ast"
     },
     {
@@ -9110,7 +9110,7 @@
       "label": "baseRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L102",
+      "source_location": "L103",
       "_origin": "ast"
     },
     {
@@ -10063,11 +10063,19 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_templates_base_root_eslint_config_svelteconfigpath",
+      "label": "svelteConfigPath",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/root/eslint.config.js",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_templates_base_root_eslint_config_gitignorepath",
       "label": "gitignorePath",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/root/eslint.config.js",
-      "source_location": "L13",
+      "source_location": "L15",
       "_origin": "ast"
     },
     {
@@ -15562,6 +15570,30 @@
       "source_file": "packages/svforge/templates/dashboard/src/lib/server/admin.ts",
       "source_location": "L24",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "label": "auth.schema.config.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config_db",
+      "label": "{ db }",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config_auth",
+      "label": "auth",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L19",
       "_origin": "ast"
     },
     {
@@ -21075,7 +21107,7 @@
       "label": "dependency()",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L97",
+      "source_location": "L100",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21084,7 +21116,7 @@
       "label": "devDependency()",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L98",
+      "source_location": "L101",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21093,7 +21125,7 @@
       "label": "file()",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L101",
+      "source_location": "L104",
       "_callable": true,
       "_origin": "ast"
     },
@@ -28569,7 +28601,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
@@ -45736,7 +45769,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L95",
+      "source_location": "L96",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45746,7 +45779,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L102",
+      "source_location": "L103",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47540,7 +47573,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_node_path",
+      "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47551,7 +47584,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_eslint_compat",
+      "target": "ref_node_path",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47562,7 +47595,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_eslint_js",
+      "target": "ref_eslint_compat",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47573,7 +47606,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_eslint_plugin_svelte",
+      "target": "ref_eslint_js",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47584,7 +47617,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_eslint",
+      "target": "ref_eslint_plugin_svelte",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47595,7 +47628,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_globals",
+      "target": "ref_eslint",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47606,7 +47639,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_eslint_plugin_tailwindcss",
+      "target": "ref_globals",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47617,7 +47650,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_typescript_eslint",
+      "target": "ref_eslint_plugin_tailwindcss",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47628,7 +47661,7 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "ref_svelte_config_js",
+      "target": "ref_typescript_eslint",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -47650,11 +47683,21 @@
     },
     {
       "source": "packages_svforge_templates_base_root_eslint_config",
-      "target": "packages_svforge_templates_base_root_eslint_config_gitignorepath",
+      "target": "packages_svforge_templates_base_root_eslint_config_svelteconfigpath",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/root/eslint.config.js",
       "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_root_eslint_config",
+      "target": "packages_svforge_templates_base_root_eslint_config_gitignorepath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/root/eslint.config.js",
+      "source_location": "L15",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55552,6 +55595,114 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/server/admin.ts",
       "source_location": "L24",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "ref_better_auth",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_user",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_session",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_account",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_verification",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config_auth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
@@ -66107,7 +66258,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L97",
+      "source_location": "L106",
       "weight": 1,
       "_origin": "ast"
     },
@@ -66389,7 +66540,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/blog-transport-compose.test.ts",
-      "source_location": "L148",
+      "source_location": "L163",
       "weight": 1,
       "_origin": "ast"
     },
@@ -69467,7 +69618,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L97",
+      "source_location": "L100",
       "weight": 1,
       "_origin": "ast"
     },
@@ -69477,7 +69628,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L98",
+      "source_location": "L101",
       "weight": 1,
       "_origin": "ast"
     },
@@ -69487,7 +69638,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L101",
+      "source_location": "L104",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76703,7 +76854,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81628,7 +81779,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L149",
+      "source_location": "L151",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81640,7 +81791,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L152",
+      "source_location": "L154",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81652,7 +81803,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L154",
+      "source_location": "L156",
       "weight": 1,
       "_origin": "ast"
     },

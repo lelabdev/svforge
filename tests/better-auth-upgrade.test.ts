@@ -38,12 +38,21 @@ describe('better-auth manual bump helper (#319, #460)', () => {
 			// The on-demand runner reference must survive in the shipped
 			// auth:schema path — still version-pinned.
 			expect(source).toContain('@better-auth/cli@1.4.21');
+			expect(source).toContain('auth.schema.config.ts');
+			const schemaConfig = readFileSync(
+				join(ROOT, 'packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts'),
+				'utf8'
+			);
+			expect(schemaConfig).toContain('drizzleAdapter');
+			expect(schemaConfig).not.toContain('$app/env/private');
+			expect(schemaConfig).not.toContain('$app/server');
 			const templatePkg = JSON.parse(
 				readFileSync(join(ROOT, 'packages/svforge/templates/dashboard/package.json'), 'utf8')
 			);
 			expect(Object.keys({ ...templatePkg.dependencies, ...templatePkg.devDependencies })).not.toContain(
 				'@better-auth/cli'
 			);
+			expect(templatePkg.scripts['auth:schema']).toContain('auth.schema.config.ts');
 		});
 	});
 

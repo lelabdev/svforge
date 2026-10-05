@@ -58,14 +58,14 @@ describe('vite.config.ts patch keeps the runes regex valid (#415)', () => {
 		expect(patched).toContain('svforgeDesignSystemPlugin()');
 		expect(patched).toContain('paraglideVitePlugin({');
 		expect(patched).toContain('sveltekit({');
-		expect(patched).toContain("alias: { '$lib': 'src/lib' }");
+		expect(patched).toContain("alias: { $lib: 'src/lib' }");
 		expect(patched).toContain('adapter: adapter()');
 		expect(patched).toContain('compilerOptions: {');
 	});
 
 	it('adds the same alias when sv emits a bare sveltekit() call', () => {
 		const patched = patchViteConfig("import { sveltekit } from '@sveltejs/kit/vite';\nexport default { plugins: [sveltekit()] };\n");
-		expect(patched).toContain("sveltekit({ alias: { '$lib': 'src/lib' } })");
+		expect(patched).toContain("sveltekit({ alias: { $lib: 'src/lib' } })");
 		expect(patchViteConfig(patched)).toBe(patched);
 	});
 

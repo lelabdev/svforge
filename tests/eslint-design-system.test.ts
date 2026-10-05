@@ -75,6 +75,9 @@ describe('scaffolded ESLint configuration (#346)', () => {
 	it.each(['base', 'dashboard'] as const)('writes the required svforge plugin config at the project root for %s', (template) => {
 		const config = scaffoldFiles(template).get('eslint.config.js');
 		expect(config).toContain("import svforge from './eslint-plugin-svforge.mjs';");
+		expect(config).toContain("new URL('./svelte.config.js', import.meta.url)");
+		expect(config).toContain('existsSync(svelteConfigPath)');
+		expect(config).not.toContain("import svelteConfig from './svelte.config.js';");
 		expect(config).toContain("'svforge/no-design-violations': 'error'");
 		expect(config).toContain("import tailwindcss from 'eslint-plugin-tailwindcss';");
 		expect(config).toContain("cssConfigPath: 'src/routes/layout.css'");

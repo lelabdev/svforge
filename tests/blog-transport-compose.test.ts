@@ -83,6 +83,21 @@ describe('blog transport composition (#306)', () => {
 		expect(result).toContain("'mdx-post'");
 		expect(result).toContain('loadPostComponent');
 		expect(result).toContain("export const reroute"); // Paraglide kept
+		expect(result).toContain("import type { Transport } from '@sveltejs/kit/hooks';");
+		expect(result).not.toContain("from '@sveltejs/kit';");
+	});
+
+	it('does not duplicate an existing Kit 3 Transport type import', () => {
+		const hooks = `import type { Transport } from '@sveltejs/kit/hooks';\n` + BASE_HOOKS;
+		const { result } = runAddon(hooks);
+		expect(count(result!, /import type \{ Transport \} from/g)).toBe(1);
+	});
+
+	it('preserves an existing Kit 2 root Transport type import', () => {
+		const hooks = `import type { Transport } from '@sveltejs/kit';\n` + BASE_HOOKS;
+		const { result } = runAddon(hooks);
+		expect(count(result!, /import type \{ Transport \} from/g)).toBe(1);
+		expect(result).not.toContain("from '@sveltejs/kit/hooks';");
 	});
 
 	it('composes with an existing object-literal transport, keeping its codecs', () => {

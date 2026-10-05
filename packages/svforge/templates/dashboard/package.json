@@ -19,7 +19,7 @@
 		"db:migrate": "drizzle-kit migrate",
 		"db:studio": "drizzle-kit studio",
 		"admin:create": "npx --yes tsx scripts/create-admin.ts",
-		"auth:schema": "npx --yes @better-auth/cli@1.4.21 generate --config src/lib/server/auth.ts --output auth-schema.review.ts --yes"
+		"auth:schema": "npx --yes @better-auth/cli@1.4.21 generate --config src/lib/server/auth.schema.config.ts --output auth-schema.review.ts --yes"
 	},
 	"dependencies": {
 		"@fontsource-variable/fira-code": "^5.3.0",

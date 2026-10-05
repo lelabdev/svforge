@@ -643,7 +643,7 @@ if [ "$TEMPLATE" = "dashboard" ]; then
 	# unreliable) — hence the guarded temp file inside the project.
 	SCHEMA_GEN=".sf-auth-schema-gate.ts"
 	rm -f "$SCHEMA_GEN"
-	if ! bunx @better-auth/cli@1.4.21 generate --config src/lib/server/auth.ts --output "$SCHEMA_GEN" --yes >"${TMPDIR:-/tmp}/sf-auth-generate.log" 2>&1; then
+	if ! bunx @better-auth/cli@1.4.21 generate --config src/lib/server/auth.schema.config.ts --output "$SCHEMA_GEN" --yes >"${TMPDIR:-/tmp}/sf-auth-generate.log" 2>&1; then
 		cat "${TMPDIR:-/tmp}/sf-auth-generate.log"
 		echo "❌ better-auth generate failed (#319)"; exit 1
 	fi
