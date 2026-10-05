@@ -1644,7 +1644,7 @@
     "semantic_hash": ""
   },
   "scripts/normalize-graphify.mjs": {
-    "ast_hash": "90093a6bcc910cf3ad2264bd7e430be2",
+    "ast_hash": "e1ffaf696476b32041e7b8da10afdb67",
     "semantic_hash": ""
   },
   "tests/hooks-prompt.test.ts": {

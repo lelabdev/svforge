@@ -18857,27 +18857,11 @@
       "_origin": "ast"
     },
     {
-      "id": "scripts_normalize_graphify_common_filesystem_roots",
-      "label": "COMMON_FILESYSTEM_ROOTS",
-      "file_type": "code",
-      "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L39",
-      "_origin": "ast"
-    },
-    {
-      "id": "scripts_normalize_graphify_absolute_path_roots",
-      "label": "ABSOLUTE_PATH_ROOTS",
-      "file_type": "code",
-      "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L44",
-      "_origin": "ast"
-    },
-    {
       "id": "scripts_normalize_graphify_normalizemanifest",
       "label": "normalizeManifest()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L50",
+      "source_location": "L41",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18886,7 +18870,7 @@
       "label": "isRecord()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L59",
+      "source_location": "L50",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18895,7 +18879,7 @@
       "label": "hasMetadata()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L63",
+      "source_location": "L54",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18904,7 +18888,7 @@
       "label": "metadataCompleteness()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L70",
+      "source_location": "L61",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18913,7 +18897,7 @@
       "label": "canonicalValue()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L79",
+      "source_location": "L70",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18922,7 +18906,7 @@
       "label": "stableStringify()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L87",
+      "source_location": "L78",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18931,7 +18915,7 @@
       "label": "compareLexically()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L91",
+      "source_location": "L82",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18940,7 +18924,7 @@
       "label": "compareMetadataCompleteness()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L96",
+      "source_location": "L87",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18949,7 +18933,7 @@
       "label": "mergeMetadata()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L102",
+      "source_location": "L93",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18958,7 +18942,7 @@
       "label": "normalizeGraph()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L133",
+      "source_location": "L124",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18967,7 +18951,7 @@
       "label": "slug()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L258",
+      "source_location": "L242",
       "_callable": true,
       "_origin": "ast"
     },
@@ -62084,31 +62068,11 @@
     },
     {
       "source": "scripts_normalize_graphify",
-      "target": "scripts_normalize_graphify_common_filesystem_roots",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L39",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_normalize_graphify",
-      "target": "scripts_normalize_graphify_absolute_path_roots",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L44",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_normalize_graphify",
       "target": "scripts_normalize_graphify_normalizemanifest",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L50",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62118,7 +62082,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L59",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62128,7 +62092,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L63",
+      "source_location": "L54",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62138,7 +62102,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L70",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62148,7 +62112,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L79",
+      "source_location": "L70",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62158,7 +62122,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L87",
+      "source_location": "L78",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62168,7 +62132,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L91",
+      "source_location": "L82",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62178,7 +62142,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L96",
+      "source_location": "L87",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62188,7 +62152,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L102",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62198,7 +62162,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L133",
+      "source_location": "L124",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62208,7 +62172,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L258",
+      "source_location": "L242",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62224,24 +62188,13 @@
       "_origin": "ast"
     },
     {
-      "source": "scripts_normalize_graphify_absolute_path_roots",
-      "target": "scripts_normalize_graphify_slug",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L46",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "scripts_normalize_graphify_hasmetadata",
       "target": "scripts_normalize_graphify_isrecord",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L66",
+      "source_location": "L57",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62252,7 +62205,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L71",
+      "source_location": "L62",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62263,7 +62216,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L72",
+      "source_location": "L63",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62274,7 +62227,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L73",
+      "source_location": "L64",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62285,7 +62238,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L81",
+      "source_location": "L72",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62296,7 +62249,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L83",
+      "source_location": "L74",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62307,7 +62260,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L88",
+      "source_location": "L79",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62318,7 +62271,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L97",
+      "source_location": "L88",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62329,7 +62282,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L98",
+      "source_location": "L89",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62340,7 +62293,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L98",
+      "source_location": "L89",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62351,7 +62304,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L103",
+      "source_location": "L94",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62362,7 +62315,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L106",
+      "source_location": "L97",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62373,7 +62326,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L109",
+      "source_location": "L100",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62384,7 +62337,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L116",
+      "source_location": "L107",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62395,7 +62348,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L118",
+      "source_location": "L109",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62406,7 +62359,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L140",
+      "source_location": "L131",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62418,7 +62371,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L215",
+      "source_location": "L199",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62429,7 +62382,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L216",
+      "source_location": "L200",
       "weight": 1,
       "_origin": "ast"
     },
