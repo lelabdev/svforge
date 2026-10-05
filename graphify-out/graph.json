@@ -18841,11 +18841,99 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_normalize_graphify_repository_slug",
+      "label": "REPOSITORY_SLUG",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L34",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_root_path_segments",
+      "label": "ROOT_PATH_SEGMENTS",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L35",
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_normalize_graphify_normalizemanifest",
       "label": "normalizeManifest()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L29",
+      "source_location": "L41",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_isrecord",
+      "label": "isRecord()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L50",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_hasmetadata",
+      "label": "hasMetadata()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L54",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_metadatacompleteness",
+      "label": "metadataCompleteness()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L61",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_canonicalvalue",
+      "label": "canonicalValue()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L70",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_stablestringify",
+      "label": "stableStringify()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L78",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_comparelexically",
+      "label": "compareLexically()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L82",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_comparemetadatacompleteness",
+      "label": "compareMetadataCompleteness()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L87",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_mergemetadata",
+      "label": "mergeMetadata()",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L93",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18854,7 +18942,7 @@
       "label": "normalizeGraph()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L48",
+      "source_location": "L124",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18863,7 +18951,7 @@
       "label": "slug()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L113",
+      "source_location": "L242",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21664,6 +21752,104 @@
       "source_file": "tests/multi-addon-compose.test.ts",
       "source_location": "L26",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test",
+      "label": "normalize-graphify.test.ts",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_normalizer",
+      "label": "NORMALIZER",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_temporaryroots",
+      "label": "temporaryRoots",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_slugpath",
+      "label": "slugPath()",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L11",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_createworktree",
+      "label": "createWorktree()",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L20",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_normalizefixture",
+      "label": "normalizeFixture()",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L30",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_normalizeagain",
+      "label": "normalizeAgain()",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L41",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_graphnode",
+      "label": "GraphNode",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L46",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_graphlink",
+      "label": "GraphLink",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L47",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_graphfixture",
+      "label": "GraphFixture",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L48",
+      "_callable": true,
+      "_callable_class": true,
       "_origin": "ast"
     },
     {
@@ -27498,8 +27684,8 @@
       "_origin": "semantic"
     },
     {
-      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_485_packages_jobs_templates_src_lib_server_test_db",
-      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_485_packages_jobs_templates_src_lib_server_test_db",
+      "id": "repo_packages_jobs_templates_src_lib_server_test_db",
+      "label": "repo_packages_jobs_templates_src_lib_server_test_db",
       "file_type": "concept",
       "type": "external",
       "external": true,
@@ -28328,24 +28514,6 @@
     {
       "id": "ref_jsdom",
       "label": "ref_jsdom",
-      "file_type": "concept",
-      "type": "external",
-      "external": true,
-      "source_file": "",
-      "_origin": "semantic"
-    },
-    {
-      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_473_packages_jobs_templates_src_lib_server_test_db",
-      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_473_packages_jobs_templates_src_lib_server_test_db",
-      "file_type": "concept",
-      "type": "external",
-      "external": true,
-      "source_file": "",
-      "_origin": "semantic"
-    },
-    {
-      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
-      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
       "file_type": "concept",
       "type": "external",
       "external": true,
@@ -36713,7 +36881,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
+      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -61880,11 +62048,111 @@
     },
     {
       "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_repository_slug",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L34",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_root_path_segments",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L35",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
       "target": "scripts_normalize_graphify_normalizemanifest",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L29",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_isrecord",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L50",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_hasmetadata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L54",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_metadatacompleteness",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L61",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_canonicalvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L70",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_stablestringify",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L78",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_comparelexically",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L82",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_comparemetadatacompleteness",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L87",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_mergemetadata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61894,7 +62162,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L48",
+      "source_location": "L124",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61904,7 +62172,183 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L113",
+      "source_location": "L242",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_root_path_segments",
+      "target": "scripts_normalize_graphify_slug",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L37",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_hasmetadata",
+      "target": "scripts_normalize_graphify_isrecord",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_metadatacompleteness",
+      "target": "scripts_normalize_graphify_hasmetadata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_metadatacompleteness",
+      "target": "scripts_normalize_graphify_metadatacompleteness",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L63",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_metadatacompleteness",
+      "target": "scripts_normalize_graphify_isrecord",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L64",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_canonicalvalue",
+      "target": "scripts_normalize_graphify_isrecord",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L72",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_canonicalvalue",
+      "target": "scripts_normalize_graphify_canonicalvalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L74",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_stablestringify",
+      "target": "scripts_normalize_graphify_canonicalvalue",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L79",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_comparemetadatacompleteness",
+      "target": "scripts_normalize_graphify_metadatacompleteness",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L88",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_comparemetadatacompleteness",
+      "target": "scripts_normalize_graphify_comparelexically",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L89",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_comparemetadatacompleteness",
+      "target": "scripts_normalize_graphify_stablestringify",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L89",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_mergemetadata",
+      "target": "scripts_normalize_graphify_hasmetadata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L94",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_mergemetadata",
+      "target": "scripts_normalize_graphify_isrecord",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L97",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_mergemetadata",
+      "target": "scripts_normalize_graphify_mergemetadata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L100",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_mergemetadata",
+      "target": "scripts_normalize_graphify_stablestringify",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L107",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_mergemetadata",
+      "target": "scripts_normalize_graphify_comparelexically",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L109",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61915,7 +62359,30 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L55",
+      "source_location": "L131",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_normalizegraph",
+      "target": "scripts_normalize_graphify_comparemetadatacompleteness",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L199",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_normalizegraph",
+      "target": "scripts_normalize_graphify_mergemetadata",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L200",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70862,6 +71329,205 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/multi-addon-compose.test.ts",
       "source_location": "L217",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_normalizer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_temporaryroots",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_slugpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_createworktree",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_normalizefixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_normalizeagain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_graphnode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L46",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_graphlink",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L47",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_graphfixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L48",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_createworktree",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L59",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_slugpath",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L61",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_normalizefixture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L108",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_normalizeagain",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L114",
       "weight": 1,
       "_origin": "ast"
     },

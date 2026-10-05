@@ -15,8 +15,8 @@
  * the committed graph byte-stable across machines: two runs on the same
  * sources always produce identical files.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -24,6 +24,18 @@ const OUT = join(SCRIPT_ROOT, 'graphify-out');
 
 const MANIFEST = join(OUT, 'manifest.json');
 const GRAPH = join(OUT, 'graph.json');
+
+// In an issue worktree the checkout directory is `.worktrees/<issue>`, not
+// the repository name. Use the parent repo name as an anchor so older IDs
+// from sibling worktrees can be recognized even when their absolute prefixes
+// differ from the current checkout.
+const REPOSITORY_ROOT =
+	basename(dirname(SCRIPT_ROOT)) === '.worktrees' ? dirname(dirname(SCRIPT_ROOT)) : SCRIPT_ROOT;
+const REPOSITORY_SLUG = slug(basename(REPOSITORY_ROOT));
+const ROOT_PATH_SEGMENTS = readdirSync(SCRIPT_ROOT)
+	.filter((entry) => !['.git', '.worktrees', 'graphify-out', 'node_modules'].includes(entry))
+	.map((entry) => slug(entry).replace(/^_+/, ''))
+	.filter(Boolean);
 
 /** Strip volatile timestamps from the incremental-extraction manifest. */
 function normalizeManifest() {
@@ -35,15 +47,79 @@ function normalizeManifest() {
 	writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n');
 }
 
+function isRecord(value) {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function hasMetadata(value) {
+	if (value === undefined || value === null || value === '') return false;
+	if (Array.isArray(value)) return value.length > 0;
+	if (isRecord(value)) return Object.keys(value).length > 0;
+	return true;
+}
+
+function metadataCompleteness(value) {
+	if (!hasMetadata(value)) return 0;
+	if (Array.isArray(value)) return value.reduce((sum, item) => sum + metadataCompleteness(item), 0);
+	if (isRecord(value)) {
+		return Object.values(value).reduce((sum, item) => sum + metadataCompleteness(item), 0);
+	}
+	return 1;
+}
+
+function canonicalValue(value) {
+	if (Array.isArray(value)) return value.map(canonicalValue);
+	if (!isRecord(value)) return value;
+	return Object.fromEntries(
+		Object.keys(value).sort().map((key) => [key, canonicalValue(value[key])])
+	);
+}
+
+function stableStringify(value) {
+	return JSON.stringify(canonicalValue(value));
+}
+
+function compareLexically(left, right) {
+	return left < right ? -1 : left > right ? 1 : 0;
+}
+
+/** Prefer complete records, then use canonical JSON as an order-independent tie-breaker. */
+function compareMetadataCompleteness(left, right) {
+	const scoreDifference = metadataCompleteness(right) - metadataCompleteness(left);
+	return scoreDifference || compareLexically(stableStringify(left), stableStringify(right));
+}
+
+/** Fill missing metadata recursively; on conflicts the deterministic preferred value wins. */
+function mergeMetadata(preferred, fallback) {
+	if (!hasMetadata(preferred)) return fallback;
+	if (!hasMetadata(fallback)) return preferred;
+
+	if (isRecord(preferred) && isRecord(fallback)) {
+		const merged = { ...preferred };
+		for (const key of Object.keys(fallback).sort()) {
+			merged[key] = key in merged ? mergeMetadata(merged[key], fallback[key]) : fallback[key];
+		}
+		return merged;
+	}
+
+	if (Array.isArray(preferred) && Array.isArray(fallback)) {
+		const values = new Map();
+		for (const value of [...preferred, ...fallback]) values.set(stableStringify(value), value);
+		return [...values.entries()]
+			.sort(([left], [right]) => compareLexically(left, right))
+			.map(([, value]) => value);
+	}
+
+	return preferred;
+}
+
 /**
  * Replace absolute-checkout-path-derived identifiers with a stable root token.
  * Graphify slugifies the checkout directory into some node ids, labels and
  * link endpoints (e.g. /home/loops/dev/svelteforge-hub/svelteForge ->
- * home_loops_dev_svelteforge_hub_svelteforge). The repo directory name is not
- * known statically, so we derive it from `.graphify_root`-style data: any
- * id/label prefix that slugifies THIS checkout path is rewritten to `repo`,
- * and any leftover known-path slug (tmp_<name>_...) is handled by matching
- * against the slug of the current checkout basename.
+ * home_loops_dev_svelteforge_hub_svelteforge). The current checkout prefix is
+ * rewritten directly; stale sibling-worktree prefixes are recognized by the
+ * repository basename followed by a real root-level path segment.
  */
 function normalizeGraph() {
 	const graph = JSON.parse(readFileSync(GRAPH, 'utf8'));
@@ -64,16 +140,69 @@ function normalizeGraph() {
 			if (out.startsWith(root + '_')) {
 				out = 'repo' + out.slice(root.length);
 				rewritten++;
+				return out;
 			}
+		}
+
+		// Graphify incrementally retains nodes from prior runs. Their absolute
+		// prefixes no longer match this checkoutSlug, so find the repository
+		// basename followed by a known root-level path and canonicalize that
+		// suffix too. A marker inside a repo-relative path (for example
+		// packages_svforge_scripts_prebuild) is not an absolute checkout prefix.
+		const marker = `_${REPOSITORY_SLUG}`;
+		let rootIndex = out.indexOf(marker);
+		while (rootIndex > 0) {
+			const prefix = out.slice(0, rootIndex);
+			if (
+				ROOT_PATH_SEGMENTS.some(
+					(segment) => prefix === segment || prefix.startsWith(`${segment}_`)
+				)
+			) {
+				rootIndex = out.indexOf(marker, rootIndex + marker.length);
+				continue;
+			}
+
+			let suffix = out.slice(rootIndex + marker.length);
+			suffix = suffix.replace(/^_+worktrees_+[^_]+_+/, '_');
+			const repoRelative = suffix.replace(/^_+/, '');
+			if (
+				ROOT_PATH_SEGMENTS.some(
+					(segment) => repoRelative === segment || repoRelative.startsWith(`${segment}_`)
+				)
+			) {
+				rewritten++;
+				return `repo_${repoRelative}`;
+			}
+			rootIndex = out.indexOf(marker, rootIndex + marker.length);
 		}
 		return out;
 	};
 
-	graph.nodes = graph.nodes.map((node) => {
+	const nodesById = new Map();
+	for (const node of graph.nodes) {
 		const id = rewrite(node.id);
 		const label = rewrite(node.label);
-		return { ...node, ...(id !== node.id ? { id } : {}), ...(label !== node.label ? { label } : {}) };
+		const normalized = {
+			...node,
+			...(id !== node.id ? { id } : {}),
+			...(label !== node.label ? { label } : {})
+		};
+		const group = nodesById.get(id);
+		if (group) group.push(normalized);
+		else nodesById.set(id, [normalized]);
+	}
+
+	let mergedNodes = 0;
+	graph.nodes = [...nodesById.values()].map((group) => {
+		if (group.length === 1) return group[0];
+		mergedNodes += group.length - 1;
+		const [preferred, ...fallbacks] = group.sort(compareMetadataCompleteness);
+		return fallbacks.reduce((merged, fallback) => mergeMetadata(merged, fallback), preferred);
 	});
+	if (mergedNodes) {
+		console.error(`[normalize-graphify] merged ${mergedNodes} duplicate node(s) after ID normalization`);
+	}
+
 	graph.links = graph.links.map((link) => {
 		const source = rewrite(link.source);
 		const target = rewrite(link.target);
