@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "3e15f77f1cd09c23eac778134aecea9c",
+    "ast_hash": "af0a3927e2f564d6fbf75f84b69af116",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1476,7 +1476,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
-    "ast_hash": "d8a14cf45bf78b599719f8eb6c62ae48",
+    "ast_hash": "73252b934c010ef27a541f168a03eb73",
     "semantic_hash": ""
   },
   "AGENTS.md": {
@@ -1712,7 +1712,7 @@
     "semantic_hash": ""
   },
   "tests/ci-pipeline.test.ts": {
-    "ast_hash": "a335f9735910b99890449eed0d9243b2",
+    "ast_hash": "819017f0959e98d17ab180c731f79d27",
     "semantic_hash": ""
   },
   "tests/cli-verify.test.ts": {
@@ -1777,6 +1777,14 @@
   },
   "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts": {
     "ast_hash": "d371b930322f2ad797a9f958c399fcdc",
+    "semantic_hash": ""
+  },
+  "scripts/ui-browser-smoke.test.mjs": {
+    "ast_hash": "2667957c65814e2cbc49ab77eee12fd1",
+    "semantic_hash": ""
+  },
+  "scripts/ui-smoke.playwright.config.mjs": {
+    "ast_hash": "68643759a8f3bb6c6e0f99428b449ab9",
     "semantic_hash": ""
   }
 }

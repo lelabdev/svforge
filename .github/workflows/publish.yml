@@ -114,6 +114,7 @@ jobs:
         run: bash scripts/test-scaffold.sh ${{ matrix.scaffold }}
         env:
           CI: 'true'
+          SF_UI_BROWSER_SMOKE: ${{ matrix.scaffold == 'base' }}
 
   # External user journey from the packed tarball (#462, hardened in #465).
   # PostgreSQL serves the dashboard journey (setup, schema, auth, admin).

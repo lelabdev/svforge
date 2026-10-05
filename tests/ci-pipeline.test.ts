@@ -84,7 +84,13 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 		expect(canary).toContain('scripts/canary-issue.mjs');
 	});
 
-	it('runs the users Dialog browser regressions in the Playwright scaffold during release CI (#474)', () => {
+	it('runs UI browser smoke on a generated base scaffold only in the release battery', () => {
+		expect(scaffoldScript).toContain('if [ "$TEMPLATE" = "base" ] && [ "${SF_UI_BROWSER_SMOKE:-}" = "true" ]; then');
+		expect(scaffoldScript).toContain('bun add --dev @playwright/test');
+		expect(scaffoldScript).toContain('cp "$REPO_ROOT/scripts/ui-browser-smoke.test.mjs" e2e/ui-browser-smoke.test.mjs');
+		expect(scaffoldScript).toContain('bunx playwright test --config playwright.ui-smoke.config.mjs --project=chromium');
+		expect(jobBlock(ci, 'main-smoke')).not.toContain('SF_UI_BROWSER_SMOKE');
+		expect(jobBlock(publish, 'scaffolds')).toContain("SF_UI_BROWSER_SMOKE: ${{ matrix.scaffold == 'base' }}");
 		expect(scaffoldScript).toContain('if [ "$TEMPLATE" = "dashboard-playwright" ] && [ "${CI:-}" = "true" ]; then');
 		expect(scaffoldScript).toContain('bunx playwright test e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium');
 	});

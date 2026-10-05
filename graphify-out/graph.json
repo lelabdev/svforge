@@ -19584,6 +19584,22 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_ui_browser_smoke_test",
+      "label": "ui-browser-smoke.test.mjs",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-smoke.test.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_smoke_playwright_config",
+      "label": "ui-smoke.playwright.config.mjs",
+      "file_type": "code",
+      "source_file": "scripts/ui-smoke.playwright.config.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_user_journey",
       "label": "user-journey.mjs",
       "file_type": "code",
@@ -64059,6 +64075,28 @@
       "_origin": "ast"
     },
     {
+      "source": "scripts_ui_browser_smoke_test",
+      "target": "ref_playwright_test",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-smoke.test.mjs",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_smoke_playwright_config",
+      "target": "ref_playwright_test",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-smoke.playwright.config.mjs",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "scripts_user_journey",
       "target": "ref_node_child_process",
       "relation": "imports_from",
@@ -67603,7 +67641,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/ci-pipeline.test.ts",
-      "source_location": "L95",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },

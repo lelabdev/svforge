@@ -770,6 +770,21 @@ if [ "$TEMPLATE" = "dashboard-playwright" ] && [ "${CI:-}" = "true" ]; then
 	bunx playwright test e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium
 fi
 
+# #479 — browser smoke against the actual generated base scaffold. Keep browser
+# setup and execution in the release scaffold battery, not routine PR CI.
+if [ "$TEMPLATE" = "base" ] && [ "${SF_UI_BROWSER_SMOKE:-}" = "true" ]; then
+	bun add --dev @playwright/test
+	if [ "$(id -u)" -eq 0 ] || sudo -n true >/dev/null 2>&1; then
+		bunx playwright install --with-deps chromium
+	else
+		bunx playwright install chromium
+	fi
+	mkdir -p e2e
+	cp "$REPO_ROOT/scripts/ui-browser-smoke.test.mjs" e2e/ui-browser-smoke.test.mjs
+	cp "$REPO_ROOT/scripts/ui-smoke.playwright.config.mjs" playwright.ui-smoke.config.mjs
+	bunx playwright test --config playwright.ui-smoke.config.mjs --project=chromium
+fi
+
 # 6. AI-ready: AGENTS.md scaffolded at the project root (#203)
 test -f AGENTS.md || { echo "❌ AGENTS.md missing at project root (#203)"; exit 1; }
 grep -q "preset-tonal" AGENTS.md || { echo "❌ AGENTS.md lacks Skeleton v5 class guidance (#203)"; exit 1; }
