@@ -52,7 +52,7 @@ afterEach(() => {
 });
 
 describe('Graphify portability normalizer (#490)', () => {
-	it('rewrites current and stale worktree path IDs identically without changing portable source links', () => {
+	it('merges colliding worktree IDs without rewriting legitimate relative IDs or changing links', () => {
 		const cloneA = mkdtempSync(join(tmpdir(), 'sf490-clone-a-'));
 		const cloneB = mkdtempSync(join(tmpdir(), 'sf490-clone-b-'));
 		temporaryRoots.push(cloneA, cloneB);
@@ -62,6 +62,7 @@ describe('Graphify portability normalizer (#490)', () => {
 		const currentId = `${slugPath(worktreeB)}_packages_jobs_templates_src_lib_server_test_db`;
 		const runnerId = 'packages_jobs_templates_src_lib_server_runner';
 		const canonicalId = 'repo_packages_jobs_templates_src_lib_server_test_db';
+		const legitimateId = 'packages_svforge_scripts_prebuild';
 		const fixture: GraphFixture = {
 			nodes: [
 				{
@@ -82,6 +83,13 @@ describe('Graphify portability normalizer (#490)', () => {
 					source_file: 'packages/jobs/templates/src/lib/server/test-db.ts',
 					description: 'Jobs test database helper',
 					tags: ['jobs', 'database']
+				},
+				{
+					id: legitimateId,
+					label: legitimateId,
+					file_type: 'code',
+					type: 'function',
+					source_file: 'packages/svforge/scripts/prebuild.ts'
 				},
 				{
 					id: runnerId,
@@ -106,6 +114,11 @@ describe('Graphify portability normalizer (#490)', () => {
 		expect(normalizeAgain(worktreeA)).toBe(normalizedFromA.json);
 		expect(normalizedNodes.filter((node) => node.id === canonicalId)).toHaveLength(1);
 		expect(new Set(normalizedNodes.map((node) => node.id)).size).toBe(normalizedNodes.length);
+		expect(normalizedNodes.find((node) => node.id === legitimateId)).toMatchObject({
+			label: legitimateId,
+			source_file: 'packages/svforge/scripts/prebuild.ts'
+		});
+		expect(normalizedNodes.some((node) => node.id === 'repo_scripts_prebuild')).toBe(false);
 		expect(mergedNode).toMatchObject({
 			label: canonicalId,
 			file_type: 'concept',

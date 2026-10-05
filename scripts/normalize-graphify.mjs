@@ -16,7 +16,7 @@
  * sources always produce identical files.
  */
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { basename, dirname, join, resolve } from 'node:path';
+import { basename, dirname, join, parse, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -36,6 +36,15 @@ const ROOT_PATH_SEGMENTS = readdirSync(SCRIPT_ROOT)
 	.filter((entry) => !['.git', '.worktrees', 'graphify-out', 'node_modules'].includes(entry))
 	.map((entry) => slug(entry).replace(/^_+/, ''))
 	.filter(Boolean);
+const COMMON_FILESYSTEM_ROOTS = [
+	'home', 'tmp', 'users', 'private', 'var', 'mnt', 'media', 'srv', 'opt', 'root', 'workspace',
+	'workspaces', 'run', 'nix', 'usr', 'volumes', 'volume', 'dev', 'proc', 'sys', 'boot', 'data',
+	'work', 'projects', 'code', 'repo', 'repos', 'build', 'agent', 'agents', 'github', 'runner', 'app'
+];
+const ABSOLUTE_PATH_ROOTS = new Set([
+	...COMMON_FILESYSTEM_ROOTS,
+	...readdirSync(parse(SCRIPT_ROOT).root).map((entry) => slug(entry))
+]);
 
 /** Strip volatile timestamps from the incremental-extraction manifest. */
 function normalizeManifest() {
@@ -144,6 +153,16 @@ function normalizeGraph() {
 			}
 		}
 
+		// Root-relative IDs can themselves contain the repository basename (for
+		// example packages_svforge_scripts_prebuild). Only treat the later
+		// repository marker as an old absolute path when its prefix starts at a
+		// filesystem root, never when the ID already starts at a repo path.
+		if (
+			ROOT_PATH_SEGMENTS.some(
+				(segment) => out === segment || out.startsWith(`${segment}_`)
+			)
+		) return out;
+
 		// Graphify incrementally retains nodes from prior runs. Their absolute
 		// prefixes no longer match this checkoutSlug, so find the repository
 		// basename followed by a known root-level path and canonicalize that
@@ -152,6 +171,13 @@ function normalizeGraph() {
 		const marker = `_${REPOSITORY_SLUG}`;
 		let rootIndex = out.indexOf(marker);
 		while (rootIndex > 0) {
+			const absolutePrefix = out.slice(0, rootIndex);
+			const firstPathSegment = absolutePrefix.split('_', 1)[0];
+			if (!ABSOLUTE_PATH_ROOTS.has(firstPathSegment) && !/^[a-z]$/i.test(firstPathSegment)) {
+				rootIndex = out.indexOf(marker, rootIndex + marker.length);
+				continue;
+			}
+
 			let suffix = out.slice(rootIndex + marker.length);
 			suffix = suffix.replace(/^_+worktrees_+[^_]+_+/, '_');
 			const repoRelative = suffix.replace(/^_+/, '');
