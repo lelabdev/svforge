@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
@@ -94,6 +94,32 @@ describe('external user journey smoke test (#462, #465)', () => {
 		expect(addonSpec({ source: 'svforge@2.0.1', template: 'dashboard' })).toBe(
 			'svforge@2.0.1=template:dashboard+testing:vitest+hooks:none'
 		);
+		expect(addonSpec({ source: 'svforge@2.0.1', template: 'base', hooks: 'lefthook' })).toBe(
+			'svforge@2.0.1=template:base+testing:vitest+hooks:lefthook'
+		);
+	});
+
+	it('keeps the CI CLI pin, package peer, and supported major in sync', () => {
+		const rootPackage = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
+		const addonPackage = JSON.parse(readFileSync(join(process.cwd(), 'packages/svforge/package.json'), 'utf8'));
+		const pinnedVersion = resolveSvVersion();
+		const [major, minor] = pinnedVersion.split('.');
+		const supportedRange = `^${major}.${minor}.0`;
+
+		expect(pinnedVersion).toBe('1.1.0');
+		expect(rootPackage.devDependencies.sv).toBe(pinnedVersion);
+		expect(addonPackage.devDependencies.sv).toBe(supportedRange);
+		expect(addonPackage.peerDependencies.sv).toBe(supportedRange);
+
+		for (const entry of readdirSync(join(process.cwd(), 'packages'), { withFileTypes: true })) {
+			const packagePath = join(process.cwd(), 'packages', entry.name, 'package.json');
+			if (!entry.isDirectory() || !existsSync(packagePath)) continue;
+			const pkg = JSON.parse(readFileSync(packagePath, 'utf8'));
+			if (pkg.peerDependencies?.sv) {
+				expect(pkg.peerDependencies.sv, `${pkg.name} peer dependency`).toBe(supportedRange);
+				expect(pkg.devDependencies?.sv, `${pkg.name} test CLI`).toBe(supportedRange);
+			}
+		}
 	});
 
 	it('reads the pinned sv version instead of any checkout binary', () => {

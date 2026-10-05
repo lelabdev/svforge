@@ -7,7 +7,7 @@ const query = {
 	limit: vi.fn<() => any[]>()
 };
 
-vi.mock('$app/environment', () => ({ building: false }));
+vi.mock('$app/env', () => ({ building: false }));
 vi.mock('$lib/paraglide/runtime', () => ({ getTextDirection: vi.fn(() => 'ltr') }));
 vi.mock('$lib/paraglide/server', () => ({
 	paraglideMiddleware: vi.fn(async (request, next) => next({ request, locale: 'en' }))
@@ -44,6 +44,9 @@ describe('dashboard auth hook', () => {
 
 		expect(event.locals.session).toBeUndefined();
 		expect(event.locals.user).toBeUndefined();
-		expect(resolve).toHaveBeenCalledWith(event, expect.any(Object));
+		expect(resolve).toHaveBeenCalledWith(
+			expect.objectContaining({ request: event.request, locals: event.locals }),
+			expect.any(Object)
+		);
 	});
 });

@@ -24,7 +24,7 @@
         "eslint-plugin-tailwindcss": "^4.4.0",
         "globals": "^17.12.0",
         "jsdom": "^30.0.1",
-        "sv": "0.15.4",
+        "sv": "1.1.0",
         "svelte": "^5.57.0",
         "tailwindcss": "^4.3.3",
         "typescript": "^6.0.3",
@@ -46,12 +46,12 @@
       "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/blog": {
@@ -59,12 +59,12 @@
       "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/chat": {
@@ -72,12 +72,12 @@
       "version": "2.0.2",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/dnd": {
@@ -85,13 +85,13 @@
       "version": "2.0.2",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
         "@skeletonlabs/skeleton-svelte": "^5.0.0",
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/email": {
@@ -99,12 +99,12 @@
       "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/graph": {
@@ -112,13 +112,13 @@
       "version": "2.0.2",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
         "@skeletonlabs/skeleton-svelte": "^5.0.0",
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/jobs": {
@@ -126,12 +126,12 @@
       "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/notifications": {
@@ -139,12 +139,12 @@
       "version": "2.0.2",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/oauth": {
@@ -152,12 +152,12 @@
       "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/realtime": {
@@ -165,12 +165,12 @@
       "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/svforge": {
@@ -181,12 +181,12 @@
       },
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/tiptap": {
@@ -194,13 +194,13 @@
       "version": "2.0.2",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
         "@skeletonlabs/skeleton-svelte": "^5.0.0",
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/ui_toast": {
@@ -208,13 +208,13 @@
       "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
         "@skeletonlabs/skeleton-svelte": "^5.0.0",
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
     "packages/uploads": {
@@ -222,12 +222,12 @@
       "version": "2.0.1",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
-        "sv": "^0.15.3",
+        "sv": "^1.1.0",
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
       },
       "peerDependencies": {
-        "sv": "^0.13.0",
+        "sv": "^1.1.0",
       },
     },
   },
@@ -368,7 +368,7 @@
 
     "@sveltejs/acorn-typescript": ["@sveltejs/acorn-typescript@1.0.13", "", { "peerDependencies": { "acorn": "^8.9.0" } }, "sha512-wgKggnhZVL9Bfx1OaKKTrYY9BFRk6C8UAkQNUcIv1+llzYrIqy+RZm5HPKzn0NpEBvTVhTqB4kQyllZywsRBRQ=="],
 
-    "@sveltejs/sv-utils": ["@sveltejs/sv-utils@0.2.2", "", {}, "sha512-2rmR7HKhqcMR6vz9eoYPPMgVaKLME2+tZGFsxy1QV44HkVrLttXzUrE8GXBHDsd2uMOr945cBnQLs7+DYPNopA=="],
+    "@sveltejs/sv-utils": ["@sveltejs/sv-utils@1.0.1", "", {}, "sha512-Y1tHH+8jpaoiGGiWPG8WcRiJrQW122QbofCv/uDYXelHCp8YcOErZYOjSP0XNgoV4oN5H2gbPEAeL6fQX9Rlpg=="],
 
     "@sveltejs/vite-plugin-svelte": ["@sveltejs/vite-plugin-svelte@6.2.4", "", { "dependencies": { "@sveltejs/vite-plugin-svelte-inspector": "^5.0.0", "deepmerge": "^4.3.1", "magic-string": "^0.30.21", "obug": "^2.1.0", "vitefu": "^1.1.1" }, "peerDependencies": { "svelte": "^5.0.0", "vite": "^6.3.0 || ^7.0.0" } }, "sha512-ou/d51QSdTyN26D7h6dSpusAKaZkAiGM55/AKYi+9AGZw7q85hElbjK3kEyzXHhLSnRISHOYzVge6x0jRZ7DXA=="],
 
@@ -918,7 +918,7 @@
 
     "strip-indent": ["strip-indent@3.0.0", "", { "dependencies": { "min-indent": "^1.0.0" } }, "sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ=="],
 
-    "sv": ["sv@0.15.4", "", { "dependencies": { "@sveltejs/sv-utils": "0.2.2" }, "bin": { "sv": "dist/bin.mjs" } }, "sha512-8yryPTgcrG1EgSsPkzXtrdDczy0ohrM2gdbz2CupbOZpk9o3zk+K4hD2AbbqFH0/5OJNgnb405Wu7bxxLCYdQQ=="],
+    "sv": ["sv@1.1.0", "", { "dependencies": { "@sveltejs/sv-utils": "1.0.1" }, "bin": { "sv": "./dist/bin.mjs" } }, "sha512-q3HsgVYWqbMoxVI4sS/mBusOTc3XgOMO4H4FLEQq9nNuRKy/KHgbD2oES2iQ/KdP9qqSlHFuAkHZKc/oB4bJ+A=="],
 
     "svelte": ["svelte@5.57.0", "", { "dependencies": { "@jridgewell/remapping": "^2.3.4", "@jridgewell/sourcemap-codec": "^1.5.0", "@sveltejs/acorn-typescript": "^1.0.10", "@types/estree": "^1.0.5", "acorn": "^8.12.1", "aria-query": "5.3.1", "axobject-query": "^4.1.0", "clsx": "^2.1.1", "devalue": "^5.8.1", "esm-env": "^1.2.1", "esrap": "^2.2.12", "is-reference": "^3.0.3", "locate-character": "^3.0.0", "magic-string": "^0.30.11", "zimmerframe": "^1.1.2" } }, "sha512-NdbDn7fl4be1ViUG0oq/lvG6OZy3oENolV2ONjiqqsfVoeAfzaQAKUcEX3MrQod/Bebv1PgwET9rfXhgn9s4Kg=="],
 

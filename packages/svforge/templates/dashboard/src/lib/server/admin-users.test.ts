@@ -1,18 +1,17 @@
 import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 
-// $env/dynamic/private is a SvelteKit virtual module — not resolvable by the
+// $app/env/private is a SvelteKit virtual module — not resolvable by the
 // bare vitest environment. Integration suites NEVER read the application
 // .env (#312): the database comes exclusively from TEST_DATABASE_URL, which
 // must point at a dedicated test database — resolveTestDbUrl() refuses
 // anything else before a single row is touched.
-vi.mock('$env/dynamic/private', async () => {
+vi.mock('$app/env/private', async () => {
 	const { resolveTestDbUrl } = await import('./test-db');
 	return {
-		env: {
-			DATABASE_URL: resolveTestDbUrl(),
-			ORIGIN: 'http://localhost:5173',
-			BETTER_AUTH_SECRET: 'sforge-integration-secret-0123456789abcdef'
-		}
+		DATABASE_URL: resolveTestDbUrl(),
+		ORIGIN: 'http://localhost:5173',
+		BETTER_AUTH_SECRET: 'sforge-integration-secret-0123456789abcdef',
+		SIGNUP_MODE: 'closed'
 	};
 });
 

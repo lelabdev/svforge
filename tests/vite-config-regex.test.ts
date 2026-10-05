@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-const { patchViteConfig } = await import('../packages/svforge/src/modes/base');
+const { patchVitestConfig, patchViteConfig } = await import('../packages/svforge/src/modes/base');
 
 /**
  * The REAL `vite.config.ts` emitted by `sv create --template minimal` on
@@ -58,12 +58,27 @@ describe('vite.config.ts patch keeps the runes regex valid (#415)', () => {
 		expect(patched).toContain('svforgeDesignSystemPlugin()');
 		expect(patched).toContain('paraglideVitePlugin({');
 		expect(patched).toContain('sveltekit({');
+		expect(patched).toContain("alias: { '$lib': 'src/lib' }");
 		expect(patched).toContain('adapter: adapter()');
 		expect(patched).toContain('compilerOptions: {');
+	});
+
+	it('adds the same alias when sv emits a bare sveltekit() call', () => {
+		const patched = patchViteConfig("import { sveltekit } from '@sveltejs/kit/vite';\nexport default { plugins: [sveltekit()] };\n");
+		expect(patched).toContain("sveltekit({ alias: { '$lib': 'src/lib' } })");
+		expect(patchViteConfig(patched)).toBe(patched);
 	});
 
 	it('re-applying the patch is idempotent', () => {
 		const once = patchViteConfig(SV_0_17_VITE_CONFIG);
 		expect(patchViteConfig(once)).toBe(once);
+	});
+
+	it('adds a cross-platform $lib alias to Vitest config idempotently', () => {
+		const config = "import { defineConfig } from 'vitest/config';\nexport default defineConfig({ plugins: [] });\n";
+		const once = patchVitestConfig(config);
+		expect(once).toContain("import { fileURLToPath } from 'node:url';");
+		expect(once).toContain("'$lib': fileURLToPath(new URL('./src/lib', import.meta.url))");
+		expect(patchVitestConfig(once)).toBe(once);
 	});
 });

@@ -17,7 +17,13 @@ name: Ecosystem Canary
 on:
   schedule:
     - cron: '0 6 * * 1' # Monday 06:00 UTC
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      sv-version:
+        description: 'sv CLI version to test (for example 1.1.0; defaults to latest)'
+        required: false
+        default: latest
+        type: string
 
 permissions:
   contents: read
@@ -68,7 +74,8 @@ jobs:
       - name: Scaffold canary (${{ matrix.scaffold }})
         id: scaffold
         env:
-          SV_CMD: 'bunx sv' # ecosystem latest — that's the whole point (#205)
+          SV_CMD: "bunx sv@${{ inputs.sv-version || 'latest' }}"
+          SV_VERSION: ${{ inputs.sv-version || 'latest' }}
         run: |
           set +e
           bash scripts/test-scaffold.sh ${{ matrix.scaffold }} > /tmp/canary.log 2>&1
@@ -79,9 +86,9 @@ jobs:
           if [ "${{ matrix.scaffold }}" = "base" ] && [ $status -eq 0 ]; then
             {
               echo ""
-              echo "--- external user journey (latest sv) ---"
+              echo "--- external user journey (sv@${SV_VERSION}) ---"
             } >> /tmp/canary.log
-            SV_VERSION=latest bash scripts/test-user-journey.sh >> /tmp/canary.log 2>&1
+            bash scripts/test-user-journey.sh >> /tmp/canary.log 2>&1
             status=$?
           fi
           set -e
@@ -111,7 +118,7 @@ jobs:
             const report = [
               '## Ecosystem drift detected — weekly canary (#205)',
               '',
-              `The \`${profile}\` scaffold failed against the \`latest\` ecosystem versions (sv, Skeleton, SvelteKit).`,
+              `The \`${profile}\` scaffold failed against sv@\`${{ inputs.sv-version || 'latest' }}\` and latest Skeleton/SvelteKit.`,
               '',
               `Failure signature: \`${signature}\``,
               `Commit: \`${process.env.CANARY_SHA}\``,

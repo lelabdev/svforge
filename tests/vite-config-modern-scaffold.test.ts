@@ -7,22 +7,26 @@ import { tmpdir } from 'node:os';
 /**
  * REAL-GENERATION regression for #415.
  *
- * The bug lived in the shape PRODUCED by `sv`: sv@0.17 moved the runes matcher
- * into `vite.config.ts` (`sveltekit({ compilerOptions })`), inside the plugins
- * array. A hardcoded fixture can silently drift from that shape, so this test
- * scaffolds a REAL project with the pinned modern `sv`, applies SVForge
- * through the real CLI (`file:` add-on), and validates the generated config.
+ * `sv@1.1` creates a Kit 3 project with config options inside
+ * `sveltekit({ ... })` in `vite.config.ts`; Kit 3 no longer defines `$lib` by
+ * default. A hardcoded fixture can silently drift from that shape, so this
+ * scaffolds a REAL project, applies SVForge through the real CLI (`file:`
+ * add-on), and validates the generated alias/config.
  *
  * `--no-install` keeps it fast and hermetic: `sv create`/`sv add` copy files
  * without resolving dependencies, and the config is validated by PARSING it.
  */
 const ROOT = process.cwd();
-const SV_VERSION = '0.17.1';
+const SV_VERSION = '1.1.0';
 const SVFORGE = `file:${join(ROOT, 'packages', 'svforge')}`;
 const DND = `file:${join(ROOT, 'packages', 'dnd')}`;
 
 function runSv(args: string[], cwd: string): void {
-	execFileSync('bunx', ['--yes', `sv@${SV_VERSION}`, ...args], { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+	execFileSync('npm', ['exec', '--yes', '--package', `sv@${SV_VERSION}`, '--', 'sv', ...args], {
+		cwd,
+		encoding: 'utf8',
+		stdio: ['ignore', 'pipe', 'pipe']
+	});
 }
 
 function ensureBuilt(pkg: string): void {
@@ -70,6 +74,7 @@ describe('modern sv layout generates a valid vite.config.ts (#415)', () => {
 				// …and SVForge wired its plugins into the generated config.
 				expect(config).toContain('svforgeDesignSystemPlugin()');
 				expect(config).toContain('paraglideVitePlugin({');
+				expect(config).toContain("alias: { '$lib': 'src/lib' }");
 				// The result PARSES (a broken regex is an unterminated literal).
 				expect(await syntaxErrors(config, 'vite.config.ts')).toEqual([]);
 			} finally {

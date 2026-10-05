@@ -1,5 +1,5 @@
 import { defineAddon, defineAddonOptions } from 'sv';
-import { checkModuleCapabilities, planAddonContext } from '@svforge/addon-kit';
+import { checkModuleCapabilities, mergeSvelteKitEnvVars, planAddonContext } from '@svforge/addon-kit';
 import { files } from './templates';
 
 
@@ -43,6 +43,14 @@ export default defineAddon({
 		for (const [path, content] of Object.entries(files)) {
 			sv.file(`src${path}`, () => content);
 		}
+		sv.file('src/env.ts', (content) =>
+			mergeSvelteKitEnvVars(content, {
+				GOOGLE_CLIENT_ID: 'Google OAuth client ID',
+				GOOGLE_CLIENT_SECRET: 'Google OAuth client secret',
+				GITHUB_CLIENT_ID: 'GitHub OAuth client ID',
+				GITHUB_CLIENT_SECRET: 'GitHub OAuth client secret'
+			})
+		);
 
 		// AI context (#234): planned in memory first (#324) — an invalid
 		// .svforge.json cancels the install instead of resetting the file.
@@ -60,7 +68,8 @@ export default defineAddon({
 			'    github: { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET }',
 			'  }',
 			'Add OAuth buttons: import OAuthButtons from "$lib/components/svforge/ui/OAuthButtons.svelte"',
-			'Required env vars: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET'
+			'Add the OAuth credentials to .env (src/env.ts declarations were added automatically):',
+			'  GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET'
 		];
 		// Unverified capabilities (#323): on a non-SVForge project whose auth
 		// wiring could not be confirmed structurally, install proceeds WITH a

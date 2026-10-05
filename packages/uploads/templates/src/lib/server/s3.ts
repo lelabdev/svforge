@@ -1,5 +1,5 @@
 import { S3Client } from '@aws-sdk/client-s3';
-import { env } from '$env/dynamic/private';
+import * as env from '$app/env/private';
 
 /**
  * Create the S3 client lazily, on first use (#237).

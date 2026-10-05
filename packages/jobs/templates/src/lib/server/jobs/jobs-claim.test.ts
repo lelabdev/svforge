@@ -6,14 +6,13 @@ import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 const hasDb = !!process.env.TEST_DATABASE_URL;
 const d = hasDb ? describe : describe.skip;
 
-vi.mock('$env/dynamic/private', async () => {
+vi.mock('$app/env/private', async () => {
 	const { resolveTestDbUrl } = await import('../test-db');
 	return {
-		env: {
-			DATABASE_URL: resolveTestDbUrl(),
-			ORIGIN: 'http://localhost:5173',
-			BETTER_AUTH_SECRET: 'sforge-integration-secret-0123456789abcdef'
-		}
+		DATABASE_URL: resolveTestDbUrl(),
+		ORIGIN: 'http://localhost:5173',
+		BETTER_AUTH_SECRET: 'sforge-integration-secret-0123456789abcdef',
+		SIGNUP_MODE: 'closed'
 	};
 });
 

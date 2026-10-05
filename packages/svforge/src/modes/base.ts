@@ -97,6 +97,20 @@ export function patchViteConfig(content: string): string {
 	if (!updated.includes('svforgeDesignSystemPlugin()')) {
 		updated = updated.replace(/plugins:\s*\[/, 'plugins: [svforgeDesignSystemPlugin(), ');
 	}
+	// sv@1.x scaffolds Kit 3, which no longer supplies the `$lib` alias by
+	// default. Keep the existing template imports working via the plugin config.
+	const libAlias = "alias: { '$lib': 'src/lib' }";
+	if (!updated.includes(libAlias)) {
+		const optionsCall = /\bsveltekit\(\s*\{/.exec(updated);
+		if (optionsCall) {
+			const lineStart = updated.lastIndexOf('\n', optionsCall.index) + 1;
+			const callIndent = updated.slice(lineStart, optionsCall.index).match(/^\s*/)?.[0] ?? '';
+			const insertAt = optionsCall.index + optionsCall[0].length;
+			updated = `${updated.slice(0, insertAt)}\n${callIndent}\t${libAlias},${updated.slice(insertAt)}`;
+		} else {
+			updated = updated.replace(/\bsveltekit\(\s*\)/, `sveltekit({ ${libAlias} })`);
+		}
+	}
 	// #325: the scaffold ships `lint: prettier --check . && eslint .` — the
 	// patched plugins array must be prettier-stable (printWidth 100). When the
 	// single-line form no longer fits, render one plugin per line (exactly what
@@ -122,6 +136,26 @@ export function patchViteConfig(content: string): string {
 				updated = `${updated.slice(0, pluginsStart)}${rendered}${updated.slice(close + 1)}`;
 			}
 		}
+	}
+	return updated;
+}
+
+/**
+ * Vitest's own config bypasses the Kit plugin options from vite.config.ts.
+ * Give it an explicit `$lib` alias so the scaffold's example tests also work
+ * with Kit 3 (where `$lib` is opt-in).
+ */
+export function patchVitestConfig(content: string): string {
+	let updated = content;
+	if (!updated.includes("from 'node:url'")) {
+		updated = `import { fileURLToPath } from 'node:url';\n${updated}`;
+	}
+	const alias = "'$lib': fileURLToPath(new URL('./src/lib', import.meta.url))";
+	if (!updated.includes(alias)) {
+		updated = updated.replace(
+			/export default defineConfig\(\s*\{/,
+			(match) => `${match}\n\tresolve: { alias: { ${alias} } },`
+		);
 	}
 	return updated;
 }
@@ -207,12 +241,15 @@ export function applyBaseMode(
 	// share vite.config.ts. The gate imports the scaffolded checker, so Vite
 	// builds and `bun run check` produce the same diagnostics.
 	sv.file('vite.config.ts', (content) => patchViteConfig(content));
-
 	// Write all base template files — destinations come from the ONE canonical
 	// resolver shared with the upgrade engine (#327): no install/upgrade drift.
 	for (const [path, content] of Object.entries(files)) {
 		sv.file(resolveDestination(path, BASE_ROOT_PATHS), () => content);
 	}
+
+	// Kit 3 removes `$lib` by default. Vitest runs its own Vite config rather
+	// than the app config, so preserve the legacy alias for scaffold tests too.
+	sv.file('vitest.config.ts', (content) => patchVitestConfig(content));
 
 	// Write root-level project files (messages/, project.inlang/) at the
 	// project root (#239) — same delivery model as the dashboard root files.

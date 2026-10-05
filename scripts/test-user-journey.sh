@@ -41,6 +41,7 @@ SF_PM="${SF_PM:-bun}"
 MODE="local"
 VERSION=""
 SV_VERSION="${SV_VERSION:-}"
+HOOK_MODE="none"
 PATH_MODE="manual"
 COMPAT_MANIFEST_FILE=""
 TEMPLATES=()
@@ -56,6 +57,7 @@ Usage: scripts/test-user-journey.sh [options]
   --compat-manifest <p>   exact per-package version map (release plan) for the
                           published golden path (#470)
   --template <name>       run only one journey (base or dashboard); may repeat
+  --hooks <mode>          generated hooks mode: none (default) or lefthook
   --sv <version>          override the `sv` CLI version to acquire (default: repo pin,
                           use "latest" for the ecosystem canary)
   --keep                  keep the temporary directory for inspection
@@ -87,6 +89,15 @@ while [ $# -gt 0 ]; do
 			case "$1" in
 				base | dashboard) TEMPLATES+=("$1") ;;
 				*) echo "❌ Unknown template: $1 (expected base or dashboard)" >&2; exit 1 ;;
+			esac
+			shift
+			;;
+		--hooks)
+			shift
+			[ $# -gt 0 ] || { echo "❌ --hooks requires a value (none or lefthook)" >&2; exit 1; }
+			case "$1" in
+				none | lefthook) HOOK_MODE="$1" ;;
+				*) echo "❌ Unknown hooks mode: $1 (expected none or lefthook)" >&2; exit 1 ;;
 			esac
 			shift
 			;;
@@ -238,6 +249,9 @@ dashboard_database_setup() {
 	bash scripts/setup.sh >/dev/null 2>&1 || fail "dashboard: scripts/setup.sh failed"
 	test -f .env || fail "dashboard: setup.sh did not create .env"
 	export TEST_DATABASE_URL="${TEST_DATABASE_URL:-postgres://postgres:postgres@localhost:5432/sf_dashboard_test}"
+	# Kit 3 evaluates dynamic private env vars during build-time route analysis;
+	# make DATABASE_URL available to the build process as well as .env.
+	export DATABASE_URL="$TEST_DATABASE_URL"
 	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
 	# Better Auth trusts ORIGIN only — align it with the journey port.
 	sed -i.bak "s|^ORIGIN=.*|ORIGIN=http://localhost:$port|" .env && rm -f .env.bak
@@ -262,7 +276,7 @@ wait_for_port() {
 }
 
 run_base() {
-	local addon="$SOURCE=template:base+testing:vitest+hooks:none"
+	local addon="$SOURCE=template:base+testing:vitest+hooks:$HOOK_MODE"
 	local port=4211
 
 	step "base: sv create"
@@ -273,6 +287,14 @@ run_base() {
 
 	step "base: sv add (documented install)"
 	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check
+
+	if [ "$HOOK_MODE" = "lefthook" ]; then
+		test -f .lefthook.yml || fail "base: hooks:lefthook did not create .lefthook.yml"
+		grep -q 'lefthook install' package.json || fail "base: hooks:lefthook did not add the prepare script"
+		if [ ! -d .git ]; then git init -q; fi
+		bun run prepare || fail "base: lefthook prepare script failed"
+		test -f .git/hooks/pre-commit || fail "base: lefthook did not install the pre-commit hook"
+	fi
 
 	# The add-on copied its sources: the project must be self-contained.
 	test -f .svforge.json || fail "base: .svforge.json missing from the package"
@@ -349,7 +371,7 @@ dashboard_auth_journey() {
 }
 
 run_dashboard() {
-	local addon="$SOURCE=template:dashboard+testing:vitest+hooks:none"
+	local addon="$SOURCE=template:dashboard+testing:vitest+hooks:$HOOK_MODE"
 	local port=4212
 
 	step "dashboard: sv create"

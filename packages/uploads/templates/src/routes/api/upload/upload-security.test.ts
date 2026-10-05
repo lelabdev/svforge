@@ -12,8 +12,8 @@ vi.mock('@aws-sdk/s3-presigned-post', () => ({ createPresignedPost }));
 const getSignedUrl = vi.fn();
 vi.mock('@aws-sdk/s3-request-presigner', () => ({ getSignedUrl }));
 
-const env: Record<string, string | undefined> = { S3_BUCKET: 'test-bucket' };
-vi.mock('$env/dynamic/private', () => ({ env }));
+const env: Record<string, string | undefined> = { S3_BUCKET: 'test-bucket', S3_UPLOAD_SIZE_POLICY: undefined };
+vi.mock('$app/env/private', () => env);
 
 // Import the endpoint AFTER mocks are registered.
 const { POST } = await import('./+server');
@@ -52,7 +52,7 @@ beforeEach(() => {
 		fields: { key: 'uploads/signed-key', 'Content-Type': 'image/png' }
 	});
 	getSignedUrl.mockResolvedValue('https://signed.example/url');
-	delete env.S3_UPLOAD_SIZE_POLICY;
+	env.S3_UPLOAD_SIZE_POLICY = undefined;
 });
 
 describe('upload endpoint security (test pack)', () => {
