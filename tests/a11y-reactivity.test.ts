@@ -15,7 +15,6 @@ function readFile(relPath: string): string {
  * 1. Unkeyed {#each} loops → add stable keys
  * 2. TiptapToolbar: props captured at init → use $derived
  * 3. Settings: state assigned from $effect → use $derived or event handler
- * 4. Clickable non-interactive elements (modal overlay) → add role/tabindex
  */
 describe('Svelte accessibility and reactivity (#176)', () => {
 	describe('TiptapToolbar reactivity', () => {
@@ -71,12 +70,23 @@ describe('Svelte accessibility and reactivity (#176)', () => {
 		}
 	});
 
-	describe('modal accessibility', () => {
+	describe('admin users Skeleton Dialog composition', () => {
 		const source = readFile('packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte');
 
-		it('modal overlay has role or tabindex for accessibility', () => {
-			// The overlay div with onclick should have role="button" or role="dialog"
-			expect(source).toMatch(/role=["'](?:button|dialog|presentation)["']/);
+		it('uses the official controlled Dialog and never treats a presentation overlay as accessible', () => {
+			expect(source).toContain("import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte'");
+			expect(source).toMatch(/<Dialog[\s\S]*?open=\{modal !== null\}/);
+			expect(source).toContain('<Dialog.Title');
+			expect(source).toContain('restoreFocus');
+			expect(source).toContain('closeOnInteractOutside={false}');
+			expect(source).not.toMatch(/role=["']presentation["']/);
+			expect(source).not.toMatch(/bg-black\/50/);
+		});
+
+		it('keeps all user mutations as enhanced SvelteKit POST forms', () => {
+			expect(source).toMatch(/action=\{modal === 'create' \? '\?\/create' : '\?\/update'\}[\s\S]*?use:enhance=\{submitEnhance\}/);
+			expect(source).toMatch(/action="\?\/invite" use:enhance=\{submitEnhance\}/);
+			expect(source).toMatch(/action="\?\/toggleStatus" use:enhance=\{submitEnhance\}/);
 		});
 	});
 });

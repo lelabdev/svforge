@@ -9076,7 +9076,7 @@
       "label": "dashboardRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L93",
+      "source_location": "L94",
       "_origin": "ast"
     },
     {
@@ -9084,7 +9084,7 @@
       "label": "baseRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L100",
+      "source_location": "L101",
       "_origin": "ast"
     },
     {
@@ -15262,6 +15262,14 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_templates_dashboard_src_e2e_users_dialog_test",
+      "label": "users-dialog.test.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/e2e/users-dialog.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_templates_dashboard_src_hooks_server_test",
       "label": "hooks.server.test.ts",
       "file_type": "code",
@@ -16454,7 +16462,7 @@
       "label": "switch()",
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte",
-      "source_location": "L86",
+      "source_location": "L87",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19218,7 +19226,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L612",
+      "source_location": "L613",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -19795,7 +19803,7 @@
       "label": "FakeSv",
       "file_type": "code",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L90",
+      "source_location": "L93",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -19805,7 +19813,7 @@
       "label": "asSvApi()",
       "file_type": "code",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L119",
+      "source_location": "L122",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20443,11 +20451,19 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_ci_pipeline_test_scaffoldscript",
+      "label": "scaffoldScript",
+      "file_type": "code",
+      "source_file": "tests/ci-pipeline.test.ts",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_ci_pipeline_test_scaffold_profiles",
       "label": "SCAFFOLD_PROFILES",
       "file_type": "code",
       "source_file": "tests/ci-pipeline.test.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -20455,7 +20471,7 @@
       "label": "jobBlock()",
       "file_type": "code",
       "source_file": "tests/ci-pipeline.test.ts",
-      "source_location": "L25",
+      "source_location": "L26",
       "_callable": true,
       "_origin": "ast"
     },
@@ -28324,7 +28340,17 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
@@ -36687,7 +36713,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_473_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -45427,7 +45453,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L93",
+      "source_location": "L94",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45437,7 +45463,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L100",
+      "source_location": "L101",
       "weight": 1,
       "_origin": "ast"
     },
@@ -54502,6 +54528,17 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_templates_dashboard_src_e2e_users_dialog_test",
+      "target": "ref_playwright_test",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/e2e/users-dialog.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_templates_dashboard_src_hooks_server_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -57210,7 +57247,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte",
-      "source_location": "L86",
+      "source_location": "L87",
       "weight": 1,
       "_origin": "ast"
     },
@@ -57305,6 +57342,14 @@
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_admin_users_page",
       "target": "x",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_users_page",
+      "target": "skeleton_svelte",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte",
@@ -62747,7 +62792,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L612",
+      "source_location": "L613",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62757,7 +62802,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L620",
+      "source_location": "L621",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -63659,7 +63704,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/a11y-reactivity.test.ts",
-      "source_location": "L22",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64315,7 +64360,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L90",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64325,7 +64370,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L119",
+      "source_location": "L122",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64336,7 +64381,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L74",
+      "source_location": "L77",
       "weight": 1,
       "_origin": "ast"
     },
@@ -66773,11 +66818,21 @@
     },
     {
       "source": "tests_ci_pipeline_test",
+      "target": "tests_ci_pipeline_test_scaffoldscript",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/ci-pipeline.test.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_ci_pipeline_test",
       "target": "tests_ci_pipeline_test_scaffold_profiles",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/ci-pipeline.test.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -66787,7 +66842,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/ci-pipeline.test.ts",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -66798,7 +66853,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/ci-pipeline.test.ts",
-      "source_location": "L89",
+      "source_location": "L95",
       "weight": 1,
       "_origin": "ast"
     },
@@ -80957,7 +81012,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "tests/a11y-reactivity.test.ts",
-      "source_location": "L53",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },

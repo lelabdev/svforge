@@ -32,6 +32,7 @@ drizzle.config.ts
 e2e/auth.test.ts
 e2e/navigation.test.ts
 e2e/user-crud.test.ts
+e2e/users-dialog.test.ts
 eslint-plugin-svforge.mjs
 eslint.config.js
 messages/en.json

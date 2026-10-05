@@ -255,7 +255,7 @@ const DASHBOARD = (pm: string) => `
 
 The admin screens are canonical examples agents should copy:
 
-- **\`/admin/users\`** — CRUD data table: the SvelteForge \`Table\` primitive (columns + \`children\` slot for avatar/badge/actions), search filter, create/edit modal (\`Card\` + \`Input\`), delete confirmation, \`Feedback\` for success/error, empty state. Never hand-roll a raw \`<table>\` (see catalogue \`avoid\`).
+- **\`/admin/users\`** — CRUD data table: the SvelteForge \`Table\` primitive (columns + \`children\` slot for avatar/badge/actions), search filter, create/edit/invite/status flows using the official Skeleton \`Dialog\` with SvelteForge form primitives, \`Feedback\` for success/error, empty state. Never hand-roll a raw \`<table>\` (see catalogue \`avoid\`).
 - **\`/admin\`** — stats cards (\`Card variant="elevated"\`) + recent list with \`Badge\` status.
 - **\`/admin/settings\`** — form with client-side validation + \`Feedback\`.
 - **\`AdminLayout\`** — sidebar/mobile drawer with \`aria-expanded\`, \`aria-current\`, labelled navigation.

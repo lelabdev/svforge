@@ -8,6 +8,7 @@ const readWorkflow = (file: string) => readFileSync(join(ROOT, '.github', 'workf
 const ci = readWorkflow('ci.yml');
 const publish = readWorkflow('publish.yml');
 const canary = readWorkflow('canary.yml');
+const scaffoldScript = readFileSync(join(ROOT, 'scripts', 'test-scaffold.sh'), 'utf8');
 
 const SCAFFOLD_PROFILES = [
 	'base',
@@ -81,6 +82,11 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 	it('keeps the canary independent on the latest ecosystem', () => {
 		expect(canary).toContain('bun-version: latest');
 		expect(canary).toContain('scripts/canary-issue.mjs');
+	});
+
+	it('runs the users Dialog browser regressions in the Playwright scaffold during release CI (#474)', () => {
+		expect(scaffoldScript).toContain('if [ "$TEMPLATE" = "dashboard-playwright" ] && [ "${CI:-}" = "true" ]; then');
+		expect(scaffoldScript).toContain('bunx playwright test e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium');
 	});
 
 	it('builds every scaffold runner and runs the release suite sequentially (#467 review)', () => {

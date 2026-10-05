@@ -11,6 +11,7 @@ test.describe('user management CRUD', () => {
 		await page.fill('input[type="email"]', 'admin@test.com');
 		await page.fill('input[type="password"]', 'password123');
 		await page.click('button[type="submit"]');
+		await page.waitForURL('**/admin');
 		await page.goto('/admin/users');
 	});
 
@@ -18,26 +19,33 @@ test.describe('user management CRUD', () => {
 		await expect(page.locator('table')).toBeVisible();
 	});
 
-	test('shows create user form feedback on validation error', async ({ page }) => {
-		// Open create modal
-		await page.click('button:has-text("Add"), button:has-text("Create")');
-		// Submit empty form
-		await page.click('button[type="submit"]:has-text("Save"), button[type="submit"]:has-text("Create")');
-		// Expect feedback message
-		await expect(page.locator('[role="alert"], .error, .text-error')).toBeVisible({ timeout: 5000 });
+	test('shows enhanced validation feedback for invalid create data', async ({ page }) => {
+		await page.getByTestId('users-add').click();
+		const dialog = page.getByRole('dialog');
+		await dialog.locator('input[name="name"]').fill('Test User');
+		await dialog.locator('input[name="email"]').fill('invalid-password@test.example');
+		await dialog.locator('input[name="password"]').fill('short');
+		await dialog.locator('form button[type="submit"]').click();
+
+		// The client accepts syntactically valid fields, then the real SvelteKit
+		// action rejects the short password and use:enhance renders the failure.
+		await expect(page.locator('.preset-tonal-error')).toBeVisible({ timeout: 5000 });
+		await expect(dialog).toBeVisible();
 	});
 
 	test('can deactivate a user without removing their identity', async ({ page }) => {
-		const deactivateButtons = page.locator('button[aria-label="Deactivate user"]:not([disabled])');
+		const deactivateButtons = page.locator('button[data-testid="users-status"]:not([disabled])');
 		const count = await deactivateButtons.count();
 		if (count > 0) {
 			await deactivateButtons.first().click();
-			await page.click('button:has-text("Deactivate"):not([aria-label])');
-			await expect(page.locator('[role="alert"], .feedback, .text-success')).toBeVisible({ timeout: 5000 });
+			const dialog = page.getByRole('dialog');
+			await expect(dialog).toBeVisible();
+			await dialog.locator('form button[type="submit"]').click();
+			await expect(page.locator('.preset-tonal-success')).toBeVisible({ timeout: 5000 });
 		}
 	});
 
 	test('prevents self-deactivation', async ({ page }) => {
-		await expect(page.locator('button[disabled][aria-label="Deactivate user"]')).toBeVisible();
+		await expect(page.locator('button[data-testid="users-status"][disabled]')).toBeVisible();
 	});
 });
