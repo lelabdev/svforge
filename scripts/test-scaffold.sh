@@ -25,11 +25,15 @@ SF_PM="${SF_PM:-bun}"
 echo "Testing svforge scaffold: template=$TEMPLATE pm=$SF_PM (local addon)"
 
 # Clean up on exit
+DEMO_PREVIEW_PID=""
 # rm -rf robuste pour node_modules: les fichiers d'un install concurrent
 # peuvent être read-only ou disparaître pendant le unlink — on force les
 # perms et on retente une fois avant d'abandonner (le test a déjà PASSÉ à
 # ce stade: un cleanup raté ne doit pas rendre la CI rouge).
 cleanup_tmp() {
+	if [ -n "$DEMO_PREVIEW_PID" ]; then
+		kill "$DEMO_PREVIEW_PID" 2>/dev/null || true
+	fi
 	[ -d "$TMP_DIR" ] || return 0
 	chmod -R u+w "$TMP_DIR" 2>/dev/null || true
 	rm -rf "$TMP_DIR" 2>/dev/null || { sleep 2; rm -rf "$TMP_DIR" 2>/dev/null || true; }
@@ -229,6 +233,58 @@ fi
 
 # 4. Build the scaffolded project — the actual assertion
 bun run build
+
+# #477: render the built base scaffold's /demo-ui route and verify that the
+# layout owns one shell around visible page content.
+if [ "$TEMPLATE" = "base" ]; then
+	DEMO_PORT=4197
+	bun run preview -- --host 127.0.0.1 --port "$DEMO_PORT" >"$TMP_DIR/demo-ui-preview.log" 2>&1 &
+	DEMO_PREVIEW_PID=$!
+	for _ in $(seq 1 30); do
+		curl -sf "http://127.0.0.1:$DEMO_PORT/demo-ui" >/dev/null 2>&1 && break
+		sleep 1
+	done
+	DEMO_HTML=$(curl -sf "http://127.0.0.1:$DEMO_PORT/demo-ui") || {
+		cat "$TMP_DIR/demo-ui-preview.log"
+		kill "$DEMO_PREVIEW_PID" 2>/dev/null || true
+		echo "❌ /demo-ui not served by base scaffold preview (#477)"; exit 1;
+	}
+	if node - "$DEMO_HTML" <<'NODE'
+const html = process.argv[2];
+const count = (tag) => [...html.matchAll(new RegExp(`<${tag}(?:\\s|>)`, 'g'))].length;
+const navIndex = html.indexOf('<nav');
+const mainIndex = html.indexOf('<main');
+const main = html.slice(mainIndex);
+const headingMatch = main.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/);
+const headingText = headingMatch?.[1] ?? '';
+const headingIndex = mainIndex + (headingMatch ? main.indexOf(headingMatch[0]) : -1);
+const footerIndex = html.indexOf('<footer');
+const navMarkup = html.slice(navIndex, html.indexOf('</nav>') + '</nav>'.length);
+if (count('nav') !== 1 || count('footer') !== 1) {
+	console.error(`expected one nav and footer, got nav=${count('nav')} footer=${count('footer')}`);
+	process.exit(1);
+}
+if (
+	!navMarkup.includes('href="/demo-ui"') ||
+	!/(?:Démo des composants|Component Demo)/.test(headingText) ||
+	!(navIndex < mainIndex && mainIndex < headingIndex && headingIndex < footerIndex)
+) {
+	console.error('expected the demo heading to render between the layout nav and footer');
+	process.exit(1);
+}
+NODE
+	then
+		DEMO_STATUS=0
+	else
+		DEMO_STATUS=$?
+	fi
+	kill "$DEMO_PREVIEW_PID" 2>/dev/null || true
+	DEMO_PREVIEW_PID=""
+	if [ "$DEMO_STATUS" -ne 0 ]; then
+		echo "❌ /demo-ui shell composition is incorrect (#477)"; exit 1;
+	fi
+	echo "✓ /demo-ui has one layout shell around visible demo content (#477)"
+fi
 
 # 4-320. Compiled CSS canonical-class gate (#320): every canonical class the
 # demo screens render must exist in the compiled CSS (a ghost class would

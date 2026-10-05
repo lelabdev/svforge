@@ -19302,7 +19302,7 @@
       "label": "cleanup_tmp()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L32",
+      "source_location": "L33",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -19314,7 +19314,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L613",
+      "source_location": "L669",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -53079,14 +53079,6 @@
     },
     {
       "source": "packages_svforge_templates_base_src_routes_demo_ui_page",
-      "target": "layout",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/src/routes/demo-ui/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_src_routes_demo_ui_page",
       "target": "skeleton_svelte",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -63249,7 +63241,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1,
       "_origin": "ast"
     },
@@ -63259,7 +63251,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L613",
+      "source_location": "L669",
       "weight": 1,
       "_origin": "ast"
     },
@@ -63269,7 +63261,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L621",
+      "source_location": "L677",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
