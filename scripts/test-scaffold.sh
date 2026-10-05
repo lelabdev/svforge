@@ -469,6 +469,7 @@ fi
 if [ "$TEMPLATE" = "dashboard-playwright" ]; then
 	test -f playwright.config.ts || { echo "❌ playwright.config.ts missing at project root"; exit 1; }
 	test -f e2e/auth.test.ts || { echo "❌ e2e/auth.test.ts missing at project root"; exit 1; }
+	test -f e2e/users-dialog.test.ts || { echo "❌ e2e/users-dialog.test.ts missing at project root (#474)"; exit 1; }
 fi
 
 # 5b. Canonical component structure primitives/ui/layout (#242)
@@ -692,6 +693,19 @@ if [ "$TEMPLATE" = "dashboard" ]; then
 	# data of any kind remains behind.
 	SF_MARKER='%@sf-test.example' SF_ATTACKER='attacker@example.com' bun -e 'const { default: postgres } = await import("postgres"); const sql = postgres(process.env.TEST_DATABASE_URL, { max: 1 }); await sql`DELETE FROM "user" WHERE email LIKE ${process.env.SF_MARKER} OR email = ${process.env.SF_ATTACKER}`; const rows = await sql`SELECT count(*)::int AS n FROM "user"`; if (rows[0].n !== 0) { console.error("leftover users:", rows[0].n); await sql.end(); process.exit(1); } await sql.end();' \
 		|| { echo "❌ test data left behind in the dedicated test database (#312)"; exit 1; }
+fi
+
+# #474 — run the real browser regression suite for the opt-in Playwright profile
+# in CI. The dedicated dashboard database is already schema-pushed above.
+if [ "$TEMPLATE" = "dashboard-playwright" ] && [ "${CI:-}" = "true" ]; then
+	sed -i.bak 's|^ORIGIN=.*|ORIGIN=http://localhost:4173|' .env && rm -f .env.bak
+	bun run admin:create -- --name "Playwright Admin" --email admin@test.com --password password123
+	if [ "$(id -u)" -eq 0 ] || sudo -n true >/dev/null 2>&1; then
+		bunx playwright install --with-deps chromium
+	else
+		bunx playwright install chromium
+	fi
+	bunx playwright test e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium
 fi
 
 # 6. AI-ready: AGENTS.md scaffolded at the project root (#203)

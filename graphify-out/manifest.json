@@ -480,7 +480,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
-    "ast_hash": "d316ae1196e960deb02a0c246f0d3ac2",
+    "ast_hash": "54fef54081160f1cbbf59fff778e5fb4",
     "semantic_hash": ""
   },
   "packages/svforge/src/skeleton-inventory.ts": {
@@ -492,7 +492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "0845bf2ec47a3bbc6d59b277956ae130",
+    "ast_hash": "9eb87b5b4b3e50cd0e8ad6ff4df1de18",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -724,7 +724,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/e2e/user-crud.test.ts": {
-    "ast_hash": "6c8d37b1f64ca56fe49a800c5b46e7cb",
+    "ast_hash": "821e2c90caa394f20624b7f04d082381",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/hooks.server.test.ts": {
@@ -856,7 +856,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte": {
-    "ast_hash": "d1e3bb8414b8942ac22858924587fcf2",
+    "ast_hash": "20b0f09d86f5bfc1ddf4e4bb46696298",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/page.server.test.ts": {
@@ -1072,11 +1072,11 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "b8a7f7ed02d8821750e30f35f75a8b0f",
+    "ast_hash": "7aa6914c489ce110cf7abc0828a6f7a1",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
-    "ast_hash": "775e5ab18e5098b8ac786ce4dfa7a7a0",
+    "ast_hash": "8c0b6569d508d5f9ca937fc5e77c8293",
     "semantic_hash": ""
   },
   "tests/addon-json-guard.test.ts": {
@@ -1100,7 +1100,7 @@
     "semantic_hash": ""
   },
   "tests/agents-md.test.ts": {
-    "ast_hash": "937fa72132c7f6a914c38d55324d38bb",
+    "ast_hash": "1b41ca3e86ed6063787bb6cf20f39004",
     "semantic_hash": ""
   },
   "tests/ai-context.test.ts": {
@@ -1712,7 +1712,7 @@
     "semantic_hash": ""
   },
   "tests/ci-pipeline.test.ts": {
-    "ast_hash": "d1671d0e1ae887d97779ec6f306aab51",
+    "ast_hash": "a335f9735910b99890449eed0d9243b2",
     "semantic_hash": ""
   },
   "tests/cli-verify.test.ts": {
@@ -1753,6 +1753,10 @@
   },
   "tests/card-surface.test.ts": {
     "ast_hash": "77ed256bfdb5ba397861925eab943fb5",
+    "semantic_hash": ""
+  },
+  "packages/svforge/templates/dashboard/src/e2e/users-dialog.test.ts": {
+    "ast_hash": "2b5f9441596be5b770f56ca306cdbb75",
     "semantic_hash": ""
   }
 }

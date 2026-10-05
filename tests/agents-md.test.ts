@@ -39,8 +39,11 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		expect(canonical).toContain('width follow the content');
 	});
 
-	it('propagates the dashboard golden references into AGENTS.md', () => {
-		expect(scaffoldedAgents('dashboard')).toContain('Golden references');
+	it('propagates the Skeleton Dialog users-page golden reference into generated AGENTS.md', () => {
+		const canonical = scaffoldedAgents('dashboard');
+		expect(canonical).toContain('Golden references');
+		expect(canonical).toContain('create/edit/invite/status flows using the official Skeleton `Dialog` with SvelteForge form primitives');
+		expect(canonical).not.toContain('create/edit modal (`Card` + `Input`)');
 	});
 
 	it('carries the i18n contract: catalogs are the source of truth, generated code is off-limits (#322)', () => {
