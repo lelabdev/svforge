@@ -1644,7 +1644,7 @@
     "semantic_hash": ""
   },
   "scripts/normalize-graphify.mjs": {
-    "ast_hash": "7933073d5bf46e9c19fa926cf07ca9eb",
+    "ast_hash": "04e7f60818ce9de4fc67bc0ad592f587",
     "semantic_hash": ""
   },
   "tests/hooks-prompt.test.ts": {
@@ -1757,6 +1757,10 @@
   },
   "packages/svforge/templates/dashboard/src/e2e/users-dialog.test.ts": {
     "ast_hash": "2b5f9441596be5b770f56ca306cdbb75",
+    "semantic_hash": ""
+  },
+  "tests/normalize-graphify.test.ts": {
+    "ast_hash": "96150cbc6be9912909a27838e2180cb0",
     "semantic_hash": ""
   }
 }

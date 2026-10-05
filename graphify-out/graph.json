@@ -6751,7 +6751,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_package_json_ref_sv",
+      "id": "repo_package_json_ref_sv",
       "label": "sv",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
@@ -6775,7 +6775,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_package_json_ref_svforge_addon_kit",
+      "id": "repo_package_json_ref_svforge_addon_kit",
       "label": "@svforge/addon-kit",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
@@ -6799,7 +6799,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_package_json_ref_tsdown",
+      "id": "repo_package_json_ref_tsdown",
       "label": "tsdown",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
@@ -6815,7 +6815,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_package_json_ref_typescript",
+      "id": "repo_package_json_ref_typescript",
       "label": "typescript",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
@@ -6855,7 +6855,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_fetch_llms_docs",
+      "id": "repo_scripts_fetch_llms_docs",
       "label": "fetch-llms-docs.sh",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/fetch-llms-docs.sh",
@@ -6867,7 +6867,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_fetch_llms_docs_sh__entry",
+      "id": "repo_scripts_fetch_llms_docs_sh__entry",
       "label": "fetch-llms-docs.sh script",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/fetch-llms-docs.sh",
@@ -6879,7 +6879,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_fetch_llms_docs_fetch",
+      "id": "repo_scripts_fetch_llms_docs_fetch",
       "label": "fetch()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/fetch-llms-docs.sh",
@@ -6891,7 +6891,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_generate_skeleton_inventory",
+      "id": "repo_scripts_generate_skeleton_inventory",
       "label": "generate-skeleton-inventory.ts",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -6899,7 +6899,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_generate_skeleton_inventory_skeletoninventory",
+      "id": "repo_scripts_generate_skeleton_inventory_skeletoninventory",
       "label": "SkeletonInventory",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -6909,7 +6909,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_generate_skeleton_inventory_kebabdirtoexports",
+      "id": "repo_scripts_generate_skeleton_inventory_kebabdirtoexports",
       "label": "kebabDirToExports()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -6918,7 +6918,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_generate_skeleton_inventory_buildskeletoninventory",
+      "id": "repo_scripts_generate_skeleton_inventory_buildskeletoninventory",
       "label": "buildSkeletonInventory()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -6927,7 +6927,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_generate_skeleton_inventory_buildaddoncomponents",
+      "id": "repo_scripts_generate_skeleton_inventory_buildaddoncomponents",
       "label": "buildAddonComponents()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -6936,7 +6936,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild",
+      "id": "repo_scripts_prebuild",
       "label": "svforge/scripts/prebuild.ts",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -6944,7 +6944,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_dirname",
+      "id": "repo_scripts_prebuild_dirname",
       "label": "__dirname",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -6952,7 +6952,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_pkg",
+      "id": "repo_scripts_prebuild_pkg",
       "label": "pkg",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -6960,7 +6960,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_basefiles",
+      "id": "repo_scripts_prebuild_basefiles",
       "label": "baseFiles",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -6968,7 +6968,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_dashboardoverlay",
+      "id": "repo_scripts_prebuild_dashboardoverlay",
       "label": "dashboardOverlay",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -6976,7 +6976,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_skeletoninventory",
+      "id": "repo_scripts_prebuild_skeletoninventory",
       "label": "skeletonInventory",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -6984,7 +6984,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_addoncomponents",
+      "id": "repo_scripts_prebuild_addoncomponents",
       "label": "addonComponents",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -6992,7 +6992,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_baserootfilesraw",
+      "id": "repo_scripts_prebuild_baserootfilesraw",
       "label": "baseRootFilesRaw",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7000,7 +7000,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_dashboardrootfiles",
+      "id": "repo_scripts_prebuild_dashboardrootfiles",
       "label": "dashboardRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7008,7 +7008,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_root_delivered_exact",
+      "id": "repo_scripts_prebuild_root_delivered_exact",
       "label": "ROOT_DELIVERED_EXACT",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7016,7 +7016,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_deliveredignorepath",
+      "id": "repo_scripts_prebuild_deliveredignorepath",
       "label": "deliveredIgnorePath()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7025,7 +7025,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_prettierignoreddelivered",
+      "id": "repo_scripts_prebuild_prettierignoreddelivered",
       "label": "prettierIgnoredDelivered",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7033,7 +7033,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_prettier_static_ignores",
+      "id": "repo_scripts_prebuild_prettier_static_ignores",
       "label": "PRETTIER_STATIC_IGNORES",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7041,7 +7041,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_compatmanifest",
+      "id": "repo_scripts_prebuild_compatmanifest",
       "label": "compatManifest",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7049,7 +7049,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_module_dirs",
+      "id": "repo_scripts_prebuild_module_dirs",
       "label": "MODULE_DIRS",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7057,7 +7057,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_makeextractionfixture",
+      "id": "repo_scripts_prebuild_makeextractionfixture",
       "label": "makeExtractionFixture()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7066,7 +7066,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_extractedrecipe",
+      "id": "repo_scripts_prebuild_extractedrecipe",
       "label": "ExtractedRecipe",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7076,7 +7076,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_extractmodulerecipe",
+      "id": "repo_scripts_prebuild_extractmodulerecipe",
       "label": "extractModuleRecipe()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7085,7 +7085,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_extractionfixture",
+      "id": "repo_scripts_prebuild_extractionfixture",
       "label": "extractionFixture",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7093,7 +7093,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_modulerecipes",
+      "id": "repo_scripts_prebuild_modulerecipes",
       "label": "moduleRecipes",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7101,7 +7101,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_prebuild_changelogentries",
+      "id": "repo_scripts_prebuild_changelogentries",
       "label": "changelogEntries",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -7109,7 +7109,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_test_local",
+      "id": "repo_scripts_test_local",
       "label": "test-local.ts",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/test-local.ts",
@@ -7117,7 +7117,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_test_local_templatesdir",
+      "id": "repo_scripts_test_local_templatesdir",
       "label": "templatesDir",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/test-local.ts",
@@ -7125,7 +7125,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_test_local_copydir",
+      "id": "repo_scripts_test_local_copydir",
       "label": "copyDir()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/test-local.ts",
@@ -7134,7 +7134,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_scripts_test_local_count",
+      "id": "repo_scripts_test_local_count",
       "label": "count",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/test-local.ts",
@@ -18841,11 +18841,27 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_normalize_graphify_repository_slug",
+      "label": "REPOSITORY_SLUG",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L34",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_normalize_graphify_root_path_segments",
+      "label": "ROOT_PATH_SEGMENTS",
+      "file_type": "code",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L35",
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_normalize_graphify_normalizemanifest",
       "label": "normalizeManifest()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L29",
+      "source_location": "L41",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18854,7 +18870,7 @@
       "label": "normalizeGraph()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L48",
+      "source_location": "L58",
       "_callable": true,
       "_origin": "ast"
     },
@@ -18863,7 +18879,7 @@
       "label": "slug()",
       "file_type": "code",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L113",
+      "source_location": "L146",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21663,6 +21679,65 @@
       "file_type": "code",
       "source_file": "tests/multi-addon-compose.test.ts",
       "source_location": "L26",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test",
+      "label": "normalize-graphify.test.ts",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_normalizer",
+      "label": "NORMALIZER",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_temporaryroots",
+      "label": "temporaryRoots",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_slugpath",
+      "label": "slugPath()",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L11",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_createworktree",
+      "label": "createWorktree()",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L20",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_normalize_graphify_test_normalizefixture",
+      "label": "normalizeFixture()",
+      "file_type": "code",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L30",
       "_callable": true,
       "_origin": "ast"
     },
@@ -26544,7 +26619,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd",
+      "id": "repo_docs_prd",
       "label": "PRD.md",
       "file_type": "document",
       "node_kind": "page",
@@ -26553,7 +26628,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
+      "id": "repo_docs_prd_prd_svelteforge_monorepo",
       "label": "PRD — SvelteForge Monorepo",
       "file_type": "document",
       "node_kind": "heading",
@@ -26562,7 +26637,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd_summary",
+      "id": "repo_docs_prd_summary",
       "label": "Summary",
       "file_type": "document",
       "node_kind": "heading",
@@ -26571,7 +26646,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd_architecture",
+      "id": "repo_docs_prd_architecture",
       "label": "Architecture",
       "file_type": "document",
       "node_kind": "heading",
@@ -26580,7 +26655,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd_css_foundation",
+      "id": "repo_docs_prd_css_foundation",
       "label": "CSS foundation",
       "file_type": "document",
       "node_kind": "heading",
@@ -26589,7 +26664,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd_templates",
+      "id": "repo_docs_prd_templates",
       "label": "Templates",
       "file_type": "document",
       "node_kind": "heading",
@@ -26598,7 +26673,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd_modules",
+      "id": "repo_docs_prd_modules",
       "label": "Modules",
       "file_type": "document",
       "node_kind": "heading",
@@ -26607,7 +26682,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd_install",
+      "id": "repo_docs_prd_install",
       "label": "Install",
       "file_type": "document",
       "node_kind": "heading",
@@ -26616,7 +26691,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_prd_license",
+      "id": "repo_docs_prd_license",
       "label": "License",
       "file_type": "document",
       "node_kind": "heading",
@@ -26625,7 +26700,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_versioning",
+      "id": "repo_docs_versioning",
       "label": "VERSIONING.md",
       "file_type": "document",
       "node_kind": "page",
@@ -26634,7 +26709,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_versioning_versioning_strategy",
+      "id": "repo_docs_versioning_versioning_strategy",
       "label": "Versioning Strategy",
       "file_type": "document",
       "node_kind": "heading",
@@ -26643,7 +26718,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_versioning_packages",
+      "id": "repo_docs_versioning_packages",
       "label": "Packages",
       "file_type": "document",
       "node_kind": "heading",
@@ -26652,7 +26727,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_versioning_rules",
+      "id": "repo_docs_versioning_rules",
       "label": "Rules",
       "file_type": "document",
       "node_kind": "heading",
@@ -26661,7 +26736,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_versioning_ci_cd_channels",
+      "id": "repo_docs_versioning_ci_cd_channels",
       "label": "CI/CD Channels",
       "file_type": "document",
       "node_kind": "heading",
@@ -26670,7 +26745,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_versioning_release_process",
+      "id": "repo_docs_versioning_release_process",
       "label": "Release Process",
       "file_type": "document",
       "node_kind": "heading",
@@ -26679,7 +26754,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_versioning_install",
+      "id": "repo_docs_versioning_install",
       "label": "Install",
       "file_type": "document",
       "node_kind": "heading",
@@ -26688,7 +26763,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_deployment_profiles",
+      "id": "repo_docs_deployment_profiles",
       "label": "deployment-profiles.md",
       "file_type": "document",
       "node_kind": "page",
@@ -26697,7 +26772,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_deployment_profiles_deployment_profiles",
+      "id": "repo_docs_deployment_profiles_deployment_profiles",
       "label": "Deployment profiles",
       "file_type": "document",
       "node_kind": "heading",
@@ -26706,7 +26781,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_deployment_profiles_minimal_examples",
+      "id": "repo_docs_deployment_profiles_minimal_examples",
       "label": "Minimal examples",
       "file_type": "document",
       "node_kind": "heading",
@@ -26715,7 +26790,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_deployment_profiles_node_application_with_attached_realtime",
+      "id": "repo_docs_deployment_profiles_node_application_with_attached_realtime",
       "label": "Node application with attached realtime",
       "file_type": "document",
       "node_kind": "heading",
@@ -26724,7 +26799,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_deployment_profiles_serverless_web_app_with_a_worker",
+      "id": "repo_docs_deployment_profiles_serverless_web_app_with_a_worker",
       "label": "Serverless web app with a worker",
       "file_type": "document",
       "node_kind": "heading",
@@ -26733,7 +26808,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_deployment_profiles_runtime_modules",
+      "id": "repo_docs_deployment_profiles_runtime_modules",
       "label": "Runtime modules",
       "file_type": "document",
       "node_kind": "heading",
@@ -26742,7 +26817,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_deployment_profiles_security_and_data_lifecycle",
+      "id": "repo_docs_deployment_profiles_security_and_data_lifecycle",
       "label": "Security and data lifecycle",
       "file_type": "document",
       "node_kind": "heading",
@@ -26751,7 +26826,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_structural_duplication",
+      "id": "repo_docs_structural_duplication",
       "label": "structural-duplication.md",
       "file_type": "document",
       "node_kind": "page",
@@ -26760,7 +26835,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_structural_duplication_experimental_structural_duplication_detector",
+      "id": "repo_docs_structural_duplication_experimental_structural_duplication_detector",
       "label": "Experimental structural duplication detector",
       "file_type": "document",
       "node_kind": "heading",
@@ -26769,7 +26844,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_structural_duplication_how_it_works",
+      "id": "repo_docs_structural_duplication_how_it_works",
       "label": "How it works",
       "file_type": "document",
       "node_kind": "heading",
@@ -26778,7 +26853,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_tailwind_linting",
+      "id": "repo_docs_tailwind_linting",
       "label": "tailwind-linting.md",
       "file_type": "document",
       "node_kind": "page",
@@ -26787,7 +26862,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_tailwind_linting_tailwind_arbitrary_value_linting",
+      "id": "repo_docs_tailwind_linting_tailwind_arbitrary_value_linting",
       "label": "Tailwind arbitrary-value linting",
       "file_type": "document",
       "node_kind": "heading",
@@ -26796,7 +26871,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_tailwind_linting_decision_349",
+      "id": "repo_docs_tailwind_linting_decision_349",
       "label": "Decision (#349)",
       "file_type": "document",
       "node_kind": "heading",
@@ -26805,7 +26880,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_tailwind_linting_evaluation",
+      "id": "repo_docs_tailwind_linting_evaluation",
       "label": "Evaluation",
       "file_type": "document",
       "node_kind": "heading",
@@ -26814,7 +26889,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_tailwind_linting_verification_record",
+      "id": "repo_docs_tailwind_linting_verification_record",
       "label": "Verification record",
       "file_type": "document",
       "node_kind": "heading",
@@ -27498,8 +27573,8 @@
       "_origin": "semantic"
     },
     {
-      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_485_packages_jobs_templates_src_lib_server_test_db",
-      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_485_packages_jobs_templates_src_lib_server_test_db",
+      "id": "repo_packages_jobs_templates_src_lib_server_test_db",
+      "label": "repo_packages_jobs_templates_src_lib_server_test_db",
       "file_type": "concept",
       "type": "external",
       "external": true,
@@ -28335,22 +28410,12 @@
       "_origin": "semantic"
     },
     {
-      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_473_packages_jobs_templates_src_lib_server_test_db",
-      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_473_packages_jobs_templates_src_lib_server_test_db",
+      "id": "repo_packages_jobs_templates_src_lib_server_test_db",
+      "label": "repo_packages_jobs_templates_src_lib_server_test_db",
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": "",
-      "_origin": "semantic"
-    },
-    {
-      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
-      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
-      "file_type": "concept",
-      "type": "external",
-      "external": true,
-      "source_file": "",
-      "_origin": "semantic"
+      "source_file": ""
     }
   ],
   "links": [
@@ -36713,7 +36778,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_474_packages_jobs_templates_src_lib_server_test_db",
+      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -39265,7 +39330,7 @@
     },
     {
       "source": "packages_svforge_package",
-      "target": "packages_svforge_package_json_ref_sv",
+      "target": "repo_package_json_ref_sv",
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
@@ -39296,7 +39361,7 @@
     },
     {
       "source": "packages_svforge_package",
-      "target": "packages_svforge_package_json_ref_svforge_addon_kit",
+      "target": "repo_package_json_ref_svforge_addon_kit",
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
@@ -39327,7 +39392,7 @@
     },
     {
       "source": "packages_svforge_package",
-      "target": "packages_svforge_package_json_ref_tsdown",
+      "target": "repo_package_json_ref_tsdown",
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
@@ -39348,7 +39413,7 @@
     },
     {
       "source": "packages_svforge_package",
-      "target": "packages_svforge_package_json_ref_typescript",
+      "target": "repo_package_json_ref_typescript",
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
@@ -39398,8 +39463,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_fetch_llms_docs",
-      "target": "packages_svforge_scripts_fetch_llms_docs_sh__entry",
+      "source": "repo_scripts_fetch_llms_docs",
+      "target": "repo_scripts_fetch_llms_docs_sh__entry",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/fetch-llms-docs.sh",
@@ -39408,8 +39473,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_fetch_llms_docs",
-      "target": "packages_svforge_scripts_fetch_llms_docs_fetch",
+      "source": "repo_scripts_fetch_llms_docs",
+      "target": "repo_scripts_fetch_llms_docs_fetch",
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/fetch-llms-docs.sh",
@@ -39418,8 +39483,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_fetch_llms_docs_sh__entry",
-      "target": "packages_svforge_scripts_fetch_llms_docs_fetch",
+      "source": "repo_scripts_fetch_llms_docs_sh__entry",
+      "target": "repo_scripts_fetch_llms_docs_fetch",
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/fetch-llms-docs.sh",
@@ -39429,7 +39494,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory",
+      "source": "repo_scripts_generate_skeleton_inventory",
       "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
@@ -39440,7 +39505,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory",
+      "source": "repo_scripts_generate_skeleton_inventory",
       "target": "scripts_prebuild_utils",
       "relation": "imports_from",
       "context": "import",
@@ -39451,7 +39516,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory",
+      "source": "repo_scripts_generate_skeleton_inventory",
       "target": "scripts_prebuild_utils_readdirrecursively",
       "relation": "imports",
       "context": "import",
@@ -39462,7 +39527,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory",
+      "source": "repo_scripts_generate_skeleton_inventory",
       "target": "ref_node_path",
       "relation": "imports_from",
       "context": "import",
@@ -39473,8 +39538,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_skeletoninventory",
+      "source": "repo_scripts_generate_skeleton_inventory",
+      "target": "repo_scripts_generate_skeleton_inventory_skeletoninventory",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -39483,8 +39548,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_kebabdirtoexports",
+      "source": "repo_scripts_generate_skeleton_inventory",
+      "target": "repo_scripts_generate_skeleton_inventory_kebabdirtoexports",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -39493,8 +39558,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_buildskeletoninventory",
+      "source": "repo_scripts_generate_skeleton_inventory",
+      "target": "repo_scripts_generate_skeleton_inventory_buildskeletoninventory",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -39503,8 +39568,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_buildaddoncomponents",
+      "source": "repo_scripts_generate_skeleton_inventory",
+      "target": "repo_scripts_generate_skeleton_inventory_buildaddoncomponents",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/generate-skeleton-inventory.ts",
@@ -39513,8 +39578,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory_buildskeletoninventory",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_kebabdirtoexports",
+      "source": "repo_scripts_generate_skeleton_inventory_buildskeletoninventory",
+      "target": "repo_scripts_generate_skeleton_inventory_kebabdirtoexports",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -39524,7 +39589,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "scripts_prebuild_utils",
       "relation": "imports_from",
       "context": "import",
@@ -39535,7 +39600,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "scripts_prebuild_utils_readdirrecursively",
       "relation": "imports",
       "context": "import",
@@ -39546,7 +39611,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "packages_svforge_src_design_system",
       "relation": "imports_from",
       "context": "import",
@@ -39557,7 +39622,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "packages_svforge_src_design_system_avoid_patterns",
       "relation": "imports",
       "context": "import",
@@ -39568,7 +39633,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "ref_fs",
       "relation": "imports_from",
       "context": "import",
@@ -39579,7 +39644,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "ref_os",
       "relation": "imports_from",
       "context": "import",
@@ -39590,7 +39655,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "ref_path",
       "relation": "imports_from",
       "context": "import",
@@ -39601,7 +39666,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "ref_url",
       "relation": "imports_from",
       "context": "import",
@@ -39612,7 +39677,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "scripts_changelog",
       "relation": "imports_from",
       "context": "import",
@@ -39623,7 +39688,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "scripts_changelog_parsechangelog",
       "relation": "imports",
       "context": "import",
@@ -39634,7 +39699,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "scripts_changelog_readchangelog",
       "relation": "imports",
       "context": "import",
@@ -39645,7 +39710,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "scripts_compat_manifest",
       "relation": "imports_from",
       "context": "import",
@@ -39656,7 +39721,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
+      "source": "repo_scripts_prebuild",
       "target": "scripts_compat_manifest_buildcompatmanifest",
       "relation": "imports",
       "context": "import",
@@ -39667,8 +39732,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_generate_skeleton_inventory",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -39678,8 +39743,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_buildaddoncomponents",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_generate_skeleton_inventory_buildaddoncomponents",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -39689,8 +39754,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_buildskeletoninventory",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_generate_skeleton_inventory_buildskeletoninventory",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -39700,8 +39765,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_dirname",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_dirname",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39710,8 +39775,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_pkg",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_pkg",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39720,8 +39785,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_basefiles",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_basefiles",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39730,8 +39795,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_dashboardoverlay",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_dashboardoverlay",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39740,8 +39805,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_skeletoninventory",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_skeletoninventory",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39750,8 +39815,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_addoncomponents",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_addoncomponents",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39760,8 +39825,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_baserootfilesraw",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_baserootfilesraw",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39770,8 +39835,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_dashboardrootfiles",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_dashboardrootfiles",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39780,8 +39845,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_root_delivered_exact",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_root_delivered_exact",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39790,8 +39855,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_deliveredignorepath",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_deliveredignorepath",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39800,8 +39865,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_prettierignoreddelivered",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_prettierignoreddelivered",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39810,8 +39875,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_prettier_static_ignores",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_prettier_static_ignores",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39820,8 +39885,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_compatmanifest",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_compatmanifest",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39830,8 +39895,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_module_dirs",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_module_dirs",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39840,8 +39905,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_makeextractionfixture",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_makeextractionfixture",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39850,8 +39915,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_extractedrecipe",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_extractedrecipe",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39860,8 +39925,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_extractmodulerecipe",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_extractmodulerecipe",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39870,8 +39935,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_extractionfixture",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_extractionfixture",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39880,8 +39945,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_modulerecipes",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_modulerecipes",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39890,8 +39955,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_changelogentries",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_changelogentries",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
@@ -39900,8 +39965,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_prebuild",
-      "target": "packages_svforge_scripts_prebuild_deliveredignorepath",
+      "source": "repo_scripts_prebuild",
+      "target": "repo_scripts_prebuild_deliveredignorepath",
       "relation": "indirect_call",
       "context": "argument",
       "confidence": "INFERRED",
@@ -39912,7 +39977,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_test_local",
+      "source": "repo_scripts_test_local",
       "target": "ref_child_process",
       "relation": "imports_from",
       "context": "import",
@@ -39923,7 +39988,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_test_local",
+      "source": "repo_scripts_test_local",
       "target": "ref_fs",
       "relation": "imports_from",
       "context": "import",
@@ -39934,7 +39999,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_test_local",
+      "source": "repo_scripts_test_local",
       "target": "ref_path",
       "relation": "imports_from",
       "context": "import",
@@ -39945,8 +40010,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_test_local",
-      "target": "packages_svforge_scripts_test_local_templatesdir",
+      "source": "repo_scripts_test_local",
+      "target": "repo_scripts_test_local_templatesdir",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/test-local.ts",
@@ -39955,8 +40020,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_test_local",
-      "target": "packages_svforge_scripts_test_local_copydir",
+      "source": "repo_scripts_test_local",
+      "target": "repo_scripts_test_local_copydir",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/test-local.ts",
@@ -39965,8 +40030,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_test_local",
-      "target": "packages_svforge_scripts_test_local_count",
+      "source": "repo_scripts_test_local",
+      "target": "repo_scripts_test_local_count",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/test-local.ts",
@@ -61880,11 +61945,31 @@
     },
     {
       "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_repository_slug",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L34",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
+      "target": "scripts_normalize_graphify_root_path_segments",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L35",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify",
       "target": "scripts_normalize_graphify_normalizemanifest",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L29",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61894,7 +61979,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L48",
+      "source_location": "L58",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61904,7 +61989,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L113",
+      "source_location": "L146",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_normalize_graphify_root_path_segments",
+      "target": "scripts_normalize_graphify_slug",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/normalize-graphify.mjs",
+      "source_location": "L37",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61915,7 +62011,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/normalize-graphify.mjs",
-      "source_location": "L55",
+      "source_location": "L65",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70261,7 +70357,7 @@
     },
     {
       "source": "tests_manifest_freshness_test",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory",
+      "target": "repo_scripts_generate_skeleton_inventory",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -70862,6 +70958,154 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/multi-addon-compose.test.ts",
       "source_location": "L217",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_normalizer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_temporaryroots",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_slugpath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_createworktree",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_normalizefixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_createworktree",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L49",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_slugpath",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_normalize_graphify_test",
+      "target": "tests_normalize_graphify_test_normalizefixture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/normalize-graphify.test.ts",
+      "source_location": "L74",
       "weight": 1,
       "_origin": "ast"
     },
@@ -72868,7 +73112,7 @@
     },
     {
       "source": "tests_skeleton_markup_test",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory",
+      "target": "repo_scripts_generate_skeleton_inventory",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -72879,7 +73123,7 @@
     },
     {
       "source": "tests_skeleton_markup_test",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_buildaddoncomponents",
+      "target": "repo_scripts_generate_skeleton_inventory_buildaddoncomponents",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -72890,7 +73134,7 @@
     },
     {
       "source": "tests_skeleton_markup_test",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_buildskeletoninventory",
+      "target": "repo_scripts_generate_skeleton_inventory_buildskeletoninventory",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -79627,7 +79871,7 @@
     },
     {
       "source": "packages_svforge_readme",
-      "target": "packages_svforge_docs_deployment_profiles",
+      "target": "repo_docs_deployment_profiles",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
@@ -79717,7 +79961,7 @@
     },
     {
       "source": "packages_svforge_readme",
-      "target": "packages_svforge_docs_tailwind_linting",
+      "target": "repo_docs_tailwind_linting",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
@@ -79746,8 +79990,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_prd",
-      "target": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
+      "source": "repo_docs_prd",
+      "target": "repo_docs_prd_prd_svelteforge_monorepo",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/PRD.md",
@@ -79756,8 +80000,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
-      "target": "packages_svforge_docs_prd_summary",
+      "source": "repo_docs_prd_prd_svelteforge_monorepo",
+      "target": "repo_docs_prd_summary",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/PRD.md",
@@ -79766,8 +80010,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
-      "target": "packages_svforge_docs_prd_architecture",
+      "source": "repo_docs_prd_prd_svelteforge_monorepo",
+      "target": "repo_docs_prd_architecture",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/PRD.md",
@@ -79776,8 +80020,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
-      "target": "packages_svforge_docs_prd_css_foundation",
+      "source": "repo_docs_prd_prd_svelteforge_monorepo",
+      "target": "repo_docs_prd_css_foundation",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/PRD.md",
@@ -79786,8 +80030,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
-      "target": "packages_svforge_docs_prd_templates",
+      "source": "repo_docs_prd_prd_svelteforge_monorepo",
+      "target": "repo_docs_prd_templates",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/PRD.md",
@@ -79796,8 +80040,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
-      "target": "packages_svforge_docs_prd_modules",
+      "source": "repo_docs_prd_prd_svelteforge_monorepo",
+      "target": "repo_docs_prd_modules",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/PRD.md",
@@ -79806,8 +80050,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
-      "target": "packages_svforge_docs_prd_install",
+      "source": "repo_docs_prd_prd_svelteforge_monorepo",
+      "target": "repo_docs_prd_install",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/PRD.md",
@@ -79816,8 +80060,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_prd_prd_svelteforge_monorepo",
-      "target": "packages_svforge_docs_prd_license",
+      "source": "repo_docs_prd_prd_svelteforge_monorepo",
+      "target": "repo_docs_prd_license",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/PRD.md",
@@ -79826,8 +80070,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_versioning",
-      "target": "packages_svforge_docs_versioning_versioning_strategy",
+      "source": "repo_docs_versioning",
+      "target": "repo_docs_versioning_versioning_strategy",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/VERSIONING.md",
@@ -79836,8 +80080,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_versioning_versioning_strategy",
-      "target": "packages_svforge_docs_versioning_packages",
+      "source": "repo_docs_versioning_versioning_strategy",
+      "target": "repo_docs_versioning_packages",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/VERSIONING.md",
@@ -79846,8 +80090,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_versioning_versioning_strategy",
-      "target": "packages_svforge_docs_versioning_rules",
+      "source": "repo_docs_versioning_versioning_strategy",
+      "target": "repo_docs_versioning_rules",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/VERSIONING.md",
@@ -79856,8 +80100,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_versioning_versioning_strategy",
-      "target": "packages_svforge_docs_versioning_ci_cd_channels",
+      "source": "repo_docs_versioning_versioning_strategy",
+      "target": "repo_docs_versioning_ci_cd_channels",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/VERSIONING.md",
@@ -79866,8 +80110,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_versioning_versioning_strategy",
-      "target": "packages_svforge_docs_versioning_release_process",
+      "source": "repo_docs_versioning_versioning_strategy",
+      "target": "repo_docs_versioning_release_process",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/VERSIONING.md",
@@ -79876,8 +80120,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_versioning_versioning_strategy",
-      "target": "packages_svforge_docs_versioning_install",
+      "source": "repo_docs_versioning_versioning_strategy",
+      "target": "repo_docs_versioning_install",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/VERSIONING.md",
@@ -79886,8 +80130,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_deployment_profiles",
-      "target": "packages_svforge_docs_deployment_profiles_deployment_profiles",
+      "source": "repo_docs_deployment_profiles",
+      "target": "repo_docs_deployment_profiles_deployment_profiles",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/deployment-profiles.md",
@@ -79896,8 +80140,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_deployment_profiles_deployment_profiles",
-      "target": "packages_svforge_docs_deployment_profiles_minimal_examples",
+      "source": "repo_docs_deployment_profiles_deployment_profiles",
+      "target": "repo_docs_deployment_profiles_minimal_examples",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/deployment-profiles.md",
@@ -79906,8 +80150,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_deployment_profiles_minimal_examples",
-      "target": "packages_svforge_docs_deployment_profiles_node_application_with_attached_realtime",
+      "source": "repo_docs_deployment_profiles_minimal_examples",
+      "target": "repo_docs_deployment_profiles_node_application_with_attached_realtime",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/deployment-profiles.md",
@@ -79916,8 +80160,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_deployment_profiles_minimal_examples",
-      "target": "packages_svforge_docs_deployment_profiles_serverless_web_app_with_a_worker",
+      "source": "repo_docs_deployment_profiles_minimal_examples",
+      "target": "repo_docs_deployment_profiles_serverless_web_app_with_a_worker",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/deployment-profiles.md",
@@ -79926,8 +80170,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_deployment_profiles_deployment_profiles",
-      "target": "packages_svforge_docs_deployment_profiles_runtime_modules",
+      "source": "repo_docs_deployment_profiles_deployment_profiles",
+      "target": "repo_docs_deployment_profiles_runtime_modules",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/deployment-profiles.md",
@@ -79936,8 +80180,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_deployment_profiles_deployment_profiles",
-      "target": "packages_svforge_docs_deployment_profiles_security_and_data_lifecycle",
+      "source": "repo_docs_deployment_profiles_deployment_profiles",
+      "target": "repo_docs_deployment_profiles_security_and_data_lifecycle",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/deployment-profiles.md",
@@ -79946,8 +80190,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_structural_duplication",
-      "target": "packages_svforge_docs_structural_duplication_experimental_structural_duplication_detector",
+      "source": "repo_docs_structural_duplication",
+      "target": "repo_docs_structural_duplication_experimental_structural_duplication_detector",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/structural-duplication.md",
@@ -79956,8 +80200,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_structural_duplication_experimental_structural_duplication_detector",
-      "target": "packages_svforge_docs_structural_duplication_how_it_works",
+      "source": "repo_docs_structural_duplication_experimental_structural_duplication_detector",
+      "target": "repo_docs_structural_duplication_how_it_works",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/structural-duplication.md",
@@ -79966,8 +80210,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_tailwind_linting",
-      "target": "packages_svforge_docs_tailwind_linting_tailwind_arbitrary_value_linting",
+      "source": "repo_docs_tailwind_linting",
+      "target": "repo_docs_tailwind_linting_tailwind_arbitrary_value_linting",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/tailwind-linting.md",
@@ -79976,8 +80220,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_tailwind_linting_tailwind_arbitrary_value_linting",
-      "target": "packages_svforge_docs_tailwind_linting_decision_349",
+      "source": "repo_docs_tailwind_linting_tailwind_arbitrary_value_linting",
+      "target": "repo_docs_tailwind_linting_decision_349",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/tailwind-linting.md",
@@ -79986,8 +80230,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_tailwind_linting_tailwind_arbitrary_value_linting",
-      "target": "packages_svforge_docs_tailwind_linting_evaluation",
+      "source": "repo_docs_tailwind_linting_tailwind_arbitrary_value_linting",
+      "target": "repo_docs_tailwind_linting_evaluation",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/tailwind-linting.md",
@@ -79996,8 +80240,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_docs_tailwind_linting_tailwind_arbitrary_value_linting",
-      "target": "packages_svforge_docs_tailwind_linting_verification_record",
+      "source": "repo_docs_tailwind_linting_tailwind_arbitrary_value_linting",
+      "target": "repo_docs_tailwind_linting_verification_record",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/tailwind-linting.md",
@@ -80681,7 +80925,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_scripts_generate_skeleton_inventory_buildaddoncomponents",
+      "source": "repo_scripts_generate_skeleton_inventory_buildaddoncomponents",
       "target": "scripts_prebuild_utils_readdirrecursively",
       "relation": "calls",
       "context": "call",
@@ -81210,7 +81454,7 @@
     },
     {
       "source": "tests_manifest_freshness_test",
-      "target": "packages_svforge_scripts_generate_skeleton_inventory_buildskeletoninventory",
+      "target": "repo_scripts_generate_skeleton_inventory_buildskeletoninventory",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",

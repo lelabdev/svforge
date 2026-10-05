@@ -15,8 +15,8 @@
  * the committed graph byte-stable across machines: two runs on the same
  * sources always produce identical files.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -24,6 +24,18 @@ const OUT = join(SCRIPT_ROOT, 'graphify-out');
 
 const MANIFEST = join(OUT, 'manifest.json');
 const GRAPH = join(OUT, 'graph.json');
+
+// In an issue worktree the checkout directory is `.worktrees/<issue>`, not
+// the repository name. Use the parent repo name as an anchor so older IDs
+// from sibling worktrees can be recognized even when their absolute prefixes
+// differ from the current checkout.
+const REPOSITORY_ROOT =
+	basename(dirname(SCRIPT_ROOT)) === '.worktrees' ? dirname(dirname(SCRIPT_ROOT)) : SCRIPT_ROOT;
+const REPOSITORY_SLUG = slug(basename(REPOSITORY_ROOT));
+const ROOT_PATH_SEGMENTS = readdirSync(SCRIPT_ROOT)
+	.filter((entry) => !['.git', '.worktrees', 'graphify-out', 'node_modules'].includes(entry))
+	.map((entry) => slug(entry).replace(/^_+/, ''))
+	.filter(Boolean);
 
 /** Strip volatile timestamps from the incremental-extraction manifest. */
 function normalizeManifest() {
@@ -39,11 +51,9 @@ function normalizeManifest() {
  * Replace absolute-checkout-path-derived identifiers with a stable root token.
  * Graphify slugifies the checkout directory into some node ids, labels and
  * link endpoints (e.g. /home/loops/dev/svelteforge-hub/svelteForge ->
- * home_loops_dev_svelteforge_hub_svelteforge). The repo directory name is not
- * known statically, so we derive it from `.graphify_root`-style data: any
- * id/label prefix that slugifies THIS checkout path is rewritten to `repo`,
- * and any leftover known-path slug (tmp_<name>_...) is handled by matching
- * against the slug of the current checkout basename.
+ * home_loops_dev_svelteforge_hub_svelteforge). The current checkout prefix is
+ * rewritten directly; stale sibling-worktree prefixes are recognized by the
+ * repository basename followed by a real root-level path segment.
  */
 function normalizeGraph() {
 	const graph = JSON.parse(readFileSync(GRAPH, 'utf8'));
@@ -64,7 +74,30 @@ function normalizeGraph() {
 			if (out.startsWith(root + '_')) {
 				out = 'repo' + out.slice(root.length);
 				rewritten++;
+				return out;
 			}
+		}
+
+		// Graphify incrementally retains nodes from prior runs. Their absolute
+		// prefixes no longer match this checkoutSlug, so find the repository
+		// basename followed by a known root-level path and canonicalize that
+		// suffix too. Strip `.worktrees/<issue>` when it is present; the same
+		// source must normalize identically from every issue worktree.
+		const marker = `_${REPOSITORY_SLUG}`;
+		let rootIndex = out.indexOf(marker);
+		while (rootIndex > 0) {
+			let suffix = out.slice(rootIndex + marker.length);
+			suffix = suffix.replace(/^_+worktrees_+[^_]+_+/, '_');
+			const repoRelative = suffix.replace(/^_+/, '');
+			if (
+				ROOT_PATH_SEGMENTS.some(
+					(segment) => repoRelative === segment || repoRelative.startsWith(`${segment}_`)
+				)
+			) {
+				rewritten++;
+				return `repo_${repoRelative}`;
+			}
+			rootIndex = out.indexOf(marker, rootIndex + marker.length);
 		}
 		return out;
 	};
