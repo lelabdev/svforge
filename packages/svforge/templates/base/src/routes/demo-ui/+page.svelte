@@ -2,8 +2,6 @@
 	import { Alert, Card, Table, ThemeToggle } from '$lib/components/svforge/ui';
 	import { Badge, Button, Checkbox, Input, Select, Textarea, Toggle } from '$lib/components/svforge/primitives';
 	import * as m from '$lib/paraglide/messages.js';
-	import { Navbar } from '$lib/components/svforge/layout';
-	import { Footer } from '$lib/components/svforge/layout';
 
 	// Literal example shown in a <code> block — a string constant so Svelte
 	// never parses the braces as an expression (#271).
@@ -21,8 +19,6 @@
 <svelte:head>
 	<title>SvelteForge — {m.demo_title()}</title>
 </svelte:head>
-
-<Navbar links={[{ href: '/demo-ui', label: m.demo_nav() }]} />
 
 <main class="mx-auto max-w-7xl space-y-8 px-4 py-8">
 	<h1 class="h1">{m.demo_title()}</h1>
@@ -227,5 +223,3 @@
 		<ThemeToggle />
 	</section>
 </main>
-
-<Footer links={[{ href: '/demo-ui', label: m.nav_components() }]} />
