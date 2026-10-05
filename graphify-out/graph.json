@@ -5608,10 +5608,10 @@
       "_origin": "ast"
     },
     {
-      "id": "check",
-      "label": "phosphor-svelte/lib/Check",
+      "id": "skeleton_svelte",
+      "label": "@skeletonlabs/skeleton-svelte",
       "file_type": "code",
-      "source_file": "phosphor-svelte/lib/Check",
+      "source_file": "@skeletonlabs/skeleton-svelte",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -13634,14 +13634,6 @@
       "_origin": "ast"
     },
     {
-      "id": "skeleton_svelte",
-      "label": "@skeletonlabs/skeleton-svelte",
-      "file_type": "code",
-      "source_file": "@skeletonlabs/skeleton-svelte",
-      "confidence": "EXTRACTED",
-      "_origin": "ast"
-    },
-    {
       "id": "packages_svforge_templates_base_src_lib_components_svforge_primitives_index",
       "label": "src/lib/components/svforge/primitives/index.ts",
       "file_type": "code",
@@ -15415,6 +15407,14 @@
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/Feedback.svelte",
       "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "check",
+      "label": "phosphor-svelte/lib/Check",
+      "file_type": "code",
+      "source_file": "phosphor-svelte/lib/Check",
+      "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
@@ -21935,6 +21935,41 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_notifications_component_test",
+      "label": "notifications-component.test.ts",
+      "file_type": "code",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_notifications_component_test_observe",
+      "label": "observe()",
+      "file_type": "code",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L11",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_notifications_component_test_unobserve",
+      "label": "unobserve()",
+      "file_type": "code",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L12",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_notifications_component_test_disconnect",
+      "label": "disconnect()",
+      "file_type": "code",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L13",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_notifications_test",
       "label": "notifications.test.ts",
       "file_type": "code",
@@ -22822,11 +22857,47 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_stubs_lib_paraglide_messages_notif_bell",
+      "label": "notif_bell()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L10",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_notif_title",
+      "label": "notif_title()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L11",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_notif_mark_all",
+      "label": "notif_mark_all()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L12",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_notif_empty",
+      "label": "notif_empty()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L13",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_stubs_lib_paraglide_messages_tiptap_bold",
       "label": "tiptap_bold()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L10",
+      "source_location": "L14",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22835,7 +22906,7 @@
       "label": "tiptap_italic()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L11",
+      "source_location": "L15",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22844,7 +22915,7 @@
       "label": "tiptap_underline()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L12",
+      "source_location": "L16",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22853,7 +22924,7 @@
       "label": "tiptap_strikethrough()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L13",
+      "source_location": "L17",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22862,7 +22933,7 @@
       "label": "tiptap_blockquote()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L14",
+      "source_location": "L18",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22871,7 +22942,7 @@
       "label": "tiptap_code_block()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L15",
+      "source_location": "L19",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22880,7 +22951,7 @@
       "label": "tiptap_bullet_list()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L16",
+      "source_location": "L20",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22889,7 +22960,7 @@
       "label": "tiptap_ordered_list()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L17",
+      "source_location": "L21",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22898,7 +22969,7 @@
       "label": "tiptap_heading()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L18",
+      "source_location": "L22",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22907,7 +22978,7 @@
       "label": "tiptap_link()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L19",
+      "source_location": "L23",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22916,7 +22987,7 @@
       "label": "tiptap_insert_link()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L20",
+      "source_location": "L24",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22925,7 +22996,7 @@
       "label": "tiptap_link_prompt()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L21",
+      "source_location": "L25",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22934,7 +23005,7 @@
       "label": "tiptap_loading()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L22",
+      "source_location": "L26",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22943,7 +23014,7 @@
       "label": "tiptap_toolbar()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L23",
+      "source_location": "L27",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22952,7 +23023,7 @@
       "label": "tiptap_toolbar_formatting()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L24",
+      "source_location": "L28",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22961,7 +23032,7 @@
       "label": "tiptap_toolbar_headings()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L25",
+      "source_location": "L29",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22970,7 +23041,7 @@
       "label": "tiptap_toolbar_lists()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L26",
+      "source_location": "L30",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22979,7 +23050,7 @@
       "label": "tiptap_toolbar_blocks()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L27",
+      "source_location": "L31",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22998,6 +23069,14 @@
       "source_file": "tests/stubs/lib/utils/cn.ts",
       "source_location": "L5",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_phosphor_svelte_lib_bell",
+      "label": "Bell.svelte",
+      "file_type": "code",
+      "source_file": "tests/stubs/phosphor-svelte/lib/Bell.svelte",
+      "source_location": "L1",
       "_origin": "ast"
     },
     {
@@ -37711,6 +37790,14 @@
     },
     {
       "source": "packages_notifications_templates_src_lib_components_svforge_ui_notificationsbell",
+      "target": "primitives",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_notifications_templates_src_lib_components_svforge_ui_notificationsbell",
       "target": "bell",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -37719,7 +37806,7 @@
     },
     {
       "source": "packages_notifications_templates_src_lib_components_svforge_ui_notificationsbell",
-      "target": "check",
+      "target": "skeleton_svelte",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte",
@@ -71853,6 +71940,80 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_notifications_component_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_notifications_component_test",
+      "target": "ref_testing_library_svelte",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_notifications_component_test",
+      "target": "ref_testing_library_jest_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_notifications_component_test",
+      "target": "packages_notifications_templates_src_lib_components_svforge_ui_notificationsbell",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_notifications_component_test",
+      "target": "tests_notifications_component_test_observe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_notifications_component_test",
+      "target": "tests_notifications_component_test_unobserve",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_notifications_component_test",
+      "target": "tests_notifications_component_test_disconnect",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/notifications-component.test.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_notifications_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -74671,12 +74832,23 @@
     },
     {
       "source": "tests_stubs_lib_components_svforge_primitives_index",
-      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
+      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_badge",
       "relation": "imports_from",
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/components/svforge/primitives/index.ts",
       "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_components_svforge_primitives_index",
+      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/components/svforge/primitives/index.ts",
+      "source_location": "L2",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74742,7 +74914,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_bold",
+      "target": "tests_stubs_lib_paraglide_messages_notif_bell",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74752,7 +74924,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_italic",
+      "target": "tests_stubs_lib_paraglide_messages_notif_title",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74762,7 +74934,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_underline",
+      "target": "tests_stubs_lib_paraglide_messages_notif_mark_all",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74772,7 +74944,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_strikethrough",
+      "target": "tests_stubs_lib_paraglide_messages_notif_empty",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74782,7 +74954,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_blockquote",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_bold",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74792,7 +74964,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_code_block",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_italic",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74802,7 +74974,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_bullet_list",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_underline",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74812,7 +74984,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_ordered_list",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_strikethrough",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74822,7 +74994,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_heading",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_blockquote",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74832,7 +75004,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_link",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_code_block",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74842,7 +75014,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_insert_link",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_bullet_list",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74852,7 +75024,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_prompt",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_ordered_list",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74862,7 +75034,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_loading",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_heading",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74872,7 +75044,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74882,7 +75054,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_formatting",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_insert_link",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74892,7 +75064,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_headings",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_prompt",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74902,7 +75074,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_lists",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_loading",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -74912,11 +75084,51 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_blocks",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
       "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_formatting",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L28",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_headings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L29",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_lists",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_blocks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L31",
       "weight": 1,
       "_origin": "ast"
     },

@@ -136,7 +136,7 @@
     "semantic_hash": ""
   },
   "packages/chat/src/templates.ts": {
-    "ast_hash": "1641f6bf34a0b97cce915b05b56c4b33",
+    "ast_hash": "9f599ff6a39093d5af506b3b678cd44b",
     "semantic_hash": ""
   },
   "packages/chat/templates/src/lib/server/chat/chat-security.test.ts": {
@@ -156,7 +156,7 @@
     "semantic_hash": ""
   },
   "packages/chat/templates/src/routes/chat/+page.svelte": {
-    "ast_hash": "c6737dfd7884e85ee7381de5f0852371",
+    "ast_hash": "d7b86847657f00609fd8c7ea208e5153",
     "semantic_hash": ""
   },
   "packages/chat/templates/src/routes/chat/[id]/+page.server.ts": {
@@ -320,11 +320,11 @@
     "semantic_hash": ""
   },
   "packages/notifications/src/templates.ts": {
-    "ast_hash": "1409df4bb8fa301591412e5a77af4e3c",
+    "ast_hash": "ca68186a48f633d8bd0626141a785d1a",
     "semantic_hash": ""
   },
   "packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte": {
-    "ast_hash": "b5cbadc7394929b9422a4157f7b1ba2a",
+    "ast_hash": "14762fafcb9051c722007c240601fc01",
     "semantic_hash": ""
   },
   "packages/notifications/templates/src/lib/server/notifications/index.ts": {
@@ -472,7 +472,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "afbe5942a03f68702e0fbd0259dc7054",
+    "ast_hash": "db47687153850decf5d26c62c55e2160",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -1172,7 +1172,7 @@
     "semantic_hash": ""
   },
   "tests/chat.test.ts": {
-    "ast_hash": "660c3ee00c6b83616aa0572db85f4bc0",
+    "ast_hash": "7a8900620933ab6d3c2b83306ca80316",
     "semantic_hash": ""
   },
   "tests/check-generated.test.ts": {
@@ -1292,7 +1292,7 @@
     "semantic_hash": ""
   },
   "tests/notifications.test.ts": {
-    "ast_hash": "4f4300a99bc92172a11755c6c4637a74",
+    "ast_hash": "5541751b1f3d93a5de5986260b349b1e",
     "semantic_hash": ""
   },
   "tests/npm-consumer-smoke.test.ts": {
@@ -1392,7 +1392,7 @@
     "semantic_hash": ""
   },
   "tests/stubs/lib/paraglide/messages.js": {
-    "ast_hash": "bb7d7ce918909cc34ad7e8f1ac399fdb",
+    "ast_hash": "5b735c8bdf126ce8c88b85a89e4db85d",
     "semantic_hash": ""
   },
   "tests/stubs/lib/utils/cn.ts": {
@@ -1464,7 +1464,7 @@
     "semantic_hash": ""
   },
   "vitest.config.ts": {
-    "ast_hash": "e104a3c353d6dacbb2ad0e551c1f4862",
+    "ast_hash": "f6b47b2d94e8e4f0615f56e316de38d5",
     "semantic_hash": ""
   },
   ".github/workflows/canary.yml": {
@@ -1728,7 +1728,7 @@
     "semantic_hash": ""
   },
   "tests/stubs/lib/components/svforge/primitives/index.ts": {
-    "ast_hash": "20fbaf8fb80b75a9e406eda8b27f1c9a",
+    "ast_hash": "b346a68204d50de6fa0477457d13f847",
     "semantic_hash": ""
   },
   "tests/tailwind-class-validation.test.ts": {
@@ -1785,6 +1785,14 @@
   },
   "scripts/ui-smoke.playwright.config.mjs": {
     "ast_hash": "68643759a8f3bb6c6e0f99428b449ab9",
+    "semantic_hash": ""
+  },
+  "tests/notifications-component.test.ts": {
+    "ast_hash": "f343045cc6a975e9c620e6e1fe1ff15a",
+    "semantic_hash": ""
+  },
+  "tests/stubs/phosphor-svelte/lib/Bell.svelte": {
+    "ast_hash": "0f78856f03b114973103a66cdf7f3f53",
     "semantic_hash": ""
   }
 }
