@@ -130,6 +130,36 @@ export function validateManifestShape(value: unknown, filePath: string): string[
 			problems.push(`"${filePath}": modules must be an array of module id strings.`);
 		}
 	}
+	if (manifest.ui !== undefined) {
+		const ui = manifest.ui;
+		if (typeof ui !== 'object' || ui === null || Array.isArray(ui)) {
+			problems.push(`"${filePath}": ui must be an object with preferred and libraries fields.`);
+		} else {
+			const block = ui as Record<string, unknown>;
+			if (block.preferred !== undefined && (typeof block.preferred !== 'string' || !block.preferred.trim())) {
+				problems.push(`"${filePath}": ui.preferred must be a non-empty string.`);
+			}
+			if (block.libraries !== undefined) {
+				if (!Array.isArray(block.libraries)) {
+					problems.push(`"${filePath}": ui.libraries must be an array of { package, componentRoots? } objects.`);
+				} else {
+					for (const [index, library] of block.libraries.entries()) {
+						if (typeof library !== 'object' || library === null || Array.isArray(library)) {
+							problems.push(`"${filePath}": ui.libraries[${index}] must be an object.`);
+							continue;
+						}
+						const entry = library as Record<string, unknown>;
+					if (typeof entry.package !== 'string' || !entry.package.trim()) {
+							problems.push(`"${filePath}": ui.libraries[${index}].package must be a non-empty package name.`);
+						}
+						if (entry.componentRoots !== undefined && (!Array.isArray(entry.componentRoots) || entry.componentRoots.some((root) => typeof root !== 'string' || !root.trim() || root.startsWith('/') || /^[a-z]:[\\/]/i.test(root) || /(^|[\\/])\.\.([\\/]|$)/.test(root) || /[*?{}]/.test(root)))) {
+							problems.push(`"${filePath}": ui.libraries[${index}].componentRoots must contain safe project-relative paths without traversal or glob patterns.`);
+						}
+					}
+				}
+			}
+		}
+	}
 	if (manifest.capabilities !== undefined) {
 		if (!Array.isArray(manifest.capabilities) || manifest.capabilities.some((c) => typeof c !== 'string')) {
 			problems.push(`"${filePath}": capabilities must be an array of strings.`);
@@ -284,6 +314,7 @@ export function planManifestEnrichContent(existing: string | undefined, enrichme
 		schema: 1,
 		template: 'base',
 		modules: [],
+		ui: { preferred: 'skeleton', libraries: [] },
 		capabilities: [] as string[],
 		patterns: {},
 		moduleCapabilities: {},

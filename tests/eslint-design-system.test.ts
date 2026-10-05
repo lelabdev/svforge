@@ -21,15 +21,11 @@ const eslint = new ESLint({
 });
 
 describe('svforge ESLint design-system rule (#346)', () => {
-	it('reports forbidden UI kit imports in JavaScript and TypeScript with the shared identifier', async () => {
+	it('does not reject imports from user-selected or previously forbidden UI libraries', async () => {
 		for (const filePath of ['eslint.config.js', 'src/lib/config.ts']) {
 			const [message] = await eslint.lintText("import { Dialog } from 'bits-ui';", { filePath });
-			expect(message.errorCount).toBe(1);
-			expect(message.messages[0]).toMatchObject({
-				ruleId: 'svforge/no-design-violations',
-				messageId: 'forbiddenUiKit'
-			});
-			expect(message.messages[0].message).toContain('Second UI kit detected: bits-ui');
+			expect(message.errorCount).toBe(0);
+			expect(message.messages).toEqual([]);
 		}
 	});
 
@@ -82,8 +78,11 @@ describe('scaffolded ESLint configuration (#346)', () => {
 		expect(config).toContain("import tailwindcss from 'eslint-plugin-tailwindcss';");
 		expect(config).toContain("cssConfigPath: 'src/routes/layout.css'");
 		expect(config).toContain("'tailwindcss/no-custom-classname': 'error'");
+		expect(config).toContain("path.resolve(import.meta.dirname, '.svforge.json')");
+		expect(config).toContain('library.componentRoots');
+		expect(config).toContain("'svforge/no-design-violations': 'off'");
+		expect(config).toContain("'tailwindcss/no-custom-classname': 'off'");
 		expect(config).not.toContain('whitelist');
-		expect(config).not.toContain('try {');
 		// #325: the advertised lint chain — prettier check runs BEFORE eslint,
 		// and the .prettierignore (prebuild-generated from the delivery
 		// manifests) keeps both tools off the upgrade-baseline-tracked files.

@@ -10,8 +10,7 @@ import path from 'node:path';
 import {
 	DESIGN_MESSAGES,
 	DESIGN_RULE_IDS,
-	duplicatedSkeletonPrimitiveName,
-	isForbiddenUiKit
+	duplicatedSkeletonPrimitiveName
 } from './svforge-check.mjs';
 
 const rule = {
@@ -21,21 +20,12 @@ const rule = {
 			description: 'report deterministic SvelteForge design-system violations'
 		},
 		messages: {
-			[DESIGN_RULE_IDS.forbiddenUiKit]: DESIGN_MESSAGES.forbiddenUiKit('{{kit}}'),
 			[DESIGN_RULE_IDS.duplicatedSkeletonPrimitive]: DESIGN_MESSAGES.duplicatedSkeletonPrimitive('{{name}}', '{{file}}')
 		},
 		schema: []
 	},
 	create(context) {
 		return {
-			ImportDeclaration(node) {
-				if (typeof node.source.value !== 'string' || !isForbiddenUiKit(node.source.value)) return;
-				context.report({
-					node,
-					messageId: DESIGN_RULE_IDS.forbiddenUiKit,
-					data: { kit: node.source.value }
-				});
-			},
 			Program(node) {
 				const filename = context.filename;
 				if (!filename.endsWith('.svelte')) return;

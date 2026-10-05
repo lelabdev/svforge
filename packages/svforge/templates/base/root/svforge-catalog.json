@@ -28,7 +28,7 @@
 	"rules": {
 		"reuseFirst": "Prefer reuse over invention. Coherence > originality on first pass.",
 		"mustNot": [
-			"install another UI kit",
+			"add a UI library without explicit user request",
 			"duplicate a Skeleton/SvelteForge primitive",
 			"hardcode arbitrary colors/radius/spacing when a token exists"
 		]

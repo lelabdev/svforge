@@ -10,13 +10,13 @@ export {
 	checkDesignSystem,
 	SVFORGE_CATALOG,
 	SKELETON_PRIMITIVES,
-	FORBIDDEN_UI_KITS,
 	DESIGN_RULE_IDS,
 	DESIGN_MESSAGES,
-	isForbiddenUiKit,
 	duplicatedSkeletonPrimitiveName
 } from './design-system';
 export type { CatalogEntry, Severity, DesignSystemCheckOptions } from './design-system';
+export { registerUiLibrary, setPreferredUi, getRegisteredUiComponentRoots, isRegisteredUiComponent, findUnregisteredUiLibraries } from './ui-libraries';
+export type { UiLibrary, UiProjectConfig } from './ui-libraries';
 export { runVerify, printVerifyResult } from './verify';
 export type { VerifyResult, VerifyStepResult, VerifyStepName, VerifyOptions } from './verify';
 export { COMPAT_MANIFEST, assertCompatManifest, loadCompatManifest, compatibleModuleVersion } from './compat';

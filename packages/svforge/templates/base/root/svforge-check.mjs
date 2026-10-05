@@ -8,7 +8,7 @@
  * template — run `node svforge-check.mjs` (or `bun svforge-check.mjs`) after
  * composing a page.
  *
- * ERROR — second UI kit, duplicated Skeleton primitive, incompatible Skeleton
+ * ERROR — unregistered duplicated Skeleton primitive, incompatible Skeleton
  *         primitives on one element, Skeleton primitive injected through
  *         `class` into an SVForge wrapper, invented Skeleton-looking utility,
  *         removed scaffold alias, hex outside theme
@@ -30,28 +30,17 @@ const SKELETON_INVENTORY = /*__SKELETON_INVENTORY__*/ {"versions":{},"primitives
 const ADDON_COMPONENTS = /*__ADDON_COMPONENTS__*/ {};
 // Catalog avoid patterns (#342): conservative markup heuristics, WARN only.
 const AVOID_PATTERNS = /*__AVOID_PATTERNS__*/ [];
-const FORBIDDEN_KITS = [
-	'@shadcn/svelte', 'shadcn-svelte', 'bits-ui', '@melt-ui/svelte',
-	'flowbite-svelte', 'skeletonlabs/skeleton-v2', 'svelteui', '@svelteuidev/core'
-];
-
 // ── Shared rule contract (#346): one analysis engine, many surfaces ──
 // The scaffolded ESLint plugin (eslint-plugin-svforge.mjs) imports these —
 // this checker is the single source of truth shared with `bun run check`
 // and the Vite build gate. Never duplicate engine logic in the adapter.
 export const DESIGN_RULE_IDS = {
-	forbiddenUiKit: 'forbiddenUiKit',
 	duplicatedSkeletonPrimitive: 'duplicatedSkeletonPrimitive'
 };
 export const DESIGN_MESSAGES = {
-	forbiddenUiKit: (kit) =>
-		`Second UI kit detected: ${kit}. SvelteForge uses Skeleton as the single UI source. Remove it.`,
 	duplicatedSkeletonPrimitive: (name, file) =>
 		`Duplicated Skeleton primitive "${name}" at ${file}. Use ${name} from @skeletonlabs/skeleton-svelte or the svforge catalog instead.`
 };
-export function isForbiddenUiKit(packageName) {
-	return FORBIDDEN_KITS.some((kit) => packageName === kit || packageName.startsWith(`${kit}/`));
-}
 const THEME_FILES = new Set([
 	'src/lib/styles/svelteforge-theme.css',
 	'src/lib/styles/tokens.css',
@@ -254,6 +243,64 @@ function collectCatalogExempts(projectRoot) {
 	return { paths, wrappers, entries, installedModules };
 }
 
+const registeredUiCache = new Map();
+function registeredUiLibraries(projectRoot) {
+	const manifestPath = join(projectRoot, '.svforge.json');
+	try {
+		const { mtimeMs, size } = statSync(manifestPath);
+		const cached = registeredUiCache.get(projectRoot);
+		if (cached?.mtimeMs === mtimeMs && cached.size === size) return cached.libraries;
+		const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
+		const libraries = Array.isArray(manifest.ui?.libraries) ? manifest.ui.libraries : [];
+		registeredUiCache.set(projectRoot, { mtimeMs, size, libraries });
+		return libraries;
+	} catch {
+		return [];
+	}
+}
+
+function isRegisteredUiComponent(filename, projectRoot) {
+	const absoluteFile = resolve(filename);
+	return registeredUiLibraries(projectRoot).some((library) => {
+		if (!Array.isArray(library.componentRoots)) return false;
+		return library.componentRoots.some((root) => {
+			if (typeof root !== 'string' || !root || root.startsWith('/') || /^[a-z]:[\\/]/i.test(root) || /^[/\\]{2}/.test(root) || root.split(/[\\/]/).includes('..')) return false;
+			const absoluteRoot = resolve(projectRoot, root);
+			const relativeFile = relative(absoluteRoot, absoluteFile);
+			return relativeFile === '' || (relativeFile !== '..' && !relativeFile.startsWith(`..${sep}`) && !relativeFile.startsWith(sep));
+		});
+	});
+}
+
+const UI_PACKAGE_SIGNAL = /(?:^|[-/_.])(?:ui|headless|component|components|design[-_]?system|widget|widgets|primitive|primitives|dialog|popover|tooltip|modal|accordion|tabs|dropdown)(?:$|[-/_.])/i;
+function packageNameFromSpecifier(specifier) {
+	if (!specifier || specifier.startsWith('.') || specifier.startsWith('$') || specifier.startsWith('#')) return null;
+	const parts = specifier.split('/');
+	return parts[0]?.startsWith('@') ? parts.slice(0, 2).join('/') : parts[0] ?? null;
+}
+function importedComponentPackages(projectRoot) {
+	const packages = new Set();
+	for (const file of walk(join(projectRoot, 'src'), ['.svelte'])) {
+		const source = readFileSync(file, 'utf-8');
+		for (const match of source.matchAll(/import\s+([\s\S]*?)\s+from\s+['\"]([^'\"]+)['\"]/g)) {
+			const packageName = packageNameFromSpecifier(match[2]);
+			if (!packageName || ['@skeletonlabs/skeleton-svelte', 'phosphor-svelte'].includes(packageName) || /icons?(?:$|[-/])/i.test(packageName)) continue;
+			const bindings = match[1];
+			const names = [...bindings.matchAll(/\b([A-Z][\w$]*)\b(?:\s+as\s+([A-Z][\w$]*))?/g)].map((binding) => binding[2] ?? binding[1]);
+			if (names.some((name) => new RegExp(`<${name}(?:\\s|/|>)`).test(source))) packages.add(packageName);
+		}
+	}
+	return packages;
+}
+function findUnregisteredUiLibraries(projectRoot, dependencies) {
+	const registered = new Set(registeredUiLibraries(projectRoot).map((library) => library.package));
+	const imported = importedComponentPackages(projectRoot);
+	return Object.keys(dependencies)
+		.filter((name) => name !== '@skeletonlabs/skeleton-svelte' && !registered.has(name))
+		.filter((name) => imported.has(name) || UI_PACKAGE_SIGNAL.test(name))
+		.sort();
+}
+
 /**
  * Deterministic per-file primitive-duplication check (#361) — the exact rule
  * the section-2 walk applies, exposed for the ESLint adapter. Returns the
@@ -264,7 +311,7 @@ const perFileExemptsCache = new Map();
 export function duplicatedSkeletonPrimitiveName(filename, projectRoot = process.cwd()) {
 	const inventory = deriveInventoryFromNodeModules(projectRoot) ?? SKELETON_INVENTORY;
 	const name = basename(filename, '.svelte');
-	if (!inventory.primitives.includes(name)) return null;
+	if (!inventory.primitives.includes(name) || isRegisteredUiComponent(filename, projectRoot)) return null;
 	let exempts = perFileExemptsCache.get(projectRoot);
 	if (!exempts) {
 		exempts = collectCatalogExempts(projectRoot);
@@ -287,16 +334,15 @@ export async function checkDesignSystem(projectRoot = process.cwd(), options = {
 	results = [];
 	const INVENTORY = deriveInventoryFromNodeModules() ?? SKELETON_INVENTORY;
 
-// ── 1. Forbidden UI kits (ERROR) ─────────────────────────────────
+// ── 1. Unregistered externally used UI libraries (WARN) ──────────────
 const pkgPath = join(ROOT, 'package.json');
 if (!existsSync(pkgPath)) {
 	return [{ status: 'error', msg: 'no package.json — run from the project root.' }];
 }
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
 const allDeps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
-for (const dep of Object.keys(allDeps)) {
-	if (!isForbiddenUiKit(dep)) continue;
-	results.push({ status: 'error', msg: `[svforge/${DESIGN_RULE_IDS.forbiddenUiKit}] ${DESIGN_MESSAGES.forbiddenUiKit(dep)}` });
+for (const packageName of findUnregisteredUiLibraries(ROOT, allDeps)) {
+	results.push({ status: 'warn', msg: `UI component package "${packageName}" is used but not registered in .svforge.json. Register it with \`svforge ui register ${packageName}\`; use --component-root <path> for copy-in component sources.` });
 }
 
 // ── 2. Duplicated Skeleton primitives (ERROR) ────────────────────
@@ -362,6 +408,7 @@ function classViolations(classString) {
 }
 
 for (const file of walk(join(ROOT, 'src'), ['.svelte', '.html'])) {
+	if (isRegisteredUiComponent(file, ROOT)) continue;
 	const source = readFileSync(file, 'utf-8');
 	const rel = relative(ROOT, file);
 	const wrapperPattern = catalogWrappers.length
@@ -444,7 +491,7 @@ for (const file of walk(join(ROOT, 'src'), ['.svelte', '.html'])) {
 
 // ── 4. Hex colors outside theme (WARN) ───────────────────────────
 for (const file of walk(join(ROOT, 'src'), ['.svelte'])) {
-	if (THEME_FILES.has(relative(ROOT, file))) continue;
+	if (THEME_FILES.has(relative(ROOT, file)) || isRegisteredUiComponent(file, ROOT)) continue;
 	const content = readFileSync(file, 'utf-8');
 	const hexes = content.match(/#[0-9a-fA-F]{6}\b/g) || [];
 	const meaningful = hexes.filter((h) => !content.match(new RegExp(`(path|fill|stroke)[^\\n]*${h.replace('#', '\\#')}`)));
@@ -476,6 +523,7 @@ for (const file of walk(join(ROOT, 'src'), ['.svelte'])) {
 		return findings;
 	};
 	for (const file of walk(join(ROOT, 'src'), ['.svelte'])) {
+		if (isRegisteredUiComponent(file, ROOT)) continue;
 		// Exact-path exemption only (#342 review, mirroring #361): the canonical
 		// implementation at its exact catalog path (plus precise installed-addon
 		// component paths) is exempt — an unapproved new component in the same
@@ -537,6 +585,7 @@ if (options.experimentalStructuralDuplication || process.env.SVFORGE_EXPERIMENTA
 			})
 		];
 		for (const file of walk(join(ROOT, 'src', 'lib', 'components'), ['.svelte'])) {
+			if (isRegisteredUiComponent(file, ROOT)) continue;
 			const rel = relative(componentsDir, file).split(sep).join('/');
 			if (catalogPaths.has(rel)) continue;
 			const candidate = fingerprint(readFileSync(file, 'utf-8'));
@@ -581,6 +630,7 @@ if (options.experimentalStructuralDuplication || process.env.SVFORGE_EXPERIMENTA
 		return offenders;
 	};
 	for (const file of walk(join(ROOT, 'src'), ['.svelte'])) {
+		if (isRegisteredUiComponent(file, ROOT)) continue;
 		const relFromComponents = relative(componentsDir, file).split(sep).join('/');
 		const isCanonicalImplementation =
 			catalogPaths.has(relFromComponents) ||
@@ -600,6 +650,7 @@ if (options.experimentalStructuralDuplication || process.env.SVFORGE_EXPERIMENTA
 // ── 5. Components outside the canonical structure (WARN) ─────────
 const allowedDirs = new Set(['primitives', 'ui', 'layout', 'dnd', 'graph', 'tiptap', 'uploads']);
 for (const file of walk(componentsDir, ['.svelte'])) {
+	if (isRegisteredUiComponent(file, ROOT)) continue;
 	const rel = relative(componentsDir, file);
 	const top = rel.split(sep)[0];
 	if (!allowedDirs.has(top)) {
@@ -703,6 +754,7 @@ for (const file of cssFiles) {
 	}
 }
 for (const file of walk(componentsDir, ['.svelte'])) {
+	if (isRegisteredUiComponent(file, ROOT)) continue;
 	// Exemption paths are componentsDir-relative (catalog + addon mapping).
 	const relPosix = relative(componentsDir, file).split(sep).join('/');
 	const isCanonicalImplementation =

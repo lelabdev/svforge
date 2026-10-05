@@ -154,7 +154,7 @@ describe('AI context generation (#234)', () => {
 		expect(txt).toContain('- auth.currentUser');
 		expect(txt).toContain('- database.drizzle.postgres');
 		expect(txt).toContain('MUST NOT');
-		expect(txt).toContain('- install a second ORM, auth provider or UI kit');
+		expect(txt).toContain('- install/register a new ORM, auth provider or UI library without explicit user request');
 		expect(txt).toContain('src/routes/layout.css is the single global CSS entrypoint');
 		expect(txt).toContain('no generic tokens.css/index.css layer is scaffolded');
 		expect(txt).toContain('change the Skeleton theme/presets first');
