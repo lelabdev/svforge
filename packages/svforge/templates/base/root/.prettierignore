@@ -76,6 +76,7 @@ src/lib/index.ts
 src/lib/server/admin-users.test.ts
 src/lib/server/admin-users.ts
 src/lib/server/admin.ts
+src/lib/server/auth.schema.config.ts
 src/lib/server/auth.test.ts
 src/lib/server/auth.ts
 src/lib/server/db/auth.schema.ts

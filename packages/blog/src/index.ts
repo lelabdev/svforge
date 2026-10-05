@@ -218,12 +218,12 @@ export default defineAddon({
 				sv.file('src/hooks.ts', (content) => {
 			if (hasPatchApplied(content, 'posts-hooks', ["'mdx-post': {"])) return content;
 			// Add our imports only when the consumer does not already provide
-			// them (a project with its own transport usually imports the
-			// Transport type from '@sveltejs/kit' already).
-			const hasKitTransportImport = /import\s+[^;]*\bTransport\b[^;]*from\s*'@sveltejs\/kit'/.test(content);
+			// them (a project with its own transport may already import the
+			// Transport type from Kit's root or hooks subpath).
+			const hasKitTransportImport = /import\s+[^;]*\bTransport\b[^;]*from\s*'@sveltejs\/kit(?:\/hooks)?'/.test(content);
 			const imports =
 				(content.includes('loadPostComponent') ? '' : "import { loadPostComponent, PostComponent } from '$lib/utils/posts';\n") +
-				(hasKitTransportImport ? '' : "import type { Transport } from '@sveltejs/kit';\n");
+				(hasKitTransportImport ? '' : "import type { Transport } from '@sveltejs/kit/hooks';\n");
 			const mdxPostCodec =
 				"'mdx-post': {" +
 				'\n\tencode: (value: unknown) =>' +

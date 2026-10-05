@@ -1,4 +1,5 @@
 import prettier from 'eslint-config-prettier';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
@@ -7,9 +8,10 @@ import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 import tailwindcss from 'eslint-plugin-tailwindcss';
 import ts from 'typescript-eslint';
-import svelteConfig from './svelte.config.js';
 import svforge from './eslint-plugin-svforge.mjs';
 
+const svelteConfigPath = new URL('./svelte.config.js', import.meta.url);
+const svelteConfig = existsSync(svelteConfigPath) ? (await import(svelteConfigPath.href)).default : undefined;
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
 export default defineConfig(

@@ -99,7 +99,7 @@ export function patchViteConfig(content: string): string {
 	}
 	// sv@1.x scaffolds Kit 3, which no longer supplies the `$lib` alias by
 	// default. Keep the existing template imports working via the plugin config.
-	const libAlias = "alias: { '$lib': 'src/lib' }";
+	const libAlias = "alias: { $lib: 'src/lib' }";
 	if (!updated.includes(libAlias)) {
 		const optionsCall = /\bsveltekit\(\s*\{/.exec(updated);
 		if (optionsCall) {

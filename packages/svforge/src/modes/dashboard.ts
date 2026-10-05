@@ -100,7 +100,9 @@ export function applyDashboardMode(
 			// regeneration lands in a REVIEW copy instead: diff it against the
 			// runtime-gated src/lib/server/db/auth.schema.ts and port deliberate
 			// changes manually (#325, policy in docs/better-auth-upgrades.md).
-			'auth:schema': `${dlx} @better-auth/cli@1.4.21 generate --config src/lib/server/auth.ts --output auth-schema.review.ts --yes`,
+			// The CLI runs via jiti, outside SvelteKit's Vite resolver, so it uses
+			// the Kit-independent schema config instead of runtime auth.ts (#491).
+			'auth:schema': `${dlx} @better-auth/cli@1.4.21 generate --config src/lib/server/auth.schema.config.ts --output auth-schema.review.ts --yes`,
 			...(testing === 'playwright' ? { 'test:e2e': 'playwright test' } : {})
 		};
 		return `${JSON.stringify(pkg, null, '\t')}\n`;

@@ -74,9 +74,10 @@ describe('modern sv layout generates a valid vite.config.ts (#415)', () => {
 				// …and SVForge wired its plugins into the generated config.
 				expect(config).toContain('svforgeDesignSystemPlugin()');
 				expect(config).toContain('paraglideVitePlugin({');
-				expect(config).toContain("alias: { '$lib': 'src/lib' }");
+				expect(config).toContain("alias: { $lib: 'src/lib' }");
 				// The result PARSES (a broken regex is an unterminated literal).
 				expect(await syntaxErrors(config, 'vite.config.ts')).toEqual([]);
+
 			} finally {
 				rmSync(root, { recursive: true, force: true });
 			}
