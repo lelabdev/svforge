@@ -11,7 +11,8 @@ export default defineConfig({
 			// of requiring a full scaffolded Paraglide build.
 			$lib: fileURLToPath(new URL('./tests/stubs/lib', import.meta.url)),
 			// Same for `$app/env` (Table's dev-only rowKey warning).
-			'$app/env': fileURLToPath(new URL('./tests/stubs/app/environment.ts', import.meta.url))
+			'$app/env': fileURLToPath(new URL('./tests/stubs/app/environment.ts', import.meta.url)),
+			'phosphor-svelte/lib/Bell': fileURLToPath(new URL('./tests/stubs/phosphor-svelte/lib/Bell.svelte', import.meta.url))
 		}
 	},
 	plugins: [

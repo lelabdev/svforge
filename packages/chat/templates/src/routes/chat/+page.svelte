@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { Button } from '$lib/components/svforge/primitives';
+	import { Badge } from '$lib/components/svforge/primitives';
 
 	let { data }: { data: import('./$types').PageData } = $props();
 	const conversations = $derived(data.conversations);
@@ -33,9 +33,7 @@
 								<span class="text-xs text-surface-500">{new Date(conv.lastMessage.createdAt).toLocaleString()}</span>
 							{/if}
 							{#if conv.unreadCount > 0}
-								<span class="min-w-5 h-5 px-1 bg-primary-500 text-white text-xs flex items-center justify-center">
-									{conv.unreadCount}
-								</span>
+								<Badge>{conv.unreadCount}</Badge>
 							{/if}
 						</div>
 					</a>

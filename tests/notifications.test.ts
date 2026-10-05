@@ -50,6 +50,18 @@ describe('notifications module (#230)', () => {
 		expect(bell).toMatch(/notif_mark_all/);
 	});
 
+	it('uses Skeleton Popover and SVForge Badge contracts (#475)', () => {
+		const bell = readFileSync(join(ROOT, 'packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte'), 'utf-8');
+		expect(bell).toContain("import { Popover, Portal } from '@skeletonlabs/skeleton-svelte'");
+		expect(bell).toContain('<Popover.Trigger');
+		expect(bell).toContain('<Popover.Content');
+		expect(bell).toContain('closeOnInteractOutside={true}');
+		expect(bell).toContain('restoreFocus={true}');
+		expect(bell).toContain('<Badge class="absolute -top-1 -right-1">{unreadCount}</Badge>');
+		expect(bell).not.toMatch(/\{#if open\}|absolute right-0/);
+		expect(bell).not.toMatch(/bg-primary-500\s+text-white/);
+	});
+
 	it('module requires DB capability (dashboard) and enriches context/messages', () => {
 		const index = readFileSync(join(ROOT, 'packages/notifications/src/index.ts'), 'utf-8');
 		// #323: the gate is capability-based (structural check), not template-name based

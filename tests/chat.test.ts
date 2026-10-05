@@ -56,6 +56,13 @@ describe('chat module (#233)', () => {
 		expect(service).toMatch(/messageReads/);
 	});
 
+	it('uses the shared Badge for unread counts (#475)', () => {
+		const page = readFileSync(join(ROOT, 'packages/chat/templates/src/routes/chat/+page.svelte'), 'utf-8');
+		expect(page).toMatch(/import \{ Badge \} from '\$lib\/components\/svforge\/primitives'/);
+		expect(page).toContain('<Badge>{conv.unreadCount}</Badge>');
+		expect(page).not.toMatch(/bg-primary-500\s+text-white/);
+	});
+
 	it('works without realtime (classic forms/refetch)', () => {
 		// The send flow uses SvelteKit actions (form), not a WS dependency
 		const page = readFileSync(join(ROOT, 'packages/chat/templates/src/routes/chat/[id]/+page.server.ts'), 'utf-8');
