@@ -117,7 +117,7 @@ describe('dashboard testing profiles', () => {
 		const workflow = sv.files.get('.github/workflows/ci.yml');
 		expect(workflow).toContain('pull_request:');
 		expect(workflow).toContain('push:');
-		expect(workflow).toContain('bun install');
+		expect(workflow).toContain('bun install --frozen-lockfile');
 		expect(workflow).toContain('bun run check');
 		expect(workflow).toContain('bun run test');
 		expect(workflow).toContain('bun run build');

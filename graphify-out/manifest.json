@@ -420,7 +420,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/scripts/test-local.ts": {
-    "ast_hash": "90136c40eb6ae6dbb96005b9733c1000",
+    "ast_hash": "f1520cd190eb48bfec65f5a4966c75ed",
     "semantic_hash": ""
   },
   "packages/svforge/src/addon-components.ts": {
@@ -492,7 +492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "dfb34dbeabb3863acb2249416c8d1704",
+    "ast_hash": "81970c60fb3456e395b36c4e5f78dd88",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "035639738cc8135db34a8bcd472280de",
+    "ast_hash": "1b72c1676d6672ab88a6b041028223c3",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1188,7 +1188,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-mode.test.ts": {
-    "ast_hash": "3a541d83ed2ee98e7b7537cd07d0c872",
+    "ast_hash": "fb8ad9f2cda75b7a11f339a1a03e6220",
     "semantic_hash": ""
   },
   "tests/dashboard-playwright.test.ts": {
@@ -1821,6 +1821,10 @@
   },
   "tests/tiptap-link-actions.test.ts": {
     "ast_hash": "db0e67ea212a3caaf7da06abd2673388",
+    "semantic_hash": ""
+  },
+  "packages/svforge/templates/dashboard/root/.github/workflows/ci.yml": {
+    "ast_hash": "7b240cf397c3c35baea9f88546c32d48",
     "semantic_hash": ""
   }
 }

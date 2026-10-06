@@ -50,7 +50,7 @@ if (mode === 'dashboard') {
 	for (const required of [
 		'pull_request:',
 		'push:',
-		'bun install',
+		'bun install --frozen-lockfile',
 		'bun run check',
 		'bun run test',
 		'bun run build',
