@@ -49,6 +49,21 @@ Dashboard projects include the Vitest baseline by default (`bun run test`).
 The Playwright profile is opt-in with `testing:playwright`; it adds
 `@playwright/test`, the `test:e2e` script, browser configuration, and E2E tests.
 
+### Optional Graphify initialization
+
+If Graphify is already installed and you explicitly want a project-scoped setup,
+pass `--graphify` to `svforge create`:
+
+```bash
+npx svforge create my-app --template base --pm npm --modules ui_toast --graphify --yes
+```
+
+SVForge never installs the Graphify executable or adds it as a project
+runtime dependency. When the flag is used and the executable is available,
+SVForge delegates to `graphify install --project` and
+`graphify extract . --code-only`. Without the flag Graphify is untouched; if
+it is requested but not installed, scaffolding continues without it.
+
 ## What you get
 
 ### Base Template

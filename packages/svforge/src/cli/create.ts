@@ -1,5 +1,5 @@
-import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { accessSync, constants, existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { delimiter, join, resolve } from 'node:path';
 import { MODULES } from '../module-composition';
 import { regenerateLlmstxt } from '../ai-context';
 import { MODULE_CONTRACTS, resolveModules, type ResolutionPlan } from '@svforge/addon-kit';
@@ -32,6 +32,8 @@ export interface CreateCommandOptions {
 	runtime?: 'long-lived-node';
 	/** Initialize a Git repository (#417). Default true. */
 	gitInit?: boolean;
+	/** Initialize an already-installed Graphify binary for this project. Opt-in. */
+	graphify?: boolean;
 	yes?: boolean;
 	interactive?: boolean;
 	devRoot?: string;
@@ -79,16 +81,19 @@ export interface CreatePlan {
 	runtime?: 'long-lived-node';
 	/** Whether the project gets a Git repository (#417 choice). */
 	gitInit: boolean;
+	/** Whether project-scoped Graphify initialization was explicitly requested. */
+	graphify: boolean;
 	plan: ResolutionPlan;
 }
 
 export interface CreateCommandResult {
 	code: number;
 	plan?: CreatePlan;
-	/** The stage that failed: create | add | git | record | validate. */
-	failedStage?: 'create' | 'add' | 'git' | 'record' | 'validate';
+	/** The stage that failed: create | add | git | record | validate | graphify. */
+	failedStage?: 'create' | 'add' | 'git' | 'record' | 'validate' | 'graphify';
 	aborted?: 'declined' | 'invalid' | 'safety';
 	message?: string;
+	notice?: string;
 }
 
 /** Every official module, from the canonical registry — never a hard list. */
@@ -105,6 +110,27 @@ export function runtimeRequiringModules(moduleIds: string[]): string[] {
 	return moduleIds.filter((id) =>
 		MODULE_CONTRACTS[id]?.requires.some((capability) => capability.startsWith('runtime.'))
 	);
+}
+
+/** Locate an already-installed Graphify executable without invoking a shell or installing anything. */
+export function findGraphifyBinary(
+	pathValue = process.env.PATH ?? '',
+	platform: NodeJS.Platform = process.platform,
+	pathExtValue = process.env.PATHEXT ?? '.EXE;.CMD;.BAT'
+): string | undefined {
+	const extensions = platform === 'win32' ? ['', ...pathExtValue.split(';').filter(Boolean)] : [''];
+	for (const directory of pathValue.split(delimiter).map((entry) => entry || process.cwd())) {
+		for (const extension of extensions) {
+			const candidate = resolve(directory, `graphify${extension}`);
+			try {
+				accessSync(candidate, platform === 'win32' ? constants.F_OK : constants.X_OK);
+				return candidate;
+			} catch {
+				// Continue through PATH; absence is an ordinary optional-tool case.
+			}
+		}
+	}
+	return undefined;
 }
 
 /**
@@ -140,6 +166,10 @@ export function parseCreateArgs(args: string[]): CreateCommandOptions & { dir?: 
 			parsed.gitInit = false;
 			continue;
 		}
+		if (arg === '--graphify') {
+			parsed.graphify = true;
+			continue;
+		}
 		if (arg === '--yes') {
 			parsed.yes = true;
 			continue;
@@ -162,6 +192,7 @@ export async function runCreateCommand(
 	let pm: string | undefined = options.pm;
 	let testing = options.testing ?? 'vitest';
 	let hooks = options.hooks ?? 'none';
+	const graphify = options.graphify ?? false;
 	let modulesChoice = options.modules;
 	// #417: Git initialization is a product choice (default true).
 	let gitInit = options.gitInit ?? true;
@@ -327,6 +358,7 @@ export async function runCreateCommand(
 		allModules,
 		runtime,
 		gitInit,
+		graphify,
 		plan: resolution
 	};
 
@@ -339,7 +371,8 @@ export async function runCreateCommand(
 		`Pre-commit hook:  ${hooks}`,
 		`Modules (${resolution.order.length}): ${resolution.order.join(', ')}`,
 		runtime ? `Runtime:          ${runtime} (the selected modules require it)` : undefined,
-		`Git:              ${gitInit ? 'initialize' : 'skip'}`
+		`Git:              ${gitInit ? 'initialize' : 'skip'}`,
+		`Graphify:         ${graphify ? 'initialize if installed' : 'skip (opt-in)'}`
 	].filter(Boolean) as string[];
 	if (interactive && prompt && !options.yes) {
 		const approved = await prompt.confirm(`Create the project with this plan?\n${summary.map((l) => `  ${l}`).join('\n')}`);
@@ -529,6 +562,42 @@ export async function runCreateCommand(
 			failedStage: 'validate',
 			message: 'Post-create validation failed (`svforge doctor`) — inspect the report above before using the project.'
 		};
+	}
+
+	if (createPlan.graphify) {
+		const graphifyBinary = findGraphifyBinary();
+		if (!graphifyBinary) {
+			return {
+				code: 0,
+				plan: createPlan,
+				notice: 'Graphify not found on PATH; continuing without it. Install Graphify separately to initialize this project.'
+			};
+		}
+
+		for (const args of [
+			['install', '--project'],
+			['extract', '.', '--code-only']
+		]) {
+			try {
+				const graphifyCode = await spawn(graphifyBinary, args, { cwd: target, stdio: 'inherit' });
+				if (graphifyCode !== 0) {
+					return {
+						code: graphifyCode,
+						plan: createPlan,
+						failedStage: 'graphify',
+						message: `Graphify failed while running \`${args.join(' ')}\` (exit ${graphifyCode}). The SVForge project is scaffolded and usable; Graphify may be partially initialized. Graphify is optional; SVForge did not add a Graphify runtime dependency.`
+					};
+				}
+			} catch (error) {
+				return {
+					code: 1,
+					plan: createPlan,
+					failedStage: 'graphify',
+					message: `Could not run Graphify \`${args.join(' ')}\`: ${error instanceof Error ? error.message : String(error)}. The SVForge project is scaffolded and usable; Graphify is optional, and SVForge did not add a Graphify runtime dependency.`
+				};
+			}
+		}
+		return { code: 0, plan: createPlan, notice: 'Graphify initialized this project and generated its code-only graph.' };
 	}
 
 	return { code: 0, plan: createPlan };

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { spawnSync } from 'node:child_process';
-import { join } from 'node:path';
+import { delimiter, join } from 'node:path';
 import { mkdtempSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { ROOT } from './helpers';
@@ -179,6 +179,42 @@ describe('real bin — svforge create (#426 review)', () => {
 		expect(existsSync(join(withoutGit, 'app', '.git'))).toBe(false);
 		rmSync(withGit, { recursive: true, force: true });
 		rmSync(withoutGit, { recursive: true, force: true });
+	});
+
+	it('explicit --graphify delegates both upstream commands through the shipped bin (#469)', () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-realbin-graphify-'));
+		const bin = mkdtempSync(join(tmpdir(), 'sf-realbin-graphify-bin-'));
+		const graphify = join(bin, 'graphify');
+		const graphifyLog = join(cwd, 'graphify-calls.log');
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		writeFileSync(
+			graphify,
+			`#!/bin/sh
+printf '%s|%s\\n' "$PWD" "$*" >> "$GRAPHIFY_STUB_LOG"
+`,
+			{ mode: 0o755 }
+		);
+
+		try {
+			const result = runBin(
+				['create', 'app', '--template', 'dashboard', '--pm', 'bun', '--modules', 'chat', '--graphify', '--sv-cmd', stub, '--yes'],
+				cwd,
+				{
+					PATH: `${bin}${delimiter}${process.env.PATH ?? ''}`,
+					GRAPHIFY_STUB_LOG: graphifyLog
+				}
+			);
+			expect(result.code).toBe(0);
+			expect(readFileSync(graphifyLog, 'utf8').trim().split('\n')).toEqual([
+				`${join(cwd, 'app')}|install --project`,
+				`${join(cwd, 'app')}|extract . --code-only`
+			]);
+			expect(JSON.parse(readFileSync(join(cwd, 'app', 'package.json'), 'utf8')).dependencies).not.toHaveProperty('graphify');
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+			rmSync(bin, { recursive: true, force: true });
+		}
 	});
 
 	it('create --runtime is honored: all-modules without it fails through the bin', () => {
