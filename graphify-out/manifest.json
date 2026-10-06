@@ -400,7 +400,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/bin/svforge.mjs": {
-    "ast_hash": "c4bdb65616992dbc10dc5173cafcb969",
+    "ast_hash": "65364d22582e91222d5cfebf895a1db3",
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
@@ -1560,7 +1560,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "91ac29ab6c5a78f735ef22981da0275a",
+    "ast_hash": "70adef33526ae7c1277338e6d1271037",
     "semantic_hash": ""
   },
   "packages/svforge/docs/PRD.md": {
@@ -1660,7 +1660,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/cli/create.ts": {
-    "ast_hash": "be658fb0ec7cd319467625622594a96a",
+    "ast_hash": "51641ffff15b95136af81ae2aa99301e",
     "semantic_hash": ""
   },
   "tests/cli-add.test.ts": {
@@ -1668,7 +1668,7 @@
     "semantic_hash": ""
   },
   "tests/cli-create.test.ts": {
-    "ast_hash": "ff229bc3609ee2be09ba97c5f479999c",
+    "ast_hash": "3bd87bcbf0f70ff4be3f6463e85a9e44",
     "semantic_hash": ""
   },
   "tests/module-resolver.test.ts": {
@@ -1676,7 +1676,7 @@
     "semantic_hash": ""
   },
   "tests/real-bin.test.ts": {
-    "ast_hash": "3da54b63078c0930bdef858803a2362f",
+    "ast_hash": "507248bf9597cdb40af570ec9ef6714a",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {

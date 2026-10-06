@@ -12,7 +12,7 @@
  *   npx svforge add <module…> [--pm <pm>] [--resolve install|fail] [--yes]
  *   npx svforge create <dir> [--template t] [--pm pm] [--testing x]
  *                            [--hooks h] [--modules a,b|all]
- *                            [--runtime long-lived-node] [--yes]
+ *                            [--runtime long-lived-node] [--graphify] [--yes]
  *   npx svforge upgrade <module> [--to <version>] [--force]
  */
 
@@ -224,6 +224,7 @@ async function main() {
 				prompt: await realPrompt(),
 				spawn: await realSpawn()
 			});
+			if (result.notice) console.log(result.notice);
 			if (result.message) console.error(result.message);
 			if (result.code === 0 && result.plan) {
 				console.log(`\n✓ Project ready in ${result.plan.dir} — run \`${result.plan.pm} run dev\` to start developing.`);

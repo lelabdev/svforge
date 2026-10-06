@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { join } from 'node:path';
+import { delimiter, join } from 'node:path';
 import { mkdirSync, mkdtempSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import {
@@ -59,6 +59,7 @@ function flagsToOptions(flags: Record<string, string | string[] | boolean | unde
 		modules: flags.modules as string[] | 'all' | undefined,
 		runtime: flags.runtime as 'long-lived-node' | undefined,
 		gitInit: flags.gitInit as boolean | undefined,
+		graphify: flags.graphify as boolean | undefined,
 		yes: true,
 		interactive: false,
 		...extra
@@ -167,6 +168,114 @@ describe('target-directory safety (#417)', () => {
 			expect(existsSync(join(cwd, 'app', 'precious.txt'))).toBe(true);
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+});
+
+describe('optional Graphify initialization (#469)', () => {
+	it('keeps Graphify disabled by default even when its binary is available', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-graphify-default-'));
+		const bin = mkdtempSync(join(tmpdir(), 'sf-graphify-bin-'));
+		const executable = join(bin, 'graphify');
+		const originalPath = process.env.PATH;
+		writeFileSync(executable, '#!/bin/sh\\nexit 0\\n', { mode: 0o755 });
+		process.env.PATH = `${bin}${delimiter}${originalPath ?? ''}`;
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions({ dir: 'app', template: 'base', pm: 'bun', modules: [] }, { spawn, validate: async () => 0 })
+			);
+			expect(result.code).toBe(0);
+			expect(result.plan?.graphify).toBe(false);
+			expect(calls.map((call) => call.command)).not.toContain(executable);
+		} finally {
+			process.env.PATH = originalPath;
+			rmSync(cwd, { recursive: true, force: true });
+			rmSync(bin, { recursive: true, force: true });
+		}
+	});
+
+	it('explicit opt-in delegates installation and code-only extraction to the detected binary', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-graphify-opt-in-'));
+		const bin = mkdtempSync(join(tmpdir(), 'sf-graphify-bin-'));
+		const executable = join(bin, 'graphify');
+		const originalPath = process.env.PATH;
+		writeFileSync(executable, '#!/bin/sh\\nexit 0\\n', { mode: 0o755 });
+		process.env.PATH = `${bin}${delimiter}${originalPath ?? ''}`;
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions({ dir: 'app', template: 'base', pm: 'bun', modules: [], graphify: true }, { spawn, validate: async () => 0 })
+			);
+			expect(result.code).toBe(0);
+			expect(result.plan?.graphify).toBe(true);
+			expect(calls.slice(-2)).toEqual([
+				{ command: executable, args: ['install', '--project'], options: { cwd: join(cwd, 'app'), stdio: 'inherit' } },
+				{ command: executable, args: ['extract', '.', '--code-only'], options: { cwd: join(cwd, 'app'), stdio: 'inherit' } }
+			]);
+		} finally {
+			process.env.PATH = originalPath;
+			rmSync(cwd, { recursive: true, force: true });
+			rmSync(bin, { recursive: true, force: true });
+		}
+	});
+
+	it('continues without installation when Graphify was requested but is absent', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-graphify-absent-'));
+		const originalPath = process.env.PATH;
+		process.env.PATH = '';
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions({ dir: 'app', template: 'base', pm: 'bun', modules: [], graphify: true }, { spawn, validate: async () => 0 })
+			);
+			expect(result.code).toBe(0);
+			expect(result.notice).toMatch(/Graphify.*not found.*continuing/i);
+			expect(existsSync(join(cwd, 'app', '.svforge.json'))).toBe(true);
+			expect(calls.map((call) => call.args[0])).not.toContain('install');
+		} finally {
+			process.env.PATH = originalPath;
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it.each([
+		{ failingCommand: 'install', expectedArgs: ['install', '--project'] },
+		{ failingCommand: 'extract', expectedArgs: ['extract', '.', '--code-only'] }
+	])('reports a clear failure when Graphify $failingCommand fails', async ({ failingCommand, expectedArgs }) => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-graphify-failure-'));
+		const bin = mkdtempSync(join(tmpdir(), 'sf-graphify-bin-'));
+		const executable = join(bin, 'graphify');
+		const originalPath = process.env.PATH;
+		writeFileSync(executable, '#!/bin/sh\\nexit 0\\n', { mode: 0o755 });
+		process.env.PATH = `${bin}${delimiter}${originalPath ?? ''}`;
+		try {
+			const calls: { command: string; args: string[]; options: { cwd: string } }[] = [];
+			const spawn: SpawnPort = async (command, args, options) => {
+				calls.push({ command, args, options });
+				if (args[1] === 'add') {
+					mkdirSync(options.cwd, { recursive: true });
+					writeFileSync(join(options.cwd, '.svforge.json'), JSON.stringify(manifestFromAddArgs(args)));
+				}
+				return command === executable && args[0] === failingCommand ? 7 : 0;
+			};
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions({ dir: 'app', template: 'base', pm: 'bun', modules: [], graphify: true }, { spawn, validate: async () => 0 })
+			);
+			expect(result.code).toBe(7);
+			expect(result.failedStage).toBe('graphify');
+			expect(result.message).toMatch(/Graphify.*failed.*scaffolded and usable/i);
+			expect(calls.filter((call) => call.command === executable).map((call) => call.args)).toEqual(
+				failingCommand === 'install' ? [expectedArgs] : [['install', '--project'], expectedArgs]
+			);
+		} finally {
+			process.env.PATH = originalPath;
+			rmSync(cwd, { recursive: true, force: true });
+			rmSync(bin, { recursive: true, force: true });
 		}
 	});
 });
@@ -464,6 +573,11 @@ describe('value-aware flag parsing (#419 review applies to create too)', () => {
 		expect(parsed.dir).toBe('my-app');
 		expect(parsed.pm).toBe('bun');
 		expect(parsed.template).toBe('dashboard');
+	});
+
+	it('parses the explicit Graphify opt-in', () => {
+		expect(parseCreateArgs(['app', '--graphify']).graphify).toBe(true);
+		expect(parseCreateArgs(['app']).graphify).toBeUndefined();
 	});
 
 	it('parses the git choice and the runtime flag', () => {
