@@ -78,7 +78,9 @@ jobs:
   # matrix on every merge. `base` does not need PostgreSQL.
   main-smoke:
     needs: quality
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Keep the post-merge smoke visible even if an unrelated quality test fails.
+    # !cancelled() waits for quality while allowing this job after its failure.
+    if: ${{ !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

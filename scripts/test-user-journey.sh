@@ -294,6 +294,19 @@ run_base() {
 		if [ ! -d .git ]; then git init -q; fi
 		bun run prepare || fail "base: lefthook prepare script failed"
 		test -f .git/hooks/pre-commit || fail "base: lefthook did not install the pre-commit hook"
+		git config user.email tests@example.com
+		git config user.name 'SvelteForge user journey'
+		mkdir -p src
+		printf '<div class="p-[13px]">warning</div>\n' > src/Warning.svelte
+		git add src/Warning.svelte
+		if git commit -m 'strict Lefthook must block this commit' >"$WORK_DIR/lefthook-commit.log" 2>&1; then
+			cat "$WORK_DIR/lefthook-commit.log" >&2
+			fail "base: Lefthook allowed a commit containing a strict design-system warning"
+		fi
+		grep -q 'WARN' "$WORK_DIR/lefthook-commit.log" || {
+			cat "$WORK_DIR/lefthook-commit.log" >&2
+			fail "base: blocked Lefthook commit did not report the expected warning"
+		}
 	fi
 
 	# The add-on copied its sources: the project must be self-contained.

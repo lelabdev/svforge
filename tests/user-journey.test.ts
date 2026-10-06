@@ -224,9 +224,15 @@ describe('external user journey smoke test (#462, #465)', () => {
 		expect(publish).toMatch(/--published "\$VERSION"/);
 	});
 
-	it('keeps the heavy journey out of the default PR pipeline (#413)', () => {
+	it('keeps the heavy journey out of PR CI and exercises Lefthook in the release journey (#413)', () => {
 		const ci = readFileSync(join(process.cwd(), '.github', 'workflows', 'ci.yml'), 'utf8');
+		const publish = readFileSync(join(process.cwd(), '.github', 'workflows', 'publish.yml'), 'utf8');
+		const journey = readFileSync(join(process.cwd(), 'scripts', 'test-user-journey.sh'), 'utf8');
+
 		expect(ci).not.toContain('test-user-journey.sh');
+		expect(publish).toContain('bash scripts/test-user-journey.sh --hooks lefthook');
+		expect(journey).toContain('strict Lefthook must block this commit');
+		expect(journey).toContain('Lefthook allowed a commit containing a strict design-system warning');
 	});
 });
 
