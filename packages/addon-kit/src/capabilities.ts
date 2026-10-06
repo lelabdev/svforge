@@ -224,7 +224,7 @@ export const MODULE_CONTRACTS: Record<string, ModuleCapabilityContract> = {
 	},
 	blog: {
 		template: 'base',
-		requires: ['ui.svforge'],
+		requires: ['ui.svforge', 'i18n.messages'],
 		provides: [],
 		optional: [],
 		optionalModules: []

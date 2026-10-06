@@ -1,11 +1,14 @@
 <script lang="ts">
+import { getLocale, localizeHref } from '$lib/paraglide/runtime';
+import * as m from '$lib/paraglide/messages.js';
+
 let { data } = $props();
 // Svelte 5: components are dynamic by default — a capitalized variable holds
 // the MDsveX component and is rendered directly (`<Post />`). The transport
 // hook in src/hooks.ts carries the component across the data boundary (slug
 // on the wire, re-imported client-side).
 const Post = $derived(data.post.content.component);
-const date = new Date(data.post.date).toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' });
+const date = $derived(new Date(data.post.date).toLocaleDateString(getLocale(), { year: 'numeric', month: 'long', day: 'numeric' }));
 </script>
 
 <svelte:head>
@@ -14,8 +17,8 @@ const date = new Date(data.post.date).toLocaleDateString('en', { year: 'numeric'
 </svelte:head>
 
 <article class="max-w-prose mx-auto px-4 py-8">
-<a href="/blog" class="text-primary-500 mb-4 inline-block">← Back to blog</a>
-<h1 class="text-4xl font-bold mb-4">{data.post.title}</h1>
+<a href={localizeHref('/blog')} class="anchor mb-4 inline-block">← {m.blog_back_to_blog()}</a>
+<h1 class="h1 mb-4">{data.post.title}</h1>
 <p class="text-surface-400 mb-8">{date}</p>
 <Post />
 </article>

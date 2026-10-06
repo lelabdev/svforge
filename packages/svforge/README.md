@@ -90,19 +90,19 @@ Composable opt-in modules — pick 2–3 as needed. **Requires** = template to s
 <!-- MODULES-TABLE:START -->
 | Package | What it adds | Requires | Optional integrations |
 |---------|--------------|----------|----------------------|
-| `@svforge/ui_toast` | Toast notifications (Skeleton Toast) | base | — |
-| `@svforge/dnd` | Drag & drop sortable lists | base | — |
-| `@svforge/tiptap` | Rich text editor (Tiptap, toolbar + preview) | base | — |
-| `@svforge/graph` | Knowledge graph visualization (force-graph) | base | — |
-| `@svforge/email` | Transactional emails (Resend) | base | — |
-| `@svforge/oauth` | Social auth buttons (Google, GitHub) | **dashboard** | — |
-| `@svforge/uploads` | File uploads (S3/R2, presigned, security test pack opt-in) | base | testpack |
-| `@svforge/blog` | MDsveX blog (posts + list + detail) | base | — |
-| `@svforge/realtime` | WebSocket transport (publish/subscribe, channels isolés) | base | — |
-| `@svforge/audit` | Business action audit trail (append-only) | **dashboard** | — |
-| `@svforge/notifications` | Persistent business notifications (read/unread) | **dashboard** | realtime, email |
-| `@svforge/jobs` | Background job foundation (retry, progress, backend encapsulé) | **dashboard** | realtime, notifications, email |
-| `@svforge/chat` | Composable app chat (conversations, messages, read-state) | **dashboard** | realtime, uploads, notifications |
+| `@svforge/ui_toast` | Toast notifications (Skeleton Toast) | ui.skeleton | — |
+| `@svforge/dnd` | Drag & drop sortable lists |  | — |
+| `@svforge/tiptap` | Rich text editor (Tiptap, toolbar + preview) | ui.skeleton, i18n.messages | — |
+| `@svforge/graph` | Knowledge graph visualization (force-graph) | ui.svforge | — |
+| `@svforge/email` | Transactional emails (Resend) |  | — |
+| `@svforge/oauth` | Social auth buttons (Google, GitHub) | auth.currentUser | ui.skeleton |
+| `@svforge/uploads` | File uploads (S3-compatible POST hard limit, PUT best-effort fallback) | auth.currentUser, i18n.messages | ui.skeleton |
+| `@svforge/blog` | MDsveX blog (posts + list + detail) | ui.svforge, i18n.messages | — |
+| `@svforge/realtime` | WebSocket transport (publish/subscribe, channels isolés) | runtime.websocket | — |
+| `@svforge/audit` | Business action audit trail (append-only) | database.drizzle.postgres, auth.currentUser, auth.admin, i18n.messages, ui.svforge | — |
+| `@svforge/notifications` | Persistent business notifications (read/unread) | database.drizzle.postgres, i18n.messages | runtime.websocket |
+| `@svforge/jobs` | Background job foundation (retry, progress, backend encapsulé) | database.drizzle.postgres, runtime.longLivedWorker | runtime.websocket |
+| `@svforge/chat` | Composable app chat (conversations, messages, read-state) | database.drizzle.postgres, auth.currentUser, i18n.messages, ui.svforge | runtime.websocket, storage.object |
 <!-- MODULES-TABLE:END -->
 
 Presets are composition recipes (`npx svforge preset <name>`):

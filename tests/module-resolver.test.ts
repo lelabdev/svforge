@@ -289,11 +289,11 @@ describe('install gate integration (#419)', () => {
 		try {
 			writeFileSync(
 				join(dir, '.svforge.json'),
-				JSON.stringify({ template: 'base', capabilities: { provides: ['ui.svforge'] } })
+				JSON.stringify({ template: 'base', capabilities: { provides: ['ui.svforge', 'i18n.messages'] } })
 			);
 			writeFileSync(join(dir, 'package.json'), JSON.stringify({ dependencies: {} }));
 			const gate = checkModuleCapabilities(dir, 'blog');
-			// blog requires only ui.svforge — declared externally → gate passes.
+			// Blog requirements are declared externally → the install gate passes.
 			expect(gate.ok).toBe(true);
 		} finally {
 			rmSync(dir, { recursive: true, force: true });

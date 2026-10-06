@@ -54,6 +54,36 @@ describe('blog MDsveX scaffold (#173/#185)', () => {
 		});
 	});
 
+	describe('blog routes consume Skeleton and Paraglide foundations (#478)', () => {
+		const LIST_PAGE = join(ROOT, 'packages/blog/templates/src/routes/blog/+page.svelte');
+		const ARTICLE_PAGE = join(ROOT, 'packages/blog/templates/src/routes/blog/[slug]/+page.svelte');
+		const list = readFileSync(LIST_PAGE, 'utf-8');
+		const article = readFileSync(ARTICLE_PAGE, 'utf-8');
+
+		it('localizes blog shell labels through Paraglide keys', () => {
+			expect(list).toContain('m.blog_title()');
+			expect(article).toContain('m.blog_back_to_blog()');
+			expect(list).not.toMatch(/>Blog<|"Blog"/);
+			expect(article).not.toContain('Back to blog');
+		});
+
+		it('uses Skeleton typography and anchor utilities instead of recreating them', () => {
+			expect(list).toMatch(/<h1 class="h1[^"]*"/);
+			expect(list).toMatch(/<h2 class="h3[^"]*"/);
+			expect(article).toMatch(/<h1 class="h1[^"]*"/);
+			expect(article).toMatch(/class="anchor[^"]*"/);
+			expect(list).toContain('localizeHref(`/blog/${post.slug}`)');
+			expect(article).toContain("localizeHref('/blog')");
+			expect(list + article).not.toMatch(/text-4xl|font-bold|text-primary-500/);
+		});
+
+		it('formats both list and article dates with the active Paraglide locale', () => {
+			expect(list).toContain('toLocaleDateString(getLocale()');
+			expect(article).toContain('toLocaleDateString(getLocale()');
+			expect(list + article).not.toMatch(/toLocaleDateString\(['"]en['"]/);
+		});
+	});
+
 	describe('article page renders the MDsveX component (#293)', () => {
 		const ARTICLE_PAGE = join(ROOT, 'packages/blog/templates/src/routes/blog/[slug]/+page.svelte');
 		const page = readFileSync(ARTICLE_PAGE, 'utf-8');
