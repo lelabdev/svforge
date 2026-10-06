@@ -3095,6 +3095,23 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_blog_templates_src_lib_utils_post_date",
+      "label": "post-date.ts",
+      "file_type": "code",
+      "source_file": "packages/blog/templates/src/lib/utils/post-date.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_blog_templates_src_lib_utils_post_date_formatpostdate",
+      "label": "formatPostDate()",
+      "file_type": "code",
+      "source_file": "packages/blog/templates/src/lib/utils/post-date.ts",
+      "source_location": "L6",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_blog_templates_src_lib_utils_posts",
       "label": "posts.ts",
       "file_type": "code",
@@ -3206,6 +3223,14 @@
       "label": "$lib/paraglide/runtime",
       "file_type": "code",
       "source_file": "$lib/paraglide/runtime",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "post_date",
+      "label": "$lib/utils/post-date",
+      "file_type": "code",
+      "source_file": "$lib/utils/post-date",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -20469,6 +20494,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_blog_date_test",
+      "label": "blog-date.test.ts",
+      "file_type": "code",
+      "source_file": "tests/blog-date.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_blog_i18n_test",
       "label": "blog-i18n.test.ts",
       "file_type": "code",
@@ -26191,7 +26224,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/blog/README.md",
-      "source_location": "L83",
+      "source_location": "L84",
       "_origin": "ast"
     },
     {
@@ -33902,6 +33935,16 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_blog_templates_src_lib_utils_post_date",
+      "target": "packages_blog_templates_src_lib_utils_post_date_formatpostdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/lib/utils/post-date.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_blog_templates_src_lib_utils_posts",
       "target": "ref_svelte",
       "relation": "imports_from",
@@ -34063,6 +34106,14 @@
     },
     {
       "source": "packages_blog_templates_src_routes_blog_page",
+      "target": "post_date",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_templates_src_routes_blog_page",
       "target": "messages_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -34116,6 +34167,14 @@
     {
       "source": "packages_blog_templates_src_routes_blog_slug_page",
       "target": "runtime",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/routes/blog/[slug]/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_templates_src_routes_blog_slug_page",
+      "target": "post_date",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/templates/src/routes/blog/[slug]/+page.svelte",
@@ -67417,6 +67476,39 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_blog_date_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-date.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_date_test",
+      "target": "packages_blog_templates_src_lib_utils_post_date",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-date.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_date_test",
+      "target": "packages_blog_templates_src_lib_utils_post_date_formatpostdate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-date.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_blog_i18n_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -81354,7 +81446,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/README.md",
-      "source_location": "L83",
+      "source_location": "L84",
       "weight": 1,
       "_origin": "ast"
     },

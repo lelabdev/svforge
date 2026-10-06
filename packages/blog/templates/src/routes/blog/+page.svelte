@@ -2,6 +2,7 @@
 import { Card } from '$lib/components/svforge/ui';
 import { Badge } from '$lib/components/svforge/primitives';
 import { getLocale, localizeHref } from '$lib/paraglide/runtime';
+import { formatPostDate } from '$lib/utils/post-date';
 import * as m from '$lib/paraglide/messages.js';
 let { data } = $props();
 </script>
@@ -21,7 +22,7 @@ let { data } = $props();
 <Badge variant="tonal">{tag}</Badge>
 {/each}
 </div>
-<p class="text-sm text-surface-400 mt-4">{new Date(post.date).toLocaleDateString(getLocale(), { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+<p class="text-sm text-surface-400 mt-4">{formatPostDate(post.date, getLocale())}</p>
 </Card>
 </a>
 {/each}

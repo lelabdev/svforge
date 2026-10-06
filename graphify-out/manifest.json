@@ -96,7 +96,7 @@
     "semantic_hash": ""
   },
   "packages/blog/src/templates.ts": {
-    "ast_hash": "5e3e924fdadf6d71b338bf8dd5db97e5",
+    "ast_hash": "5b2721f7e1df9f695d78a3656281fc06",
     "semantic_hash": ""
   },
   "packages/blog/templates/src/lib/utils/posts.ts": {
@@ -108,7 +108,7 @@
     "semantic_hash": ""
   },
   "packages/blog/templates/src/routes/blog/+page.svelte": {
-    "ast_hash": "2f9dfa8fd899bdac211970e51547f7e0",
+    "ast_hash": "20b082da318fb2325aa27fc3080ed888",
     "semantic_hash": ""
   },
   "packages/blog/templates/src/routes/blog/[slug]/+page.server.ts": {
@@ -116,7 +116,7 @@
     "semantic_hash": ""
   },
   "packages/blog/templates/src/routes/blog/[slug]/+page.svelte": {
-    "ast_hash": "f372a781fbf6cbb82a14cb9c1306ee45",
+    "ast_hash": "48c66a95ac1876b510279cbc9f73a757",
     "semantic_hash": ""
   },
   "packages/blog/tsdown.config.ts": {
@@ -472,7 +472,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "3ad97660f230e46915717cfcdffda6f6",
+    "ast_hash": "2dc5e1d77732887cc02a9c65fa3d101c",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "33e395e95ac788a3b7bf3b127341c9ac",
+    "ast_hash": "579514fc8487b812e5babaae6bf12ef6",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1140,7 +1140,7 @@
     "semantic_hash": ""
   },
   "tests/blog-mdsvex.test.ts": {
-    "ast_hash": "cd30b3926dea70d890646851c8288f13",
+    "ast_hash": "c3316b3f7d4ad4e21ee2246734f9684c",
     "semantic_hash": ""
   },
   "tests/blog-transport-compose.test.ts": {
@@ -1516,7 +1516,7 @@
     "semantic_hash": ""
   },
   "packages/blog/README.md": {
-    "ast_hash": "2e987673ad9511c6a1bfdc519453d2fc",
+    "ast_hash": "a34c9eb8891ae37ee48ac3e502cff6bf",
     "semantic_hash": ""
   },
   "packages/blog/templates/src/posts/welcome.md": {
@@ -1805,6 +1805,14 @@
   },
   "tests/blog-i18n.test.ts": {
     "ast_hash": "a9152ad5be03830c4e8348f54c2553e6",
+    "semantic_hash": ""
+  },
+  "packages/blog/templates/src/lib/utils/post-date.ts": {
+    "ast_hash": "65d147710c1822b1ac03d4c442087bd5",
+    "semantic_hash": ""
+  },
+  "tests/blog-date.test.ts": {
+    "ast_hash": "e3ae2f7c0b2003e15d20df19ef85e93a",
     "semantic_hash": ""
   }
 }

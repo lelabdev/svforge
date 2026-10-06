@@ -1,5 +1,6 @@
 <script lang="ts">
 import { getLocale, localizeHref } from '$lib/paraglide/runtime';
+import { formatPostDate } from '$lib/utils/post-date';
 import * as m from '$lib/paraglide/messages.js';
 
 let { data } = $props();
@@ -8,7 +9,7 @@ let { data } = $props();
 // hook in src/hooks.ts carries the component across the data boundary (slug
 // on the wire, re-imported client-side).
 const Post = $derived(data.post.content.component);
-const date = $derived(new Date(data.post.date).toLocaleDateString(getLocale(), { year: 'numeric', month: 'long', day: 'numeric' }));
+const date = $derived(formatPostDate(data.post.date, getLocale()));
 </script>
 
 <svelte:head>

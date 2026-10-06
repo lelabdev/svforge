@@ -78,9 +78,9 @@ describe('blog MDsveX scaffold (#173/#185)', () => {
 		});
 
 		it('formats both list and article dates with the active Paraglide locale', () => {
-			expect(list).toContain('toLocaleDateString(getLocale()');
-			expect(article).toContain('toLocaleDateString(getLocale()');
-			expect(list + article).not.toMatch(/toLocaleDateString\(['"]en['"]/);
+			expect(list).toContain('formatPostDate(post.date, getLocale())');
+			expect(article).toContain('formatPostDate(data.post.date, getLocale())');
+			expect(list + article).not.toContain('toLocaleDateString');
 		});
 	});
 

@@ -421,7 +421,7 @@ if [ "$TEMPLATE" = "base-blog" ]; then
 	# (never an HTML string), so the rendered page must contain the markdown
 	# body AND the inline Svelte component of welcome.md — not a broken
 	# "[object Object]" {@html} output.
-	bun run preview -- --port 4188 >/tmp/sf-preview.log 2>&1 &
+	TZ=America/Los_Angeles bun run preview -- --port 4188 >/tmp/sf-preview.log 2>&1 &
 	PREVIEW_PID=$!
 	for i in $(seq 1 30); do
 		curl -sf http://localhost:4188/blog >/dev/null 2>&1 && break
