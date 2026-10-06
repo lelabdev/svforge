@@ -48,6 +48,11 @@ export interface SvforgeManifest {
 		database?: 'postgresql';
 	};
 	modules: string[];
+	/** Human-selected UI strategy and generic external component registrations (#480). */
+	ui: {
+		preferred: string;
+		libraries: Array<{ package: string; componentRoots?: string[] }>;
+	};
 	/**
 	 * Canonical capability tokens (#323) granted by the template plus the
 	 * tokens/features contributed by the installed modules. The template-level
@@ -160,6 +165,7 @@ export function buildManifest(template: 'base' | 'dashboard', modules: string[])
 			...(template === 'dashboard' ? { auth: 'better-auth', orm: 'drizzle', database: 'postgresql' } : {})
 		},
 		modules,
+		ui: { preferred: 'skeleton', libraries: [] },
 		capabilities: [...new Set(capabilities)],
 		patterns,
 		moduleCapabilities,
@@ -188,7 +194,19 @@ export function renderLlmstxt(manifest: SvforgeManifest): string {
 	lines.push('# SvelteForge project');
 	lines.push('');
 	lines.push(`Template: ${manifest.template}`);
+	const ui = manifest.ui ?? { preferred: 'skeleton', libraries: [] };
 	lines.push('Stack: SvelteKit + Skeleton UI v5 + Tailwind v4 + Paraglide i18n + Vitest');
+	lines.push('');
+	lines.push('## UI strategy');
+	lines.push(`Preferred UI strategy: ${ui.preferred}`);
+	if (ui.libraries.length) {
+		lines.push('Project-selected UI/headless libraries:');
+		for (const library of ui.libraries) {
+			lines.push(`- ${library.package}${library.componentRoots?.length ? ` — source roots: ${library.componentRoots.join(', ')}` : ''}`);
+		}
+	} else {
+		lines.push('- Skeleton is the recommended/default UI system; no external UI libraries are registered.');
+	}
 	if (manifest.stack?.auth) lines.push(`Auth: ${manifest.stack.auth}  •  ORM: ${manifest.stack.orm}`);
 	if (manifest.stack?.database) lines.push(`Database: ${manifest.stack.database}`);
 	const deployment = manifest.deployment;
@@ -246,14 +264,22 @@ export function renderLlmstxt(manifest: SvforgeManifest): string {
 	lines.push('');
 	lines.push('## Rules for AI agents');
 	lines.push('MUST:');
-	lines.push('- reuse installed components/modules before creating alternatives');
-	lines.push('- use Skeleton/Skeleton Svelte for rich UI (dialog, tabs, tooltip…)');
+	lines.push('- reuse existing project components first');
+	if (ui.libraries.length) {
+		lines.push('- reuse the UI/headless libraries explicitly enabled by this project');
+		lines.push('- prefer the configured project UI strategy over reimplementing its primitives');
+	} else {
+		lines.push('- prefer Skeleton/Skeleton Svelte when it covers the need');
+		lines.push('- do not add a UI library unless the user explicitly requests one; ask before changing the project UI stack');
+	}
+	lines.push('- reuse installed SVForge components/modules before creating alternatives');
 	lines.push('- change the Skeleton theme/presets first for global visual decisions that Skeleton supports');
 	lines.push('- use standard Tailwind utilities for local structure, whitespace and responsive layout');
 	lines.push('- use Paraglide messages for user-facing copy and keep key parity across every configured locale');
 	lines.push('- follow the canonical patterns above');
 	lines.push('MUST NOT:');
-	lines.push('- install a second ORM, auth provider or UI kit without explicit requirement');
+	lines.push('- install/register a new ORM, auth provider or UI library without explicit user request');
+	if (ui.libraries.length) lines.push('- remove or replace a project-selected UI library merely because Skeleton has an overlapping primitive');
 	lines.push('- recreate Button/Input/Card/Table primitives (they exist)');
 	lines.push('- create a parallel global palette/token layer or visual overrides by default');
 	lines.push('- modify generated internals (src/lib/paraglide, .svforge.json) without understanding the workflow');
@@ -271,6 +297,7 @@ export function renderLlmstxt(manifest: SvforgeManifest): string {
 /** Merge module contributions into an existing manifest (idempotent). */
 export function mergeManifest(existing: SvforgeManifest, template: 'base' | 'dashboard', modules: string[]): SvforgeManifest {
 	const merged = buildManifest(template, [...new Set([...existing.modules, ...modules])]);
+	merged.ui = existing.ui ?? { preferred: 'skeleton', libraries: [] };
 	// A user-selected target is configuration, not generated module metadata.
 	// Preserve it when a legacy helper enriches an existing manifest.
 	if (existing.deployment?.profile) {
@@ -347,6 +374,7 @@ export function regenerateLlmstxt(manifestContent: string): string {
 	// Rebuild from the template + installed modules so capabilities/patterns
 	// always reflect the real state (module enrich only adds its id).
 	const rebuilt = buildManifest(manifest.template ?? 'base', manifest.modules ?? []);
+	rebuilt.ui = manifest.ui ?? { preferred: 'skeleton', libraries: [] };
 	if (manifest.deployment?.profile) {
 		rebuilt.deployment = { ...rebuilt.deployment, profile: manifest.deployment.profile, profiles: manifest.deployment.profiles ?? DEPLOYMENT_PROFILES };
 	}

@@ -7,8 +7,8 @@
  * SvelteForge building blocks instead of inventing a new UI each time.
  *
  * Severity levels:
- *   ERROR — second UI kit, duplicated forbidden primitive, clear DS violation
- *   WARN  — arbitrary visual value, likely-duplicative local component
+ *   ERROR — duplicated Skeleton primitive, clear design-system violation
+ *   WARN  — unregistered UI guidance, arbitrary visual value, likely-duplicative local component
  *
  * This module is read-only: it never modifies project files.
  */
@@ -23,6 +23,7 @@ import {
 } from './skeleton-inventory';
 import { ADDON_COMPONENTS } from './addon-components';
 import { checkStructuralDuplicates } from './structural-duplication';
+import { findUnregisteredUiLibraries, isRegisteredUiComponent } from './ui-libraries';
 
 export type Severity = 'ok' | 'warn' | 'error';
 
@@ -431,23 +432,16 @@ export function checkClassString(classString: string, ctx: MarkupContext): Marku
 	return violations;
 }
 
-/** Other UI kits that are forbidden in SvelteForge projects (ERROR). */
+/** Shared rule identifiers for deterministic design-system diagnostics. */
 export const DESIGN_RULE_IDS = {
-	forbiddenUiKit: 'forbiddenUiKit',
 	duplicatedSkeletonPrimitive: 'duplicatedSkeletonPrimitive'
 } as const;
 
 /** Shared text for CLI and ESLint diagnostics (#346). */
 export const DESIGN_MESSAGES = {
-	forbiddenUiKit: (kit: string) =>
-		`Second UI kit detected: ${kit}. SvelteForge uses Skeleton as the single UI source. Remove it.`,
 	duplicatedSkeletonPrimitive: (name: string, file: string) =>
 		`Duplicated Skeleton primitive "${name}" at ${file}. Use ${name} from @skeletonlabs/skeleton-svelte or the svforge catalog instead.`
 } as const;
-
-export function isForbiddenUiKit(packageName: string): boolean {
-	return FORBIDDEN_UI_KITS.some((kit) => packageName === kit || packageName.startsWith(`${kit}/`));
-}
 
 /** Deterministic file-name check shared by the CLI and ESLint rule (#346). */
 export function duplicatedSkeletonPrimitiveName(filename: string, projectRoot: string): string | null {
@@ -456,27 +450,15 @@ export function duplicatedSkeletonPrimitiveName(filename: string, projectRoot: s
 	const componentsDir = path.join(projectRoot, 'src/lib/components/svforge');
 	const rel = path.relative(componentsDir, filename).split(path.sep).join('/');
 	const catalogPaths = new Set(Object.values(SVFORGE_CATALOG).map((entry) => entry.path));
-	return catalogPaths.has(rel) ? null : name;
+	return catalogPaths.has(rel) || isRegisteredUiComponent(projectRoot, filename) ? null : name;
 }
-
-export const FORBIDDEN_UI_KITS = [
-	'@shadcn/svelte',
-	'shadcn-svelte',
-	'bits-ui',
-	'@melt-ui/svelte',
-	'flowbite-svelte',
-	'skeletonlabs/skeleton-v2',
-	'svelteui',
-	'@svelteuidev/core'
-];
 
 /**
  * Check a SvelteForge project against the design-system harness.
  *
  * Rules (all read-only, tested against real scaffolds):
  *  ERROR
- *  - another UI kit installed
- *  - a Skeleton-provided primitive duplicated as a project-local component
+ *  - a Skeleton-provided primitive duplicated as an unregistered project-local component
  *  - hex colors used outside theme files when tokens exist
  *  WARN
  *  - hex colors used outside theme files (covered by the dedicated hex scan)
@@ -536,10 +518,9 @@ export async function checkDesignSystem(
 	const componentsDir = path.join(srcDir, 'lib/components/svforge');
 	const pkgPath = path.join(projectRoot, 'package.json');
 
-	// ── 1. Forbidden UI kits (ERROR) ──────────────────────────────
-	let pkg: Record<string, Record<string, string>>;
+	// ── 1. Unregistered externally used UI libraries (WARN) ───────────
 	try {
-		pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+		JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
 	} catch {
 		results.push({
 			module: 'ds',
@@ -548,13 +529,11 @@ export async function checkDesignSystem(
 		});
 		return results;
 	}
-	const allDeps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
-	const installedKits = Object.keys(allDeps).filter(isForbiddenUiKit);
-	for (const kit of installedKits) {
+	for (const packageName of findUnregisteredUiLibraries(projectRoot)) {
 		results.push({
 			module: 'ds',
-			status: 'error',
-			message: `[svforge/${DESIGN_RULE_IDS.forbiddenUiKit}] ${DESIGN_MESSAGES.forbiddenUiKit(kit)}`
+			status: 'warn',
+			message: `UI component package "${packageName}" is used but not registered in .svforge.json. Register it with \`svforge ui register ${packageName}\`; use --component-root <path> for copy-in component sources.`
 		});
 	}
 
@@ -598,7 +577,7 @@ export async function checkDesignSystem(
 					for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
 						const full = path.join(dir, entry.name);
 						if (entry.isDirectory()) walk(full);
-						else if (entry.name.endsWith('.svelte')) out.push(full);
+						else if (entry.name.endsWith('.svelte') && !isRegisteredUiComponent(projectRoot, full)) out.push(full);
 					}
 				};
 				walk(srcDir);
@@ -657,6 +636,7 @@ export async function checkDesignSystem(
 		const svforgeFiles = walk(componentsDir);
 		const allowedDirs = new Set(['primitives', 'ui', 'layout', 'dnd', 'graph', 'tiptap', 'uploads']);
 		for (const file of svforgeFiles) {
+			if (isRegisteredUiComponent(projectRoot, file)) continue;
 			const rel = path.relative(componentsDir, file);
 			const top = rel.split(path.sep)[0];
 			if (!allowedDirs.has(top)) {
@@ -687,6 +667,7 @@ export async function checkDesignSystem(
 			return out;
 		};
 		for (const file of collectMarkup(srcDir)) {
+			if (isRegisteredUiComponent(projectRoot, file)) continue;
 			const source = fs.readFileSync(file, 'utf-8');
 			const rel = path.relative(projectRoot, file);
 			// Catalog avoid patterns (#342, WARN). Exact-path exemption only

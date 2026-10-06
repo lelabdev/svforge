@@ -129,7 +129,21 @@ Every scaffold is agent-ready: `AGENTS.md` (conventions), `.svforge.json`
 (machine-readable manifest: template, stack, modules, capabilities, patterns),
 `llms.txt` (LLM summary), `svforge-catalog.json` + `svforge-check.mjs`
 (design-system harness). Modules merge their capability into the manifest and
-`llms.txt` at install time.
+`llms.txt` at install time. Skeleton remains the default; projects can deliberately
+select any installed UI/headless package without a hard-blocking second-kit rule:
+
+```bash
+npm install @acme/ui
+npx svforge ui register @acme/ui --component-root src/lib/components/acme-ui
+npx svforge ui prefer @acme/ui
+```
+
+Registration updates `.svforge.json`, `llms.txt`, and the generated UI-strategy
+block in `AGENTS.md`. Copy-in roots must be narrow directories under
+`src/lib/components/<library>`; broad roots such as `.` and `src` are rejected,
+and all roots in a command are validated before any files are written.
+`svforge check` guides on likely unregistered UI usage; registered copy-in roots
+receive scoped checker and ESLint exemptions.
 
 ## Tailwind arbitrary values
 

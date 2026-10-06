@@ -1,5 +1,5 @@
 import prettier from 'eslint-config-prettier';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { includeIgnoreFile } from '@eslint/compat';
 import js from '@eslint/js';
@@ -13,6 +13,29 @@ import svforge from './eslint-plugin-svforge.mjs';
 const svelteConfigPath = new URL('./svelte.config.js', import.meta.url);
 const svelteConfig = existsSync(svelteConfigPath) ? (await import(svelteConfigPath.href)).default : undefined;
 const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
+const uiIntegrationFiles = [];
+const svforgeManifestPath = path.resolve(import.meta.dirname, '.svforge.json');
+if (existsSync(svforgeManifestPath)) {
+	try {
+		const manifest = JSON.parse(readFileSync(svforgeManifestPath, 'utf8'));
+		for (const library of manifest.ui?.libraries ?? []) {
+			for (const componentRoot of library.componentRoots ?? []) {
+				if (typeof componentRoot !== 'string' || !componentRoot || path.isAbsolute(componentRoot) || /^[a-z]:[\\/]/i.test(componentRoot) || /^[/\\]{2}/.test(componentRoot) || componentRoot.split(/[\\/]/).includes('..')) continue;
+				const absoluteRoot = path.resolve(import.meta.dirname, componentRoot);
+				const relativeRoot = path.relative(import.meta.dirname, absoluteRoot);
+				if (relativeRoot.startsWith(`..${path.sep}`) || path.isAbsolute(relativeRoot)) continue;
+				const normalizedRoot = relativeRoot.split(path.sep).join('/');
+				const rootSegments = normalizedRoot.split('/');
+				const sharedComponentDir = ['ui', 'primitives', 'layout'].includes(rootSegments[3]);
+				if (rootSegments.length < 4 || !normalizedRoot.startsWith('src/lib/components/') || rootSegments[3] === 'svforge' || (sharedComponentDir && rootSegments.length === 4)) continue;
+				const globRoot = normalizedRoot;
+				uiIntegrationFiles.push(`${globRoot}/**/*.{svelte,svelte.js,svelte.ts}`);
+			}
+		}
+	} catch {
+		// svforge-check.mjs reports malformed manifest details without disabling normal lint rules.
+	}
+}
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
@@ -89,5 +112,16 @@ export default defineConfig(
 			// Validate static class candidates against the configured compiler.
 			'tailwindcss/no-custom-classname': 'error'
 		}
-	}
+	},
+	...(uiIntegrationFiles.length
+		? [{
+			files: uiIntegrationFiles,
+			rules: {
+				// A registered copy-in integration owns its own component API/classes.
+				// Scope exemptions to its declared roots; keep all other project checks strict.
+				'svforge/no-design-violations': 'off',
+				'tailwindcss/no-custom-classname': 'off'
+			}
+		}]
+		: [])
 );

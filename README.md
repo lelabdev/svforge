@@ -181,7 +181,7 @@ The reuse order is explicit:
 
 For global visual decisions, the same rule applies: use the Skeleton theme and presets first. Do not create a parallel palette/token layer simply to restyle the scaffold.
 
-`svforge check` enforces the important rails: no second UI kit, no duplicated canonical primitives, no arbitrary theme drift, and no accidental structure divergence.
+`svforge check` keeps Skeleton as the default, reports likely unregistered UI packages as actionable warnings, and still enforces duplicate Skeleton primitives, invalid utilities, theme drift, and project structure. A human may select another UI/headless library explicitly.
 
 ## Defaults vs constraints
 
@@ -223,7 +223,16 @@ A scaffold includes:
 
 SVForge scaffolds no tool-specific instruction file (no Claude, Gemini, Copilot, or Cursor variant) and ships no synchronization or drift machinery. Whether a given tool loads `AGENTS.md` automatically is that tool's own feature — SVForge does not claim generic tool support.
 
-These instructions are **advisory**: they tell agents what to prefer. Mechanical enforcement stays in `svforge check` (no second UI kit, no duplicated primitives, no invented utilities) and in `svelte-check`/tests. Instruction files are never the only guardrail, and `svforge check` does not depend on them.
+These instructions are **advisory**: they tell agents what to prefer. Mechanical enforcement stays in `svforge check` (duplicated primitives and invalid utilities remain blocking; unregistered UI packages are warnings) and in `svelte-check`/tests. Instruction files are never the only guardrail, and `svforge check` does not depend on them.
+
+To deliberately select a UI library, install it first and then register it so the project manifest, `llms.txt`, generated `AGENTS.md`, and checker exemptions stay in sync:
+
+```bash
+npx svforge ui register @acme/ui --component-root src/lib/components/acme-ui
+npx svforge ui prefer @acme/ui
+```
+
+Omit `--component-root` for packages consumed directly from imports. Copy-in roots must be narrow library directories under `src/lib/components/<library>`; broad roots such as `.` and `src` are rejected. Only registered copy-in component roots receive scoped design-system/lint exemptions; other project code remains checked.
 
 Typical workflow:
 

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
  * SVForge CLI — doctor (diagnostics), check (design-system harness),
- * preset (composition recipes), context (AI context), upgrade (module
- * upgrades), add (guided module install, #419), create (one-command
- * project creator, #417) and verify (project readiness, #470).
+ * preset (composition recipes), context (AI context), ui (project UI strategy),
+ * upgrade (module upgrades), add (guided module install, #419), create
+ * (one-command project creator, #417) and verify (project readiness, #470).
  *
  * Exposed via the `svforge` bin (#189, #240):
  *   npx svforge doctor
@@ -86,6 +86,55 @@ async function main() {
 		const report = await api.doctor(projectRoot);
 		api.printReport(report);
 		process.exitCode = report.healthy ? 0 : 1;
+		return;
+	}
+
+	if (command === 'ui') {
+		const [action, ...uiArgs] = args;
+		const packageName = uiArgs[0];
+		if (action === 'register' && packageName && !packageName.startsWith('-')) {
+			const componentRoots = [];
+			for (let index = 1; index < uiArgs.length; index++) {
+				if (uiArgs[index] !== '--component-root') {
+					console.error('Usage: svforge ui register <package> [--component-root <path>]');
+					process.exitCode = 1;
+					return;
+				}
+				const value = uiArgs[index + 1];
+				if (!value || value.startsWith('-')) {
+					console.error('Usage: svforge ui register <package> [--component-root <path>]');
+					process.exitCode = 1;
+					return;
+				}
+				componentRoots.push(value);
+				index++;
+			}
+			if (uiArgs.some((arg, index) => index > 0 && arg.startsWith('--') && arg !== '--component-root')) {
+				console.error('Usage: svforge ui register <package> [--component-root <path>]');
+				process.exitCode = 1;
+				return;
+			}
+			try {
+				api.registerUiLibrary(projectRoot, packageName, componentRoots);
+				console.log(`✓ ${packageName} registered in .svforge.json; llms.txt refreshed.`);
+			} catch (error) {
+				console.error(error instanceof Error ? error.message : String(error));
+				process.exitCode = 1;
+			}
+			return;
+		}
+		if (action === 'prefer' && packageName && uiArgs.length === 1) {
+			try {
+				api.setPreferredUi(projectRoot, packageName);
+				console.log(`✓ Preferred UI strategy set to ${packageName}; llms.txt refreshed.`);
+			} catch (error) {
+				console.error(error instanceof Error ? error.message : String(error));
+				process.exitCode = 1;
+			}
+			return;
+		}
+		console.error('Usage: svforge ui register <package> [--component-root <path>] | svforge ui prefer <skeleton|registered-package>');
+		process.exitCode = 1;
 		return;
 	}
 
@@ -269,7 +318,7 @@ async function main() {
 		return;
 	}
 
-	console.error('Usage: svforge <doctor|check [--strict]|verify|modules|preset|context|upgrade|add|create>');
+	console.error('Usage: svforge <doctor|check [--strict]|verify|modules|preset|context|ui|upgrade|add|create>');
 	process.exitCode = 1;
 }
 

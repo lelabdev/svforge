@@ -2,13 +2,12 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { mkdtempSync, writeFileSync, mkdirSync, rmSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { checkDesignSystem, SVFORGE_CATALOG, FORBIDDEN_UI_KITS } from '../packages/svforge/src/design-system';
+import { checkDesignSystem, SVFORGE_CATALOG } from '../packages/svforge/src/design-system';
 import { ROOT } from './helpers';
 
 /**
- * Tests for #240 — design-system harness. The check must flag real
- * violations (second UI kit, duplicated Skeleton primitives) and pass
- * canonical SvelteForge/Skeleton usage. Tested on throwaway projects.
+ * Tests for #240/#480 — preserve strict Skeleton validation while allowing
+ * explicitly selected UI libraries. Tested on throwaway projects.
  */
 describe('design-system harness (#240)', () => {
 	let project: string;
@@ -41,19 +40,23 @@ describe('design-system harness (#240)', () => {
 		expect(errors).toEqual([]);
 	});
 
-	it('flags a second UI kit as ERROR', async () => {
+	it('reports an imported unregistered UI package as actionable WARN, never ERROR', async () => {
 		const pkgPath = join(project, 'package.json');
 		const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
-		pkg.dependencies['bits-ui'] = '^1.0.0';
+		pkg.dependencies['@example/arbitrary-ui'] = '^1.0.0';
 		writeFileSync(pkgPath, JSON.stringify(pkg));
+		const page = join(project, 'src/routes/+page.svelte');
+		writeFileSync(page, `<script>import { Dialog } from '@example/arbitrary-ui';</script><Dialog />`);
 		try {
 			const results = await checkDesignSystem(project);
-			const uiKit = results.find((r) => r.message.includes('Second UI kit'));
-			expect(uiKit).toBeDefined();
-			expect(uiKit!.status).toBe('error');
+			const notice = results.find((result) => result.message.includes('@example/arbitrary-ui'));
+			expect(notice?.status).toBe('warn');
+			expect(notice?.message).toContain('svforge ui register @example/arbitrary-ui');
+			expect(results.some((result) => result.status === 'error')).toBe(false);
 		} finally {
-			delete pkg.dependencies['bits-ui'];
+			delete pkg.dependencies['@example/arbitrary-ui'];
 			writeFileSync(pkgPath, JSON.stringify(pkg));
+			writeFileSync(page, '');
 		}
 	});
 
@@ -83,12 +86,6 @@ describe('design-system harness (#240)', () => {
 			const file = join(ROOT, 'packages/svforge/templates/base/src/lib/components/svforge', entry.path);
 			expect(existsSync(file), `catalog entry ${name} → ${entry.path} missing`).toBe(true);
 		}
-	});
-
-	it('forbidden kits include the common offenders', () => {
-		expect(FORBIDDEN_UI_KITS).toContain('bits-ui');
-		expect(FORBIDDEN_UI_KITS).toContain('@melt-ui/svelte');
-		expect(FORBIDDEN_UI_KITS).toContain('shadcn-svelte');
 	});
 
 	it('catalog.json is delivered via base root files', async () => {

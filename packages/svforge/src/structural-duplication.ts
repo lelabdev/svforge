@@ -3,6 +3,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { parse, type AST } from 'svelte/compiler';
 import { SVFORGE_CATALOG } from './design-system';
+import { isRegisteredUiComponent } from './ui-libraries';
 
 /** Experimental structural-duplication detection (#353).
  *
@@ -180,6 +181,7 @@ export function checkStructuralDuplicates(projectRoot: string): StructuralDuplic
 
 	const findings: StructuralDuplicate[] = [];
 	for (const file of svelteFiles(componentsRoot)) {
+		if (isRegisteredUiComponent(projectRoot, file)) continue;
 		const relFromSvforge = path.relative(svforgeRoot, file).split(path.sep).join('/');
 		if (catalogPaths.has(relFromSvforge)) continue;
 		const candidate = fingerprintSvelte(fs.readFileSync(file, 'utf8'), file);

@@ -46,9 +46,9 @@
     "vitest": "^5.0.0",
     "ws": "^8.21.3"
   },
-  "dependencies": {},
   "overrides": {
     "brace-expansion": "^5.0.12",
-    "devalue": "^5.9.3"
+    "devalue": "^5.9.3",
+    "source-map-js": "^1.2.2"
   }
 }
