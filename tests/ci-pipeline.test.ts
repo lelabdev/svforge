@@ -49,14 +49,16 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 		expect(ci).not.toContain('test-user-journey.sh');
 	});
 
-	it('runs exactly one representative scaffold, only after a merge to main', () => {
+	it('runs the representative main smoke even when the unrelated quality job fails', () => {
 		const gate = ci.indexOf("github.ref == 'refs/heads/main'");
 		const scaffolds = [...ci.matchAll(/test-scaffold\.sh\s+(\S+)/g)].map((match) => match[1]);
+		const mainSmoke = jobBlock(ci, 'main-smoke');
 
 		expect(scaffolds).toEqual(['base']);
-		// The only scaffold step sits after the `main` push gate.
 		expect(gate).toBeGreaterThan(-1);
 		expect(ci.indexOf('test-scaffold.sh')).toBeGreaterThan(gate);
+		expect(mainSmoke).toContain('needs: quality');
+		expect(mainSmoke).toContain('!cancelled()');
 	});
 
 	it('cancels superseded runs per pull request', () => {
@@ -69,7 +71,7 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 			expect(publish, profile).toMatch(new RegExp(`^\\s*- ${profile}$`, 'm'));
 		}
 		expect(publish).toContain('bash scripts/test-scaffold.sh ${{ matrix.scaffold }}');
-		expect(publish).toContain('bash scripts/test-user-journey.sh');
+		expect(publish).toContain('bash scripts/test-user-journey.sh --hooks lefthook');
 		expect(publish).toContain('POSTGRES_DB: sf_dashboard_test');
 		expect(publish).toContain('bash scripts/test-user-journey.sh --published "$VERSION"');
 		expect(publish).toContain('node scripts/npm-consumer-smoke.mjs');

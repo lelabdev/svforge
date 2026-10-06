@@ -1376,7 +1376,7 @@
     "semantic_hash": ""
   },
   "tests/strict-check.test.ts": {
-    "ast_hash": "d0e513acaa8b040d72a5a0537254b757",
+    "ast_hash": "f58bf5036a2670b8a2a12c54d413c5c1",
     "semantic_hash": ""
   },
   "tests/structural-duplication.test.ts": {
@@ -1472,11 +1472,11 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "3321a45855a7fcf22be67d5f8872fc34",
+    "ast_hash": "b66e5d5dd8cd852e5aa5fcdae0b576b3",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
-    "ast_hash": "73252b934c010ef27a541f168a03eb73",
+    "ast_hash": "03d41a8316c495b45665a64e5aec5a37",
     "semantic_hash": ""
   },
   "AGENTS.md": {
@@ -1700,7 +1700,7 @@
     "semantic_hash": ""
   },
   "scripts/test-user-journey.sh": {
-    "ast_hash": "3999e4a1d2dfcdf656861d39b0216ddd",
+    "ast_hash": "13bac365b76c888d02814874373c5026",
     "semantic_hash": ""
   },
   "scripts/user-journey.mjs": {
@@ -1712,7 +1712,7 @@
     "semantic_hash": ""
   },
   "tests/ci-pipeline.test.ts": {
-    "ast_hash": "819017f0959e98d17ab180c731f79d27",
+    "ast_hash": "5aee8aa2b8b37b33d28904d2363a6a16",
     "semantic_hash": ""
   },
   "tests/cli-verify.test.ts": {
@@ -1740,7 +1740,7 @@
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
-    "ast_hash": "d01855a92de81ce1fc9f3ae091078232",
+    "ast_hash": "17b5c96e03c457abe171a863dddd8279",
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {

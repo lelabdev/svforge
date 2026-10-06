@@ -19943,7 +19943,7 @@
       "label": "dashboard_auth_journey()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L325",
+      "source_location": "L338",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -19955,7 +19955,7 @@
       "label": "run_dashboard()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L373",
+      "source_location": "L386",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -19967,7 +19967,7 @@
       "label": "create_command_args()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L410",
+      "source_location": "L423",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -19979,7 +19979,7 @@
       "label": "run_base_create()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L429",
+      "source_location": "L442",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -19991,7 +19991,7 @@
       "label": "run_dashboard_create()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L443",
+      "source_location": "L456",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -23189,7 +23189,7 @@
       "label": "expectSuccess()",
       "file_type": "code",
       "source_file": "tests/strict-check.test.ts",
-      "source_location": "L29",
+      "source_location": "L31",
       "_callable": true,
       "_origin": "ast"
     },
@@ -65458,7 +65458,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L325",
+      "source_location": "L338",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65468,7 +65468,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L373",
+      "source_location": "L386",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65478,7 +65478,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L410",
+      "source_location": "L423",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65488,7 +65488,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L429",
+      "source_location": "L442",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65498,7 +65498,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L443",
+      "source_location": "L456",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65651,7 +65651,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L317",
+      "source_location": "L330",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65662,7 +65662,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L327",
+      "source_location": "L340",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65673,7 +65673,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L336",
+      "source_location": "L349",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65684,7 +65684,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L336",
+      "source_location": "L349",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65695,7 +65695,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L377",
+      "source_location": "L390",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65706,7 +65706,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L386",
+      "source_location": "L399",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65717,7 +65717,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L391",
+      "source_location": "L404",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65728,7 +65728,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L402",
+      "source_location": "L415",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65739,7 +65739,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L431",
+      "source_location": "L444",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65750,7 +65750,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L434",
+      "source_location": "L447",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65761,7 +65761,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L435",
+      "source_location": "L448",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65772,7 +65772,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L437",
+      "source_location": "L450",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65783,7 +65783,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L438",
+      "source_location": "L451",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65794,7 +65794,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L439",
+      "source_location": "L452",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65805,7 +65805,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L445",
+      "source_location": "L458",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65816,7 +65816,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L448",
+      "source_location": "L461",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65827,7 +65827,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L449",
+      "source_location": "L462",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65838,7 +65838,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L460",
+      "source_location": "L473",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65849,7 +65849,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L461",
+      "source_location": "L474",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65860,7 +65860,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L462",
+      "source_location": "L475",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65871,7 +65871,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L463",
+      "source_location": "L476",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -69649,7 +69649,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/ci-pipeline.test.ts",
-      "source_location": "L92",
+      "source_location": "L55",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76486,7 +76486,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/strict-check.test.ts",
-      "source_location": "L29",
+      "source_location": "L31",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76497,7 +76497,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/strict-check.test.ts",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76508,7 +76508,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/strict-check.test.ts",
-      "source_location": "L37",
+      "source_location": "L46",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76519,7 +76519,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/strict-check.test.ts",
-      "source_location": "L41",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76530,7 +76530,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/strict-check.test.ts",
-      "source_location": "L61",
+      "source_location": "L106",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76541,7 +76541,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/strict-check.test.ts",
-      "source_location": "L87",
+      "source_location": "L119",
       "weight": 1,
       "_origin": "ast"
     },

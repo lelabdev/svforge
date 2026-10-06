@@ -149,8 +149,8 @@ jobs:
       - name: Build all packages
         run: bun run --filter '*' build
 
-      - name: User journey smoke test (local package)
-        run: bash scripts/test-user-journey.sh
+      - name: User journey smoke test (local package, Lefthook)
+        run: bash scripts/test-user-journey.sh --hooks lefthook
         env:
           CI: 'true'
 
