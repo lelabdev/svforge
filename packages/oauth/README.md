@@ -29,7 +29,7 @@ This module assumes you already have:
 
 ### 1. Environment Variables
 
-Add these to your `.env`:
+The add-on appends these placeholders to the root `.env.example`. Copy them into `.env` (without overwriting existing settings) and replace them with your provider credentials:
 
 ```env
 GOOGLE_CLIENT_ID=your_google_client_id
@@ -67,8 +67,7 @@ export const auth = betterAuth({
 });
 ```
 
-The add-on declares the OAuth variables in `src/env.ts` for SvelteKit 3. Add their values to `.env`:
-`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GITHUB_CLIENT_ID`, and `GITHUB_CLIENT_SECRET`.
+The add-on also declares these variables in `src/env.ts` for SvelteKit 3. Set their values in `.env`: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GITHUB_CLIENT_ID`, and `GITHUB_CLIENT_SECRET`.
 
 ## Usage
 

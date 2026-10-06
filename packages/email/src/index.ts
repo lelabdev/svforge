@@ -1,6 +1,13 @@
 import { defineAddon, defineAddonOptions } from 'sv';
-import { mergeSvelteKitEnvVars, planAddonContext } from '@svforge/addon-kit';
+import { mergeEnvExample, mergeSvelteKitEnvVars, planAddonContext } from '@svforge/addon-kit';
 import { files } from './templates';
+
+const ENV_EXAMPLE = {
+	RESEND_API_KEY: { description: 'Resend API key', placeholder: 'your_resend_api_key' }
+};
+const ENV_DECLARATIONS = Object.fromEntries(
+	Object.entries(ENV_EXAMPLE).map(([name, entry]) => [name, entry.description])
+);
 
 
 
@@ -25,9 +32,8 @@ export default defineAddon({
 		for (const [path, content] of Object.entries(files)) {
 			sv.file(`src${path}`, () => content);
 		}
-		sv.file('src/env.ts', (content) =>
-			mergeSvelteKitEnvVars(content, { RESEND_API_KEY: 'Resend API key' })
-		);
+		sv.file('src/env.ts', (content) => mergeSvelteKitEnvVars(content, ENV_DECLARATIONS));
+		sv.file('.env.example', (content) => mergeEnvExample(content, 'email', ENV_EXAMPLE));
 		// AI context (#234): planned in memory first (#324) — an invalid
 		// .svforge.json cancels the install instead of resetting the file.
 		for (const write of context.writes) {
@@ -36,7 +42,7 @@ export default defineAddon({
 	},
 	nextSteps: () => [
 		'@svforge/email installed!',
-		'Add RESEND_API_KEY to your .env',
+		'Copy RESEND_API_KEY from .env.example to .env and replace the placeholder',
 		'Usage: import { sendEmail } from "$lib/server/email"',
 		'  await sendEmail({ to: "user@example.com", subject: "Welcome", html: "<h1>Welcome!</h1>" });'
 	]

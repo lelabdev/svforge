@@ -204,7 +204,7 @@
     "semantic_hash": ""
   },
   "packages/email/src/index.ts": {
-    "ast_hash": "038220bdcd874111b57dd13ab41b59ea",
+    "ast_hash": "6bbb1a28aecea35948377be20db4b973",
     "semantic_hash": ""
   },
   "packages/email/src/templates.ts": {
@@ -352,7 +352,7 @@
     "semantic_hash": ""
   },
   "packages/oauth/src/index.ts": {
-    "ast_hash": "dae8a20efe22d6df1821e0b568d9a11e",
+    "ast_hash": "a03d674738338937ddd185736592b8d8",
     "semantic_hash": ""
   },
   "packages/oauth/src/templates.ts": {
@@ -992,7 +992,7 @@
     "semantic_hash": ""
   },
   "packages/uploads/src/index.ts": {
-    "ast_hash": "f0f6d272594ca8f38b9dfa2b5e2905f2",
+    "ast_hash": "0b8e1a60e5b2480a9097fbb9f9620b1d",
     "semantic_hash": ""
   },
   "packages/uploads/src/templates.ts": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "579514fc8487b812e5babaae6bf12ef6",
+    "ast_hash": "035639738cc8135db34a8bcd472280de",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1532,7 +1532,7 @@
     "semantic_hash": ""
   },
   "packages/email/README.md": {
-    "ast_hash": "de9ca06b3a0f2b995f9bf4bb42f17912",
+    "ast_hash": "95c82f54b37e71254c2c39dca4b763e4",
     "semantic_hash": ""
   },
   "packages/graph/README.md": {
@@ -1548,7 +1548,7 @@
     "semantic_hash": ""
   },
   "packages/oauth/README.md": {
-    "ast_hash": "092ec86a8d853868710c70a254832234",
+    "ast_hash": "953b9ed89dc68a7d88854fa40f56d7b2",
     "semantic_hash": ""
   },
   "packages/realtime/README.md": {
@@ -1620,7 +1620,7 @@
     "semantic_hash": ""
   },
   "packages/uploads/README.md": {
-    "ast_hash": "2e5423cdbeabc464a9fa34e7709e6cf6",
+    "ast_hash": "1915a8c9c307420b400793dc16c50e0a",
     "semantic_hash": ""
   },
   "docs/screenshots/dashboard.png": {
@@ -1764,7 +1764,7 @@
     "semantic_hash": ""
   },
   "packages/addon-kit/src/env.ts": {
-    "ast_hash": "c17326b299d953e4e494870617c3d7a2",
+    "ast_hash": "40d45c6db324bdc26a7043d64729297f",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/env.ts": {
@@ -1772,7 +1772,7 @@
     "semantic_hash": ""
   },
   "tests/addon-env.test.ts": {
-    "ast_hash": "b8bb7debd0b742eff1933960529127b5",
+    "ast_hash": "7d7fabcd60d6f84619bdb86768bb378c",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts": {

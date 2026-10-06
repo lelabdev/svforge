@@ -14,10 +14,10 @@ Supported: `long-lived-node`, `serverless`, `edge`, `separate-worker`. Unsupport
 
 ## Setup
 
-Add your Resend API key to `.env`:
+The add-on appends a placeholder to the root `.env.example`. Copy it to `.env` (or add it to your existing file) and replace the placeholder with your Resend API key:
 
 ```bash
-RESEND_API_KEY=re_xxxxxxxx
+RESEND_API_KEY=your_resend_api_key
 ```
 
 ## Usage
