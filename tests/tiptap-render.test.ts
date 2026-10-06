@@ -16,7 +16,7 @@ const RENDERER = join(
  * These tests run REAL payloads through the renderer and assert on the
  * produced HTML, not on regex matches of the source.
  */
-const { renderTiptap } = await import(RENDERER);
+const { renderTiptap, isSafeHref } = await import(RENDERER);
 
 const doc = (content: any[]) => ({ type: 'doc', content });
 const text = (t: string, marks?: any[]) => ({ type: 'text', text: t, ...(marks ? { marks } : {}) });
@@ -170,6 +170,15 @@ describe('TiptapPreview XSS hardening (#282)', () => {
 			}
 			// & is escaped inside the attribute
 			expect(link('?x=1&y=2')).toContain('href="?x=1&amp;y=2"');
+		});
+
+		it('link validation accepts the same relative and safe protocol forms (#294)', () => {
+			for (const href of ['/docs', './foo', '../foo', '?lang=fr', '#top', 'contact.html', 'https://example.com', 'mailto:help@example.com', 'tel:+123456789']) {
+				expect(isSafeHref(href), href).toBe(true);
+			}
+			for (const href of ['//evil.example/x', 'javascript:alert(1)', 'data:text/html,evil', '']) {
+				expect(isSafeHref(href), href).toBe(false);
+			}
 		});
 
 		it('query/hash-only links keep their relative shape (#294)', () => {

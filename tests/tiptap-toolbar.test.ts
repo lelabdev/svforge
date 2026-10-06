@@ -1,10 +1,24 @@
 // @vitest-environment jsdom
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render } from '@testing-library/svelte';
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { cleanup, fireEvent, render, waitFor } from '@testing-library/svelte';
 import TiptapPreview from '../packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapPreview.svelte';
 import TiptapToolbar from '../packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte';
 import { getToolbarState } from '../packages/tiptap/templates/src/lib/components/svforge/tiptap/toolbar-state';
 
+beforeAll(() => {
+	if (!globalThis.ResizeObserver) {
+		vi.stubGlobal(
+			'ResizeObserver',
+			class ResizeObserverStub {
+				observe() {}
+				unobserve() {}
+				disconnect() {}
+			}
+		);
+	}
+});
+
+afterAll(() => vi.unstubAllGlobals());
 afterEach(cleanup);
 
 function setup(overrides: Record<string, unknown> = {}) {
@@ -17,7 +31,8 @@ function setup(overrides: Record<string, unknown> = {}) {
 		onToggleOrderedList: vi.fn(),
 		onToggleBlockquote: vi.fn(),
 		onToggleCode: vi.fn(),
-		onSetLink: vi.fn(),
+		onApplyLink: vi.fn(),
+		onRemoveLink: vi.fn(),
 		onSetHeading: vi.fn(),
 		onUnsetHeading: vi.fn()
 	};
@@ -28,6 +43,7 @@ function setup(overrides: Record<string, unknown> = {}) {
 		activeLists: [],
 		activeBlocks: [],
 		activeLink: false,
+		linkHref: '',
 		...actions,
 		...overrides
 	};
@@ -78,8 +94,11 @@ describe('Tiptap toolbar controls (#484)', () => {
 
 	it('uses the controlled formatting state and dispatches the selected mark action', async () => {
 		const { getByRole, actions } = setup({ activeFormats: ['bold'] });
+		const boldButton = getByRole('button', { name: 'Bold' });
 
-		expect(getByRole('button', { name: 'Bold' }).getAttribute('aria-pressed')).toBe('true');
+		expect(boldButton.getAttribute('aria-pressed')).toBe('true');
+		expect(boldButton.classList.contains('preset-filled-primary-500')).toBe(true);
+		expect(boldButton.className).not.toMatch(/bg-primary-500\s+text-white/);
 		expect(getByRole('button', { name: 'Italic' }).getAttribute('aria-pressed')).toBe('false');
 
 		await fireEvent.click(getByRole('button', { name: 'Italic' }));
@@ -101,32 +120,121 @@ describe('Tiptap toolbar controls (#484)', () => {
 		expect(second.actions.onUnsetHeading).toHaveBeenCalledOnce();
 	});
 
-	it('shows list state and dispatches the selected list command', async () => {
+	it('shows Skeleton list presets and dispatches the selected list command', async () => {
 		const { getByRole, actions } = setup({ activeLists: ['bulletList'] });
+		const bullet = getByRole('button', { name: 'Bullet list' });
 
-		expect(getByRole('button', { name: 'Bullet list' }).getAttribute('aria-pressed')).toBe('true');
+		expect(bullet.getAttribute('aria-pressed')).toBe('true');
+		expect(bullet.classList.contains('preset-tonal-primary')).toBe(true);
+		expect(bullet.className).not.toMatch(/bg-primary-500\s+text-white/);
 		await fireEvent.click(getByRole('button', { name: 'Ordered list' }));
 
 		expect(actions.onToggleOrderedList).toHaveBeenCalledOnce();
 		expect(actions.onToggleBulletList).not.toHaveBeenCalled();
 	});
 
-	it('toggles block actions off when the selected item is clicked again', async () => {
+	it('shows Skeleton block presets and toggles a selected block off', async () => {
 		const { getByRole, actions } = setup({ activeBlocks: ['blockquote'] });
+		const quote = getByRole('button', { name: 'Blockquote' });
 
-		expect(getByRole('button', { name: 'Blockquote' }).getAttribute('aria-pressed')).toBe('true');
+		expect(quote.getAttribute('aria-pressed')).toBe('true');
+		expect(quote.classList.contains('preset-tonal-primary')).toBe(true);
+		expect(quote.className).not.toMatch(/bg-primary-500\s+text-white/);
 		await fireEvent.click(getByRole('button', { name: 'Blockquote' }));
 
 		expect(actions.onToggleBlockquote).toHaveBeenCalledOnce();
 		expect(actions.onToggleCode).not.toHaveBeenCalled();
 	});
 
-	it('keeps the link action as a Skeleton button primitive', async () => {
-		const { getByRole, actions } = setup({ activeLink: true });
-
-		expect(getByRole('button', { name: 'Link' }).getAttribute('aria-pressed')).toBe('true');
+	it('opens the link popover with focus in the localized URL field and applies a new link', async () => {
+		const { getByRole, queryByRole, actions } = setup();
 		await fireEvent.click(getByRole('button', { name: 'Link' }));
 
-		expect(actions.onSetLink).toHaveBeenCalledOnce();
+		const input = getByRole('textbox', { name: 'Link URL' });
+		await waitFor(() => expect(document.activeElement).toBe(input));
+		await fireEvent.input(input, { target: { value: 'https://example.com/new' } });
+		await fireEvent.click(getByRole('button', { name: 'Apply link' }));
+
+		expect(actions.onApplyLink).toHaveBeenCalledWith('https://example.com/new');
+		expect(queryByRole('textbox', { name: 'Link URL' })).toBeNull();
+	});
+
+	it.each(['/docs', './page', '../page', '?view=full', '#section', 'article.html'])(
+		'accepts safe relative link href %s',
+		async (href) => {
+			const { getByRole, actions } = setup();
+			await fireEvent.click(getByRole('button', { name: 'Link' }));
+
+			const input = getByRole('textbox', { name: 'Link URL' });
+			await fireEvent.input(input, { target: { value: href } });
+			await fireEvent.click(getByRole('button', { name: 'Apply link' }));
+
+			expect(actions.onApplyLink).toHaveBeenCalledWith(href);
+		}
+	);
+
+	it.each(['//example.com/path', 'javascript:alert(1)'])(
+		'rejects unsafe link href %s',
+		async (href) => {
+			const { getByRole, getByText, actions } = setup();
+			await fireEvent.click(getByRole('button', { name: 'Link' }));
+
+			const input = getByRole('textbox', { name: 'Link URL' });
+			await fireEvent.input(input, { target: { value: href } });
+			await fireEvent.click(getByRole('button', { name: 'Apply link' }));
+
+			expect(actions.onApplyLink).not.toHaveBeenCalled();
+			expect(getByRole('textbox', { name: 'Link URL' }).getAttribute('aria-invalid')).toBe('true');
+			expect(getByText('Enter a valid URL or relative link.')).toBeTruthy();
+		}
+	);
+
+	it('prefills an existing URL so it can be edited', async () => {
+		const { getByRole, actions } = setup({ activeLink: true, linkHref: 'https://example.com/old' });
+		await fireEvent.click(getByRole('button', { name: 'Link' }));
+
+		const input = getByRole('textbox', { name: 'Link URL' }) as HTMLInputElement;
+		expect(input.value).toBe('https://example.com/old');
+		await fireEvent.input(input, { target: { value: 'https://example.com/updated' } });
+		await fireEvent.click(getByRole('button', { name: 'Update link' }));
+
+		expect(actions.onApplyLink).toHaveBeenCalledWith('https://example.com/updated');
+	});
+
+	it('removes an existing link from the popover', async () => {
+		const { getByRole, actions } = setup({ activeLink: true, linkHref: 'https://example.com/old' });
+		const trigger = getByRole('button', { name: 'Link' });
+		expect(trigger.classList.contains('preset-tonal-primary')).toBe(true);
+		expect(trigger.className).not.toMatch(/bg-primary-500\s+text-white/);
+		await fireEvent.click(trigger);
+		await fireEvent.click(getByRole('button', { name: 'Remove link' }));
+
+		expect(actions.onRemoveLink).toHaveBeenCalledOnce();
+		expect(actions.onApplyLink).not.toHaveBeenCalled();
+	});
+
+	it('Escape closes the popover and restores focus to its trigger', async () => {
+		const { getByRole, queryByRole } = setup();
+		const trigger = getByRole('button', { name: 'Link' });
+		await fireEvent.click(trigger);
+		const input = getByRole('textbox', { name: 'Link URL' });
+		await waitFor(() => expect(document.activeElement).toBe(input));
+
+		await fireEvent.keyDown(input, { key: 'Escape', code: 'Escape' });
+
+		await waitFor(() => expect(queryByRole('dialog')).toBeNull());
+		await waitFor(() => expect(document.activeElement).toBe(trigger));
+	});
+
+	it('cancels link editing without applying changes', async () => {
+		const { getByRole, queryByRole, actions } = setup({ activeLink: true, linkHref: 'https://example.com/old' });
+		await fireEvent.click(getByRole('button', { name: 'Link' }));
+		const input = getByRole('textbox', { name: 'Link URL' });
+		await fireEvent.input(input, { target: { value: 'https://example.com/unsaved' } });
+		await fireEvent.click(getByRole('button', { name: 'Cancel' }));
+
+		expect(actions.onApplyLink).not.toHaveBeenCalled();
+		expect(actions.onRemoveLink).not.toHaveBeenCalled();
+		expect(queryByRole('textbox', { name: 'Link URL' })).toBeNull();
 	});
 });

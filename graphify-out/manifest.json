@@ -472,7 +472,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "2dc5e1d77732887cc02a9c65fa3d101c",
+    "ast_hash": "ac401841bb834133eed5dcaad0f9a462",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -920,15 +920,15 @@
     "semantic_hash": ""
   },
   "packages/tiptap/src/index.ts": {
-    "ast_hash": "3b344b8e8798bc9c284e5ef1ab50af44",
+    "ast_hash": "d6116ed136acb8486e9f26e375b20223",
     "semantic_hash": ""
   },
   "packages/tiptap/src/templates.ts": {
-    "ast_hash": "6b32f6b37b4e063069f6d3ff19e6d7fe",
+    "ast_hash": "c5bdb3c05d9860b9f2e663cd261b0875",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte": {
-    "ast_hash": "a0a1166c4afc89a3e17fd50b551e4294",
+    "ast_hash": "a6b263fd619a7d0a5d90e2b7b8bf6c10",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapPreview.svelte": {
@@ -936,7 +936,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte": {
-    "ast_hash": "c5d492f697a5862f23b77854a4f87e9c",
+    "ast_hash": "389d0dd3aadd7f6587252d382a3597d1",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/index.ts": {
@@ -944,7 +944,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts": {
-    "ast_hash": "427ae0b20ff73e756455a56dd62c6959",
+    "ast_hash": "43006313c718224ade2bf2eec36f17ea",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/tiptap-extensions.ts": {
@@ -1288,7 +1288,7 @@
     "semantic_hash": ""
   },
   "tests/multi-addon-compose.test.ts": {
-    "ast_hash": "9048345abe142e711edf790100fdffb1",
+    "ast_hash": "c5336196c94fff0d8c5b1bcd789b3d5f",
     "semantic_hash": ""
   },
   "tests/notifications.test.ts": {
@@ -1392,7 +1392,7 @@
     "semantic_hash": ""
   },
   "tests/stubs/lib/paraglide/messages.js": {
-    "ast_hash": "5b735c8bdf126ce8c88b85a89e4db85d",
+    "ast_hash": "3ee0e402f7e03aab1c25c282b6c0a733",
     "semantic_hash": ""
   },
   "tests/stubs/lib/utils/cn.ts": {
@@ -1424,7 +1424,7 @@
     "semantic_hash": ""
   },
   "tests/tiptap-render.test.ts": {
-    "ast_hash": "065eaf787fbfe2c0ba5b6cfedff49c16",
+    "ast_hash": "799467c4a807a56c28669ae923685dfc",
     "semantic_hash": ""
   },
   "tests/tiptap-xss.test.ts": {
@@ -1728,7 +1728,7 @@
     "semantic_hash": ""
   },
   "tests/stubs/lib/components/svforge/primitives/index.ts": {
-    "ast_hash": "b346a68204d50de6fa0477457d13f847",
+    "ast_hash": "0619c10a78a028ee4261f0d182797ea4",
     "semantic_hash": ""
   },
   "tests/tailwind-class-validation.test.ts": {
@@ -1736,7 +1736,7 @@
     "semantic_hash": ""
   },
   "tests/tiptap-toolbar.test.ts": {
-    "ast_hash": "34b45c3122314a65d54ba83632f48db0",
+    "ast_hash": "63891803f862c9f52cc07d56391e5ff0",
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
@@ -1813,6 +1813,14 @@
   },
   "tests/blog-date.test.ts": {
     "ast_hash": "e3ae2f7c0b2003e15d20df19ef85e93a",
+    "semantic_hash": ""
+  },
+  "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts": {
+    "ast_hash": "ed0e78c435c921c5d28c7b702c52df59",
+    "semantic_hash": ""
+  },
+  "tests/tiptap-link-actions.test.ts": {
+    "ast_hash": "db0e67ea212a3caaf7da06abd2673388",
     "semantic_hash": ""
   }
 }

@@ -31,6 +31,19 @@ export function escapeHtml(text: string): string {
 const SAFE_PROTOCOLS = ['http:', 'https:', 'mailto:', 'tel:'];
 
 /**
+ * Whether an href uses a protocol or relative form accepted by the renderer (#294).
+ */
+export function isSafeHref(href: unknown): href is string {
+	if (typeof href !== 'string') return false;
+	const value = href.trim();
+	if (!value) return false;
+
+	const scheme = /^([a-zA-Z][a-zA-Z0-9+.-]*):/.exec(value)?.[1]?.toLowerCase();
+	if (scheme) return SAFE_PROTOCOLS.includes(`${scheme}:`);
+	return !value.startsWith('//');
+}
+
+/**
  * Sanitize an href and preserve safe RELATIVE URLs (#294).
  *
  * Forms accepted as-is (after escaping):
@@ -47,23 +60,8 @@ const SAFE_PROTOCOLS = ['http:', 'https:', 'mailto:', 'tel:'];
  * relative URL against a placeholder host (the #294 regression).
  */
 export function sanitizeHref(href: unknown): string {
-	if (typeof href !== 'string') return '#';
-	const value = href.trim();
-	if (!value) return '#';
-
-	// Explicit scheme (http:, javascript:, data:, …) — case-insensitive.
-	const scheme = /^([a-zA-Z][a-zA-Z0-9+.-]*):/.exec(value)?.[1]?.toLowerCase();
-	if (scheme) {
-		return SAFE_PROTOCOLS.includes(`${scheme}:`) ? escapeHtml(value) : '#';
-	}
-
-	// Protocol-relative URLs are ambiguous (scheme inherited from the page) —
-	// refuse them even though they carry no scheme on the wire.
-	if (value.startsWith('//')) return '#';
-
-	// Everything else is a safe relative URL: /path, ./path, ../path, ?query,
-	// #hash or a plain name. Preserve it verbatim (escaped).
-	return escapeHtml(value);
+	if (!isSafeHref(href)) return '#';
+	return escapeHtml(href.trim());
 }
 
 /** Link target allowlist — only '_blank' is ever produced by the toolbar. */
