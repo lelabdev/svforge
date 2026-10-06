@@ -171,7 +171,8 @@
       "description": "MDsveX blog (posts + list + detail)",
       "template": "base",
       "requires": [
-        "ui.svforge"
+        "ui.svforge",
+        "i18n.messages"
       ],
       "provides": [],
       "optional": [],

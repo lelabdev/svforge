@@ -421,7 +421,7 @@ if [ "$TEMPLATE" = "base-blog" ]; then
 	# (never an HTML string), so the rendered page must contain the markdown
 	# body AND the inline Svelte component of welcome.md — not a broken
 	# "[object Object]" {@html} output.
-	bun run preview -- --port 4188 >/tmp/sf-preview.log 2>&1 &
+	TZ=America/Los_Angeles bun run preview -- --port 4188 >/tmp/sf-preview.log 2>&1 &
 	PREVIEW_PID=$!
 	for i in $(seq 1 30); do
 		curl -sf http://localhost:4188/blog >/dev/null 2>&1 && break
@@ -430,9 +430,19 @@ if [ "$TEMPLATE" = "base-blog" ]; then
 	BLOG_HTML=$(curl -sf http://localhost:4188/blog) || { echo "❌ /blog not served by preview (#293)"; kill $PREVIEW_PID; exit 1; }
 	echo "$BLOG_HTML" | grep -q "Welcome to your blog" \
 		|| { echo "❌ /blog list lacks the post title (#293)"; kill $PREVIEW_PID; exit 1; }
+	echo "$BLOG_HTML" | grep -qE 'class="[^"]*h1[^"]*"' \
+		|| { echo "❌ /blog does not use Skeleton heading typography (#478)"; kill $PREVIEW_PID; exit 1; }
+	echo "$BLOG_HTML" | grep -q "1 janvier 2025" \
+		|| { echo "❌ /blog date was not formatted using the configured French locale (#478)"; kill $PREVIEW_PID; exit 1; }
 	POST_HTML=$(curl -sf http://localhost:4188/blog/welcome) || { echo "❌ /blog/welcome not served by preview (#293)"; kill $PREVIEW_PID; exit 1; }
 	echo "$POST_HTML" | grep -q "Welcome!" \
 		|| { echo "❌ /blog/welcome lacks the markdown h1 (#293)"; kill $PREVIEW_PID; exit 1; }
+	echo "$POST_HTML" | grep -q "Retour au blog" \
+		|| { echo "❌ /blog/welcome lacks the localized French back link (#478)"; kill $PREVIEW_PID; exit 1; }
+	echo "$POST_HTML" | grep -qE 'class="[^"]*anchor[^"]*"' \
+		|| { echo "❌ blog back link does not use Skeleton anchor typography (#478)"; kill $PREVIEW_PID; exit 1; }
+	echo "$POST_HTML" | grep -q "1 janvier 2025" \
+		|| { echo "❌ article date was not formatted using the configured French locale (#478)"; kill $PREVIEW_PID; exit 1; }
 	echo "$POST_HTML" | grep -q "MDsveX features" \
 		|| { echo "❌ /blog/welcome lacks the markdown body (#293)"; kill $PREVIEW_PID; exit 1; }
 	echo "$POST_HTML" | grep -q "Count:" \

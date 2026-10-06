@@ -1,5 +1,5 @@
 import { defineAddon, defineAddonOptions } from 'sv';
-import { checkModuleCapabilities, planAddonContext, hasPatchApplied } from '@svforge/addon-kit';
+import { checkModuleCapabilities, planCatalogMerges, planAddonContext, hasPatchApplied } from '@svforge/addon-kit';
 import { svforgePatchMarker } from '@svforge/addon-kit';
 import { files } from './templates';
 
@@ -158,18 +158,38 @@ export default defineAddon({
 			return;
 		}
 
-		sv.dependency('mdsvex', '^0.12.8');
-
 		// ── mdsvex integration ──
 		// Modern `sv create` (Kit 2.63 / vite-plugin-svelte 7) no longer
 		// generates svelte.config.js — the config lives in vite.config.ts via
 		// sveltekit({...}). mdsvex must be wired there (extensions + preprocess).
 		// Old projects still have svelte.config.js — patch both when present.
+		const catalogs = planCatalogMerges(cwd, [
+			{
+				path: 'messages/fr.json',
+				additions: {
+					blog_title: 'Blog',
+					blog_back_to_blog: 'Retour au blog'
+				}
+			},
+			{
+				path: 'messages/en.json',
+				additions: {
+					blog_title: 'Blog',
+					blog_back_to_blog: 'Back to blog'
+				}
+			}
+		]);
+		if (!catalogs.ok) {
+			cancel(catalogs.error);
+			return;
+		}
 		const context = planAddonContext(cwd, { moduleId: 'blog', capability: 'blog (MDsveX)', pattern: 'src/routes/blog/' });
 		if (!context.ok) {
 			cancel(context.error);
 			return;
 		}
+
+		sv.dependency('mdsvex', '^0.12.8');
 		sv.file('vite.config.ts', (content) => {
 			// legacy fragment = the exact integration this patch injects; a bare
 			// keyword ("mdsvex" in a consumer TODO) must NOT skip the patch (#331)
@@ -204,9 +224,9 @@ export default defineAddon({
 			sv.file(`src${path}`, () => content);
 		}
 
-		// AI context (#234): planned in memory first (#324) — an invalid
-		// .svforge.json cancels the install instead of resetting the file.
-		for (const write of context.writes) {
+		// Paraglide catalog and AI-context writes are planned before mutation
+		// (#324), so invalid project JSON cancels the install without partial writes.
+		for (const write of [...catalogs.writes, ...context.writes]) {
 			sv.file(write.path, () => write.content);
 		}
 

@@ -3095,6 +3095,23 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_blog_templates_src_lib_utils_post_date",
+      "label": "post-date.ts",
+      "file_type": "code",
+      "source_file": "packages/blog/templates/src/lib/utils/post-date.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_blog_templates_src_lib_utils_post_date_formatpostdate",
+      "label": "formatPostDate()",
+      "file_type": "code",
+      "source_file": "packages/blog/templates/src/lib/utils/post-date.ts",
+      "source_location": "L6",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_blog_templates_src_lib_utils_posts",
       "label": "posts.ts",
       "file_type": "code",
@@ -3199,6 +3216,22 @@
       "file_type": "code",
       "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
       "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "runtime",
+      "label": "$lib/paraglide/runtime",
+      "file_type": "code",
+      "source_file": "$lib/paraglide/runtime",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "post_date",
+      "label": "$lib/utils/post-date",
+      "file_type": "code",
+      "source_file": "$lib/utils/post-date",
+      "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
@@ -14262,14 +14295,6 @@
       "_origin": "ast"
     },
     {
-      "id": "runtime",
-      "label": "$lib/paraglide/runtime",
-      "file_type": "code",
-      "source_file": "$lib/paraglide/runtime",
-      "confidence": "EXTRACTED",
-      "_origin": "ast"
-    },
-    {
       "id": "layout",
       "label": "$lib/components/svforge/layout",
       "file_type": "code",
@@ -19595,7 +19620,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L675",
+      "source_location": "L685",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -20469,6 +20494,30 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_blog_date_test",
+      "label": "blog-date.test.ts",
+      "file_type": "code",
+      "source_file": "tests/blog-date.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_blog_i18n_test",
+      "label": "blog-i18n.test.ts",
+      "file_type": "code",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_blog_i18n_test_dir_cleanup",
+      "label": "{ dir, cleanup }",
+      "file_type": "code",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_blog_mdsvex_test",
       "label": "blog-mdsvex.test.ts",
       "file_type": "code",
@@ -20698,7 +20747,7 @@
       "label": "stripOriginMarkers()",
       "file_type": "code",
       "source_file": "tests/capability-contracts.test.ts",
-      "source_location": "L178",
+      "source_location": "L179",
       "_callable": true,
       "_origin": "ast"
     },
@@ -26175,7 +26224,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/blog/README.md",
-      "source_location": "L83",
+      "source_location": "L84",
       "_origin": "ast"
     },
     {
@@ -33769,6 +33818,17 @@
     },
     {
       "source": "packages_blog_src_index",
+      "target": "packages_addon_kit_src_index_plancatalogmerges",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/src/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_src_index",
       "target": "packages_addon_kit_src_index_planaddoncontext",
       "relation": "imports",
       "context": "import",
@@ -33849,7 +33909,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/src/index.ts",
-      "source_location": "L201",
+      "source_location": "L221",
       "weight": 1,
       "_origin": "ast"
     },
@@ -33860,7 +33920,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/src/index.ts",
-      "source_location": "L255",
+      "source_location": "L275",
       "weight": 1,
       "_origin": "ast"
     },
@@ -33871,6 +33931,16 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/src/templates.ts",
       "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_templates_src_lib_utils_post_date",
+      "target": "packages_blog_templates_src_lib_utils_post_date_formatpostdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/lib/utils/post-date.ts",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -34027,6 +34097,30 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_blog_templates_src_routes_blog_page",
+      "target": "runtime",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_templates_src_routes_blog_page",
+      "target": "post_date",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_templates_src_routes_blog_page",
+      "target": "messages_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
+      "_origin": "ast"
+    },
+    {
       "source": "packages_blog_templates_src_routes_blog_slug_page_server",
       "target": "ref_lib",
       "relation": "imports_from",
@@ -34068,6 +34162,30 @@
       "source_file": "packages/blog/templates/src/routes/blog/[slug]/+page.server.ts",
       "source_location": "L5",
       "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_templates_src_routes_blog_slug_page",
+      "target": "runtime",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/routes/blog/[slug]/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_templates_src_routes_blog_slug_page",
+      "target": "post_date",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/routes/blog/[slug]/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_blog_templates_src_routes_blog_slug_page",
+      "target": "messages_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/blog/templates/src/routes/blog/[slug]/+page.svelte",
       "_origin": "ast"
     },
     {
@@ -64574,7 +64692,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L675",
+      "source_location": "L685",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64584,7 +64702,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L683",
+      "source_location": "L693",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -67358,6 +67476,149 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_blog_date_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-date.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_date_test",
+      "target": "packages_blog_templates_src_lib_utils_post_date",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-date.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_date_test",
+      "target": "packages_blog_templates_src_lib_utils_post_date_formatpostdate",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-date.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "tests_helpers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "tests_helpers_tempproject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "tests_helpers_fixtures",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "tests_helpers_fixtures_createbaseproject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "tests_helpers_fixtures_disksv",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "tests_blog_i18n_test_dir_cleanup",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "packages_blog_src_index",
+      "relation": "imports_from",
+      "context": "import",
+      "deferred": true,
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_blog_mdsvex_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -67438,7 +67699,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/blog-mdsvex.test.ts",
-      "source_location": "L129",
+      "source_location": "L159",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67450,7 +67711,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/blog-mdsvex.test.ts",
-      "source_location": "L133",
+      "source_location": "L163",
       "weight": 1,
       "_origin": "ast"
     },
@@ -68154,7 +68415,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/capability-contracts.test.ts",
-      "source_location": "L178",
+      "source_location": "L179",
       "weight": 1,
       "_origin": "ast"
     },
@@ -68165,7 +68426,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/capability-contracts.test.ts",
-      "source_location": "L82",
+      "source_location": "L83",
       "weight": 1,
       "_origin": "ast"
     },
@@ -68177,7 +68438,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/capability-contracts.test.ts",
-      "source_location": "L179",
+      "source_location": "L180",
       "weight": 1,
       "_origin": "ast"
     },
@@ -68188,7 +68449,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/capability-contracts.test.ts",
-      "source_location": "L191",
+      "source_location": "L192",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81185,7 +81446,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/README.md",
-      "source_location": "L83",
+      "source_location": "L84",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83602,7 +83863,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/blog-mdsvex.test.ts",
-      "source_location": "L130",
+      "source_location": "L160",
       "weight": 1,
       "_origin": "ast"
     },

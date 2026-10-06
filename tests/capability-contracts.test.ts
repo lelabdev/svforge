@@ -56,8 +56,9 @@ describe('#323 — capability contract', () => {
 			expect(MODULE_CONTRACTS.uploads.requires).toContain('auth.currentUser');
 			expect(MODULE_CONTRACTS.uploads.requires).toContain('i18n.messages');
 			expect(MODULE_CONTRACTS.uploads.provides).toContain('storage.object');
-			// blog imports base Card/Badge
+			// blog imports base Card/Badge and merges its Paraglide UI labels
 			expect(MODULE_CONTRACTS.blog.requires).toContain('ui.svforge');
+			expect(MODULE_CONTRACTS.blog.requires).toContain('i18n.messages');
 			// tiptap writes Paraglide messages
 			expect(MODULE_CONTRACTS.tiptap.requires).toContain('i18n.messages');
 			// ui_toast needs the Skeleton theme wiring

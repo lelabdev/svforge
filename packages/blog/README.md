@@ -44,7 +44,7 @@ Write your content here in Markdown...
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `title` | string | Yes | Post title |
-| `date` | string | Yes | Publication date (YYYY-MM-DD) |
+| `date` | string | Yes | Publication calendar date (YYYY-MM-DD), independent of timezone |
 | `excerpt` | string | Yes | Short description for post list |
 | `tags` | string[] | Yes | Tags displayed as badges |
 
@@ -70,7 +70,8 @@ src/
 │   └── welcome.md        ← Your posts live here
 ├── lib/
 │   └── utils/
-│       └── posts.ts       ← Post utilities (getAllPosts, getPost)
+│       ├── posts.ts       ← Post queries (getAllPosts, getPost)
+│       └── post-date.ts   ← Locale-aware calendar-date formatting
 └── routes/
     └── blog/
         ├── +page.svelte       ← Post list page
