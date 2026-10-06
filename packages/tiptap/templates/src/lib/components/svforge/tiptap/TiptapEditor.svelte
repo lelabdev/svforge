@@ -2,9 +2,9 @@
 	import type { JSONContent } from '@tiptap/core';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/env';
-	import * as m from '$lib/paraglide/messages.js';
 	import { cn } from '$lib/utils/cn';
 	import { getToolbarState } from './toolbar-state';
+	import { applyTiptapLink, removeTiptapLink } from './link-actions';
 	import TiptapToolbar from './TiptapToolbar.svelte';
 
 	interface Props {
@@ -24,6 +24,7 @@
 	let activeLists = $state<string[]>([]);
 	let activeBlocks = $state<string[]>([]);
 	let activeLink = $state(false);
+	let linkHref = $state('');
 
 	function syncToolbarState(editor = editorInstance) {
 		const state = getToolbarState(editor);
@@ -32,6 +33,7 @@
 		activeLists = state.activeLists;
 		activeBlocks = state.activeBlocks;
 		activeLink = state.activeLink;
+		linkHref = state.activeLink ? editor?.getAttributes('link')?.href ?? '' : '';
 	}
 
 	onMount(async () => {
@@ -107,12 +109,8 @@
 		setHeading: (level: 1 | 2 | 3) =>
 			editorInstance?.chain().focus().setVisualHeading({ level }).run(),
 		unsetHeading: () => editorInstance?.chain().focus().unsetVisualHeading().run(),
-		setLink: () => {
-			const url = window.prompt(m.tiptap_link_prompt());
-			if (url) {
-				editorInstance?.chain().focus().setLink({ href: url }).run();
-			}
-		}
+		applyLink: (href: string) => applyTiptapLink(editorInstance, href),
+		removeLink: () => removeTiptapLink(editorInstance)
 	};
 </script>
 
@@ -124,6 +122,7 @@
 		{activeLists}
 		{activeBlocks}
 		{activeLink}
+		{linkHref}
 		onToggleBold={actions.toggleBold}
 		onToggleItalic={actions.toggleItalic}
 		onToggleUnderline={actions.toggleUnderline}
@@ -132,7 +131,8 @@
 		onToggleOrderedList={actions.toggleOrderedList}
 		onToggleBlockquote={actions.toggleBlockquote}
 		onToggleCode={actions.toggleCode}
-		onSetLink={actions.setLink}
+		onApplyLink={actions.applyLink}
+		onRemoveLink={actions.removeLink}
 		onSetHeading={actions.setHeading}
 		onUnsetHeading={actions.unsetHeading}
 	/>

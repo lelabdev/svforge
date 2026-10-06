@@ -17419,6 +17419,97 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions",
+      "label": "link-actions.ts",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain",
+      "label": "LinkCommandChain",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L1",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_focus",
+      "label": ".focus()",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L2",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_setlink",
+      "label": ".setLink()",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L3",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_unsetlink",
+      "label": ".unsetLink()",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L4",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_run",
+      "label": ".run()",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L5",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkeditor",
+      "label": "LinkEditor",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L8",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkeditor_chain",
+      "label": ".chain()",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L9",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_applytiptaplink",
+      "label": "applyTiptapLink()",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L12",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_removetiptaplink",
+      "label": "removeTiptapLink()",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L19",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap",
       "label": "render-tiptap.ts",
       "file_type": "code",
@@ -23355,11 +23446,65 @@
       "_origin": "ast"
     },
     {
-      "id": "tests_stubs_lib_paraglide_messages_tiptap_link_prompt",
-      "label": "tiptap_link_prompt()",
+      "id": "tests_stubs_lib_paraglide_messages_tiptap_edit_link",
+      "label": "tiptap_edit_link()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
       "source_location": "L25",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_tiptap_link_description",
+      "label": "tiptap_link_description()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L26",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_tiptap_link_url",
+      "label": "tiptap_link_url()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L27",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_tiptap_link_apply",
+      "label": "tiptap_link_apply()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L28",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_tiptap_link_update",
+      "label": "tiptap_link_update()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L29",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_tiptap_link_remove",
+      "label": "tiptap_link_remove()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L30",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_tiptap_link_cancel",
+      "label": "tiptap_link_cancel()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L31",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23368,7 +23513,7 @@
       "label": "tiptap_loading()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L26",
+      "source_location": "L32",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23377,7 +23522,7 @@
       "label": "tiptap_toolbar()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L27",
+      "source_location": "L33",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23386,7 +23531,7 @@
       "label": "tiptap_toolbar_formatting()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L28",
+      "source_location": "L34",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23395,7 +23540,7 @@
       "label": "tiptap_toolbar_headings()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L29",
+      "source_location": "L35",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23404,7 +23549,7 @@
       "label": "tiptap_toolbar_lists()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L30",
+      "source_location": "L36",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23413,7 +23558,7 @@
       "label": "tiptap_toolbar_blocks()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L31",
+      "source_location": "L37",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23625,6 +23770,23 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_tiptap_link_actions_test",
+      "label": "tiptap-link-actions.test.ts",
+      "file_type": "code",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_tiptap_link_actions_test_createeditor",
+      "label": "createEditor()",
+      "file_type": "code",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L9",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_tiptap_render_test",
       "label": "tiptap-render.test.ts",
       "file_type": "code",
@@ -23675,11 +23837,38 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_tiptap_toolbar_test_observe",
+      "label": "observe()",
+      "file_type": "code",
+      "source_file": "tests/tiptap-toolbar.test.ts",
+      "source_location": "L13",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_tiptap_toolbar_test_unobserve",
+      "label": "unobserve()",
+      "file_type": "code",
+      "source_file": "tests/tiptap-toolbar.test.ts",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_tiptap_toolbar_test_disconnect",
+      "label": "disconnect()",
+      "file_type": "code",
+      "source_file": "tests/tiptap-toolbar.test.ts",
+      "source_location": "L15",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_tiptap_toolbar_test_setup",
       "label": "setup()",
       "file_type": "code",
       "source_file": "tests/tiptap-toolbar.test.ts",
-      "source_location": "L10",
+      "source_location": "L24",
       "_callable": true,
       "_origin": "ast"
     },
@@ -29093,7 +29282,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
@@ -60236,14 +60426,6 @@
     },
     {
       "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptapeditor",
-      "target": "messages_js",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptapeditor",
       "target": "cn",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -60253,6 +60435,14 @@
     {
       "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptapeditor",
       "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_toolbar_state",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptapeditor",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte",
@@ -60288,6 +60478,14 @@
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapPreview.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptaptoolbar",
+      "target": "elements",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte",
       "_origin": "ast"
     },
     {
@@ -60363,6 +60561,184 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/index.ts",
       "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_focus",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_setlink",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_unsetlink",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_run",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkeditor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkeditor",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkeditor_chain",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_applytiptaplink",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_removetiptaplink",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L19",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_applytiptaplink",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_applytiptaplink",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_setlink",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_applytiptaplink",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_focus",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_applytiptaplink",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkeditor_chain",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_removetiptaplink",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_removetiptaplink",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_unsetlink",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_removetiptaplink",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkcommandchain_focus",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_removetiptaplink",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_linkeditor_chain",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/link-actions.ts",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73223,7 +73599,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/multi-addon-compose.test.ts",
-      "source_location": "L217",
+      "source_location": "L223",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76362,6 +76738,17 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_stubs_lib_components_svforge_primitives_index",
+      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_input",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/components/svforge/primitives/index.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_stubs_lib_paraglide_messages",
       "target": "tests_stubs_lib_paraglide_messages_uploads_uploading",
       "relation": "contains",
@@ -76573,7 +76960,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_prompt",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_edit_link",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -76583,7 +76970,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_loading",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_description",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -76593,7 +76980,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_url",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -76603,7 +76990,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_formatting",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_apply",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -76613,7 +77000,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_headings",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_update",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -76623,7 +77010,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_lists",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_remove",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -76633,11 +77020,71 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_blocks",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_cancel",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
       "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_loading",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L32",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L33",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_formatting",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L34",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_headings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L35",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_lists",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L36",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_blocks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L37",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77331,6 +77778,93 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_tiptap_link_actions_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_link_actions_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_link_actions_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_link_actions_test",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_link_actions_test",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_applytiptaplink",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_link_actions_test",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_link_actions_removetiptaplink",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_link_actions_test",
+      "target": "tests_tiptap_link_actions_test_createeditor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_link_actions_test",
+      "target": "tests_tiptap_link_actions_test_createeditor",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-link-actions.test.ts",
+      "source_location": "L39",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_tiptap_render_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -77482,11 +78016,41 @@
     },
     {
       "source": "tests_tiptap_toolbar_test",
+      "target": "tests_tiptap_toolbar_test_observe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-toolbar.test.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_toolbar_test",
+      "target": "tests_tiptap_toolbar_test_unobserve",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-toolbar.test.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_toolbar_test",
+      "target": "tests_tiptap_toolbar_test_disconnect",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/tiptap-toolbar.test.ts",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_tiptap_toolbar_test",
       "target": "tests_tiptap_toolbar_test_setup",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/tiptap-toolbar.test.ts",
-      "source_location": "L10",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77497,7 +78061,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/tiptap-toolbar.test.ts",
-      "source_location": "L80",
+      "source_location": "L96",
       "weight": 1,
       "_origin": "ast"
     },

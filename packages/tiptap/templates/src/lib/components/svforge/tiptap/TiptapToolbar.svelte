@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import * as m from '$lib/paraglide/messages.js';
-	import { Button } from '$lib/components/svforge/primitives';
+	import { Button, Input } from '$lib/components/svforge/primitives';
 	import { cn } from '$lib/utils/cn';
-	import { ToggleGroup } from '@skeletonlabs/skeleton-svelte';
+	import { Popover, Portal, ToggleGroup } from '@skeletonlabs/skeleton-svelte';
 
 	interface Props {
 		loading: boolean;
@@ -11,6 +12,7 @@
 		activeLists: string[];
 		activeBlocks: string[];
 		activeLink: boolean;
+		linkHref: string;
 		onToggleBold: () => void;
 		onToggleItalic: () => void;
 		onToggleUnderline: () => void;
@@ -19,7 +21,8 @@
 		onToggleOrderedList: () => void;
 		onToggleBlockquote: () => void;
 		onToggleCode: () => void;
-		onSetLink: () => void;
+		onApplyLink: (href: string) => void;
+		onRemoveLink: () => void;
 		onSetHeading: (level: 1 | 2 | 3) => void;
 		onUnsetHeading: () => void;
 	}
@@ -31,6 +34,7 @@
 		activeLists,
 		activeBlocks,
 		activeLink,
+		linkHref,
 		onToggleBold,
 		onToggleItalic,
 		onToggleUnderline,
@@ -39,10 +43,28 @@
 		onToggleOrderedList,
 		onToggleBlockquote,
 		onToggleCode,
-		onSetLink,
+		onApplyLink,
+		onRemoveLink,
 		onSetHeading,
 		onUnsetHeading
 	}: Props = $props();
+
+	const linkInputId = $props.id();
+	let linkPopoverOpen = $state(false);
+	let linkUrl = $state('');
+
+	function handleLinkPopoverChange(details: { open: boolean }) {
+		if (details.open) linkUrl = linkHref;
+		linkPopoverOpen = details.open;
+	}
+
+	function applyLink(event: SubmitEvent) {
+		event.preventDefault();
+		const href = linkUrl.trim();
+		if (!href) return;
+		onApplyLink(href);
+		linkPopoverOpen = false;
+	}
 
 	type ToggleControl = { value: string; label: string; title: string };
 
@@ -196,16 +218,75 @@
 			{/each}
 		</div>
 
-		<Button
-			variant={activeLink ? 'tonal' : 'ghost'}
-			color={activeLink ? 'primary' : 'surface'}
-			size="sm"
-			class="shrink-0"
-			aria-pressed={activeLink}
-			onclick={onSetLink}
-			title={m.tiptap_insert_link()}
+		{#snippet linkTrigger(attributes: HTMLButtonAttributes)}
+			<button
+				{...attributes}
+				type="button"
+				class={cn(
+					'btn btn-sm shrink-0',
+					activeLink ? 'preset-tonal-primary' : 'hover:preset-tonal-surface'
+				)}
+				aria-pressed={activeLink}
+				title={activeLink ? m.tiptap_edit_link() : m.tiptap_insert_link()}
+			>
+				{m.tiptap_link()}
+			</button>
+		{/snippet}
+
+		<Popover
+			open={linkPopoverOpen}
+			onOpenChange={handleLinkPopoverChange}
+			initialFocusEl={() => document.getElementById(linkInputId)}
+			closeOnInteractOutside={true}
+			restoreFocus={true}
 		>
-			{m.tiptap_link()}
-		</Button>
+			<Popover.Trigger element={linkTrigger} />
+			<Portal>
+				<Popover.Positioner class="z-50">
+					<Popover.Content class="card w-80 space-y-3 border border-surface-200-800 bg-surface-50-950 p-4 shadow-lg">
+						<Popover.Title class="font-semibold">
+							{activeLink ? m.tiptap_edit_link() : m.tiptap_insert_link()}
+						</Popover.Title>
+						<Popover.Description class="text-sm text-surface-500">
+							{m.tiptap_link_description()}
+						</Popover.Description>
+						<form class="space-y-3" onsubmit={applyLink}>
+							<Input
+								id={linkInputId}
+								label={m.tiptap_link_url()}
+								type="url"
+								bind:value={linkUrl}
+								required
+							/>
+							<div class="flex flex-wrap justify-end gap-2">
+								{#if activeLink}
+									<Button
+										type="button"
+										variant="outlined"
+										color="warning"
+										size="sm"
+										onclick={() => {
+											onRemoveLink();
+											linkPopoverOpen = false;
+										}}
+									>
+										{m.tiptap_link_remove()}
+									</Button>
+								{/if}
+								<Popover.CloseTrigger
+									class="btn btn-sm hover:preset-tonal-surface"
+									aria-label={m.tiptap_link_cancel()}
+								>
+									{m.tiptap_link_cancel()}
+								</Popover.CloseTrigger>
+								<Button type="submit" size="sm">
+									{activeLink ? m.tiptap_link_update() : m.tiptap_link_apply()}
+								</Button>
+							</div>
+						</form>
+					</Popover.Content>
+				</Popover.Positioner>
+			</Portal>
+		</Popover>
 	{/if}
 </div>
