@@ -1,1 +1,9 @@
-[]
+[
+	{
+		"package": "postcss-selector-parser",
+		"version": "6.0.10",
+		"advisory": "GHSA-rj75-hqrm-r3gf",
+		"path": "postcss-selector-parser",
+		"reason": "Pinned exactly by the dev-only @tailwindcss/typography@0.5.20 dependency. It parses checked-in build-time CSS selectors, not selectors supplied to an application runtime request. No compatible patched v6 release can currently be selected through this dependency's exact pin; keep this exception scoped to this version and dependency path until Typography updates its pin."
+	}
+]

@@ -1,6 +1,6 @@
 {
   "docs/audit-baseline.json": {
-    "ast_hash": "58e0494c51d30eb3494f7c9198986bb9",
+    "ast_hash": "dd52b6aabb7c8a33ff66c9217296b0ea",
     "semantic_hash": ""
   },
   "docs/release-plan.schema.json": {
@@ -12,7 +12,7 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "ast_hash": "cfb3089190f3660f942e5783762f036a",
+    "ast_hash": "668ab6ac79290efff4220f82598f51f1",
     "semantic_hash": ""
   },
   "packages/addon-kit/package.json": {
@@ -1492,7 +1492,7 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "ast_hash": "1368f6d2d58566ed3f4baeeb1f423a26",
+    "ast_hash": "1f692ecfa522e93864f53fdb8539cc37",
     "semantic_hash": ""
   },
   "SECURITY.md": {
@@ -1560,7 +1560,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "67f6732fb73441d762ada6596fe16df0",
+    "ast_hash": "b333de6f099ae561fa07ac20d9ce0e63",
     "semantic_hash": ""
   },
   "packages/svforge/docs/PRD.md": {

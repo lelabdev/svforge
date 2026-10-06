@@ -1204,19 +1204,11 @@
       "_origin": "ast"
     },
     {
-      "id": "package_dependencies",
-      "label": "dependencies",
-      "file_type": "code",
-      "source_file": "package.json",
-      "source_location": "L49",
-      "_origin": "ast"
-    },
-    {
       "id": "package_overrides",
       "label": "overrides",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L50",
+      "source_location": "L49",
       "_origin": "ast"
     },
     {
@@ -1224,12 +1216,20 @@
       "label": "brace-expansion",
       "file_type": "code",
       "source_file": "package.json",
-      "source_location": "L51",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
       "id": "package_overrides_devalue",
       "label": "devalue",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L51",
+      "_origin": "ast"
+    },
+    {
+      "id": "package_overrides_source_map_js",
+      "label": "source-map-js",
       "file_type": "code",
       "source_file": "package.json",
       "source_location": "L52",
@@ -27126,7 +27126,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L145",
+      "source_location": "L148",
       "_origin": "ast"
     },
     {
@@ -27135,7 +27135,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L152",
+      "source_location": "L155",
       "_origin": "ast"
     },
     {
@@ -27144,7 +27144,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L188",
+      "source_location": "L191",
       "_origin": "ast"
     },
     {
@@ -30532,21 +30532,11 @@
     },
     {
       "source": "package",
-      "target": "package_dependencies",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "package.json",
-      "source_location": "L49",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "package",
       "target": "package_overrides",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L50",
+      "source_location": "L49",
       "weight": 1,
       "_origin": "ast"
     },
@@ -30556,13 +30546,23 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
-      "source_location": "L51",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "package_overrides",
       "target": "package_overrides_devalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "package_overrides",
+      "target": "package_overrides_source_map_js",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "package.json",
@@ -82145,7 +82145,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L145",
+      "source_location": "L148",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82155,7 +82155,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L150",
+      "source_location": "L153",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82165,7 +82165,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L152",
+      "source_location": "L155",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82175,7 +82175,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L188",
+      "source_location": "L191",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84214,7 +84214,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/README.md",
-      "source_location": "L171",
+      "source_location": "L174",
       "weight": 1,
       "_origin": "ast"
     },
