@@ -164,6 +164,7 @@ describe('multi-addon composition in one sv add invocation', () => {
 			'tiptap_bold',
 			'tiptap_loading',
 			'tiptap_link_description',
+			'tiptap_link_invalid_url',
 			'tiptap_link_url',
 			'tiptap_link_apply',
 			'tiptap_link_update',

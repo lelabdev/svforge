@@ -3,6 +3,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { Button, Input } from '$lib/components/svforge/primitives';
 	import { cn } from '$lib/utils/cn';
+	import { isSafeHref } from './render-tiptap';
 	import { Popover, Portal, ToggleGroup } from '@skeletonlabs/skeleton-svelte';
 
 	interface Props {
@@ -52,16 +53,24 @@
 	const linkInputId = $props.id();
 	let linkPopoverOpen = $state(false);
 	let linkUrl = $state('');
+	let linkUrlError = $state('');
 
 	function handleLinkPopoverChange(details: { open: boolean }) {
-		if (details.open) linkUrl = linkHref;
+		if (details.open) {
+			linkUrl = linkHref;
+			linkUrlError = '';
+		}
 		linkPopoverOpen = details.open;
 	}
 
 	function applyLink(event: SubmitEvent) {
 		event.preventDefault();
 		const href = linkUrl.trim();
-		if (!href) return;
+		if (!isSafeHref(href)) {
+			linkUrlError = m.tiptap_link_invalid_url();
+			return;
+		}
+		linkUrlError = '';
 		onApplyLink(href);
 		linkPopoverOpen = false;
 	}
@@ -254,8 +263,10 @@
 							<Input
 								id={linkInputId}
 								label={m.tiptap_link_url()}
-								type="url"
+								type="text"
 								bind:value={linkUrl}
+								error={linkUrlError}
+								oninput={() => (linkUrlError = '')}
 								required
 							/>
 							<div class="flex flex-wrap justify-end gap-2">

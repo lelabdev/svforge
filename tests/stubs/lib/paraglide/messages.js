@@ -24,6 +24,7 @@ export const tiptap_link = () => 'Link';
 export const tiptap_insert_link = () => 'Insert link';
 export const tiptap_edit_link = () => 'Edit link';
 export const tiptap_link_description = () => 'Set or update the destination URL for the selected text.';
+export const tiptap_link_invalid_url = () => 'Enter a valid URL or relative link.';
 export const tiptap_link_url = () => 'Link URL';
 export const tiptap_link_apply = () => 'Apply link';
 export const tiptap_link_update = () => 'Update link';

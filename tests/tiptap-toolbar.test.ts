@@ -159,6 +159,36 @@ describe('Tiptap toolbar controls (#484)', () => {
 		expect(queryByRole('textbox', { name: 'Link URL' })).toBeNull();
 	});
 
+	it.each(['/docs', './page', '../page', '?view=full', '#section', 'article.html'])(
+		'accepts safe relative link href %s',
+		async (href) => {
+			const { getByRole, actions } = setup();
+			await fireEvent.click(getByRole('button', { name: 'Link' }));
+
+			const input = getByRole('textbox', { name: 'Link URL' });
+			await fireEvent.input(input, { target: { value: href } });
+			await fireEvent.click(getByRole('button', { name: 'Apply link' }));
+
+			expect(actions.onApplyLink).toHaveBeenCalledWith(href);
+		}
+	);
+
+	it.each(['//example.com/path', 'javascript:alert(1)'])(
+		'rejects unsafe link href %s',
+		async (href) => {
+			const { getByRole, getByText, actions } = setup();
+			await fireEvent.click(getByRole('button', { name: 'Link' }));
+
+			const input = getByRole('textbox', { name: 'Link URL' });
+			await fireEvent.input(input, { target: { value: href } });
+			await fireEvent.click(getByRole('button', { name: 'Apply link' }));
+
+			expect(actions.onApplyLink).not.toHaveBeenCalled();
+			expect(getByRole('textbox', { name: 'Link URL' }).getAttribute('aria-invalid')).toBe('true');
+			expect(getByText('Enter a valid URL or relative link.')).toBeTruthy();
+		}
+	);
+
 	it('prefills an existing URL so it can be edited', async () => {
 		const { getByRole, actions } = setup({ activeLink: true, linkHref: 'https://example.com/old' });
 		await fireEvent.click(getByRole('button', { name: 'Link' }));

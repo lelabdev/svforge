@@ -472,7 +472,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "139137647fc30ef0950c47d94a5d75ab",
+    "ast_hash": "ac401841bb834133eed5dcaad0f9a462",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -920,11 +920,11 @@
     "semantic_hash": ""
   },
   "packages/tiptap/src/index.ts": {
-    "ast_hash": "20a77a439c02ec5acd94fcfe5b8e2f81",
+    "ast_hash": "d6116ed136acb8486e9f26e375b20223",
     "semantic_hash": ""
   },
   "packages/tiptap/src/templates.ts": {
-    "ast_hash": "0cc9067fd092743f965c9ddfe1275171",
+    "ast_hash": "c5bdb3c05d9860b9f2e663cd261b0875",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte": {
@@ -936,7 +936,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte": {
-    "ast_hash": "f2647b5e208b91c2a1c07785514f96b6",
+    "ast_hash": "389d0dd3aadd7f6587252d382a3597d1",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/index.ts": {
@@ -944,7 +944,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts": {
-    "ast_hash": "427ae0b20ff73e756455a56dd62c6959",
+    "ast_hash": "43006313c718224ade2bf2eec36f17ea",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/tiptap-extensions.ts": {
@@ -1288,7 +1288,7 @@
     "semantic_hash": ""
   },
   "tests/multi-addon-compose.test.ts": {
-    "ast_hash": "c635a9ee005e0870c06df5a5a22e7b81",
+    "ast_hash": "c5336196c94fff0d8c5b1bcd789b3d5f",
     "semantic_hash": ""
   },
   "tests/notifications.test.ts": {
@@ -1392,7 +1392,7 @@
     "semantic_hash": ""
   },
   "tests/stubs/lib/paraglide/messages.js": {
-    "ast_hash": "df420e3a459422b275bc71ede753ab25",
+    "ast_hash": "3ee0e402f7e03aab1c25c282b6c0a733",
     "semantic_hash": ""
   },
   "tests/stubs/lib/utils/cn.ts": {
@@ -1424,7 +1424,7 @@
     "semantic_hash": ""
   },
   "tests/tiptap-render.test.ts": {
-    "ast_hash": "065eaf787fbfe2c0ba5b6cfedff49c16",
+    "ast_hash": "799467c4a807a56c28669ae923685dfc",
     "semantic_hash": ""
   },
   "tests/tiptap-xss.test.ts": {
@@ -1736,7 +1736,7 @@
     "semantic_hash": ""
   },
   "tests/tiptap-toolbar.test.ts": {
-    "ast_hash": "8ee82a4fabba38abfba886a43f564433",
+    "ast_hash": "63891803f862c9f52cc07d56391e5ff0",
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {

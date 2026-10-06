@@ -17535,11 +17535,20 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap_issafehref",
+      "label": "isSafeHref()",
+      "file_type": "code",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
+      "source_location": "L36",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap_sanitizehref",
       "label": "sanitizeHref()",
       "file_type": "code",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L49",
+      "source_location": "L62",
       "_callable": true,
       "_origin": "ast"
     },
@@ -17548,7 +17557,7 @@
       "label": "sanitizeTarget()",
       "file_type": "code",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L70",
+      "source_location": "L68",
       "_callable": true,
       "_origin": "ast"
     },
@@ -17557,7 +17566,7 @@
       "label": "clampHeadingLevel()",
       "file_type": "code",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L75",
+      "source_location": "L73",
       "_callable": true,
       "_origin": "ast"
     },
@@ -17566,7 +17575,7 @@
       "label": "sanitizeLanguage()",
       "file_type": "code",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L83",
+      "source_location": "L81",
       "_callable": true,
       "_origin": "ast"
     },
@@ -17575,7 +17584,7 @@
       "label": "applyMarks()",
       "file_type": "code",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L89",
+      "source_location": "L87",
       "_callable": true,
       "_origin": "ast"
     },
@@ -17584,7 +17593,7 @@
       "label": "renderNode()",
       "file_type": "code",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L114",
+      "source_location": "L112",
       "_callable": true,
       "_origin": "ast"
     },
@@ -17593,7 +17602,7 @@
       "label": "renderTiptap()",
       "file_type": "code",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L156",
+      "source_location": "L154",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23464,11 +23473,20 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_stubs_lib_paraglide_messages_tiptap_link_invalid_url",
+      "label": "tiptap_link_invalid_url()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L27",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_stubs_lib_paraglide_messages_tiptap_link_url",
       "label": "tiptap_link_url()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L27",
+      "source_location": "L28",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23477,7 +23495,7 @@
       "label": "tiptap_link_apply()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L28",
+      "source_location": "L29",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23486,7 +23504,7 @@
       "label": "tiptap_link_update()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L29",
+      "source_location": "L30",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23495,7 +23513,7 @@
       "label": "tiptap_link_remove()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L30",
+      "source_location": "L31",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23504,7 +23522,7 @@
       "label": "tiptap_link_cancel()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L31",
+      "source_location": "L32",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23513,7 +23531,7 @@
       "label": "tiptap_loading()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L32",
+      "source_location": "L33",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23522,7 +23540,7 @@
       "label": "tiptap_toolbar()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L33",
+      "source_location": "L34",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23531,7 +23549,7 @@
       "label": "tiptap_toolbar_formatting()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L34",
+      "source_location": "L35",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23540,7 +23558,7 @@
       "label": "tiptap_toolbar_headings()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L35",
+      "source_location": "L36",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23549,7 +23567,7 @@
       "label": "tiptap_toolbar_lists()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L36",
+      "source_location": "L37",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23558,7 +23576,7 @@
       "label": "tiptap_toolbar_blocks()",
       "file_type": "code",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
-      "source_location": "L37",
+      "source_location": "L38",
       "_callable": true,
       "_origin": "ast"
     },
@@ -60514,6 +60532,14 @@
     },
     {
       "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptaptoolbar",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptaptoolbar",
       "target": "skeleton_svelte",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -60776,11 +60802,21 @@
     },
     {
       "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap_issafehref",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
+      "source_location": "L36",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap",
       "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap_sanitizehref",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L49",
+      "source_location": "L62",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60790,7 +60826,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L70",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60800,7 +60836,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L75",
+      "source_location": "L73",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60810,7 +60846,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L83",
+      "source_location": "L81",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60820,7 +60856,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L89",
+      "source_location": "L87",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60830,7 +60866,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L114",
+      "source_location": "L112",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60840,7 +60876,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L156",
+      "source_location": "L154",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap_sanitizehref",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap_issafehref",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
+      "source_location": "L63",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60851,7 +60898,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L57",
+      "source_location": "L64",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60862,7 +60909,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L104",
+      "source_location": "L102",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60873,7 +60920,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L105",
+      "source_location": "L103",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60884,7 +60931,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L119",
+      "source_location": "L117",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60895,7 +60942,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L121",
+      "source_location": "L119",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60906,7 +60953,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L129",
+      "source_location": "L127",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60917,7 +60964,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L141",
+      "source_location": "L139",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60928,7 +60975,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L149",
+      "source_location": "L147",
       "weight": 1,
       "_origin": "ast"
     },
@@ -60939,7 +60986,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/render-tiptap.ts",
-      "source_location": "L158",
+      "source_location": "L156",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73599,7 +73646,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/multi-addon-compose.test.ts",
-      "source_location": "L223",
+      "source_location": "L224",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76980,7 +77027,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_url",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_invalid_url",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -76990,7 +77037,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_apply",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_url",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77000,7 +77047,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_update",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_apply",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77010,7 +77057,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_remove",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_update",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77020,7 +77067,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_cancel",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_remove",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77030,7 +77077,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_loading",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_link_cancel",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77040,7 +77087,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_loading",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77050,7 +77097,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_formatting",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77060,7 +77107,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_headings",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_formatting",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77070,7 +77117,7 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_lists",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_headings",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
@@ -77080,11 +77127,21 @@
     },
     {
       "source": "tests_stubs_lib_paraglide_messages",
-      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_blocks",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_lists",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/messages.js",
       "source_location": "L37",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_tiptap_toolbar_blocks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
