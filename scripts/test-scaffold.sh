@@ -231,6 +231,10 @@ if [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "dashboard-playwright" ] || 
 	test -f .env.example || { echo "❌ .env.example missing at project root (#187)"; exit 1; }
 	test -f scripts/setup.sh || { echo "❌ scripts/setup.sh missing at project root (#187)"; exit 1; }
 	test -f static/robots.txt || { echo "❌ static/robots.txt missing at project root (#187)"; exit 1; }
+	test -f .github/workflows/ci.yml || { echo "❌ dashboard CI workflow missing at project root (#406)"; exit 1; }
+	for required in 'pull_request:' 'push:' 'bun install' 'bun run check' 'bun run test' 'bun run build' 'DATABASE_URL:' 'TEST_DATABASE_URL:' 'BETTER_AUTH_SECRET:' 'image: postgres:17' 'bunx drizzle-kit push --force'; do
+		grep -qF "$required" .github/workflows/ci.yml || { echo "❌ dashboard CI workflow missing '$required' (#406)"; exit 1; }
+	done
 	grep -q '^DATABASE_URL=' .env.example || { echo "❌ dashboard .env.example lost DATABASE_URL (#422)"; exit 1; }
 	grep -q '^BETTER_AUTH_SECRET=' .env.example || { echo "❌ dashboard .env.example lost BETTER_AUTH_SECRET (#422)"; exit 1; }
 	if [ "$TEMPLATE" = "dashboard" ]; then

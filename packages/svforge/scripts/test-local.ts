@@ -41,6 +41,30 @@ let count = copyDir(join(templatesDir, 'base'), output);
 // For fullstack, overlay on top of base
 if (mode === 'dashboard') {
 	count += copyDir(join(templatesDir, 'dashboard'), output);
+
+	// Check the generated root-file manifest, not just the raw template tree:
+	// prebuild must embed the workflow so real dashboard scaffolds receive it.
+	const { dashboardRootFiles } = await import('../src/templates');
+	const workflow = dashboardRootFiles['/.github/workflows/ci.yml'];
+	if (!workflow) throw new Error('Dashboard CI workflow missing from generated root-file manifest.');
+	for (const required of [
+		'pull_request:',
+		'push:',
+		'bun install',
+		'bun run check',
+		'bun run test',
+		'bun run build',
+		'DATABASE_URL:',
+		'TEST_DATABASE_URL:',
+		'BETTER_AUTH_SECRET:',
+		'image: postgres:17',
+		'bunx drizzle-kit push --force'
+	]) {
+		if (!workflow.includes(required)) {
+			throw new Error(`Dashboard CI workflow is missing required content: ${required}`);
+		}
+	}
+	console.log('✅ Dashboard CI workflow present in generated root-file manifest');
 }
 
 console.log(`\n✅ ${count} files written to ${output}`);

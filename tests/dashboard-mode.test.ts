@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { SvApi } from 'sv';
 import { applyDashboardMode, DLX_RUNNERS, resolveDlxRunner } from '../packages/svforge/src/modes/dashboard';
+import { dashboardRootFiles } from '../packages/svforge/src/templates';
 
 type FakeSv = {
 	dependencies: string[];
@@ -107,6 +108,24 @@ describe('dashboard testing profiles', () => {
 		expect(sv.files.has('static/robots.txt')).toBe(true);
 		expect(sv.files.has('src/drizzle.config.ts')).toBe(false);
 		expect(sv.files.has('src/.env.example')).toBe(false);
+	});
+
+	it('delivers the dashboard CI workflow with checks and required build env (#406)', () => {
+		const sv = fakeSv();
+		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
+
+		const workflow = sv.files.get('.github/workflows/ci.yml');
+		expect(workflow).toContain('pull_request:');
+		expect(workflow).toContain('push:');
+		expect(workflow).toContain('bun install');
+		expect(workflow).toContain('bun run check');
+		expect(workflow).toContain('bun run test');
+		expect(workflow).toContain('bun run build');
+		expect(workflow).toContain('DATABASE_URL:');
+		expect(workflow).toContain('BETTER_AUTH_SECRET:');
+		expect(workflow).toContain('TEST_DATABASE_URL:');
+		expect(workflow).toContain('image: postgres:17');
+		expect(workflow).toContain('bunx drizzle-kit push --force');
 	});
 
 	it('scaffolds AGENTS.md with dashboard golden references (#267)', () => {

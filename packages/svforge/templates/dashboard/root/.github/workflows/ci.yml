@@ -1,0 +1,56 @@
+name: Dashboard CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dashboard:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: sf_dashboard_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/sf_dashboard_test
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/sf_dashboard_test
+      BETTER_AUTH_SECRET: ci-only-not-for-production-secret-0123456789abcdef
+      ORIGIN: http://localhost:5173
+      SIGNUP_MODE: closed
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Check
+        run: bun run check
+
+      - name: Push test database schema
+        run: bunx drizzle-kit push --force
+
+      - name: Test
+        run: bun run test
+
+      - name: Build
+        run: bun run build
