@@ -165,12 +165,27 @@ fi
 # the presign contract (filename/contentType/size) that #279 fixed, and runs
 # inside the scaffold via `bun run test`.
 if [ "$TEMPLATE" = "dashboard-integrations" ]; then
+	for variable in GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET GITHUB_CLIENT_ID GITHUB_CLIENT_SECRET RESEND_API_KEY S3_ENDPOINT S3_REGION S3_BUCKET S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY S3_UPLOAD_SIZE_POLICY; do
+		if grep -q "^$variable=" .env.example; then
+			echo "❌ uninstalled addon variable $variable advertised before module installation (#422)"; exit 1
+		fi
+	done
 	$SV_CMD add "file:$REPO_ROOT/packages/oauth" --install "$SF_PM" --no-download-check
 	$SV_CMD add "file:$REPO_ROOT/packages/email" --install "$SF_PM" --no-download-check
 	$SV_CMD add "file:$REPO_ROOT/packages/uploads=testpack:yes" --install "$SF_PM" --no-download-check
 	for variable in GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET GITHUB_CLIENT_ID GITHUB_CLIENT_SECRET RESEND_API_KEY S3_ENDPOINT S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY S3_BUCKET S3_REGION S3_UPLOAD_SIZE_POLICY; do
 		grep -q "$variable:" src/env.ts || { echo "❌ $variable not declared in src/env.ts (#491)"; exit 1; }
+		grep -q "^$variable=" .env.example || { echo "❌ $variable missing from composed .env.example (#422)"; exit 1; }
 	done
+	for marker in email oauth uploads; do
+		count=$(grep -c "^# >>> svforge addon: $marker >>>$" .env.example || true)
+		[ "$count" -eq 1 ] || { echo "❌ expected one .env.example block for $marker (#422)"; exit 1; }
+	done
+	grep -q '^DATABASE_URL=' .env.example || { echo "❌ dashboard DATABASE_URL guidance was not preserved (#422)"; exit 1; }
+	grep -q '^RESEND_API_KEY=your_resend_api_key$' .env.example || { echo "❌ email example is not a placeholder (#422)"; exit 1; }
+	grep -q '^GOOGLE_CLIENT_SECRET=replace_with_google_client_secret$' .env.example || { echo "❌ OAuth example contains no safe placeholder (#422)"; exit 1; }
+	grep -q '^S3_SECRET_ACCESS_KEY=replace_with_s3_secret_access_key$' .env.example || { echo "❌ S3 example contains no safe placeholder (#422)"; exit 1; }
+	if grep -q '^ANTHROPIC_API_KEY=' .env.example; then echo "❌ unrelated environment variable was advertised (#422)"; exit 1; fi
 	# delivered endpoints/components
 	test -f src/routes/api/upload/+server.ts || { echo "❌ upload endpoint missing (#284)"; exit 1; }
 	test -f src/lib/components/svforge/uploads/FileUpload.svelte || { echo "❌ FileUpload.svelte missing (#284)"; exit 1; }
@@ -216,6 +231,15 @@ if [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "dashboard-playwright" ] || 
 	test -f .env.example || { echo "❌ .env.example missing at project root (#187)"; exit 1; }
 	test -f scripts/setup.sh || { echo "❌ scripts/setup.sh missing at project root (#187)"; exit 1; }
 	test -f static/robots.txt || { echo "❌ static/robots.txt missing at project root (#187)"; exit 1; }
+	grep -q '^DATABASE_URL=' .env.example || { echo "❌ dashboard .env.example lost DATABASE_URL (#422)"; exit 1; }
+	grep -q '^BETTER_AUTH_SECRET=' .env.example || { echo "❌ dashboard .env.example lost BETTER_AUTH_SECRET (#422)"; exit 1; }
+	if [ "$TEMPLATE" = "dashboard" ]; then
+		for variable in RESEND_API_KEY GOOGLE_CLIENT_ID GOOGLE_CLIENT_SECRET GITHUB_CLIENT_ID GITHUB_CLIENT_SECRET S3_ENDPOINT S3_REGION S3_BUCKET S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY S3_UPLOAD_SIZE_POLICY; do
+			if grep -q "^$variable=" .env.example; then
+				echo "❌ uninstalled addon variable $variable advertised in dashboard .env.example (#422)"; exit 1
+			fi
+		done
+	fi
 	bash scripts/setup.sh >/dev/null 2>&1 || { echo "❌ setup.sh failed"; exit 1; }
 	test -f .env || { echo "❌ setup.sh did not create .env"; exit 1; }
 	# #312 — the scaffold's integration suites run against a DEDICATED test

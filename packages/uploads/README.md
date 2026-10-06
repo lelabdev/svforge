@@ -16,6 +16,8 @@ npx sv add @svforge/uploads
 
 ## Environment Variables
 
+The add-on appends these documented placeholders to the root `.env.example`; copy them into `.env` without overwriting existing settings, then replace the placeholders with your storage provider values.
+
 ```env
 S3_ENDPOINT=https://your-s3-or-r2-endpoint
 S3_REGION=auto

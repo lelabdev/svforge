@@ -1,6 +1,27 @@
 import { defineAddon, defineAddonOptions } from 'sv';
-import { checkModuleCapabilities, mergeSvelteKitEnvVars, planCatalogMerges, planAddonContext } from '@svforge/addon-kit';
+import {
+	checkModuleCapabilities,
+	mergeEnvExample,
+	mergeSvelteKitEnvVars,
+	planCatalogMerges,
+	planAddonContext
+} from '@svforge/addon-kit';
 import { files } from './templates';
+
+const ENV_EXAMPLE = {
+	S3_ENDPOINT: { description: 'S3-compatible storage endpoint', placeholder: 'https://your-s3-compatible-endpoint' },
+	S3_REGION: { description: 'S3-compatible storage region', placeholder: 'your_s3_region' },
+	S3_BUCKET: { description: 'S3-compatible storage bucket', placeholder: 'your_bucket_name' },
+	S3_ACCESS_KEY_ID: { description: 'S3 access key ID', placeholder: 'your_access_key_id' },
+	S3_SECRET_ACCESS_KEY: { description: 'S3 secret access key', placeholder: 'replace_with_s3_secret_access_key' },
+	S3_UPLOAD_SIZE_POLICY: {
+		description: 'Optional: leave blank for storage-enforced POST; use presigned-put only for best-effort fallback',
+		placeholder: ''
+	}
+};
+const ENV_DECLARATIONS = Object.fromEntries(
+	Object.entries(ENV_EXAMPLE).map(([name, entry]) => [name, entry.description])
+);
 
 export default defineAddon({
 	id: 'svforge-uploads',
@@ -93,16 +114,8 @@ export default defineAddon({
 			if (path === '/routes/api/upload/upload-security.test.ts' && !options.testpack) continue;
 			sv.file(`src${path}`, () => content);
 		}
-		sv.file('src/env.ts', (content) =>
-			mergeSvelteKitEnvVars(content, {
-				S3_ENDPOINT: 'S3-compatible storage endpoint',
-				S3_REGION: 'S3-compatible storage region',
-				S3_BUCKET: 'S3-compatible storage bucket',
-				S3_ACCESS_KEY_ID: 'S3 access key ID',
-				S3_SECRET_ACCESS_KEY: 'S3 secret access key',
-				S3_UPLOAD_SIZE_POLICY: 'Optional upload size policy'
-			})
-		);
+		sv.file('src/env.ts', (content) => mergeSvelteKitEnvVars(content, ENV_DECLARATIONS));
+		sv.file('.env.example', (content) => mergeEnvExample(content, 'uploads', ENV_EXAMPLE));
 
 		for (const write of [...catalogs.writes, ...context.writes]) {
 			sv.file(write.path, () => write.content);
@@ -112,7 +125,7 @@ export default defineAddon({
 	nextSteps: ({ cwd, options }) => {
 		const steps = [
 			'@svforge/uploads installed!',
-			'Add S3/R2 credentials to .env: S3_ENDPOINT, S3_REGION, S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY',
+			'Copy the S3/R2 placeholders from .env.example into .env and replace them with your provider values',
 			'Upload size policy: POST is storage-enforced by default (requires provider POST policies). Set S3_UPLOAD_SIZE_POLICY=presigned-put only as an explicitly best-effort fallback.',
 			'Usage: <FileUpload onUpload={(key) => console.log(key)} /> — key is the persistent object key, not the expiring presigned URL',
 			...(options.testpack

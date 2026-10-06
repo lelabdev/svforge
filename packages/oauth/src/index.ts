@@ -1,6 +1,16 @@
 import { defineAddon, defineAddonOptions } from 'sv';
-import { checkModuleCapabilities, mergeSvelteKitEnvVars, planAddonContext } from '@svforge/addon-kit';
+import { checkModuleCapabilities, mergeEnvExample, mergeSvelteKitEnvVars, planAddonContext } from '@svforge/addon-kit';
 import { files } from './templates';
+
+const ENV_EXAMPLE = {
+	GOOGLE_CLIENT_ID: { description: 'Google OAuth client ID', placeholder: 'your_google_client_id' },
+	GOOGLE_CLIENT_SECRET: { description: 'Google OAuth client secret', placeholder: 'replace_with_google_client_secret' },
+	GITHUB_CLIENT_ID: { description: 'GitHub OAuth client ID', placeholder: 'your_github_client_id' },
+	GITHUB_CLIENT_SECRET: { description: 'GitHub OAuth client secret', placeholder: 'replace_with_github_client_secret' }
+};
+const ENV_DECLARATIONS = Object.fromEntries(
+	Object.entries(ENV_EXAMPLE).map(([name, entry]) => [name, entry.description])
+);
 
 
 
@@ -43,14 +53,8 @@ export default defineAddon({
 		for (const [path, content] of Object.entries(files)) {
 			sv.file(`src${path}`, () => content);
 		}
-		sv.file('src/env.ts', (content) =>
-			mergeSvelteKitEnvVars(content, {
-				GOOGLE_CLIENT_ID: 'Google OAuth client ID',
-				GOOGLE_CLIENT_SECRET: 'Google OAuth client secret',
-				GITHUB_CLIENT_ID: 'GitHub OAuth client ID',
-				GITHUB_CLIENT_SECRET: 'GitHub OAuth client secret'
-			})
-		);
+		sv.file('src/env.ts', (content) => mergeSvelteKitEnvVars(content, ENV_DECLARATIONS));
+		sv.file('.env.example', (content) => mergeEnvExample(content, 'oauth', ENV_EXAMPLE));
 
 		// AI context (#234): planned in memory first (#324) — an invalid
 		// .svforge.json cancels the install instead of resetting the file.
@@ -68,7 +72,7 @@ export default defineAddon({
 			'    github: { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET }',
 			'  }',
 			'Add OAuth buttons: import OAuthButtons from "$lib/components/svforge/ui/OAuthButtons.svelte"',
-			'Add the OAuth credentials to .env (src/env.ts declarations were added automatically):',
+			'Copy the OAuth placeholders from .env.example into .env and replace them (src/env.ts declarations were added automatically):',
 			'  GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET'
 		];
 		// Unverified capabilities (#323): on a non-SVForge project whose auth

@@ -1666,6 +1666,25 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_addon_kit_src_env_envexampleentry",
+      "label": "EnvExampleEntry",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/env.ts",
+      "source_location": "L39",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_addon_kit_src_env_mergeenvexample",
+      "label": "mergeEnvExample()",
+      "file_type": "code",
+      "source_file": "packages/addon-kit/src/env.ts",
+      "source_location": "L54",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_addon_kit_src_index",
       "label": "addon-kit/src/index.ts",
       "file_type": "code",
@@ -4368,6 +4387,22 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_email_src_index_env_example",
+      "label": "ENV_EXAMPLE",
+      "file_type": "code",
+      "source_file": "packages/email/src/index.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_email_src_index_env_declarations",
+      "label": "ENV_DECLARATIONS",
+      "file_type": "code",
+      "source_file": "packages/email/src/index.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_email_src_templates",
       "label": "email/src/templates.ts",
       "file_type": "code",
@@ -5987,6 +6022,22 @@
       "file_type": "code",
       "source_file": "packages/oauth/src/index.ts",
       "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_oauth_src_index_env_example",
+      "label": "ENV_EXAMPLE",
+      "file_type": "code",
+      "source_file": "packages/oauth/src/index.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_oauth_src_index_env_declarations",
+      "label": "ENV_DECLARATIONS",
+      "file_type": "code",
+      "source_file": "packages/oauth/src/index.ts",
+      "source_location": "L11",
       "_origin": "ast"
     },
     {
@@ -18145,6 +18196,22 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_uploads_src_index_env_example",
+      "label": "ENV_EXAMPLE",
+      "file_type": "code",
+      "source_file": "packages/uploads/src/index.ts",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_uploads_src_index_env_declarations",
+      "label": "ENV_DECLARATIONS",
+      "file_type": "code",
+      "source_file": "packages/uploads/src/index.ts",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_uploads_src_templates",
       "label": "uploads/src/templates.ts",
       "file_type": "code",
@@ -19620,7 +19687,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L685",
+      "source_location": "L709",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -20025,6 +20092,30 @@
       "file_type": "code",
       "source_file": "tests/addon-env.test.ts",
       "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_addon_env_test_dashboardexample",
+      "label": "dashboardExample",
+      "file_type": "code",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_addon_env_test_emailexample",
+      "label": "emailExample",
+      "file_type": "code",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_addon_env_test_oauthexample",
+      "label": "oauthExample",
+      "file_type": "code",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -26851,7 +26942,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/oauth/README.md",
-      "source_location": "L73",
+      "source_location": "L72",
       "_origin": "ast"
     },
     {
@@ -26860,7 +26951,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/oauth/README.md",
-      "source_location": "L90",
+      "source_location": "L89",
       "_origin": "ast"
     },
     {
@@ -27904,7 +27995,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/uploads/README.md",
-      "source_location": "L29",
+      "source_location": "L31",
       "_origin": "ast"
     },
     {
@@ -27913,7 +28004,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/uploads/README.md",
-      "source_location": "L48",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
@@ -27922,7 +28013,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/uploads/README.md",
-      "source_location": "L54",
+      "source_location": "L56",
       "_origin": "ast"
     },
     {
@@ -27931,7 +28022,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/uploads/README.md",
-      "source_location": "L66",
+      "source_location": "L68",
       "_origin": "ast"
     },
     {
@@ -28995,6 +29086,14 @@
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "packages_addon_kit_src_index_mergeenvexample",
+      "label": "packages_addon_kit_src_index_mergeenvexample",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
     }
   ],
   "links": [
@@ -31231,6 +31330,26 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/env.ts",
       "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_env",
+      "target": "packages_addon_kit_src_env_envexampleentry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/env.ts",
+      "source_location": "L39",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_src_env",
+      "target": "packages_addon_kit_src_env_mergeenvexample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/addon-kit/src/env.ts",
+      "source_location": "L54",
       "weight": 1,
       "_origin": "ast"
     },
@@ -35955,6 +36074,17 @@
     },
     {
       "source": "packages_email_src_index",
+      "target": "packages_addon_kit_src_index_mergeenvexample",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/email/src/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_email_src_index",
       "target": "packages_addon_kit_src_index_mergesveltekitenvvars",
       "relation": "imports",
       "context": "import",
@@ -35994,6 +36124,26 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/email/src/index.ts",
       "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_email_src_index",
+      "target": "packages_email_src_index_env_example",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/email/src/index.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_email_src_index",
+      "target": "packages_email_src_index_env_declarations",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/email/src/index.ts",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -38711,6 +38861,17 @@
     },
     {
       "source": "packages_oauth_src_index",
+      "target": "packages_addon_kit_src_index_mergeenvexample",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/oauth/src/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_oauth_src_index",
       "target": "packages_addon_kit_src_index_mergesveltekitenvvars",
       "relation": "imports",
       "context": "import",
@@ -38750,6 +38911,26 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/oauth/src/index.ts",
       "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_oauth_src_index",
+      "target": "packages_oauth_src_index_env_example",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/oauth/src/index.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_oauth_src_index",
+      "target": "packages_oauth_src_index_env_declarations",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/oauth/src/index.ts",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61386,6 +61567,17 @@
     },
     {
       "source": "packages_uploads_src_index",
+      "target": "packages_addon_kit_src_index_mergeenvexample",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/src/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_src_index",
       "target": "packages_addon_kit_src_index_mergesveltekitenvvars",
       "relation": "imports",
       "context": "import",
@@ -61424,7 +61616,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/src/index.ts",
-      "source_location": "L3",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61435,7 +61627,27 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/src/index.ts",
-      "source_location": "L3",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_src_index",
+      "target": "packages_uploads_src_index_env_example",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/src/index.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_src_index",
+      "target": "packages_uploads_src_index_env_declarations",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/src/index.ts",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64692,7 +64904,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L685",
+      "source_location": "L709",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64702,7 +64914,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L693",
+      "source_location": "L717",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65632,7 +65844,7 @@
     },
     {
       "source": "tests_addon_env_test",
-      "target": "ref_vitest",
+      "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -65643,7 +65855,7 @@
     },
     {
       "source": "tests_addon_env_test",
-      "target": "packages_addon_kit_src_env",
+      "target": "ref_node_path",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -65654,12 +65866,75 @@
     },
     {
       "source": "tests_addon_env_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
+      "target": "packages_addon_kit_src_env",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
+      "target": "packages_addon_kit_src_env_mergeenvexample",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
       "target": "packages_addon_kit_src_env_mergesveltekitenvvars",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/addon-env.test.ts",
-      "source_location": "L2",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
+      "target": "tests_addon_env_test_dashboardexample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
+      "target": "tests_addon_env_test_emailexample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
+      "target": "tests_addon_env_test_oauthexample",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82056,7 +82331,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/oauth/README.md",
-      "source_location": "L73",
+      "source_location": "L72",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82066,7 +82341,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/oauth/README.md",
-      "source_location": "L90",
+      "source_location": "L89",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83126,7 +83401,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/README.md",
-      "source_location": "L29",
+      "source_location": "L31",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83136,7 +83411,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/README.md",
-      "source_location": "L48",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83146,7 +83421,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/README.md",
-      "source_location": "L54",
+      "source_location": "L56",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83156,7 +83431,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/README.md",
-      "source_location": "L66",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
