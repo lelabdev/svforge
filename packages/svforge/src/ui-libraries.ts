@@ -51,10 +51,16 @@ function validateComponentRoot(root: string, componentRoot: string): string {
 	const absoluteRoot = path.resolve(root);
 	const absoluteComponentRoot = path.resolve(absoluteRoot, componentRoot);
 	const relativeRoot = path.relative(absoluteRoot, absoluteComponentRoot);
-	if (relativeRoot === '..' || relativeRoot.startsWith(`..${path.sep}`) || path.isAbsolute(relativeRoot)) {
-		throw new Error(`Component root "${componentRoot}" must stay inside the project.`);
+	if (!relativeRoot || relativeRoot === '..' || relativeRoot.startsWith(`..${path.sep}`) || path.isAbsolute(relativeRoot)) {
+		throw new Error(`Component root "${componentRoot}" must be a narrow directory inside src/lib/components/<library>.`);
 	}
-	return relativeRoot.split(path.sep).join('/');
+	const normalizedRoot = relativeRoot.split(path.sep).join('/');
+	const segments = normalizedRoot.split('/');
+	const sharedComponentDir = ['ui', 'primitives', 'layout'].includes(segments[3]);
+	if (segments.length < 4 || !normalizedRoot.startsWith('src/lib/components/') || segments[3] === 'svforge' || (sharedComponentDir && segments.length === 4)) {
+		throw new Error(`Component root "${componentRoot}" must be a narrow directory inside src/lib/components/<library>.`);
+	}
+	return normalizedRoot;
 }
 
 export function renderUiAgentGuidance(ui: UiProjectConfig): string {
@@ -94,7 +100,7 @@ function writeUiContext(root: string, manifest: UiManifest): void {
 }
 
 /** Register a manually installed UI/headless library. Repeated calls merge roots and remain byte-idempotent. */
-export function registerUiLibrary(projectRoot: string, packageName: string, componentRoot?: string): UiProjectConfig {
+export function registerUiLibrary(projectRoot: string, packageName: string, componentRoot?: string | string[]): UiProjectConfig {
 	if (!packageNameIsValid(packageName)) throw new Error(`Invalid package name "${packageName}".`);
 	const root = path.resolve(projectRoot);
 	const packageJsonPath = path.join(root, 'package.json');
@@ -109,7 +115,9 @@ export function registerUiLibrary(projectRoot: string, packageName: string, comp
 	const manifest = parseManifest(root);
 	const ui = normalizedUi(manifest);
 	const roots = new Set(ui.libraries.find((library) => library.package === packageName)?.componentRoots ?? []);
-	if (componentRoot) roots.add(validateComponentRoot(root, componentRoot));
+	const requestedRoots = componentRoot === undefined ? [] : Array.isArray(componentRoot) ? componentRoot : [componentRoot];
+	const validatedRoots = requestedRoots.map((requestedRoot) => validateComponentRoot(root, requestedRoot));
+	for (const validatedRoot of validatedRoots) roots.add(validatedRoot);
 	const libraries = new Map(ui.libraries.map((library) => [library.package, library]));
 	libraries.set(packageName, {
 		package: packageName,

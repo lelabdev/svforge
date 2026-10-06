@@ -264,8 +264,12 @@ function isRegisteredUiComponent(filename, projectRoot) {
 	return registeredUiLibraries(projectRoot).some((library) => {
 		if (!Array.isArray(library.componentRoots)) return false;
 		return library.componentRoots.some((root) => {
-			if (typeof root !== 'string' || !root || root.startsWith('/') || /^[a-z]:[\\/]/i.test(root) || /^[/\\]{2}/.test(root) || root.split(/[\\/]/).includes('..')) return false;
+			if (typeof root !== 'string' || !root || root.startsWith('/') || /^[a-z]:[\\/]/i.test(root) || /^[/\\]{2}/.test(root) || root.split(/[\\/]/).includes('..') || /[*?{}]/.test(root)) return false;
 			const absoluteRoot = resolve(projectRoot, root);
+			const rootRelative = relative(resolve(projectRoot), absoluteRoot).split(sep).join('/');
+			const rootSegments = rootRelative.split('/');
+			const sharedComponentDir = ['ui', 'primitives', 'layout'].includes(rootSegments[3]);
+			if (rootSegments.length < 4 || !rootRelative.startsWith('src/lib/components/') || rootSegments[3] === 'svforge' || (sharedComponentDir && rootSegments.length === 4)) return false;
 			const relativeFile = relative(absoluteRoot, absoluteFile);
 			return relativeFile === '' || (relativeFile !== '..' && !relativeFile.startsWith(`..${sep}`) && !relativeFile.startsWith(sep));
 		});

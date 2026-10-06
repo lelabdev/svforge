@@ -232,7 +232,7 @@ npx svforge ui register @acme/ui --component-root src/lib/components/acme-ui
 npx svforge ui prefer @acme/ui
 ```
 
-Omit `--component-root` for packages consumed directly from imports. Only registered copy-in component roots receive scoped design-system/lint exemptions; other project code remains checked.
+Omit `--component-root` for packages consumed directly from imports. Copy-in roots must be narrow library directories under `src/lib/components/<library>`; broad roots such as `.` and `src` are rejected. Only registered copy-in component roots receive scoped design-system/lint exemptions; other project code remains checked.
 
 Typical workflow:
 

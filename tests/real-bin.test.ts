@@ -72,6 +72,16 @@ describe('real bin — project UI strategy (#480)', () => {
 		const packageName = '@example/arbitrary-widgets';
 		writeFileSync(join(cwd, 'package.json'), JSON.stringify({ dependencies: { [packageName]: '^1.0.0' } }));
 		writeFileSync(join(cwd, '.svforge.json'), JSON.stringify(buildManifest('base', []), null, 2));
+		writeFileSync(join(cwd, 'llms.txt'), 'original llms\\n');
+		writeFileSync(join(cwd, 'AGENTS.md'), 'original agent guidance\\n');
+		const contextFiles = ['.svforge.json', 'llms.txt', 'AGENTS.md'];
+		const before = new Map(contextFiles.map((file) => [file, readFileSync(join(cwd, file), 'utf8')]));
+
+		const dotRoot = runBin(['ui', 'register', packageName, '--component-root', '.'], cwd);
+		expect(dotRoot.code).toBe(1);
+		const multipleRoots = runBin(['ui', 'register', packageName, '--component-root', 'src/lib/components/valid', '--component-root', 'src'], cwd);
+		expect(multipleRoots.code).toBe(1);
+		for (const file of contextFiles) expect(readFileSync(join(cwd, file), 'utf8'), file).toBe(before.get(file));
 
 		const registered = runBin(['ui', 'register', packageName, '--component-root', 'src/lib/components/external'], cwd);
 		expect(registered.code).toBe(0);

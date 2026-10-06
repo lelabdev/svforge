@@ -24,7 +24,11 @@ if (existsSync(svforgeManifestPath)) {
 				const absoluteRoot = path.resolve(import.meta.dirname, componentRoot);
 				const relativeRoot = path.relative(import.meta.dirname, absoluteRoot);
 				if (relativeRoot.startsWith(`..${path.sep}`) || path.isAbsolute(relativeRoot)) continue;
-				const globRoot = relativeRoot.split(path.sep).join('/');
+				const normalizedRoot = relativeRoot.split(path.sep).join('/');
+				const rootSegments = normalizedRoot.split('/');
+				const sharedComponentDir = ['ui', 'primitives', 'layout'].includes(rootSegments[3]);
+				if (rootSegments.length < 4 || !normalizedRoot.startsWith('src/lib/components/') || rootSegments[3] === 'svforge' || (sharedComponentDir && rootSegments.length === 4)) continue;
+				const globRoot = normalizedRoot;
 				uiIntegrationFiles.push(`${globRoot}/**/*.{svelte,svelte.js,svelte.ts}`);
 			}
 		}

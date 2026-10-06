@@ -115,11 +115,7 @@ async function main() {
 				return;
 			}
 			try {
-				if (componentRoots.length) {
-					for (const componentRoot of componentRoots) api.registerUiLibrary(projectRoot, packageName, componentRoot);
-				} else {
-					api.registerUiLibrary(projectRoot, packageName);
-				}
+				api.registerUiLibrary(projectRoot, packageName, componentRoots);
 				console.log(`✓ ${packageName} registered in .svforge.json; llms.txt refreshed.`);
 			} catch (error) {
 				console.error(error instanceof Error ? error.message : String(error));

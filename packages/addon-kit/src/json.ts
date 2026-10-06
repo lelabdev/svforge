@@ -152,8 +152,14 @@ export function validateManifestShape(value: unknown, filePath: string): string[
 					if (typeof entry.package !== 'string' || !entry.package.trim()) {
 							problems.push(`"${filePath}": ui.libraries[${index}].package must be a non-empty package name.`);
 						}
-						if (entry.componentRoots !== undefined && (!Array.isArray(entry.componentRoots) || entry.componentRoots.some((root) => typeof root !== 'string' || !root.trim() || root.startsWith('/') || /^[a-z]:[\\/]/i.test(root) || /(^|[\\/])\.\.([\\/]|$)/.test(root) || /[*?{}]/.test(root)))) {
-							problems.push(`"${filePath}": ui.libraries[${index}].componentRoots must contain safe project-relative paths without traversal or glob patterns.`);
+						if (entry.componentRoots !== undefined && (!Array.isArray(entry.componentRoots) || entry.componentRoots.some((root) => {
+							if (typeof root !== 'string' || !root.trim() || root.startsWith('/') || /^[a-z]:[\\/]/i.test(root) || /^[/\\]{2}/.test(root) || /(^|[\\/])\.\.([\\/]|$)/.test(root) || /[*?{}]/.test(root)) return true;
+							const normalizedRoot = root.replaceAll('\\', '/').split('/').filter((part) => part && part !== '.').join('/');
+							const segments = normalizedRoot.split('/');
+							const sharedComponentDir = ['ui', 'primitives', 'layout'].includes(segments[3]);
+							return segments.length < 4 || !normalizedRoot.startsWith('src/lib/components/') || segments[3] === 'svforge' || (sharedComponentDir && segments.length === 4);
+						}))) {
+							problems.push(`"${filePath}": ui.libraries[${index}].componentRoots must be narrow directories under src/lib/components/<library>, without traversal or glob patterns.`);
 						}
 					}
 				}

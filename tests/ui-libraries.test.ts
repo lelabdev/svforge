@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tempProject } from './helpers';
@@ -18,6 +18,7 @@ function project() {
 	writeFileSync(join(temp.dir, 'package.json'), JSON.stringify({ dependencies: { [PACKAGE]: '^1.0.0' } }));
 	writeFileSync(join(temp.dir, '.svforge.json'), JSON.stringify(buildManifest('base', []), null, 2));
 	writeFileSync(join(temp.dir, 'AGENTS.md'), `${scaffoldedAgents('base')}\n\n<!-- project-specific notes -->\n`);
+	writeFileSync(join(temp.dir, 'llms.txt'), renderLlmstxt(buildManifest('base', [])));
 	mkdirSync(join(temp.dir, 'src/routes'), { recursive: true });
 	writeFileSync(
 		join(temp.dir, 'src/routes/+page.svelte'),
@@ -109,16 +110,36 @@ describe('project-selected UI libraries (#480)', () => {
 		const secondRun = execFileSync('node', ['svforge-check.mjs'], { cwd: root, encoding: 'utf8' });
 		expect(secondRun).not.toContain('WARN: UI component package');
 		expect(secondRun).not.toContain('Duplicated Skeleton primitive "Dialog"');
+
+		manifest.ui.libraries[0].componentRoots = ['src'];
+		writeFileSync(join(root, '.svforge.json'), JSON.stringify(manifest, null, 2));
+		const featureRoot = join(root, 'src/lib/features');
+		mkdirSync(featureRoot, { recursive: true });
+		writeFileSync(join(featureRoot, 'Dialog.svelte'), '<div>ordinary project dialog</div>');
+		const forgedBroadRoot = spawnSync('node', ['svforge-check.mjs'], { cwd: root, encoding: 'utf8' });
+		expect(forgedBroadRoot.status).toBe(1);
+		expect(forgedBroadRoot.stdout).toContain('Duplicated Skeleton primitive "Dialog"');
 	});
 
-	it('manifest validation rejects unsafe registered component roots', () => {
-		const manifest = buildManifest('base', []);
-		manifest.ui.libraries = [{ package: PACKAGE, componentRoots: ['../outside'] }];
-		expect(validateManifestShape(manifest, '.svforge.json').join(' ')).toContain('safe project-relative paths');
+	it('manifest validation rejects roots that are unsafe or too broad', () => {
+		for (const componentRoot of ['.', 'src', 'src/lib', 'src/lib/components', 'src/lib/components/ui', 'src/lib/components/svforge', '../outside']) {
+			const manifest = buildManifest('base', []);
+			manifest.ui.libraries = [{ package: PACKAGE, componentRoots: [componentRoot] }];
+			expect(validateManifestShape(manifest, '.svforge.json').join(' '), componentRoot).toContain('narrow directories');
+		}
+		const valid = buildManifest('base', []);
+		valid.ui.libraries = [{ package: PACKAGE, componentRoots: ['src/lib/components/external'] }];
+		expect(validateManifestShape(valid, '.svforge.json')).toEqual([]);
 	});
 
-	it('rejects component roots outside the project', () => {
+	it('rejects broad roots and leaves all project guidance files untouched on multi-root failure', () => {
 		const root = project();
-		expect(() => registerUiLibrary(root, PACKAGE, '../outside')).toThrow(/project-relative/);
+		const paths = ['.svforge.json', 'llms.txt', 'AGENTS.md'];
+		const before = new Map(paths.map((file) => [file, readFileSync(join(root, file), 'utf8')]));
+		for (const componentRoot of ['.', 'src', 'src/lib', 'src/lib/components', 'src/lib/components/ui', 'src/lib/components/svforge']) {
+			expect(() => registerUiLibrary(root, PACKAGE, componentRoot), componentRoot).toThrow(/narrow directory/);
+		}
+		expect(() => registerUiLibrary(root, PACKAGE, ['src/lib/components/valid', 'src'])).toThrow(/narrow directory/);
+		for (const file of paths) expect(readFileSync(join(root, file), 'utf8'), file).toBe(before.get(file));
 	});
 });

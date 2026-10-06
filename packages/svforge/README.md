@@ -139,8 +139,11 @@ npx svforge ui prefer @acme/ui
 ```
 
 Registration updates `.svforge.json`, `llms.txt`, and the generated UI-strategy
-block in `AGENTS.md`. `svforge check` guides on likely unregistered UI usage;
-registered copy-in roots receive scoped checker and ESLint exemptions.
+block in `AGENTS.md`. Copy-in roots must be narrow directories under
+`src/lib/components/<library>`; broad roots such as `.` and `src` are rejected,
+and all roots in a command are validated before any files are written.
+`svforge check` guides on likely unregistered UI usage; registered copy-in roots
+receive scoped checker and ESLint exemptions.
 
 ## Tailwind arbitrary values
 

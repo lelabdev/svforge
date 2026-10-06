@@ -28,7 +28,7 @@
     "semantic_hash": ""
   },
   "packages/addon-kit/src/json.ts": {
-    "ast_hash": "cf70f90d43ca81fdeb17489309d76568",
+    "ast_hash": "56e4074ead5f219830e1c157c24f8126",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/patch.ts": {
@@ -400,7 +400,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/bin/svforge.mjs": {
-    "ast_hash": "addbd9d7bfe4992fc43c7f742272a6ae",
+    "ast_hash": "c4bdb65616992dbc10dc5173cafcb969",
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
@@ -492,7 +492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "539386758ea76e994cad116b7aa98a9a",
+    "ast_hash": "f604f554ac98f540254776456702bc3d",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -516,7 +516,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/eslint.config.js": {
-    "ast_hash": "652860bf938cb3b9143f2e5a0d35c987",
+    "ast_hash": "d44c7b921df3de2d8c7a71193d4149f0",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/messages/en.json": {
@@ -540,7 +540,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/svforge-check.mjs": {
-    "ast_hash": "6fd6cdedd3538c741169d55bfb6bc379",
+    "ast_hash": "10774ea800df7418df35f8efe1a595f8",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/svforge-design-system-vite-plugin.mjs": {
@@ -1676,7 +1676,7 @@
     "semantic_hash": ""
   },
   "tests/real-bin.test.ts": {
-    "ast_hash": "2980bce2c0281b8bbb5e4bdbeccf94dc",
+    "ast_hash": "3da54b63078c0930bdef858803a2362f",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {
@@ -1796,11 +1796,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/ui-libraries.ts": {
-    "ast_hash": "d29a5fb79aaf349fa0b22d2e33267330",
+    "ast_hash": "0ce985105e4b54d03d941d2106057915",
     "semantic_hash": ""
   },
   "tests/ui-libraries.test.ts": {
-    "ast_hash": "cb296939a2e63e0e7ba18afd63fe660d",
+    "ast_hash": "b2dc48ced2682c2763a3ae9c5923f41c",
     "semantic_hash": ""
   }
 }
