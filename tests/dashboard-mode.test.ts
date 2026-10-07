@@ -110,22 +110,76 @@ describe('dashboard testing profiles', () => {
 		expect(sv.files.has('src/.env.example')).toBe(false);
 	});
 
-	it('delivers the dashboard CI workflow with checks and required build env (#406)', () => {
+	it.each([
+		{
+			pm: 'bun',
+			setup: 'oven-sh/setup-bun@v2',
+			install: 'bun install --frozen-lockfile',
+			run: 'bun run',
+			drizzle: 'bunx drizzle-kit',
+			foreignPm: /\b(npm|npx|pnpm|yarn|corepack)\b/
+		},
+		{
+			pm: 'npm',
+			setup: 'actions/setup-node@v4',
+			install: 'npm ci',
+			run: 'npm run',
+			drizzle: 'npx --no-install drizzle-kit',
+			foreignPm: /\b(bun|bunx|pnpm|yarn)\b/
+		},
+		{
+			pm: 'pnpm@9',
+			setup: 'pnpm/action-setup@v4',
+			install: 'pnpm install --frozen-lockfile',
+			run: 'pnpm run',
+			drizzle: 'pnpm exec drizzle-kit',
+			foreignPm: /\b(bun|bunx|npm|npx|yarn)\b/
+		},
+		{
+			pm: 'yarn@1',
+			setup: 'corepack enable',
+			install: 'yarn install --frozen-lockfile',
+			run: 'yarn run',
+			drizzle: 'yarn run drizzle-kit',
+			foreignPm: /\b(bun|bunx|npm|npx|pnpm)\b/
+		},
+		{
+			pm: 'yarn@4.5.0',
+			setup: 'corepack enable',
+			install: 'yarn install --immutable',
+			run: 'yarn run',
+			drizzle: 'yarn run drizzle-kit',
+			foreignPm: /\b(bun|bunx|npm|npx|pnpm)\b/
+		}
+	])('delivers PM-specific frozen CI commands for $pm (#406)', ({ pm, setup, install, run, drizzle, foreignPm }) => {
 		const sv = fakeSv();
-		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
+		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles, pm);
 
-		const workflow = sv.files.get('.github/workflows/ci.yml');
+		const workflow = sv.files.get('.github/workflows/ci.yml')!;
 		expect(workflow).toContain('pull_request:');
 		expect(workflow).toContain('push:');
-		expect(workflow).toContain('bun install --frozen-lockfile');
-		expect(workflow).toContain('bun run check');
-		expect(workflow).toContain('bun run test');
-		expect(workflow).toContain('bun run build');
+		expect(workflow).toContain(setup);
+		expect(workflow).toContain(`run: ${install}`);
+		expect(workflow).toContain(`run: ${run} check`);
+		expect(workflow).toContain(`run: ${run} test`);
+		expect(workflow).toContain(`run: ${run} build`);
+		expect(workflow).toContain(`run: ${drizzle} push --force`);
 		expect(workflow).toContain('DATABASE_URL:');
 		expect(workflow).toContain('BETTER_AUTH_SECRET:');
 		expect(workflow).toContain('TEST_DATABASE_URL:');
 		expect(workflow).toContain('image: postgres:17');
-		expect(workflow).toContain('bunx drizzle-kit push --force');
+		expect(workflow).not.toContain('{{');
+		expect(workflow).not.toMatch(foreignPm);
+	});
+
+	it('uses npm CI commands when the package manager argument is omitted', () => {
+		const sv = fakeSv();
+		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
+
+		const workflow = sv.files.get('.github/workflows/ci.yml')!;
+		expect(workflow).toContain('run: npm ci');
+		expect(workflow).toContain('run: npm run check');
+		expect(workflow).not.toMatch(/\b(bun|bunx)\b/);
 	});
 
 	it('scaffolds AGENTS.md with dashboard golden references (#267)', () => {

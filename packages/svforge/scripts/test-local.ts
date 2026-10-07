@@ -45,20 +45,22 @@ if (mode === 'dashboard') {
 	// Check the generated root-file manifest, not just the raw template tree:
 	// prebuild must embed the workflow so real dashboard scaffolds receive it.
 	const { dashboardRootFiles } = await import('../src/templates');
-	const workflow = dashboardRootFiles['/.github/workflows/ci.yml'];
-	if (!workflow) throw new Error('Dashboard CI workflow missing from generated root-file manifest.');
+	const { renderDashboardCiWorkflow } = await import('../src/dashboard-ci');
+	const workflowTemplate = dashboardRootFiles['/.github/workflows/ci.yml'];
+	if (!workflowTemplate) throw new Error('Dashboard CI workflow missing from generated root-file manifest.');
+	const workflow = renderDashboardCiWorkflow(workflowTemplate, 'npm');
 	for (const required of [
 		'pull_request:',
 		'push:',
-		'bun install --frozen-lockfile',
-		'bun run check',
-		'bun run test',
-		'bun run build',
+		'npm ci',
+		'npm run check',
+		'npm run test',
+		'npm run build',
+		'npx --no-install drizzle-kit push --force',
 		'DATABASE_URL:',
 		'TEST_DATABASE_URL:',
 		'BETTER_AUTH_SECRET:',
-		'image: postgres:17',
-		'bunx drizzle-kit push --force'
+		'image: postgres:17'
 	]) {
 		if (!workflow.includes(required)) {
 			throw new Error(`Dashboard CI workflow is missing required content: ${required}`);

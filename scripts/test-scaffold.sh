@@ -232,7 +232,39 @@ if [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "dashboard-playwright" ] || 
 	test -f scripts/setup.sh || { echo "❌ scripts/setup.sh missing at project root (#187)"; exit 1; }
 	test -f static/robots.txt || { echo "❌ static/robots.txt missing at project root (#187)"; exit 1; }
 	test -f .github/workflows/ci.yml || { echo "❌ dashboard CI workflow missing at project root (#406)"; exit 1; }
-	for required in 'pull_request:' 'push:' 'bun install --frozen-lockfile' 'bun run check' 'bun run test' 'bun run build' 'DATABASE_URL:' 'TEST_DATABASE_URL:' 'BETTER_AUTH_SECRET:' 'image: postgres:17' 'bunx drizzle-kit push --force'; do
+	CI_INSTALL_COMMAND=""
+	CI_SCRIPT_RUNNER=""
+	CI_DRIZZLE_COMMAND=""
+	case "${SF_PM%%@*}" in
+		bun)
+			CI_INSTALL_COMMAND='bun install --frozen-lockfile'
+			CI_SCRIPT_RUNNER='bun run'
+			CI_DRIZZLE_COMMAND='bunx drizzle-kit push --force'
+			;;
+		npm)
+			CI_INSTALL_COMMAND='npm ci'
+			CI_SCRIPT_RUNNER='npm run'
+			CI_DRIZZLE_COMMAND='npx --no-install drizzle-kit push --force'
+			;;
+		pnpm)
+			CI_INSTALL_COMMAND='pnpm install --frozen-lockfile'
+			CI_SCRIPT_RUNNER='pnpm run'
+			CI_DRIZZLE_COMMAND='pnpm exec drizzle-kit push --force'
+			;;
+		yarn)
+			CI_INSTALL_COMMAND='yarn install --frozen-lockfile'
+			if [[ "$SF_PM" =~ ^yarn@([0-9]+) ]] && [ "${BASH_REMATCH[1]}" -ge 2 ]; then
+				CI_INSTALL_COMMAND='yarn install --immutable'
+			fi
+			CI_SCRIPT_RUNNER='yarn run'
+			CI_DRIZZLE_COMMAND='yarn run drizzle-kit push --force'
+			;;
+		*)
+			echo "❌ unsupported test package manager: $SF_PM"
+			exit 1
+			;;
+	esac
+	for required in 'pull_request:' 'push:' "$CI_INSTALL_COMMAND" "$CI_SCRIPT_RUNNER check" "$CI_SCRIPT_RUNNER test" "$CI_SCRIPT_RUNNER build" 'DATABASE_URL:' 'TEST_DATABASE_URL:' 'BETTER_AUTH_SECRET:' 'image: postgres:17' "$CI_DRIZZLE_COMMAND"; do
 		grep -qF "$required" .github/workflows/ci.yml || { echo "❌ dashboard CI workflow missing '$required' (#406)"; exit 1; }
 	done
 	grep -q '^DATABASE_URL=' .env.example || { echo "❌ dashboard .env.example lost DATABASE_URL (#422)"; exit 1; }

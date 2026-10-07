@@ -7817,6 +7817,77 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_src_dashboard_ci",
+      "label": "dashboard-ci.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_dashboard_ci_dashboard_ci_workflow_path",
+      "label": "DASHBOARD_CI_WORKFLOW_PATH",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_dashboard_ci_supported_package_managers",
+      "label": "SUPPORTED_PACKAGE_MANAGERS",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_dashboard_ci_supportedpackagemanager",
+      "label": "SupportedPackageManager",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L4",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_dashboard_ci_dashboardcicommands",
+      "label": "DashboardCiCommands",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L6",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_dashboard_ci_parsepackagemanager",
+      "label": "parsePackageManager()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L13",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_dashboard_ci_resolvedashboardcicommands",
+      "label": "resolveDashboardCiCommands()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L22",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_dashboard_ci_renderdashboardciworkflow",
+      "label": "renderDashboardCiWorkflow()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L62",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_src_design_system",
       "label": "design-system.ts",
       "file_type": "code",
@@ -8752,7 +8823,7 @@
       "label": "DLX_RUNNERS",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L29",
+      "source_location": "L30",
       "_origin": "ast"
     },
     {
@@ -8760,7 +8831,7 @@
       "label": "resolveDlxRunner()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L36",
+      "source_location": "L37",
       "_callable": true,
       "_origin": "ast"
     },
@@ -8769,7 +8840,7 @@
       "label": "applyDashboardMode()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L41",
+      "source_location": "L42",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19796,7 +19867,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L713",
+      "source_location": "L745",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -41154,6 +41225,14 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_scripts_test_local",
+      "target": "packages_svforge_src_dashboard_ci",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/scripts/test-local.ts",
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_src_addon_components",
       "target": "packages_svforge_src_addon_components_addon_components",
       "relation": "contains",
@@ -42412,6 +42491,98 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/compat.ts",
       "source_location": "L64",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci",
+      "target": "packages_svforge_src_dashboard_ci_dashboard_ci_workflow_path",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci",
+      "target": "packages_svforge_src_dashboard_ci_supported_package_managers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci",
+      "target": "packages_svforge_src_dashboard_ci_supportedpackagemanager",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci",
+      "target": "packages_svforge_src_dashboard_ci_dashboardcicommands",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci",
+      "target": "packages_svforge_src_dashboard_ci_parsepackagemanager",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci",
+      "target": "packages_svforge_src_dashboard_ci_resolvedashboardcicommands",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L22",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci",
+      "target": "packages_svforge_src_dashboard_ci_renderdashboardciworkflow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci_resolvedashboardcicommands",
+      "target": "packages_svforge_src_dashboard_ci_parsepackagemanager",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L23",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_dashboard_ci_renderdashboardciworkflow",
+      "target": "packages_svforge_src_dashboard_ci_resolvedashboardcicommands",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/dashboard-ci.ts",
+      "source_location": "L63",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45892,12 +46063,45 @@
     },
     {
       "source": "packages_svforge_src_modes_dashboard",
-      "target": "packages_svforge_src_destinations",
+      "target": "packages_svforge_src_dashboard_ci",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
       "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_dashboard_ci_dashboard_ci_workflow_path",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_dashboard_ci_renderdashboardciworkflow",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_destinations",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45908,7 +46112,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45919,7 +46123,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45930,7 +46134,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45941,7 +46145,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45952,7 +46156,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45962,7 +46166,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L29",
+      "source_location": "L30",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45972,7 +46176,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45982,7 +46186,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45993,7 +46197,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65374,7 +65578,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L713",
+      "source_location": "L745",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65384,7 +65588,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L721",
+      "source_location": "L753",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -84531,13 +84735,25 @@
     },
     {
       "source": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "target": "packages_svforge_src_dashboard_ci_renderdashboardciworkflow",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L136",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard_applydashboardmode",
       "target": "packages_svforge_src_scaffolded_agents_scaffoldedagents",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L151",
+      "source_location": "L160",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84549,7 +84765,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L154",
+      "source_location": "L163",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84561,7 +84777,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L156",
+      "source_location": "L165",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84922,6 +85138,18 @@
       "confidence_score": 1,
       "source_file": "tests/css-drift.test.ts",
       "source_location": "L54",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_mode_test",
+      "target": "tests_tiptap_toolbar_test_setup",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L161",
       "weight": 1,
       "_origin": "ast"
     },
