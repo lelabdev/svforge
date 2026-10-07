@@ -2,6 +2,7 @@ import type { SvApi } from 'sv';
 import { resolveDestination, initTrackingJson } from '@svforge/addon-kit';
 import { scaffoldedAgents } from '../scaffolded-agents';
 import { buildManifest, renderLlmstxt } from '../ai-context';
+import { DASHBOARD_CI_WORKFLOW_PATH, renderDashboardCiWorkflow } from '../dashboard-ci';
 import { DASHBOARD_ROOT_PATHS } from '../destinations';
 import { SDFORGE_RECIPE_VERSION } from '../recipe-version';
 import { baseRootFiles } from '../templates';
@@ -127,9 +128,17 @@ export function applyDashboardMode(
 		deliveredFiles[path] = content;
 	}
 
+	// Render the generated CI workflow for the selected package manager before
+	// writing files or recording the upgrade baseline.
+	const renderedRootFiles = { ...rootFiles };
+	const ciWorkflow = renderedRootFiles[DASHBOARD_CI_WORKFLOW_PATH];
+	if (ciWorkflow) {
+		renderedRootFiles[DASHBOARD_CI_WORKFLOW_PATH] = renderDashboardCiWorkflow(ciWorkflow, packageManager);
+	}
+
 	// Finally, write root-level project files (drizzle.config.ts, .env.example,
 	// scripts/setup.sh, static/robots.txt) at the project root (#187).
-	for (const [path, content] of Object.entries(rootFiles)) {
+	for (const [path, content] of Object.entries(renderedRootFiles)) {
 		sv.file(path.slice(1), () => content);
 	}
 
@@ -141,7 +150,7 @@ export function applyDashboardMode(
 		initTrackingJson(
 			'dashboard',
 			SDFORGE_RECIPE_VERSION,
-			{ ...baseFiles, ...baseRootFiles, ...deliveredFiles, ...rootFiles },
+			{ ...baseFiles, ...baseRootFiles, ...deliveredFiles, ...renderedRootFiles },
 			DASHBOARD_ROOT_PATHS
 		)
 	);

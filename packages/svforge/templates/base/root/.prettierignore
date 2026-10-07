@@ -27,6 +27,7 @@ llms.txt
 
 # SVForge-delivered files
 .env.example
+.github/workflows/ci.yml
 .prettierrc
 drizzle.config.ts
 e2e/auth.test.ts

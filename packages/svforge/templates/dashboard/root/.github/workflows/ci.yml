@@ -1,0 +1,53 @@
+name: Dashboard CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dashboard:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: sf_dashboard_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/sf_dashboard_test
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/sf_dashboard_test
+      BETTER_AUTH_SECRET: ci-only-not-for-production-secret-0123456789abcdef
+      ORIGIN: http://localhost:5173
+      SIGNUP_MODE: closed
+    steps:
+      - uses: actions/checkout@v5
+
+{{PACKAGE_MANAGER_SETUP}}
+
+      - name: Install dependencies
+        run: {{INSTALL_COMMAND}}
+
+      - name: Check
+        run: {{CHECK_COMMAND}}
+
+      - name: Push test database schema
+        run: {{DRIZZLE_COMMAND}}
+
+      - name: Test
+        run: {{TEST_COMMAND}}
+
+      - name: Build
+        run: {{BUILD_COMMAND}}

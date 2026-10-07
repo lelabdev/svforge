@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import type { SvApi } from 'sv';
+import svforgeAddon from '../packages/svforge/src/index';
 import { applyDashboardMode, DLX_RUNNERS, resolveDlxRunner } from '../packages/svforge/src/modes/dashboard';
+import { dashboardRootFiles } from '../packages/svforge/src/templates';
 
 type FakeSv = {
 	dependencies: string[];
@@ -107,6 +109,110 @@ describe('dashboard testing profiles', () => {
 		expect(sv.files.has('static/robots.txt')).toBe(true);
 		expect(sv.files.has('src/drizzle.config.ts')).toBe(false);
 		expect(sv.files.has('src/.env.example')).toBe(false);
+	});
+
+	it.each([
+		{
+			pm: 'bun',
+			setup: 'oven-sh/setup-bun@v2',
+			install: 'bun install --frozen-lockfile',
+			run: 'bun run',
+			drizzle: 'bunx drizzle-kit',
+			foreignPm: /\b(npm|npx|pnpm|yarn|corepack)\b/
+		},
+		{
+			pm: 'npm',
+			setup: 'actions/setup-node@v4',
+			install: 'npm ci',
+			run: 'npm run',
+			drizzle: 'npx --no-install drizzle-kit',
+			foreignPm: /\b(bun|bunx|pnpm|yarn)\b/
+		},
+		{
+			pm: 'pnpm@9',
+			setup: 'pnpm/action-setup@v4',
+			install: 'pnpm install --frozen-lockfile',
+			run: 'pnpm run',
+			drizzle: 'pnpm exec drizzle-kit',
+			foreignPm: /\b(bun|bunx|npm|npx|yarn)\b/
+		},
+		{
+			pm: 'yarn@1',
+			setup: 'corepack enable',
+			install: 'yarn install --frozen-lockfile',
+			run: 'yarn run',
+			drizzle: 'yarn run drizzle-kit',
+			foreignPm: /\b(bun|bunx|npm|npx|pnpm)\b/
+		},
+		{
+			pm: 'yarn@4.5.0',
+			setup: 'corepack enable',
+			install: 'yarn install --immutable',
+			run: 'yarn run',
+			drizzle: 'yarn run drizzle-kit',
+			foreignPm: /\b(bun|bunx|npm|npx|pnpm)\b/
+		}
+	])('delivers PM-specific frozen CI commands for $pm (#406)', ({ pm, setup, install, run, drizzle, foreignPm }) => {
+		const sv = fakeSv();
+		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles, pm);
+
+		const workflow = sv.files.get('.github/workflows/ci.yml')!;
+		expect(workflow).toContain('pull_request:');
+		expect(workflow).toContain('push:');
+		expect(workflow).toContain(setup);
+		expect(workflow).toContain(`run: ${install}`);
+		expect(workflow).toContain(`run: ${run} check`);
+		expect(workflow).toContain(`run: ${run} test`);
+		expect(workflow).toContain(`run: ${run} build`);
+		expect(workflow).toContain(`run: ${drizzle} push --force`);
+		expect(workflow).toContain('DATABASE_URL:');
+		expect(workflow).toContain('BETTER_AUTH_SECRET:');
+		expect(workflow).toContain('TEST_DATABASE_URL:');
+		expect(workflow).toContain('image: postgres:17');
+		expect(workflow).not.toContain('{{');
+		expect(workflow).not.toMatch(foreignPm);
+	});
+
+	it('uses npm CI commands when the package manager argument is omitted', () => {
+		const sv = fakeSv();
+		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
+
+		const workflow = sv.files.get('.github/workflows/ci.yml')!;
+		expect(workflow).toContain('run: npm ci');
+		expect(workflow).toContain('run: npm run check');
+		expect(workflow).not.toMatch(/\b(bun|bunx)\b/);
+	});
+
+	it.each([
+		{ pm: 'yarn@4.5.0', setup: 'corepack prepare yarn@4.5.0 --activate', install: 'yarn install --immutable' },
+		{ pm: 'pnpm@9.15.4', setup: 'version: 9.15.4', install: 'pnpm install --frozen-lockfile' },
+		{ pm: 'bun@1.2.0', setup: 'bun-version: 1.2.0', install: 'bun install --frozen-lockfile' }
+	])('preserves the versioned package manager through the addon run path ($pm)', async ({ pm, setup, install }) => {
+		const sv = fakeSv();
+		await svforgeAddon.run({
+			sv: asSvApi(sv),
+			cancel: () => {},
+			cwd: process.cwd(),
+			dependencyVersion: () => undefined,
+			language: 'ts',
+			file: {
+				viteConfig: 'vite.config.ts',
+				typeConfig: 'tsconfig.json',
+				stylesheet: 'src/routes/layout.css',
+				package: 'package.json',
+				gitignore: '.gitignore',
+				getRelative: ({ to }) => to,
+				findUp: (filename) => filename
+			},
+			isKit: true,
+			directory: { src: 'src', lib: 'src/lib', kitRoutes: 'src/routes' },
+			packageManager: pm,
+			options: { template: 'dashboard', testing: 'vitest', hooks: 'none' }
+		});
+
+		const workflow = sv.files.get('.github/workflows/ci.yml')!;
+		expect(workflow).toContain(setup);
+		expect(workflow).toContain(`run: ${install}`);
 	});
 
 	it('scaffolds AGENTS.md with dashboard golden references (#267)', () => {

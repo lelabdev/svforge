@@ -420,7 +420,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/scripts/test-local.ts": {
-    "ast_hash": "90136c40eb6ae6dbb96005b9733c1000",
+    "ast_hash": "c0fc36659b55df043ea7c8515482aa74",
     "semantic_hash": ""
   },
   "packages/svforge/src/addon-components.ts": {
@@ -452,7 +452,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "1babd5a471a3a1fc9137112ef28c3198",
+    "ast_hash": "eb632c148515225ce802d1917d0689ba",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -464,7 +464,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/dashboard.ts": {
-    "ast_hash": "bfec36ebb18565c61682989a9b07e17f",
+    "ast_hash": "52db4c587f80a8254a0c9f131561daaf",
     "semantic_hash": ""
   },
   "packages/svforge/src/module-composition.ts": {
@@ -492,7 +492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "dfb34dbeabb3863acb2249416c8d1704",
+    "ast_hash": "9c755ff46cc1d4d210e74b18688bbd8c",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "035639738cc8135db34a8bcd472280de",
+    "ast_hash": "701a1f66ae0831badf83418427369c0d",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1188,7 +1188,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-mode.test.ts": {
-    "ast_hash": "3a541d83ed2ee98e7b7537cd07d0c872",
+    "ast_hash": "065f41bcd8b9258c467b5784c9c2d2b8",
     "semantic_hash": ""
   },
   "tests/dashboard-playwright.test.ts": {
@@ -1821,6 +1821,14 @@
   },
   "tests/tiptap-link-actions.test.ts": {
     "ast_hash": "db0e67ea212a3caaf7da06abd2673388",
+    "semantic_hash": ""
+  },
+  "packages/svforge/templates/dashboard/root/.github/workflows/ci.yml": {
+    "ast_hash": "6553182b3cf35cdbbcf6563b19e3ffc4",
+    "semantic_hash": ""
+  },
+  "packages/svforge/src/dashboard-ci.ts": {
+    "ast_hash": "61c764b2f13aa8be6ccb4bb3cf57425d",
     "semantic_hash": ""
   }
 }
