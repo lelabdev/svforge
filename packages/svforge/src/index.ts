@@ -186,7 +186,9 @@ export default defineAddon({
 			// vite.config plugin wiring, deps and test script come from the
 			// base mode first, then dashboard-specific files overlay (#239).
 			applyBaseMode(sv, {}, baseRootFiles, hooks, pm);
-			applyDashboardMode(sv, baseFiles, dashboardFiles, testing, dashboardRootFiles, pm);
+			// Preserve any selected version (e.g. yarn@4) so the generated CI
+			// workflow can choose the matching major and frozen-install flag.
+			applyDashboardMode(sv, baseFiles, dashboardFiles, testing, dashboardRootFiles, packageManager);
 		} else {
 			applyBaseMode(sv, baseFiles, baseRootFiles, hooks, pm);
 		}

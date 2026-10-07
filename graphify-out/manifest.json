@@ -452,7 +452,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "1babd5a471a3a1fc9137112ef28c3198",
+    "ast_hash": "eb632c148515225ce802d1917d0689ba",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -1188,7 +1188,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-mode.test.ts": {
-    "ast_hash": "949d33cd0fbeac72f50f289c99fafff6",
+    "ast_hash": "065f41bcd8b9258c467b5784c9c2d2b8",
     "semantic_hash": ""
   },
   "tests/dashboard-playwright.test.ts": {

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { SvApi } from 'sv';
+import svforgeAddon from '../packages/svforge/src/index';
 import { applyDashboardMode, DLX_RUNNERS, resolveDlxRunner } from '../packages/svforge/src/modes/dashboard';
 import { dashboardRootFiles } from '../packages/svforge/src/templates';
 
@@ -180,6 +181,38 @@ describe('dashboard testing profiles', () => {
 		expect(workflow).toContain('run: npm ci');
 		expect(workflow).toContain('run: npm run check');
 		expect(workflow).not.toMatch(/\b(bun|bunx)\b/);
+	});
+
+	it.each([
+		{ pm: 'yarn@4.5.0', setup: 'corepack prepare yarn@4.5.0 --activate', install: 'yarn install --immutable' },
+		{ pm: 'pnpm@9.15.4', setup: 'version: 9.15.4', install: 'pnpm install --frozen-lockfile' },
+		{ pm: 'bun@1.2.0', setup: 'bun-version: 1.2.0', install: 'bun install --frozen-lockfile' }
+	])('preserves the versioned package manager through the addon run path ($pm)', async ({ pm, setup, install }) => {
+		const sv = fakeSv();
+		await svforgeAddon.run({
+			sv: asSvApi(sv),
+			cancel: () => {},
+			cwd: process.cwd(),
+			dependencyVersion: () => undefined,
+			language: 'ts',
+			file: {
+				viteConfig: 'vite.config.ts',
+				typeConfig: 'tsconfig.json',
+				stylesheet: 'src/routes/layout.css',
+				package: 'package.json',
+				gitignore: '.gitignore',
+				getRelative: ({ to }) => to,
+				findUp: (filename) => filename
+			},
+			isKit: true,
+			directory: { src: 'src', lib: 'src/lib', kitRoutes: 'src/routes' },
+			packageManager: pm,
+			options: { template: 'dashboard', testing: 'vitest', hooks: 'none' }
+		});
+
+		const workflow = sv.files.get('.github/workflows/ci.yml')!;
+		expect(workflow).toContain(setup);
+		expect(workflow).toContain(`run: ${install}`);
 	});
 
 	it('scaffolds AGENTS.md with dashboard golden references (#267)', () => {
