@@ -9,7 +9,7 @@ describe('cn utility', () => {
 
 	it('handles conditional classes', () => {
 		const hidden: string | false = 'hidden';
-		expect(cn('base', false, hidden && 'italic', 'extra')).toBe('base italic extra');
+		expect(cn('flex', false, hidden && 'italic', 'p-2')).toBe('flex italic p-2');
 	});
 
 	it('merges conflicting tailwind classes', () => {

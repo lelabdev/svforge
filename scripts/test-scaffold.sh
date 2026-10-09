@@ -101,6 +101,15 @@ fi
 cd "$TMP_DIR"
 $SV_CMD create app --template minimal --types ts --no-install --no-add-ons --no-download-check
 cd app
+# `sv create --no-install` leaves package-manager detection ambiguous (defaults
+# to npm). Record the harness-selected manager before the addon runs so generated
+# package-manager-specific files, including dashboard CI, match the installation.
+node --input-type=module - "$SF_PM" <<'NODE'
+import fs from 'node:fs';
+const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+packageJson.packageManager = process.argv[2];
+fs.writeFileSync('package.json', `${JSON.stringify(packageJson, null, 2)}\n`);
+NODE
 
 # 2. Add the LOCAL svforge addon with all options set (no prompts in CI)
 #    Profile variants: base, dashboard (vitest), dashboard-playwright, base-blog
@@ -414,29 +423,52 @@ if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = 
 	bun run check || { echo "❌ svelte-check failed on $TEMPLATE scaffold (#266)"; exit 1; }
 fi
 
-# ESLint design diagnostics (#346/#482): verify generated ESLint for base,
-# dashboard and a representative optional-module composition. Real lint checks
-# JS/TS/Svelte diagnostics plus Tailwind classes in the Svelte files.
+# ESLint design diagnostics (#346/#482/#523): verify generated ESLint for base,
+# dashboard and a representative optional-module composition. A chosen UI library
+# is accepted in JS/TS/Svelte; actual Skeleton duplication and invalid utilities
+# still fail, while valid Tailwind/Skeleton classes pass.
 if [ "$TEMPLATE" = "base" ] || [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "base-ui-modules" ]; then
 	test -f eslint.config.js || { echo "❌ eslint.config.js missing at project root (#346)"; exit 1; }
 	test -f eslint-plugin-svforge.mjs || { echo "❌ eslint-plugin-svforge.mjs missing (#346)"; exit 1; }
-	mkdir -p src/lib/lint-probe
-	printf "import { Dialog } from 'bits-ui';\n" > src/lib/lint-probe/Violation.js
-	printf "import { Dialog } from 'bits-ui';\n" > src/lib/lint-probe/Violation.ts
-	printf "<script>\n\timport { Dialog } from 'bits-ui';\n</script>\n<div class=\"hover:bg-surface-50-900\"></div>\n" > src/lib/lint-probe/Violation.svelte
-	printf '<div class="bg-surface-50-950 hover:bg-surface-100-900 focus:bg-surface-200-800 md:bg-surface-50-950"></div>\n' > src/lib/lint-probe/Valid.svelte
-	# The lint script runs Prettier before ESLint; format these temporary probes
-	# so the intended ESLint diagnostics, not fixture formatting, determine the result.
-	bunx prettier --write src/lib/lint-probe/Violation.svelte src/lib/lint-probe/Valid.svelte >/dev/null
-	if bun run lint >/tmp/sf-eslint.log 2>&1; then
-		cat /tmp/sf-eslint.log; echo "❌ ESLint did not report design violations (#346)"; exit 1
+	# First prove the untouched generated app passes the complete lint chain.
+	# This includes Prettier and catches generated project.inlang/.lix artifacts.
+	if ! bun run lint >/tmp/sf-eslint-clean.log 2>&1; then
+		cat /tmp/sf-eslint-clean.log; echo "❌ lint failed on clean $TEMPLATE scaffold (#523)"; exit 1
 	fi
-	for file in Violation.js Violation.ts Violation.svelte; do
-		grep -q "src/lib/lint-probe/$file" /tmp/sf-eslint.log || { cat /tmp/sf-eslint.log; echo "❌ ESLint missing $file location (#346)"; exit 1; }
-	done
-	grep -q "svforge/no-design-violations" /tmp/sf-eslint.log || { cat /tmp/sf-eslint.log; echo "❌ ESLint missing svforge rule identifier (#346)"; exit 1; }
-	grep -q "tailwindcss/no-custom-classname" /tmp/sf-eslint.log || { cat /tmp/sf-eslint.log; echo "❌ ESLint did not validate generated Tailwind utilities (#482)"; exit 1; }
-	if grep -q "Valid.svelte" /tmp/sf-eslint.log; then cat /tmp/sf-eslint.log; echo "❌ ESLint rejected valid Tailwind/Skeleton variants (#482)"; exit 1; fi
+	mkdir -p src/lib/lint-probe
+	printf "export { Dialog } from 'bits-ui';\n" > src/lib/lint-probe/SelectedUi.js
+	printf "export { Dialog } from 'bits-ui';\n" > src/lib/lint-probe/SelectedUi.ts
+	printf "<script>\n\timport { Dialog } from 'bits-ui';\n\tvoid Dialog;\n</script>\n<div>Selected UI library</div>\n" > src/lib/lint-probe/SelectedUi.svelte
+	printf '<div>custom dialog</div>\n' > src/lib/lint-probe/Dialog.svelte
+	printf '<div class="hover:bg-surface-50-900"></div>\n' > src/lib/lint-probe/InvalidClass.svelte
+	printf '<div class="bg-surface-50-950 hover:bg-surface-100-900 focus:bg-surface-200-800 md:bg-surface-50-950"></div>\n' > src/lib/lint-probe/Valid.svelte
+	# The lint script runs Prettier before ESLint; format all temporary probes
+	# so intended diagnostics, not fixture formatting, determine the result.
+	bunx prettier --write src/lib/lint-probe >/dev/null
+	# Exercise ESLint's diagnostics directly after the clean full lint passed.
+	if bunx eslint . --format json > /tmp/sf-eslint.json 2>/tmp/sf-eslint-json-error.log; then
+		echo "❌ ESLint accepted deliberate design violations (#523)"; exit 1
+	fi
+	node - /tmp/sf-eslint.json <<'NODE'
+const fs = require('node:fs');
+const results = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+const resultFor = (name) => results.find((result) => result.filePath.endsWith(`/src/lib/lint-probe/${name}`));
+const requireRule = (name, ruleId) => {
+	const result = resultFor(name);
+	if (!result?.messages.some((message) => message.ruleId === ruleId && message.severity === 2)) {
+		throw new Error(`${name} did not report ${ruleId}`);
+	}
+};
+requireRule('Dialog.svelte', 'svforge/no-design-violations');
+requireRule('InvalidClass.svelte', 'tailwindcss/no-custom-classname');
+for (const name of ['SelectedUi.js', 'SelectedUi.ts', 'SelectedUi.svelte', 'Valid.svelte']) {
+	const result = resultFor(name);
+	if (!result || result.errorCount !== 0 || result.messages.length !== 0) {
+		throw new Error(`${name} was unexpectedly rejected: ${JSON.stringify(result?.messages ?? [])}`);
+	}
+}
+NODE
+	echo "✓ generated ESLint accepts selected UI imports and reports design violations (#523)"
 	rm -rf src/lib/lint-probe
 fi
 

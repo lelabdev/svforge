@@ -34,6 +34,29 @@
 		[key: string]: unknown;
 	}
 
+	type PositionedGraphNode = GraphNode & { x?: number; y?: number };
+
+	interface GraphInstance {
+		graphData(data: { nodes: GraphNode[]; links: GraphLink[] }): GraphInstance;
+		backgroundColor(color: string): GraphInstance;
+		nodeLabel(accessor: (node: GraphNode) => string): GraphInstance;
+		nodeColor(accessor: (node: GraphNode) => string): GraphInstance;
+		linkWidth(width: number): GraphInstance;
+		linkDirectionalArrowLength(length: number): GraphInstance;
+		enableZoomInteraction(enabled: boolean): GraphInstance;
+		warmupTicks(ticks: number): GraphInstance;
+		linkHoverPrecision(precision: number): GraphInstance;
+		nodeVal(accessor: number | ((node: GraphNode) => number)): GraphInstance;
+		linkColor(accessor: string | ((link: GraphLink) => string)): GraphInstance;
+		nodeCanvasObject(
+			draw: (node: PositionedGraphNode, context: CanvasRenderingContext2D, globalScale: number) => void
+		): GraphInstance;
+		nodeCanvasObjectMode(mode: () => 'replace'): GraphInstance;
+		onNodeClick(handler: (node: GraphNode, event: MouseEvent) => void): GraphInstance;
+		onNodeHover(handler: (node: GraphNode | null, event: MouseEvent) => void): GraphInstance;
+		onLinkClick(handler: (link: GraphLink, event: MouseEvent) => void): GraphInstance;
+	}
+
 	interface Props extends HTMLAttributes<HTMLDivElement> {
 		/** Graph nodes */
 		nodes: GraphNode[];
@@ -96,7 +119,7 @@
 	}: Props = $props();
 
 	let container: HTMLDivElement | undefined = $state();
-	let graphInstance: any = $state();
+	let graphInstance: GraphInstance | undefined = $state();
 
 	// Group-based default colors — theme tokens (design-system check #240):
 	// never raw hex inside svforge components.
@@ -136,13 +159,13 @@
 		// the object shape, so the callable part needs an explicit cast (#284).
 		const ForceGraph = (await import('force-graph')).default as unknown as () => (
 			container: HTMLElement
-		) => any;
+		) => GraphInstance;
 
 		const graph = ForceGraph()(container)
 			.graphData({ nodes: [...nodes], links: [...links] })
 			.backgroundColor(bgColor)
-			.nodeLabel((node: any) => getNodeLabel(node))
-			.nodeColor((node: any) => {
+			.nodeLabel((node: GraphNode) => getNodeLabel(node))
+			.nodeColor((node: GraphNode) => {
 				if (nodeColor) {
 					return typeof nodeColor === 'function' ? nodeColor(node) : nodeColor;
 				}
@@ -165,7 +188,7 @@
 		}
 
 		if (showLabels) {
-			graph.nodeCanvasObject((node: any, ctx: CanvasRenderingContext2D, globalScale: number) => {
+			graph.nodeCanvasObject((node: PositionedGraphNode, ctx: CanvasRenderingContext2D, globalScale: number) => {
 				const label = getNodeLabel(node);
 				const fontSize = Math.max(12 / globalScale, 2);
 				ctx.font = `${fontSize}px Sans-Serif`;
