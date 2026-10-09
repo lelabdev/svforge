@@ -31,13 +31,18 @@ Everything in Base plus Better Auth, Drizzle/PostgreSQL, authenticated layouts, 
 
 ## UI reuse order
 
-1. Existing SvelteForge primitives
-2. Existing SvelteForge UI components
-3. Existing SvelteForge layouts
-4. Official `@skeletonlabs/skeleton-svelte` components
-5. Create a new component only when no existing option fits
+**Project owner controls the stack; the agent must reuse it.** Skeleton remains the default, not an exclusive limitation on humans. A developer may explicitly install and register any UI/headless library, including Zag, Bits UI, shadcn-svelte or an internal kit, in `.svforge.json`.
 
-Skeleton is the UI foundation. Do not install or invent a parallel UI kit.
+Agent decision order:
+
+1. Inspect and reuse existing project and SvelteForge components (`primitives/`, `ui/`, `layout/`).
+2. Reuse existing props and variants; extend a shared component rather than copy it.
+3. Prefer official `@skeletonlabs/skeleton-svelte` primitives or the libraries explicitly configured by the human project owner.
+4. Create a genuinely new domain-specific component only when none of those existing options fits.
+
+**The agent MUST NOT** add or register a new UI library, change the preferred UI strategy, invent a new generic Button/Input/Card/Dialog, or create a parallel styling system without an explicit user request. Multiple buttons with different labels or appearances must share one Button and its variants, not spawn FancyButton and CustomButton.
+
+Use only verified Tailwind utilities and Skeleton classes/presets. Do not invent classes, theme tokens or CSS overrides, and never disable ESLint or `svforge check` to bypass a design-system diagnostic. A selected external library must not be removed just because Skeleton overlaps it.
 
 ## Skeleton v5
 
