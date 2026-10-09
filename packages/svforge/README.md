@@ -78,6 +78,7 @@ npx sv add @svforge/blog @svforge/ui_toast
 # After scaffolding the dashboard (auth + PostgreSQL capabilities)
 npx sv add @svforge/uploads @svforge/notifications
 
+# In a dashboard project
 npx svforge preset saas
 ```
 

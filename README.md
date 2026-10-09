@@ -43,10 +43,12 @@ Add only what an application needs, for example:
 npx sv add @svforge/blog @svforge/ui_toast
 ```
 
-Modules include email, uploads, OAuth, realtime, jobs, audit, notifications, chat, blog, rich text, drag-and-drop, toast, and graph visualization. See the [package guide](packages/svforge/README.md#optional-modules) for the current list and requirements. Presets are recipes over the same templates and modules:
+Modules include email, uploads, OAuth, realtime, jobs, audit, notifications, chat, blog, rich text, drag-and-drop, toast, and graph visualization. See the [package guide](packages/svforge/README.md#optional-modules) for the current list and requirements. Presets are recipes over the same templates and modules: `saas` requires a dashboard project; `community` requires a base project.
 
 ```bash
+# In a dashboard project
 npx svforge preset saas
+# In a base project
 npx svforge preset community
 ```
 
