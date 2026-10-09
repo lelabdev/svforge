@@ -97,6 +97,7 @@ const PRETTIER_STATIC_IGNORES = [
 	'node_modules',
 	'src/lib/paraglide',
 	'project.inlang/.meta.json',
+	'project.inlang/.lix',
 	'project.inlang/cache',
 	'project.inlang/README.md',
 	'package-lock.json',

@@ -86,6 +86,27 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 		expect(canary).toContain('scripts/canary-issue.mjs');
 	});
 
+	it('seeds the scaffold runner package manager before invoking the addon', () => {
+		const selectedManager = scaffoldScript.indexOf('packageJson.packageManager = process.argv[2]');
+		const addAddon = scaffoldScript.indexOf('$SV_CMD add');
+
+		expect(selectedManager).toBeGreaterThan(-1);
+		expect(addAddon).toBeGreaterThan(selectedManager);
+	});
+
+	it('probes remaining design-system errors while accepting selected UI imports (#523)', () => {
+		expect(scaffoldScript).toContain("SelectedUi.js");
+		expect(scaffoldScript).toContain("SelectedUi.ts");
+		expect(scaffoldScript).toContain("SelectedUi.svelte");
+		expect(scaffoldScript).toContain("Dialog.svelte");
+		expect(scaffoldScript).toContain("InvalidClass.svelte");
+		expect(scaffoldScript).toContain("tailwindcss/no-custom-classname");
+		expect(scaffoldScript).toContain("svforge/no-design-violations");
+		expect(scaffoldScript).toContain("['SelectedUi.js', 'SelectedUi.ts', 'SelectedUi.svelte', 'Valid.svelte']");
+		expect(scaffoldScript).not.toContain('Violation.js');
+		expect(scaffoldScript).not.toContain('Violation.ts');
+	});
+
 	it('runs UI browser smoke on a generated base scaffold only in the release battery', () => {
 		expect(scaffoldScript).toContain('if [ "$TEMPLATE" = "base" ] && [ "${SF_UI_BROWSER_SMOKE:-}" = "true" ]; then');
 		expect(scaffoldScript).toContain('bun add --dev @playwright/test');

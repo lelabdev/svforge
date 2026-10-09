@@ -92,6 +92,17 @@ describe('scaffolded ESLint configuration (#346)', () => {
 		expect(scaffoldFiles(template).get('.prettierignore')).toBeTruthy();
 	});
 
+	it('ignores generated Lix artifacts without excluding the whole localization project', () => {
+		for (const template of ['base', 'dashboard'] as const) {
+			const ignore = scaffoldFiles(template).get('.prettierignore')!;
+			const patterns = ignore.split(/\r?\n/).filter((line) => line && !line.startsWith('#'));
+
+			expect(patterns).toContain('project.inlang/.lix');
+			expect(patterns).not.toContain('project.inlang');
+			expect(patterns).not.toContain('project.inlang/');
+		}
+	});
+
 	it('declares the Tailwind-aware plugin for generated projects', () => {
 		const dependencies = new Map<string, string>();
 		const files = new Map<string, string>();
