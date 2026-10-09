@@ -9,7 +9,7 @@ SvelteForge est un **boilerplate de démarrage**, PAS une bibliothèque de compo
 - Le template `base` fournit **uniquement les bases** : boutons, inputs, selects, cards, badges, table + l'infra (theme, SEO, layouts, dark mode).
 - **Structure canonique des composants (#242)** : `templates/*/src/lib/components/svforge/` est découpé en `primitives/` (briques simples : Button, Input, Badge…), `ui/` (composés : Card, Alert, Table…), `layout/` (structure de page : Navbar, Footer). C'est le premier registry : un agent cherche là AVANT de créer un composant.
 - **i18n Paraglide FR/EN (#239)** : le base scaffoldé embarque Paraglide (compiler-first, baseLocale fr) + `messages/{fr,en}.json`. Toute copy UI statique passe par `m.*` ; toute clé ajoutée doit exister en FR **et** EN (parité testée). Les modules fusionnent leurs messages dans les catalogues du projet sans écraser.
-- **Design-system harness (#240)** : Skeleton est l'unique source de primitives ; SvelteForge fournit les patterns de composition (`primitives/ui/layout`). Un catalogue machine-readable (`svforge-catalog.json`) est livré au projet + `npx svforge check` (ERROR bloquant : second UI kit, primitive dupliquée ; WARN : valeurs arbitraires). CI le vérifie sur chaque scaffold. Le changement de thème applicatif réutilise toujours `ui/ThemeToggle.svelte`, jamais un contrôle local.
+- **Design-system harness (#240, #480)** : Skeleton est la stratégie UI **par défaut**, mais une bibliothèque UI/headless explicitement choisie par l'utilisateur peut être enregistrée dans `.svforge.json`. `svforge check` et ESLint détectent les erreurs vérifiables (primitives dupliquées, classes inexistantes), et **non** la simple présence d'un second kit. L'agent n'ajoute jamais de bibliothèque de lui-même.
 - **CSS Skeleton-first (#313)** : `src/routes/layout.css` est l'unique point d'entrée CSS global et reste du wiring ; `src/lib/styles/svelteforge-theme.css` est le thème Skeleton v5 complet et la source de vérité visuelle. Le boilerplate ne précrée ni `tokens.css` ni `index.css` générique.
 - **Composition & presets (#236)** : 2 templates (`base`/`dashboard`) + modules opt-in. Les presets (`svforge preset saas|community`) sont des recettes `sv add` — jamais de duplication de code module. Le contrat de métadonnées (`svforge-modules.json` + `MODULES`/`PRESETS` TS) documente id/description/requires/optional/files.
 - Pour tout composant plus riche (accordion, tabs, avatar, tooltip, dialog…), on **n'écrit pas** de composant svforge — on utilise directement les composants officiels de `@skeletonlabs/skeleton-svelte`.
@@ -17,6 +17,23 @@ SvelteForge est un **boilerplate de démarrage**, PAS une bibliothèque de compo
 - Le vrai cœur du métier : **vitesse de démarrage**. Un `sv create` + `sv add` = projet production-ready.
 
 Conséquence : avant d'ajouter quoi que ce soit au base, se demander « est-ce une base ? » (→ issue #199 pour le trim en cours).
+
+## Contrat UI des agents : réutiliser avant d'inventer (#480)
+
+**Liberté du développeur ≠ autonomie de l'agent.** Le propriétaire d'un projet peut installer Zag, Bits UI, shadcn-svelte ou toute autre bibliothèque et la déclarer dans `.svforge.json`. Ce choix n'est pas une erreur. Sans demande explicite, l'agent ne change pas la stratégie UI.
+
+Avant de produire une interface, l'agent DOIT :
+
+1. Chercher le composant voulu dans le code du projet et le catalogue SVForge (`primitives/`, `ui/`, `layout/`).
+2. **Réutiliser** le composant et ses props/variantes : un bouton différent n'autorise pas un autre `Button.svelte`, `FancyButton.svelte` ou `CustomButton.svelte`.
+3. Réutiliser les primitives Skeleton ou celles d'une bibliothèque **déjà déclarée par l'utilisateur**. Ne pas installer/enregistrer une nouvelle UI library sans demande explicite.
+4. Utiliser uniquement des utilitaires Tailwind et classes/presets Skeleton existants et vérifiés. Ne pas inventer de classes CSS, presets, tokens ou overrides pour contourner le design system.
+5. Étendre une variante ou un composant partagé plutôt que dupliquer. Ne créer un **composant métier distinct** que si les briques réutilisables ne couvrent pas le besoin.
+6. Demander une décision de l'utilisateur avant de changer le kit UI, ajouter une primitive générique ou autoriser une exception de style. Ne pas désactiver les checkers pour satisfaire la demande.
+
+**Vérifications :** maintenir `svforge check` et le lint Tailwind/Skeleton stricts pour les duplications et classes invalides. Ces outils ne peuvent pas déterminer si l'auteur est humain ou IA : les choix explicites du projet sont consignés dans sa configuration, et `AGENTS.md` contraint l'agent.
+
+**Scripts et documentation :** avant de créer un nouveau fichier, chercher un script ou document existant de même responsabilité. Le réutiliser ou l'étendre ; ne pas multiplier les variantes de confort.
 
 ## Architecture
 
@@ -103,7 +120,7 @@ When activated AND graphify is installed, the hook updates the graph in each com
 
 ## Conventions composants (templates)
 
-- **Skeleton uniquement** : les composants wrappent des classes/presets Skeleton + Tailwind, jamais de CSS brut
+- **Skeleton par défaut dans les templates** : réutiliser les composants existants, les classes/presets Skeleton et les utilitaires Tailwind valides. Le projet utilisateur peut adopter une autre bibliothèque sur choix humain explicite ; l'agent doit respecter ce choix, pas le faire à sa place.
 - Classes Skeleton valides : `btn`, `input`, `select`, `textarea`, `checkbox`, `badge`, `card`, et presets `preset-filled-*`, `preset-tonal-*`, `preset-outlined-*` (+ suffixes couleurs `-primary-500`, `-surface-400-600`…). **`variant-*` et `preset-ghost` N'EXISTENT PAS en v5** — `variant-*` est l'ancien nommage Skeleton v2, renommé `preset-*` en v3.
 - **CSS global minimal** : `templates/base/src/routes/layout.css` charge les outils et importe directement `src/lib/styles/svelteforge-theme.css`. Pas de `tokens.css`/`index.css` générique dans le scaffold.
 - **Theme Skeleton comme source de vérité** : palettes, surfaces, brand, root backgrounds, typo, radius/shapes, borders/rings/outlines restent dans `[data-theme='svelteForge']` dans `svelteforge-theme.css`. Les surfaces partagées suivent le thème avec des tokens appariés (`bg-surface-50-950`, `text-surface-950-50`, `border-surface-200-800`) ; les éléments volontairement propres à un mode restent permis.
