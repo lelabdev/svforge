@@ -36,6 +36,9 @@ NOT a component library and NOT a shadcn clone.
   (ThemeToggle, Seo, Sitemap, Logo). **Do not rewrite them.**
 ${uiGuidance}
 - The full installed Skeleton inventory (${primitives}) is protected by \`svforge check\`.
+- A project owner may explicitly choose a second UI/headless library; this is not a design-system violation.
+- The agent must not install/register another UI kit, change the project's UI strategy or create a new generic primitive without an explicit user request.
+- Reuse one existing Button/Input/Card/etc. and its variants across pages instead of generating a different implementation per use case.
 
 ## Skeleton v5 classes — search the LOCAL docs first (LLM knowledge is stale)
 
@@ -104,7 +107,9 @@ Canonical structure (#242) — the filesystem IS the registry:
 2. search \`src/lib/components/svforge/ui/\`
 3. search \`src/lib/components/svforge/layout/\`
 4. check if Skeleton already provides it: \`import { X } from '@skeletonlabs/skeleton-svelte'\`
-5. create only when no reusable option exists
+5. reuse or extend existing component props/variants rather than copying a generic primitive into a new file
+6. create a genuinely distinct domain component only when no existing option fits
+7. ask the user before changing UI libraries, inventing a new generic primitive or changing lint policy
 
 A domain-specific component does NOT belong in the generic design system —
 keep it in its feature area (e.g. \`src/lib/features/...\` or the route folder).
@@ -146,6 +151,8 @@ MUST NOT:
 - install or register a new UI library without explicit user request
 - create a duplicate Button/Input/Card/Dialog/Tabs/Menu/etc. when Skeleton or SvelteForge already provides it
 - create project-local one-off design primitives without justification
+- create Button/FancyButton/CustomButton for different screens instead of reusing one shared component
+- invent CSS classes, Skeleton presets or styling exemptions to bypass existing checks
 - create a parallel global palette/token system for colors, surfaces, radius, focus, hover or shadows by default
 - add global visual overrides in \`layout.css\` when the Skeleton theme or presets already own the behavior
 - redesign the global visual language inside a feature PR
