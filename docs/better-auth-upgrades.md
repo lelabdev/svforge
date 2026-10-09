@@ -23,7 +23,8 @@ bespoke workflow per package.
 | Step | Who |
 | --- | --- |
 | Change the pinned version and every carrier | maintainer, normal branch |
-| Repository tests + scaffold gate + stack audit | CI, on the PR |
+| Repository quality checks + Better Auth stack audit | PR CI |
+| Dashboard schema/runtime scaffold gate | Release scaffold matrix, before publication |
 | Review and merge | maintainer, after CI is green |
 
 The old scheduled cadence (daily security escalation, weekly minor/patch
@@ -32,41 +33,42 @@ prereleases are no longer special-cased: they follow the same manual PR + CI
 validation, and a major still needs a human migration review of the
 auth/schema/runtime behavior before merging.
 
-## The gate — CI validates every bump
+## PR validation and release scaffold gate
 
-CI runs the full gate on every bump PR. All of it must be green before a
-Better Auth upgrade is merged:
+A Better Auth bump PR runs repository-level CI: lint, typecheck, build, tests,
+and the Better Auth stack audit. The dashboard schema/runtime scaffold is
+**not** part of every PR gate; it runs in the release scaffold matrix before
+publication. Both layers matter, but the release matrix must not be mistaken
+for routine PR CI.
 
-1. **Repository tests** (`bun x vitest run`) — including the pin-coherence
-   drift guards and the manual-bump helper's unit tests.
-2. **`bash scripts/test-scaffold.sh dashboard`** — a real scaffold against
-   real PostgreSQL:
-   - production build + `svelte-check` (0 errors),
-   - template vitest baseline — the credential-lifecycle suite proves the
-     contract end-to-end against the installed Better Auth version: admin A
-     creates B without losing their session, **B signs in through the real
-     `auth.handler`**, wrong passwords are rejected, duplicate/atomicity
-     guarantees hold;
-   - schema drift gate — the committed `auth.schema.ts` must match the schema
-     **derived from the installed better-auth runtime** (`getSchema()` from the
-     project's own node_modules). The comparison covers column names, types,
-     nullability, defaults, uniques/indexes and foreign keys — the lagging
-     `@better-auth/cli` output is NOT the reference (see below); the bunx CLI
-     generate step remains as a smoke test of the shipped `auth:schema` path;
-   - HTTP smoke — `vite dev` + real requests: `/setup` (first admin) → login →
-     admin CRUD (create user B, admin session survives) → B signs in.
-3. **Better Auth stack audit** — `scripts/better-auth-audit.mjs` queries
-   OSV.dev for better-auth, `@better-auth/*` and their **full resolved
-   dependency closure**: regular + optional dependencies and required peer
-   dependencies, resolved to the shallowest (hoisted) lockfile entry. This
-   includes hoisted transitive packages (e.g. `jose`), which a lockfile-key
-   scope filter silently misses (#319 review). It **fails on critical/high**
-   advisories; moderate/low findings are reported without blocking.
+The release workflow's **`bash scripts/test-scaffold.sh dashboard`** gate runs a
+real scaffold against real PostgreSQL and checks:
 
-   Documented reachability exceptions use the existing
-   [`docs/audit-baseline.json`](audit-baseline.json) mechanism (#351): a
-   scoped `{ package, version, advisory, path, reason }` entry with a written
-   justification.
+- production build + `svelte-check` (0 errors);
+- template Vitest baseline — the credential-lifecycle suite proves the contract
+  end-to-end against the installed Better Auth version: admin A creates B
+  without losing their session, **B signs in through the real `auth.handler`**,
+  wrong passwords are rejected, and duplicate/atomicity guarantees hold;
+- schema drift — the committed `auth.schema.ts` must match the schema **derived
+  from the installed better-auth runtime** (`getSchema()` from the project's
+  own `node_modules`). The comparison covers column names, types, nullability,
+  defaults, uniques/indexes and foreign keys. The lagging `@better-auth/cli`
+  output is NOT the reference (see below); the CLI generate step remains a
+  smoke test of the shipped `auth:schema` path;
+- HTTP smoke — `vite dev` + real requests: `/setup` (first admin) → login →
+  admin CRUD (create user B, admin session survives) → B signs in.
+
+The **Better Auth stack audit** (`scripts/better-auth-audit.mjs`) runs in PR CI
+and in the release workflow. It queries OSV.dev for better-auth,
+`@better-auth/*` and their **full resolved dependency closure**: regular +
+optional dependencies and required peer dependencies, resolved to the shallowest
+(hoisted) lockfile entry. This includes hoisted transitive packages (e.g. `jose`),
+which a lockfile-key scope filter silently misses (#319 review). It **fails on
+critical/high** advisories; moderate/low findings are reported without blocking.
+Documented reachability exceptions use the existing
+[`docs/audit-baseline.json`](audit-baseline.json) mechanism (#351): a scoped
+`{ package, version, advisory, path, reason }` entry with a written
+justification.
 
 ## The CLI (`@better-auth/cli`) is NOT a scaffold dependency
 
@@ -141,10 +143,13 @@ node scripts/better-auth-upgrade.mjs pin
 # Bump every carrier to the chosen version
 node scripts/better-auth-upgrade.mjs apply --better-auth <version>
 
-# Validate locally, exactly like CI
+# Validate the repository-level PR gates locally
 bun install
 bun run lint && bun run typecheck
 bun run --filter '*' build && bun run test
+
+# Optional local reproduction of the release-only dashboard scaffold gate
+# (not run by ordinary PR CI; requires PostgreSQL)
 bash scripts/test-scaffold.sh dashboard   # schema/runtime smoke + real PostgreSQL
 
 # Stack audit against the PINNED version (better-auth is not in the repo

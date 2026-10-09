@@ -32,6 +32,33 @@ describe('repository maintenance documentation (#525)', () => {
 	});
 });
 
+describe('published documentation contracts (#525)', () => {
+	it('documents the current Tailwind ESLint and SVForge checker split', () => {
+		const readme = readFileSync(join(PACKAGES_DIR, 'svforge', 'README.md'), 'utf8');
+		const lintingGuide = readFileSync(join(PACKAGES_DIR, 'svforge', 'docs', 'tailwind-linting.md'), 'utf8');
+
+		for (const text of [readme, lintingGuide]) {
+			expect(text).toContain('eslint-plugin-tailwindcss');
+			expect(text).toContain('tailwindcss/no-custom-classname');
+			expect(text).not.toMatch(/Do not adopt `eslint-plugin-tailwindcss`/i);
+			expect(text).not.toMatch(/Tailwind v4 ESLint plugin was evaluated but is not installed/i);
+		}
+		expect(lintingGuide).toContain('WARN');
+		expect(lintingGuide).toContain('arbitrary spacing and radius');
+		expect(lintingGuide).toContain('registered');
+	});
+
+	it('accurately limits the dashboard schema/runtime smoke to the release matrix', () => {
+		const guide = readFileSync(join(ROOT, 'docs', 'better-auth-upgrades.md'), 'utf8');
+
+		expect(guide).not.toMatch(/full gate on every bump PR/i);
+		expect(guide).not.toMatch(/Repository tests \+ scaffold gate \+ stack audit\s*\|\s*CI, on the PR/i);
+		expect(guide).toContain('Dashboard schema/runtime scaffold gate');
+		expect(guide).toContain('Release scaffold matrix, before publication');
+		expect(guide).toContain('**not** part of every PR gate; it runs in the release');
+	});
+});
+
 describe('published package metadata (#334)', () => {
 	it('declares the supported package manager and current product positioning', () => {
 		const rootManifest = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as {
