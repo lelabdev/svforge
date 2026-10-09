@@ -73,11 +73,7 @@ bun run build          # build svforge (prebuild + tsdown)
 bun run build:all      # build tous les packages
 bun run test           # vitest racine (tests/)
 
-# Tester un template localement (sans npm) :
-cd packages/svforge && bun run build && bun scripts/test-local.ts base /tmp/sf-test
-cd /tmp/sf-test && bun install && bun dev
-
-# Scaffold complet réel (le test de vérité) :
+# Scaffold réel et validations (le même chemin que CI) :
 bash scripts/test-scaffold.sh base      # ou dashboard
 ```
 

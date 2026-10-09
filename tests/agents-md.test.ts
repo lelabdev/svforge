@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import type { SvApi } from 'sv';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { renderUiAgentGuidance, type UiProjectConfig } from '../packages/svforge/src/ui-libraries';
+import { ROOT } from './helpers';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
 import { scaffoldedAgents } from '../packages/svforge/src/scaffolded-agents';
@@ -28,6 +32,27 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		const canonical = scaffoldedAgents('base');
 		expect(canonical).toMatch(/Advisory vs enforced/);
 		expect(canonical).toMatch(/svforge check/);
+	});
+
+	it('requires reuse of generic components while respecting human-selected UI libraries', () => {
+		const selectedUi: UiProjectConfig = {
+			preferred: '@example/selected-ui',
+			libraries: [{ package: '@example/selected-ui' }]
+		};
+		const canonical = scaffoldedAgents('base', 'npm', selectedUi);
+		const packageGuidance = renderUiAgentGuidance(selectedUi);
+		const repositoryInstructions = readFileSync(join(ROOT, 'AGENTS.md'), 'utf8');
+		const packageInstructions = readFileSync(join(ROOT, 'packages/svforge/llms.txt'), 'utf8');
+
+		expect(canonical).toContain('Reuse one existing Button/Input/Card/etc. and its variants');
+		expect(canonical).toContain('create Button/FancyButton/CustomButton');
+		expect(canonical.toLowerCase()).toContain('the agent must not install/register another ui kit');
+		expect(packageGuidance).toContain('@example/selected-ui');
+		expect(packageGuidance).toContain('human-selected UI/headless libraries');
+		for (const instructions of [canonical, repositoryInstructions, packageInstructions]) {
+			expect(instructions).not.toMatch(/ERROR[^\n]*second UI kit/i);
+			expect(instructions).not.toMatch(/second UI kit[^\n]*(?:forbidden|prohibited|error)/i);
+		}
 	});
 
 	it('gives every scaffold a reusable composition grammar', () => {

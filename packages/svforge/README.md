@@ -160,12 +160,16 @@ and all roots in a command are validated before any files are written.
 `svforge check` guides on likely unregistered UI usage; registered copy-in roots
 receive scoped checker and ESLint exemptions.
 
-## Tailwind arbitrary values
+## Tailwind and design-system checks
 
-The design-system checker is the single policy for arbitrary spacing and radius
-values. The Tailwind v4 ESLint plugin was evaluated but is not installed: its
-rules either reject accepted structural values or miss non-scale spacing/radius
-values. See [the evaluation record](docs/tailwind-linting.md).
+Generated projects install `eslint-plugin-tailwindcss` and enforce
+`tailwindcss/no-custom-classname` as an error against the configured Tailwind +
+Skeleton entrypoint, rejecting static class names the project does not generate.
+The separate `svforge-check.mjs` owns SvelteForge design-system rules and its
+arbitrary spacing/radius policy (WARN by default, blocking with `--strict`).
+Registered human-selected UI component roots receive scoped exemptions from
+these checks; other project code remains checked. See the
+[Tailwind linting guide](docs/tailwind-linting.md) for the split and scope.
 
 ## Upgrade
 

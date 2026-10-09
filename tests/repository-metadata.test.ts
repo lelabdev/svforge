@@ -11,6 +11,54 @@ const packageDirectories = readdirSync(PACKAGES_DIR, { withFileTypes: true })
 	.sort();
 const rootLicense = readFileSync(join(ROOT, 'LICENSE'), 'utf8');
 
+describe('repository maintenance documentation (#525)', () => {
+	it('uses the root release guide as the only versioning source of truth', () => {
+		const versioningPath = join(PACKAGES_DIR, 'svforge', 'docs', 'VERSIONING.md');
+		const versioning = readFileSync(versioningPath, 'utf8');
+
+		expect(versioning).toContain('https://github.com/lelabdev/svforge/blob/main/docs/RELEASE.md');
+		expect(existsSync(join(ROOT, 'docs', 'RELEASE.md'))).toBe(true);
+		expect(versioning).not.toContain('1.x');
+		expect(versioning).not.toContain('0.x');
+		expect(versioning).not.toContain('main` | `dev`');
+		expect(existsSync(join(PACKAGES_DIR, 'svforge', 'docs', 'PRD.md'))).toBe(false);
+	});
+
+	it('points contributors at the real scaffold harness instead of a template-copy simulation', () => {
+		const instructions = readFileSync(join(ROOT, 'AGENTS.md'), 'utf8');
+		expect(instructions).toContain('bash scripts/test-scaffold.sh base');
+		expect(instructions).not.toContain('test-local.ts');
+		expect(existsSync(join(PACKAGES_DIR, 'svforge', 'scripts', 'test-local.ts'))).toBe(false);
+	});
+});
+
+describe('published documentation contracts (#525)', () => {
+	it('documents the current Tailwind ESLint and SVForge checker split', () => {
+		const readme = readFileSync(join(PACKAGES_DIR, 'svforge', 'README.md'), 'utf8');
+		const lintingGuide = readFileSync(join(PACKAGES_DIR, 'svforge', 'docs', 'tailwind-linting.md'), 'utf8');
+
+		for (const text of [readme, lintingGuide]) {
+			expect(text).toContain('eslint-plugin-tailwindcss');
+			expect(text).toContain('tailwindcss/no-custom-classname');
+			expect(text).not.toMatch(/Do not adopt `eslint-plugin-tailwindcss`/i);
+			expect(text).not.toMatch(/Tailwind v4 ESLint plugin was evaluated but is not installed/i);
+		}
+		expect(lintingGuide).toContain('WARN');
+		expect(lintingGuide).toContain('arbitrary spacing and radius');
+		expect(lintingGuide).toContain('registered');
+	});
+
+	it('accurately limits the dashboard schema/runtime smoke to the release matrix', () => {
+		const guide = readFileSync(join(ROOT, 'docs', 'better-auth-upgrades.md'), 'utf8');
+
+		expect(guide).not.toMatch(/full gate on every bump PR/i);
+		expect(guide).not.toMatch(/Repository tests \+ scaffold gate \+ stack audit\s*\|\s*CI, on the PR/i);
+		expect(guide).toContain('Dashboard schema/runtime scaffold gate');
+		expect(guide).toContain('Release scaffold matrix, before publication');
+		expect(guide).toContain('**not** part of every PR gate; it runs in the release');
+	});
+});
+
 describe('published package metadata (#334)', () => {
 	it('declares the supported package manager and current product positioning', () => {
 		const rootManifest = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as {
