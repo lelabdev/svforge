@@ -11,6 +11,27 @@ const packageDirectories = readdirSync(PACKAGES_DIR, { withFileTypes: true })
 	.sort();
 const rootLicense = readFileSync(join(ROOT, 'LICENSE'), 'utf8');
 
+describe('repository maintenance documentation (#525)', () => {
+	it('uses the root release guide as the only versioning source of truth', () => {
+		const versioningPath = join(PACKAGES_DIR, 'svforge', 'docs', 'VERSIONING.md');
+		const versioning = readFileSync(versioningPath, 'utf8');
+
+		expect(versioning).toContain('https://github.com/lelabdev/svforge/blob/main/docs/RELEASE.md');
+		expect(existsSync(join(ROOT, 'docs', 'RELEASE.md'))).toBe(true);
+		expect(versioning).not.toContain('1.x');
+		expect(versioning).not.toContain('0.x');
+		expect(versioning).not.toContain('main` | `dev`');
+		expect(existsSync(join(PACKAGES_DIR, 'svforge', 'docs', 'PRD.md'))).toBe(false);
+	});
+
+	it('points contributors at the real scaffold harness instead of a template-copy simulation', () => {
+		const instructions = readFileSync(join(ROOT, 'AGENTS.md'), 'utf8');
+		expect(instructions).toContain('bash scripts/test-scaffold.sh base');
+		expect(instructions).not.toContain('test-local.ts');
+		expect(existsSync(join(PACKAGES_DIR, 'svforge', 'scripts', 'test-local.ts'))).toBe(false);
+	});
+});
+
 describe('published package metadata (#334)', () => {
 	it('declares the supported package manager and current product positioning', () => {
 		const rootManifest = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as {
