@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/addon-kit",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"type": "module",
 	"description": "SVForge Addon Kit — shared capability contract + safe JSON merge helpers for @svforge/* addons (#323, #324)",
 	"author": "Ludo (https://lelab.dev)",

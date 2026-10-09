@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/blog",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"type": "module",
 	"description": "SVForge Blog — MDsveX blog with posts list and article pages",
 	"author": "Ludo (https://lelab.dev)",
