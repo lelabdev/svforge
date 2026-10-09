@@ -10,8 +10,8 @@ and `svforge upgrade`.
 - `Breaking changes`, `Migrations`, `Fixes`, and `Deprecations`: explicit sections;
   use `None.` when a section has no items
 
-<!-- svforge-release package="svforge" version="2.1.1" date="2026-10-04" -->
-## svforge@2.1.1 — 2026-10-04
+<!-- svforge-release package="svforge" version="2.1.1" date="2026-10-09" -->
+## svforge@2.1.1 — 2026-10-09
 
 ### Breaking changes
 - None.
@@ -21,6 +21,90 @@ and `svforge upgrade`.
 
 ### Fixes
 - Remove the TipTap preview class exception from the generated strict styling lint configuration.
+- Add opt-in Graphify initialization and package-manager-aware dashboard CI to the distributed CLI.
+- Support registered user-selected UI libraries with constrained copy-in roots and scoped lint exemptions.
+- Keep generated Lix artifacts out of scaffold formatting while retaining lint diagnostics for unsupported classes and duplicate primitives.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/addon-kit" version="2.0.2" date="2026-10-09" -->
+## @svforge/addon-kit@2.0.2 — 2026-10-09
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Compose addon `.env.example` contributions deterministically and reject duplicate keys or invalid values.
+- Validate and atomically update registered UI-library configuration; keep module capabilities consistent with generated blog files.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/blog" version="2.0.2" date="2026-10-09" -->
+## @svforge/blog@2.0.2 — 2026-10-09
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Align generated blog routes with Skeleton and Paraglide, and format post dates as UTC calendar dates.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/email" version="2.0.2" date="2026-10-09" -->
+## @svforge/email@2.0.2 — 2026-10-09
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Contribute the mail-provider configuration keys to the composed `.env.example` with documented placeholders.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/oauth" version="2.0.2" date="2026-10-09" -->
+## @svforge/oauth@2.0.2 — 2026-10-09
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Contribute OAuth provider keys to the composed `.env.example` with documented placeholders.
+
+### Deprecations
+- None.
+
+
+<!-- svforge-release package="@svforge/uploads" version="2.0.2" date="2026-10-09" -->
+## @svforge/uploads@2.0.2 — 2026-10-09
+
+### Breaking changes
+- None.
+
+### Migrations
+- None.
+
+### Fixes
+- Contribute S3-compatible storage configuration keys to the composed `.env.example` with documented placeholders.
 
 ### Deprecations
 - None.
@@ -42,8 +126,8 @@ and `svforge upgrade`.
 - None.
 
 
-<!-- svforge-release package="@svforge/tiptap" version="2.0.2" date="2026-10-04" -->
-## @svforge/tiptap@2.0.2 — 2026-10-04
+<!-- svforge-release package="@svforge/tiptap" version="2.0.2" date="2026-10-09" -->
+## @svforge/tiptap@2.0.2 — 2026-10-09
 
 ### Breaking changes
 - None.
@@ -54,13 +138,14 @@ and `svforge upgrade`.
 ### Fixes
 - Replace repeated toolbar buttons with Skeleton ToggleGroup controls and the base Button primitive.
 - Render headings semantically and use theme-aware Tailwind Typography styles, removing the preview-class lint exception.
+- Add safe link editing with Skeleton controls and reject unsafe link destinations.
 
 ### Deprecations
 - None.
 
 
-<!-- svforge-release package="@svforge/chat" version="2.0.2" date="2026-10-04" -->
-## @svforge/chat@2.0.2 — 2026-10-04
+<!-- svforge-release package="@svforge/chat" version="2.0.2" date="2026-10-09" -->
+## @svforge/chat@2.0.2 — 2026-10-09
 
 ### Breaking changes
 - None.
@@ -70,13 +155,14 @@ and `svforge upgrade`.
 
 ### Fixes
 - Replace the invalid Skeleton surface hover pairing with a generated utility.
+- Integrate the shared Skeleton-based NotificationsBell in the chat route.
 
 ### Deprecations
 - None.
 
 
-<!-- svforge-release package="@svforge/notifications" version="2.0.2" date="2026-10-04" -->
-## @svforge/notifications@2.0.2 — 2026-10-04
+<!-- svforge-release package="@svforge/notifications" version="2.0.2" date="2026-10-09" -->
+## @svforge/notifications@2.0.2 — 2026-10-09
 
 ### Breaking changes
 - None.
@@ -86,6 +172,7 @@ and `svforge upgrade`.
 
 ### Fixes
 - Replace the invalid Skeleton unread-surface pairing with a generated utility.
+- Add the reusable NotificationsBell using Skeleton Popover and the base Badge primitive.
 
 ### Deprecations
 - None.
@@ -107,8 +194,8 @@ and `svforge upgrade`.
 - None.
 
 
-<!-- svforge-release package="@svforge/graph" version="2.0.2" date="2026-10-04" -->
-## @svforge/graph@2.0.2 — 2026-10-04
+<!-- svforge-release package="@svforge/graph" version="2.0.2" date="2026-10-09" -->
+## @svforge/graph@2.0.2 — 2026-10-09
 
 ### Breaking changes
 - None.
@@ -118,6 +205,7 @@ and `svforge upgrade`.
 
 ### Fixes
 - Remove an unused graph container class marker.
+- Replace explicit `any` values in the force-graph adapter with a typed graph interface.
 
 ### Deprecations
 - None.

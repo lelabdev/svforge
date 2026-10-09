@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/email",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"type": "module",
 	"description": "SVForge Email — transactional emails via Resend",
 	"author": "Ludo (https://lelab.dev)",

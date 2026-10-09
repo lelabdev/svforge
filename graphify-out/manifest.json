@@ -16,7 +16,7 @@
     "semantic_hash": ""
   },
   "packages/addon-kit/package.json": {
-    "ast_hash": "fcf2147c1cb09779147928e478d6d53e",
+    "ast_hash": "373eeaefb32aba545bb57c9275ff9446",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/capabilities.ts": {
@@ -84,7 +84,7 @@
     "semantic_hash": ""
   },
   "packages/blog/package.json": {
-    "ast_hash": "856ed0b2100daa173b9245f1213df95d",
+    "ast_hash": "ff4a5d0220fe28d2e8bb36d8ccf23bc6",
     "semantic_hash": ""
   },
   "packages/blog/scripts/prebuild.ts": {
@@ -196,7 +196,7 @@
     "semantic_hash": ""
   },
   "packages/email/package.json": {
-    "ast_hash": "aa0f87f617765a06427ff43a2eb2cdb8",
+    "ast_hash": "76f735b3c0c5cca9d2bae3b84154a880",
     "semantic_hash": ""
   },
   "packages/email/scripts/prebuild.ts": {
@@ -344,7 +344,7 @@
     "semantic_hash": ""
   },
   "packages/oauth/package.json": {
-    "ast_hash": "1fe60eb26ec802ce9c317d7608d3d937",
+    "ast_hash": "9d8352e2cc3e1a81794bdd5de1475833",
     "semantic_hash": ""
   },
   "packages/oauth/scripts/prebuild.ts": {
@@ -432,7 +432,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/changelog.ts": {
-    "ast_hash": "d22c18b7e06ee608e2bc6687b6c03eb9",
+    "ast_hash": "3fdf6ec6b78cca98cf71ae56e3815b5d",
     "semantic_hash": ""
   },
   "packages/svforge/src/design-system.ts": {
@@ -468,7 +468,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "f9f4b85bb3ed291c0b99e202b76e8b51",
+    "ast_hash": "aaef01251ac2a11cfb46de6bee45aeac",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -980,7 +980,7 @@
     "semantic_hash": ""
   },
   "packages/uploads/package.json": {
-    "ast_hash": "c7438e93b59efb4642e3ed664dc49e25",
+    "ast_hash": "a443781ce431bd3ebf0c77be7b710bb4",
     "semantic_hash": ""
   },
   "packages/uploads/scripts/prebuild.ts": {
@@ -1480,7 +1480,7 @@
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "ast_hash": "7a5ec5eaeb890f7a33877b81d92d6c5e",
+    "ast_hash": "ab2e8cf60eb974d31ec98ffa88e64cde",
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
@@ -1672,7 +1672,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {
-    "ast_hash": "40400aa1f6b1c0a1b7bcf4ffb50ec51b",
+    "ast_hash": "4cb4fb6f072dc723887758f4f40d789f",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat.ts": {
