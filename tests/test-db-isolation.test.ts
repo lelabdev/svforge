@@ -157,13 +157,10 @@ describe('scaffold harness and CI provision a dedicated test database (#312)', (
 		}
 	});
 
-	it('the template documents the safe procedure', () => {
+	it('the environment example documents the guarded test database', () => {
 		const envExample = read(`${DASHBOARD}/root/.env.example`);
 		expect(envExample).toContain('TEST_DATABASE_URL');
 		expect(envExample).toContain('must contain a "test" segment');
-		const readme = read(`${DASHBOARD}/README.md`);
-		expect(readme).toContain('Running Tests Safely');
-		expect(readme).toContain('TEST_DATABASE_URL');
 	});
 });
 

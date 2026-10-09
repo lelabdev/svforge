@@ -24,7 +24,10 @@
 	"files": [
 		"dist/",
 		"bin/",
-		"docs/"
+		"docs/llms-skeleton.txt",
+		"docs/llms-svelte.txt",
+		"docs/deployment-profiles.md",
+		"docs/structural-duplication.md"
 	],
 	"keywords": [
 		"sv-add",

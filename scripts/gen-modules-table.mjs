@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-// Generate the Modules + Presets markdown tables for the root README from the
+// Generate the Modules + Presets markdown tables for the published package README from the
 // machine-readable contract (svforge-modules.json, #236) so the docs can never
 // drift from what SvelteForge actually installs (#257).
 //
 // Usage: node scripts/gen-modules-table.mjs   (prints the markdown block)
-//        node scripts/gen-modules-table.mjs --write  (updates README.md in place)
+//        node scripts/gen-modules-table.mjs --write  (updates packages/svforge/README.md)
+//        node scripts/gen-modules-table.mjs --write README.md  (select another target)
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -54,7 +55,7 @@ ${presetsTable()}
 
 if (process.argv.includes('--write')) {
 	const target = process.argv[process.argv.indexOf('--write') + 1];
-	const readmePath = target ? join(ROOT, target) : join(ROOT, 'README.md');
+	const readmePath = target ? join(ROOT, target) : join(ROOT, 'packages/svforge/README.md');
 	let readme = readFileSync(readmePath, 'utf-8');
 
 	function replaceBlock(readme, block) {
