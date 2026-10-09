@@ -72,7 +72,12 @@ Presets are recipes over those same modules, not additional templates:
 <!-- PRESETS-TABLE:END -->
 
 ```bash
-npx sv add @svforge/blog @svforge/uploads
+# Base-compatible modules
+npx sv add @svforge/blog @svforge/ui_toast
+
+# After scaffolding the dashboard (auth + PostgreSQL capabilities)
+npx sv add @svforge/uploads @svforge/notifications
+
 npx svforge preset saas
 ```
 

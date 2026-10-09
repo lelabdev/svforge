@@ -7,7 +7,7 @@ Ce fichier concerne les contributions à ce monorepo. **Il ne décrit pas les pr
 SvelteForge est un boilerplate de démarrage, pas une bibliothèque de composants ni un clone de shadcn/ui. Le template `base` fournit les fondations; les capacités optionnelles restent des modules composables. Avant d’ajouter une fonctionnalité ou un composant, cherche d’abord une implémentation existante dans `templates/*/src/lib/components/svforge/` ou les composants officiels de Skeleton.
 
 - Le registre de composants est organisé en `primitives/`, `ui/`, `layout/`.
-- Skeleton est l’unique source de primitives UI; les composants plus riches viennent de `@skeletonlabs/skeleton-svelte`.
+- Skeleton est la source par défaut des primitives UI; les projets peuvent choisir explicitement une autre bibliothèque. Respecte toute sélection humaine et réutilise ses composants. N’installe, n’enregistre ou ne remplace jamais une bibliothèque UI, et ne crée pas de primitive générique, sans demande humaine explicite. Les composants plus riches viennent de `@skeletonlabs/skeleton-svelte` par défaut.
 - La copy UI statique passe par Paraglide. Toute nouvelle clé doit exister dans les catalogues FR et EN.
 - Le CSS global du scaffold est câblé dans `src/routes/layout.css`; le thème Skeleton complet est dans `src/lib/styles/svelteforge-theme.css`. N’ajoute pas de couche générique de tokens/styles sans besoin répété non couvert par Skeleton/Tailwind.
 - Svelte 5 runes uniquement; pas de patterns Svelte 4 (`on:click`, `<slot>`, `$app/stores`).

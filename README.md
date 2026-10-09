@@ -40,10 +40,10 @@ The base template is intentionally small. Rich UI components come from the offic
 Add only what an application needs, for example:
 
 ```bash
-npx sv add @svforge/blog @svforge/uploads @svforge/notifications
+npx sv add @svforge/blog @svforge/ui_toast
 ```
 
-Modules include email, uploads, OAuth, realtime, jobs, audit, notifications, chat, blog, rich text, drag-and-drop, toast, and graph visualization. See the [package guide](packages/svforge/README.md#module-addons) for the current list and requirements. Presets are recipes over the same templates and modules:
+Modules include email, uploads, OAuth, realtime, jobs, audit, notifications, chat, blog, rich text, drag-and-drop, toast, and graph visualization. See the [package guide](packages/svforge/README.md#optional-modules) for the current list and requirements. Presets are recipes over the same templates and modules:
 
 ```bash
 npx svforge preset saas
