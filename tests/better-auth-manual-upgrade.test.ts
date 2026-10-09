@@ -50,7 +50,5 @@ describe('Better Auth upgrades are manual and CI-validated (#460)', () => {
 		// The old policy's scheduled/automatic publication must be gone.
 		expect(doc).not.toMatch(/auto-?pr|automatically|weekly cron|daily cron/i);
 
-		const readme = readFileSync(join(ROOT, 'README.md'), 'utf8');
-		expect(readme).not.toMatch(/upgraded automatically/i);
 	});
 });

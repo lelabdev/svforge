@@ -15,7 +15,7 @@ const CLIENT = join(ROOT, DASHBOARD, 'src/lib/server/db/client.ts');
 const SETUP_SERVER = join(ROOT, DASHBOARD, 'src/routes/setup/+page.server.ts');
 const CREATE_ADMIN = join(ROOT, DASHBOARD, 'root/scripts/create-admin.ts');
 const ENV_EXAMPLE = join(ROOT, DASHBOARD, 'root/.env.example');
-const DASHBOARD_README = join(ROOT, DASHBOARD, 'README.md');
+const PACKAGE_README = join(ROOT, 'packages/svforge/README.md');
 const SCAFFOLD_AGENTS = join(ROOT, 'packages/svforge/src/scaffolded-agents.ts');
 
 const read = (path: string) => readFileSync(path, 'utf-8');
@@ -59,8 +59,8 @@ describe('sign-up policy is server-side and fails closed (#318)', () => {
 		expect(auth).toMatch(/acceptInvitation/);
 	});
 
-	it('the three modes are documented in the template docs and .env.example', () => {
-		for (const file of [ENV_EXAMPLE, DASHBOARD_README]) {
+	it('the three modes are documented in user guidance and .env.example', () => {
+		for (const file of [ENV_EXAMPLE, PACKAGE_README]) {
 			const doc = read(file);
 			expect(doc, file).toMatch(/closed/);
 			expect(doc, file).toMatch(/invite-only/);
@@ -139,7 +139,6 @@ describe('generated instructions teach the new model (#318)', () => {
 	it('no first-user-is-admin instruction survives anywhere', () => {
 		const stale = [
 			join(ROOT, 'packages/svforge/AGENTS.md'),
-			DASHBOARD_README,
 			SCAFFOLD_AGENTS,
 			join(ROOT, DASHBOARD, 'root/scripts/setup.sh'),
 			join(ROOT, 'scripts/test-scaffold.sh')

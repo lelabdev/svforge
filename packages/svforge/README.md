@@ -1,106 +1,48 @@
 # SVForge
 
-**sv community addon** — production-ready foundations for SvelteKit projects.
+SVForge is an [`sv`](https://github.com/sveltejs/cli) community addon that adds production-ready foundations to a normal SvelteKit project. It is a starter, not a component library or a shadcn/ui clone: the generated source belongs to your project, and richer UI components come directly from [`@skeletonlabs/skeleton-svelte`](https://skeleton.dev).
 
-SVForge starts from a normal SvelteKit app and adds the pieces you would otherwise rebuild on every project: a coherent application structure and design-system conventions, Skeleton UI v5 + Tailwind CSS v4, Paraglide i18n (FR/EN initial locales), Vitest quality gates, and an optional admin dashboard with Better Auth + Drizzle ORM + PostgreSQL. It **does not replace SvelteKit** — the generated source belongs to your project, there is no opaque runtime to depend on after scaffolding.
-
-**Not a component library. Not a shadcn clone.** SVForge gives you the essentials — buttons, inputs, selects, cards, badges, theme, SEO, layouts — so you start fast and own everything. For richer components (dialog, tabs, tooltip, date-picker…), use the official [`@skeletonlabs/skeleton-svelte`](https://skeleton.dev) components directly.
-
-Choose a target before architecture work: see [deployment profiles](docs/deployment-profiles.md) for Node, serverless, edge, and separate-worker constraints.
-
-### CLI compatibility
-
-SVForge and its modules support `sv` 1.x from `1.1.0` (`^1.1.0` peer range). Real user journeys and scaffold builds are validated against `sv@1.1.0`, including the SvelteKit 3 project it generates.
+SVForge supports `sv` 1.x (`^1.1.0`). Choose a deployment target before adding runtime modules; see [deployment profiles](docs/deployment-profiles.md).
 
 ## Install
 
-Create a SvelteKit project, then apply a template:
-
 ```bash
-# Base template (UI kit + layouts + theme)
+# Base UI and application foundations
 npx sv create my-app
 cd my-app
 npx sv add svforge=template:base+testing:vitest
-npm run dev  # or your package manager's dev command
+npm run dev
 
-# Dashboard template (base + auth + DB + admin)
-npx sv create my-app
-cd my-app
+# Or use the dashboard with Better Auth, PostgreSQL, and Drizzle
+npx sv create my-dashboard
+cd my-dashboard
 npx sv add svforge=template:dashboard+testing:vitest
-bash scripts/setup.sh && npm run dev  # or your package manager's dev command
+bash scripts/setup.sh
+npm run dev
+```
 
-# Dashboard with the opt-in Playwright browser profile
+Dashboard projects use PostgreSQL. Configure the generated `.env` using `.env.example` before starting the app. Playwright is an optional profile:
+
+```bash
 npx sv add svforge=template:dashboard+testing:playwright
-npx playwright install && npm run test:e2e  # or your package manager's equivalent
+npx playwright install
+npm run test:e2e
 ```
 
-`sv create` also accepts the addon at creation time:
+You can also add SVForge during `sv create`, or run `npx sv add svforge` in an existing project to choose a template.
 
-```bash
-npx sv create my-app --template minimal --types ts --add 'svforge=template:base+testing:vitest' --install bun --no-download-check
-```
+## Templates
 
-Or add to an existing SVForge project:
-```bash
-npx sv add svforge   # prompts: base or dashboard
-```
+- **`base`** — Skeleton UI and Tailwind, reusable foundations (`Button`, `Input`, `Select`, `Card`, `Badge`, `Table`), theme and dark mode, SEO, Paraglide FR/EN, and Vitest.
+- **`dashboard`** — base plus Better Auth, PostgreSQL/Drizzle, protected admin routes, user management, and setup scripts.
 
-Dashboard projects include the Vitest baseline by default (`bun run test`).
-The Playwright profile is opt-in with `testing:playwright`; it adds
-`@playwright/test`, the `test:e2e` script, browser configuration, and E2E tests.
+Dashboard sign-up is closed by default; `SIGNUP_MODE` can be set to `invite-only` or `self-service`. The admin role is granted through `<pm> run admin:create`, not public sign-up. Integration tests use `TEST_DATABASE_URL` and refuse database names without a `test` segment; see the generated `.env.example` before running them.
 
-### Optional Graphify initialization
+Skeleton is the visual and primitive source of truth. The theme is in `src/lib/styles/svelteforge-theme.css`; global CSS wiring is in `src/routes/layout.css`. Static UI text uses Paraglide message catalogs. These are editable defaults, not restrictions on a consumer project.
 
-If Graphify is already installed and you explicitly want a project-scoped setup,
-pass `--graphify` to `svforge create`:
+## Optional modules
 
-```bash
-npx svforge create my-app --template base --pm npm --modules ui_toast --graphify --yes
-```
-
-SVForge never installs the Graphify executable or adds it as a project
-runtime dependency. When the flag is used and the executable is available,
-SVForge delegates to `graphify install --project` and
-`graphify extract . --code-only`. Without the flag Graphify is untouched; if
-it is requested but not installed, scaffolding continues without it.
-
-## What you get
-
-### Base Template
-
-- **UI kit** — Button, Card, Badge, Alert, Input, Select, Textarea, Checkbox, Toggle, Table
-- **Layout** — Navbar, Footer, ThemeToggle
-- **Utils** — Logo, Seo, generateSitemap(), cn()
-- **SVForge theme** — complete Skeleton v5 theme with custom oklch palettes
-- **Minimal CSS architecture** — `src/routes/layout.css` is the single global CSS entrypoint and imports `src/lib/styles/svelteforge-theme.css` directly
-- **No generic token layer** — no scaffolded `tokens.css` or style barrel; use Skeleton for visual theme decisions and standard Tailwind utilities for local layout/spacing
-- **Dark/light mode** — auto-detects system preference, manual toggle
-- **Demo page** at `/demo-ui`
-
-Project-specific token/effect layers are intentionally not pre-created. Add them later only when a concrete repeated product need is not already covered by Skeleton or Tailwind.
-
-### Dashboard Template
-
-Everything in Base, plus:
-
-- **Better Auth** — email/password, session management
-- **Drizzle ORM + PostgreSQL** (`pg-core` + `postgres` driver) — user/session/account/verification schema + app tables
-- **Admin dashboard** — stats, user management (CRUD), settings
-- **Zod validation** — type-safe schemas on all server actions
-- **Setup script** — `bash scripts/setup.sh` (generates secret, inits DB)
-- **Pre-configured** — drizzle.config.ts, .env.example, tsconfig
-
-## Defaults vs constraints
-
-The scaffolded palette, fonts and locales are **ready-made defaults, not framework constraints** — each has one identified source of truth in the generated project:
-
-- **Theme**: the complete Skeleton v5 palette/theme in `src/lib/styles/svelteforge-theme.css` is SVForge's default theme. Replace its values (or point the import at another Skeleton v5 theme) without changing the architecture.
-- **Fonts**: Inter, Space Grotesk and Fira Code are declared only by the `@fontsource-variable/*` imports in `src/routes/layout.css` and mapped to roles (body/headings/code) by the theme. Change or remove them there.
-- **Locales**: `messages/<locale>.json` catalogs are the AI-first source of truth for static UI copy — edit the JSON, never the generated `src/lib/paraglide/` output. `fr` (baseLocale) and `en` are the initial locales, not a limit: add or remove a locale via `messages/*.json` + `project.inlang/settings.json` (one catalog + one `locales` entry per locale), and change `baseLocale` in the same settings file. Keep key parity across every configured locale; modules ship their message keys for the scaffolded locales (fr/en) — port them into any locale you add. Static UI copy stays in the catalogs — long-form editorial, business and CMS content belongs elsewhere (MDsveX, database).
-
-## Module Addons
-
-Composable opt-in modules — pick 2–3 as needed. **Requires** = template to scaffold first (`base` or `dashboard`); **Optional integrations** compose with other modules:
+Add only the capabilities your application needs. **Requires** names the template or capability that must already be present; optional integrations compose with other modules.
 
 <!-- MODULES-TABLE:START -->
 | Package | What it adds | Requires | Optional integrations |
@@ -120,7 +62,7 @@ Composable opt-in modules — pick 2–3 as needed. **Requires** = template to s
 | `@svforge/chat` | Composable app chat (conversations, messages, read-state) | database.drizzle.postgres, auth.currentUser, i18n.messages, ui.svforge | runtime.websocket, storage.object |
 <!-- MODULES-TABLE:END -->
 
-Presets are composition recipes (`npx svforge preset <name>`):
+Presets are recipes over those same modules, not additional templates:
 
 <!-- PRESETS-TABLE:START -->
 | Preset | Description | Requires | Composition |
@@ -130,22 +72,17 @@ Presets are composition recipes (`npx svforge preset <name>`):
 <!-- PRESETS-TABLE:END -->
 
 ```bash
-npx sv add @svforge/ui_toast
-npx sv add @svforge/uploads
-npx sv add @svforge/chat
-npx sv add @svforge/jobs
+npx sv add @svforge/blog @svforge/uploads
+npx svforge preset saas
 ```
 
-The machine-readable contract (`svforge-modules.json`) is the single source of truth — this table is generated, see `scripts/gen-modules-table.mjs`.
+The tables come from the scaffolded `svforge-modules.json` contract. Regenerate them with `node scripts/gen-modules-table.mjs --write`.
 
-## AI-ready workflow
+## Project context and checks
 
-Every scaffold is agent-ready: `AGENTS.md` (conventions), `.svforge.json`
-(machine-readable manifest: template, stack, modules, capabilities, patterns),
-`llms.txt` (LLM summary), `svforge-catalog.json` + `svforge-check.mjs`
-(design-system harness). Modules merge their capability into the manifest and
-`llms.txt` at install time. Skeleton remains the default; projects can deliberately
-select any installed UI/headless package without a hard-blocking second-kit rule:
+A scaffold includes generated `AGENTS.md` conventions, `.svforge.json` project state, `llms.txt` context, and a component catalog/checker. `svforge check` checks the design-system and project conventions; `svforge context` regenerates `llms.txt`.
+
+Skeleton remains the default. A project can deliberately register another UI library:
 
 ```bash
 npm install @acme/ui
@@ -153,59 +90,17 @@ npx svforge ui register @acme/ui --component-root src/lib/components/acme-ui
 npx svforge ui prefer @acme/ui
 ```
 
-Registration updates `.svforge.json`, `llms.txt`, and the generated UI-strategy
-block in `AGENTS.md`. Copy-in roots must be narrow directories under
-`src/lib/components/<library>`; broad roots such as `.` and `src` are rejected,
-and all roots in a command are validated before any files are written.
-`svforge check` guides on likely unregistered UI usage; registered copy-in roots
-receive scoped checker and ESLint exemptions.
+Copy-in roots must be narrow directories under `src/lib/components/<library>`. Registration keeps project metadata and checker exemptions scoped to that library; unregistered project code remains checked.
 
-## Tailwind and design-system checks
-
-Generated projects install `eslint-plugin-tailwindcss` and enforce
-`tailwindcss/no-custom-classname` as an error against the configured Tailwind +
-Skeleton entrypoint, rejecting static class names the project does not generate.
-The separate `svforge-check.mjs` owns SvelteForge design-system rules and its
-arbitrary spacing/radius policy (WARN by default, blocking with `--strict`).
-Registered human-selected UI component roots receive scoped exemptions from
-these checks; other project code remains checked. See the
-[Tailwind linting guide](docs/tailwind-linting.md) for the split and scope.
+Generated projects use `eslint-plugin-tailwindcss` to reject unknown static Tailwind classes. The separate `svforge-check.mjs` handles SVForge design-system rules and arbitrary spacing/radius guidance (WARN by default, blocking with `--strict`). Registered copy-in component roots receive scoped exemptions. See [structural duplication](docs/structural-duplication.md) for the opt-in WARN-only copied-component detector.
 
 ## Upgrade
 
-`svforge upgrade <base|dashboard|module>` migrates an installed project to the
-latest recipe — src files, ROOT files, dependencies, scripts and JSON — through
-one diffable protocol shared by base, dashboard and the 13 standalone modules.
+`svforge upgrade <base|dashboard|module>` shows an explicit plan before applying updates. Use `--dry-run` to inspect changes without writing, or `--json` for machine-readable results. Consumer modifications are reported as conflicts rather than silently overwritten; `--force` backs up overwritten files.
 
-```
-svforge upgrade base                 # apply the migration
-svforge upgrade base --dry-run       # plan + diff, write NOTHING
-svforge upgrade base --json          # machine-readable plan/result
-svforge upgrade blog --force         # overwrite user-modified files (backed up)
-```
+## Optional Graphify setup
 
-**How it works (#327):**
-
-1. **Install writes the baseline.** A fresh scaffold (or module install)
-   records `.svforge-versions.json`: the recipe version + a SHA-256 checksum of
-   every delivered file. The first upgrade already has a real baseline.
-2. **Plan before any write.** The engine computes the full operation list —
-   `add`, `modify`, `delete`, `move`, `dependency`, `script`, JSON
-   transformation — each with a readable diff, and only then touches disk.
-3. **Conflicts come from the baseline.** A file that still matches what svforge
-   installed is updated; a file that diverges from the baseline is a *user
-   modification* (#283) — reported as a conflict with its diff, never
-   overwritten without `--force`.
-4. **Atomic apply, versioned backups.** Overwritten content is backed up under
-   `.svforge-backup/<recipe>/<timestamp>-<version>/` (successive upgrades never
-   overwrite a previous backup). Any mid-apply failure rolls every write back:
-   applied atomically or not at all.
-
-Recipes are generated from the actually shipped packages (#283): the version
-announced by the command cannot drift from the shipped code, and release notes
-between the installed and target versions come from the structured changelog.
-Legacy `.svforge-versions.json` files (32-bit hashes, pre-#327) degrade safely:
-their entries read as "no baseline", i.e. the conservative skip behavior.
+If Graphify is already installed, `svforge create --graphify` opts into project-scoped initialization. SVForge does not install Graphify or add a runtime dependency. Without the flag Graphify is untouched; if requested but unavailable, scaffolding continues.
 
 ## License
 
