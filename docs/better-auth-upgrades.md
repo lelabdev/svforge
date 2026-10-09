@@ -2,6 +2,20 @@
 
 The dashboard template pins Better Auth; it never scaffolds `latest` or `*`. The authoritative pin is declared in `packages/svforge/src/modes/dashboard.ts` and mirrored in the dashboard template. `tests/better-auth-upgrade.test.ts` guards the carriers.
 
+## Ownership and upstream `sv` compatibility
+
+| Concern                                                                                                                                    | Owner today                | Boundary                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Drizzle client lifecycle, schema, migrations, Better Auth adapter mapping, and pinned dependencies                                         | SVForge dashboard scaffold | `createDb()` exposes the serverless pool limit; auth schema changes are reviewed against the runtime schema. |
+| Auth request/session hooks, closed-by-default signup, invitations, roles, disabled-user lifecycle, first-admin bootstrap, and dashboard UX | SVForge dashboard          | These are product/security policies, not generic auth setup.                                                 |
+| Generic Better Auth and Drizzle add-on generation                                                                                          | Upstream `sv` add-ons      | Not composed with the dashboard until their generated foundation is compatible and safely extensible.        |
+
+This is a compatibility decision based on the pinned `sv@1.1.0`, not a general rejection of upstream ownership. In a clean scaffold, `sv create` generates SvelteKit `^3.0.0`; the official Better Auth add-on requests `^1.6.24`, which currently resolves to Better Auth `1.7.7` with an optional `@sveltejs/kit: ^2.0.0` peer. npm therefore fails installation with `ERESOLVE`. Bun, pnpm, and Yarn install paths were also exercised, but their more permissive peer handling does not make the generated add-ons composable.
+
+Both application orders were tested with `sv@1.1.0`. Adding official Drizzle after a dashboard scaffold cancels with `Preexisting drizzle config file`. The official Better Auth add-on proceeds but appends duplicate `auth`/`db` imports, auth exports, and request handlers to the dashboard's existing files; the generated dashboard then fails `svelte-check` with duplicate identifiers. Applying the dashboard after the official add-ons instead overwrites their generated auth, hook, schema, Drizzle, and script files; the package manifest can retain conflicting runtime/dev dependency entries and an unused upstream CLI. The official `demo:none` option only omits demo UI: its generated `emailAndPassword.enabled` remains true with no `disableSignUp`, so it does not meet SVForge's closed-signup default.
+
+Do not instruct dashboard users to stack the official add-ons with SvelteForge as a workaround. Revisit composition when upstream supports the generated SvelteKit major and provides idempotent extension points for existing auth/Drizzle files and closed signup. Until then, the table above is the ownership contract: keep only the minimum generic integration necessary in SVForge, and keep the differentiated policies here.
+
 ## Manual upgrade policy and validation
 
 Upgrades are deliberate maintainer changes in a normal pull request. There is no scheduled bot or automatic publication.

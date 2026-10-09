@@ -404,7 +404,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
-    "ast_hash": "568406f2f1054e6cb24ef604ae0eb5f4",
+    "ast_hash": "8463973f90b0a1094c0684f2c2ddd90e",
     "semantic_hash": ""
   },
   "packages/svforge/scripts/fetch-llms-docs.sh": {
@@ -1052,7 +1052,7 @@
     "semantic_hash": ""
   },
   "scripts/gen-modules-table.mjs": {
-    "ast_hash": "f64ee3144eff834b0809452bccb07042",
+    "ast_hash": "1b32cd7fb9a69baff270daa667969e97",
     "semantic_hash": ""
   },
   "scripts/npm-consumer-smoke.mjs": {
@@ -1348,7 +1348,7 @@
     "semantic_hash": ""
   },
   "tests/repository-metadata.test.ts": {
-    "ast_hash": "2c911cdc9c750ff82eab6f8da29385d7",
+    "ast_hash": "0e998f2a931898f57991cc83dbd789a0",
     "semantic_hash": ""
   },
   "tests/scaffold-paths.test.ts": {
@@ -1360,7 +1360,7 @@
     "semantic_hash": ""
   },
   "tests/signup-security.test.ts": {
-    "ast_hash": "e806b3155f0d5e502cb00de9b11cffe6",
+    "ast_hash": "b50fdf3dc5c034717a2583c1b6f14a01",
     "semantic_hash": ""
   },
   "tests/skeleton-markup.test.ts": {
@@ -1408,7 +1408,7 @@
     "semantic_hash": ""
   },
   "tests/test-db-isolation.test.ts": {
-    "ast_hash": "5fac22c78ab0df37a2537e599f728cfa",
+    "ast_hash": "e660ef686ac02042296b34de701abaf8",
     "semantic_hash": ""
   },
   "tests/theme-toggle-contract.test.ts": {
@@ -1476,7 +1476,7 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "ast_hash": "cfd80941fe0bc9afa98d7c944995b6ba",
+    "ast_hash": "10c620476286bd16ea65e7b39a722494",
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
@@ -1484,11 +1484,11 @@
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
-    "ast_hash": "50fda6b408157c885be38e6c8b822ecf",
+    "ast_hash": "53198b8e62620ceec542407b94ecfa98",
     "semantic_hash": ""
   },
   "README.md": {
-    "ast_hash": "1f692ecfa522e93864f53fdb8539cc37",
+    "ast_hash": "ad719db760fad51a4181a4d8394d963c",
     "semantic_hash": ""
   },
   "SECURITY.md": {
@@ -1500,7 +1500,7 @@
     "semantic_hash": ""
   },
   "docs/better-auth-upgrades.md": {
-    "ast_hash": "78e944f8148ee3aa099162ae3e36a031",
+    "ast_hash": "4c11cf30ffa691bc9d2e00bfb477a9d1",
     "semantic_hash": ""
   },
   "packages/addon-kit/README.md": {
@@ -1556,11 +1556,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "845748a3b41f23b5e17726a43dc08379",
-    "semantic_hash": ""
-  },
-  "packages/svforge/docs/VERSIONING.md": {
-    "ast_hash": "57b8904a12827a01e29c4692a6a89380",
+    "ast_hash": "05d770467a28d0c1a3d3d3e0a73f9bf6",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1576,19 +1572,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/structural-duplication.md": {
-    "ast_hash": "f1410d89caf19a85abad35e8046aafe6",
-    "semantic_hash": ""
-  },
-  "packages/svforge/docs/tailwind-linting.md": {
-    "ast_hash": "23c048b7483c3b7121a97dde2c1a89bf",
+    "ast_hash": "d39b7c16c2785bf53017a7c30ba66306",
     "semantic_hash": ""
   },
   "packages/svforge/llms.txt": {
     "ast_hash": "0415c1a618d77ab133076a3c5addce2a",
-    "semantic_hash": ""
-  },
-  "packages/svforge/templates/base/README.md": {
-    "ast_hash": "48cdfe532ce83be39d4e5b3f932ea594",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/static/robots.txt": {
@@ -1597,10 +1585,6 @@
   },
   "packages/svforge/templates/base/src/app.html": {
     "ast_hash": "5e404dbdc9bbce8d214324dce6e56bb7",
-    "semantic_hash": ""
-  },
-  "packages/svforge/templates/dashboard/README.md": {
-    "ast_hash": "cf04298c9829c8b72f528d72e70ac180",
     "semantic_hash": ""
   },
   "packages/tiptap/README.md": {
@@ -1700,7 +1684,7 @@
     "semantic_hash": ""
   },
   "tests/better-auth-manual-upgrade.test.ts": {
-    "ast_hash": "e85fe0df3a5818c4aec2e5dd6779e502",
+    "ast_hash": "5e61cb9d6d4903f4adf17186c7ac3717",
     "semantic_hash": ""
   },
   "tests/ci-pipeline.test.ts": {

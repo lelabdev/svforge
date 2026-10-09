@@ -6824,7 +6824,7 @@
       "label": "keywords",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L29",
+      "source_location": "L32",
       "_origin": "ast"
     },
     {
@@ -6832,7 +6832,7 @@
       "label": "license",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L40",
+      "source_location": "L43",
       "_origin": "ast"
     },
     {
@@ -6840,7 +6840,7 @@
       "label": "peerDependencies",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L41",
+      "source_location": "L44",
       "_origin": "ast"
     },
     {
@@ -6848,7 +6848,7 @@
       "label": "sv",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L42",
+      "source_location": "L45",
       "_origin": "ast"
     },
     {
@@ -6856,7 +6856,7 @@
       "label": "sv",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L42",
+      "source_location": "L45",
       "_origin": "ast"
     },
     {
@@ -6864,7 +6864,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L44",
+      "source_location": "L47",
       "_origin": "ast"
     },
     {
@@ -6872,7 +6872,7 @@
       "label": "@svforge/addon-kit",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L45",
+      "source_location": "L48",
       "_origin": "ast"
     },
     {
@@ -6880,7 +6880,7 @@
       "label": "@svforge/addon-kit",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L45",
+      "source_location": "L48",
       "_origin": "ast"
     },
     {
@@ -6888,7 +6888,7 @@
       "label": "sv",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L46",
+      "source_location": "L49",
       "_origin": "ast"
     },
     {
@@ -6896,7 +6896,7 @@
       "label": "tsdown",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L47",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
@@ -6904,7 +6904,7 @@
       "label": "tsdown",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L47",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
@@ -6912,7 +6912,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L48",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -6920,7 +6920,7 @@
       "label": "typescript",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L48",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -6928,7 +6928,7 @@
       "label": "scripts",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L50",
+      "source_location": "L53",
       "_origin": "ast"
     },
     {
@@ -6936,7 +6936,7 @@
       "label": "prebuild",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L51",
+      "source_location": "L54",
       "_origin": "ast"
     },
     {
@@ -6944,7 +6944,7 @@
       "label": "build",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L52",
+      "source_location": "L55",
       "_origin": "ast"
     },
     {
@@ -6952,7 +6952,7 @@
       "label": "prepublishOnly",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L53",
+      "source_location": "L56",
       "_origin": "ast"
     },
     {
@@ -19266,7 +19266,7 @@
       "label": "__dirname",
       "file_type": "code",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast"
     },
     {
@@ -19274,7 +19274,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast"
     },
     {
@@ -19282,7 +19282,7 @@
       "label": "manifest",
       "file_type": "code",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L15",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
@@ -19290,7 +19290,7 @@
       "label": "REQ_LABEL",
       "file_type": "code",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast"
     },
     {
@@ -19298,7 +19298,7 @@
       "label": "modulesTable()",
       "file_type": "code",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L21",
+      "source_location": "L22",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19307,7 +19307,7 @@
       "label": "presetsTable()",
       "file_type": "code",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L34",
+      "source_location": "L35",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19316,7 +19316,7 @@
       "label": "replaceBlock()",
       "file_type": "code",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L60",
+      "source_location": "L61",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23078,8 +23078,8 @@
       "_origin": "ast"
     },
     {
-      "id": "tests_signup_security_test_dashboard_readme",
-      "label": "DASHBOARD_README",
+      "id": "tests_signup_security_test_package_readme",
+      "label": "PACKAGE_README",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
       "source_location": "L18",
@@ -24575,8 +24575,8 @@
       "_origin": "ast"
     },
     {
-      "id": "agents_agents_md_svelteforge",
-      "label": "AGENTS.md — SvelteForge",
+      "id": "agents_instructions_agents_dépôt_svelteforge",
+      "label": "Instructions agents — dépôt SvelteForge",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
@@ -24584,8 +24584,8 @@
       "_origin": "ast"
     },
     {
-      "id": "agents_positionnement_source_de_vérité",
-      "label": "Positionnement (source de vérité)",
+      "id": "agents_produit_et_architecture",
+      "label": "Produit et architecture",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
@@ -24593,30 +24593,12 @@
       "_origin": "ast"
     },
     {
-      "id": "agents_contrat_ui_des_agents_réutiliser_avant_d_inventer_480",
-      "label": "Contrat UI des agents : réutiliser avant d'inventer (#480)",
+      "id": "agents_templates_et_artefacts_générés",
+      "label": "Templates et artefacts générés",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
-      "source_location": "L21",
-      "_origin": "ast"
-    },
-    {
-      "id": "agents_architecture",
-      "label": "Architecture",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "AGENTS.md",
-      "source_location": "L38",
-      "_origin": "ast"
-    },
-    {
-      "id": "agents_le_gotcha_du_repo_le_prebuild_n_embarque_que_src_et_root",
-      "label": "⚠️ LE gotcha du repo : le prebuild n'embarque que `src/**` et `root/**`",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "AGENTS.md",
-      "source_location": "L61",
+      "source_location": "L15",
       "_origin": "ast"
     },
     {
@@ -24625,79 +24607,25 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
-      "source_location": "L68",
+      "source_location": "L19",
       "_origin": "ast"
     },
     {
-      "id": "agents_graphify_knowledge_graph_optional",
-      "label": "Graphify knowledge graph (optional)",
+      "id": "agents_conventions_d_implémentation",
+      "label": "Conventions d’implémentation",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
-      "source_location": "L82",
+      "source_location": "L27",
       "_origin": "ast"
     },
     {
-      "id": "agents_testing_profiles_du_template_dashboard_180_181",
-      "label": "Testing profiles du template dashboard (#180/#181)",
+      "id": "agents_graphify_facultatif",
+      "label": "Graphify (facultatif)",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
-      "source_location": "L105",
-      "_origin": "ast"
-    },
-    {
-      "id": "agents_versions_état_actuel",
-      "label": "Versions & état actuel",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "AGENTS.md",
-      "source_location": "L111",
-      "_origin": "ast"
-    },
-    {
-      "id": "agents_conventions_composants_templates",
-      "label": "Conventions composants (templates)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "AGENTS.md",
-      "source_location": "L117",
-      "_origin": "ast"
-    },
-    {
-      "id": "agents_git",
-      "label": "Git",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "AGENTS.md",
-      "source_location": "L129",
-      "_origin": "ast"
-    },
-    {
-      "id": "agents_clôture_de_roadmap",
-      "label": "Clôture de roadmap",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "AGENTS.md",
-      "source_location": "L136",
-      "_origin": "ast"
-    },
-    {
-      "id": "agents_pièges_connus_vérifiés",
-      "label": "Pièges connus (vérifiés)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "AGENTS.md",
-      "source_location": "L145",
-      "_origin": "ast"
-    },
-    {
-      "id": "agents_point_d_entrée_docs",
-      "label": "Point d'entrée docs",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "AGENTS.md",
-      "source_location": "L153",
+      "source_location": "L34",
       "_origin": "ast"
     },
     {
@@ -25952,156 +25880,39 @@
       "_origin": "ast"
     },
     {
-      "id": "contributing_development_setup",
-      "label": "Development Setup",
+      "id": "contributing_development",
+      "label": "Development",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L7",
+      "source_location": "L3",
       "_origin": "ast"
     },
     {
-      "id": "contributing_contribution_workflow",
-      "label": "Contribution Workflow",
+      "id": "contributing_contribution_process",
+      "label": "Contribution process",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L15",
+      "source_location": "L24",
       "_origin": "ast"
     },
     {
-      "id": "contributing_issues",
-      "label": "Issues",
+      "id": "contributing_templates_and_generated_files",
+      "label": "Templates and generated files",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L17",
+      "source_location": "L32",
       "_origin": "ast"
     },
     {
-      "id": "contributing_branches",
-      "label": "Branches",
+      "id": "contributing_release_and_security",
+      "label": "Release and security",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L29",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_pull_requests",
-      "label": "Pull requests",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L41",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_project_principles",
-      "label": "Project Principles",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L49",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_tdd_workflow_red_green_refactor",
-      "label": "TDD Workflow — Red → Green → Refactor",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L62",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_1_red_write_a_failing_test_first",
-      "label": "1. Red — Write a failing test first",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L66",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_2_green_implement_the_smallest_change",
-      "label": "2. Green — Implement the smallest change",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L76",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_3_refactor_clean_up_while_tests_stay_green",
-      "label": "3. Refactor — Clean up while tests stay green",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L81",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_test_categories",
-      "label": "Test Categories",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L86",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_tailwind_skeleton_class_lint_482",
-      "label": "Tailwind/Skeleton class lint (#482)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L96",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_test_helpers",
-      "label": "Test Helpers",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L108",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_working_with_templates",
-      "label": "Working With Templates",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L117",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_what_to_avoid",
-      "label": "What to Avoid",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L128",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_running_tests",
-      "label": "Running Tests",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L134",
-      "_origin": "ast"
-    },
-    {
-      "id": "contributing_building",
-      "label": "Building",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L158",
+      "source_location": "L38",
       "_origin": "ast"
     },
     {
@@ -26123,21 +25934,12 @@
       "_origin": "ast"
     },
     {
-      "id": "readme_what_svforge_is",
-      "label": "What SVForge is",
+      "id": "readme_quick_start",
+      "label": "Quick start",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "README.md",
-      "source_location": "L20",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_getting_started",
-      "label": "Getting started",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L38",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
@@ -26146,34 +25948,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "README.md",
-      "source_location": "L62",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_base",
-      "label": "`base`",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L66",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_dashboard",
-      "label": "`dashboard`",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L84",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_compose_only_what_the_project_needs",
-      "label": "Compose only what the project needs",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L101",
+      "source_location": "L27",
       "_origin": "ast"
     },
     {
@@ -26182,97 +25957,16 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "README.md",
-      "source_location": "L123",
+      "source_location": "L38",
       "_origin": "ast"
     },
     {
-      "id": "readme_foundations",
-      "label": "Foundations",
+      "id": "readme_generated_project_context",
+      "label": "Generated project context",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "README.md",
-      "source_location": "L125",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_application_features",
-      "label": "Application features",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L134",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_ui_and_editing",
-      "label": "UI and editing",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L140",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_presets_are_recipes_not_more_templates",
-      "label": "Presets are recipes, not more templates",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L149",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_a_design_system_that_agents_can_follow",
-      "label": "A design system that agents can follow",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L163",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_defaults_vs_constraints",
-      "label": "Defaults vs constraints",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L186",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_ai_ready",
-      "label": "AI-ready",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L208",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_agent_instruction_support_347",
-      "label": "Agent instruction support (#347)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L220",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_boring_by_design",
-      "label": "Boring by design",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L270",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_quality_gates",
-      "label": "Quality gates",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L283",
+      "source_location": "L55",
       "_origin": "ast"
     },
     {
@@ -26281,16 +25975,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "README.md",
-      "source_location": "L293",
-      "_origin": "ast"
-    },
-    {
-      "id": "readme_development",
-      "label": "Development",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "README.md",
-      "source_location": "L316",
+      "source_location": "L59",
       "_origin": "ast"
     },
     {
@@ -26299,7 +25984,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "README.md",
-      "source_location": "L330",
+      "source_location": "L77",
       "_origin": "ast"
     },
     {
@@ -26308,7 +25993,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "README.md",
-      "source_location": "L338",
+      "source_location": "L81",
       "_origin": "ast"
     },
     {
@@ -26501,8 +26186,8 @@
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_better_auth_upgrades_manual_bump_ci_validation_319_460",
-      "label": "Better Auth upgrades — manual bump & CI validation (#319, #460)",
+      "id": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
+      "label": "Better Auth upgrade runbook",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
@@ -26510,57 +26195,39 @@
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_policy_manual_bump_ci_validated",
-      "label": "Policy — manual bump, CI validated",
+      "id": "docs_better_auth_upgrades_ownership_and_upstream_sv_compatibility",
+      "label": "Ownership and upstream `sv` compatibility",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L16",
+      "source_location": "L5",
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_pr_validation_and_release_scaffold_gate",
-      "label": "PR validation and release scaffold gate",
+      "id": "docs_better_auth_upgrades_manual_upgrade_policy_and_validation",
+      "label": "Manual upgrade policy and validation",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L36",
+      "source_location": "L19",
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_the_cli_better_auth_cli_is_not_a_scaffold_dependency",
-      "label": "The CLI (`@better-auth/cli`) is NOT a scaffold dependency",
+      "id": "docs_better_auth_upgrades_pin_and_schema_constraints",
+      "label": "Pin and schema constraints",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L73",
+      "source_location": "L27",
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_1_7_x_migration_notes_applied_in_319",
-      "label": "1.7.x migration notes (applied in #319)",
+      "id": "docs_better_auth_upgrades_local_validation",
+      "label": "Local validation",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L107",
-      "_origin": "ast"
-    },
-    {
-      "id": "docs_better_auth_upgrades_known_follow_ups",
-      "label": "Known follow-ups",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L126",
-      "_origin": "ast"
-    },
-    {
-      "id": "docs_better_auth_upgrades_manual_run",
-      "label": "Manual run",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L137",
+      "source_location": "L40",
       "_origin": "ast"
     },
     {
@@ -27677,93 +27344,39 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_readme_cli_compatibility",
-      "label": "CLI compatibility",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L11",
-      "_origin": "ast"
-    },
-    {
       "id": "packages_svforge_readme_install",
       "label": "Install",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L15",
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_readme_optional_graphify_initialization",
-      "label": "Optional Graphify initialization",
+      "id": "packages_svforge_readme_templates",
+      "label": "Templates",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L52",
+      "source_location": "L34",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_readme_what_you_get",
-      "label": "What you get",
+      "id": "packages_svforge_readme_optional_modules",
+      "label": "Optional modules",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L67",
+      "source_location": "L43",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_readme_base_template",
-      "label": "Base Template",
+      "id": "packages_svforge_readme_project_context_and_checks",
+      "label": "Project context and checks",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L69",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_readme_dashboard_template",
-      "label": "Dashboard Template",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L82",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_readme_defaults_vs_constraints",
-      "label": "Defaults vs constraints",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L93",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_readme_module_addons",
-      "label": "Module Addons",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L101",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_readme_ai_ready_workflow",
-      "label": "AI-ready workflow",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L141",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_readme_tailwind_and_design_system_checks",
-      "label": "Tailwind and design-system checks",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L163",
+      "source_location": "L87",
       "_origin": "ast"
     },
     {
@@ -27772,7 +27385,16 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L174",
+      "source_location": "L103",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_readme_optional_graphify_setup",
+      "label": "Optional Graphify setup",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L107",
       "_origin": "ast"
     },
     {
@@ -27781,25 +27403,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L210",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_docs_versioning",
-      "label": "VERSIONING.md",
-      "file_type": "document",
-      "node_kind": "page",
-      "source_file": "packages/svforge/docs/VERSIONING.md",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_docs_versioning_versioning_and_release",
-      "label": "Versioning and release",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/docs/VERSIONING.md",
-      "source_location": "L1",
+      "source_location": "L111",
       "_origin": "ast"
     },
     {
@@ -27875,273 +27479,12 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_structural_duplication_experimental_structural_duplication_detector",
-      "label": "Experimental structural duplication detector",
+      "id": "packages_svforge_docs_structural_duplication_structural_duplication_check",
+      "label": "Structural duplication check",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/structural-duplication.md",
       "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_docs_structural_duplication_how_it_works",
-      "label": "How it works",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/docs/structural-duplication.md",
-      "source_location": "L13",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_docs_tailwind_linting",
-      "label": "tailwind-linting.md",
-      "file_type": "document",
-      "node_kind": "page",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_docs_tailwind_linting_tailwind_and_design_system_linting",
-      "label": "Tailwind and design-system linting",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_docs_tailwind_linting_eslint_validate_generated_class_names",
-      "label": "ESLint: validate generated class names",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L6",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_docs_tailwind_linting_svforge_check_mjs_enforce_svforge_design_system_policy",
-      "label": "`svforge-check.mjs`: enforce SVForge design-system policy",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L22",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_docs_tailwind_linting_verification",
-      "label": "Verification",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L32",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme",
-      "label": "base/README.md",
-      "file_type": "document",
-      "node_kind": "page",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_svelteforge_base_template",
-      "label": "SvelteForge Base Template",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_what_you_get",
-      "label": "What You Get",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L5",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_components",
-      "label": "Components",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L7",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_routes",
-      "label": "Routes",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L25",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_styles",
-      "label": "Styles",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L29",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_defaults_vs_constraints",
-      "label": "Defaults vs constraints",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L54",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_adding_a_locale_example_spanish",
-      "label": "Adding a locale (example: Spanish)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L69",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_seo_and_theme_customization",
-      "label": "SEO and theme customization",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L83",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_readme_next_steps",
-      "label": "Next Steps",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L89",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme",
-      "label": "dashboard/README.md",
-      "file_type": "document",
-      "node_kind": "page",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_svelteforge_dashboard_template",
-      "label": "SvelteForge Dashboard Template",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "label": "What You Get (in addition to Base)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L5",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_auth_system",
-      "label": "Auth System",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L7",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_validation",
-      "label": "Validation",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L16",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_database",
-      "label": "Database",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L20",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_database_lifecycle_332",
-      "label": "Database lifecycle (#332)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L26",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_admin_dashboard_golden_references_267",
-      "label": "Admin Dashboard — golden references (#267)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L34",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_routes_structure",
-      "label": "Routes Structure",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L57",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_pre_configured_files",
-      "label": "Pre-configured Files",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L65",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_environment_variables",
-      "label": "Environment Variables",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L70",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_running_tests_safely_312",
-      "label": "Running Tests Safely (#312)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L78",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_readme_next_steps",
-      "label": "Next Steps",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L101",
       "_origin": "ast"
     },
     {
@@ -40546,7 +39889,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L29",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40556,7 +39899,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L40",
+      "source_location": "L43",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40566,7 +39909,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L41",
+      "source_location": "L44",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40576,7 +39919,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L42",
+      "source_location": "L45",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40586,7 +39929,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L42",
+      "source_location": "L45",
       "weight": 1,
       "context": "import",
       "_origin": "ast"
@@ -40597,7 +39940,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L44",
+      "source_location": "L47",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40607,7 +39950,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L45",
+      "source_location": "L48",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40617,7 +39960,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L45",
+      "source_location": "L48",
       "weight": 1,
       "context": "import",
       "_origin": "ast"
@@ -40628,7 +39971,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L46",
+      "source_location": "L49",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40638,7 +39981,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L47",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40648,7 +39991,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L47",
+      "source_location": "L50",
       "weight": 1,
       "context": "import",
       "_origin": "ast"
@@ -40659,7 +40002,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40669,7 +40012,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1,
       "context": "import",
       "_origin": "ast"
@@ -40680,7 +40023,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L50",
+      "source_location": "L53",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40690,7 +40033,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L51",
+      "source_location": "L54",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40700,7 +40043,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L52",
+      "source_location": "L55",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40710,7 +40053,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L53",
+      "source_location": "L56",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64192,7 +63535,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64203,7 +63546,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64214,7 +63557,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64224,7 +63567,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64234,7 +63577,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64244,7 +63587,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64254,7 +63597,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64264,7 +63607,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64274,7 +63617,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L34",
+      "source_location": "L35",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64284,7 +63627,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/gen-modules-table.mjs",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76230,7 +75573,7 @@
     },
     {
       "source": "tests_signup_security_test",
-      "target": "tests_signup_security_test_dashboard_readme",
+      "target": "tests_signup_security_test_package_readme",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
@@ -80546,7 +79889,7 @@
     },
     {
       "source": "agents",
-      "target": "agents_agents_md_svelteforge",
+      "target": "agents_instructions_agents_dépôt_svelteforge",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
@@ -80555,8 +79898,8 @@
       "_origin": "ast"
     },
     {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_positionnement_source_de_vérité",
+      "source": "agents_instructions_agents_dépôt_svelteforge",
+      "target": "agents_produit_et_architecture",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
@@ -80565,122 +79908,42 @@
       "_origin": "ast"
     },
     {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_contrat_ui_des_agents_réutiliser_avant_d_inventer_480",
+      "source": "agents_instructions_agents_dépôt_svelteforge",
+      "target": "agents_templates_et_artefacts_générés",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L21",
+      "source_location": "L15",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_architecture",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L38",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "agents_architecture",
-      "target": "agents_le_gotcha_du_repo_le_prebuild_n_embarque_que_src_et_root",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L61",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "agents_agents_md_svelteforge",
+      "source": "agents_instructions_agents_dépôt_svelteforge",
       "target": "agents_workflow",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L68",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_graphify_knowledge_graph_optional",
+      "source": "agents_instructions_agents_dépôt_svelteforge",
+      "target": "agents_conventions_d_implémentation",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L82",
+      "source_location": "L27",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_testing_profiles_du_template_dashboard_180_181",
+      "source": "agents_instructions_agents_dépôt_svelteforge",
+      "target": "agents_graphify_facultatif",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L105",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_versions_état_actuel",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L111",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_conventions_composants_templates",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L117",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_git",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L129",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_clôture_de_roadmap",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L136",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_pièges_connus_vérifiés",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L145",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "agents_agents_md_svelteforge",
-      "target": "agents_point_d_entrée_docs",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "AGENTS.md",
-      "source_location": "L153",
+      "source_location": "L34",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82056,171 +81319,71 @@
     },
     {
       "source": "contributing_contributing_to_svforge",
-      "target": "contributing_development_setup",
+      "target": "contributing_development",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L7",
+      "source_location": "L3",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "contributing_contributing_to_svforge",
-      "target": "contributing_contribution_workflow",
+      "target": "contributing_contribution_process",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L15",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contribution_workflow",
-      "target": "contributing_issues",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L17",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contribution_workflow",
-      "target": "contributing_branches",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L29",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contribution_workflow",
-      "target": "contributing_pull_requests",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L41",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "contributing_contributing_to_svforge",
-      "target": "contributing_project_principles",
+      "target": "contributing_templates_and_generated_files",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L49",
+      "source_location": "L32",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "contributing",
+      "target": "agents",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L34",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "contributing",
+      "target": "docs_release",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L36",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "contributing_contributing_to_svforge",
-      "target": "contributing_tdd_workflow_red_green_refactor",
+      "target": "contributing_release_and_security",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L62",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "contributing_tdd_workflow_red_green_refactor",
-      "target": "contributing_1_red_write_a_failing_test_first",
-      "relation": "contains",
+      "source": "contributing",
+      "target": "security",
+      "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L66",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_tdd_workflow_red_green_refactor",
-      "target": "contributing_2_green_implement_the_smallest_change",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L76",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_tdd_workflow_red_green_refactor",
-      "target": "contributing_3_refactor_clean_up_while_tests_stay_green",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L81",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contributing_to_svforge",
-      "target": "contributing_test_categories",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L86",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contributing_to_svforge",
-      "target": "contributing_tailwind_skeleton_class_lint_482",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L96",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contributing_to_svforge",
-      "target": "contributing_test_helpers",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L108",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contributing_to_svforge",
-      "target": "contributing_working_with_templates",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L117",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contributing_to_svforge",
-      "target": "contributing_what_to_avoid",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L128",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contributing_to_svforge",
-      "target": "contributing_running_tests",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L134",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "contributing_contributing_to_svforge",
-      "target": "contributing_building",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CONTRIBUTING.md",
-      "source_location": "L158",
+      "source_location": "L40",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82240,27 +81403,27 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L14",
+      "source_location": "L12",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "readme_svforge",
-      "target": "readme_what_svforge_is",
+      "target": "readme_quick_start",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L20",
+      "source_location": "L16",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "readme_svforge",
-      "target": "readme_getting_started",
-      "relation": "contains",
+      "source": "readme",
+      "target": "packages_svforge_readme",
+      "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L38",
+      "source_location": "L25",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82270,37 +81433,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L62",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_templates",
-      "target": "readme_base",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L66",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_templates",
-      "target": "readme_dashboard",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L84",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_svforge",
-      "target": "readme_compose_only_what_the_project_needs",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L101",
+      "source_location": "L27",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82310,117 +81443,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L123",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_modules",
-      "target": "readme_foundations",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L125",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_modules",
-      "target": "readme_application_features",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L134",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_modules",
-      "target": "readme_ui_and_editing",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L140",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "readme_svforge",
-      "target": "readme_presets_are_recipes_not_more_templates",
+      "target": "readme_generated_project_context",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L149",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_svforge",
-      "target": "readme_a_design_system_that_agents_can_follow",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L163",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_svforge",
-      "target": "readme_defaults_vs_constraints",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L186",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_svforge",
-      "target": "readme_ai_ready",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L208",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_svforge",
-      "target": "readme_agent_instruction_support_347",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L220",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_svforge",
-      "target": "readme_boring_by_design",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L270",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_svforge",
-      "target": "readme_quality_gates",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L283",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme",
-      "target": "docs_better_auth_upgrades",
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L291",
+      "source_location": "L55",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82430,17 +81463,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L293",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "readme_svforge",
-      "target": "readme_development",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L316",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82450,7 +81473,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L328",
+      "source_location": "L75",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82460,7 +81483,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L330",
+      "source_location": "L77",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82470,7 +81493,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L336",
+      "source_location": "L79",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82480,7 +81503,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "README.md",
-      "source_location": "L338",
+      "source_location": "L81",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82666,7 +81689,7 @@
     },
     {
       "source": "docs_better_auth_upgrades",
-      "target": "docs_better_auth_upgrades_better_auth_upgrades_manual_bump_ci_validation_319_460",
+      "target": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
@@ -82675,62 +81698,52 @@
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrades_manual_bump_ci_validation_319_460",
-      "target": "docs_better_auth_upgrades_policy_manual_bump_ci_validated",
+      "source": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
+      "target": "docs_better_auth_upgrades_ownership_and_upstream_sv_compatibility",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L16",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrades_manual_bump_ci_validation_319_460",
-      "target": "docs_better_auth_upgrades_pr_validation_and_release_scaffold_gate",
+      "source": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
+      "target": "docs_better_auth_upgrades_manual_upgrade_policy_and_validation",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L36",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrades_manual_bump_ci_validation_319_460",
-      "target": "docs_better_auth_upgrades_the_cli_better_auth_cli_is_not_a_scaffold_dependency",
+      "source": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
+      "target": "docs_better_auth_upgrades_pin_and_schema_constraints",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L73",
+      "source_location": "L27",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrades_manual_bump_ci_validation_319_460",
-      "target": "docs_better_auth_upgrades_1_7_x_migration_notes_applied_in_319",
+      "source": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
+      "target": "docs_better_auth_upgrades_local_validation",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L107",
+      "source_location": "L40",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrades_manual_bump_ci_validation_319_460",
-      "target": "docs_better_auth_upgrades_known_follow_ups",
-      "relation": "contains",
+      "source": "docs_better_auth_upgrades",
+      "target": "docs_release",
+      "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L126",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "docs_better_auth_upgrades_better_auth_upgrades_manual_bump_ci_validation_319_460",
-      "target": "docs_better_auth_upgrades_manual_run",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L137",
+      "source_location": "L65",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83840,17 +82853,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L9",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_cli_compatibility",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L11",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83860,97 +82863,47 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L15",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_readme_install",
-      "target": "packages_svforge_readme_optional_graphify_initialization",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L52",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_what_you_get",
+      "target": "packages_svforge_readme_templates",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L67",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_readme_what_you_get",
-      "target": "packages_svforge_readme_base_template",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L69",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_readme_what_you_get",
-      "target": "packages_svforge_readme_dashboard_template",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L82",
+      "source_location": "L34",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_defaults_vs_constraints",
+      "target": "packages_svforge_readme_optional_modules",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L93",
+      "source_location": "L43",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_module_addons",
+      "target": "packages_svforge_readme_project_context_and_checks",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L101",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_ai_ready_workflow",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L141",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_tailwind_and_design_system_checks",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/README.md",
-      "source_location": "L163",
+      "source_location": "L87",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_readme",
-      "target": "packages_svforge_docs_tailwind_linting",
+      "target": "packages_svforge_docs_structural_duplication",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L172",
+      "source_location": "L101",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83960,7 +82913,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L174",
+      "source_location": "L103",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_readme_svforge",
+      "target": "packages_svforge_readme_optional_graphify_setup",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L107",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83970,17 +82933,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L210",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_docs_versioning",
-      "target": "packages_svforge_docs_versioning_versioning_and_release",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/docs/VERSIONING.md",
-      "source_location": "L1",
+      "source_location": "L111",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84046,271 +82999,11 @@
     },
     {
       "source": "packages_svforge_docs_structural_duplication",
-      "target": "packages_svforge_docs_structural_duplication_experimental_structural_duplication_detector",
+      "target": "packages_svforge_docs_structural_duplication_structural_duplication_check",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/structural-duplication.md",
       "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_docs_structural_duplication_experimental_structural_duplication_detector",
-      "target": "packages_svforge_docs_structural_duplication_how_it_works",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/docs/structural-duplication.md",
-      "source_location": "L13",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_docs_tailwind_linting",
-      "target": "packages_svforge_docs_tailwind_linting_tailwind_and_design_system_linting",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_docs_tailwind_linting_tailwind_and_design_system_linting",
-      "target": "packages_svforge_docs_tailwind_linting_eslint_validate_generated_class_names",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L6",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_docs_tailwind_linting_tailwind_and_design_system_linting",
-      "target": "packages_svforge_docs_tailwind_linting_svforge_check_mjs_enforce_svforge_design_system_policy",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L22",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_docs_tailwind_linting_tailwind_and_design_system_linting",
-      "target": "packages_svforge_docs_tailwind_linting_verification",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/docs/tailwind-linting.md",
-      "source_location": "L32",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme",
-      "target": "packages_svforge_templates_base_readme_svelteforge_base_template",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_svelteforge_base_template",
-      "target": "packages_svforge_templates_base_readme_what_you_get",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L5",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_what_you_get",
-      "target": "packages_svforge_templates_base_readme_components",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L7",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_what_you_get",
-      "target": "packages_svforge_templates_base_readme_routes",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L25",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_what_you_get",
-      "target": "packages_svforge_templates_base_readme_styles",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L29",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_svelteforge_base_template",
-      "target": "packages_svforge_templates_base_readme_defaults_vs_constraints",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L54",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_defaults_vs_constraints",
-      "target": "packages_svforge_templates_base_readme_adding_a_locale_example_spanish",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L69",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_svelteforge_base_template",
-      "target": "packages_svforge_templates_base_readme_seo_and_theme_customization",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L83",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_svelteforge_base_template",
-      "target": "packages_svforge_templates_base_readme_next_steps",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L89",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme",
-      "target": "packages_svforge_templates_dashboard_readme_svelteforge_dashboard_template",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_svelteforge_dashboard_template",
-      "target": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L5",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "target": "packages_svforge_templates_dashboard_readme_auth_system",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L7",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "target": "packages_svforge_templates_dashboard_readme_validation",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L16",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "target": "packages_svforge_templates_dashboard_readme_database",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L20",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "target": "packages_svforge_templates_dashboard_readme_database_lifecycle_332",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L26",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "target": "packages_svforge_templates_dashboard_readme_admin_dashboard_golden_references_267",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L34",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "target": "packages_svforge_templates_dashboard_readme_routes_structure",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L57",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_what_you_get_in_addition_to_base",
-      "target": "packages_svforge_templates_dashboard_readme_pre_configured_files",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L65",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_svelteforge_dashboard_template",
-      "target": "packages_svforge_templates_dashboard_readme_environment_variables",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L70",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_svelteforge_dashboard_template",
-      "target": "packages_svforge_templates_dashboard_readme_running_tests_safely_312",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L78",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_svelteforge_dashboard_template",
-      "target": "packages_svforge_templates_dashboard_readme_next_steps",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L101",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85507,7 +84200,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L144",
+      "source_location": "L143",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85596,18 +84289,6 @@
       "_origin": "ast"
     },
     {
-      "source": "readme_getting_started",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
-      "relation": "references",
-      "context": "DATABASE_URL",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "README.md",
-      "source_location": "L60",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "docs_release_independent_versioning",
       "target": "scripts_compat_manifest_assertcompatibilityfreshness",
       "relation": "references",
@@ -85632,14 +84313,14 @@
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_1_7_x_migration_notes_applied_in_319",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_admin_users_createcredentialuser",
+      "source": "docs_better_auth_upgrades_ownership_and_upstream_sv_compatibility",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
       "relation": "references",
-      "context": "createCredentialUser",
+      "context": "createDb()",
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L119",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85896,98 +84577,14 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_readme_upgrade",
-      "target": "tests_eslint_design_system_test_dependency",
+      "source": "packages_svforge_readme_templates",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
       "relation": "references",
-      "context": "dependency",
+      "context": "SIGNUP_MODE",
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/README.md",
-      "source_location": "L193",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_readme_seo_and_theme_customization",
-      "target": "packages_svforge_templates_base_src_lib_components_svforge_ui_sitemap_generatesitemap",
-      "relation": "references",
-      "context": "generateSitemap()",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "packages/svforge/templates/base/README.md",
-      "source_location": "L85",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_auth_system",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
-      "relation": "references",
-      "context": "SIGNUP_MODE",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L8",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_environment_variables",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
-      "relation": "references",
-      "context": "DATABASE_URL",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L72",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_environment_variables",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_origin",
-      "relation": "references",
-      "context": "ORIGIN",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L73",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_environment_variables",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_better_auth_secret",
-      "relation": "references",
-      "context": "BETTER_AUTH_SECRET",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L74",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_environment_variables",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
-      "relation": "references",
-      "context": "SIGNUP_MODE",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L75",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_readme_running_tests_safely_312",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
-      "relation": "references",
-      "context": "DATABASE_URL",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "packages/svforge/templates/dashboard/README.md",
-      "source_location": "L97",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     }
