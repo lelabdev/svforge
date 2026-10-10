@@ -26132,12 +26132,21 @@
       "_origin": "ast"
     },
     {
+      "id": "docs_release_measured_ci_timing_snapshot_2026_10_10",
+      "label": "Measured CI timing snapshot (2026-10-10)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/RELEASE.md",
+      "source_location": "L108",
+      "_origin": "ast"
+    },
+    {
       "id": "docs_release_workflow_gates",
       "label": "Workflow gates",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L108",
+      "source_location": "L125",
       "_origin": "ast"
     },
     {
@@ -26146,7 +26155,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L152",
+      "source_location": "L172",
       "_origin": "ast"
     },
     {
@@ -26155,7 +26164,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L162",
+      "source_location": "L182",
       "_origin": "ast"
     },
     {
@@ -26164,7 +26173,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L176",
+      "source_location": "L196",
       "_origin": "ast"
     },
     {
@@ -26173,7 +26182,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L203",
+      "source_location": "L223",
       "_origin": "ast"
     },
     {
@@ -26182,7 +26191,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L229",
+      "source_location": "L249",
       "_origin": "ast"
     },
     {
@@ -26237,59 +26246,6 @@
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
       "source_location": "L40",
-      "_origin": "ast"
-    },
-    {
-      "id": "graphify_out_memory_query_20261010_004114_6fb849b8_437",
-      "label": "query_20261010_004114_6fb849b8_437.md",
-      "file_type": "document",
-      "node_kind": "page",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L1",
-      "frontmatter": {
-        "type": "query",
-        "date": "2026-10-10T00:41:14.742629+00:00",
-        "question": "437",
-        "contributor": "graphify",
-        "outcome": "useful",
-        "source_nodes": "[&quot;cli-create.test.ts&quot;, &quot;runCreateCommand()&quot;, &quot;hooks-prompt.test.ts&quot;, &quot;user-journey.test.ts&quot;]"
-      },
-      "_origin": "ast"
-    },
-    {
-      "id": "graphify_out_memory_query_20261010_004114_6fb849b8_437_q_437",
-      "label": "Q: 437",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "graphify_out_memory_query_20261010_004114_6fb849b8_437_answer",
-      "label": "Answer",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L12",
-      "_origin": "ast"
-    },
-    {
-      "id": "graphify_out_memory_query_20261010_004114_6fb849b8_437_outcome",
-      "label": "Outcome",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L16",
-      "_origin": "ast"
-    },
-    {
-      "id": "graphify_out_memory_query_20261010_004114_6fb849b8_437_source_nodes",
-      "label": "Source Nodes",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L20",
       "_origin": "ast"
     },
     {
@@ -81711,8 +81667,8 @@
       "_origin": "ast"
     },
     {
-      "source": "docs_release_npm_release_process",
-      "target": "docs_release_workflow_gates",
+      "source": "docs_release_pipeline_levels_413",
+      "target": "docs_release_measured_ci_timing_snapshot_2026_10_10",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
@@ -81722,11 +81678,21 @@
     },
     {
       "source": "docs_release_npm_release_process",
+      "target": "docs_release_workflow_gates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RELEASE.md",
+      "source_location": "L125",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_release_npm_release_process",
       "target": "docs_release_resuming_a_failed_release",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L152",
+      "source_location": "L172",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81736,7 +81702,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L162",
+      "source_location": "L182",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81746,7 +81712,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L176",
+      "source_location": "L196",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81756,7 +81722,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L203",
+      "source_location": "L223",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81766,7 +81732,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L229",
+      "source_location": "L249",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81827,46 +81793,6 @@
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
       "source_location": "L65",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "graphify_out_memory_query_20261010_004114_6fb849b8_437",
-      "target": "graphify_out_memory_query_20261010_004114_6fb849b8_437_q_437",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L10",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "graphify_out_memory_query_20261010_004114_6fb849b8_437_q_437",
-      "target": "graphify_out_memory_query_20261010_004114_6fb849b8_437_answer",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L12",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "graphify_out_memory_query_20261010_004114_6fb849b8_437_q_437",
-      "target": "graphify_out_memory_query_20261010_004114_6fb849b8_437_outcome",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L16",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "graphify_out_memory_query_20261010_004114_6fb849b8_437_q_437",
-      "target": "graphify_out_memory_query_20261010_004114_6fb849b8_437_source_nodes",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "graphify-out/memory/query_20261010_004114_6fb849b8_437.md",
-      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84431,7 +84357,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L110",
+      "source_location": "L127",
       "weight": 1,
       "_origin": "ast"
     },
