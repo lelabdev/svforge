@@ -3,7 +3,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readChangelog, validateChangelog } from './changelog.mjs';
+import { validatePackageChangelogs } from './changelog.mjs';
 import { assertCompatManifestMatchesPlan, assertCompatibilityFreshness, buildCompatManifest } from './compat-manifest.mjs';
 
 const SCRIPT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -147,7 +147,7 @@ export function buildReleasePlan(root = SCRIPT_ROOT, commit = process.env.GITHUB
 	});
 
 	const orderedPackages = orderPackages(packages);
-	const changelog = validateChangelog(readChangelog(root), orderedPackages);
+	const changelog = validatePackageChangelogs(orderedPackages, root);
 	if (!changelog.valid) {
 		throw new Error(`Release plan rejected: ${changelog.errors.join(' ')}`);
 	}
@@ -161,7 +161,7 @@ export function buildReleasePlan(root = SCRIPT_ROOT, commit = process.env.GITHUB
 		schemaVersion: 1,
 		versionPolicy: 'independent',
 		commit,
-		changelog: { path: 'CHANGELOG.md', entries: changelog.entries.length },
+		changelog: { path: 'packages/*/CHANGELOG.md', entries: changelog.entries.length },
 		compatibility,
 		packages: orderedPackages
 	};

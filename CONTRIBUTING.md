@@ -26,6 +26,9 @@ Run `node scripts/check-generated.mjs` to verify committed generated artifacts. 
 - Search existing issues first; keep issues and pull requests focused.
 - Branch from an up-to-date `main` using `<issue>-<short-kebab-case-title>`.
 - Follow test-first development for behavior changes; use behavior-level tests.
+- For a published behavior change, normally add a `.changeset/*.md` via `bun run changeset`, selecting the affected package(s) and `patch`, `minor`, or `major`, with a user-facing summary. Multi-package changes list each package. Example: an `@svforge/blog` release that must refresh the embedded compatibility manifest also includes `svforge: patch`.
+- Docs-only, tests-only, and other changes without published impact do not need a Changeset. An omitted Changeset is a review follow-up, not an automatic contribution blocker; use `bun run changeset --empty` only when an explicit no-release marker is useful.
+- Changesets control version selection and package changelogs. There is no required PR-title, branch-name, or commit-message format.
 - Explain the change and validations in the pull request, and link its issue with `Closes #<number>`.
 - Wait for CI; changes land through squash-merged pull requests.
 
@@ -43,4 +46,4 @@ For a proposed foundation, verify the real generated output in a disposable proj
 
 ## Release and security
 
-Do not publish packages as part of an ordinary change. Follow [`docs/RELEASE.md`](docs/RELEASE.md) for versioning and publication. Report vulnerabilities privately according to [`SECURITY.md`](SECURITY.md).
+Do not publish packages as part of an ordinary change. Changesets creates a human-reviewed Version Packages PR; follow [`docs/RELEASE.md`](docs/RELEASE.md) for versioning and publication. Report vulnerabilities privately according to [`SECURITY.md`](SECURITY.md).

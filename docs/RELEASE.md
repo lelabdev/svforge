@@ -1,15 +1,28 @@
-# npm release process
+# Release process
 
-Publishing is driven by `.github/workflows/publish.yml`. Releases use npm token
-authentication through `secrets.NPM_TOKEN`; OIDC provenance is not enabled. The
-workflow has read-only repository permissions because npm publication does not
-need GitHub write access.
+Changesets owns package version selection and package changelog generation.
+After Changesets are merged to `main`,
+`.github/workflows/version-packages.yml` creates or updates a **human-reviewed
+Version Packages PR**. It never publishes packages. The PR includes independent
+package versions, generated changelog entries, the refreshed compatibility
+manifest, and regenerated upgrade notes. GitHub Actions must be allowed to
+create pull requests in the repository's Actions settings; this change does not
+alter repository-wide permissions.
+
+Stable npm publication remains a separate maintainer-controlled workflow in
+`.github/workflows/publish.yml`. It uses npm token authentication through
+`secrets.NPM_TOKEN`; OIDC provenance is not enabled. Do not publish as part of
+an ordinary change or merge the Version Packages PR without release review.
 
 ## Independent versioning
 
-Every workspace owns its version in `packages/*/package.json`. There is no
-monorepo-wide version bump: a package is released only when its own manifest
-version is not already present in the registry.
+Every workspace owns its version in `packages/*/package.json`. Changesets uses
+independent mode (no `fixed` or `linked` groups): a package is versioned only
+when selected by its Changeset or by an internal dependency rule. Adoption
+leaves existing manifest versions untouched; some may be prepared for the next
+release but not yet present on npm. The registry-aware release plan remains
+authoritative and rejects backward versions. Do not reset package versions to
+the registry during migration.
 
 Each SVForge release still presents a single coherent distribution: the
 unscoped `svforge` package is the public **distribution version** (the one
@@ -46,8 +59,9 @@ is already published while a module is being republished
 
 The release planner enforces this policy and rejects invalid SemVer, a local
 version that is older than the latest published version, or a package without a
-matching current entry in `CHANGELOG.md`. SemVer comparison follows the core
-and prerelease precedence rules and accepts build metadata.
+matching current entry in its `packages/*/CHANGELOG.md`. Its preflight also
+rejects a release where an addon changes without bumping `svforge`, because the
+published CLI would otherwise embed an outdated compatibility manifest.
 Its machine-readable output follows [`release-plan.schema.json`](./release-plan.schema.json)
 and contains:
 
@@ -59,17 +73,15 @@ and contains:
 - registry versions and whether the exact local version is already published;
 - the changelog path and number of validated package release entries.
 
-`CHANGELOG.md` uses one marked entry per package release. Each entry must name
-an exact package and immutable version, date the release, and explicitly cover
-breaking changes, migrations, fixes, and deprecations. Use `None.` when a
-section is empty. Validate it locally with:
+Each public workspace has a `CHANGELOG.md` maintained by Changesets and
+`@changesets/changelog-github`, which associates release notes with their PRs.
+The root `CHANGELOG.md` is retained as a historical archive; its entries are
+not version inputs. Package changelogs feed `svforge upgrade` and the release
+plan validator. Check them locally with:
 
 ```bash
-node scripts/changelog.mjs
+bun run changelog:check
 ```
-
-This format is intentionally suitable for `svforge upgrade` and automated
-release tooling to identify the package versions belonging to one release.
 
 Generate the plan locally without contacting npm:
 
@@ -89,10 +101,10 @@ The planner orders local dependencies before their dependents. Independent
 packages with no relationship are ordered deterministically, with scoped
 `@svforge/*` packages before the unscoped `svforge` package.
 
-The SvelteForge package embeds the validated entries during its prebuild.
-`svforge upgrade base` and `svforge upgrade dashboard` then print the release
-notes between the installed recipe version and the target recipe version. Use
-`--to <version>` to select an explicit target available in the installed addon.
+The `svforge` package embeds the per-package changelog entries during its
+prebuild. `svforge upgrade` prints notes between the installed recipe version
+and the target recipe version. Use `--to <version>` to select an explicit
+target available in the installed addon.
 
 ## Pipeline levels (#413)
 
@@ -100,6 +112,7 @@ Validation cost sits where it belongs:
 
 | Trigger | Runs |
 |---------|------|
+| **Push to `main`** (`version-packages.yml`) | Changesets creates or updates the human-reviewed **Version Packages** PR. No npm publication or GitHub Release. |
 | **Pull request** (`ci.yml`) | install, lint, typecheck, OSV audit, Better Auth stack audit, generated-manifest freshness, build, Vitest. **No PostgreSQL, no scaffold, no user journey.** A new push cancels the previous run. |
 | **Push to `main`** (`ci.yml`) | the same fast checks + **one** representative scaffold (`test-scaffold.sh base`). |
 | **Release** (`publish.yml`) | the full superset: quality + the 9-profile scaffold matrix + the external user journey + the one-command golden path, all **blocking** before the first `npm publish`. |

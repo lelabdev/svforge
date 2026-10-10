@@ -1,14 +1,12 @@
-# Changelog
+# Changelog archive
 
-Every release is recorded as a package-scoped entry. The HTML comment immediately
-before each entry is the machine-readable contract used by release validation
-and `svforge upgrade`.
+This root file archives release notes created before Changesets was adopted,
+including entries for package versions already prepared in the workspace.
+Entries are retained unchanged; package histories were migrated to each
+`packages/*/CHANGELOG.md`, which Changesets maintains for new releases.
 
-- `package`: exact npm package name
-- `version`: exact immutable npm version
-- `date`: UTC release date (`YYYY-MM-DD`)
-- `Breaking changes`, `Migrations`, `Fixes`, and `Deprecations`: explicit sections;
-  use `None.` when a section has no items
+The legacy entries below use the former package-scoped format and are no longer
+a source for version calculation or future release planning.
 
 <!-- svforge-release package="svforge" version="2.1.1" date="2026-10-09" -->
 ## svforge@2.1.1 — 2026-10-09

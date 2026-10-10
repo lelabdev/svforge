@@ -4,7 +4,7 @@ import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from 'fs'
 import { tmpdir } from 'os';
 import { join, dirname } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import { parseChangelog, readChangelog } from '../../../scripts/changelog.mjs';
+import { readPackageChangelogs } from '../../../scripts/changelog.mjs';
 import { buildCompatManifest } from '../../../scripts/compat-manifest.mjs';
 import { buildAddonComponents, buildSkeletonInventory } from './generate-skeleton-inventory';
 
@@ -345,10 +345,10 @@ export const MODULE_RECIPE_DATA: Record<string, ModuleRecipeData> = ${JSON.strin
 `
 );
 
-const changelogEntries = parseChangelog(readChangelog(join(__dirname, '../../..')));
+const changelogEntries = readPackageChangelogs(join(__dirname, '../../..'));
 writeFileSync(
 	join(__dirname, '../src/changelog.ts'),
-	`// AUTO-GENERATED - DO NOT EDIT\n// Run bun run prebuild to regenerate from CHANGELOG.md\n\nexport interface ChangelogEntry {\n\tpackage: string;\n\tversion: string;\n\tdate: string;\n\tbody: string;\n}\n\nexport const RELEASE_NOTES: ChangelogEntry[] = ${JSON.stringify(changelogEntries, null, 2)};
+	`// AUTO-GENERATED - DO NOT EDIT\n// Run bun run prebuild to regenerate from package CHANGELOG.md files\n\nexport interface ChangelogEntry {\n\tpackage: string;\n\tversion: string;\n\tdate: string;\n\tbody: string;\n}\n\nexport const RELEASE_NOTES: ChangelogEntry[] = ${JSON.stringify(changelogEntries, null, 2)};
 
 function compareVersions(left: string, right: string): number {
 \tconst parse = (version: string) => version.split(/[.-]/).map((part) => (/^\\d+$/.test(part) ? Number(part) : part));

@@ -28,7 +28,7 @@ Les sources scaffoldées vivent sous `packages/*/templates/`. Le prebuild n’em
 - Pour une issue, travaille dans le worktree dédié, à partir de `origin/main` à jour; ne pousse pas sur `main`.
 - TDD pour les changements de comportement : test comportemental rouge, implémentation minimale, puis refactor.
 - Valide selon le périmètre : `bun run test`, `bun run lint`, `bun run typecheck`, `bun run build:all`, et les profils concernés de `bash scripts/test-scaffold.sh`.
-- `CONTRIBUTING.md` donne le processus court; `docs/RELEASE.md` est l’unique procédure de versioning/publication.
+- `CONTRIBUTING.md` donne le processus court; `docs/RELEASE.md` est l’unique procédure de versioning/publication. Pour un changement livré, ajoute normalement un Changeset avec package(s), impact `patch`/`minor`/`major` et résumé utilisateur; aucun format de titre/commit n’est imposé. Les changements docs/tests sans impact publiable peuvent omettre le fichier. Si un addon `@svforge/*` est bumpé, inclure aussi `svforge: patch` pour republier son manifeste de compatibilité exact.
 - Avant d’écrire de la documentation, cherche une source existante à réutiliser. Ne crée un document que pour une responsabilité nécessaire et maintenue indépendamment.
 
 ## Conventions d’implémentation

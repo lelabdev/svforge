@@ -12,7 +12,7 @@
       "type": "object",
       "required": ["path", "entries"],
       "properties": {
-        "path": { "const": "CHANGELOG.md" },
+        "path": { "const": "packages/*/CHANGELOG.md" },
         "entries": { "type": "integer", "minimum": 1 }
       },
       "additionalProperties": false

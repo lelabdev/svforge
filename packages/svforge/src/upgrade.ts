@@ -254,7 +254,7 @@ export function printUpgradeResult(result: UpgradeResult): void {
 
 	if (result.changes.length) {
 		console.log('  Release notes:');
-		for (const change of result.changes) console.log(`    ${change.version} (${change.date})\n${change.body}`);
+		for (const change of result.changes) console.log(`    ${change.version}${change.date ? ` (${change.date})` : ''}\n${change.body}`);
 		console.log('');
 	}
 
