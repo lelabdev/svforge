@@ -251,9 +251,15 @@ describe('external user journey smoke test (#462, #465)', () => {
 		const ci = readFileSync(join(process.cwd(), '.github', 'workflows', 'ci.yml'), 'utf8');
 		const publish = readFileSync(join(process.cwd(), '.github', 'workflows', 'publish.yml'), 'utf8');
 		const journey = readFileSync(join(process.cwd(), 'scripts', 'test-user-journey.sh'), 'utf8');
+		const release = readFileSync(join(process.cwd(), 'docs', 'RELEASE.md'), 'utf8');
 
 		expect(ci).not.toContain('test-user-journey.sh');
 		expect(publish).toContain('bash scripts/test-user-journey.sh --hooks lefthook');
+		expect(publish).toContain('bash scripts/test-user-journey.sh --path create');
+		expect(publish).not.toContain('bash scripts/test-user-journey.sh --path create --hooks none');
+		expect(release).toContain('npm-installs the local');
+		expect(release).toContain('no TTY');
+		expect(release).toContain('hooks:none');
 		expect(journey).toContain('strict Lefthook must block this commit');
 		expect(journey).toContain('Lefthook allowed a commit containing a strict design-system warning');
 	});

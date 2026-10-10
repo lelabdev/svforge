@@ -105,6 +105,23 @@ Validation cost sits where it belongs:
 | **Release** (`publish.yml`) | the full superset: quality + the 9-profile scaffold matrix + the external user journey + the one-command golden path, all **blocking** before the first `npm publish`. |
 | **Weekly** (`canary.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening a drift issue on failure. |
 
+### Measured CI timing snapshot (2026-10-10)
+
+These are successful, sequential main-branch runs around the final CI audit—not a
+controlled benchmark. No CI workflow topology, cache, or artifact changes were
+made between them, so the differences must not be claimed as an optimization.
+
+| Run / commit | `quality` job | `Run tests` step | `main-smoke` job |
+|--------------|---------------|-----------------|-----------------|
+| [#534 / `8a9a4bd`](https://github.com/lelabdev/svforge/actions/runs/38008231900) | 2m13s | 1m29s | 1m09s |
+| [#535 / `855df3a`](https://github.com/lelabdev/svforge/actions/runs/38011140207) | 1m44s | 1m08s | 0m51s |
+
+The Vitest step is the largest measured quality step. The observed variation is
+not enough evidence for shared build artifacts, cache complexity, or weaker
+isolation; the simple blocking pipeline is retained. No current post-change
+`publish.yml` run is available, and a release workflow must not be triggered
+just to manufacture a benchmark.
+
 ## Workflow gates
 
 `publish.yml` runs as separate jobs; the `publish` job starts only once
@@ -130,11 +147,14 @@ publication, the workflow:
    the tarball → `svforge doctor`/`check` → setup → server → minimal flow)
    from a clean temporary directory, without touching the monorepo's
    `node_modules` (#462, #465);
-9. completes the **golden path** (`--path create`): ONE non-interactive
-   `svforge create` from the packed artifacts (`--addon-root`, never
-   `--dev-root` or the checkout), then verifies the manifest records every
-   requested module, runs `svforge verify`, mounts the real PostgreSQL schema,
-   boots the app and replays the setup/login/admin flow (#470);
+9. completes the **golden path** (`--path create`): npm-installs the local
+   `svforge` CLI from its packed tarball in a scratch prefix, then invokes that
+   installed CLI with real registry `sv`, no TTY, and no `--hooks` flag. The
+   CLI must still pass `hooks:none` to the grouped `sv add`; both base and
+   dashboard runs are blocking. Add-ons resolve from packed artifacts
+   (`--addon-root`, never `--dev-root` or the checkout), then the journey
+   verifies the manifest, runs `svforge verify`, mounts real PostgreSQL, boots
+   the app and replays the setup/login/admin flow (#437, #470);
 10. publishes the plan in dependency order;
 11. installs every exact published version in a clean consumer, imports every
     package from a generated TypeScript consumer, and runs `tsc --noEmit` to
@@ -230,11 +250,17 @@ it).
 
 `--path create` exercises the product promise directly: a single
 non-interactive `svforge create ... --yes` instead of the manual
-`sv create` → `sv add`. It asserts the generated `.svforge.json` records the
-requested template, every requested module (the `--modules all` set is derived
-from the canonical registry, not a duplicated list) and the attested runtime,
-then runs `svforge verify`, sets up the PostgreSQL schema, boots the app and
-replays the dashboard setup/login/admin flow.
+`sv create` → `sv add`. In local mode, the test npm-installs `svforge` from the
+exact tarball produced by `npm pack` and invokes its installed bin, alongside a
+real externally installed `sv` CLI. The CI runner has no TTY, and the default
+path deliberately omits `--hooks`; `svforge create` must resolve that omission
+to `hooks:none` for the addon. Explicit hook choices (including
+`--hooks lefthook`) remain supported. The journey asserts the generated
+`.svforge.json` records the requested template, every requested module (the
+`--modules all` set is derived from the canonical registry, not a duplicated
+list) and the attested runtime, then runs `svforge verify`, sets up the
+PostgreSQL schema, boots the app and replays the dashboard setup/login/admin
+flow.
 
 - **Pre-publish** sources the add-ons from the packed artifacts via
   `--addon-root`. That mode **fails closed**: a requested artifact missing from
@@ -245,8 +271,12 @@ replays the dashboard setup/login/admin flow.
   version differs from `svforge` is still tested at its own version.
 
 ```bash
-# pre-publish (blocking), from packed artifacts
+# pre-publish (blocking), packed CLI + add-ons; CI is non-TTY
 bash scripts/test-user-journey.sh --path create
+# reproduce the no-TTY default locally (base; dashboard needs TEST_DATABASE_URL)
+bash scripts/test-user-journey.sh --path create --template base </dev/null
+# explicit hook override remains available
+bash scripts/test-user-journey.sh --path create --template base --hooks lefthook </dev/null
 # post-publish, exact per-package versions from the release plan
 bash scripts/test-user-journey.sh --path create --published <version> --compat-manifest /tmp/svforge-compat.json
 ```
@@ -255,6 +285,6 @@ Where it runs:
 
 | Workflow | Invocation | Purpose |
 |----------|-----------|---------|
-| **Publish** (`publish.yml`) | manual `bash scripts/test-user-journey.sh`, then `--path create` (pre-publish, blocking) | the documented two-step install and the one-command golden path from the current artifacts |
+| **Publish** (`publish.yml`) | manual `bash scripts/test-user-journey.sh --hooks lefthook`, then `--path create` (pre-publish, blocking, non-TTY) | the documented two-step install and the one-command golden path from the current packed CLI/add-ons; default hooks omission and explicit Lefthook are covered |
 | **Publish, post** (`publish.yml`) | `--published "$VERSION"`, then `--path create --published "$VERSION" --compat-manifest <plan>` | the exact artifact just shipped, at its exact per-package versions |
 | **Canary** (`canary.yml`) | `SV_VERSION=latest bash scripts/test-user-journey.sh` from the `base` matrix entry | real install path against the floating ecosystem `sv` |
