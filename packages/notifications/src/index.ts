@@ -7,7 +7,7 @@ export default defineAddon({
 	id: 'svforge-notifications',
 	alias: 'forge-notifications',
 	shortDescription: 'SVForge Notifications — persistent business notifications (read/unread)',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	options: defineAddonOptions().build(),
 
 	setup: ({ unsupported, isKit }) => {

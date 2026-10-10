@@ -154,7 +154,7 @@
 		</div>
 		<p>
 			{m.demo_typography_anchor()}
-			<a class="anchor" href="https://github.com/lelabdev/svelteforge">{m.demo_github()}</a>
+			<a class="anchor" href="https://github.com/lelabdev/svforge">{m.demo_github()}</a>
 		</p>
 		<pre>{skeletonImportExample}</pre>
 		<p>{m.demo_typography_kbd()} <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">K</kbd></p>

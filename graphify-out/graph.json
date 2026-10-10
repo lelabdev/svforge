@@ -23532,7 +23532,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "tests/security-policy.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "_origin": "ast"
     },
     {
@@ -77492,7 +77492,7 @@
     },
     {
       "source": "tests_security_policy_test",
-      "target": "ref_node_path",
+      "target": "ref_node_child_process",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -77503,11 +77503,22 @@
     },
     {
       "source": "tests_security_policy_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/security-policy.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_security_policy_test",
       "target": "tests_security_policy_test_root",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/security-policy.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },

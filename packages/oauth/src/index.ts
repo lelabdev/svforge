@@ -18,7 +18,7 @@ export default defineAddon({
 	id: 'svforge-oauth',
 	alias: 'forge-oauth',
 	shortDescription: 'SVForge OAuth — social auth (Google, GitHub)',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	// Empty options required: sv >= 0.15 crashes on addons without an
 	// options object (Object.entries(undefined) in promptAddonQuestions).
 	options: defineAddonOptions().build(),

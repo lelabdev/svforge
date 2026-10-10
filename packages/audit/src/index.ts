@@ -7,7 +7,7 @@ export default defineAddon({
 	id: 'svforge-audit',
 	alias: 'forge-audit',
 	shortDescription: 'SVForge Audit — business action audit trail (append-only)',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	options: defineAddonOptions().build(),
 
 	setup: ({ unsupported, isKit }) => {

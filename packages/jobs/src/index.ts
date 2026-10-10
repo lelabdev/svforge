@@ -7,7 +7,7 @@ export default defineAddon({
 	id: 'svforge-jobs',
 	alias: 'forge-jobs',
 	shortDescription: 'SVForge Jobs — background job foundation (retry, progress, encapsulated backend)',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	options: defineAddonOptions().build(),
 
 	setup: ({ unsupported, isKit }) => {

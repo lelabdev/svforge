@@ -27,7 +27,7 @@ export default defineAddon({
 	id: 'svforge-uploads',
 	alias: 'forge-uploads',
 	shortDescription: 'SVForge Uploads — file uploads to S3/R2',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	options: defineAddonOptions()
 		.add('testpack', {
 			question: 'Install the upload security test pack? (vitest, regression guards for the endpoint)',

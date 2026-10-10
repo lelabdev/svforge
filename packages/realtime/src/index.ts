@@ -7,7 +7,7 @@ export default defineAddon({
 	id: 'svforge-realtime',
 	alias: 'forge-realtime',
 	shortDescription: 'SVForge Realtime — generic WebSocket transport (publish/subscribe)',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	// Empty options required: sv >= 0.15 crashes on addons without an
 	// options object (Object.entries(undefined) in promptAddonQuestions).
 	options: defineAddonOptions().build(),

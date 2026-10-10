@@ -142,7 +142,7 @@ export default defineAddon({
 	id: 'svforge-blog',
 	alias: 'forge-blog',
 	shortDescription: 'SVForge Blog — MDsveX blog with posts list and article pages',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	// Empty options are required: sv >= 0.15 crashes on addons without an
 	// options object (Object.entries(undefined) in promptAddonQuestions).
 	options: defineAddonOptions().build(),
