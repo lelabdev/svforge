@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "96d0155239732ed7e10339c3769fa8f4",
+    "ast_hash": "1a814d497604fe074cf10ebd265d9a4f",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -1556,7 +1556,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "64bbf5e497de52d0797b1ba68873ffa3",
+    "ast_hash": "82530a234e73c44f15463817218a97a3",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1676,7 +1676,7 @@
     "semantic_hash": ""
   },
   "scripts/test-user-journey.sh": {
-    "ast_hash": "f63eee166c11fb4dcf6b95e053da9d24",
+    "ast_hash": "68d7c33a4f10b436565cad88a7b892d7",
     "semantic_hash": ""
   },
   "scripts/user-journey.mjs": {
@@ -1805,6 +1805,10 @@
   },
   "packages/svforge/src/dashboard-ci.ts": {
     "ast_hash": "61c764b2f13aa8be6ccb4bb3cf57425d",
+    "semantic_hash": ""
+  },
+  "packages/svforge/templates/base/src/routes/+layout.ts": {
+    "ast_hash": "a601dbfe48caa048da7134b87ce6d927",
     "semantic_hash": ""
   }
 }

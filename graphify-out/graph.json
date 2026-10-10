@@ -9290,7 +9290,7 @@
       "label": "dashboardFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L43",
+      "source_location": "L44",
       "_origin": "ast"
     },
     {
@@ -9298,7 +9298,7 @@
       "label": "dashboardRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L96",
+      "source_location": "L97",
       "_origin": "ast"
     },
     {
@@ -9306,7 +9306,7 @@
       "label": "baseRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L104",
+      "source_location": "L105",
       "_origin": "ast"
     },
     {
@@ -14459,7 +14459,7 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_base_src_routes_layout",
+      "id": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
       "label": "routes/+layout.svelte",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/src/routes/+layout.svelte",
@@ -14472,6 +14472,22 @@
       "file_type": "code",
       "source_file": "$lib/components/svforge/layout",
       "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_layout_ts_packages_svforge_templates_base_src_routes_layout",
+      "label": "+layout.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/+layout.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_layout_prerender",
+      "label": "prerender",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/+layout.ts",
+      "source_location": "L3",
       "_origin": "ast"
     },
     {
@@ -20064,7 +20080,7 @@
       "label": "dashboard_auth_journey()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L345",
+      "source_location": "L383",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -20076,7 +20092,7 @@
       "label": "run_dashboard()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L393",
+      "source_location": "L431",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -20088,7 +20104,7 @@
       "label": "create_command_args()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L430",
+      "source_location": "L468",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -20100,7 +20116,7 @@
       "label": "run_base_create()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L469",
+      "source_location": "L507",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -20112,7 +20128,7 @@
       "label": "run_dashboard_create()",
       "file_type": "code",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L483",
+      "source_location": "L521",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -27445,12 +27461,21 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_readme_static_deployment",
+      "label": "Static deployment",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L34",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_readme_templates",
       "label": "Templates",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L34",
+      "source_location": "L44",
       "_origin": "ast"
     },
     {
@@ -27459,7 +27484,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L43",
+      "source_location": "L53",
       "_origin": "ast"
     },
     {
@@ -27468,7 +27493,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L87",
+      "source_location": "L97",
       "_origin": "ast"
     },
     {
@@ -27477,7 +27502,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L103",
+      "source_location": "L113",
       "_origin": "ast"
     },
     {
@@ -27486,7 +27511,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L107",
+      "source_location": "L117",
       "_origin": "ast"
     },
     {
@@ -27495,7 +27520,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L111",
+      "source_location": "L121",
       "_origin": "ast"
     },
     {
@@ -28901,6 +28926,14 @@
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_layout",
+      "label": "packages_svforge_templates_base_src_routes_layout",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
     }
   ],
   "links": [
@@ -46648,7 +46681,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L43",
+      "source_location": "L44",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46658,7 +46691,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L96",
+      "source_location": "L97",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46668,7 +46701,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L104",
+      "source_location": "L105",
       "weight": 1,
       "_origin": "ast"
     },
@@ -54601,7 +54634,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_base_src_routes_layout",
+      "source": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
       "target": "packages_svforge_templates_base_src_routes_layout",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -54609,7 +54642,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_base_src_routes_layout",
+      "source": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
       "target": "state",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -54617,7 +54650,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_base_src_routes_layout",
+      "source": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
       "target": "runtime",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -54625,7 +54658,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_base_src_routes_layout",
+      "source": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
       "target": "messages_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -54633,11 +54666,21 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_base_src_routes_layout",
+      "source": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
       "target": "layout",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/routes/+layout.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_layout_ts_packages_svforge_templates_base_src_routes_layout",
+      "target": "packages_svforge_templates_base_src_routes_layout_prerender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/+layout.ts",
+      "source_location": "L3",
+      "weight": 1,
       "_origin": "ast"
     },
     {
@@ -65355,7 +65398,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L345",
+      "source_location": "L383",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65365,7 +65408,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L393",
+      "source_location": "L431",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65375,7 +65418,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L430",
+      "source_location": "L468",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65385,7 +65428,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L469",
+      "source_location": "L507",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65395,7 +65438,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L483",
+      "source_location": "L521",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65537,7 +65580,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L299",
+      "source_location": "L313",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65548,7 +65591,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L337",
+      "source_location": "L375",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65559,7 +65602,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L347",
+      "source_location": "L385",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65570,7 +65613,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L356",
+      "source_location": "L394",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65581,7 +65624,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L356",
+      "source_location": "L394",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65592,7 +65635,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L397",
+      "source_location": "L435",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65603,7 +65646,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L406",
+      "source_location": "L444",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65614,7 +65657,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L411",
+      "source_location": "L449",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65625,7 +65668,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L422",
+      "source_location": "L460",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65636,7 +65679,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L466",
+      "source_location": "L504",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65647,7 +65690,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L471",
+      "source_location": "L509",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65658,7 +65701,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L474",
+      "source_location": "L512",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65669,7 +65712,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L475",
+      "source_location": "L513",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65680,7 +65723,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L477",
+      "source_location": "L515",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65691,7 +65734,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L478",
+      "source_location": "L516",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65702,7 +65745,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L479",
+      "source_location": "L517",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65713,7 +65756,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L485",
+      "source_location": "L523",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65724,7 +65767,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L488",
+      "source_location": "L526",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65735,7 +65778,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L489",
+      "source_location": "L527",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65746,7 +65789,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L500",
+      "source_location": "L538",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65757,7 +65800,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L501",
+      "source_location": "L539",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65768,7 +65811,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L502",
+      "source_location": "L540",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -65779,7 +65822,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-user-journey.sh",
-      "source_location": "L503",
+      "source_location": "L541",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -83250,8 +83293,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_templates",
+      "source": "packages_svforge_readme_install",
+      "target": "packages_svforge_readme_static_deployment",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
@@ -83261,11 +83304,21 @@
     },
     {
       "source": "packages_svforge_readme_svforge",
+      "target": "packages_svforge_readme_templates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L44",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_readme_svforge",
       "target": "packages_svforge_readme_optional_modules",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L43",
+      "source_location": "L53",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83275,7 +83328,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L87",
+      "source_location": "L97",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83285,7 +83338,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L101",
+      "source_location": "L111",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83295,7 +83348,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L103",
+      "source_location": "L113",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83305,7 +83358,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L107",
+      "source_location": "L117",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83315,7 +83368,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L111",
+      "source_location": "L121",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84966,7 +85019,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/README.md",
-      "source_location": "L39",
+      "source_location": "L49",
       "weight": 1,
       "_origin": "ast"
     }

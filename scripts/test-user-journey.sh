@@ -291,9 +291,47 @@ run_base() {
 	cd "$WORK_DIR/base"
 	$SV_CMD create app --template minimal --types ts --no-install --no-add-ons --no-download-check
 	cd app
+	# Keep the generated sv project as a clean Git baseline so the SvelteForge
+	# add-on leaves the same dirty working tree a consumer gets before switching
+	# adapters. The adapter add below must explicitly bypass this upstream guard.
+	git init -q
+	git config user.email journey@example.com
+	git config user.name 'SvelteForge user journey'
+	git add .
+	git commit -qm 'fresh sv create project'
 
 	step "base: sv add (documented install)"
 	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check
+
+	step "base: switch to adapter-static (#439)"
+	set +e
+	$SV_CMD add 'sveltekit-adapter=adapter:static' --no-install --no-download-check \
+		>"$WORK_DIR/adapter-static-git-check.log" 2>&1
+	adapter_git_check_status=$?
+	set -e
+	grep -q 'Uncommitted changes found' "$WORK_DIR/adapter-static-git-check.log" \
+		|| fail "adapter-static: expected sv to block a dirty tree without --no-git-check (exit $adapter_git_check_status)"
+	node --input-type=module <<'NODE'
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+assert.equal(pkg.devDependencies?.['@sveltejs/adapter-static'], undefined);
+assert.equal(pkg.dependencies?.['@sveltejs/adapter-static'], undefined);
+assert.doesNotMatch(fs.readFileSync('vite.config.ts', 'utf8'), /@sveltejs\/adapter-static/);
+NODE
+	$SV_CMD add 'sveltekit-adapter=adapter:static' --install "$SF_PM" --no-download-check --no-git-check
+	node --input-type=module <<'NODE'
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const files = fs.readdirSync('.');
+assert.deepEqual(files.filter((file) => /^vite\.config\./.test(file)).sort(), ['vite.config.ts']);
+assert.equal(files.some((file) => /^svelte\.config\./.test(file)), false);
+const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+assert.ok(pkg.devDependencies?.['@sveltejs/adapter-static'] || pkg.dependencies?.['@sveltejs/adapter-static']);
+const vite = fs.readFileSync('vite.config.ts', 'utf8');
+assert.match(vite, /from ['"]@sveltejs\/adapter-static['"]/);
+assert.match(vite, /adapter:\s*adapter\(\)/);
+NODE
 
 	if [ "$HOOK_MODE" = "lefthook" ]; then
 		test -f .lefthook.yml || fail "base: hooks:lefthook did not create .lefthook.yml"
