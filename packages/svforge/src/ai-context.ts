@@ -35,6 +35,14 @@ export const DEPLOYMENT_PROFILES: Record<DeploymentProfile, string[]> = {
 	'separate-worker': ['dedicated long-lived process for jobs or WebSocket transport']
 };
 
+export interface ParaglideLocaleSettings {
+	baseLocale: string;
+	locales: string[];
+}
+
+/** Paraglide values written by a new scaffold; projects override them in settings.json. */
+export const DEFAULT_PARAGLIDE_LOCALE_SETTINGS: ParaglideLocaleSettings = { baseLocale: 'fr', locales: ['fr', 'en'] };
+
 export interface SvforgeManifest {
 	schema: 1;
 	template: 'base' | 'dashboard';
@@ -80,6 +88,7 @@ export interface SvforgeManifest {
 	i18n?: {
 		adapter: 'paraglide';
 		baseLocale: string;
+		locales?: string[];
 		catalogs: string;
 		settings: string;
 	};
@@ -169,12 +178,11 @@ export function buildManifest(template: 'base' | 'dashboard', modules: string[])
 		capabilities: [...new Set(capabilities)],
 		patterns,
 		moduleCapabilities,
-		// Scaffold default (#322) — mirrors templates/base/root/project.inlang/
-		// settings.json (baseLocale fr). The generated project's settings file
-		// is the live source of truth once the application evolves.
+		// Initial scaffold defaults (#322); `svforge context` refreshes these
+		// values from project.inlang/settings.json after the project evolves.
 		i18n: {
 			adapter: 'paraglide',
-			baseLocale: 'fr',
+			...DEFAULT_PARAGLIDE_LOCALE_SETTINGS,
 			catalogs: 'messages/',
 			settings: 'project.inlang/settings.json'
 		},
@@ -254,11 +262,13 @@ export function renderLlmstxt(manifest: SvforgeManifest): string {
 	lines.push('');
 	// i18n contract (#322): defaults vs constraints — catalogs are the AI-first
 	// source of truth, locales are initial values the application may change.
-	const i18n = manifest.i18n ?? { adapter: 'paraglide', baseLocale: 'fr', catalogs: 'messages/', settings: 'project.inlang/settings.json' };
+	const i18n = manifest.i18n ?? { adapter: 'paraglide', ...DEFAULT_PARAGLIDE_LOCALE_SETTINGS, catalogs: 'messages/', settings: 'project.inlang/settings.json' };
+	const locales = i18n.locales ?? [i18n.baseLocale];
 	lines.push('## i18n (Paraglide)');
 	lines.push(`- message catalogs ${i18n.catalogs}<locale>.json are the source of truth for static UI copy — edit catalogs, never generated src/lib/paraglide`);
-	lines.push(`- baseLocale: ${i18n.baseLocale} (scaffold default); locales are configured in ${i18n.settings}`);
-	lines.push(`- the scaffolded locales (${i18n.baseLocale}/en at scaffold time) are initial defaults, not a limit — add a locale: create messages/<locale>.json with the full key set, then register it in ${i18n.settings}`);
+	lines.push(`- baseLocale: ${i18n.baseLocale}`);
+	lines.push(`- configured locales: ${locales.join(', ')} (source: ${i18n.settings})`);
+	lines.push(`- the scaffold's initial locales are defaults, not a system limit — add a locale: create messages/<locale>.json with the full key set, then register it in ${i18n.settings}`);
 	lines.push('- keep key parity across every configured locale; modules ship their keys for the scaffolded locales — port them into any locale you add');
 	lines.push('- long-form editorial, business and CMS content does not belong in the catalogs');
 	lines.push('');
@@ -297,6 +307,7 @@ export function renderLlmstxt(manifest: SvforgeManifest): string {
 /** Merge module contributions into an existing manifest (idempotent). */
 export function mergeManifest(existing: SvforgeManifest, template: 'base' | 'dashboard', modules: string[]): SvforgeManifest {
 	const merged = buildManifest(template, [...new Set([...existing.modules, ...modules])]);
+	merged.i18n = existing.i18n ?? merged.i18n;
 	merged.ui = existing.ui ?? { preferred: 'skeleton', libraries: [] };
 	// A user-selected target is configuration, not generated module metadata.
 	// Preserve it when a legacy helper enriches an existing manifest.
@@ -343,6 +354,77 @@ export function enrichManifest(content: string, moduleId: string): string {
 	return plan.writes[0].content;
 }
 
+export interface ManifestI18nSync {
+	manifest: SvforgeManifest;
+	settings: ParaglideLocaleSettings;
+	content: string;
+	drift: boolean;
+}
+
+/** Read and validate the live Paraglide locale configuration. */
+function parseParaglideLocaleSettings(settingsContent: string): ParaglideLocaleSettings {
+	const parsed = parseJsonFile('project.inlang/settings.json', settingsContent);
+	if (!parsed.ok) throw parsed.error;
+	const invalid = (reason: string): never => {
+		throw new JsonGuardError(
+			'project.inlang/settings.json',
+			reason,
+			'configure a non-empty baseLocale and a non-empty locales array containing that baseLocale'
+		);
+	};
+	if (parsed.empty || typeof parsed.value !== 'object' || parsed.value === null || Array.isArray(parsed.value)) {
+		return invalid('expected a Paraglide settings object');
+	}
+	const settings = parsed.value as Record<string, unknown>;
+	if (typeof settings.baseLocale !== 'string' || !settings.baseLocale.trim()) return invalid('baseLocale must be a non-empty string');
+	if (!Array.isArray(settings.locales) || settings.locales.length === 0 || settings.locales.some((locale) => typeof locale !== 'string' || !locale.trim())) {
+		return invalid('locales must be a non-empty array of non-empty strings');
+	}
+	const locales = settings.locales as string[];
+	if (new Set(locales).size !== locales.length) return invalid('locales must not contain duplicate entries');
+	if (!locales.includes(settings.baseLocale)) return invalid(`baseLocale "${settings.baseLocale}" must be listed in locales`);
+	return { baseLocale: settings.baseLocale, locales: [...locales] };
+}
+
+/** Synchronize the manifest's locale metadata to the canonical settings file. */
+export function synchronizeManifestI18n(manifestContent: string, settingsContent: string): ManifestI18nSync {
+	const parsedManifest = parseJsonFile('.svforge.json', manifestContent);
+	if (!parsedManifest.ok) throw parsedManifest.error;
+	if (parsedManifest.empty) {
+		throw new JsonGuardError('.svforge.json', 'the manifest file is empty', 'restore a valid .svforge.json before refreshing project context');
+	}
+	const problems = validateManifestShape(parsedManifest.value, '.svforge.json');
+	if (problems.length > 0) {
+		throw new JsonGuardError('.svforge.json', problems.join(' '), 'fix the manifest fields above before refreshing project context');
+	}
+	const settings = parseParaglideLocaleSettings(settingsContent);
+	const manifest = parsedManifest.value as SvforgeManifest;
+	const previous = manifest.i18n;
+	const drift =
+		previous?.adapter !== 'paraglide' ||
+		previous?.baseLocale !== settings.baseLocale ||
+		JSON.stringify(previous?.locales ?? []) !== JSON.stringify(settings.locales) ||
+		previous?.catalogs === undefined ||
+		previous?.settings !== 'project.inlang/settings.json';
+	const updated: SvforgeManifest = {
+		...manifest,
+		i18n: {
+			...previous,
+			adapter: 'paraglide',
+			baseLocale: settings.baseLocale,
+			locales: settings.locales,
+			catalogs: previous?.catalogs ?? 'messages/',
+			settings: 'project.inlang/settings.json'
+		}
+	};
+	return {
+		manifest: updated,
+		settings,
+		content: drift ? `${JSON.stringify(updated, null, 2)}\n` : manifestContent,
+		drift
+	};
+}
+
 /**
  * Regenerate llms.txt deterministically from the project's .svforge.json
  * (run via `svforge context`). Returns the new llms.txt content.
@@ -372,8 +454,10 @@ export function regenerateLlmstxt(manifestContent: string): string {
 	}
 	const manifest = parsed.value as SvforgeManifest;
 	// Rebuild from the template + installed modules so capabilities/patterns
-	// always reflect the real state (module enrich only adds its id).
+	// always reflect the real state (module enrich only adds its id). Preserve
+	// the project's configured locale contract instead of restoring defaults.
 	const rebuilt = buildManifest(manifest.template ?? 'base', manifest.modules ?? []);
+	rebuilt.i18n = manifest.i18n ?? rebuilt.i18n;
 	rebuilt.ui = manifest.ui ?? { preferred: 'skeleton', libraries: [] };
 	if (manifest.deployment?.profile) {
 		rebuilt.deployment = { ...rebuilt.deployment, profile: manifest.deployment.profile, profiles: manifest.deployment.profiles ?? DEPLOYMENT_PROFILES };

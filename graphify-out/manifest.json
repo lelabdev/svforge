@@ -400,7 +400,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/bin/svforge.mjs": {
-    "ast_hash": "65364d22582e91222d5cfebf895a1db3",
+    "ast_hash": "8cf12c11ae64da567a6cdeb277e25818",
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
@@ -424,7 +424,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/ai-context.ts": {
-    "ast_hash": "4fbd29f670edd44369ae0b2d64aac251",
+    "ast_hash": "b543e094c4a82df04db4f764be7a9918",
     "semantic_hash": ""
   },
   "packages/svforge/src/app.d.ts": {
@@ -448,7 +448,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "eb632c148515225ce802d1917d0689ba",
+    "ast_hash": "c2e612ea7a9405a3c7c786c3426d54ba",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -476,7 +476,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
-    "ast_hash": "c1eec834bc2af7d2640bc6570ce2fa82",
+    "ast_hash": "c050e990a1def9c786863496f9f4fd19",
     "semantic_hash": ""
   },
   "packages/svforge/src/skeleton-inventory.ts": {
@@ -1096,11 +1096,11 @@
     "semantic_hash": ""
   },
   "tests/agents-md.test.ts": {
-    "ast_hash": "f929a4b9b95f609ab309699dffb79f1d",
+    "ast_hash": "106d44e848e73fb64c0be85e685d564d",
     "semantic_hash": ""
   },
   "tests/ai-context.test.ts": {
-    "ast_hash": "775dae54a409c3b3fb506533c717f5d8",
+    "ast_hash": "bfc1e30f6f15feaa6f5e4eafbd222385",
     "semantic_hash": ""
   },
   "tests/arbitrary-values.test.ts": {
@@ -1488,7 +1488,7 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "ast_hash": "ad719db760fad51a4181a4d8394d963c",
+    "ast_hash": "c0d4ac66765bd9325d48cdf7d914d2dc",
     "semantic_hash": ""
   },
   "SECURITY.md": {
@@ -1556,7 +1556,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "05d770467a28d0c1a3d3d3e0a73f9bf6",
+    "ast_hash": "64bbf5e497de52d0797b1ba68873ffa3",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1652,7 +1652,7 @@
     "semantic_hash": ""
   },
   "tests/real-bin.test.ts": {
-    "ast_hash": "507248bf9597cdb40af570ec9ef6714a",
+    "ast_hash": "fea517ae37b5fc916914f5c2b1e42bd4",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {

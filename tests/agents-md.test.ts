@@ -6,15 +6,16 @@ import { renderUiAgentGuidance, type UiProjectConfig } from '../packages/svforge
 import { ROOT } from './helpers';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
-import { scaffoldedAgents } from '../packages/svforge/src/scaffolded-agents';
+import { scaffoldedAgents, syncAgentLocaleContext } from '../packages/svforge/src/scaffolded-agents';
 
 /**
  * #347 — AGENTS.md is the SOLE agent convention of a SvelteForge project.
  *
  * Decision: one file to read, one file to edit. No tool-specific instruction
- * file (Claude, Gemini, Copilot, Cursor) is scaffolded, and there is no
- * synchronization or drift machinery. Instructions are advisory; mechanical
- * enforcement stays `svforge check`.
+ * file (Claude, Gemini, Copilot, Cursor) is scaffolded. `svforge context`
+ * synchronizes only the managed Paraglide locale block; other guidance remains
+ * user-editable. Instructions are advisory; mechanical enforcement stays
+ * `svforge check`.
  */
 
 describe('AGENTS.md as the sole agent convention (#347)', () => {
@@ -69,6 +70,27 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		expect(canonical).toContain('Golden references');
 		expect(canonical).toContain('create/edit/invite/status flows using the official Skeleton `Dialog` with SvelteForge form primitives');
 		expect(canonical).not.toContain('create/edit modal (`Card` + `Input`)');
+	});
+
+	it('renders and refreshes configured locales, including legacy generated guidance (#438)', () => {
+		const settings = { baseLocale: 'en', locales: ['en', 'fr', 'de'] };
+		const generated = scaffoldedAgents('base', 'npm', undefined, settings);
+		expect(generated).toContain('- baseLocale: `en`');
+		expect(generated).toContain('- locales: `en`, `fr`, `de`');
+
+		const legacy = [
+			'This project ships **Paraglide** (compiler-first i18n). The scaffold starts with',
+			'**fr** (baseLocale) and **en** — SVForge\'s initial locales, NOT a system limit.',
+			'Locales live in settings.',
+			'- **Changing the base locale**: edit `baseLocale` in `project.inlang/settings.json`.',
+			'User notes survive.'
+		].join('\n');
+		const refreshed = syncAgentLocaleContext(legacy, settings);
+		expect(refreshed.drift).toBe(true);
+		expect(refreshed.content).toContain('- baseLocale: `en`');
+		expect(refreshed.content).toContain('- locales: `en`, `fr`, `de`');
+		expect(refreshed.content).toContain('run `svforge context` to refresh generated metadata');
+		expect(refreshed.content).toContain('User notes survive.');
 	});
 
 	it('carries the i18n contract: catalogs are the source of truth, generated code is off-limits (#322)', () => {

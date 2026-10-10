@@ -258,28 +258,48 @@ async function main() {
 	}
 
 	if (command === 'context') {
-		// Regenerate the AI context from the real project state (#234):
-		// read .svforge.json, rewrite llms.txt deterministically.
+		// Synchronize all generated locale context from the canonical Inlang
+		// settings before writing any output (#438).
 		const fs = await import('node:fs');
 		const path = await import('node:path');
 		const manifestPath = path.join(projectRoot, '.svforge.json');
+		const settingsPath = path.join(projectRoot, 'project.inlang/settings.json');
+		const agentsPath = path.join(projectRoot, 'AGENTS.md');
 		const llmstxtPath = path.join(projectRoot, 'llms.txt');
-		if (!fs.existsSync(manifestPath)) {
-			console.error('.svforge.json not found — run this in a SvelteForge project root.');
-			process.exitCode = 1;
-			return;
+		for (const [filePath, label] of [[manifestPath, '.svforge.json'], [settingsPath, 'project.inlang/settings.json'], [agentsPath, 'AGENTS.md']]) {
+			if (!fs.existsSync(filePath)) {
+				console.error(`${label} not found — run this in a scaffolded SvelteForge project root.`);
+				process.exitCode = 1;
+				return;
+			}
 		}
-		const manifest = fs.readFileSync(manifestPath, 'utf-8');
 		try {
-			fs.writeFileSync(llmstxtPath, api.regenerateLlmstxt(manifest));
+			const manifestContent = fs.readFileSync(manifestPath, 'utf-8');
+			const settingsContent = fs.readFileSync(settingsPath, 'utf-8');
+			const agentsContent = fs.readFileSync(agentsPath, 'utf-8');
+			const manifestSync = api.synchronizeManifestI18n(manifestContent, settingsContent);
+			const settings = manifestSync.settings;
+			const agentsSync = api.syncAgentLocaleContext(agentsContent, settings);
+			const llmsContent = api.regenerateLlmstxt(manifestSync.content);
+			const oldLlms = fs.existsSync(llmstxtPath) ? fs.readFileSync(llmstxtPath, 'utf-8') : undefined;
+			const drift = manifestSync.drift || agentsSync.drift || oldLlms !== llmsContent;
+
+			// All inputs are parsed and validated before any generated file is written.
+			if (manifestSync.content !== manifestContent) fs.writeFileSync(manifestPath, manifestSync.content);
+			if (agentsSync.content !== agentsContent) fs.writeFileSync(agentsPath, agentsSync.content);
+			if (oldLlms !== llmsContent) fs.writeFileSync(llmstxtPath, llmsContent);
+
+			const localeSummary = `baseLocale ${settings.baseLocale}; locales ${settings.locales.join(', ')}`;
+			if (drift) {
+				console.log(`⚠ Locale context drift detected; refreshed .svforge.json, AGENTS.md, and llms.txt from project.inlang/settings.json (${localeSummary}).`);
+			} else {
+				console.log(`✓ Generated locale context already matches project.inlang/settings.json (${localeSummary}).`);
+			}
 		} catch (error) {
-			// #324: a corrupt manifest must fail loudly with its remediation,
-			// never silently regenerate from an empty base project.
 			console.error(error instanceof Error ? error.message : String(error));
 			process.exitCode = 1;
 			return;
 		}
-		console.log('✓ llms.txt regenerated from .svforge.json (#234).');
 		return;
 	}
 
