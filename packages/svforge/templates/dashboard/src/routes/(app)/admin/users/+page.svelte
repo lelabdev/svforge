@@ -188,7 +188,7 @@
 					<AvatarInitial name={row.name} size="sm" />
 					<div>
 						<p class="font-medium">{row.name}</p>
-						<p class="text-xs text-surface-500 sm:hidden">{row.email}</p>
+						<p class="text-xs text-surface-700-300 sm:hidden">{row.email}</p>
 					</div>
 				</div>
 			{:else if col.key === 'status'}
@@ -236,7 +236,7 @@
 	</Table>
 
 	{#if filtered.length === 0}
-		<p class="py-8 text-center text-surface-500">{m.users_none()}</p>
+		<p class="py-8 text-center text-surface-700-300">{m.users_none()}</p>
 	{/if}
 </div>
 
@@ -312,7 +312,7 @@
 						</div>
 					</form>
 				{:else if modal === 'invite'}
-					<Dialog.Description class="mb-4 text-sm text-surface-500">{m.users_invite_desc()}</Dialog.Description>
+					<Dialog.Description class="mb-4 text-sm text-surface-700-300">{m.users_invite_desc()}</Dialog.Description>
 					<form method="POST" action="?/invite" use:enhance={submitEnhance} class="space-y-4">
 						<Input
 							label={m.users_label_email()}
@@ -328,7 +328,7 @@
 						</div>
 					</form>
 				{:else if modal === 'status' && statusTarget}
-					<Dialog.Description class="mb-4 text-surface-500">
+					<Dialog.Description class="mb-4 text-surface-700-300">
 						{statusTarget.disabled
 							? m.users_reactivate_confirm({ name: statusTarget.name })
 							: m.users_deactivate_confirm({ name: statusTarget.name })}

@@ -141,8 +141,8 @@
 	class="flex flex-wrap items-center gap-2 rounded-t-container border-b border-surface-200-800 bg-surface-100-900 p-2"
 >
 	{#if loading}
-		<div class="flex items-center gap-2 px-3 py-1 text-sm text-surface-500">
-			<div class="h-4 w-4 animate-spin rounded-full border-2 border-surface-300-700 border-t-primary-500"></div>
+		<div class="flex items-center gap-2 px-3 py-1 text-sm text-surface-700-300">
+			<div class="h-4 w-4 animate-spin rounded-full border-2 border-surface-300-700 border-t-primary-700-300"></div>
 			<span class="text-xs uppercase tracking-widest">{m.tiptap_loading()}</span>
 		</div>
 	{:else}
@@ -256,7 +256,7 @@
 						<Popover.Title class="font-semibold">
 							{activeLink ? m.tiptap_edit_link() : m.tiptap_insert_link()}
 						</Popover.Title>
-						<Popover.Description class="text-sm text-surface-500">
+						<Popover.Description class="text-sm text-surface-700-300">
 							{m.tiptap_link_description()}
 						</Popover.Description>
 						<form class="space-y-3" onsubmit={applyLink}>

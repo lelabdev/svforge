@@ -32,8 +32,8 @@
 	--typo-heading--text-transform: inherit;
 	--typo-anchor--font-family: inherit;
 	--typo-anchor--font-size: inherit;
-	--typo-anchor--color-light: var(--color-primary-700);
-	--typo-anchor--color-dark: var(--color-primary-200);
+	--typo-anchor--color-light: var(--color-primary-900);
+	--typo-anchor--color-dark: var(--color-primary-300);
 	--typo-anchor--line-height: inherit;
 	--typo-anchor--font-weight: inherit;
 	--typo-anchor--font-style: inherit;
@@ -82,11 +82,11 @@
 	--color-root-bg-light: var(--color-surface-50);
 	--color-root-bg-dark: var(--color-surface-950);
 
-	/* Brand (v5: used by buttons/links as the default brand color) */
-	--color-brand-light: var(--color-primary-500);
-	--color-brand-contrast-light: var(--color-primary-contrast-500);
-	--color-brand-dark: var(--color-primary-500);
-	--color-brand-contrast-dark: var(--color-primary-contrast-500);
+	/* Brand uses paired primary shades with enough contrast for Skeleton focus indicators. */
+	--color-brand-light: var(--color-primary-700);
+	--color-brand-contrast-light: var(--color-primary-contrast-700);
+	--color-brand-dark: var(--color-primary-300);
+	--color-brand-contrast-dark: var(--color-primary-contrast-300);
 
 	/* Primary: Steel blue */
 	--color-primary-50: oklch(94.82% 0.04 216.84deg);

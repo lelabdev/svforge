@@ -7,7 +7,7 @@ import { SKELETON_UTILITIES } from '../packages/svforge/src/skeleton-inventory';
 
 const children = createRawSnippet(() => ({ render: () => '<span>Card content</span>' }));
 const surfaceClass = 'preset-filled-surface-50-950';
-const outlineClass = 'preset-outlined-surface-200-800';
+const outlineClass = 'preset-outlined-surface-600-400';
 
 afterEach(cleanup);
 

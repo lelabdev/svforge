@@ -15,13 +15,13 @@
 			surface: 'preset-filled-surface-400-600'
 		},
 		outlined: {
-			primary: 'preset-outlined-primary-400-600',
-			secondary: 'preset-outlined-secondary-400-600',
-			tertiary: 'preset-outlined-tertiary-400-600',
-			success: 'preset-outlined-success-400-600',
-			warning: 'preset-outlined-warning-400-600',
-			error: 'preset-outlined-error-400-600',
-			surface: 'preset-outlined-surface-400-600'
+			primary: 'preset-outlined-primary-900-100',
+			secondary: 'preset-outlined-secondary-900-100',
+			tertiary: 'preset-outlined-tertiary-900-100',
+			success: 'preset-outlined-success-900-100',
+			warning: 'preset-outlined-warning-900-100',
+			error: 'preset-outlined-error-900-100',
+			surface: 'preset-outlined-surface-900-100'
 		},
 		tonal: {
 			primary: 'preset-tonal-primary',
@@ -124,7 +124,7 @@
 	// rejects it).
 	const sizeClass = $derived(size === 'sm' ? 'btn-sm' : size === 'lg' ? 'btn-lg' : 'btn-base');
 	const presetClass = $derived(presets[variant]?.[color] ?? '');
-	const classes = $derived(cn('btn', presetClass, sizeClass, className));
+	const classes = $derived(cn('btn focus-visible:ring-2 focus-visible:ring-primary-700-300', presetClass, sizeClass, className));
 	// Anchors lack a native disabled presentation: reduced styling + pointer
 	// events off stand in for it, aria-disabled announces it to AT.
 	const anchorClasses = $derived(cn(classes, inactive && 'pointer-events-none opacity-50'));

@@ -13,7 +13,7 @@
 </script>
 
 <label class="flex cursor-pointer items-center gap-2">
-	<input type="checkbox" {...rest} class={cn('checkbox', className)} bind:checked />
+	<input type="checkbox" {...rest} class={cn('checkbox border border-surface-600-400 focus-within:ring-primary-700-300! focus-visible:ring-2 focus-visible:ring-primary-700-300', className)} bind:checked />
 	{#if label}
 		<span>{label}</span>
 	{/if}

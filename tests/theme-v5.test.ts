@@ -96,6 +96,27 @@ describe('Skeleton v5 theme contract (#315)', () => {
 		expect(violationsOf(canonical).filter((v) => v.rule === 'contrast-ratio')).toEqual([]);
 	});
 
+	it('provides measured secondary-text and accent pairs for both surface modes', () => {
+		const vars = parseThemeVariables(canonical);
+		const check = (foreground: string, background: string, minimum: number) => {
+			const ratio = contrastRatio(resolveVariable(vars, foreground)!, resolveVariable(vars, background)!);
+			expect(ratio, `${foreground} on ${background}`).toBeGreaterThanOrEqual(minimum);
+		};
+
+		check('--color-surface-700', '--color-surface-50', 4.5);
+		check('--color-surface-300', '--color-surface-950', 4.5);
+		check('--color-primary-900', '--color-surface-50', 4.5);
+		check('--color-primary-300', '--color-surface-950', 4.5);
+		check('--color-error-700', '--color-surface-50', 4.5);
+		check('--color-error-300', '--color-surface-950', 4.5);
+		check('--color-primary-700', '--color-surface-50', 3);
+		check('--color-primary-300', '--color-surface-950', 3);
+		check('--color-primary-950', '--color-primary-100', 4.5);
+		check('--color-primary-50', '--color-primary-900', 4.5);
+		check('--color-surface-700', '--color-surface-50', 3);
+		check('--color-surface-400', '--color-surface-950', 3);
+	});
+
 	it('protects the brand concept: variables defined and resolvable', () => {
 		const vars = parseThemeVariables(canonical);
 		for (const name of [
@@ -106,8 +127,31 @@ describe('Skeleton v5 theme contract (#315)', () => {
 		]) {
 			expect(resolveVariable(vars, name), name).toBeDefined();
 		}
-		// the brand presets (preset-filled/tonal/outlined-brand) derive from
-		// --color-brand-* — resolving to the primary pair keeps them accessible
-		expect(resolveVariable(vars, '--color-brand-light')).toBe(resolveVariable(vars, '--color-primary-500'));
+		// The focus indicator on Skeleton's checkbox/switch controls uses the
+		// brand color. It needs 3:1 against the page surface in both color modes.
+		const lightFocus = contrastRatio(
+			resolveVariable(vars, '--color-brand-light')!,
+			resolveVariable(vars, '--color-surface-50')!
+		);
+		const darkFocus = contrastRatio(
+			resolveVariable(vars, '--color-brand-dark')!,
+			resolveVariable(vars, '--color-surface-950')!
+		);
+		expect(lightFocus).toBeGreaterThanOrEqual(3);
+		expect(darkFocus).toBeGreaterThanOrEqual(3);
+
+		// Filled brand presets must keep a readable foreground/background pair.
+		expect(
+			contrastRatio(
+				resolveVariable(vars, '--color-brand-contrast-light')!,
+				resolveVariable(vars, '--color-brand-light')!
+			)
+		).toBeGreaterThanOrEqual(4.5);
+		expect(
+			contrastRatio(
+				resolveVariable(vars, '--color-brand-contrast-dark')!,
+				resolveVariable(vars, '--color-brand-dark')!
+			)
+		).toBeGreaterThanOrEqual(4.5);
 	});
 });

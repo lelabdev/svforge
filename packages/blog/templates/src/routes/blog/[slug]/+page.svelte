@@ -20,6 +20,6 @@ const date = $derived(formatPostDate(data.post.date, getLocale()));
 <article class="max-w-prose mx-auto px-4 py-8">
 <a href={localizeHref('/blog')} class="anchor mb-4 inline-block">← {m.blog_back_to_blog()}</a>
 <h1 class="h1 mb-4">{data.post.title}</h1>
-<p class="text-surface-400 mb-8">{date}</p>
+<p class="text-surface-700-300 mb-8">{date}</p>
 <Post />
 </article>

@@ -22,7 +22,7 @@
 
 <main class="mx-auto max-w-7xl space-y-8 px-4 py-8">
 	<h1 class="h1">{m.demo_title()}</h1>
-	<p class="text-surface-500">{m.demo_subtitle()}</p>
+	<p class="text-surface-700-300">{m.demo_subtitle()}</p>
 
 	<!-- Buttons -->
 	<section class="space-y-4">
@@ -143,7 +143,7 @@
 	     this section visibly validates every typography theme change. -->
 	<section class="space-y-4">
 		<h2 class="h2 border-b border-surface-200-800 pb-2">{m.demo_typography()}</h2>
-		<p class="text-surface-500">{m.demo_typography_desc()}</p>
+		<p class="text-surface-700-300">{m.demo_typography_desc()}</p>
 		<div class="space-y-2">
 			<h1 class="h1">{m.demo_heading_level({ level: 1 })}</h1>
 			<h2 class="h2">{m.demo_heading_level({ level: 2 })}</h2>
@@ -209,9 +209,9 @@
 	     (they ship keyboard + ARIA support): -->
 	<section class="space-y-4">
 		<h2 class="h2 border-b border-surface-200-800 pb-2">{m.demo_richer()}</h2>
-		<p class="text-surface-500">
+		<p class="text-surface-700-300">
 			{m.demo_richer_desc()}
-			<code class="text-primary-600-400">@skeletonlabs/skeleton-svelte</code> —
+			<code class="text-primary-900-100">@skeletonlabs/skeleton-svelte</code> —
 			<code>{skeletonImportExample}</code>
 		</p>
 	</section>
@@ -219,7 +219,7 @@
 	<!-- Theme -->
 	<section class="space-y-4">
 		<h2 class="h2 border-b border-surface-200-800 pb-2">{m.demo_theme()}</h2>
-		<p class="text-surface-500">{m.demo_theme_desc()}</p>
+		<p class="text-surface-700-300">{m.demo_theme_desc()}</p>
 		<ThemeToggle />
 	</section>
 </main>

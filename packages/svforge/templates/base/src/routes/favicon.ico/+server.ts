@@ -13,7 +13,7 @@ import type { RequestHandler } from './$types';
  */
 export const prerender = true;
 
-// Brand primary-500 (src/lib/styles/svelteforge-theme.css), precomputed to
+// Brand primary hue from src/lib/styles/svelteforge-theme.css, precomputed to
 // hex — a favicon cannot read CSS custom properties.
 const BRAND = '#00abd4';
 

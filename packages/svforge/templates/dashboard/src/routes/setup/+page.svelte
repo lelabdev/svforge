@@ -17,13 +17,13 @@
 	<div class="w-full max-w-sm space-y-6">
 		<div class="space-y-2 text-center">
 			<h1 class="h1">{m.setup_create_admin()}</h1>
-			<p class="text-sm text-surface-500">{m.setup_hint()}</p>
+			<p class="text-sm text-surface-700-300">{m.setup_hint()}</p>
 		</div>
 
 		<Card>
 			<form method="POST" class="space-y-4" use:enhance>
 				{#if form?.error}
-					<p class="text-sm text-error-500">{form.error}</p>
+					<p class="text-sm text-error-700-300">{form.error}</p>
 				{/if}
 
 				<Input name="name" label={m.users_label_name()} placeholder={m.users_placeholder_name()} required />
@@ -37,7 +37,7 @@
 			<ThemeToggle />
 		</div>
 
-		<p class="text-center text-xs text-surface-500">
+		<p class="text-center text-xs text-surface-700-300">
 			{m.setup_dev_only()}
 		</p>
 	</div>

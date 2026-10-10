@@ -46,7 +46,7 @@
 	<select
 		{...rest}
 		id={selectId}
-		class={cn('select', className)}
+		class={cn('select border border-surface-600-400 focus:ring-primary-700-300! focus-visible:ring-2 focus-visible:ring-primary-700-300', className)}
 		aria-invalid={hasError || undefined}
 		aria-describedby={describedByIds}
 		bind:value
@@ -56,6 +56,6 @@
 		{/each}
 	</select>
 	{#if hasError}
-		<p id={errorId} class="text-error-500 mt-1 text-sm">{error}</p>
+		<p id={errorId} class="text-error-700-300 mt-1 text-sm">{error}</p>
 	{/if}
 </div>

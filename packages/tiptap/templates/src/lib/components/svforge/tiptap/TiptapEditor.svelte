@@ -71,7 +71,7 @@
 				content: content,
 				editorProps: {
 					attributes: {
-						class: 'prose max-w-none dark:prose-invert prose-a:text-primary-600 dark:prose-a:text-primary-300 prose-headings:text-surface-950-50 prose-blockquote:border-primary-500 prose-pre:bg-surface-100-900 prose-pre:text-surface-950-50 prose-code:bg-surface-100-900 prose-code:text-surface-950-50 focus:outline-none min-h-[300px] p-4'
+						class: 'prose max-w-none dark:prose-invert prose-a:text-primary-900 dark:prose-a:text-primary-300 prose-headings:text-surface-950-50 prose-blockquote:border-primary-700-300 prose-pre:bg-surface-100-900 prose-pre:text-surface-950-50 prose-code:bg-surface-100-900 prose-code:text-surface-950-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700-300 min-h-[300px] p-4'
 					}
 				},
 				onUpdate: ({ editor }: { editor: typeof editorInstance }) => {
@@ -140,7 +140,7 @@
 	<div class="min-h-[300px] relative" bind:this={editorElement} class:opacity-50={loading}>
 		{#if loading}
 			<div class="absolute inset-0 flex items-center justify-center">
-				<div class="w-8 h-8 border-3 border-surface-200-800 border-t-primary-500 rounded-full animate-spin"></div>
+				<div class="w-8 h-8 border-3 border-surface-200-800 border-t-primary-700-300 rounded-full animate-spin"></div>
 			</div>
 		{/if}
 	</div>

@@ -18,7 +18,7 @@
 	const variantClasses: Record<Variant, string> = {
 		flat: 'card preset-filled-surface-50-950',
 		elevated: 'card preset-filled-surface-50-950 shadow-lg',
-		outlined: 'card preset-filled-surface-50-950 preset-outlined-surface-200-800'
+		outlined: 'card preset-filled-surface-50-950 preset-outlined-surface-600-400'
 	};
 
 	// #317: the Skeleton `card` utility owns the container radius

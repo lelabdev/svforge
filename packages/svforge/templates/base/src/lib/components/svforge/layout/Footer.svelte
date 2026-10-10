@@ -30,7 +30,7 @@
 			{/if}
 		</div>
 
-		<div class="mt-8 border-t border-surface-200-800 pt-3 text-sm text-surface-500">
+		<div class="mt-8 border-t border-surface-200-800 pt-3 text-sm text-surface-700-300">
 			&copy; {new Date().getFullYear()} SVForge. All rights reserved.
 		</div>
 	</div>

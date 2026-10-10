@@ -18,7 +18,7 @@
 	<div class="flex items-center justify-between">
 		<div>
 			<h2 class="h2">{m.admin_dashboard()}</h2>
-			<p class="text-surface-500">{m.admin_welcome_back({ name: data.user.name })}</p>
+			<p class="text-surface-700-300">{m.admin_welcome_back({ name: data.user.name })}</p>
 		</div>
 		<Button href="/admin/users" size="sm">
 			<Users size={16} class="mr-1" />
@@ -36,7 +36,7 @@
 					<Users size={24} />
 				</div>
 				<div>
-					<p class="text-sm text-surface-500">{m.admin_total_users()}</p>
+					<p class="text-sm">{m.admin_total_users()}</p>
 					<p class="h3">{data.stats.totalUsers}</p>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 					<Clock size={24} />
 				</div>
 				<div>
-					<p class="text-sm text-surface-500">{m.admin_active_sessions()}</p>
+					<p class="text-sm">{m.admin_active_sessions()}</p>
 					<p class="h3">{data.stats.activeSessions}</p>
 				</div>
 			</div>
@@ -58,7 +58,7 @@
 					<ChartBar size={24} />
 				</div>
 				<div>
-					<p class="text-sm text-surface-500">{m.admin_this_week()}</p>
+					<p class="text-sm">{m.admin_this_week()}</p>
 					<p class="h3">{data.stats.newThisWeek}</p>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 						<AvatarInitial name={u.name} />
 						<div>
 							<p class="text-sm font-medium">{u.name}</p>
-							<p class="text-xs text-surface-500">{u.email}</p>
+							<p class="text-xs text-surface-700-300">{u.email}</p>
 						</div>
 					</div>
 					<Badge color={u.emailVerified ? 'success' : 'warning'}>

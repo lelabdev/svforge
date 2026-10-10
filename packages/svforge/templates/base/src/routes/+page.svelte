@@ -11,9 +11,9 @@
 <main class="mx-auto max-w-7xl px-4 py-8">
 	<section class="space-y-6 py-8 text-center">
 		<h1 class="h1">
-			{m.home_welcome()} <span class="text-primary-500">SvelteForge</span>
+			{m.home_welcome()} <span class="text-primary-700-300">SvelteForge</span>
 		</h1>
-		<p class="mx-auto max-w-2xl text-xl text-surface-500">
+		<p class="mx-auto max-w-2xl text-xl text-surface-700-300">
 			{m.home_subtitle()}
 		</p>
 		<div class="flex justify-center gap-4">
@@ -25,15 +25,15 @@
 	<section class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
 		<Card variant="elevated">
 			<h3 class="h3 mb-2">{m.home_card_stack_title()}</h3>
-			<p class="text-surface-500">{m.home_card_stack_desc()}</p>
+			<p class="text-surface-700-300">{m.home_card_stack_desc()}</p>
 		</Card>
 		<Card variant="elevated">
 			<h3 class="h3 mb-2">{m.home_card_custom_title()}</h3>
-			<p class="text-surface-500">{m.home_card_custom_desc()}</p>
+			<p class="text-surface-700-300">{m.home_card_custom_desc()}</p>
 		</Card>
 		<Card variant="elevated">
 			<h3 class="h3 mb-2">{m.home_card_ready_title()}</h3>
-			<p class="text-surface-500">{m.home_card_ready_desc()}</p>
+			<p class="text-surface-700-300">{m.home_card_ready_desc()}</p>
 		</Card>
 	</section>
 </main>
