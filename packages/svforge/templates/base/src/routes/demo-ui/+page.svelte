@@ -154,7 +154,7 @@
 		</div>
 		<p>
 			{m.demo_typography_anchor()}
-			<a class="anchor" href="https://github.com/lelabdev/svelteforge">{m.home_github()}</a>
+			<a class="anchor" href="https://github.com/lelabdev/svelteforge">{m.demo_github()}</a>
 		</p>
 		<pre>{skeletonImportExample}</pre>
 		<p>{m.demo_typography_kbd()} <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">K</kbd></p>
@@ -165,8 +165,8 @@
 		<h2 class="h2 border-b border-surface-200-800 pb-2">{m.demo_form()}</h2>
 		<Card>
 			<div class="space-y-4">
-				<Input label={m.users_label_name()} placeholder={m.demo_placeholder_name()} />
-				<Input label={m.login_label_email()} type="email" placeholder={m.demo_placeholder_email()} error={m.demo_invalid_email()} />
+				<Input label={m.demo_label_name()} placeholder={m.demo_placeholder_name()} />
+				<Input label={m.demo_label_email()} type="email" placeholder={m.demo_placeholder_email()} error={m.demo_invalid_email()} />
 				<Textarea label={m.demo_message()} placeholder={m.demo_placeholder_message()} rows={3} />
 				<Select
 					label={m.demo_category()}
