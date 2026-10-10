@@ -27,7 +27,7 @@ Les sources scaffoldées vivent sous `packages/*/templates/`. Le prebuild n’em
 ## Conventions d’implémentation
 
 - Composants : classes/presets Skeleton et Tailwind, pas de CSS brut; `cn()` et prop `class`; `HTMLAttributes<T>` de `svelte/elements`; `$bindable()` déclaré dans l’interface Props.
-- Icônes Phosphor : `phosphor-svelte/lib/IconName`.
+- Icônes Phosphor : consomme-les via `$lib/icons`; les imports profonds `phosphor-svelte/lib/*` sont réservés aux définitions dans `src/lib/icons/`.
 - Un contrôle de thème partagé utilise `ui/ThemeToggle.svelte`; ne crée pas de contrôle local dupliqué.
 - Le checker de design-system est livré avec le scaffold : garde ses règles de structure, primitives et utilitaires alignées sur son inventaire généré.
 

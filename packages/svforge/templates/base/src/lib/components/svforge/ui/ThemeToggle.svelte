@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import Sun from 'phosphor-svelte/lib/Sun';
-	import Moon from 'phosphor-svelte/lib/Moon';
+	import { Sun, Moon } from '$lib/icons';
 	import { onMount } from 'svelte';
 	import { followSystemTheme } from '$lib/utils/theme';
 

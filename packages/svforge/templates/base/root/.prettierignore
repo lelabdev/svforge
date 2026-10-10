@@ -75,6 +75,8 @@ src/lib/components/svforge/ui/Table.svelte
 src/lib/components/svforge/ui/ThemeToggle.svelte
 src/lib/components/svforge/ui/index.ts
 src/lib/example.test.ts
+src/lib/icons/core.ts
+src/lib/icons/index.ts
 src/lib/index.ts
 src/lib/server/admin-users.test.ts
 src/lib/server/admin-users.ts

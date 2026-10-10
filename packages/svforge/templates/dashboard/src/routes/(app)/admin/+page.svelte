@@ -3,9 +3,7 @@
 	import { Card, AvatarInitial } from '$lib/components/svforge/ui';
 	import { Badge } from '$lib/components/svforge/primitives';
 	import { Button } from '$lib/components/svforge/primitives';
-	import Users from 'phosphor-svelte/lib/Users';
-	import ChartBar from 'phosphor-svelte/lib/ChartBar';
-	import Clock from 'phosphor-svelte/lib/Clock';
+	import { Users, ChartBar, Clock } from '$lib/icons';
 
 	let { data } = $props();
 </script>
