@@ -25254,12 +25254,21 @@
       "_origin": "ast"
     },
     {
+      "id": "agents_propriété_de_l_écosystème_svelte",
+      "label": "Propriété de l'écosystème Svelte",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "AGENTS.md",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
       "id": "agents_templates_et_artefacts_générés",
       "label": "Templates et artefacts générés",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
-      "source_location": "L15",
+      "source_location": "L22",
       "_origin": "ast"
     },
     {
@@ -25268,7 +25277,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
-      "source_location": "L19",
+      "source_location": "L26",
       "_origin": "ast"
     },
     {
@@ -25277,7 +25286,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
-      "source_location": "L27",
+      "source_location": "L34",
       "_origin": "ast"
     },
     {
@@ -25286,7 +25295,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "AGENTS.md",
-      "source_location": "L34",
+      "source_location": "L41",
       "_origin": "ast"
     },
     {
@@ -26568,12 +26577,21 @@
       "_origin": "ast"
     },
     {
+      "id": "contributing_svelte_upstream_first",
+      "label": "Svelte upstream first",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L38",
+      "_origin": "ast"
+    },
+    {
       "id": "contributing_release_and_security",
       "label": "Release and security",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L38",
+      "source_location": "L44",
       "_origin": "ast"
     },
     {
@@ -28158,12 +28176,48 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_docs_structural_duplication_structural_duplication_check",
-      "label": "Structural duplication check",
+      "id": "packages_svforge_docs_structural_duplication_upstream_svelte_ownership_and_structural_reuse",
+      "label": "Upstream Svelte ownership and structural reuse",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/structural-duplication.md",
       "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_structural_duplication_ownership_boundary",
+      "label": "Ownership boundary",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_structural_duplication_audited_upstream_addons_and_overlaps",
+      "label": "Audited upstream addons and overlaps",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_structural_duplication_reproducing_the_composition_checks",
+      "label": "Reproducing the composition checks",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L38",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_structural_duplication_structural_duplication_check",
+      "label": "Structural-duplication check",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
@@ -81403,7 +81457,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L91",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82125,11 +82179,31 @@
     },
     {
       "source": "agents_instructions_agents_dépôt_svelteforge",
-      "target": "agents_templates_et_artefacts_générés",
+      "target": "agents_propriété_de_l_écosystème_svelte",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
       "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "agents",
+      "target": "packages_svforge_docs_structural_duplication",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "agents_instructions_agents_dépôt_svelteforge",
+      "target": "agents_templates_et_artefacts_générés",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82139,7 +82213,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L19",
+      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82149,7 +82223,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L27",
+      "source_location": "L34",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82159,7 +82233,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L34",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83585,7 +83659,7 @@
     },
     {
       "source": "contributing_contributing_to_svforge",
-      "target": "contributing_release_and_security",
+      "target": "contributing_svelte_upstream_first",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
@@ -83595,11 +83669,31 @@
     },
     {
       "source": "contributing",
+      "target": "packages_svforge_docs_structural_duplication",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "contributing_contributing_to_svforge",
+      "target": "contributing_release_and_security",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L44",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "contributing",
       "target": "security",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L40",
+      "source_location": "L46",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85235,11 +85329,61 @@
     },
     {
       "source": "packages_svforge_docs_structural_duplication",
-      "target": "packages_svforge_docs_structural_duplication_structural_duplication_check",
+      "target": "packages_svforge_docs_structural_duplication_upstream_svelte_ownership_and_structural_reuse",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/structural-duplication.md",
       "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_structural_duplication_upstream_svelte_ownership_and_structural_reuse",
+      "target": "packages_svforge_docs_structural_duplication_ownership_boundary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_structural_duplication_upstream_svelte_ownership_and_structural_reuse",
+      "target": "packages_svforge_docs_structural_duplication_audited_upstream_addons_and_overlaps",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_structural_duplication",
+      "target": "docs_better_auth_upgrades",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_structural_duplication_audited_upstream_addons_and_overlaps",
+      "target": "packages_svforge_docs_structural_duplication_reproducing_the_composition_checks",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L38",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_structural_duplication_upstream_svelte_ownership_and_structural_reuse",
+      "target": "packages_svforge_docs_structural_duplication_structural_duplication_check",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },

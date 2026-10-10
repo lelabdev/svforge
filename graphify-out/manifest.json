@@ -1476,7 +1476,7 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "ast_hash": "0947a78ef65a987ada568b2a8b1213c8",
+    "ast_hash": "571cf13fca1242e5588863a689290a07",
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
@@ -1484,7 +1484,7 @@
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
-    "ast_hash": "53198b8e62620ceec542407b94ecfa98",
+    "ast_hash": "74c8a5cebd44368a672746517e467d5f",
     "semantic_hash": ""
   },
   "README.md": {
@@ -1556,7 +1556,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "82530a234e73c44f15463817218a97a3",
+    "ast_hash": "17bbaff7eda733a56eb28faae3a28f31",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1572,7 +1572,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/structural-duplication.md": {
-    "ast_hash": "d39b7c16c2785bf53017a7c30ba66306",
+    "ast_hash": "58406cb16a31e484b400a0a5c8500415",
     "semantic_hash": ""
   },
   "packages/svforge/llms.txt": {
@@ -1720,7 +1720,7 @@
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {
-    "ast_hash": "b13efdcdb123256a8506c6410f3796cd",
+    "ast_hash": "7a04c8c22954188b04298688a0169558",
     "semantic_hash": ""
   },
   "tests/vite-config-regex.test.ts": {

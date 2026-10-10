@@ -84,6 +84,25 @@ describe('modern sv layout generates a valid vite.config.ts (#415)', () => {
 		}, 120_000);
 	}
 
+	it('composes the official Tailwind add-on after SVForge without duplicate base wiring', async () => {
+		const { root, app } = realScaffold('base');
+		try {
+			runSv(['add', 'tailwindcss=plugins:none', '--no-install', '--no-download-check', '--no-git-check'], app);
+			const config = readFileSync(join(app, 'vite.config.ts'), 'utf8');
+			const stylesheet = readFileSync(join(app, 'src/routes/layout.css'), 'utf8');
+
+			expect(config.match(/tailwindcss\(\)/g)).toHaveLength(1);
+			expect(config.match(/svforgeDesignSystemPlugin\(\)/g)).toHaveLength(1);
+			expect(config.match(/paraglideVitePlugin\(\{/g)).toHaveLength(1);
+			expect(config).toContain('sveltekit({');
+			expect(stylesheet.match(/@import 'tailwindcss';/g)).toHaveLength(1);
+			expect(stylesheet).toContain("@import '@skeletonlabs/skeleton';");
+			expect(await syntaxErrors(config, 'vite.config.ts')).toEqual([]);
+		} finally {
+			rmSync(root, { recursive: true, force: true });
+		}
+	}, 120_000);
+
 	it('keeps the config byte-identical when DnD is added and re-added', () => {
 		const { root, app } = realScaffold('base');
 		try {
