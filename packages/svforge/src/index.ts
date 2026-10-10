@@ -39,6 +39,7 @@ export {
 	renderLlmstxt,
 	mergeManifest,
 	regenerateLlmstxt,
+	synchronizeManifestI18n,
 	MODULE_CAPABILITIES,
 	DEPLOYMENT_PROFILES,
 	MODULE_PROFILE_SUPPORT
@@ -54,7 +55,9 @@ export {
  *   @svforge/addon-kit (plan-then-write, non-destructive).
  */
 export { enrichManifest } from './ai-context';
-export type { SvforgeManifest, DeploymentProfile, ModuleProfileSupport } from './ai-context';
+export type { SvforgeManifest, DeploymentProfile, ModuleProfileSupport, ParaglideLocaleSettings, ManifestI18nSync } from './ai-context';
+export { syncAgentLocaleContext } from './scaffolded-agents';
+export type { AgentLocaleSettings } from './scaffolded-agents';
 
 // Export upgrade command for programmatic use (#327): one diffable protocol
 // for base, dashboard and the 13 standalone modules.

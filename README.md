@@ -54,7 +54,7 @@ npx svforge preset community
 
 ## Generated project context
 
-Projects include an `AGENTS.md`, `.svforge.json`, `llms.txt`, and the design-system catalog/checker. These help agents inspect the project and reuse its existing components; they are generated-project assets, not instructions for this repository. `svforge check` validates the project, and `svforge context` regenerates its `llms.txt`.
+Projects include an `AGENTS.md`, `.svforge.json`, `llms.txt`, and the design-system catalog/checker. These help agents inspect the project and reuse its existing components; they are generated-project assets, not instructions for this repository. `svforge check` validates the project, and `svforge context` synchronizes `.svforge.json`, the managed locale block in `AGENTS.md`, and `llms.txt` from `project.inlang/settings.json`.
 
 ## Repository
 

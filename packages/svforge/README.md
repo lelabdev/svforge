@@ -86,7 +86,7 @@ The tables come from the scaffolded `svforge-modules.json` contract. Regenerate 
 
 ## Project context and checks
 
-A scaffold includes generated `AGENTS.md` conventions, `.svforge.json` project state, `llms.txt` context, and a component catalog/checker. `svforge check` checks the design-system and project conventions; `svforge context` regenerates `llms.txt`.
+A scaffold includes generated `AGENTS.md` conventions, `.svforge.json` project state, `llms.txt` context, and a component catalog/checker. `svforge check` checks the design-system and project conventions; `svforge context` synchronizes `.svforge.json`, the managed locale block in `AGENTS.md`, and `llms.txt` from `project.inlang/settings.json`.
 
 Skeleton remains the default. A project can deliberately register another UI library:
 

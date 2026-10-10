@@ -8,6 +8,7 @@ import {
 	renderLlmstxt,
 	mergeManifest,
 	regenerateLlmstxt,
+	synchronizeManifestI18n,
 	MODULE_CAPABILITIES
 } from '../packages/svforge/src/ai-context';
 import { ROOT, tempProject } from './helpers';
@@ -96,6 +97,12 @@ describe('AI context generation (#234)', () => {
 		expect(withUploads.capabilities).toContain('uploads (S3-compatible: POST hard limit, PUT best-effort fallback)');
 	});
 
+	it('mergeManifest preserves the configured locale contract', () => {
+		const existing = buildManifest('base', []);
+		existing.i18n = { ...existing.i18n!, baseLocale: 'en', locales: ['en', 'de'] };
+		expect(mergeManifest(existing, 'base', ['blog']).i18n).toEqual(existing.i18n);
+	});
+
 	it('mergeManifest is idempotent', () => {
 		const m1 = mergeManifest(buildManifest('base', []), 'base', ['uploads']);
 		const m2 = mergeManifest(m1, 'base', ['uploads']);
@@ -115,12 +122,38 @@ describe('AI context generation (#234)', () => {
 		expect(m.i18n).toEqual({
 			adapter: 'paraglide',
 			baseLocale: 'fr',
+			locales: ['fr', 'en'],
 			catalogs: 'messages/',
 			settings: 'project.inlang/settings.json'
 		});
 		// One source of truth per concern, exposed as canonical patterns too.
 		expect(m.patterns['i18n messages']).toBe('messages/');
 		expect(m.patterns['Fonts']).toBe('src/routes/layout.css');
+	});
+
+	it('syncs manifest locales from Paraglide settings without hard-coded scaffold defaults (#438)', () => {
+		const original = buildManifest('base', ['email']);
+		original.ui.preferred = '@example/ui';
+		original.deployment!.profile = 'long-lived-node';
+		const settings = JSON.stringify({ baseLocale: 'en', locales: ['en', 'fr', 'de'] });
+
+		const result = synchronizeManifestI18n(JSON.stringify(original), settings);
+		expect(result.drift).toBe(true);
+		expect(result.manifest.i18n).toEqual({
+			adapter: 'paraglide',
+			baseLocale: 'en',
+			locales: ['en', 'fr', 'de'],
+			catalogs: 'messages/',
+			settings: 'project.inlang/settings.json'
+		});
+		expect(result.manifest.ui.preferred).toBe('@example/ui');
+		expect(result.manifest.deployment?.profile).toBe('long-lived-node');
+		expect(JSON.parse(result.content).modules).toEqual(['email']);
+	});
+
+	it('rejects incomplete Paraglide locale settings without producing metadata (#438)', () => {
+		const original = JSON.stringify(buildManifest('base', []));
+		expect(() => synchronizeManifestI18n(original, JSON.stringify({ baseLocale: 'en', locales: ['fr'] }))).toThrow(/baseLocale.*locales/);
 	});
 
 	it('manifest shape validation accepts the i18n block and rejects malformed values (#322)', () => {
@@ -136,6 +169,7 @@ describe('AI context generation (#234)', () => {
 		const txt = renderLlmstxt(buildManifest('base', []));
 		expect(txt).toContain('## i18n (Paraglide)');
 		expect(txt).toContain('- baseLocale: fr');
+		expect(txt).toContain('- configured locales: fr, en');
 		expect(txt).toContain('never generated src/lib/paraglide');
 		expect(txt).toContain('key parity across every configured locale');
 		expect(txt).toContain('add a locale: create messages/<locale>.json with the full key set');

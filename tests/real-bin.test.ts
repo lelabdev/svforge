@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { spawnSync } from 'node:child_process';
 import { delimiter, join } from 'node:path';
-import { mkdtempSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { ROOT } from './helpers';
 import { COMPAT_MANIFEST } from '../packages/svforge/src/compat';
 import { buildManifest } from '../packages/svforge/src/ai-context';
+import { scaffoldedAgents } from '../packages/svforge/src/scaffolded-agents';
 
 /**
  * REAL-BIN behavioral coverage (#426 review): the previous review round
@@ -65,6 +66,64 @@ function scaffoldedProject(): string {
 	);
 	return dir;
 }
+
+describe('real bin — Paraglide locale context synchronization (#438)', () => {
+	it('refreshes manifest, AGENTS.md, and llms.txt from non-default Inlang settings', () => {
+		const cwd = scaffoldedProject();
+		mkdirSync(join(cwd, 'project.inlang'), { recursive: true });
+		const manifest = buildManifest('base', ['email']);
+		writeFileSync(join(cwd, '.svforge.json'), JSON.stringify(manifest, null, 2));
+		writeFileSync(join(cwd, 'project.inlang/settings.json'), JSON.stringify({ baseLocale: 'en', locales: ['en', 'fr', 'de'] }));
+		const generatedAgents = scaffoldedAgents('base');
+		const defaultLocaleBlock = [
+			'<!-- svforge:i18n-config:start -->',
+			'- baseLocale: `fr`',
+			'- locales: `fr`, `en`',
+			'<!-- svforge:i18n-config:end -->'
+		].join('\n');
+		const legacyConfig = `The scaffold starts with\n**fr** (baseLocale) and **en** — SVForge's initial locales, NOT a system limit.`;
+		const oldAgents = generatedAgents.replace(`The scaffold's initial locales are defaults, not a system limit. Current configured locale values are:\n${defaultLocaleBlock}`, legacyConfig);
+		writeFileSync(join(cwd, 'AGENTS.md'), `${oldAgents}\n## User notes\nKeep this section.\n`);
+		writeFileSync(join(cwd, 'llms.txt'), 'stale locale data');
+
+		const run = runBin(['context'], cwd);
+		expect(run.code).toBe(0);
+		expect(run.stdout).toMatch(/drift detected.*baseLocale en.*en, fr, de/);
+		const updatedManifest = JSON.parse(readFileSync(join(cwd, '.svforge.json'), 'utf8'));
+		expect(updatedManifest.i18n.baseLocale).toBe('en');
+		expect(updatedManifest.i18n.locales).toEqual(['en', 'fr', 'de']);
+		const agents = readFileSync(join(cwd, 'AGENTS.md'), 'utf8');
+		const llms = readFileSync(join(cwd, 'llms.txt'), 'utf8');
+		expect(agents).toContain('baseLocale: `en`');
+		expect(agents).toContain('locales: `en`, `fr`, `de`');
+		expect(llms).toContain('baseLocale: en');
+		expect(llms).toContain('configured locales: en, fr, de');
+		for (const content of [agents, llms]) expect(content).not.toContain('scaffold starts with');
+		expect(agents).toContain('## User notes\nKeep this section.');
+		expect(llms).toContain('- email (Resend)');
+		const idempotent = runBin(['context'], cwd);
+		expect(idempotent.code).toBe(0);
+		expect(idempotent.stdout).toMatch(/already matches/);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('reports invalid canonical settings without partially refreshing metadata (#438)', () => {
+		const cwd = scaffoldedProject();
+		mkdirSync(join(cwd, 'project.inlang'), { recursive: true });
+		writeFileSync(join(cwd, '.svforge.json'), JSON.stringify(buildManifest('base', []), null, 2));
+		writeFileSync(join(cwd, 'project.inlang/settings.json'), JSON.stringify({ baseLocale: 'en', locales: ['fr'] }));
+		writeFileSync(join(cwd, 'AGENTS.md'), scaffoldedAgents('base'));
+		writeFileSync(join(cwd, 'llms.txt'), 'keep existing context');
+		const files = ['.svforge.json', 'AGENTS.md', 'llms.txt'];
+		const before = new Map(files.map((file) => [file, readFileSync(join(cwd, file), 'utf8')]));
+
+		const run = runBin(['context'], cwd);
+		expect(run.code).toBe(1);
+		expect(run.stderr).toMatch(/baseLocale.*locales/);
+		for (const file of files) expect(readFileSync(join(cwd, file), 'utf8'), file).toBe(before.get(file));
+		rmSync(cwd, { recursive: true, force: true });
+	});
+});
 
 describe('real bin — project UI strategy (#480)', () => {
 	it('registers any installed package and sets it as preferred through the shipped CLI', () => {
