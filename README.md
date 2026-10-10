@@ -5,15 +5,27 @@
 [![npm: svforge](https://img.shields.io/npm/v/svforge?label=svforge&logo=npm)](https://www.npmjs.com/package/svforge)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**Production-ready foundations for SvelteKit projects.**
+**SvelteKit foundations you can build on.**
 
-Build on a normal SvelteKit app with a Skeleton-based design system, optional full-stack foundations, and composable modules. Generated source belongs to your project.
+SVForge extends the official [Svelte CLI](https://github.com/sveltejs/cli) with an editable Skeleton-based UI, optional application foundations, and composable modules. Start with SvelteKit, keep the generated source, and add only what your project needs.
 
-[Quick start](#quick-start) · [Templates](#templates) · [Modules](#modules) · [Contributing](CONTRIBUTING.md)
+[Get started](#quick-start) · [Choose a template](#templates) · [Explore modules](#optional-modules) · [Documentation](packages/svforge/README.md) · [Website](https://svforge.dev)
 
 </div>
 
 ## Quick start
+
+Create a project with the SVForge CLI:
+
+```bash
+npx svforge create my-app --template base
+cd my-app
+npm run dev
+```
+
+`svforge create` orchestrates the official `sv create` and `sv add` commands. It is **not** a separate SvelteKit generator.
+
+Prefer using the Svelte CLI directly? The same foundations are available as an `sv` community addon:
 
 ```bash
 npx sv create my-app
@@ -22,47 +34,74 @@ npx sv add svforge=template:base+testing:vitest
 npm run dev
 ```
 
-Choose `template:dashboard` for the Better Auth, Drizzle, PostgreSQL, and admin foundation. Configure its environment with `bash scripts/setup.sh` before running it. Full install options and current package details are in [`packages/svforge/README.md`](packages/svforge/README.md).
+For authentication, a database, and protected administration routes, start with the dashboard instead:
+
+```bash
+npx svforge create my-dashboard --template dashboard
+cd my-dashboard
+bash scripts/setup.sh
+npm run dev
+```
+
+The dashboard requires PostgreSQL and environment configuration; check the generated `.env.example` and the [dashboard setup guide](packages/svforge/README.md#install).
+
+## Svelte first, SVForge where it adds value
+
+SVForge is a **starter and collection of optional addons**, not a new framework, component library, or replacement for the Svelte toolchain.
+
+| Official Svelte tooling | SVForge |
+| --- | --- |
+| `sv create` creates the SvelteKit application | Adds editable `base` and `dashboard` project foundations |
+| Official `sv add` addons provide general integrations when they compose safely | Adds Skeleton UI conventions, FR/EN Paraglide content, and product-specific modules |
+| `sv migrate` handles Svelte and SvelteKit migrations | `svforge upgrade` handles only SVForge-owned recipes |
+| SvelteKit controls runtime and deployment | Adds project checks and context for developers and coding agents |
+
+The goal is to **reuse upstream tools, not duplicate them**. Your generated app remains a normal SvelteKit project; you own its source and can adapt or remove the SVForge defaults.
 
 ## Templates
 
-| Template | Includes |
+| Starting point | What you get |
 | --- | --- |
-| `base` | SvelteKit, Skeleton UI, Tailwind CSS, FR/EN Paraglide, theme, layouts, SEO, and Vitest |
-| `dashboard` | Base plus Better Auth, Drizzle, PostgreSQL, protected admin routes, and setup scripts |
+| **`base`** | Svelte 5, Skeleton UI, Tailwind CSS, theme and dark mode, layouts, SEO, Paraglide FR/EN, and Vitest |
+| **`dashboard`** | Everything in base, plus Better Auth, Drizzle/PostgreSQL, guarded admin routes, user management, and setup scripts |
 
-The base template is intentionally small. Rich UI components come from the official `@skeletonlabs/skeleton-svelte` package; optional product capabilities are separate addons.
+Both are starting points rather than fixed application architectures. The dashboard does not enable public sign-up by default; see the [template and authentication details](packages/svforge/README.md#templates).
 
-![SVForge dashboard](docs/screenshots/dashboard.png)
+![SVForge dashboard preview](docs/screenshots/dashboard.png)
 
-## Modules
+## Optional modules
 
-Add only what an application needs, for example:
-
-```bash
-npx sv add @svforge/blog @svforge/ui_toast
-```
-
-Modules include email, uploads, OAuth, realtime, jobs, audit, notifications, chat, blog, rich text, drag-and-drop, toast, and graph visualization. See the [package guide](packages/svforge/README.md#optional-modules) for the current list and requirements. Presets are recipes over the same templates and modules: `saas` requires a dashboard project; `community` requires a base project.
+Install only the capabilities you need using the same official addon workflow:
 
 ```bash
-# In a dashboard project
-npx svforge preset saas
 # In a base project
-npx svforge preset community
+npx sv add @svforge/blog @svforge/ui_toast
+
+# In a dashboard project with the required auth/database foundations
+npx sv add @svforge/uploads @svforge/notifications
 ```
 
-## Generated project context
+Available capabilities include blog, rich-text editing, email, OAuth, uploads, notifications, audit logs, jobs, realtime, chat, drag-and-drop, graph visualization, and toast notifications. Modules declare their prerequisites; some require PostgreSQL, authentication, or a long-lived Node runtime.
 
-Projects include an `AGENTS.md`, `.svforge.json`, `llms.txt`, and the design-system catalog/checker. These help agents inspect the project and reuse its existing components; they are generated-project assets, not instructions for this repository. `svforge check` validates the project, and `svforge context` synchronizes `.svforge.json`, the managed locale block in `AGENTS.md`, and `llms.txt` from `project.inlang/settings.json`.
+Want a predefined combination? `svforge preset saas` composes dashboard-compatible modules; `svforge preset community` composes base-compatible modules. See the [complete module matrix](packages/svforge/README.md#optional-modules) and [deployment profiles](packages/svforge/docs/deployment-profiles.md) before selecting runtime-dependent modules.
 
-## Repository
+## Built for developers and coding agents
 
-```text
-packages/svforge/   templates, CLI, and project checks
-packages/*/         independently packaged addons
-packages/addon-kit/ shared addon utilities
+Generated projects include `AGENTS.md`, `.svforge.json`, `llms.txt`, and a component catalog/checker so developers and agents can discover existing conventions and reuse components instead of inventing parallel UI patterns.
+
+```bash
+npx svforge check
+npx svforge context
+npx svforge upgrade base --dry-run
 ```
+
+`svforge check` validates project/design-system conventions. `svforge context` refreshes managed project context, while `svforge upgrade` previews or applies changes to SVForge-owned recipes and reports conflicts with user edits. Use the official `sv migrate` for SvelteKit framework migrations.
+
+Read the [CLI and project guide](packages/svforge/README.md#project-context-and-checks) for the full behavior and options.
+
+## Contributing
+
+SVForge is a Bun workspace containing the CLI, templates, and independently packaged addons. To work on the repository:
 
 ```bash
 bun install
@@ -72,12 +111,12 @@ bun run lint
 bun run typecheck
 ```
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the short development workflow and [`docs/RELEASE.md`](docs/RELEASE.md) for the sole release and versioning procedure.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for branches, PRs, and checks, and [the upstream ownership guide](packages/svforge/docs/structural-duplication.md) for decisions about official Svelte integrations. Release and versioning procedures are maintained in [docs/RELEASE.md](docs/RELEASE.md).
 
 ## Security
 
-Do not report vulnerabilities in public issues. Use [GitHub Security Advisories](https://github.com/lelabdev/svforge/security/advisories/new); see [`SECURITY.md`](SECURITY.md) for response targets and reporting guidance.
+Report vulnerabilities privately through [GitHub Security Advisories](https://github.com/lelabdev/svforge/security/advisories/new), not public issues. See [SECURITY.md](SECURITY.md).
 
 ## License
 
-MIT
+[MIT](LICENSE)
