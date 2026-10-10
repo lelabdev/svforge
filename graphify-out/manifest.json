@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "d5ca2299ad2acf5d1ca682b42576f21c",
+    "ast_hash": "d1bbf8be6de3ee3b8eb1ac82b0ccd33a",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -516,11 +516,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/messages/en.json": {
-    "ast_hash": "494a0026e2e26d0cbe9c621e3b4953f1",
+    "ast_hash": "76531beddb0d2b31efa1305583b0ad3a",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/messages/fr.json": {
-    "ast_hash": "d22853463130c1e5da061d404a971fb2",
+    "ast_hash": "41d0d77dd2e51d20d3d65c821f79a0aa",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/project.inlang/settings.json": {
@@ -668,7 +668,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/routes/demo-ui/+page.svelte": {
-    "ast_hash": "d52b347d2f10f3fb9d2c6778097bbcd9",
+    "ast_hash": "7720731977d7e9c3a2df964353e49dde",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/routes/favicon.ico/+server.ts": {
@@ -1813,6 +1813,10 @@
   },
   "packages/svforge/templates/dashboard/src/routes/+layout.ts": {
     "ast_hash": "6e15e9a95531776b19c56923017039a4",
+    "semantic_hash": ""
+  },
+  "tests/template-i18n-ownership.test.ts": {
+    "ast_hash": "cd6baf605944be1e863fc1a1104bcfd9",
     "semantic_hash": ""
   }
 }
