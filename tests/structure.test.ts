@@ -41,6 +41,7 @@ describe('monorepo structure', () => {
 		const layoutNames = layout.filter((f) => f.endsWith('.svelte')).sort();
 		expect(layoutNames).toContain('Navbar.svelte');
 		expect(layoutNames).toContain('Footer.svelte');
+		expect(layoutNames).toContain('AuthLayout.svelte');
 
 		// No primitives may leak into ui/ (kept in sync with the split)
 		for (const name of ['Button.svelte', 'Input.svelte', 'Select.svelte', 'Badge.svelte']) {

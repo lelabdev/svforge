@@ -133,7 +133,7 @@
 {#snippet spinner()}
 	<span
 		aria-hidden="true"
-		class="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+		class="mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none"
 	></span>
 	<span class="sr-only">{loadingLabel}</span>
 {/snippet}

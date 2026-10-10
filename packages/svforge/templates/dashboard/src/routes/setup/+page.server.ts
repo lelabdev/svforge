@@ -35,14 +35,20 @@ export const actions: Actions = {
 		}
 
 		const formData = await request.formData();
+		const submittedName = formData.get('name');
+		const submittedEmail = formData.get('email');
+		const preservedFields = {
+			name: typeof submittedName === 'string' ? submittedName : '',
+			email: typeof submittedEmail === 'string' ? submittedEmail : ''
+		};
 		const parsed = setupSchema.safeParse({
-			name: formData.get('name'),
-			email: formData.get('email'),
+			name: submittedName,
+			email: submittedEmail,
 			password: formData.get('password')
 		});
 
 		if (!parsed.success) {
-			return fail(400, { error: parsed.error.issues[0]?.message ?? 'Invalid input' });
+			return fail(400, { code: 'invalid_input', ...preservedFields });
 		}
 
 		const { name, email, password } = parsed.data;
@@ -53,10 +59,10 @@ export const actions: Actions = {
 			await bootstrapFirstAdmin(db, { name, email, password });
 		} catch (error) {
 			if (error instanceof AdminExistsError) {
-				return fail(400, { error: 'An administrator already exists' });
+				return fail(400, { code: 'admin_exists', ...preservedFields });
 			}
-			// Generic message — never leak e.message internals to the UI (#188).
-			return fail(400, { error: 'Failed to create admin' });
+			// Generic response — never leak e.message internals to the UI (#188).
+			return fail(400, { code: 'create_failed', ...preservedFields });
 		}
 
 		throw redirect(302, '/login');

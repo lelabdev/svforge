@@ -879,7 +879,7 @@ if [ "$TEMPLATE" = "dashboard-playwright" ] && [ "${CI:-}" = "true" ]; then
 	else
 		bunx playwright install chromium
 	fi
-	bunx playwright test e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium
+	bunx playwright test e2e/auth.test.ts e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium
 	# #540 — test actual computed text/focus contrast on dashboard and blog routes.
 	cp "$REPO_ROOT/scripts/ui-browser-contrast.test.mjs" e2e/ui-browser-contrast.test.mjs
 	bunx playwright test e2e/ui-browser-contrast.test.mjs --project=chromium
