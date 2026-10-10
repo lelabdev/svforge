@@ -4,7 +4,9 @@
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { Users, Gear, ChartBar, SignOut, Menu, X } from '$lib/icons';
+	import { Button } from '$lib/components/svforge/primitives';
 	import ThemeToggle from '$lib/components/svforge/ui/ThemeToggle.svelte';
+	import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
 	type NavItem = { href: string; label: string; icon: typeof ChartBar };
 
@@ -35,7 +37,7 @@
 
 	function navClass(href: string) {
 		return cn(
-			'flex items-center gap-3 rounded-container px-3 py-2 transition-colors',
+			'flex min-h-11 items-center gap-3 rounded-container px-3 py-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700-300',
 			currentPath === href
 				? 'bg-primary-100-900 text-primary-950-50'
 				: 'text-surface-700-300 hover:bg-surface-100-900'
@@ -43,6 +45,12 @@
 	}
 </script>
 
+<Dialog
+	open={mobileOpen}
+	onOpenChange={(details) => (mobileOpen = details.open)}
+	closeOnInteractOutside={true}
+	restoreFocus={true}
+>
 <div class={cn('flex min-h-screen', className)}>
 	<!-- Desktop Sidebar -->
 	<aside class="hidden flex-col border-r border-surface-200-800 bg-surface-50-950 transition-all lg:flex {collapsed ? 'w-16' : 'w-56'}">
@@ -50,14 +58,17 @@
 			{#if !collapsed}
 				<a href="/admin" class="text-lg font-bold text-primary-900-100">{m.layout_admin()}</a>
 			{/if}
-			<button
-				class="btn p-1 preset-tonal-surface"
+			<Button
+				type="button"
+				variant="tonal"
+				color="surface"
+				class="size-11 p-0"
 				onclick={() => (collapsed = !collapsed)}
 				aria-label={m.layout_toggle_sidebar()}
 				aria-expanded={!collapsed}
 			>
 				<Menu size={18} />
-			</button>
+			</Button>
 		</div>
 
 		<nav class="flex-1 space-y-1 p-2" aria-label={m.layout_menu()}>
@@ -84,9 +95,13 @@
 		<!-- Top bar -->
 		<header class="sticky top-0 z-50 flex items-center justify-between border-b border-surface-200-800 bg-surface-50-950/80 px-4 py-3 backdrop-blur-md">
 			<div class="flex items-center gap-3">
-				<button class="btn p-2 preset-tonal-surface lg:hidden" onclick={() => (mobileOpen = !mobileOpen)} aria-label={m.layout_menu()} aria-expanded={mobileOpen}>
-					{#if mobileOpen}<X size={20} />{:else}<Menu size={20} />{/if}
-				</button>
+				<Dialog.Trigger
+					class="btn-icon size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300 lg:hidden"
+					aria-label={m.layout_menu()}
+					data-testid="admin-mobile-menu-trigger"
+				>
+					<Menu size={20} />
+				</Dialog.Trigger>
 				<h1 class="text-lg font-bold">{m.layout_admin()}</h1>
 			</div>
 			<div class="flex items-center gap-3">
@@ -94,41 +109,60 @@
 				{#if user}
 					<span class="hidden text-sm text-surface-700-300 sm:block">{user.name}</span>
 					{#if onSignOut}
-						<button class="btn p-2 preset-tonal-surface" onclick={onSignOut} aria-label={m.layout_sign_out()}>
+						<Button
+							type="button"
+							variant="tonal"
+							color="surface"
+							class="size-11 p-0"
+							onclick={onSignOut}
+							aria-label={m.layout_sign_out()}
+						>
 							<SignOut size={18} />
-						</button>
+						</Button>
 					{/if}
 				{/if}
 			</div>
 		</header>
 
-		<!-- Mobile sidebar overlay -->
-		{#if mobileOpen}
-			<button
-				type="button"
-				aria-label={m.layout_close_menu()}
-				class="fixed inset-0 z-40 w-full cursor-default bg-black/50 lg:hidden"
-				onclick={() => (mobileOpen = false)}
-			></button>
-			<aside class="fixed left-0 top-0 z-50 h-full w-56 space-y-1 border-r border-surface-200-800 bg-surface-50-950 p-3 shadow-xl lg:hidden" aria-label={m.layout_menu()}>
-				{#each items as item (item.href)}
-					{@const Icon = item.icon}
-					<a
-						href={item.href}
-						class={navClass(item.href)}
-						aria-current={currentPath === item.href ? 'page' : undefined}
-						onclick={() => (mobileOpen = false)}
-					>
-						<Icon size={20} />
-						<span class="text-sm font-medium">{item.label}</span>
-					</a>
-				{/each}
-			</aside>
-		{/if}
 
 		<!-- Content -->
-		<main class="flex-1 overflow-auto p-6">
+		<main class="flex-1 overflow-auto p-4 sm:p-6">
 			{@render children()}
 		</main>
 	</div>
 </div>
+	<Portal>
+		<Dialog.Backdrop class="fixed inset-0 z-50 bg-surface-50-950/50 lg:hidden" />
+		<Dialog.Positioner class="fixed inset-0 z-50 flex justify-start lg:hidden">
+			<Dialog.Content
+				class="card preset-filled-surface-50-950 flex h-dvh w-72 max-w-[calc(100vw-1rem)] flex-col border-r border-surface-200-800 p-3 shadow-xl"
+				data-testid="admin-mobile-drawer"
+			>
+				<header class="mb-3 flex items-center justify-between border-b border-surface-200-800 pb-3">
+					<Dialog.Title class="h3">{m.layout_admin()}</Dialog.Title>
+					<Dialog.CloseTrigger
+						type="button"
+						class="btn-icon size-11 hover:preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300"
+						aria-label={m.layout_close_menu()}
+					>
+						<X size={20} />
+					</Dialog.CloseTrigger>
+				</header>
+				<nav class="flex-1 space-y-1" aria-label={m.layout_menu()}>
+					{#each items as item (item.href)}
+						{@const Icon = item.icon}
+						<a
+							href={item.href}
+							class={navClass(item.href)}
+							aria-current={currentPath === item.href ? 'page' : undefined}
+							onclick={() => (mobileOpen = false)}
+						>
+							<Icon size={20} />
+							<span class="text-sm font-medium">{item.label}</span>
+						</a>
+					{/each}
+				</nav>
+			</Dialog.Content>
+		</Dialog.Positioner>
+	</Portal>
+</Dialog>

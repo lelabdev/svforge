@@ -2,6 +2,7 @@
 	import { cn } from '$lib/utils/cn';
 	import * as m from '$lib/paraglide/messages.js';
 	import { Check, Warning, X } from '$lib/icons';
+	import { Button } from '$lib/components/svforge/primitives';
 
 	interface Props {
 		type: 'success' | 'error';
@@ -22,7 +23,14 @@
 		{#if type === 'success'}<Check size={18} />{:else}<Warning size={18} />{/if}
 		<span class="text-sm">{message}</span>
 		{#if ondismiss}
-			<button class="ml-auto" onclick={ondismiss} aria-label={m.common_dismiss()}><X size={14} /></button>
+			<Button
+				type="button"
+				variant="ghost"
+				color="surface"
+				class="ml-auto size-11 shrink-0 p-0"
+				onclick={ondismiss}
+				aria-label={m.common_dismiss()}
+			><X size={18} /></Button>
 		{/if}
 	</div>
 {/if}

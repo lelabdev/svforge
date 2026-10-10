@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
-	import { Badge } from '$lib/components/svforge/primitives';
+	import { Badge, Button } from '$lib/components/svforge/primitives';
 	import { Bell } from '$lib/icons';
 	import { Popover, Portal } from '@skeletonlabs/skeleton-svelte';
 
@@ -30,7 +30,10 @@
 	closeOnInteractOutside={true}
 	restoreFocus={true}
 >
-	<Popover.Trigger class="btn preset-tonal-surface p-2 relative" aria-label={m.notif_bell()}>
+	<Popover.Trigger
+		class="btn-icon relative size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300"
+		aria-label={m.notif_bell()}
+	>
 		<Bell size={20} />
 		{#if unreadCount > 0}
 			<Badge class="absolute -top-1 -right-1">{unreadCount}</Badge>
@@ -38,12 +41,17 @@
 	</Popover.Trigger>
 	<Portal>
 		<Popover.Positioner>
-			<Popover.Content class="w-80 max-h-96 overflow-auto rounded-container border border-surface-200-800 bg-surface-50-950 shadow-lg z-50">
+			<Popover.Content class="z-50 max-h-96 w-80 max-w-[calc(100vw-2rem)] overflow-auto rounded-container border border-surface-200-800 bg-surface-50-950 shadow-lg">
 				<div class="flex items-center justify-between px-4 py-3 border-b border-surface-200-800">
-					<Popover.Title class="font-bold text-sm">{m.notif_title()}</Popover.Title>
-					<button type="button" class="text-xs text-primary-900-100 hover:underline" onclick={markAll}>
-						{m.notif_mark_all()}
-					</button>
+					<Popover.Title class="text-base font-semibold">{m.notif_title()}</Popover.Title>
+					<Button
+						type="button"
+						variant="ghost"
+						color="primary"
+						size="sm"
+						class="min-h-11 px-3"
+						onclick={markAll}
+					>{m.notif_mark_all()}</Button>
 				</div>
 
 				{#if items.length === 0}

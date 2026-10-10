@@ -36,4 +36,40 @@ test.describe('dashboard navigation (authenticated)', () => {
 		await page.goto('/admin/settings');
 		await expect(page.locator('h2, h3')).toContainText(/settings/i);
 	});
+
+	test('mobile navigation traps focus, closes on Escape, and restores the trigger', async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto('/admin');
+
+		const trigger = page.getByTestId('admin-mobile-menu-trigger');
+		await expect(trigger).toBeVisible();
+		const triggerBox = await trigger.boundingBox();
+		expect(triggerBox?.width).toBeGreaterThanOrEqual(44);
+		expect(triggerBox?.height).toBeGreaterThanOrEqual(44);
+		await trigger.click();
+
+		const drawer = page.getByRole('dialog');
+		await expect(drawer).toBeVisible();
+		await expect(drawer).toHaveAttribute('aria-modal', 'true');
+		expect(await drawer.evaluate((element) => element.contains(document.activeElement))).toBe(true);
+		await page.keyboard.press('Shift+Tab');
+		expect(await drawer.evaluate((element) => element.contains(document.activeElement))).toBe(true);
+
+		await page.keyboard.press('Escape');
+		await expect(drawer).toBeHidden();
+		await expect(trigger).toBeFocused();
+	});
+
+	test('mobile navigation closes after selecting a route', async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto('/admin');
+		const trigger = page.getByTestId('admin-mobile-menu-trigger');
+		await trigger.click();
+		const drawer = page.getByRole('dialog');
+		await expect(drawer).toBeVisible();
+
+		await drawer.locator('a[href="/admin/users"]').click();
+		await expect(page).toHaveURL(/\/admin\/users$/);
+		await expect(drawer).toBeHidden();
+	});
 });

@@ -14,6 +14,7 @@ import { baseFiles, baseRootFiles } from '../packages/svforge/src/templates';
 const generatedDir = join(process.cwd(), 'tests/__gen__');
 const compiledSeo = join(generatedDir, 'Seo.web-hardening.compiled.js');
 const compiledThemeToggle = join(generatedDir, 'ThemeToggle.web-hardening.compiled.js');
+const compiledButton = join(generatedDir, 'Button.web-hardening.compiled.js');
 const scaffoldFile = (path: string) => baseFiles[path as keyof typeof baseFiles];
 const scaffoldRootFile = (path: string) => baseRootFiles[path as keyof typeof baseRootFiles];
 
@@ -47,8 +48,12 @@ beforeAll(async () => {
 	writeFileSync(compiledSeo, compile(seoSource, { generate: 'server', filename: 'Seo.svelte' }).js.code);
 	Seo = (await import(/* @vite-ignore */ compiledSeo)).default;
 
+	const buttonSource = `<script lang="ts">let { children, ...rest } = $props();</script><button {...rest}>{@render children?.()}</button>`;
+	writeFileSync(compiledButton, compile(buttonSource, { generate: 'client', filename: 'Button.svelte' }).js.code);
+
 	const themeToggleSource = scaffoldFile('/lib/components/svforge/ui/ThemeToggle.svelte')
 		.replace("import * as m from '$lib/paraglide/messages.js';", "const m = { common_toggle_theme: () => 'Toggle theme' };")
+		.replace("import { Button } from '$lib/components/svforge/primitives';", "import Button from './Button.web-hardening.compiled.js';")
 		.replace("import { Sun, Moon } from '$lib/icons';", 'const Sun = () => null; const Moon = () => null;')
 		.replace("from '$lib/utils/theme'", "from './theme.web-hardening.ts'")
 		.replace(/\{#if isDark\}[\s\S]*?\{\/if\}/, '<span>{isDark ? \'dark\' : \'light\'}</span>');

@@ -20,6 +20,10 @@ test.describe('admin users Skeleton Dialog', () => {
 		await expect(dialog).toHaveAttribute('aria-modal', 'true');
 		await expect(dialog).toHaveClass(/preset-filled-surface-50-950/);
 		await expect(dialog.locator('form')).toHaveAttribute('method', 'POST');
+		const close = page.getByTestId('users-dialog-close');
+		const closeBox = await close.boundingBox();
+		expect(closeBox?.width).toBeGreaterThanOrEqual(44);
+		expect(closeBox?.height).toBeGreaterThanOrEqual(44);
 		const titleId = await dialog.getAttribute('aria-labelledby');
 		expect(titleId).toBeTruthy();
 		await expect(page.locator(`[id="${titleId}"]`)).toBeVisible();
@@ -36,6 +40,20 @@ test.describe('admin users Skeleton Dialog', () => {
 		await page.keyboard.press('Escape');
 		await expect(dialog).toBeHidden();
 		await expect(addUser).toBeFocused();
+	});
+
+	test('search and icon actions have accessible names and touch-sized targets', async ({ page }) => {
+		const search = page.getByTestId('users-search');
+		expect(await search.evaluate((input: HTMLInputElement) => input.labels?.length)).toBe(1);
+		const searchBox = await search.boundingBox();
+		expect(searchBox?.height).toBeGreaterThanOrEqual(44);
+
+		for (const action of [page.getByTestId('users-edit').first(), page.getByTestId('users-status').first()]) {
+			await expect(action).toHaveAttribute('aria-label', /.+/);
+			const box = await action.boundingBox();
+			expect(box?.width).toBeGreaterThanOrEqual(44);
+			expect(box?.height).toBeGreaterThanOrEqual(44);
+		}
 	});
 
 	test('outside interaction does not discard an open form', async ({ page }) => {
