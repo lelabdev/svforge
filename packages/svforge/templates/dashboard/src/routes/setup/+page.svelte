@@ -5,8 +5,7 @@
 	import AuthLayout from '$lib/components/svforge/layout/AuthLayout.svelte';
 	import { Feedback } from '$lib/components/svforge/ui';
 	import { Button, Input } from '$lib/components/svforge/primitives';
-	import Eye from 'phosphor-svelte/lib/Eye';
-	import EyeSlash from 'phosphor-svelte/lib/EyeSlash';
+	import { Eye, EyeSlash } from '$lib/icons';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();

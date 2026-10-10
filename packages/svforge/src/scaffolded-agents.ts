@@ -212,7 +212,7 @@ Components wrap Skeleton classes + Tailwind only — never raw CSS
 - \`cn()\` + \`class\` prop on every component (merge/override)
 - \`HTMLAttributes<T>\` from \`svelte/elements\` for native attribute extension
 - \`$bindable()\` declared in the Props interface
-- Phosphor icons: \`import X from 'phosphor-svelte/lib/IconName'\`
+- Phosphor icons: import from \`$lib/icons\`; keep deep \`phosphor-svelte/lib/*\` imports inside \`src/lib/icons/\` definition modules only
 
 ## Theme
 

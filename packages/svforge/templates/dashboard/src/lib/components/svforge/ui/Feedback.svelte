@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
 	import * as m from '$lib/paraglide/messages.js';
-	import Check from 'phosphor-svelte/lib/Check';
-	import Warning from 'phosphor-svelte/lib/Warning';
-	import X from 'phosphor-svelte/lib/X';
+	import { Check, Warning, X } from '$lib/icons';
 
 	interface Props {
 		type: 'success' | 'error';

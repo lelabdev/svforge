@@ -3,7 +3,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { Card, AvatarInitial, Feedback } from '$lib/components/svforge/ui';
 	import { Button, Input } from '$lib/components/svforge/primitives';
-	import Lock from 'phosphor-svelte/lib/Lock';
+	import { Lock } from '$lib/icons';
 	import type { ActionData } from './$types';
 
 	let { data, form }: { data: { user: { id: string; name: string; email: string } | null }, form: ActionData } = $props();

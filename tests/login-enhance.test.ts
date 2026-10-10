@@ -68,6 +68,10 @@ beforeAll(async () => {
 		`export { default } from './login-harness-empty.js';`
 	);
 	writeFileSync(
+		join(GEN, 'login-harness-icons.js'),
+		`export { default as Eye, default as EyeSlash } from './login-harness-icon.js';`
+	);
+	writeFileSync(
 		join(GEN, 'login-harness-messages.js'),
 		`export const login_title = () => 'Sign in';
 export const login_welcome_back = () => 'Welcome back';
@@ -117,6 +121,7 @@ export function goto(url) {
 		)
 		.replace("from 'phosphor-svelte/lib/Eye'", "from './login-harness-icon.js'")
 		.replace("from 'phosphor-svelte/lib/EyeSlash'", "from './login-harness-icon.js'")
+		.replace("from '$lib/icons'", "from './login-harness-icons.js'")
 		.replace("from '$lib/utils/web'", "from './login-harness-web'");
 	writeFileSync(
 		join(GEN, 'login-harness-page.js'),

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { Badge } from '$lib/components/svforge/primitives';
-	import Bell from 'phosphor-svelte/lib/Bell';
+	import { Bell } from '$lib/icons';
 	import { Popover, Portal } from '@skeletonlabs/skeleton-svelte';
 
 	interface NotificationItem {

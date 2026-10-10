@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
-	import SquaresFour from 'phosphor-svelte/lib/SquaresFour';
+	import { SquaresFour } from '$lib/icons';
 
 	interface Props {
 		brandName?: string;

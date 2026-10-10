@@ -3,12 +3,7 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import Users from 'phosphor-svelte/lib/Users';
-	import Gear from 'phosphor-svelte/lib/Gear';
-	import ChartBar from 'phosphor-svelte/lib/ChartBar';
-	import SignOut from 'phosphor-svelte/lib/SignOut';
-	import Menu from 'phosphor-svelte/lib/List';
-	import X from 'phosphor-svelte/lib/X';
+	import { Users, Gear, ChartBar, SignOut, Menu, X } from '$lib/icons';
 	import ThemeToggle from '$lib/components/svforge/ui/ThemeToggle.svelte';
 
 	type NavItem = { href: string; label: string; icon: typeof ChartBar };

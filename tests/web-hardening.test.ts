@@ -49,8 +49,7 @@ beforeAll(async () => {
 
 	const themeToggleSource = scaffoldFile('/lib/components/svforge/ui/ThemeToggle.svelte')
 		.replace("import * as m from '$lib/paraglide/messages.js';", "const m = { common_toggle_theme: () => 'Toggle theme' };")
-		.replace("import Sun from 'phosphor-svelte/lib/Sun';\n", '')
-		.replace("import Moon from 'phosphor-svelte/lib/Moon';\n", '')
+		.replace("import { Sun, Moon } from '$lib/icons';", 'const Sun = () => null; const Moon = () => null;')
 		.replace("from '$lib/utils/theme'", "from './theme.web-hardening.ts'")
 		.replace(/\{#if isDark\}[\s\S]*?\{\/if\}/, '<span>{isDark ? \'dark\' : \'light\'}</span>');
 	writeFileSync(join(generatedDir, 'theme.web-hardening.ts'), scaffoldFile('/lib/utils/theme.ts'));

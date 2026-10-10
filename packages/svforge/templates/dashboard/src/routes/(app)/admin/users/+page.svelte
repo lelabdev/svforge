@@ -7,11 +7,7 @@
 	import { AvatarInitial, Feedback, Table } from '$lib/components/svforge/ui';
 	import { Badge } from '$lib/components/svforge/primitives';
 	import { Button, Input } from '$lib/components/svforge/primitives';
-	import UserPlus from 'phosphor-svelte/lib/UserPlus';
-	import EnvelopeSimple from 'phosphor-svelte/lib/EnvelopeSimple';
-	import Power from 'phosphor-svelte/lib/Power';
-	import Pencil from 'phosphor-svelte/lib/Pencil';
-	import X from 'phosphor-svelte/lib/X';
+	import { UserPlus, EnvelopeSimple, Power, Pencil, X } from '$lib/icons';
 	import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
 	let { data }: { data: PageData } = $props();

@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { MODULE_CONTRACTS } from '../packages/addon-kit/src/index';
 import { MODULE_CAPABILITIES } from '../packages/svforge/src/ai-context';
@@ -114,6 +114,40 @@ describe('multi-addon composition in one sv add invocation', () => {
 		for (const key of ['audit_title', 'notif_title', 'uploads_uploading']) {
 			expect(Object.keys(frAfter).filter((k) => k === key)).toHaveLength(1);
 		}
+	});
+
+	it('notifications adds its icon module to the public barrel idempotently without replacing existing exports', async () => {
+		const { dir, cleanup: done } = tempProject('sf-notification-icons-');
+		cleanup = done;
+		createDashboardProject(dir);
+		const iconsDir = join(dir, 'src/lib/icons');
+		mkdirSync(iconsDir, { recursive: true });
+		writeFileSync(join(iconsDir, 'core.ts'), 'export const CoreIcon = true;\n');
+		writeFileSync(
+			join(iconsDir, 'index.ts'),
+			"export * from './core';\nexport { CustomIcon } from './custom';\n"
+		);
+
+		const first = await runAddons(dir, ['notifications']);
+		expect(first.cancelled).toEqual([]);
+		const indexPath = join(iconsDir, 'index.ts');
+		const firstIndex = readFileSync(indexPath, 'utf8');
+		expect(firstIndex).toContain("export * from './core';");
+		expect(firstIndex).toContain("export { CustomIcon } from './custom';");
+		expect(firstIndex.match(/^export \* from '\.\/notifications';$/gm)).toHaveLength(1);
+		expect(readFileSync(join(iconsDir, 'notifications.ts'), 'utf8')).toContain(
+			"export { default as Bell } from 'phosphor-svelte/lib/Bell';"
+		);
+		expect(
+			readFileSync(join(dir, 'src/lib/components/svforge/ui/NotificationsBell.svelte'), 'utf8')
+		).toContain("import { Bell } from '$lib/icons'");
+
+		const second = await runAddons(dir, ['audit', 'notifications', 'uploads']);
+		expect(second.cancelled).toEqual([]);
+		const secondIndex = readFileSync(indexPath, 'utf8');
+		expect(secondIndex.match(/^export \* from '\.\/notifications';$/gm)).toHaveLength(1);
+		expect(secondIndex).toContain("export * from './core';");
+		expect(secondIndex).toContain("export { CustomIcon } from './custom';");
 	});
 
 	it('uploads then tiptap compose with NOTHING lost: manifest, fr/en catalogs, llms.txt and scaffold catalog files all survive', async () => {

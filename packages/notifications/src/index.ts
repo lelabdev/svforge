@@ -60,6 +60,15 @@ export default defineAddon({
 			sv.file(`src${path}`, () => content);
 		}
 
+		// Extend the public icon barrel without replacing base or user exports.
+		const notificationsIconExport = "export * from './notifications';";
+		sv.file('src/lib/icons/index.ts', (content) => {
+			if (content.split(/\r?\n/).some((line) => line.trim() === notificationsIconExport)) return content;
+			const newline = content.includes('\r\n') ? '\r\n' : '\n';
+			const separator = content.length > 0 && !content.endsWith('\n') ? newline : '';
+			return `${content}${separator}${notificationsIconExport}${newline}`;
+		});
+
 		// Register the schema in the Drizzle barrel (#331: named marker, not a
 		// loose includes() that a consumer comment could false-match).
 		sv.file('src/lib/server/db/schema.ts', (content) => {
