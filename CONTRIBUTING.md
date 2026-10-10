@@ -35,6 +35,12 @@ Edit source templates under `packages/*/templates/`, never generated `src/templa
 
 Search for and reuse an existing documentation source before writing one. Add a document only for a necessary responsibility that must be maintained independently. Release and versioning steps are maintained only in [`docs/RELEASE.md`](docs/RELEASE.md).
 
+## Svelte upstream first
+
+Before adding or expanding a generic SvelteKit foundation, check the **published** official `sv add` addons for the supported `sv` version. Prefer `sv create`, official `sv add`, and `sv migrate` for their respective contracts; keep SVForge focused on its product overlays and its own upgrade recipes. Do not infer composability from matching filenames or upstream `main`.
+
+For a proposed foundation, verify the real generated output in a disposable project: exact CLI/package version, options, config and dependency changes, both relevant application orders, package-manager scripts, and the tests/build that exercise the behavior. Delegate only the portion that meets the existing product contract. Record why any overlap stays local, especially for FR/EN i18n and server-side auth/admin policy. The [`upstream ownership and structural reuse matrix`](packages/svforge/docs/structural-duplication.md) records current source paths, proven overwrite/order risks, and follow-up candidates. Keep #547 (Better Auth/Drizzle implementation) and #549 (npm publication) scoped to their existing issues.
+
 ## Release and security
 
 Do not publish packages as part of an ordinary change. Follow [`docs/RELEASE.md`](docs/RELEASE.md) for versioning and publication. Report vulnerabilities privately according to [`SECURITY.md`](SECURITY.md).

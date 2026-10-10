@@ -12,6 +12,13 @@ SvelteForge est un boilerplate de démarrage, pas une bibliothèque de composant
 - Le CSS global du scaffold est câblé dans `src/routes/layout.css`; le thème Skeleton complet est dans `src/lib/styles/svelteforge-theme.css`. N’ajoute pas de couche générique de tokens/styles sans besoin répété non couvert par Skeleton/Tailwind.
 - Svelte 5 runes uniquement; pas de patterns Svelte 4 (`on:click`, `<slot>`, `$app/stores`).
 
+## Propriété de l'écosystème Svelte
+
+- `sv create` possède le bootstrap SvelteKit, les addons `sv add` officiels les intégrations génériques lorsqu'ils satisfont le contrat et se composent réellement, et `sv migrate` les migrations Svelte/Kit. N'ajoute pas de générateur SvelteKit parallèle.
+- SVForge possède ses overlays spécifiques : Skeleton, FR/EN et contexte projet, politique d'auth/admin, modules `@svforge/*`, checker et upgrade de ses propres recipes. Ne délègue jamais une frontière de sécurité à une simple page UI.
+- Avant une fondation générique, vérifie l'addon publié dans la version de `sv` supportée et teste les fichiers générés et les transformations dans le bon ordre. « Official first » ne signifie pas superposer aveuglément deux addons qui écrivent les mêmes fichiers.
+- La matrice d'ownership, les chevauchements prouvés et la procédure de contribution vérifiable sont dans [`packages/svforge/docs/structural-duplication.md`](packages/svforge/docs/structural-duplication.md). Ne duplique pas les chantiers auth/DB de #547 ni release npm de #549.
+
 ## Templates et artefacts générés
 
 Les sources scaffoldées vivent sous `packages/*/templates/`. Le prebuild n’embarque que `templates/*/src/**` et `templates/*/root/**`; les fichiers ailleurs dans un template ne sont pas livrés. Après toute modification de template, exécute le prebuild/build du package pour régénérer les artefacts versionnés. Ne modifie jamais à la main les fichiers marqués AUTO-GENERATED, notamment `packages/*/src/templates.ts`.

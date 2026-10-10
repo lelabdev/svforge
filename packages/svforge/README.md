@@ -108,7 +108,7 @@ npx svforge ui prefer @acme/ui
 
 Copy-in roots must be narrow directories under `src/lib/components/<library>`. Registration keeps project metadata and checker exemptions scoped to that library; unregistered project code remains checked.
 
-Generated projects use `eslint-plugin-tailwindcss` to reject unknown static Tailwind classes. The separate `svforge-check.mjs` handles SVForge design-system rules and arbitrary spacing/radius guidance (WARN by default, blocking with `--strict`). Registered copy-in component roots receive scoped exemptions. See [structural duplication](docs/structural-duplication.md) for the opt-in WARN-only copied-component detector.
+Generated projects use `eslint-plugin-tailwindcss` to reject unknown static Tailwind classes. The separate `svforge-check.mjs` handles SVForge design-system rules and arbitrary spacing/radius guidance (WARN by default, blocking with `--strict`). Registered copy-in component roots receive scoped exemptions. See [upstream ownership and structural reuse](docs/structural-duplication.md) for the addon boundary, audited overlaps, and opt-in WARN-only copied-component detector.
 
 ## Upgrade
 
