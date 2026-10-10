@@ -115,7 +115,7 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 		expect(jobBlock(ci, 'main-smoke')).not.toContain('SF_UI_BROWSER_SMOKE');
 		expect(jobBlock(publish, 'scaffolds')).toContain("SF_UI_BROWSER_SMOKE: ${{ matrix.scaffold == 'base' }}");
 		expect(scaffoldScript).toContain('if [ "$TEMPLATE" = "dashboard-playwright" ] && [ "${CI:-}" = "true" ]; then');
-		expect(scaffoldScript).toContain('bunx playwright test e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium');
+		expect(scaffoldScript).toContain('bunx playwright test e2e/auth.test.ts e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium');
 		expect(scaffoldScript).toContain('file:$REPO_ROOT/packages/blog');
 		expect(scaffoldScript).toContain('cp "$REPO_ROOT/scripts/ui-browser-contrast.test.mjs" e2e/ui-browser-contrast.test.mjs');
 		expect(scaffoldScript).toContain('bunx playwright test e2e/ui-browser-contrast.test.mjs --project=chromium');

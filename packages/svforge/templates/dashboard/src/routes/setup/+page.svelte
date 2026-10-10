@@ -1,44 +1,104 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { Card } from '$lib/components/svforge/ui';
-	import { Button, Input } from '$lib/components/svforge/primitives';
-	import ThemeToggle from '$lib/components/svforge/ui/ThemeToggle.svelte';
 	import { enhance } from '$app/forms';
+	import AuthLayout from '$lib/components/svforge/layout/AuthLayout.svelte';
+	import { Feedback } from '$lib/components/svforge/ui';
+	import { Button, Input } from '$lib/components/svforge/primitives';
+	import Eye from 'phosphor-svelte/lib/Eye';
+	import EyeSlash from 'phosphor-svelte/lib/EyeSlash';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
+	let name = $state(untrack(() => form?.name ?? ''));
+	let email = $state(untrack(() => form?.email ?? ''));
+	let password = $state('');
+	let passwordVisible = $state(false);
+	let loading = $state(false);
+
+	function setupError(code: string | undefined) {
+		switch (code) {
+			case 'invalid_input':
+				return m.setup_error_invalid_input();
+			case 'admin_exists':
+				return m.setup_error_admin_exists();
+			case 'create_failed':
+				return m.setup_error_create_failed();
+			default:
+				return m.common_error();
+		}
+	}
 </script>
 
 <svelte:head>
 	<title>{m.setup_title()}</title>
 </svelte:head>
 
-<main class="flex min-h-screen items-center justify-center p-4">
-	<div class="w-full max-w-sm space-y-6">
-		<div class="space-y-2 text-center">
-			<h1 class="h1">{m.setup_create_admin()}</h1>
-			<p class="text-sm text-surface-700-300">{m.setup_hint()}</p>
+<AuthLayout title={m.setup_create_admin()} description={m.setup_hint()}>
+	{#if form?.code}
+		<Feedback type="error" message={setupError(form.code)} class="mb-6" />
+	{/if}
+
+	<form
+		method="POST"
+		class="space-y-5"
+		use:enhance={() => {
+			loading = true;
+			return async ({ update }) => {
+				try {
+					await update({ reset: false });
+				} finally {
+					loading = false;
+				}
+			};
+		}}
+	>
+		<Input
+			name="name"
+			label={m.users_label_name()}
+			autocomplete="name"
+			bind:value={name}
+			placeholder={m.users_placeholder_name()}
+			required
+		/>
+		<Input
+			name="email"
+			label={m.login_label_email()}
+			type="email"
+			autocomplete="email"
+			bind:value={email}
+			placeholder={m.users_placeholder_email()}
+			required
+		/>
+		<Input
+			name="password"
+			label={m.login_label_password()}
+			type={passwordVisible ? 'text' : 'password'}
+			autocomplete="new-password"
+			bind:value={password}
+			placeholder={m.common_min_chars()}
+			required
+		>
+			{#snippet trailing()}
+				<button
+					type="button"
+					class="btn btn-sm p-2 focus-visible:ring-2 focus-visible:ring-primary-700-300"
+					aria-label={passwordVisible ? m.common_hide_password() : m.common_show_password()}
+					aria-pressed={passwordVisible}
+					onclick={() => (passwordVisible = !passwordVisible)}
+				>
+					{#if passwordVisible}<EyeSlash size={18} />{:else}<Eye size={18} />{/if}
+				</button>
+			{/snippet}
+		</Input>
+		<div class="pt-2">
+			<Button type="submit" class="min-h-11 w-full" loading={loading} loadingLabel={m.common_loading()}>
+				{loading ? m.common_loading() : m.setup_submit()}
+			</Button>
 		</div>
+	</form>
 
-		<Card>
-			<form method="POST" class="space-y-4" use:enhance>
-				{#if form?.error}
-					<p class="text-sm text-error-700-300">{form.error}</p>
-				{/if}
-
-				<Input name="name" label={m.users_label_name()} placeholder={m.users_placeholder_name()} required />
-				<Input name="email" label={m.login_label_email()} type="email" placeholder={m.users_placeholder_email()} required />
-				<Input name="password" label={m.login_label_password()} type="password" placeholder={m.common_min_chars()} required />
-				<Button type="submit" class="w-full">{m.setup_submit()}</Button>
-			</form>
-		</Card>
-
-		<div class="flex justify-center">
-			<ThemeToggle />
-		</div>
-
-		<p class="text-center text-xs text-surface-700-300">
-			{m.setup_dev_only()}
-		</p>
-	</div>
-</main>
+	{#snippet footnote()}
+		<p>{m.setup_dev_only()}</p>
+	{/snippet}
+</AuthLayout>

@@ -229,6 +229,12 @@ export const SVFORGE_CATALOG: Record<string, CatalogEntry> = {
 		category: 'layout',
 		useFor: ['page footer'],
 		avoid: ['custom footer per page']
+	},
+	AuthLayout: {
+		path: 'layout/AuthLayout.svelte',
+		category: 'layout',
+		useFor: ['shared login and setup composition'],
+		avoid: ['duplicated authentication page layout']
 	}
 };
 

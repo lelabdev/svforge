@@ -41,8 +41,8 @@ let target: HTMLElement;
 beforeAll(async () => {
 	mkdirSync(GEN, { recursive: true });
 
-	// One bindable stub stands in for Card / Feedback / Button / Input /
-	// ThemeToggle: the test only exercises the form's enhance wiring.
+	// Bindable UI stubs keep this focused on the generated login form's
+	// enhance wiring while still compiling its layout and password snippets.
 	const empty = `<script lang="ts">
 	let { children, value = $bindable(''), ...rest } = $props();
 </script>
@@ -53,14 +53,18 @@ beforeAll(async () => {
 	);
 	writeFileSync(
 		join(GEN, 'login-harness-ui.js'),
-		`export { default as Card } from './login-harness-empty.js';\nexport { default as Feedback } from './login-harness-empty.js';`
+		`export { default as AuthLayout } from './login-harness-empty.js';\nexport { default as Feedback } from './login-harness-empty.js';`
 	);
 	writeFileSync(
 		join(GEN, 'login-harness-primitives.js'),
 		`export { default as Button } from './login-harness-empty.js';\nexport { default as Input } from './login-harness-empty.js';`
 	);
 	writeFileSync(
-		join(GEN, 'login-harness-theme-toggle.js'),
+		join(GEN, 'login-harness-layout.js'),
+		`export { default } from './login-harness-empty.js';`
+	);
+	writeFileSync(
+		join(GEN, 'login-harness-icon.js'),
 		`export { default } from './login-harness-empty.js';`
 	);
 	writeFileSync(
@@ -72,7 +76,14 @@ export const login_label_email = () => 'Email';
 export const login_placeholder_email = () => 'you@example.com';
 export const login_label_password = () => 'Password';
 export const login_signing_in = () => 'Signing in…';
-export const login_sign_in = () => 'Sign in';`
+export const login_sign_in = () => 'Sign in';
+export const login_error_invalid_credentials = () => 'Invalid credentials';
+export const login_error_invalid_input = () => 'Invalid input';
+export const common_error = () => 'Something went wrong';
+export const common_show_password = () => 'Show password';
+export const common_hide_password = () => 'Hide password';
+export const common_workspace = () => 'Workspace';
+export const common_workspace_statement = () => 'Your workspace, all in one place.';`
 	);
 	writeFileSync(join(GEN, 'login-harness-web.ts'), readFileSync(BASE_WEB, 'utf8'));
 	// `use:enhance={fn}` compiles to `enhance(formNode, fn)`: the mock captures
@@ -101,9 +112,11 @@ export function goto(url) {
 		.replace("from '$lib/components/svforge/ui'", "from './login-harness-ui.js'")
 		.replace("from '$lib/components/svforge/primitives'", "from './login-harness-primitives.js'")
 		.replace(
-			"from '$lib/components/svforge/ui/ThemeToggle.svelte'",
-			"from './login-harness-theme-toggle.js'"
+			"from '$lib/components/svforge/layout/AuthLayout.svelte'",
+			"from './login-harness-layout.js'"
 		)
+		.replace("from 'phosphor-svelte/lib/Eye'", "from './login-harness-icon.js'")
+		.replace("from 'phosphor-svelte/lib/EyeSlash'", "from './login-harness-icon.js'")
 		.replace("from '$lib/utils/web'", "from './login-harness-web'");
 	writeFileSync(
 		join(GEN, 'login-harness-page.js'),

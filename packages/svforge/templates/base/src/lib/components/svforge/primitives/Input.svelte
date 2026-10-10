@@ -1,16 +1,19 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
+	import type { Snippet } from 'svelte';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLInputAttributes {
 		label?: string;
 		error?: string;
+		trailing?: Snippet;
 		class?: string;
 	}
 
 	let {
 		label,
 		error,
+		trailing,
 		class: className,
 		id,
 		value = $bindable(''),
@@ -38,14 +41,21 @@
 			{label}
 		</label>
 	{/if}
-	<input
-		{...rest}
-		id={inputId}
-		class={cn('input border border-surface-600-400 focus:ring-primary-700-300! focus-visible:ring-2 focus-visible:ring-primary-700-300', className)}
-		aria-invalid={hasError || undefined}
-		aria-describedby={describedByIds}
-		bind:value
-	/>
+	<div class="relative">
+		<input
+			{...rest}
+			id={inputId}
+			class={cn('input min-h-11 border border-surface-600-400 focus:ring-primary-700-300! focus-visible:ring-2 focus-visible:ring-primary-700-300', trailing && 'pr-12', className)}
+			aria-invalid={hasError || undefined}
+			aria-describedby={describedByIds}
+			bind:value
+		/>
+		{#if trailing}
+			<div class="absolute inset-y-0 right-0 flex items-center pr-2">
+				{@render trailing()}
+			</div>
+		{/if}
+	</div>
 	{#if hasError}
 		<p id={errorId} class="text-error-700-300 mt-1 text-sm">{error}</p>
 	{/if}

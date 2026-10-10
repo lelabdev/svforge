@@ -22,7 +22,11 @@ export const actions: Actions = {
 		});
 
 		if (!parsed.success) {
-			return fail(400, { message: parsed.error.issues[0]?.message ?? 'Invalid input' });
+			const submittedEmail = formData.get('email');
+			return fail(400, {
+				code: 'invalid_input',
+				email: typeof submittedEmail === 'string' ? submittedEmail : ''
+			});
 		}
 
 		const { email, password } = parsed.data;
@@ -33,7 +37,7 @@ export const actions: Actions = {
 			.limit(1);
 		if (identity?.disabled) {
 			// Use the same generic response as bad credentials: account status is private.
-			return fail(401, { message: 'Invalid credentials' });
+			return fail(401, { code: 'invalid_credentials', email });
 		}
 
 		try {
@@ -43,8 +47,8 @@ export const actions: Actions = {
 			});
 			return { success: true };
 		} catch {
-			// Generic message — never leak e.message internals to the UI (#188).
-			return fail(401, { message: 'Invalid credentials' });
+			// Generic response — never leak account status or e.message internals (#188).
+			return fail(401, { code: 'invalid_credentials', email });
 		}
 	}
 };

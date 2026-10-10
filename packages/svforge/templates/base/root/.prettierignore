@@ -51,6 +51,7 @@ src/hooks.server.ts
 src/hooks.ts
 src/lib/client/auth.ts
 src/lib/components/svforge/layout/AdminLayout.svelte
+src/lib/components/svforge/layout/AuthLayout.svelte
 src/lib/components/svforge/layout/Footer.svelte
 src/lib/components/svforge/layout/Navbar.svelte
 src/lib/components/svforge/layout/index.ts
@@ -119,6 +120,7 @@ src/routes/login/+page.svelte
 src/routes/login/page.server.test.ts
 src/routes/setup/+page.server.ts
 src/routes/setup/+page.svelte
+src/routes/setup/page.server.test.ts
 static/favicon.svg
 static/robots.txt
 static/theme-init.js

@@ -29,7 +29,25 @@ describe('login action', () => {
 			request: { formData: async () => formData, headers: new Headers() }
 		} as any);
 
-		expect(result).toMatchObject({ status: 401, data: { message: 'Invalid credentials' } });
+		expect(result).toMatchObject({ status: 401, data: { code: 'invalid_credentials', email: 'disabled@example.com' } });
+		expect(result).not.toHaveProperty('data.password');
 		expect(auth.api.signInEmail).not.toHaveBeenCalled();
+	});
+
+	it('returns the same generic code for bad credentials without echoing the password', async () => {
+		const { auth } = await import('$lib/server/auth');
+		vi.mocked(auth.api.signInEmail).mockRejectedValueOnce(new Error('private detail'));
+		query.limit.mockReturnValueOnce([]);
+
+		const { actions } = await import('./+page.server');
+		const formData = new FormData();
+		formData.set('email', 'person@example.com');
+		formData.set('password', 'secret-password');
+		const result = await actions.default({
+			request: { formData: async () => formData, headers: new Headers() }
+		} as any);
+
+		expect(result).toMatchObject({ status: 401, data: { code: 'invalid_credentials', email: 'person@example.com' } });
+		expect(result).not.toHaveProperty('data.password');
 	});
 });

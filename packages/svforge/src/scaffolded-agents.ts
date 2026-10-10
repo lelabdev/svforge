@@ -135,7 +135,7 @@ Canonical structure (#242) — the filesystem IS the registry:
 
 - \`primitives/\` — small generic bricks: Button, Input, Select, Textarea, Checkbox, Toggle, Badge
 - \`ui/\` — composed reusable components: Card, Alert, Table, ThemeToggle, Seo, Logo, Sitemap
-- \`layout/\` — page structure: Navbar, Footer
+- \`layout/\` — page structure: Navbar, Footer, AuthLayout
 
 **Before creating a UI component, ALWAYS:**
 1. search \`src/lib/components/svforge/primitives/\`

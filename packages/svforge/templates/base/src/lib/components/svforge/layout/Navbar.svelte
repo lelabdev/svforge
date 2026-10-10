@@ -25,7 +25,7 @@
 			{#if brand}
 				{@render brand()}
 			{:else}
-				<Logo />
+				<Logo brandName={m.common_workspace()} />
 			{/if}
 		</a>
 

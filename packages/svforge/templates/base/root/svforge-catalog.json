@@ -20,7 +20,8 @@
 		},
 		"layout": {
 			"Navbar": { "path": "layout/Navbar.svelte", "useFor": ["top navigation"], "avoid": ["custom header per page"] },
-			"Footer": { "path": "layout/Footer.svelte", "useFor": ["page footer"], "avoid": ["custom footer per page"] }
+			"Footer": { "path": "layout/Footer.svelte", "useFor": ["page footer"], "avoid": ["custom footer per page"] },
+			"AuthLayout": { "path": "layout/AuthLayout.svelte", "useFor": ["shared login and setup composition"], "avoid": ["duplicated authentication page layout"] }
 		}
 	},
 	"skeletonSource": "@skeletonlabs/skeleton-svelte",
