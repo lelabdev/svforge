@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "cbbc502434064d736f7aecbcf20955de",
+    "ast_hash": "cd527ed869a28cf8095ac4d214886a50",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -716,7 +716,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/e2e/navigation.test.ts": {
-    "ast_hash": "d330cf2d66b45abd14d1f0a20fa3b338",
+    "ast_hash": "fb67486e5b236625ed955bcba5c79409",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/e2e/user-crud.test.ts": {

@@ -34,7 +34,7 @@ test.describe('dashboard navigation (authenticated)', () => {
 
 	test('can navigate to settings', async ({ page }) => {
 		await page.goto('/admin/settings');
-		await expect(page.locator('h2, h3')).toContainText(/settings/i);
+		await expect(page.getByRole('heading', { level: 2, name: /settings|paramètres/i })).toBeVisible();
 	});
 
 	test('mobile navigation traps focus, closes on Escape, and restores the trigger', async ({ page }) => {
