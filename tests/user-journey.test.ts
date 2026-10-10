@@ -50,7 +50,7 @@ function fixtureAddon(pkg: string, { includeEntrypoints = true }: { includeEntry
 function journeyRoot(root: string) {
 	writeFileSync(
 		join(root, 'package.json'),
-		`${JSON.stringify({ name: 'repo', private: true, devDependencies: { sv: '^0.15.3' } }, null, 2)}\n`
+		`${JSON.stringify({ name: 'repo', private: true, devDependencies: { sv: '^1.1.0' } }, null, 2)}\n`
 	);
 	fixtureAddon(join(root, 'packages', 'svforge'));
 	return root;
@@ -125,8 +125,8 @@ describe('external user journey smoke test (#462, #465)', () => {
 	it('reads the pinned sv version instead of any checkout binary', () => {
 		const root = mkdtempSync(join(tmpdir(), 'svforge-sv-version-'));
 		try {
-			writeFileSync(join(root, 'package.json'), `${JSON.stringify({ devDependencies: { sv: '^0.15.3' } })}\n`);
-			expect(resolveSvVersion(root)).toBe('0.15.3');
+			writeFileSync(join(root, 'package.json'), `${JSON.stringify({ devDependencies: { sv: '^1.1.0' } })}\n`);
+			expect(resolveSvVersion(root)).toBe('1.1.0');
 			expect(resolveSvVersion(root, { override: 'latest' })).toBe('latest');
 
 			writeFileSync(join(root, 'package.json'), `${JSON.stringify({ devDependencies: {} })}\n`);
@@ -143,10 +143,10 @@ describe('external user journey smoke test (#462, #465)', () => {
 			const run = ((cmd: string, args: string[]) => {
 				calls.push({ cmd, args });
 			}) as unknown as Run;
-			const bin = installSv(scratch, '0.15.4', { run });
+			const bin = installSv(scratch, '1.1.0', { run });
 			expect(calls).toHaveLength(1);
 			expect(calls[0].cmd).toBe('npm');
-			expect(calls[0].args).toContain('sv@0.15.4');
+			expect(calls[0].args).toContain('sv@1.1.0');
 			expect(calls[0].args).toContain('--prefix');
 			expect(bin).toBe(join(scratch, 'node_modules', '.bin', 'sv'));
 		} finally {
@@ -286,7 +286,7 @@ describe('golden path one-command creator (#470)', () => {
 			// A repository checkout with two module packages, no node_modules.
 			writeFileSync(
 				join(root, 'package.json'),
-				`${JSON.stringify({ name: 'repo', private: true, devDependencies: { sv: '^0.15.3' } }, null, 2)}\n`
+				`${JSON.stringify({ name: 'repo', private: true, devDependencies: { sv: '^1.1.0' } }, null, 2)}\n`
 			);
 			fixtureAddon(join(root, 'packages', 'svforge'));
 			fixtureAddon(join(root, 'packages', 'dnd'));

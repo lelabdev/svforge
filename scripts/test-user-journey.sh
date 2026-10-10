@@ -14,8 +14,8 @@
 # Modes:
 #   * local (default)   — `npm pack` the add-on and run the journey from the
 #                         EXTRACTED tarball. No `file:<repo>/packages/...`, no
-#                         `--dev-root`, no checkout tooling. Release gate that
-#                         must pass BEFORE publishing (and in PR CI).
+#                         `--dev-root`, no checkout tooling. Blocking pre-publish
+#                         release gate; this path does not run in PR CI.
 #   * --published <v>   — install the EXACT npm version (the one just published).
 #
 # Paths:

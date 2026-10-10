@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
-# Scaffold check (#191): validate that a REAL fresh project scaffolded with the
-# LOCAL svforge addon builds. Runs in CI on every PR and gates npm publishes.
+# Scaffold check (#191): validate a REAL project scaffolded with the LOCAL
+# svforge addon. Main CI runs one representative base smoke after merge; the
+# release workflow runs the blocking full matrix before npm publication. PR CI
+# deliberately stays on fast quality checks; the canary separately tests latest.
 #
 # Key points:
 # - Uses `file:` so sv resolves the addon from ./packages/svforge (local build),
 #   NOT the published npm package (which lacks local changes).
 # - All addon options are passed explicitly (template + testing + hooks) so sv never prompts.
-# - `bunx sv` resolves the workspace's pinned `sv` (^0.15.x from the lockfile);
-#   the canary workflow (#205) is what tests against ecosystem `latest`.
+# - The default SV_CMD uses workspace-pinned sv@1.1.0; the canary overrides it
+#   with the ecosystem's latest CLI.
 # - The dashboard needs a .env at build time (auth/db modules are evaluated);
-#   drizzle push is best-effort until drizzle.config.ts is delivered (#187).
+#   release/canary database profiles use real PostgreSQL and require schema push.
 # - The plain `dashboard` profile (#319) additionally runs the template vitest
 #   baseline, the CLI-schema diff and an HTTP smoke against the REAL Better
 #   Auth version — it therefore needs a reachable PostgreSQL (like the
@@ -93,8 +95,8 @@ if [ "$TEMPLATE" = "create-cli" ]; then
 fi
 
 # 1. Create a fresh SvelteKit project (same baseline as end users)
-#    SV_CMD controls the CLI version: pinned workspace sv (PR CI, deterministic,
-#    #191) vs ecosystem `bunx sv` (canary, latest, #205).
+#    SV_CMD controls the CLI version: pinned workspace sv (main smoke/release,
+#    deterministic, #191) vs ecosystem `bunx sv` (canary, latest, #205).
 if [ -z "${SV_CMD:-}" ]; then
 	SV_CMD="$REPO_ROOT/node_modules/.bin/sv"
 fi
