@@ -17,7 +17,7 @@ import { tmpdir } from 'node:os';
  * without resolving dependencies, and the config is validated by PARSING it.
  */
 const ROOT = process.cwd();
-const SV_VERSION = '1.1.0';
+const SV_VERSION = '1.1.1';
 const SVFORGE = `file:${join(ROOT, 'packages', 'svforge')}`;
 const DND = `file:${join(ROOT, 'packages', 'dnd')}`;
 
@@ -67,6 +67,10 @@ describe('modern sv layout generates a valid vite.config.ts (#415)', () => {
 			const { root, app } = realScaffold(template);
 			try {
 				const config = readFileSync(join(app, 'vite.config.ts'), 'utf8');
+				const manifest = JSON.parse(readFileSync(join(app, 'package.json'), 'utf8'));
+				expect(manifest.devDependencies['@sveltejs/kit']).toMatch(/^\^3\./);
+				expect(manifest.imports['#lib/*']).toBe('./src/lib/*');
+				expect(existsSync(join(app, 'svelte.config.js'))).toBe(false);
 				// The path-separator regex is byte-identical…
 				expect(config).toContain('filename.split(/[/\\\\]/)');
 				// …no literal newline landed inside the character class…

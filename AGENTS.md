@@ -17,7 +17,7 @@ SvelteForge est un boilerplate de démarrage, pas une bibliothèque de composant
 - `sv create` possède le bootstrap SvelteKit, les addons `sv add` officiels les intégrations génériques lorsqu'ils satisfont le contrat et se composent réellement, et `sv migrate` les migrations Svelte/Kit. N'ajoute pas de générateur SvelteKit parallèle.
 - SVForge possède ses overlays spécifiques : Skeleton, FR/EN et contexte projet, politique d'auth/admin, modules `@svforge/*`, checker et upgrade de ses propres recipes. Ne délègue jamais une frontière de sécurité à une simple page UI.
 - Avant une fondation générique, vérifie l'addon publié dans la version de `sv` supportée et teste les fichiers générés et les transformations dans le bon ordre. « Official first » ne signifie pas superposer aveuglément deux addons qui écrivent les mêmes fichiers.
-- La matrice d'ownership, les chevauchements prouvés et la procédure de contribution vérifiable sont dans [`packages/svforge/docs/structural-duplication.md`](packages/svforge/docs/structural-duplication.md). Ne duplique pas les chantiers auth/DB de #547 ni release npm de #549.
+- La matrice d'ownership et les chevauchements sont dans [`packages/svforge/docs/structural-duplication.md`](packages/svforge/docs/structural-duplication.md); la politique et les preuves de compatibilité SvelteKit sont dans [`packages/svforge/docs/sveltekit-compatibility.md`](packages/svforge/docs/sveltekit-compatibility.md). Les promotions de CLI/framework passent par une PR et un pin exact; ne duplique pas les chantiers auth/DB de #547 ni release npm de #549.
 
 ## Templates et artefacts générés
 

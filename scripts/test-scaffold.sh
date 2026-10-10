@@ -8,7 +8,7 @@
 # - Uses `file:` so sv resolves the addon from ./packages/svforge (local build),
 #   NOT the published npm package (which lacks local changes).
 # - All addon options are passed explicitly (template + testing + hooks) so sv never prompts.
-# - The default SV_CMD uses workspace-pinned sv@1.1.0; the canary overrides it
+# - The default SV_CMD uses workspace-pinned sv@1.1.1; the canary overrides it
 #   with the ecosystem's latest CLI.
 # - The dashboard needs a .env at build time (auth/db modules are evaluated);
 #   release/canary database profiles use real PostgreSQL and require schema push.

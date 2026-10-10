@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
     inputs:
       sv-version:
-        description: 'sv CLI version to test (for example 1.1.0; defaults to latest)'
+        description: 'sv CLI version to test (for example 1.1.1; defaults to latest)'
         required: false
         default: latest
         type: string

@@ -107,7 +107,7 @@ describe('external user journey smoke test (#462, #465)', () => {
 		const [major, minor] = pinnedVersion.split('.');
 		const supportedRange = `^${major}.${minor}.0`;
 
-		expect(pinnedVersion).toBe('1.1.0');
+		expect(pinnedVersion).toBe('1.1.1');
 		expect(rootPackage.devDependencies.sv).toBe(pinnedVersion);
 		expect(addonPackage.devDependencies.sv).toBe(supportedRange);
 		expect(addonPackage.peerDependencies.sv).toBe(supportedRange);

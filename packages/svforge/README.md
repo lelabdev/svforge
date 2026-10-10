@@ -41,6 +41,10 @@ npx sv add 'sveltekit-adapter=adapter:static' --install npm --no-git-check
 
 `--no-git-check` is needed because the scaffold has already modified the working tree. The supported `sv` add-on updates the existing `vite.config.ts` and installs `@sveltejs/adapter-static`; it does not need a separate `svelte.config.js`. New routes must also be prerenderable for `npm run build` to succeed with the static adapter.
 
+## SvelteKit compatibility
+
+The supported `sv` pin, tested framework versions, real scaffold profiles and official migration status are recorded in the [SvelteKit compatibility report](docs/sveltekit-compatibility.md). Fresh scaffolds target the current stable Kit major; framework migrations remain the responsibility of `sv migrate`.
+
 ## Templates
 
 - **`base`** — Skeleton UI and Tailwind, reusable foundations (`Button`, `Input`, `Select`, `Card`, `Badge`, `Table`), theme and dark mode, SEO, Paraglide FR/EN, and Vitest.
