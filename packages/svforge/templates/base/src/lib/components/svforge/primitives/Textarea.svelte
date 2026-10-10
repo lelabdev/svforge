@@ -38,12 +38,12 @@
 	<textarea
 		{...rest}
 		id={textareaId}
-		class={cn('textarea', className)}
+		class={cn('textarea border border-surface-600-400 focus:ring-primary-700-300! focus-visible:ring-2 focus-visible:ring-primary-700-300', className)}
 		aria-invalid={hasError || undefined}
 		aria-describedby={describedByIds}
 		bind:value
 	></textarea>
 	{#if hasError}
-		<p id={errorId} class="text-error-500 mt-1 text-sm">{error}</p>
+		<p id={errorId} class="text-error-700-300 mt-1 text-sm">{error}</p>
 	{/if}
 </div>

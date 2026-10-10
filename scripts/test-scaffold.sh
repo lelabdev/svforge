@@ -141,6 +141,12 @@ if [ "$TEMPLATE" != "base-modules" ] && [ "$TEMPLATE" != "dashboard-foundations"
 	$SV_CMD add "$ADD_SPEC" --install "$SF_PM" --no-download-check
 fi
 
+# #540 — include a real opt-in module in the dashboard contrast browser smoke.
+# Blog provides an anonymous route that can be checked alongside login/admin.
+if [ "$TEMPLATE" = "dashboard-playwright" ]; then
+	$SV_CMD add "file:$REPO_ROOT/packages/blog" --install "$SF_PM" --no-download-check
+fi
+
 # Blog module on top of base (#185): mdsvex must integrate via vite.config.ts
 # (no svelte.config.js in modern sv create) and the scaffold must build.
 if [ "$TEMPLATE" = "base-blog" ]; then
@@ -874,6 +880,9 @@ if [ "$TEMPLATE" = "dashboard-playwright" ] && [ "${CI:-}" = "true" ]; then
 		bunx playwright install chromium
 	fi
 	bunx playwright test e2e/user-crud.test.ts e2e/users-dialog.test.ts --project=chromium
+	# #540 — test actual computed text/focus contrast on dashboard and blog routes.
+	cp "$REPO_ROOT/scripts/ui-browser-contrast.test.mjs" e2e/ui-browser-contrast.test.mjs
+	bunx playwright test e2e/ui-browser-contrast.test.mjs --project=chromium
 fi
 
 # #479 — browser smoke against the actual generated base scaffold. Keep browser

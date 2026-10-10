@@ -32,7 +32,7 @@
 				<AvatarInitial name={data.user?.name ?? ''} size="lg" />
 				<div>
 					<p class="font-medium">{data.user?.name}</p>
-					<p class="text-sm text-surface-500">{data.user?.email}</p>
+					<p class="text-sm text-surface-700-300">{data.user?.email}</p>
 				</div>
 			</div>
 		</div>

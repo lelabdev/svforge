@@ -19,7 +19,7 @@
 
 <div
 	class={cn(
-		'prose max-w-none dark:prose-invert prose-a:text-primary-600 dark:prose-a:text-primary-300 prose-headings:text-surface-950-50 prose-blockquote:border-primary-500 prose-pre:bg-surface-100-900 prose-pre:text-surface-950-50 prose-code:bg-surface-100-900 prose-code:text-surface-950-50',
+		'prose max-w-none dark:prose-invert prose-a:text-primary-900 dark:prose-a:text-primary-300 prose-headings:text-surface-950-50 prose-blockquote:border-primary-700-300 prose-pre:bg-surface-100-900 prose-pre:text-surface-950-50 prose-code:bg-surface-100-900 prose-code:text-surface-950-50',
 		className
 	)}
 >

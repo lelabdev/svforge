@@ -19996,7 +19996,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L781",
+      "source_location": "L787",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -20205,6 +20205,85 @@
         "language": "bash",
         "kind": "bash_function"
       },
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test",
+      "label": "ui-browser-contrast.test.mjs",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test_modes",
+      "label": "modes",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test_setmode",
+      "label": "setMode()",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L7",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test_expecttextcontrast",
+      "label": "expectTextContrast()",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L15",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test_expecttextcontrast_colorchannels",
+      "label": "colorChannels()",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L17",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test_expectvisibleboundarycontrast",
+      "label": "expectVisibleBoundaryContrast()",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L107",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test_expectvisibleboundarycontrast_luminance",
+      "label": "luminance()",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L109",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test_expectformfocuscontrast",
+      "label": "expectFormFocusContrast()",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L163",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ui_browser_contrast_test_expectformfocuscontrast_luminance",
+      "label": "luminance()",
+      "file_type": "code",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L165",
+      "_callable": true,
       "_origin": "ast"
     },
     {
@@ -54180,6 +54259,14 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_toggle",
+      "target": "cn",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Toggle.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_toggle",
       "target": "skeleton_svelte",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -65501,7 +65588,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L781",
+      "source_location": "L787",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65511,7 +65598,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L789",
+      "source_location": "L795",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -66059,6 +66146,185 @@
       "source_location": "L541",
       "weight": 1,
       "context": "call",
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "ref_playwright_test",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_modes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_setmode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_expecttextcontrast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test_expecttextcontrast",
+      "target": "scripts_ui_browser_contrast_test_expecttextcontrast_colorchannels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_expectvisibleboundarycontrast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L107",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test_expectvisibleboundarycontrast",
+      "target": "scripts_ui_browser_contrast_test_expectvisibleboundarycontrast_luminance",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L109",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_expectformfocuscontrast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L163",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test_expectformfocuscontrast",
+      "target": "scripts_ui_browser_contrast_test_expectformfocuscontrast_luminance",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L165",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test_expecttextcontrast",
+      "target": "scripts_ui_browser_contrast_test_expectformfocuscontrast_luminance",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test_expecttextcontrast",
+      "target": "scripts_ui_browser_contrast_test_expecttextcontrast_colorchannels",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L65",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test_expectvisibleboundarycontrast",
+      "target": "scripts_ui_browser_contrast_test_expectformfocuscontrast_luminance",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L143",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test_expectformfocuscontrast",
+      "target": "scripts_ui_browser_contrast_test_expectformfocuscontrast_luminance",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L199",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_setmode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L223",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_expecttextcontrast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L225",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_expectformfocuscontrast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L226",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ui_browser_contrast_test",
+      "target": "scripts_ui_browser_contrast_test_expectvisibleboundarycontrast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ui-browser-contrast.test.mjs",
+      "source_location": "L227",
+      "weight": 1,
       "_origin": "ast"
     },
     {

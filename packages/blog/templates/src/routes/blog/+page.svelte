@@ -16,13 +16,13 @@ let { data } = $props();
 <a href={localizeHref(`/blog/${post.slug}`)}>
 <Card variant="elevated" class="h-full">
 <h2 class="h3 mb-2">{post.title}</h2>
-<p class="text-surface-500 mb-4">{post.excerpt}</p>
+<p class="text-surface-700-300 mb-4">{post.excerpt}</p>
 <div class="flex gap-2">
 {#each post.tags as tag}
 <Badge variant="tonal">{tag}</Badge>
 {/each}
 </div>
-<p class="text-sm text-surface-400 mt-4">{formatPostDate(post.date, getLocale())}</p>
+<p class="text-sm text-surface-700-300 mt-4">{formatPostDate(post.date, getLocale())}</p>
 </Card>
 </a>
 {/each}

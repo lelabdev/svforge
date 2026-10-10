@@ -32,13 +32,13 @@
 			surface: 'preset-filled-surface-400-600'
 		},
 		outlined: {
-			primary: 'preset-outlined-primary-400-600',
-			secondary: 'preset-outlined-secondary-400-600',
-			tertiary: 'preset-outlined-tertiary-400-600',
-			success: 'preset-outlined-success-400-600',
-			warning: 'preset-outlined-warning-400-600',
-			error: 'preset-outlined-error-400-600',
-			surface: 'preset-outlined-surface-400-600'
+			primary: 'preset-outlined-primary-900-100',
+			secondary: 'preset-outlined-secondary-900-100',
+			tertiary: 'preset-outlined-tertiary-900-100',
+			success: 'preset-outlined-success-900-100',
+			warning: 'preset-outlined-warning-900-100',
+			error: 'preset-outlined-error-900-100',
+			surface: 'preset-outlined-surface-900-100'
 		},
 		tonal: {
 			primary: 'preset-tonal-primary',

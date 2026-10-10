@@ -42,8 +42,8 @@
 		return cn(
 			'flex items-center gap-3 rounded-container px-3 py-2 transition-colors',
 			currentPath === href
-				? 'bg-primary-100-900 text-primary-700-300'
-				: 'text-surface-600-400 hover:bg-surface-100-900'
+				? 'bg-primary-100-900 text-primary-950-50'
+				: 'text-surface-700-300 hover:bg-surface-100-900'
 		);
 	}
 </script>
@@ -53,7 +53,7 @@
 	<aside class="hidden flex-col border-r border-surface-200-800 bg-surface-50-950 transition-all lg:flex {collapsed ? 'w-16' : 'w-56'}">
 		<div class="flex items-center justify-between border-b border-surface-200-800 p-3">
 			{#if !collapsed}
-				<a href="/admin" class="text-lg font-bold text-primary-600-400">{m.layout_admin()}</a>
+				<a href="/admin" class="text-lg font-bold text-primary-900-100">{m.layout_admin()}</a>
 			{/if}
 			<button
 				class="btn p-1 preset-tonal-surface"
@@ -97,7 +97,7 @@
 			<div class="flex items-center gap-3">
 				<ThemeToggle class="lg:hidden" />
 				{#if user}
-					<span class="hidden text-sm text-surface-500 sm:block">{user.name}</span>
+					<span class="hidden text-sm text-surface-700-300 sm:block">{user.name}</span>
 					{#if onSignOut}
 						<button class="btn p-2 preset-tonal-surface" onclick={onSignOut} aria-label={m.layout_sign_out()}>
 							<SignOut size={18} />

@@ -14,12 +14,12 @@
 	<h1 class="text-3xl font-bold">{m.chat_conversation()} #{conversationId}</h1>
 
 	{#if messages.length === 0}
-		<p class="text-surface-500">{m.chat_empty()}</p>
+		<p class="text-surface-700-300">{m.chat_empty()}</p>
 	{:else}
 		<ul class="space-y-2 rounded-container border border-surface-200-800 p-4">
 			{#each [...messages].reverse() as msg (msg.id)}
 				<li class="flex flex-col gap-0.5">
-					<span class="text-xs text-surface-500">{msg.authorId} · {new Date(msg.createdAt).toLocaleString()}</span>
+					<span class="text-xs text-surface-700-300">{msg.authorId} · {new Date(msg.createdAt).toLocaleString()}</span>
 					<span class="text-sm">{msg.content}</span>
 				</li>
 			{/each}
@@ -27,7 +27,7 @@
 	{/if}
 
 	{#if form?.error}
-		<p class="text-red-500 text-sm">{form.error}</p>
+		<p class="text-error-700-300 text-sm">{form.error}</p>
 	{/if}
 
 	<form method="POST" action="?/send" use:enhance class="flex gap-3 items-end">

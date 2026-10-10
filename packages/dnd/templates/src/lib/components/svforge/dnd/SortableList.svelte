@@ -80,10 +80,10 @@
 			class={cn(
 				'flex items-center gap-3 p-3 rounded-lg border border-surface-200-800 bg-surface-50-950 cursor-grab active:cursor-grabbing transition-all',
 				activeId === item.id && 'opacity-50 scale-[0.98]',
-				overIndex === index && activeId !== item.id && 'border-primary-500 bg-primary-500/5'
+				overIndex === index && activeId !== item.id && 'border-primary-700-300 bg-primary-500/5'
 			)}
 		>
-			<span class="text-surface-400-600 select-none text-lg" aria-hidden="true">⠿</span>
+			<span class="text-surface-700-300 select-none text-lg" aria-hidden="true">⠿</span>
 			<div class="flex-1">
 				{@render children(item)}
 			</div>

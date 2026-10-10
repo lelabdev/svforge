@@ -45,7 +45,7 @@
 
 <button
 	onclick={toggle}
-	class="btn hover:preset-tonal-surface p-2 {className}"
+	class="btn focus-visible:ring-2 focus-visible:ring-primary-700-300 hover:preset-tonal-surface p-2 {className}"
 	aria-label={m.common_toggle_theme()}
 >
 	{#if isDark}

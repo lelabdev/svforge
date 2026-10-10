@@ -12,7 +12,7 @@
 	<h1 class="text-3xl font-bold">{m.chat_title()}</h1>
 
 	{#if conversations.length === 0}
-		<p class="text-surface-500">{m.chat_empty()}</p>
+		<p class="text-surface-700-300">{m.chat_empty()}</p>
 	{:else}
 		<ul class="divide-y divide-surface-200-800 rounded-container border border-surface-200-800 overflow-hidden">
 			{#each conversations as conv (conv.id)}
@@ -21,16 +21,16 @@
 						<div>
 							<span class="font-semibold text-sm">{m.chat_conversation()} #{conv.id}</span>
 							{#if conv.lastMessage}
-								<span class="block text-xs text-surface-500 truncate max-w-md">
+								<span class="block text-xs text-surface-700-300 truncate max-w-md">
 									{conv.lastMessage.authorId}: {conv.lastMessage.content}
 								</span>
 							{:else}
-								<span class="block text-xs text-surface-500">{m.chat_no_messages()}</span>
+								<span class="block text-xs text-surface-700-300">{m.chat_no_messages()}</span>
 							{/if}
 						</div>
 						<div class="flex items-center gap-3">
 							{#if conv.lastMessage}
-								<span class="text-xs text-surface-500">{new Date(conv.lastMessage.createdAt).toLocaleString()}</span>
+								<span class="text-xs text-surface-700-300">{new Date(conv.lastMessage.createdAt).toLocaleString()}</span>
 							{/if}
 							{#if conv.unreadCount > 0}
 								<Badge>{conv.unreadCount}</Badge>

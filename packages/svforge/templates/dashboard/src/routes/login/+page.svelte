@@ -27,7 +27,7 @@
 		<Card variant="elevated">
 			<div class="mb-6 text-center">
 				<h1 class="h1">{m.login_welcome_back()}</h1>
-				<p class="mt-1 text-surface-500">{m.login_signin_hint()}</p>
+				<p class="mt-1 text-surface-700-300">{m.login_signin_hint()}</p>
 			</div>
 
 			{#if form?.message}

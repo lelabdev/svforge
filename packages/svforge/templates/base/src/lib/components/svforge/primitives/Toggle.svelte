@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { cn } from '$lib/utils/cn';
 	import { Switch } from '@skeletonlabs/skeleton-svelte';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
@@ -62,7 +63,7 @@
 </script>
 
 <Switch {checked} {name} {disabled} {required} {form} onCheckedChange={handleChange}>
-	<Switch.Control class={className}>
+	<Switch.Control class={cn('focus-visible:ring-2 focus-visible:ring-primary-700-300', className)}>
 		<Switch.Thumb />
 	</Switch.Control>
 	{#if label}
