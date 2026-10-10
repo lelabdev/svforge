@@ -6832,7 +6832,7 @@
       "label": "keywords",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L32",
+      "source_location": "L33",
       "_origin": "ast"
     },
     {
@@ -6840,7 +6840,7 @@
       "label": "license",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L43",
+      "source_location": "L44",
       "_origin": "ast"
     },
     {
@@ -6848,7 +6848,7 @@
       "label": "peerDependencies",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L44",
+      "source_location": "L45",
       "_origin": "ast"
     },
     {
@@ -6856,7 +6856,7 @@
       "label": "sv",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L45",
+      "source_location": "L46",
       "_origin": "ast"
     },
     {
@@ -6864,7 +6864,7 @@
       "label": "sv",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L45",
+      "source_location": "L46",
       "_origin": "ast"
     },
     {
@@ -6872,7 +6872,7 @@
       "label": "devDependencies",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L47",
+      "source_location": "L48",
       "_origin": "ast"
     },
     {
@@ -6880,7 +6880,7 @@
       "label": "@svforge/addon-kit",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L48",
+      "source_location": "L49",
       "_origin": "ast"
     },
     {
@@ -6888,7 +6888,7 @@
       "label": "@svforge/addon-kit",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L48",
+      "source_location": "L49",
       "_origin": "ast"
     },
     {
@@ -6896,7 +6896,7 @@
       "label": "sv",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L49",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
@@ -6904,7 +6904,7 @@
       "label": "tsdown",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L50",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -6912,7 +6912,7 @@
       "label": "tsdown",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L50",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -6920,7 +6920,7 @@
       "label": "typescript",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L51",
+      "source_location": "L52",
       "_origin": "ast"
     },
     {
@@ -6928,7 +6928,7 @@
       "label": "typescript",
       "file_type": "concept",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L51",
+      "source_location": "L52",
       "_origin": "ast"
     },
     {
@@ -6936,7 +6936,7 @@
       "label": "scripts",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L53",
+      "source_location": "L54",
       "_origin": "ast"
     },
     {
@@ -6944,7 +6944,7 @@
       "label": "prebuild",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L54",
+      "source_location": "L55",
       "_origin": "ast"
     },
     {
@@ -6952,7 +6952,7 @@
       "label": "build",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L55",
+      "source_location": "L56",
       "_origin": "ast"
     },
     {
@@ -6960,7 +6960,7 @@
       "label": "prepublishOnly",
       "file_type": "code",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L56",
+      "source_location": "L57",
       "_origin": "ast"
     },
     {
@@ -28050,12 +28050,21 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_readme_sveltekit_compatibility",
+      "label": "SvelteKit compatibility",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L44",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_readme_templates",
       "label": "Templates",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L44",
+      "source_location": "L48",
       "_origin": "ast"
     },
     {
@@ -28064,7 +28073,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L53",
+      "source_location": "L57",
       "_origin": "ast"
     },
     {
@@ -28073,7 +28082,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L97",
+      "source_location": "L101",
       "_origin": "ast"
     },
     {
@@ -28082,7 +28091,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L113",
+      "source_location": "L117",
       "_origin": "ast"
     },
     {
@@ -28091,7 +28100,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L117",
+      "source_location": "L121",
       "_origin": "ast"
     },
     {
@@ -28100,7 +28109,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L121",
+      "source_location": "L125",
       "_origin": "ast"
     },
     {
@@ -28218,6 +28227,87 @@
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/structural-duplication.md",
       "source_location": "L50",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility",
+      "label": "sveltekit-compatibility.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility_sveltekit_compatibility_and_migration_policy",
+      "label": "SvelteKit compatibility and migration policy",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility_support_policy",
+      "label": "Support policy",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility_reproducible_current_major_report",
+      "label": "Reproducible current-major report",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility_commands_used",
+      "label": "Commands used",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L39",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility_kit_3_integration_notes",
+      "label": "Kit 3 integration notes",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L90",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility_kit_2_migration_probe_and_blocker",
+      "label": "Kit 2 migration probe and blocker",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L96",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility_reproducing_the_migration_probe",
+      "label": "Reproducing the migration probe",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L100",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_sveltekit_compatibility_criteria_to_promote_kit_2_migration_support",
+      "label": "Criteria to promote Kit 2 migration support",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L143",
       "_origin": "ast"
     },
     {
@@ -40667,7 +40757,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40677,7 +40767,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L43",
+      "source_location": "L44",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40687,7 +40777,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40697,7 +40787,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40707,7 +40797,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1,
       "context": "import",
       "_origin": "ast"
@@ -40718,7 +40808,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40728,7 +40818,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40738,7 +40828,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1,
       "context": "import",
       "_origin": "ast"
@@ -40749,7 +40839,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L49",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40759,7 +40849,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40769,7 +40859,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L50",
+      "source_location": "L51",
       "weight": 1,
       "context": "import",
       "_origin": "ast"
@@ -40780,7 +40870,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40790,7 +40880,7 @@
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1,
       "context": "import",
       "_origin": "ast"
@@ -40801,7 +40891,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L53",
+      "source_location": "L54",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40811,7 +40901,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L54",
+      "source_location": "L55",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40821,7 +40911,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L55",
+      "source_location": "L56",
       "weight": 1,
       "_origin": "ast"
     },
@@ -40831,7 +40921,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/package.json",
-      "source_location": "L56",
+      "source_location": "L57",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81457,7 +81547,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L79",
+      "source_location": "L83",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81468,7 +81558,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L90",
+      "source_location": "L94",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82201,6 +82291,16 @@
     {
       "source": "agents",
       "target": "packages_svforge_docs_structural_duplication",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "agents",
+      "target": "packages_svforge_docs_sveltekit_compatibility",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
@@ -83681,6 +83781,16 @@
     {
       "source": "contributing",
       "target": "packages_svforge_docs_structural_duplication",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "contributing",
+      "target": "packages_svforge_docs_sveltekit_compatibility",
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
@@ -85210,11 +85320,31 @@
     },
     {
       "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_templates",
+      "target": "packages_svforge_readme_sveltekit_compatibility",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
       "source_location": "L44",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_readme",
+      "target": "packages_svforge_docs_sveltekit_compatibility",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L46",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_readme_svforge",
+      "target": "packages_svforge_readme_templates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L48",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85224,7 +85354,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L53",
+      "source_location": "L57",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85234,7 +85364,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L97",
+      "source_location": "L101",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85244,7 +85374,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L111",
+      "source_location": "L115",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85254,7 +85384,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L113",
+      "source_location": "L117",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85264,7 +85394,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L117",
+      "source_location": "L121",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85274,7 +85404,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L121",
+      "source_location": "L125",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85359,6 +85489,16 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_docs_structural_duplication",
+      "target": "packages_svforge_docs_sveltekit_compatibility",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/structural-duplication.md",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_docs_structural_duplication_upstream_svelte_ownership_and_structural_reuse",
       "target": "packages_svforge_docs_structural_duplication_audited_upstream_addons_and_overlaps",
       "relation": "contains",
@@ -85395,6 +85535,86 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/structural-duplication.md",
       "source_location": "L50",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_sveltekit_compatibility",
+      "target": "packages_svforge_docs_sveltekit_compatibility_sveltekit_compatibility_and_migration_policy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_sveltekit_compatibility_sveltekit_compatibility_and_migration_policy",
+      "target": "packages_svforge_docs_sveltekit_compatibility_support_policy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_sveltekit_compatibility_sveltekit_compatibility_and_migration_policy",
+      "target": "packages_svforge_docs_sveltekit_compatibility_reproducible_current_major_report",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_sveltekit_compatibility_reproducible_current_major_report",
+      "target": "packages_svforge_docs_sveltekit_compatibility_commands_used",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L39",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_sveltekit_compatibility_sveltekit_compatibility_and_migration_policy",
+      "target": "packages_svforge_docs_sveltekit_compatibility_kit_3_integration_notes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L90",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_sveltekit_compatibility_sveltekit_compatibility_and_migration_policy",
+      "target": "packages_svforge_docs_sveltekit_compatibility_kit_2_migration_probe_and_blocker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L96",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_sveltekit_compatibility_kit_2_migration_probe_and_blocker",
+      "target": "packages_svforge_docs_sveltekit_compatibility_reproducing_the_migration_probe",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L100",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_sveltekit_compatibility_kit_2_migration_probe_and_blocker",
+      "target": "packages_svforge_docs_sveltekit_compatibility_criteria_to_promote_kit_2_migration_support",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
+      "source_location": "L143",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86963,7 +87183,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/README.md",
-      "source_location": "L49",
+      "source_location": "L53",
       "weight": 1,
       "_origin": "ast"
     }

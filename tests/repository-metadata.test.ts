@@ -75,7 +75,8 @@ describe('published package metadata (#334)', () => {
 					'docs/deployment-profiles.md',
 					'docs/llms-skeleton.txt',
 					'docs/llms-svelte.txt',
-					'docs/structural-duplication.md'
+					'docs/structural-duplication.md',
+					'docs/sveltekit-compatibility.md'
 				]);
 			}
 		}

@@ -12,7 +12,7 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "ast_hash": "668ab6ac79290efff4220f82598f51f1",
+    "ast_hash": "d68e9c1497c24b20dfd8edb130a207cf",
     "semantic_hash": ""
   },
   "packages/addon-kit/package.json": {
@@ -404,7 +404,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
-    "ast_hash": "8463973f90b0a1094c0684f2c2ddd90e",
+    "ast_hash": "a5380fc8084ebce467c5a10aaf7de936",
     "semantic_hash": ""
   },
   "packages/svforge/scripts/fetch-llms-docs.sh": {
@@ -1068,7 +1068,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "1682dcb254570a40d63a86d031e27a28",
+    "ast_hash": "f8a27f71cd66e014b00240fae5df6f6b",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1348,7 +1348,7 @@
     "semantic_hash": ""
   },
   "tests/repository-metadata.test.ts": {
-    "ast_hash": "0e998f2a931898f57991cc83dbd789a0",
+    "ast_hash": "0c778092215797a9ceef7ea7b1fde599",
     "semantic_hash": ""
   },
   "tests/scaffold-paths.test.ts": {
@@ -1464,7 +1464,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/canary.yml": {
-    "ast_hash": "6f4648c7b079fc75c5c627afc04afa3f",
+    "ast_hash": "39ce07cad344513a2dfbe8c575f4f3f6",
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
@@ -1476,7 +1476,7 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "ast_hash": "571cf13fca1242e5588863a689290a07",
+    "ast_hash": "edee1ac7da493191431b7612e2677820",
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
@@ -1484,7 +1484,7 @@
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
-    "ast_hash": "74c8a5cebd44368a672746517e467d5f",
+    "ast_hash": "008bf463624eeb1f1072092f47131b26",
     "semantic_hash": ""
   },
   "README.md": {
@@ -1556,7 +1556,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "17bbaff7eda733a56eb28faae3a28f31",
+    "ast_hash": "3d5627b095a0070fdc2e86204effbd84",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1572,7 +1572,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/structural-duplication.md": {
-    "ast_hash": "58406cb16a31e484b400a0a5c8500415",
+    "ast_hash": "7f263af39eb2ab75a6d4c841487f9799",
     "semantic_hash": ""
   },
   "packages/svforge/llms.txt": {
@@ -1680,7 +1680,7 @@
     "semantic_hash": ""
   },
   "scripts/user-journey.mjs": {
-    "ast_hash": "0ea94b75aea206df825d12f3f8a59f03",
+    "ast_hash": "a11edf480c2a57b6e4806aa1ad1a7d05",
     "semantic_hash": ""
   },
   "tests/better-auth-manual-upgrade.test.ts": {
@@ -1716,11 +1716,11 @@
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
-    "ast_hash": "a2ebb62bdb921060a79488b1871a3103",
+    "ast_hash": "281ebfd945c4082106e13957411a7f60",
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {
-    "ast_hash": "7a04c8c22954188b04298688a0169558",
+    "ast_hash": "d99a5f9bbd649fd681ff32f60643e4c2",
     "semantic_hash": ""
   },
   "tests/vite-config-regex.test.ts": {
@@ -1921,6 +1921,10 @@
   },
   "tests/stubs/lib/icons.ts": {
     "ast_hash": "b87b16c9588e00c258c9f9fb1165f48f",
+    "semantic_hash": ""
+  },
+  "packages/svforge/docs/sveltekit-compatibility.md": {
+    "ast_hash": "231ca22341061fefb54fc4ad6c4c8050",
     "semantic_hash": ""
   }
 }

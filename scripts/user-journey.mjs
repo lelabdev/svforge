@@ -71,7 +71,7 @@ export function addonSpec({ source, template, testing = 'vitest', hooks = 'none'
 	return `${source}=template:${template}+testing:${testing}+hooks:${hooks}`;
 }
 
-/** The `sv` version the repository targets, e.g. `1.1.0` — never a checkout path. */
+/** The `sv` version the repository targets, e.g. `1.1.1` — never a checkout path. */
 export function resolveSvVersion(root = REPO_ROOT, { override } = {}) {
 	if (override) return override;
 	const manifest = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
