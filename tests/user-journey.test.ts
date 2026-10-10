@@ -8,6 +8,7 @@ const {
 	assertPackagedEntrypoints,
 	extractAddon,
 	goldenPathCreateArgs,
+	installPackedCli,
 	installSv,
 	packLocalAddon,
 	packModuleSet,
@@ -136,6 +137,28 @@ describe('external user journey smoke test (#462, #465)', () => {
 		}
 	});
 
+	it('installs the packed svforge CLI through npm into an external prefix', () => {
+		const calls: { cmd: string; args: string[] }[] = [];
+		const run = ((cmd: string, args: string[]) => {
+			calls.push({ cmd, args });
+		}) as unknown as Run;
+
+		const bin = installPackedCli('/tmp/svforge-2.1.1.tgz', '/tmp/svforge-cli', { run });
+
+		expect(calls).toHaveLength(1);
+		expect(calls[0].cmd).toBe('npm');
+		expect(calls[0].args).toEqual([
+			'install',
+			'--prefix',
+			'/tmp/svforge-cli',
+			'--no-save',
+			'--no-package-lock',
+			'--ignore-scripts',
+			'/tmp/svforge-2.1.1.tgz'
+		]);
+		expect(bin).toBe('/tmp/svforge-cli/node_modules/.bin/svforge');
+	});
+
 	it('acquires sv externally into the scratch prefix', () => {
 		const scratch = mkdtempSync(join(tmpdir(), 'svforge-sv-scratch-'));
 		try {
@@ -248,8 +271,6 @@ describe('golden path one-command creator (#470)', () => {
 			'bun',
 			'--testing',
 			'vitest',
-			'--hooks',
-			'none',
 			'--modules',
 			'ui_toast',
 			'--yes'
@@ -258,6 +279,15 @@ describe('golden path one-command creator (#470)', () => {
 		// A dashboard project: the complete canonical set implies the runtime.
 		const dashboard = goldenPathCreateArgs({ dir: 'app', template: 'dashboard' });
 		expect(dashboard).toEqual(expect.arrayContaining(['--modules', 'all', '--runtime', 'long-lived-node', '--yes']));
+		expect(dashboard).not.toContain('--hooks');
+	});
+
+	it('omits hooks by default and forwards an explicit choice', () => {
+		const defaultArgs = goldenPathCreateArgs({ dir: 'app', template: 'base' });
+		expect(defaultArgs).not.toContain('--hooks');
+
+		const explicit = goldenPathCreateArgs({ dir: 'app', template: 'base', hooks: 'lefthook' });
+		expect(explicit.slice(explicit.indexOf('--hooks'), explicit.indexOf('--hooks') + 2)).toEqual(['--hooks', 'lefthook']);
 	});
 
 	it('carries the explicit add-on source — packed artifacts or the exact published version', () => {

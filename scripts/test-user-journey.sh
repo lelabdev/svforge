@@ -7,8 +7,8 @@
 #
 #   manual path: acquire sv → sv create → sv add (packed tarball | exact npm)
 #                → setup → check/test/build → boot → minimal journey
-#   create path: acquire sv → ONE `svforge create` (#417, the promised UX)
-#                → project manifest/diagnostics → setup → build/tests
+#   create path: acquire sv + install packed svforge → ONE `svforge create`
+#                (#417, the promised UX) → manifest/diagnostics → setup/build
 #                → boot → minimal journey
 #
 # Modes:
@@ -21,9 +21,9 @@
 # Paths:
 #   * --path manual (default) — the documented two-step `sv create` + `sv add`.
 #   * --path create           — the ONE-COMMAND `svforge create` golden path
-#                               (#470). Pre-publish it resolves the current
-#                               PACKAGED artifacts via `--addon-root`; published
-#                               it pins `--addon-version`.
+#                               (#470). Pre-publish it installs the packed CLI
+#                               and resolves current module artifacts via
+#                               `--addon-root`; published it pins `--addon-version`.
 #
 # This is a SHORT smoke test: exhaustive behaviour stays in
 # `scripts/test-scaffold.sh`. Its job is to catch packaging gaps, a broken
@@ -42,6 +42,7 @@ MODE="local"
 VERSION=""
 SV_VERSION="${SV_VERSION:-}"
 HOOK_MODE="none"
+HOOK_MODE_EXPLICIT=0
 PATH_MODE="manual"
 COMPAT_MANIFEST_FILE=""
 TEMPLATES=()
@@ -96,7 +97,7 @@ while [ $# -gt 0 ]; do
 			shift
 			[ $# -gt 0 ] || { echo "❌ --hooks requires a value (none or lefthook)" >&2; exit 1; }
 			case "$1" in
-				none | lefthook) HOOK_MODE="$1" ;;
+				none | lefthook) HOOK_MODE="$1"; HOOK_MODE_EXPLICIT=1 ;;
 				*) echo "❌ Unknown hooks mode: $1 (expected none or lefthook)" >&2; exit 1 ;;
 			esac
 			shift
@@ -174,9 +175,15 @@ SV_CMD="$WORK_DIR/node_modules/.bin/sv"
 [ -x "$SV_CMD" ] || fail "external sv CLI missing at $SV_CMD (registry acquisition failed)"
 echo "sv CLI: $SV_CMD"
 
-# 4. The packaged CLI a real user invokes, exactly from the chosen artifact.
+# 4. Install the local packed CLI exactly as a consumer would; published mode
+#    uses the exact npm version through npx.
 if [ "$MODE" = "local" ]; then
-	SVFORGE_CLI=(node "$WORK_DIR/registry/$PRIMARY_PACKAGE/bin/svforge.mjs")
+	CLI_TARBALLS=("$WORK_DIR"/packs/"$PRIMARY_PACKAGE"-*.tgz)
+	[ -f "${CLI_TARBALLS[0]}" ] || fail "packed $PRIMARY_PACKAGE CLI tarball is missing"
+	step "Installing the packed $PRIMARY_PACKAGE CLI through npm"
+	SVFORGE_BIN="$(cd "$REPO_ROOT" && node scripts/user-journey.mjs install-cli --tarball "${CLI_TARBALLS[0]}" --dest "$WORK_DIR/svforge-cli")"
+	[ -x "$SVFORGE_BIN" ] || fail "installed $PRIMARY_PACKAGE CLI missing at $SVFORGE_BIN"
+	SVFORGE_CLI=("$SVFORGE_BIN")
 	# A local run must not resolve the add-on from the checkout.
 	case "$SOURCE" in
 		file:"$REPO_ROOT"/*) fail "local mode resolved a monorepo path: $SOURCE" ;;
@@ -418,25 +425,45 @@ run_dashboard() {
 
 # ── Golden path: ONE `svforge create` command (#470) ─────────────────
 
-# Assemble the argv for `svforge create` from the shell (the pure helper in
-# scripts/user-journey.mjs owns the unit-tested contract).
+# Build the real packed-consumer argv with the unit-tested helper. By default
+# --hooks is absent; an explicit --hooks choice (including lefthook) is retained.
 create_command_args() {
-	local template="$1"
-	CREATE_ARGS=(create app --template "$template" --pm "$SF_PM" --testing vitest --hooks none --yes)
-	if [ "$template" = "dashboard" ]; then
-		# The complete canonical set requires a long-lived runtime.
-		CREATE_ARGS+=(--modules all --runtime long-lived-node)
-	else
-		CREATE_ARGS+=(--modules ui_toast)
-	fi
+	local template="$1" addon_root="" addon_version="" compat_manifest=""
 	if [ "$MODE" = "local" ]; then
-		CREATE_ARGS+=(--addon-root "$ADDON_ROOT")
+		addon_root="$ADDON_ROOT"
 	elif [ -n "$COMPAT_MANIFEST_FILE" ]; then
 		# Exact per-package versions from the release plan (#470).
-		CREATE_ARGS+=(--compat-manifest "$COMPAT_MANIFEST_FILE")
+		compat_manifest="$COMPAT_MANIFEST_FILE"
 	else
-		CREATE_ARGS+=(--addon-version "$ADDON_SPEC_VERSION")
+		addon_version="$ADDON_SPEC_VERSION"
 	fi
+	mapfile -d '' -t CREATE_ARGS < <(
+		GOLDEN_TEMPLATE="$template" GOLDEN_PM="$SF_PM" GOLDEN_HOOK_MODE="$HOOK_MODE" \
+		GOLDEN_HOOK_MODE_EXPLICIT="$HOOK_MODE_EXPLICIT" GOLDEN_ADDON_ROOT="$addon_root" \
+		GOLDEN_ADDON_VERSION="$addon_version" GOLDEN_COMPAT_MANIFEST="$compat_manifest" \
+		node --input-type=module - "$REPO_ROOT" <<'NODE'
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+const root = process.argv[2];
+const { goldenPathCreateArgs } = await import(pathToFileURL(join(root, 'scripts/user-journey.mjs')).href);
+const template = process.env.GOLDEN_TEMPLATE;
+const args = goldenPathCreateArgs({
+	dir: 'app',
+	template,
+	pm: process.env.GOLDEN_PM,
+	testing: 'vitest',
+	...(process.env.GOLDEN_HOOK_MODE_EXPLICIT === '1' ? { hooks: process.env.GOLDEN_HOOK_MODE } : {}),
+	modules: template === 'dashboard' ? 'all' : ['ui_toast'],
+	runtime: template === 'dashboard' ? 'long-lived-node' : undefined,
+	addonRoot: process.env.GOLDEN_ADDON_ROOT || undefined,
+	addonVersion: process.env.GOLDEN_ADDON_VERSION || undefined,
+	compatManifest: process.env.GOLDEN_COMPAT_MANIFEST || undefined
+});
+process.stdout.write(args.map((arg) => `${arg}\0`).join(''));
+NODE
+	)
+	[ "${#CREATE_ARGS[@]}" -gt 0 ] || fail "could not build the $template golden-path argv"
 }
 
 run_base_create() {

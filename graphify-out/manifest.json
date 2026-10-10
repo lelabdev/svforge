@@ -1644,7 +1644,7 @@
     "semantic_hash": ""
   },
   "tests/cli-create.test.ts": {
-    "ast_hash": "3bd87bcbf0f70ff4be3f6463e85a9e44",
+    "ast_hash": "c6324a4bb37309bc277d77f5cf09ed7b",
     "semantic_hash": ""
   },
   "tests/module-resolver.test.ts": {
@@ -1676,11 +1676,11 @@
     "semantic_hash": ""
   },
   "scripts/test-user-journey.sh": {
-    "ast_hash": "3814f28b6a717bce090c76829a4e8a37",
+    "ast_hash": "f63eee166c11fb4dcf6b95e053da9d24",
     "semantic_hash": ""
   },
   "scripts/user-journey.mjs": {
-    "ast_hash": "72cbf5dae9acc10cf0543df7465db46f",
+    "ast_hash": "0ea94b75aea206df825d12f3f8a59f03",
     "semantic_hash": ""
   },
   "tests/better-auth-manual-upgrade.test.ts": {
@@ -1716,7 +1716,7 @@
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
-    "ast_hash": "25b6f9bb1837c78c591b275b123bd730",
+    "ast_hash": "c11101c560bcc12e4fe82c30acfa5147",
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {
@@ -1805,6 +1805,10 @@
   },
   "packages/svforge/src/dashboard-ci.ts": {
     "ast_hash": "61c764b2f13aa8be6ccb4bb3cf57425d",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20261010_004114_6fb849b8_437.md": {
+    "ast_hash": "3afd730c919cf4a02c65287b93e23227",
     "semantic_hash": ""
   }
 }
