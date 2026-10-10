@@ -27,7 +27,8 @@
 		"docs/llms-skeleton.txt",
 		"docs/llms-svelte.txt",
 		"docs/deployment-profiles.md",
-		"docs/structural-duplication.md"
+		"docs/structural-duplication.md",
+		"docs/sveltekit-compatibility.md"
 	],
 	"keywords": [
 		"sv-add",

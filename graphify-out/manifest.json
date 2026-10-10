@@ -404,7 +404,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
-    "ast_hash": "8463973f90b0a1094c0684f2c2ddd90e",
+    "ast_hash": "a5380fc8084ebce467c5a10aaf7de936",
     "semantic_hash": ""
   },
   "packages/svforge/scripts/fetch-llms-docs.sh": {
@@ -1348,7 +1348,7 @@
     "semantic_hash": ""
   },
   "tests/repository-metadata.test.ts": {
-    "ast_hash": "0e998f2a931898f57991cc83dbd789a0",
+    "ast_hash": "0c778092215797a9ceef7ea7b1fde599",
     "semantic_hash": ""
   },
   "tests/scaffold-paths.test.ts": {
