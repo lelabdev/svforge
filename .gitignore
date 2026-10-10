@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.serena/
 src/templates.ts
 frontend/
 tests/__gen__/
