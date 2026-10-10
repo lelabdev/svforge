@@ -71,7 +71,8 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 	import * as m from './messages.js';
 	import { cn } from './cn.js';
 	import Empty from './Empty.js';
-	const Users = Empty, Gear = Empty, ChartBar = Empty, SignOut = Empty, Menu = Empty, X = Empty, ThemeToggle = Empty;`
+	const Users = Empty, Gear = Empty, ChartBar = Empty, SignOut = Empty, Menu = Empty, X = Empty, ThemeToggle = Empty, Button = Empty, Portal = Empty;
+	const Dialog = Object.assign(Empty, { Trigger: Empty, Backdrop: Empty, Positioner: Empty, Content: Empty, Title: Empty, CloseTrigger: Empty });`
 		);
 	const page = readFileSync(join(project, 'src/routes/(app)/admin/+page.svelte'), 'utf8')
 		.replace(/^\s*import .*;\n/gm, '')

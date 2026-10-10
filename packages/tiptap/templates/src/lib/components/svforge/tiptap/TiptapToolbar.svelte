@@ -101,7 +101,7 @@
 
 	const itemClass = (selected: boolean) =>
 		cn(
-			'btn btn-sm min-w-8 justify-center',
+			'btn btn-sm min-h-11 min-w-11 justify-center',
 			selected ? 'preset-filled-primary-500' : 'preset-tonal-surface'
 		);
 	const formatLabelClass = (value: string) => {
@@ -194,6 +194,7 @@
 				<Button
 					type="button"
 					size="sm"
+					class="min-h-11 min-w-11 p-0"
 					variant={activeLists.includes(control.value) ? 'tonal' : 'ghost'}
 					color={activeLists.includes(control.value) ? 'primary' : 'surface'}
 					aria-pressed={activeLists.includes(control.value)}
@@ -215,6 +216,7 @@
 				<Button
 					type="button"
 					size="sm"
+					class="min-h-11 min-w-11 p-0"
 					variant={activeBlocks.includes(control.value) ? 'tonal' : 'ghost'}
 					color={activeBlocks.includes(control.value) ? 'primary' : 'surface'}
 					aria-pressed={activeBlocks.includes(control.value)}
@@ -232,7 +234,7 @@
 				{...attributes}
 				type="button"
 				class={cn(
-					'btn btn-sm shrink-0',
+					'btn btn-sm min-h-11 shrink-0',
 					activeLink ? 'preset-tonal-primary' : 'hover:preset-tonal-surface'
 				)}
 				aria-pressed={activeLink}
@@ -252,7 +254,7 @@
 			<Popover.Trigger element={linkTrigger} />
 			<Portal>
 				<Popover.Positioner class="z-50">
-					<Popover.Content class="card w-80 space-y-3 border border-surface-200-800 bg-surface-50-950 p-4 shadow-lg">
+					<Popover.Content class="card w-80 max-w-[calc(100vw-2rem)] space-y-3 border border-surface-200-800 bg-surface-50-950 p-4 shadow-lg">
 						<Popover.Title class="font-semibold">
 							{activeLink ? m.tiptap_edit_link() : m.tiptap_insert_link()}
 						</Popover.Title>

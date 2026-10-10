@@ -79,15 +79,17 @@
 			required
 		>
 			{#snippet trailing()}
-				<button
+				<Button
 					type="button"
-					class="btn btn-sm p-2 focus-visible:ring-2 focus-visible:ring-primary-700-300"
+					variant="ghost"
+					color="surface"
+					class="size-11 shrink-0 p-0"
 					aria-label={passwordVisible ? m.common_hide_password() : m.common_show_password()}
 					aria-pressed={passwordVisible}
 					onclick={() => (passwordVisible = !passwordVisible)}
 				>
 					{#if passwordVisible}<EyeSlash size={18} />{:else}<Eye size={18} />{/if}
-				</button>
+				</Button>
 			{/snippet}
 		</Input>
 		<div class="pt-2">

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages.js';
 	import { Sun, Moon } from '$lib/icons';
+	import { Button } from '$lib/components/svforge/primitives';
 	import { onMount } from 'svelte';
 	import { followSystemTheme } from '$lib/utils/theme';
 
@@ -42,9 +43,12 @@
 	}
 </script>
 
-<button
+<Button
+	type="button"
+	variant="ghost"
+	color="surface"
 	onclick={toggle}
-	class="btn focus-visible:ring-2 focus-visible:ring-primary-700-300 hover:preset-tonal-surface p-2 {className}"
+	class="size-11 p-0 {className}"
 	aria-label={m.common_toggle_theme()}
 >
 	{#if isDark}
@@ -52,4 +56,4 @@
 	{:else}
 		<Sun size={18} />
 	{/if}
-</button>
+</Button>

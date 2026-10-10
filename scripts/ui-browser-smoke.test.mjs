@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { mkdirSync } from 'node:fs';
+import { join } from 'node:path';
 
 /** Stable browser assertions against the built, generated base scaffold. */
 test.describe('scaffold UI browser smoke', () => {
@@ -55,31 +57,57 @@ test.describe('scaffold UI browser smoke', () => {
 			};
 		});
 		expect(contrast.ratio, JSON.stringify(contrast)).toBeGreaterThanOrEqual(4.5);
+		if (process.env.SF_UI_SCREENSHOT_DIR) {
+			mkdirSync(process.env.SF_UI_SCREENSHOT_DIR, { recursive: true });
+			await page.screenshot({ path: join(process.env.SF_UI_SCREENSHOT_DIR, 'demo-desktop-light.png'), fullPage: true });
+		}
 
 		await page.locator('nav button:not([class~="md:hidden"])').click();
 		await expect(page.locator('html')).toHaveAttribute('data-mode', 'dark');
 		await expect.poll(background).not.toMatch(/^(transparent|rgba\(0,\s*0,\s*0,\s*0\))$/);
+		if (process.env.SF_UI_SCREENSHOT_DIR) {
+			await page.screenshot({ path: join(process.env.SF_UI_SCREENSHOT_DIR, 'demo-desktop-dark.png'), fullPage: true });
+		}
 	});
 
-	test('mobile shell fits the viewport and its menu opens and closes', async ({ page }) => {
-		await page.setViewportSize({ width: 390, height: 844 });
-		await page.goto('/');
+	test('mobile shell fits at 320px and 390px with an accessible, touch-sized menu', async ({ page }) => {
+		for (const width of [320, 390]) {
+			await page.setViewportSize({ width, height: 844 });
+			await page.goto('/');
 
-		await expect(page.locator('main')).toBeVisible();
-		await expect(page.locator('nav')).toHaveCount(1);
-		await expect(page.locator('footer')).toHaveCount(1);
-		const fitsViewport = () =>
-			page.evaluate(() => globalThis.document.documentElement.scrollWidth <= globalThis.innerWidth);
-		expect(await fitsViewport()).toBe(true);
+			await expect(page.locator('main')).toBeVisible();
+			await expect(page.locator('nav')).toHaveCount(1);
+			await expect(page.locator('footer')).toHaveCount(1);
+			const fitsViewport = () =>
+				page.evaluate(() => globalThis.document.documentElement.scrollWidth <= globalThis.innerWidth);
+			expect(await fitsViewport()).toBe(true);
 
-		const menuToggle = page.locator('nav button[class~="md:hidden"]');
-		await expect(menuToggle).toHaveCount(1);
-		await menuToggle.click();
-		await expect(page.locator('nav a[href="/demo-ui"]')).toHaveCount(2);
-		await expect(page.locator('nav a[href="/demo-ui"]').last()).toBeVisible();
-		await menuToggle.click();
-		await expect(page.locator('nav a[href="/demo-ui"]')).toHaveCount(1);
-		await expect(page.locator('main > section h1')).toBeVisible();
-		expect(await fitsViewport()).toBe(true);
+			const menuToggle = page.locator('nav button[class~="md:hidden"]');
+			await expect(menuToggle).toHaveCount(1);
+			await expect(menuToggle).toHaveAttribute('aria-label', /.+/);
+			await expect(menuToggle).toHaveAttribute('aria-expanded', 'false');
+			const triggerBox = await menuToggle.boundingBox();
+			expect(triggerBox?.width).toBeGreaterThanOrEqual(44);
+			expect(triggerBox?.height).toBeGreaterThanOrEqual(44);
+			await menuToggle.click();
+			await expect(menuToggle).toHaveAttribute('aria-expanded', 'true');
+			await expect(page.locator('nav a[href="/demo-ui"]')).toHaveCount(2);
+			const menuLink = page.locator('nav a[href="/demo-ui"]').last();
+			await expect(menuLink).toBeVisible();
+			if (process.env.SF_UI_SCREENSHOT_DIR) {
+				mkdirSync(process.env.SF_UI_SCREENSHOT_DIR, { recursive: true });
+				await page.screenshot({
+					path: join(process.env.SF_UI_SCREENSHOT_DIR, `base-mobile-${width}.png`),
+					fullPage: true
+				});
+			}
+			const linkBox = await menuLink.boundingBox();
+			expect(linkBox?.height).toBeGreaterThanOrEqual(44);
+			await menuToggle.click();
+			await expect(menuToggle).toHaveAttribute('aria-expanded', 'false');
+			await expect(page.locator('nav a[href="/demo-ui"]')).toHaveCount(1);
+			await expect(page.locator('main > section h1')).toBeVisible();
+			expect(await fitsViewport()).toBe(true);
+		}
 	});
 });

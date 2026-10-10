@@ -4,9 +4,8 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '$app/forms';
 	import * as m from '$lib/paraglide/messages.js';
-	import { AvatarInitial, Feedback, Table } from '$lib/components/svforge/ui';
-	import { Badge } from '$lib/components/svforge/primitives';
-	import { Button, Input } from '$lib/components/svforge/primitives';
+	import { AvatarInitial, Card, Feedback, Table } from '$lib/components/svforge/ui';
+	import { Badge, Button, Input } from '$lib/components/svforge/primitives';
 	import { UserPlus, EnvelopeSimple, Power, Pencil, X } from '$lib/icons';
 	import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
@@ -158,12 +157,12 @@
 <div class="space-y-6">
 	<div class="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
 		<h2 class="h2">{m.users_heading()}</h2>
-		<div class="flex gap-2">
-			<Button data-testid="users-invite" variant="tonal" color="secondary" onclick={openInvite}>
+		<div class="flex w-full flex-wrap gap-2 sm:w-auto">
+			<Button type="button" class="min-h-11 flex-1 sm:flex-none" data-testid="users-invite" variant="tonal" color="secondary" onclick={openInvite}>
 				<EnvelopeSimple size={16} class="mr-1" />
 				{m.users_invite_btn()}
 			</Button>
-			<Button data-testid="users-add" onclick={openCreate}>
+			<Button type="button" class="min-h-11 flex-1 sm:flex-none" data-testid="users-add" onclick={openCreate}>
 				<UserPlus size={16} class="mr-1" />
 				{m.users_add()}
 			</Button>
@@ -174,7 +173,13 @@
 		<Feedback type={feedback.type} message={feedback.message} ondismiss={() => (feedback = null)} />
 	{/if}
 
-	<Input placeholder={m.users_search_placeholder()} bind:value={search} />
+	<Input
+		class="max-w-xl"
+		label={m.users_search_label()}
+		placeholder={m.users_search_placeholder()}
+		data-testid="users-search"
+		bind:value={search}
+	/>
 
 	<!-- CRUD data table: SvelteForge Table primitive (golden reference) -->
 	<Table {columns} rows={filtered} rowKey="id">
@@ -196,43 +201,51 @@
 					<form method="POST" action="?/toggleVerify" use:enhance={submitEnhance}>
 						<input type="hidden" name="id" value={row.id} />
 						<input type="hidden" name="verified" value={String(row.emailVerified)} />
-						<button
+						<Button
 							type="submit"
-							class="inline-flex"
+							variant="ghost"
+							color="surface"
+							class="min-h-11 px-2"
 							aria-label={row.emailVerified ? m.users_pending() : m.users_verified()}
 						>
 							<Badge color={row.emailVerified ? 'success' : 'warning'}>
 								{row.emailVerified ? m.users_verified() : m.users_pending()}
 							</Badge>
-						</button>
+						</Button>
 					</form>
 				{/if}
 			{:else if col.key === 'actions'}
 				<div class="flex items-center justify-end gap-1">
-					<button
-						class="btn preset-tonal-surface p-2"
+					<Button
+						type="button"
+						variant="tonal"
+						color="surface"
+						class="size-11 shrink-0 p-0"
 						data-testid="users-edit"
 						onclick={() => openEdit(row)}
 						aria-label={m.users_edit()}
 					>
 						<Pencil size={16} />
-					</button>
-					<button
-						class="btn preset-tonal-warning p-2"
+					</Button>
+					<Button
+						type="button"
+						variant="tonal"
+						color="warning"
+						class="size-11 shrink-0 p-0"
 						data-testid="users-status"
 						onclick={() => openStatus(row)}
 						disabled={row.id === currentUserId}
 						aria-label={row.disabled ? m.users_reactivate() : m.users_deactivate()}
 					>
 						<Power size={16} />
-					</button>
+					</Button>
 				</div>
 			{/if}
 		{/snippet}
 	</Table>
 
 	{#if filtered.length === 0}
-		<p class="py-8 text-center text-surface-700-300">{m.users_none()}</p>
+		<Card variant="outlined" class="py-8 text-center text-surface-700-300">{m.users_none()}</Card>
 	{/if}
 </div>
 
@@ -260,7 +273,11 @@
 										? m.users_modal_reactivate()
 										: m.users_modal_deactivate()}
 					</Dialog.Title>
-					<Dialog.CloseTrigger class="btn preset-tonal-surface p-1" aria-label={m.users_close()}>
+					<Dialog.CloseTrigger
+						class="btn-icon size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300"
+						aria-label={m.users_close()}
+						data-testid="users-dialog-close"
+					>
 						<X size={18} />
 					</Dialog.CloseTrigger>
 				</div>
@@ -303,8 +320,8 @@
 							/>
 						{/if}
 						<div class="flex justify-end gap-2 pt-2">
-							<Dialog.CloseTrigger type="button" class="btn hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
-							<Button type="submit">{modal === 'create' ? m.users_create() : m.common_save()}</Button>
+							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
+							<Button type="submit" class="min-h-11">{modal === 'create' ? m.users_create() : m.common_save()}</Button>
 						</div>
 					</form>
 				{:else if modal === 'invite'}
@@ -319,8 +336,8 @@
 							required
 						/>
 						<div class="flex justify-end gap-2 pt-2">
-							<Dialog.CloseTrigger type="button" class="btn hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
-							<Button type="submit">{m.users_invite_btn()}</Button>
+							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
+							<Button type="submit" class="min-h-11">{m.users_invite_btn()}</Button>
 						</div>
 					</form>
 				{:else if modal === 'status' && statusTarget}
@@ -333,8 +350,8 @@
 						<input type="hidden" name="id" value={statusTarget.id} />
 						<input type="hidden" name="disabled" value={String(!statusTarget.disabled)} />
 						<div class="flex justify-end gap-2">
-							<Dialog.CloseTrigger type="button" class="btn hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
-							<Button color={statusTarget.disabled ? 'success' : 'warning'} type="submit"
+							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
+							<Button class="min-h-11" color={statusTarget.disabled ? 'success' : 'warning'} type="submit"
 								>{statusTarget.disabled ? m.users_reactivate_btn() : m.users_deactivate_btn()}</Button
 							>
 						</div>
