@@ -76,7 +76,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the short development workflow and 
 
 ## Security
 
-Do not report vulnerabilities in public issues. Use [GitHub Security Advisories](https://github.com/lelabdev/svelteforge/security/advisories/new); see [`SECURITY.md`](SECURITY.md) for response targets and reporting guidance.
+Do not report vulnerabilities in public issues. Use [GitHub Security Advisories](https://github.com/lelabdev/svforge/security/advisories/new); see [`SECURITY.md`](SECURITY.md) for response targets and reporting guidance.
 
 ## License
 

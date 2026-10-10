@@ -18,7 +18,7 @@
 		</p>
 		<div class="flex justify-center gap-4">
 			<Button href="/demo-ui" size="lg">{m.home_view_components()}</Button>
-			<Button variant="outlined" size="lg" href="https://github.com/lelabdev/svelteforge">{m.home_github()}</Button>
+			<Button variant="outlined" size="lg" href="https://github.com/lelabdev/svforge">{m.home_github()}</Button>
 		</div>
 	</section>
 

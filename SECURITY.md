@@ -28,7 +28,7 @@ expose exploitation details before a fix exists.
 
 Report privately through GitHub's **private vulnerability reporting**:
 
-> https://github.com/lelabdev/svelteforge/security/advisories/new
+> https://github.com/lelabdev/svforge/security/advisories/new
 
 This channel is owned by the maintainers and is the only supported reporting
 route. It requires the repository's private vulnerability reporting feature to

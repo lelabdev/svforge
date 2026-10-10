@@ -8,7 +8,7 @@ export default defineAddon({
 	id: 'svforge-graph',
 	alias: 'forge-graph',
 	shortDescription: 'SVForge Graph — interactive knowledge graph visualization (Obsidian-style)',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	// Empty options required: sv >= 0.15 crashes on addons without an
 	// options object (Object.entries(undefined) in promptAddonQuestions).
 	options: defineAddonOptions().build(),

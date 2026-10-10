@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/lelabdev/svelteforge/release-plan.schema.json",
+  "$id": "https://svforge.dev/docs/release-plan.schema.json",
   "title": "SVForge release plan",
   "type": "object",
   "required": ["schemaVersion", "versionPolicy", "commit", "changelog", "compatibility", "packages"],

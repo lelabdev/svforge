@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 
 const ROOT = process.cwd();
@@ -13,8 +14,20 @@ describe('security policy (#352)', () => {
 	});
 
 	it('routes reporters to GitHub private vulnerability reporting, never public issues', () => {
-		expect(policy).toContain('https://github.com/lelabdev/svelteforge/security/advisories/new');
+		expect(policy).toContain('https://github.com/lelabdev/svforge/security/advisories/new');
 		expect(policy).toMatch(/Do NOT open a public GitHub issue/i);
+	});
+
+	it('keeps obsolete GitHub repository URLs out of tracked sources', () => {
+		const obsoleteRepository = 'github.com/lelabdev/' + 'svelteforge';
+		const result = spawnSync(
+			'git',
+			['grep', '-n', obsoleteRepository, '--', '.', ':!tests/security-policy.test.ts'],
+			{ cwd: ROOT, encoding: 'utf8' }
+		);
+
+		expect(result.status).toBe(1);
+		expect(result.stdout).toBe('');
 	});
 
 	it('declares supported versions explicitly and without contradiction', () => {

@@ -7,7 +7,7 @@ export default defineAddon({
 	id: 'svforge-chat',
 	alias: 'forge-chat',
 	shortDescription: 'SVForge Chat — composable app chat (conversations, messages, read-state)',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 	options: defineAddonOptions().build(),
 
 	setup: ({ unsupported, isKit }) => {

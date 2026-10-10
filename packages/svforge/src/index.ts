@@ -95,7 +95,7 @@ export default defineAddon({
 	id: 'svelteforge',
 	alias: 'forge',
 	shortDescription: 'SvelteForge — production-ready foundations for SvelteKit',
-	homepage: 'https://github.com/lelabdev/svelteforge',
+	homepage: 'https://github.com/lelabdev/svforge',
 
 	options: defineAddonOptions()
 		.add('template', {
