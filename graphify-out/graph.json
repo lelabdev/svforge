@@ -9298,7 +9298,7 @@
       "label": "dashboardRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L97",
+      "source_location": "L98",
       "_origin": "ast"
     },
     {
@@ -9306,7 +9306,7 @@
       "label": "baseRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L105",
+      "source_location": "L106",
       "_origin": "ast"
     },
     {
@@ -14460,7 +14460,7 @@
     },
     {
       "id": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
-      "label": "routes/+layout.svelte",
+      "label": "base/src/routes/+layout.svelte",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/src/routes/+layout.svelte",
       "source_location": "L1",
@@ -14476,7 +14476,7 @@
     },
     {
       "id": "packages_svforge_templates_base_src_routes_layout_ts_packages_svforge_templates_base_src_routes_layout",
-      "label": "+layout.ts",
+      "label": "base/src/routes/+layout.ts",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/src/routes/+layout.ts",
       "source_location": "L1",
@@ -17033,11 +17033,35 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_templates_dashboard_src_routes_layout_svelte_packages_svforge_templates_dashboard_src_routes_layout",
+      "label": "dashboard/src/routes/+layout.svelte",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/routes/+layout.svelte",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_templates_dashboard_src_routes_layout",
       "label": "./layout.css",
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/routes/layout.css",
       "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_routes_layout_ts_packages_svforge_templates_dashboard_src_routes_layout",
+      "label": "dashboard/src/routes/+layout.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/routes/+layout.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_routes_layout_prerender",
+      "label": "prerender",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/routes/+layout.ts",
+      "source_location": "L3",
       "_origin": "ast"
     },
     {
@@ -19924,7 +19948,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L779",
+      "source_location": "L781",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -46692,7 +46716,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46702,7 +46726,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L105",
+      "source_location": "L106",
       "weight": 1,
       "_origin": "ast"
     },
@@ -59406,7 +59430,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_routes_layout",
+      "source": "packages_svforge_templates_dashboard_src_routes_layout_svelte_packages_svforge_templates_dashboard_src_routes_layout",
       "target": "packages_svforge_templates_dashboard_src_routes_layout",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -59414,7 +59438,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_routes_layout",
+      "source": "packages_svforge_templates_dashboard_src_routes_layout_svelte_packages_svforge_templates_dashboard_src_routes_layout",
       "target": "state",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
@@ -59422,11 +59446,21 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_routes_layout",
+      "source": "packages_svforge_templates_dashboard_src_routes_layout_svelte_packages_svforge_templates_dashboard_src_routes_layout",
       "target": "runtime",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/+layout.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_routes_layout_ts_packages_svforge_templates_dashboard_src_routes_layout",
+      "target": "packages_svforge_templates_dashboard_src_routes_layout_prerender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/routes/+layout.ts",
+      "source_location": "L3",
+      "weight": 1,
       "_origin": "ast"
     },
     {
@@ -65268,7 +65302,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L779",
+      "source_location": "L781",
       "weight": 1,
       "_origin": "ast"
     },
@@ -65278,7 +65312,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L787",
+      "source_location": "L789",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -70704,7 +70738,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L114",
+      "source_location": "L128",
       "weight": 1,
       "_origin": "ast"
     },

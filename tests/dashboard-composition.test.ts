@@ -100,6 +100,20 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 }
 
 describe('dashboard admin composition', () => {
+	it('overrides the base prerender default to keep dashboard routes dynamic', () => {
+		const project = mkdtempSync(join(process.cwd(), '.svforge-dashboard-prerender-'));
+		try {
+			const sv = filesystemSv(project);
+			applyBaseMode(asSvApi(sv), baseFiles, baseRootFiles);
+			applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
+
+			const routeConfig = readFileSync(join(project, 'src/routes/+layout.ts'), 'utf8');
+			expect(routeConfig).toMatch(/export const prerender = false/);
+		} finally {
+			rmSync(project, { recursive: true, force: true });
+		}
+	});
+
 	it('scaffolds and renders a shell title before a distinct localized admin page title', async () => {
 		const project = mkdtempSync(join(process.cwd(), '.svforge-dashboard-composition-'));
 		try {
