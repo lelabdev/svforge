@@ -288,11 +288,12 @@ describe('two-stage orchestration (#417)', () => {
 			const result = await runCreateCommand(
 				cwd,
 				flagsToOptions(
-					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd', 'ui_toast'], hooks: 'none', testing: 'vitest' },
+					{ dir: 'app', template: 'dashboard', pm: 'bun', modules: ['dnd', 'ui_toast'], testing: 'vitest' },
 					{ spawn, validate: async () => 0 }
 				)
 			);
 			expect(result.code).toBe(0);
+			expect(result.plan?.hooks).toBe('none');
 			expect(calls).toHaveLength(3);
 
 			// Stage 1: the OFFICIAL generator, minimal, no add-ons, no install.
@@ -326,6 +327,25 @@ describe('two-stage orchestration (#417)', () => {
 			expect(calls[2]!.command).toBe('git');
 			expect(calls[2]!.args).toEqual(['init']);
 			expect(calls[2]!.options.cwd).toBe(join(cwd, 'app'));
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('forwards an explicit hooks choice instead of the default', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(
+				cwd,
+				flagsToOptions(
+					{ dir: 'app', template: 'base', pm: 'bun', modules: [], hooks: 'lefthook' },
+					{ spawn, validate: async () => 0 }
+				)
+			);
+			expect(result.code).toBe(0);
+			expect(result.plan?.hooks).toBe('lefthook');
+			expect(calls[1]!.args[2]).toContain('+hooks:lefthook');
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
 		}

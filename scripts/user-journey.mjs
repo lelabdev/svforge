@@ -8,8 +8,8 @@
  * documented commands, boot the app, and exercise the dashboard flow.
  *
  * This module owns the parts asserted in unit tests: argument parsing, the
- * documented add-on specifier, the local tarball round-trip, external `sv`
- * acquisition, and source resolution. It NEVER reads or executes the
+ * documented add-on specifier, local tarball round-trips, external `sv`
+ * acquisition, packed CLI installation, and source resolution. It NEVER reads or executes the
  * repository's own `node_modules` tooling — `sv` is installed into a scratch
  * prefix exactly as an external consumer would.
  */
@@ -99,6 +99,18 @@ export function installSv(scratch, version, { run = execFileSync } = {}) {
 	return join(scratch, 'node_modules', '.bin', 'sv');
 }
 
+/** Install the packed CLI exactly as an external npm consumer would. */
+export function installPackedCli(tarball, scratch, { run = execFileSync } = {}) {
+	if (!tarball) throw new Error('installPackedCli requires a packed tarball path');
+	mkdirSync(scratch, { recursive: true });
+	run(
+		'npm',
+		['install', '--prefix', scratch, '--no-save', '--no-package-lock', '--ignore-scripts', tarball],
+		{ stdio: ['ignore', 'ignore', 'inherit'] }
+	);
+	return join(scratch, 'node_modules', '.bin', 'svforge');
+}
+
 /** `npm pack` the package as it would be published; return the tarball path. */
 export function packLocalAddon(packageDir, destination) {
 	mkdirSync(destination, { recursive: true });
@@ -181,10 +193,11 @@ export function resolveSource(argv, { root = REPO_ROOT, run = execFileSync } = {
 
 /**
  * The exact argv for the ONE `svforge create` command the golden path runs
- * (#470). Pure so the non-interactive contract is unit-tested: every choice is
- * a flag, so no prompt can ever block the journey, and the add-on source is
- * explicit (`--addon-root` for packed artifacts, `--compat-manifest` for the
- * exact per-package published versions) — never an implicit `latest`.
+ * (#470). Pure so the non-interactive contract is unit-tested: required
+ * choices are flags and `--yes` prevents prompting. Hooks are omitted by
+ * default to exercise the CLI's non-TTY default; an explicit hook choice is
+ * forwarded. The add-on source is explicit (`--addon-root` for packed
+ * artifacts, `--compat-manifest` for exact published versions), never `latest`.
  *
  * @param {{
  *   dir: string,
@@ -205,7 +218,7 @@ export function goldenPathCreateArgs(options = {}) {
 		template = 'base',
 		pm = 'bun',
 		testing = 'vitest',
-		hooks = 'none',
+		hooks,
 		modules = GOLDEN_PATH_MODULES[template] ?? 'all',
 		runtime = GOLDEN_PATH_RUNTIME[template],
 		addonRoot,
@@ -221,12 +234,11 @@ export function goldenPathCreateArgs(options = {}) {
 		pm,
 		'--testing',
 		testing,
-		'--hooks',
-		hooks,
 		'--modules',
 		Array.isArray(modules) ? modules.join(',') : modules,
 		'--yes'
 	];
+	if (hooks !== undefined) args.push('--hooks', hooks);
 	if (runtime) args.push('--runtime', runtime);
 	if (addonRoot) args.push('--addon-root', addonRoot);
 	if (addonVersion) args.push('--addon-version', addonVersion);
@@ -271,8 +283,14 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 			const destination = flag('--dest');
 			if (!destination) throw new Error('addon-set requires --dest <directory>');
 			console.log(packModuleSet({ destination }));
+		} else if (command === 'install-cli') {
+			const tarball = flag('--tarball');
+			const destination = flag('--dest');
+			if (!tarball) throw new Error('install-cli requires --tarball <path>');
+			if (!destination) throw new Error('install-cli requires --dest <directory>');
+			console.log(installPackedCli(tarball, destination));
 		} else {
-			console.error('Usage: node scripts/user-journey.mjs <source|addon-set> [--published [version]] [--sv <version>] --dest <directory>');
+			console.error('Usage: node scripts/user-journey.mjs <source|addon-set|install-cli> [options]');
 			process.exitCode = 1;
 		}
 	} catch (error) {
