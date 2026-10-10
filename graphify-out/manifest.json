@@ -1184,7 +1184,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-mode.test.ts": {
-    "ast_hash": "065f41bcd8b9258c467b5784c9c2d2b8",
+    "ast_hash": "465d08d82da3e468a26f52c7292eab02",
     "semantic_hash": ""
   },
   "tests/dashboard-playwright.test.ts": {
