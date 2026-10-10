@@ -243,6 +243,8 @@ if [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "dashboard-playwright" ] || 
 	test -f scripts/setup.sh || { echo "❌ scripts/setup.sh missing at project root (#187)"; exit 1; }
 	test -f static/robots.txt || { echo "❌ static/robots.txt missing at project root (#187)"; exit 1; }
 	test -f .github/workflows/ci.yml || { echo "❌ dashboard CI workflow missing at project root (#406)"; exit 1; }
+	grep -q '^export const prerender = false;$' src/routes/+layout.ts \
+		|| { echo "❌ dashboard root layout must override base prerendering (#439)"; exit 1; }
 	CI_INSTALL_COMMAND=""
 	CI_SCRIPT_RUNNER=""
 	CI_DRIZZLE_COMMAND=""

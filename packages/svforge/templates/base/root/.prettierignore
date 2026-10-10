@@ -108,6 +108,7 @@ src/routes/(app)/admin/users/+page.svelte
 src/routes/(app)/admin/users/page.server.test.ts
 src/routes/(app)/layout.server.test.ts
 src/routes/+layout.svelte
+src/routes/+layout.ts
 src/routes/+page.server.ts
 src/routes/+page.svelte
 src/routes/demo-ui/+page.svelte
