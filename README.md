@@ -83,7 +83,7 @@ npx sv add @svforge/uploads @svforge/notifications
 
 Available capabilities include blog, rich-text editing, email, OAuth, uploads, notifications, audit logs, jobs, realtime, chat, drag-and-drop, graph visualization, and toast notifications. Modules declare their prerequisites; some require PostgreSQL, authentication, or a long-lived Node runtime.
 
-Want a predefined combination? `svforge preset saas` composes dashboard-compatible modules; `svforge preset community` composes base-compatible modules. See the [complete module matrix](packages/svforge/README.md#optional-modules) and [deployment profiles](packages/svforge/docs/deployment-profiles.md) before selecting runtime-dependent modules.
+Want a predefined combination? Run `npx svforge preset saas` in a dashboard project or `npx svforge preset community` in a base project. **A preset only prints a suggested `sv add` command; it does not install or change anything.** Copy and run the printed `sv add` command to apply those modules. See the [complete module matrix](packages/svforge/README.md#optional-modules) and [deployment profiles](packages/svforge/docs/deployment-profiles.md) before selecting runtime-dependent modules.
 
 ## Built for developers and coding agents
 
