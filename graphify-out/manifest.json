@@ -1068,7 +1068,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "6f6dd131865ce9324f2812433ef427c1",
+    "ast_hash": "7121d0430b0ac90d40f83f8d667aa5ee",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1676,11 +1676,11 @@
     "semantic_hash": ""
   },
   "scripts/test-user-journey.sh": {
-    "ast_hash": "13bac365b76c888d02814874373c5026",
+    "ast_hash": "3814f28b6a717bce090c76829a4e8a37",
     "semantic_hash": ""
   },
   "scripts/user-journey.mjs": {
-    "ast_hash": "3ff09a054443eff83a750807e571fc04",
+    "ast_hash": "72cbf5dae9acc10cf0543df7465db46f",
     "semantic_hash": ""
   },
   "tests/better-auth-manual-upgrade.test.ts": {
@@ -1716,7 +1716,7 @@
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
-    "ast_hash": "17b5c96e03c457abe171a863dddd8279",
+    "ast_hash": "25b6f9bb1837c78c591b275b123bd730",
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {

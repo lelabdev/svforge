@@ -19822,7 +19822,7 @@
       "label": "cleanup_tmp()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L33",
+      "source_location": "L35",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -19834,7 +19834,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L777",
+      "source_location": "L779",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -64907,7 +64907,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L33",
+      "source_location": "L35",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64917,7 +64917,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L777",
+      "source_location": "L779",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64927,7 +64927,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L785",
+      "source_location": "L787",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
