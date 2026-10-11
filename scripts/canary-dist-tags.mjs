@@ -61,10 +61,13 @@ export function ensureCanaryStagingTags(plan, npm = runNpm) {
 	}
 }
 
-/** Promote only after exact-version consumer checks pass; restore the prior canary map on any partial failure. */
+/** Promote validated snapshots to both canary and dev without ever moving latest.
+ * Both public aliases are restored together if any npm write fails.
+ */
 /** @param {any} plan @param {NpmRunner} [npm] */
 export function promoteCanaryDistTag(plan, npm = runNpm) {
 	assertPlan(plan);
+	const tags = ['canary', 'dev'];
 	for (const pkg of plan.candidates) {
 		const result = npm(['view', `${pkg.name}@${pkg.version}`, 'version', '--json']);
 		if (result.status !== 0 || result.stdout.trim().replace(/^['"]|['"]$/g, '') !== pkg.version) {
@@ -72,39 +75,45 @@ export function promoteCanaryDistTag(plan, npm = runNpm) {
 		}
 	}
 
-	const previous = new Map(plan.candidates.map((pkg) => [pkg.name, currentDistTag(pkg, 'canary', npm)]));
-	// Workflow concurrency prevents simultaneous writes but does not guarantee
-	// dispatch order. A delayed or retried older run must never roll back a
-	// newer validated canary release.
+	const previous = new Map();
 	for (const pkg of plan.candidates) {
-		const current = previous.get(pkg.name);
-		const existingRun = current?.match(/^0\.0\.0-canary-[0-9a-f]{12}-(\d+)$/);
-		if (existingRun && BigInt(existingRun[1]) > BigInt(plan.runId)) {
-			throw new Error(`Canary dist-tags: refusing to replace newer canary ${pkg.name}@${current} with older run ${plan.runId}.`);
+		for (const tag of tags) {
+			const current = currentDistTag(pkg, tag, npm);
+			previous.set(`${pkg.name}:${tag}`, current);
+			// A delayed/retried older run must not roll back EITHER public tag.
+			const existingRun = current?.match(/^0\\.0\\.0-canary-[0-9a-f]{12}-(\\d+)$/);
+			if (existingRun && BigInt(existingRun[1]) > BigInt(plan.runId)) {
+				throw new Error(`Canary dist-tags: refusing to replace newer ${tag} ${pkg.name}@${current} with older run ${plan.runId}.`);
+			}
 		}
 	}
+
 	try {
 		for (const pkg of plan.candidates) {
-			runChecked(npm, ['dist-tag', 'add', `${pkg.name}@${pkg.version}`, 'canary']);
+			for (const tag of tags) {
+				runChecked(npm, ['dist-tag', 'add', `${pkg.name}@${pkg.version}`, tag]);
+			}
 		}
 	} catch (error) {
 		const rollbackErrors = [];
 		for (const pkg of plan.candidates) {
-			const version = previous.get(pkg.name);
-			try {
-				if (version) {
-					runChecked(npm, ['dist-tag', 'add', `${pkg.name}@${version}`, 'canary']);
-				} else if (currentDistTag(pkg, 'canary', npm) !== null) {
-					runChecked(npm, ['dist-tag', 'rm', pkg.name, 'canary']);
+			for (const tag of tags) {
+				const version = previous.get(`${pkg.name}:${tag}`);
+				try {
+					if (version) {
+						runChecked(npm, ['dist-tag', 'add', `${pkg.name}@${version}`, tag]);
+					} else if (currentDistTag(pkg, tag, npm) !== null) {
+						runChecked(npm, ['dist-tag', 'rm', pkg.name, tag]);
+					}
+				} catch (rollbackError) {
+					rollbackErrors.push(rollbackError.message);
 				}
-			} catch (rollbackError) {
-				rollbackErrors.push(rollbackError.message);
 			}
 		}
 		if (rollbackErrors.length) {
-			throw new Error(`${error.message}\nCanary dist-tag rollback was incomplete: ${rollbackErrors.join('; ')}`, { cause: error });
+			throw new Error(`${error.message}\\nCanary/dev dist-tag rollback was incomplete: ${rollbackErrors.join('; ')}`, { cause: error });
 		}
-		throw new Error(`Canary dist-tag promotion failed; previous canary tags were restored: ${error.message}`, { cause: error });
+		throw new Error(`Canary/dev dist-tag promotion failed; previous public tags were restored: ${error.message}`, { cause: error });
 	}
 }
 
