@@ -1492,7 +1492,7 @@
     "semantic_hash": ""
   },
   "docs/RELEASE.md": {
-    "ast_hash": "818f438d3ef345ecb76793573b2f2446",
+    "ast_hash": "c99dd0b7c60b0d458a56f565644513fb",
     "semantic_hash": ""
   },
   "docs/better-auth-upgrades.md": {
@@ -2048,11 +2048,15 @@
     "semantic_hash": ""
   },
   "tests/canary-snapshots.test.ts": {
-    "ast_hash": "8ad3faf4c386106bfff733ac91905d97",
+    "ast_hash": "69bf36d9ad7160ca360851a9b8fd9219",
     "semantic_hash": ""
   },
   ".github/workflows/canary-snapshots.yml": {
-    "ast_hash": "a335d353578f648a789692751d9f4f36",
+    "ast_hash": "464bafff47ff7e2b973720833a217fed",
+    "semantic_hash": ""
+  },
+  "tests/canary-npm-auth.test.ts": {
+    "ast_hash": "3a1cda09fa0d4e41d430185f78fc89bf",
     "semantic_hash": ""
   }
 }

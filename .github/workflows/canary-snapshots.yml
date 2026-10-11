@@ -70,6 +70,18 @@ jobs:
         working-directory: ${{ runner.temp }}/svforge-canary
         run: bun install --frozen-lockfile --ignore-scripts
 
+      # setup-node creates a temporary user .npmrc that resolves this token
+      # securely; no credentials are written into the archived workspace.
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify npm authentication
+        run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Check generated manifests before snapshot versioning
         working-directory: ${{ runner.temp }}/svforge-canary
         run: node scripts/check-generated.mjs
@@ -145,10 +157,12 @@ jobs:
         working-directory: ${{ runner.temp }}/svforge-canary
         run: |
           version=$(node -e "const p=require(process.env.PLAN); const x=p.packages.find((pkg)=>pkg.name==='svforge'); if(!x) throw new Error('svforge missing from canary plan'); process.stdout.write(x.version)")
+          node -e "const p=require(process.env.PLAN); if(!p.compatibility) throw new Error('canary plan has no compatibility manifest'); require('node:fs').writeFileSync(process.env.COMPAT, JSON.stringify(p.compatibility));"
           bash scripts/test-user-journey.sh --path create --published "$version" \
-            --compat-manifest "$RUNNER_TEMP/canary-plan.json" --template dashboard
+            --compat-manifest "$RUNNER_TEMP/canary-compat.json" --template dashboard
         env:
           PLAN: ${{ runner.temp }}/canary-plan.json
+          COMPAT: ${{ runner.temp }}/canary-compat.json
 
       # Only validated packages receive the public `canary` tag. The script
       # restores each previous tag if promotion partially fails.

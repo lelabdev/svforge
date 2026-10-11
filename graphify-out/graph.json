@@ -22079,6 +22079,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_canary_npm_auth_test",
+      "label": "canary-npm-auth.test.ts",
+      "file_type": "code",
+      "source_file": "tests/canary-npm-auth.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_canary_snapshots_test",
       "label": "canary-snapshots.test.ts",
       "file_type": "code",
@@ -27567,7 +27575,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L72",
+      "source_location": "L78",
       "_origin": "ast"
     },
     {
@@ -27576,7 +27584,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L167",
+      "source_location": "L173",
       "_origin": "ast"
     },
     {
@@ -27585,7 +27593,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L180",
+      "source_location": "L186",
       "_origin": "ast"
     },
     {
@@ -27594,7 +27602,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L197",
+      "source_location": "L203",
       "_origin": "ast"
     },
     {
@@ -27603,7 +27611,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L255",
+      "source_location": "L261",
       "_origin": "ast"
     },
     {
@@ -27612,7 +27620,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L270",
+      "source_location": "L276",
       "_origin": "ast"
     },
     {
@@ -27621,7 +27629,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L284",
+      "source_location": "L290",
       "_origin": "ast"
     },
     {
@@ -27630,7 +27638,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L311",
+      "source_location": "L317",
       "_origin": "ast"
     },
     {
@@ -27639,7 +27647,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L337",
+      "source_location": "L343",
       "_origin": "ast"
     },
     {
@@ -74214,6 +74222,72 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_canary_npm_auth_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/canary-npm-auth.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_canary_npm_auth_test",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/canary-npm-auth.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_canary_npm_auth_test",
+      "target": "ref_node_http",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/canary-npm-auth.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_canary_npm_auth_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/canary-npm-auth.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_canary_npm_auth_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/canary-npm-auth.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_canary_npm_auth_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/canary-npm-auth.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_canary_snapshots_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -74381,7 +74455,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/canary-snapshots.test.ts",
-      "source_location": "L50",
+      "source_location": "L63",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88364,7 +88438,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L72",
+      "source_location": "L78",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88374,7 +88448,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L167",
+      "source_location": "L173",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88384,7 +88458,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L180",
+      "source_location": "L186",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88394,7 +88468,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L197",
+      "source_location": "L203",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88404,7 +88478,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L255",
+      "source_location": "L261",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88414,7 +88488,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L270",
+      "source_location": "L276",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88424,7 +88498,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L284",
+      "source_location": "L290",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88434,7 +88508,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L311",
+      "source_location": "L317",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88444,7 +88518,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L337",
+      "source_location": "L343",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92690,7 +92764,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L116",
+      "source_location": "L122",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92702,7 +92776,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L199",
+      "source_location": "L205",
       "weight": 1,
       "_origin": "ast"
     },

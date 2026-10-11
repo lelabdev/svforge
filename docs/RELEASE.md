@@ -46,6 +46,12 @@ Publication fails closed if any unchanged compatibility version is not already
 present on npm (including first-time stable package releases still awaiting the
 Version Packages approval).
 
+The workflow configures npm authentication with the pinned `actions/setup-node`
+registry setup and verifies the protected `NPM_TOKEN` using `npm whoami` before
+snapshot preparation or any npm registry write. The temporary user `.npmrc` is
+created by the action; no token is committed to the repository or copied into
+the archived workspace.
+
 Before the first npm write, the workflow runs lint, typecheck, audit, tests,
 package builds, the packed dashboard golden path with all modules (using the
 workflow's disposable PostgreSQL service), `npm pack` for every snapshot
