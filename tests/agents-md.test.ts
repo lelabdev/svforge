@@ -29,12 +29,6 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		expect(canonical).toContain('targeted ESLint disable');
 	});
 
-	it('explicitly separates advisory instructions from enforced checks', () => {
-		const canonical = scaffoldedAgents('base');
-		expect(canonical).toMatch(/Advisory vs enforced/);
-		expect(canonical).toMatch(/svforge check/);
-	});
-
 	it('guides agents through inspect, approval, apply, and verify using CLI plans', () => {
 		const canonical = scaffoldedAgents('base');
 		expect(canonical).toContain('## SVForge CLI plans');

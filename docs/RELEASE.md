@@ -319,6 +319,16 @@ reviewed `.changeset/release-candidates.json`**; otherwise the compatibility
 guard still blocks the release. Changelogs describe changes, but are not used
 to authorize a retry. Packages remain independently versioned.
 
+The post-publication consumer smoke test polls each exact version from npm for up
+to 24 checks (five seconds apart) before running a clean external install and
+TypeScript resolution test. Only missing versions are retried: auth/network
+failures and broken tarballs or type declarations remain blocking. The install
+uses a fresh npm cache to avoid stale registry metadata. The post-publish
+dashboard user journey runs with its own PostgreSQL 17 service, matching the
+pre-publish gate. A previous release stopped at npm `ETARGET` during immediate
+registry propagation and later at Drizzle initialization because that service
+was missing from the publish job (issue #576).
+
 Changesets checks the registry before publishing. A partial publish failure
 stops the job before post-publication checks, tags, or GitHub Releases. On a
 rerun, Changesets skips exact versions already published and publishes the

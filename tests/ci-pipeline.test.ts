@@ -110,6 +110,14 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 		expect(publishJob).toContain('pull-requests: write');
 		expect(publishJob).toContain('id-token: write');
 		expect(publishJob).toContain('node-version: 24');
+		// The post-publish dashboard exercises real PostgreSQL schema operations.
+		expect(publishJob).toContain('image: postgres:17');
+		expect(publishJob).toContain('POSTGRES_DB: sf_dashboard_test');
+		expect(publishJob).toContain('5432:5432');
+		// A fresh release dispatch uses the current smoke implementation but
+		// still builds and publishes packages from the reviewed release commit.
+		expect(publishJob).toContain('git show "${{ github.sha }}:scripts/npm-consumer-smoke.mjs" > scripts/npm-consumer-smoke.mjs');
+		expect(publishJob).toContain('--wait-for-registry');
 		expect(publishJob).toContain('package-manager-cache: false');
 		expect(publishJob).not.toContain('NODE_AUTH_TOKEN');
 		expect(publishJob).not.toContain('npm whoami');

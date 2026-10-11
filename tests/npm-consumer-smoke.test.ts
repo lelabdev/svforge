@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
-const { consumerInstallSpecs, consumerSource, consumerTsConfig, packageTypePath, validateInstalledTypes } = await import('../scripts/npm-consumer-smoke.mjs');
+const { consumerInstallSpecs, consumerSource, consumerTsConfig, packageTypePath, validateInstalledTypes, waitForRegistryAvailability, registryVersionVisible } = await import('../scripts/npm-consumer-smoke.mjs');
 
 describe('npm consumer smoke test (#330)', () => {
 	it('resolves the declared type entry for every exact package', () => {
@@ -65,5 +65,81 @@ describe('npm consumer smoke test (#330)', () => {
 		} finally {
 			rmSync(root, { recursive: true, force: true });
 		}
+	});
+
+	it('retries only versions not yet visible, without confusing propagation with a broken tarball', async () => {
+		const seen: string[] = [];
+		let auditChecks = 0;
+		let waits = 0;
+		const plan = { packages: [
+			{ name: '@svforge/audit', version: '2.2.0' },
+			{ name: '@svforge/blog', version: '2.2.0' }
+		] };
+		await waitForRegistryAvailability(plan, {
+			maxAttempts: 3,
+			intervalMs: 1,
+			probe: (spec: string) => {
+				seen.push(spec);
+				if (spec.startsWith('@svforge/audit@')) return ++auditChecks > 1;
+				return true;
+			},
+			pause: async () => { waits++; }
+		});
+		expect(seen).toEqual([
+			'@svforge/audit@2.2.0',
+			'@svforge/blog@2.2.0',
+			'@svforge/audit@2.2.0'
+		]);
+		expect(waits).toBe(1);
+	});
+
+	it('fails with the exact unavailable version after bounded registry checks', async () => {
+		let waits = 0;
+		await expect(waitForRegistryAvailability({
+			packages: [{ name: '@svforge/audit', version: '2.2.0' }]
+		}, {
+			maxAttempts: 3,
+			intervalMs: 1,
+			probe: () => false,
+			pause: async () => { waits++; }
+		})).rejects.toThrow('npm registry propagation timed out after 3 checks: @svforge/audit@2.2.0');
+		expect(waits).toBe(2);
+	});
+
+	it('never retries an unexpected authentication or registry failure', async () => {
+		let attempts = 0;
+		await expect(waitForRegistryAvailability({
+			packages: [{ name: '@svforge/audit', version: '2.2.0' }]
+		}, {
+			maxAttempts: 8,
+			probe: () => { attempts++; throw new Error('E401 authentication rejected'); },
+			pause: async () => { throw new Error('unexpected wait'); }
+		})).rejects.toThrow('E401');
+		expect(attempts).toBe(1);
+	});
+
+	it('checks stable dependencies but not unpublished local snapshots until the post-publish phase', async () => {
+		const plan = { packages: [
+			{ name: '@svforge/changed', version: '0.0.0-canary.1', tarball: '/tmp/changed.tgz' },
+			{ name: '@svforge/unchanged', version: '2.2.0' }
+		] };
+		const pre: string[] = [];
+		await waitForRegistryAvailability(plan, { probe: (spec: string) => { pre.push(spec); return true; } });
+		expect(pre).toEqual(['@svforge/unchanged@2.2.0']);
+		const post: string[] = [];
+		await waitForRegistryAvailability(plan, { registryOnly: true, probe: (spec: string) => { post.push(spec); return true; } });
+		expect(post).toEqual(['@svforge/changed@0.0.0-canary.1', '@svforge/unchanged@2.2.0']);
+	});
+
+	it('distinguishes a missing npm version from credentials and server failures', () => {
+		const fake = (output: string | Error) => (
+			(() => { if (output instanceof Error) throw output; return output; }) as unknown as Parameters<typeof registryVersionVisible>[2]
+		);
+		expect(registryVersionVisible('@svforge/audit@2.2.0', 'npm', fake('"2.2.0"'))).toBe(true);
+		expect(registryVersionVisible('@svforge/audit@2.2.0', 'npm', fake('"2.1.0"'))).toBe(false);
+		expect(registryVersionVisible('@svforge/audit@2.2.0', 'npm',
+			fake(Object.assign(new Error('not found'), { stderr: 'npm error code ETARGET' })))).toBe(false);
+		expect(() => registryVersionVisible('@svforge/audit@2.2.0', 'npm',
+			fake(Object.assign(new Error('access denied'), { stderr: 'npm error code E401' })))).toThrow(/Registry lookup failed/);
 	});
 });

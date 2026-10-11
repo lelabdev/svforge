@@ -254,6 +254,20 @@ jobs:
     needs: [authorize-release, quality, scaffolds, user-journey]
     if: needs.authorize-release.result == 'success'
     runs-on: ubuntu-latest
+    # The published dashboard journey uses a real database, like the pre-publish gate.
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: sf_dashboard_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     permissions:
       contents: write
       pull-requests: write
@@ -297,6 +311,7 @@ jobs:
           git fetch --no-tags origin "${{ github.sha }}"
           git show "${{ github.sha }}:scripts/release-plan.mjs" > scripts/release-plan.mjs
           git show "${{ github.sha }}:scripts/compat-manifest.mjs" > scripts/compat-manifest.mjs
+          git show "${{ github.sha }}:scripts/npm-consumer-smoke.mjs" > scripts/npm-consumer-smoke.mjs
 
       # The plan is generated before any publication and records the exact
       # commit, independent package versions, registry state, and dependency order.
@@ -334,8 +349,9 @@ jobs:
 
       # Consumer gate: install every exact published version and run tsc against
       # generated imports from a clean external project.
+      # Registry propagation may lag successful npm publication.
       - name: Consumer installation smoke test
-        run: node scripts/npm-consumer-smoke.mjs --plan /tmp/release-plan.json
+        run: node scripts/npm-consumer-smoke.mjs --plan /tmp/release-plan.json --wait-for-registry
 
       # Post-publication signal (#462, #465): run the journey against the EXACT
       # `svforge` version from the release plan, not an unpinned `latest`.
@@ -513,7 +529,7 @@ jobs:
 
       - name: Post-publish exact-version consumer install
         working-directory: ${{ runner.temp }}/svforge-canary
-        run: node scripts/npm-consumer-smoke.mjs --plan "$RUNNER_TEMP/canary-plan.json" --registry-only
+        run: node scripts/npm-consumer-smoke.mjs --plan "$RUNNER_TEMP/canary-plan.json" --registry-only --wait-for-registry
 
       - name: Post-publish golden path with exact compatibility versions
         working-directory: ${{ runner.temp }}/svforge-canary

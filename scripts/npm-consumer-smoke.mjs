@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
+import { setTimeout as sleep } from 'node:timers/promises';
 
 export function packageTypePath(manifest) {
 	const rootExport = manifest.exports?.['.'] ?? manifest.exports;
@@ -84,6 +85,60 @@ export function runTypecheck(consumerRoot, tsc = join(consumerRoot, 'node_module
 	}
 }
 
+/**
+ * npm may return a stale registry view immediately after Changesets publishes.
+ * Only an exact missing version is retryable; auth, network, and parsing errors
+ * remain fatal so the gate does not conceal broken releases.
+ */
+export function registryVersionVisible(spec, npm = 'npm', run = execFileSync) {
+	try {
+		const output = run(npm, ['view', spec, 'version', '--json', '--prefer-online'], {
+			encoding: 'utf8',
+			stdio: ['ignore', 'pipe', 'pipe']
+		});
+		return JSON.parse(String(output).trim()) === spec.slice(spec.lastIndexOf('@') + 1);
+	} catch (error) {
+		const details = [error?.stderr, error?.stdout, error?.message].filter(Boolean).map(String).join('\n');
+		if (/\b(?:E404|ETARGET)\b|404 Not Found|No matching version found|No match found for version/i.test(details)) return false;
+		throw new Error(`Registry lookup failed for ${spec}: ${details.slice(0, 700)}`, { cause: error });
+	}
+}
+
+/**
+ * @param {{packages: Array<{name: string, version: string, tarball?: string}>}} plan
+ * @param {{
+ *  registryOnly?: boolean, maxAttempts?: number, intervalMs?: number,
+ *  probe?: (spec: string) => boolean | Promise<boolean>,
+ *  pause?: (ms: number) => Promise<unknown>
+ * }} [options]
+ */
+export async function waitForRegistryAvailability(plan, {
+	registryOnly = false,
+	maxAttempts = 24,
+	intervalMs = 5000,
+	probe = registryVersionVisible,
+	pause = sleep
+} = {}) {
+	if (!Number.isInteger(maxAttempts) || maxAttempts < 1) throw new Error('maxAttempts must be positive.');
+	const publishedSpecs = plan.packages
+		.filter((pkg) => registryOnly || !pkg.tarball)
+		.map((pkg) => `${pkg.name}@${pkg.version}`);
+	let pending = publishedSpecs;
+	for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+		const missing = [];
+		for (const spec of pending) {
+			if (!(await probe(spec))) missing.push(spec);
+		}
+		if (missing.length === 0) return;
+		if (attempt === maxAttempts) {
+			throw new Error(`npm registry propagation timed out after ${maxAttempts} checks: ${missing.join(', ')}`);
+		}
+		console.log(`Waiting for npm registry propagation (check ${attempt}/${maxAttempts}): ${missing.join(', ')}`);
+		await pause(intervalMs);
+		pending = missing;
+	}
+}
+
 export function runConsumerSmoke(plan, npm = 'npm', { registryOnly = false } = {}) {
 	const consumerRoot = mkdtempSync(join(tmpdir(), 'svforge-consumer-'));
 	try {
@@ -92,7 +147,7 @@ export function runConsumerSmoke(plan, npm = 'npm', { registryOnly = false } = {
 		// TypeScript is a test-only dependency of the clean consumer. Stable
 		// packages remain exact registry versions; canary snapshots may be
 		// supplied as the exact npm tarballs that will be published.
-		execFileSync(npm, ['install', '--ignore-scripts', '--no-package-lock', '--no-save', 'typescript@6.0.3', ...exactPackages], {
+		execFileSync(npm, ['install', '--ignore-scripts', '--no-package-lock', '--no-save', '--prefer-online', '--cache', join(consumerRoot, '.npm-cache'), 'typescript@6.0.3', ...exactPackages], {
 			cwd: consumerRoot,
 			stdio: 'inherit'
 		});
@@ -116,7 +171,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 		process.exitCode = 1;
 	} else {
 		try {
-			runConsumerSmoke(JSON.parse(readFileSync(resolve(planPath), 'utf8')), 'npm', { registryOnly });
+			const plan = JSON.parse(readFileSync(resolve(planPath), 'utf8'));
+			if (process.argv.includes('--wait-for-registry')) {
+				await waitForRegistryAvailability(plan, { registryOnly });
+			}
+			runConsumerSmoke(plan, 'npm', { registryOnly });
 		} catch (error) {
 			console.error(`Consumer smoke test failed: ${error.message}`);
 			process.exitCode = 1;
