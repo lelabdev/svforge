@@ -33,5 +33,8 @@ describe('tokenless npm canary publishing (#572)', () => {
 		expect(promote).toBeGreaterThan(goldenPath);
 		expect(canary).toContain('canary-run-${GITHUB_RUN_ID}');
 		expect(canary).not.toContain('--tag latest');
+		expect(canary).toContain('id: promote');
+		expect(canary).toContain("if: ${{ always() && steps.promote.outcome == 'success' }}");
+		expect(canary).not.toContain("steps.publish.outcome != 'skipped'");
 	});
 });
