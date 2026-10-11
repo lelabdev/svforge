@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
-const { consumerSource, consumerTsConfig, packageTypePath, validateInstalledTypes } = await import('../scripts/npm-consumer-smoke.mjs');
+const { consumerInstallSpecs, consumerSource, consumerTsConfig, packageTypePath, validateInstalledTypes } = await import('../scripts/npm-consumer-smoke.mjs');
 
 describe('npm consumer smoke test (#330)', () => {
 	it('resolves the declared type entry for every exact package', () => {
@@ -35,6 +35,19 @@ describe('npm consumer smoke test (#330)', () => {
 		} finally {
 			rmSync(root, { recursive: true, force: true });
 		}
+	});
+
+	it('installs snapshot tarballs locally while pinning unchanged packages to exact stable versions', () => {
+		const plan = {
+			packages: [
+				{ name: '@svforge/changed', version: '0.0.0-canary-sha-1', snapshot: true, tarball: '/tmp/changed.tgz' },
+				{ name: '@svforge/unchanged', version: '2.4.0', snapshot: false }
+			]
+		};
+		expect(consumerInstallSpecs(plan)).toEqual(['/tmp/changed.tgz', '@svforge/unchanged@2.4.0']);
+		expect(consumerInstallSpecs(plan, { registryOnly: true })).toEqual([
+			'@svforge/changed@0.0.0-canary-sha-1', '@svforge/unchanged@2.4.0'
+		]);
 	});
 
 	it('reports a package with a missing declaration entry', () => {
