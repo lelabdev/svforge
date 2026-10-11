@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { spawnSync } from 'node:child_process';
 import { delimiter, join } from 'node:path';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { ROOT } from './helpers';
 import { COMPAT_MANIFEST } from '../packages/svforge/src/compat';
@@ -54,16 +54,16 @@ function runBin(args: string[], cwd: string, env: Record<string, string> = {}): 
 	return { code: result.status ?? 1, stdout: result.stdout ?? '', stderr: result.stderr ?? '', stubLog };
 }
 
-function scaffoldedProject(): string {
+function scaffoldedProject(
+	manifest: Record<string, unknown> = { schema: 1, template: 'dashboard', modules: [], capabilities: [] },
+	dependencies: Record<string, string> = {}
+): string {
 	const dir = mkdtempSync(join(tmpdir(), 'sf-realbin-'));
 	writeFileSync(
 		join(dir, 'package.json'),
-		JSON.stringify({ name: 'fixture', dependencies: {} })
+		JSON.stringify({ name: 'fixture', dependencies })
 	);
-	writeFileSync(
-		join(dir, '.svforge.json'),
-		JSON.stringify({ schema: 1, template: 'dashboard', modules: [], capabilities: [] })
-	);
+	writeFileSync(join(dir, '.svforge.json'), JSON.stringify(manifest));
 	return dir;
 }
 
@@ -166,11 +166,11 @@ describe('real bin — svforge add (#426 review)', () => {
 
 		expect(run.code).toBe(0);
 		expect(run.stubLog).toHaveLength(1);
-		expect(run.stubLog[0]).toBe('add @svforge/chat --install bun --no-download-check --no-git-check');
+		expect(run.stubLog[0]).toBe(`add @svforge/chat@${COMPAT_MANIFEST.packages['@svforge/chat']} --install bun --no-download-check --no-git-check`);
 		// The module list of the invocation is exactly the requested one.
 		const tokens = run.stubLog[0]!.split(' ');
 		const modules = tokens.slice(1, tokens.indexOf('--install'));
-		expect(modules).toEqual(['@svforge/chat']);
+		expect(modules).toEqual([`@svforge/chat@${COMPAT_MANIFEST.packages['@svforge/chat']}`]);
 		rmSync(cwd, { recursive: true, force: true });
 	});
 
@@ -182,14 +182,28 @@ describe('real bin — svforge add (#426 review)', () => {
 		const run = runBin(['add', 'dnd', '--yes'], cwd, { SVFORGE_SV_CMD: stub });
 		expect(run.code).toBe(0);
 		expect(run.stubLog).toHaveLength(1);
-		expect(run.stubLog[0]).toBe('add @svforge/dnd --install npm --no-download-check --no-git-check');
+		expect(run.stubLog[0]).toBe(`add @svforge/dnd@${COMPAT_MANIFEST.packages['@svforge/dnd']} --install npm --no-download-check --no-git-check`);
 		rmSync(cwd, { recursive: true, force: true });
 	});
 
-	it('realtime without an attestation fails through the bin; with --runtime it installs', () => {
+	it('realtime plans expose runtime requirements and apply requires an attestation', () => {
 		const cwd = scaffoldedProject();
 		const stub = join(cwd, 'stub-sv.sh');
 		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+
+		const planWithoutRuntime = runBin(['add', 'realtime', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const blockedPlan = JSON.parse(planWithoutRuntime.stdout);
+		expect(planWithoutRuntime.code).toBe(1);
+		expect(blockedPlan.capabilities.runtimeConstraints.map((entry: { token: string }) => entry.token)).toContain('runtime.websocket');
+		expect(blockedPlan.commands).toEqual([]);
+		expect(planWithoutRuntime.stubLog).toEqual([]);
+
+		const planWithRuntime = runBin(['add', 'realtime', '--runtime', 'long-lived-node', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const readyPlan = JSON.parse(planWithRuntime.stdout);
+		expect(planWithRuntime.code).toBe(0);
+		expect(readyPlan.capabilities.runtimeConstraints[0].selected).toBe('long-lived-node');
+		expect(readyPlan.commands).toHaveLength(1);
+		expect(planWithRuntime.stubLog).toEqual([]);
 
 		const refused = runBin(['add', 'realtime', '--sv-cmd', stub, '--yes'], cwd);
 		expect(refused.code).toBe(1);
@@ -200,6 +214,140 @@ describe('real bin — svforge add (#426 review)', () => {
 		expect(attested.code).toBe(0);
 		expect(attested.stubLog).toHaveLength(1);
 		expect(attested.stubLog[0]).toContain('@svforge/realtime');
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('add --plan --json reports exact command and versions without writing or spawning', () => {
+		const cwd = scaffoldedProject();
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		const originalManifest = readFileSync(join(cwd, '.svforge.json'), 'utf8');
+		const originalFiles = readdirSync(cwd).sort();
+
+		const run = runBin(['add', 'chat', '--pm', 'bun', '--resolve', 'install', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(run.stdout);
+		const version = COMPAT_MANIFEST.packages['@svforge/chat'];
+		expect(run.code).toBe(0);
+		expect(plan.schemaVersion).toBe(1);
+		expect(plan.command).toBe('add');
+		expect(plan.status).toBe('ready');
+		expect(plan.modules).toMatchObject({ explicit: ['chat'], installOrder: ['chat'], alreadyInstalled: [] });
+		expect(plan.packages).toContainEqual(expect.objectContaining({
+			name: '@svforge/chat', version, spec: `@svforge/chat@${version}`, source: 'compatibility-manifest'
+		}));
+		expect(plan.commands).toEqual([{
+			executable: stub,
+			args: ['add', `@svforge/chat@${version}`, '--install', 'bun', '--no-download-check', '--no-git-check'],
+			cwd
+		}]);
+		expect(run.stubLog).toEqual([]);
+		expect(readFileSync(join(cwd, '.svforge.json'), 'utf8')).toBe(originalManifest);
+		expect(readdirSync(cwd).sort()).toEqual(originalFiles);
+		expect(existsSync(join(cwd, 'sv-stub-calls.log'))).toBe(false);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('add plan reports incompatible project capabilities and never spawns sv', () => {
+		const cwd = scaffoldedProject({ schema: 1, template: 'base', modules: [] });
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+
+		const run = runBin(['add', 'chat', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(run.stdout);
+		expect(run.code).toBe(1);
+		expect(plan.status).toBe('blocked');
+		expect(plan.capabilities.missing.map((entry: { token: string }) => entry.token)).toContain('auth.currentUser');
+		expect(plan.commands).toEqual([]);
+		expect(run.stubLog).toEqual([]);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('add --json without --plan is rejected before invoking sv', () => {
+		const cwd = scaffoldedProject();
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		const run = runBin(['add', 'chat', '--sv-cmd', stub, '--json'], cwd);
+		expect(run.code).toBe(2);
+		expect(run.stderr).toMatch(/only supported with --plan/);
+		expect(run.stubLog).toEqual([]);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('dependency-only declaration plans and applies the missing add-on scaffold', () => {
+		const cwd = scaffoldedProject(
+			{ schema: 1, template: 'dashboard', modules: [] },
+			{ '@svforge/dnd': COMPAT_MANIFEST.packages['@svforge/dnd'] }
+		);
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		const originalFiles = readdirSync(cwd).sort();
+
+		const planned = runBin(['add', 'dnd', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(planned.stdout);
+		const spec = `@svforge/dnd@${COMPAT_MANIFEST.packages['@svforge/dnd']}`;
+		expect(planned.code).toBe(0);
+		expect(plan.status).toBe('ready');
+		expect(plan.modules.alreadyInstalled).toEqual([]);
+		expect(plan.modules.installOrder).toEqual(['dnd']);
+		expect(plan.commands).toEqual([{
+			executable: stub,
+			args: ['add', spec, '--install', 'npm', '--no-download-check', '--no-git-check'],
+			cwd
+		}]);
+		expect(plan.warnings).toContainEqual(expect.stringContaining('no application record or generated scaffold files exist'));
+		expect(readdirSync(cwd).sort()).toEqual(originalFiles);
+		expect(planned.stubLog).toEqual([]);
+
+		const applied = runBin(['add', 'dnd', '--sv-cmd', stub, '--yes'], cwd);
+		expect(applied.code).toBe(0);
+		expect(applied.stubLog).toEqual([`add ${spec} --install npm --no-download-check --no-git-check`]);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('add plan preserves manifest warnings instead of silently ignoring them', () => {
+		const cwd = scaffoldedProject({ schema: 1, template: 'dashboard', modules: [], capabilities: { provides: ['unknown.capability'] } });
+		const run = runBin(['add', 'dnd', '--plan', '--json'], cwd);
+		const plan = JSON.parse(run.stdout);
+		expect(run.code).toBe(0);
+		expect(plan.warnings).toContainEqual(expect.stringContaining('Ignored unknown declared capability'));
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('add plan recognizes an application record plus generated files as an idempotent no-op', () => {
+		const cwd = scaffoldedProject(
+			{ schema: 1, template: 'dashboard', modules: ['dnd'] },
+			{ '@svforge/dnd': COMPAT_MANIFEST.packages['@svforge/dnd'] }
+		);
+		const dndFile = join(cwd, 'src/lib/components/svforge/dnd/SortableList.svelte');
+		mkdirSync(join(cwd, 'src/lib/components/svforge/dnd'), { recursive: true });
+		writeFileSync(dndFile, '<!-- installed DnD component -->');
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		const run = runBin(['add', 'dnd', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(run.stdout);
+		expect(run.code).toBe(0);
+		expect(plan.status).toBe('noop');
+		expect(plan.modules.alreadyInstalled).toEqual(['dnd']);
+		expect(plan.commands).toEqual([]);
+		expect(run.stubLog).toEqual([]);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('blocks re-adding a manifest-recorded module when its generated files are missing', () => {
+		const cwd = scaffoldedProject({ schema: 1, template: 'dashboard', modules: ['dnd'] });
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+
+		const planned = runBin(['add', 'dnd', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(planned.stdout);
+		expect(planned.code).toBe(1);
+		expect(plan.status).toBe('blocked');
+		expect(plan.conflicts).toContainEqual(expect.objectContaining({ code: 'incomplete' }));
+		expect(plan.commands).toEqual([]);
+
+		const applied = runBin(['add', 'dnd', '--sv-cmd', stub, '--yes'], cwd);
+		expect(applied.code).toBe(1);
+		expect(applied.stubLog).toEqual([]);
 		rmSync(cwd, { recursive: true, force: true });
 	});
 });
@@ -286,6 +434,81 @@ printf '%s|%s\\n' "$PWD" "$*" >> "$GRAPHIFY_STUB_LOG"
 		);
 		expect(refused.code).toBe(1);
 		expect(refused.stderr).toMatch(/dashboard/);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('create plan leaves an existing non-empty target untouched', () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-realbin-existing-plan-'));
+		const target = join(cwd, 'app');
+		mkdirSync(target);
+		writeFileSync(join(target, 'keep.txt'), 'preserve me');
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		const originalFiles = readdirSync(target).sort();
+		const run = runBin(['create', 'app', '--template', 'dashboard', '--pm', 'npm', '--modules', 'chat', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(run.stdout);
+		expect(run.code).toBe(1);
+		expect(plan.status).toBe('blocked');
+		expect(readdirSync(target).sort()).toEqual(originalFiles);
+		expect(readFileSync(join(target, 'keep.txt'), 'utf8')).toBe('preserve me');
+		expect(run.stubLog).toEqual([]);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('create plan reports unknown modules as conflicts without invoking sv', () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-realbin-unknown-plan-'));
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		const run = runBin(['create', 'app', '--template', 'dashboard', '--pm', 'npm', '--modules', 'does-not-exist', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(run.stdout);
+		expect(run.code).toBe(1);
+		expect(plan.conflicts).toContainEqual(expect.objectContaining({ code: 'unknown-module' }));
+		expect(plan.commands).toEqual([]);
+		expect(run.stubLog).toEqual([]);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('create --plan --json is deterministic and side-effect free, with exact sv commands', () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-realbin-create-plan-'));
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		const originalFiles = readdirSync(cwd).sort();
+		const args = ['create', 'app', '--template', 'dashboard', '--pm', 'bun', '--modules', 'chat', '--sv-cmd', stub, '--plan', '--json'];
+
+		const first = runBin(args, cwd);
+		const second = runBin(args, cwd);
+		const plan = JSON.parse(first.stdout);
+		const templateVersion = COMPAT_MANIFEST.packages.svforge;
+		const chatVersion = COMPAT_MANIFEST.packages['@svforge/chat'];
+		expect(first.code).toBe(0);
+		expect(first.stdout).toBe(second.stdout);
+		expect(plan.schemaVersion).toBe(1);
+		expect(plan.command).toBe('create');
+		expect(plan.status).toBe('ready');
+		expect(plan.choices).toMatchObject({ template: 'dashboard', packageManager: 'bun', explicitModules: ['chat'] });
+		expect(plan.commands).toEqual([
+			{
+				executable: stub,
+				args: ['create', 'app', '--template', 'minimal', '--types', 'ts', '--no-add-ons', '--no-install', '--no-download-check'],
+				cwd
+			},
+			{
+				executable: stub,
+				args: [
+					'add', `svforge@${templateVersion}=template:dashboard+testing:vitest+hooks:none`,
+					`@svforge/chat@${chatVersion}`, '--install', 'bun', '--no-download-check', '--no-git-check'
+				],
+				cwd: join(cwd, 'app')
+			}
+		]);
+		expect(plan.packages).toEqual(expect.arrayContaining([
+			expect.objectContaining({ name: 'svforge', version: templateVersion }),
+			expect.objectContaining({ name: '@svforge/chat', version: chatVersion })
+		]));
+		expect(first.stubLog).toEqual([]);
+		expect(existsSync(join(cwd, 'app'))).toBe(false);
+		expect(readdirSync(cwd).sort()).toEqual(originalFiles);
+		expect(existsSync(join(cwd, 'sv-stub-calls.log'))).toBe(false);
 		rmSync(cwd, { recursive: true, force: true });
 	});
 });

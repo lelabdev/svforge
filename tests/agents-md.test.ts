@@ -35,6 +35,15 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		expect(canonical).toMatch(/svforge check/);
 	});
 
+	it('guides agents through inspect, approval, apply, and verify using CLI plans', () => {
+		const canonical = scaffoldedAgents('base');
+		expect(canonical).toContain('## SVForge CLI plans');
+		expect(canonical).toContain('svforge create <dir> --template <base|dashboard> --pm <pm> --modules <ids|all> --plan --json');
+		expect(canonical).toContain('svforge add <ids...> --plan --json');
+		expect(canonical).toContain('Do not write or install until the user approves');
+		expect(canonical).toContain('npx svforge verify');
+	});
+
 	it('requires reuse of generic components while respecting human-selected UI libraries', () => {
 		const selectedUi: UiProjectConfig = {
 			preferred: '@example/selected-ui',

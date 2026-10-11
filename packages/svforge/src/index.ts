@@ -90,6 +90,8 @@ export type { ParsedAddArgs } from './cli/add';
 export type { AddCommandOptions, AddCommandResult, AddResolvePolicy, PromptPort, SpawnPort } from './cli/add';
 export { runCreateCommand, expandAllModules, parseCreateArgs } from './cli/create';
 export type { CreateCommandOptions, CreateCommandResult, CreatePlan } from './cli/create';
+export { buildCliPlanDocument, formatCliPlan, plannedPackage } from './cli/plan';
+export type { CliPlanDocument, PlannedCommand, PlannedPackage } from './cli/plan';
 
 export default defineAddon({
 	id: 'svelteforge',

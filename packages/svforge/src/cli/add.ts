@@ -8,6 +8,9 @@ import {
 	type ResolutionPlan,
 	type ResolveInput
 } from '@svforge/addon-kit';
+import { COMPAT_MANIFEST } from '../compat';
+import { MODULE_RECIPE_DATA } from '../module-recipes';
+import { plannedPackage, type PlannedCommand, type PlannedPackage } from './plan';
 
 /**
  * `svforge add <modules...>` — the guided, dependency-aware install path
@@ -61,8 +64,13 @@ export interface AddCommandResult {
 	code: number;
 	plan?: ResolutionPlan;
 	specs?: string[];
+	commands?: PlannedCommand[];
+	packages?: PlannedPackage[];
+	project?: { template?: 'base' | 'dashboard'; installedModules: string[] };
+	requestedModules?: string[];
+	alreadyInstalled?: string[];
 	/** Why the command stopped without running `sv add`. */
-	aborted?: 'declined' | 'policy' | 'errors' | 'unknown';
+	aborted?: 'declined' | 'policy' | 'errors' | 'unknown' | 'incomplete';
 	message?: string;
 }
 
@@ -113,7 +121,7 @@ export function svRunner(pm: string, svCmd?: string): { command: string; prefix:
  *      validation). A requested module missing from the map is an error, so the
  *      CLI never silently resolves an implicit `latest` (#470);
  *   4. an explicit single `version` override (legacy, all packages);
- *   5. the unpinned npm specifier (standalone `svforge add` only).
+ *   5. an unpinned npm specifier (legacy fallback when no compatibility source is available).
  */
 export interface AddonSpecOptions {
 	devRoot?: string;
@@ -156,10 +164,11 @@ interface ProjectState {
 	template?: 'base' | 'dashboard';
 	installed: string[];
 	declaredProvides: string[];
+	warnings: string[];
 }
 
 function readState(cwd: string): ProjectState {
-	const state: ProjectState = { installed: [], declaredProvides: [] };
+	const state: ProjectState = { installed: [], declaredProvides: [], warnings: [] };
 	const manifestPath = join(cwd, '.svforge.json');
 	if (existsSync(manifestPath)) {
 		try {
@@ -167,15 +176,25 @@ function readState(cwd: string): ProjectState {
 				template?: 'base' | 'dashboard';
 				modules?: string[];
 			};
-			state.template = manifest.template;
-			state.installed = manifest.modules ?? [];
+			state.template = manifest.template === 'base' || manifest.template === 'dashboard' ? manifest.template : undefined;
+			if (manifest.template !== undefined && state.template === undefined) {
+				state.warnings.push('Ignored unknown template in .svforge.json.');
+			}
+			state.installed = Array.isArray(manifest.modules)
+				? manifest.modules.filter((id): id is string => typeof id === 'string')
+				: [];
+			if (manifest.modules !== undefined && !Array.isArray(manifest.modules)) {
+				state.warnings.push('Ignored invalid modules list in .svforge.json.');
+			}
 		} catch {
 			// Unreadable manifest: fall through — the resolver works from
 			// structure and declarations alone, and readDeclaredProvides
 			// below reports the corruption as a warning.
 		}
 	}
-	state.declaredProvides = readDeclaredProvides(cwd).provides;
+	const declared = readDeclaredProvides(cwd);
+	state.declaredProvides = declared.provides;
+	state.warnings.push(...declared.warnings);
 	return state;
 }
 
@@ -253,23 +272,66 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 			message: 'The template installs with `sv add svforge=template:base|dashboard` (or `svforge create`). `svforge add` is for standalone modules.'
 		};
 	}
-	const unknown = options.modules.filter((id) => !MODULE_CONTRACTS[id]);
-	if (unknown.length > 0) {
-		return {
-			code: 1,
-			aborted: 'unknown',
-			message: `Unknown module(s): ${unknown.join(', ')}. Available: ${Object.keys(MODULE_CONTRACTS).join(', ')}.`
-		};
-	}
-
 	const state = readState(cwd);
 	const snapshot = snapshotProject(cwd);
+	if (!existsSync(join(cwd, 'package.json'))) {
+		state.warnings.push('package.json is missing; installed package versions and package-manager state cannot be verified.');
+	}
+	const packageModules = Object.keys(MODULE_CONTRACTS).filter((id) => snapshot.dependencies.has(`@svforge/${id}`));
+	const moduleConflicts: { moduleId: string; message: string }[] = [];
+	const installedSet = new Set(state.installed);
+	const declaredSet = new Set(packageModules);
+	const appliedModules: string[] = [];
+	for (const id of Object.keys(MODULE_CONTRACTS).sort()) {
+		const expectedFiles = Object.keys(MODULE_RECIPE_DATA[id]?.files ?? {});
+		const presentFiles = expectedFiles.filter((file) => existsSync(join(cwd, 'src', file.slice(1))));
+		const recorded = installedSet.has(id);
+		const declared = declaredSet.has(id);
+		if (recorded && expectedFiles.length > 0 && presentFiles.length === expectedFiles.length) {
+			appliedModules.push(id);
+			if (!declared) state.warnings.push(`.svforge.json records ${id} as applied and its generated files exist, but package.json has no @svforge/${id} dependency.`);
+			continue;
+		}
+		if (recorded || presentFiles.length > 0) {
+			const missingFiles = expectedFiles.filter((file) => !presentFiles.includes(file));
+			const reason = recorded
+				? `the application record exists but generated files are missing: ${missingFiles.join(', ') || 'no verifiable file recipe'}`
+				: `generated files exist without an .svforge.json application record: ${presentFiles.join(', ')}`;
+			moduleConflicts.push({ moduleId: id, message: `Incomplete ${id} add-on installation: ${reason}. Restore/inspect the scaffold before adding this module again.` });
+			continue;
+		}
+		if (declared) {
+			state.warnings.push(`package.json declares @svforge/${id}, but no application record or generated scaffold files exist; planning to apply the add-on.`);
+		}
+	}
+	for (const id of state.installed) {
+		if (!MODULE_CONTRACTS[id]) {
+			moduleConflicts.push({ moduleId: id, message: `Unknown installed add-on "${id}" is recorded in .svforge.json.` });
+		}
+	}
+	const installedModules = appliedModules;
+	const addonPackageNames = new Set(Object.keys(MODULE_CONTRACTS).map((id) => `@svforge/${id}`));
+	const resolutionSnapshot = {
+		...snapshot,
+		// A package declaration is not evidence that its add-on scaffold ran,
+		// nor may it provide capabilities through dependency-based detectors.
+		dependencies: new Set([...snapshot.dependencies].filter((name) => !addonPackageNames.has(name)))
+	};
+	const alreadyInstalled = options.modules.filter((id) => MODULE_CONTRACTS[id] && installedModules.includes(id));
+	const requestedModules = options.modules.filter((id) => !MODULE_CONTRACTS[id] || !installedModules.includes(id));
+	const resultContext = {
+		project: { ...(state.template ? { template: state.template } : {}), installedModules },
+		requestedModules: [...options.modules],
+		alreadyInstalled
+	};
+	const compatibilityVersions = options.compatVersions ??
+		(!options.devRoot && !options.addonRoot && !options.addonVersion ? COMPAT_MANIFEST.packages : undefined);
 	const baseInput: ResolveInput = {
-		requested: options.modules,
-		installed: state.installed,
+		requested: requestedModules,
+		installed: installedModules,
 		template: state.template,
 		declaredProvides: state.declaredProvides as ResolveInput['declaredProvides'],
-		snapshot
+		snapshot: resolutionSnapshot
 	};
 
 	// Resolve ambiguities interactively before the final plan: first pass
@@ -295,9 +357,27 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 		};
 	}
 	const plan = resolveModules(resolveInput);
+	plan.warnings.unshift(...state.warnings);
+	const relevantModules = new Set([...options.modules, ...plan.order]);
+	const relevantConflicts = moduleConflicts.filter((conflict) => relevantModules.has(conflict.moduleId));
+	if (relevantConflicts.length > 0) {
+		return {
+			code: 1,
+			plan,
+			...resultContext,
+			aborted: 'incomplete',
+			message: `${relevantConflicts.map((conflict) => conflict.message).join('\n')} Nothing was written.`
+		};
+	}
 
 	if (plan.unknownModules.length > 0) {
-		return { code: 1, plan, aborted: 'unknown', message: `Unknown module(s): ${plan.unknownModules.join(', ')}.` };
+		return {
+			code: 1,
+			plan,
+			...resultContext,
+			aborted: 'unknown',
+			message: `Unknown module(s): ${plan.unknownModules.join(', ')}. Available: ${Object.keys(MODULE_CONTRACTS).sort().join(', ')}.`
+		};
 	}
 	if (plan.errors.length > 0) {
 		const lines = plan.errors.map((e) =>
@@ -308,6 +388,7 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 		return {
 			code: 1,
 			plan,
+			...resultContext,
 			aborted: 'errors',
 			message: `Cannot resolve the installation plan:\n${lines.map((l) => `  - ${l}`).join('\n')}`
 		};
@@ -320,12 +401,13 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 				`Installing ${plan.requested.join(', ')} also requires the supporting module(s): ${names}. Approve the plan?`
 			);
 			if (!approved) {
-				return { code: 0, plan, aborted: 'declined', message: 'Declined — nothing was written.' };
+				return { code: 0, plan, ...resultContext, aborted: 'declined', message: 'Declined — nothing was written.' };
 			}
 		} else if (policy === 'fail') {
 			return {
 				code: 1,
 				plan,
+				...resultContext,
 				aborted: 'policy',
 				message: `Supporting module(s) required: ${names}. Re-run with --resolve install (or approve interactively). Nothing was written.`
 			};
@@ -338,7 +420,7 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 				`Installing ${plan.requested.join(', ')} requires ${token} — confirm your runtime supports it (serverless/edge do not).`
 			);
 			if (!ok) {
-				return { code: 0, plan, aborted: 'declined', message: 'Declined — nothing was written.' };
+				return { code: 0, plan, ...resultContext, aborted: 'declined', message: 'Declined — nothing was written.' };
 			}
 		} else if (options.runtime === 'long-lived-node') {
 			// #419 review: non-interactive installs need an EXPLICIT attestation,
@@ -348,30 +430,43 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 			return {
 				code: 1,
 				plan,
+				...resultContext,
 				aborted: 'policy',
 				message: `Runtime requirement(s) ${plan.runtimeAttestations.join(', ')}: a non-interactive install must attest the deployment target explicitly with --runtime long-lived-node (serverless/edge cannot host them). Nothing was written.`
 			};
 		}
 	}
 
-	const specs = plan.order.map((id) =>
+	const modulesToInstall = plan.order.filter((id) => !installedModules.includes(id));
+	const specs = modulesToInstall.map((id) =>
 		addonSpec(id, {
 			devRoot: options.devRoot,
 			addonRoot: options.addonRoot,
 			version: options.addonVersion,
-			compatVersions: options.compatVersions
+			compatVersions: compatibilityVersions
 		})
 	);
-	const spawn = options.spawn;
-	if (!spawn) {
-		// No spawn port: report the exact plan and specs without executing
-		// (test seam; the real CLI always provides the port).
-		return { code: 0, plan, specs };
-	}
+	const sourceForSpec = (spec: string): PlannedPackage['source'] => {
+		if (spec.startsWith('file:')) return options.addonRoot ? 'packaged-artifact' : 'workspace';
+		if (compatibilityVersions) return 'compatibility-manifest';
+		if (options.addonVersion) return 'explicit-version';
+		return 'registry';
+	};
+	const packages = modulesToInstall.map((id, index) => plannedPackage(`@svforge/${id}`, specs[index]!, sourceForSpec(specs[index]!)));
 	const sv = svRunner(pm, options.svCmd);
-	const code = await spawn(sv.command, [...sv.prefix, 'add', ...specs, '--install', pm, '--no-download-check', '--no-git-check'], {
-		cwd,
-		stdio: 'inherit'
-	});
-	return { code, plan, specs };
+	const commands: PlannedCommand[] = specs.length > 0
+		? [{
+			executable: sv.command,
+			args: [...sv.prefix, 'add', ...specs, '--install', pm, '--no-download-check', '--no-git-check'],
+			cwd
+		}]
+		: [];
+	const result = { ...resultContext, plan, specs, packages, commands };
+	if (!options.spawn || commands.length === 0) {
+		// The CLI plan path omits spawn; the same exact command data is reused by apply.
+		return { code: 0, ...result };
+	}
+	const command = commands[0]!;
+	const code = await options.spawn(command.executable, command.args, { cwd: command.cwd, stdio: 'inherit' });
+	return { code, ...result };
 }

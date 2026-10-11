@@ -400,7 +400,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/bin/svforge.mjs": {
-    "ast_hash": "8cf12c11ae64da567a6cdeb277e25818",
+    "ast_hash": "e31504a16193584268a3b22e470bb509",
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
@@ -448,7 +448,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "694a0003f437ce4dd84602114293a992",
+    "ast_hash": "53125211fba4134aaffb630e699be5e9",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -476,7 +476,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
-    "ast_hash": "2a30d627ae83ee26a8574bb4d0caef3c",
+    "ast_hash": "6063fe44a393a1ffdc9e2709ea35868b",
     "semantic_hash": ""
   },
   "packages/svforge/src/skeleton-inventory.ts": {
@@ -1096,7 +1096,7 @@
     "semantic_hash": ""
   },
   "tests/agents-md.test.ts": {
-    "ast_hash": "106d44e848e73fb64c0be85e685d564d",
+    "ast_hash": "00de804c65f7492f20b4c3b2230d8cbd",
     "semantic_hash": ""
   },
   "tests/ai-context.test.ts": {
@@ -1468,7 +1468,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
-    "ast_hash": "31f1ef903f5d7c2eb4a1230d26dae318",
+    "ast_hash": "90dfdf1fb488358c6d6d2b255e4f387d",
     "semantic_hash": ""
   },
   "AGENTS.md": {
@@ -1552,7 +1552,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "3d5627b095a0070fdc2e86204effbd84",
+    "ast_hash": "1ed9f058cf2f92c931ed1c70b4fc9736",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1628,15 +1628,15 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/cli/add.ts": {
-    "ast_hash": "bc952cff43e32e295183bc0c90da6fff",
+    "ast_hash": "baa600f77f310005c025e11d08dc502b",
     "semantic_hash": ""
   },
   "packages/svforge/src/cli/create.ts": {
-    "ast_hash": "51641ffff15b95136af81ae2aa99301e",
+    "ast_hash": "389127c3c80b2c9e5b89a9d30c5c18dc",
     "semantic_hash": ""
   },
   "tests/cli-add.test.ts": {
-    "ast_hash": "39e9f141374502c7c3213b83791f2077",
+    "ast_hash": "702a76590980e2b58de359abf1b251ee",
     "semantic_hash": ""
   },
   "tests/cli-create.test.ts": {
@@ -1648,7 +1648,7 @@
     "semantic_hash": ""
   },
   "tests/real-bin.test.ts": {
-    "ast_hash": "fea517ae37b5fc916914f5c2b1e42bd4",
+    "ast_hash": "601ba06c8f44336a13f7da4839d2ad0c",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {
@@ -2032,7 +2032,7 @@
     "semantic_hash": ""
   },
   "scripts/canary-dist-tags.mjs": {
-    "ast_hash": "84afc377bfe6388ab56905f2ea361241",
+    "ast_hash": "b317c9fb4a4903c49f5ed3949416e88a",
     "semantic_hash": ""
   },
   "scripts/canary-snapshots.mjs": {
@@ -2044,19 +2044,27 @@
     "semantic_hash": ""
   },
   "tests/canary-dist-tags.test.ts": {
-    "ast_hash": "697a4796723769888540036f5eb21dc9",
+    "ast_hash": "0eee397c13c11340c3d1be06154be6f3",
     "semantic_hash": ""
   },
   "tests/canary-snapshots.test.ts": {
-    "ast_hash": "16b490658bf2141663f6c78b288922cd",
+    "ast_hash": "eda872e427f5c6c01931ff4d071a7cf2",
     "semantic_hash": ""
   },
   ".github/workflows/canary-snapshots.yml": {
-    "ast_hash": "cf9da2da621848140a5828b12db31980",
+    "ast_hash": "0606a0a4b6b7f25d529327a28cffd7be",
     "semantic_hash": ""
   },
   "tests/canary-npm-auth.test.ts": {
     "ast_hash": "3a1cda09fa0d4e41d430185f78fc89bf",
+    "semantic_hash": ""
+  },
+  "packages/svforge/src/cli/plan.ts": {
+    "ast_hash": "ffb14b6779df46559944b997ea6e3f07",
+    "semantic_hash": ""
+  },
+  ".changeset/quiet-plans-check.md": {
+    "ast_hash": "b91b0f116a016eab00f9f81372e8119c",
     "semantic_hash": ""
   }
 }
