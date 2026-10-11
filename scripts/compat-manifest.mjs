@@ -109,6 +109,7 @@ export function assertCompatManifestMatchesPlan(compat, packages, distribution =
  * was not bumped — the published `svforge` would announce the OLD compatible
  * modules. Fail instead of shipping an incoherent release.
  */
+/** @param {{schemaVersion: number, packages: Array<{name: string, version: string, directory: string}>} | null} [reviewedCandidates] */
 export function assertCompatibilityFreshness(plan, distribution = DISTRIBUTION_PACKAGE, reviewedCandidates = null) {
 	if (!plan.compatibility) return plan;
 	const distributionPkg = plan.packages.find((pkg) => pkg.name === distribution);

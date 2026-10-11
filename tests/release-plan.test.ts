@@ -109,8 +109,8 @@ describe('independent release plan (#330)', () => {
 		const candidates = { schemaVersion: 1, packages: plan.packages.map(({ name, version, directory }) => ({ name, version, directory })) };
 		expect(() => checkRegistry(plan, ROOT, asNpm(npm))).toThrow(/stale/);
 		const checked = checkRegistry(plan, ROOT, asNpm(npm), candidates);
-		expect(checked.packages.find((p) => p.name === 'svforge')?.registry.published).toBe(true);
-		expect(checked.packages.find((p) => p.name === '@svforge/audit')?.registry.published).toBe(false);
+		expect(checked.packages[1].registry.published).toBe(true);
+		expect(checked.packages[0].registry.published).toBe(false);
 		expect(() => checkRegistry(plan, ROOT, asNpm(npm), { ...candidates, packages: candidates.packages.slice(0, 1) })).toThrow(/stale/);
 	});
 

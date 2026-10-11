@@ -189,6 +189,7 @@ function registryVersions(name, npm = runNpm, cwd = SCRIPT_ROOT) {
 	return (Array.isArray(versions) ? versions : [versions]).filter((version) => typeof version === 'string');
 }
 
+/** @param {{schemaVersion: number, packages: Array<{name: string, version: string, directory: string}>} | null} [reviewedCandidates] */
 export function checkRegistry(plan, root = SCRIPT_ROOT, npm = runNpm, reviewedCandidates = null) {
 	const checked = plan.packages.map((pkg) => {
 		const versions = registryVersions(pkg.name, npm, root);
