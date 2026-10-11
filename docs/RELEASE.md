@@ -20,64 +20,7 @@ Changesets CLI directly using npm Trusted Publishing (OIDC) with no persistent
 npm token. GitHub Release creation remains separately gated. Only after the exact-version consumer,
 published user journey, and compatibility-manifest golden path all pass does a
 separate finalizer verify the exact npm versions, push `package@version` tags,
-and create GitHub Releases from the package changelogs. It uses
-`secrets.NPM_TOKEN`; OIDC provenance is not enabled. Ordinary merges never
-publish stable packages.
-
-The former `.github/workflows/canary.yml` was a weekly upstream drift detector,
-not an npm snapshot publisher; it is now `.github/workflows/ecosystem-drift.yml`
-with its schedule and marker-based issue deduplication preserved. npm snapshots
-use the separate `.github/workflows/canary-snapshots.yml` workflow. Successful snapshots are exposed under both the `dev` and `canary` npm dist-tags. It is
-**dispatch-only** (no push, pull-request, or schedule trigger), requires the
-explicit `publish-canary` confirmation, and runs against `main` in the
-`npm-canary` GitHub Environment. Before the first dispatch, maintainers must
-configure that environment with required reviewers. Merging the workflow or an
-implementation PR cannot publish anything. Dispatch it only while the target
-Changesets are present on `main` (before the stable Version Packages PR consumes
-them); with no pending Changesets, preparation fails closed without publishing.
-
-The workflow archives the selected commit into a disposable directory and runs
-Changesets snapshot mode there. Snapshot versions use a deterministic
-`0.0.0-canary-<12-char-sha>-<run-id>` prerelease, so retrying the same Actions
-run targets the same immutable npm versions; a new dispatch gets a new run ID.
-When addon snapshots are selected, a temporary Changeset also snapshots
-`svforge`, whose embedded compatibility manifest points at the exact new addon
-snapshot versions while unchanged addons retain their exact stable versions.
-Publication fails closed if any unchanged compatibility version is not already
-present on npm (including first-time stable package releases still awaiting the
-Version Packages approval).
-
-The workflow configures npm authentication with the pinned `actions/setup-node`
-registry setup and verifies the protected `NPM_TOKEN` using `npm whoami` before
-snapshot preparation or any npm registry write. The temporary user `.npmrc` is
-created by the action; no token is committed to the repository or copied into
-the archived workspace.
-
-The workflow runs lint, typecheck, audit, builds, and the full repository test
-suite against stable package versions before applying snapshot versions; release
-changelog tests intentionally require the stable versions. After snapshot
-versioning, it revalidates the exact compatibility manifest, rebuilds every
-snapshot package, runs the packed dashboard golden path with all modules (using
-the workflow's disposable PostgreSQL service), packs each candidate, and runs a
-clean consumer install/typecheck using those exact tarballs plus exact stable
-registry versions. Only after those gates does Changesets publish the immutable
-versions under a unique `canary-run-<run-id>` staging tag (never `latest` or
-`canary`). The workflow repeats the consumer and golden-path checks against the
-published exact versions, and only then promotes candidate packages to the
-public `canary` and `dev` dist-tags. Promotion restores previous `canary` pointers if a
-multi-package update fails; the per-run staging tags are removed on completion.
-The workflow serializes with stable publication, creates no Git tags/releases,
-and never changes npm `latest`.
-
-To disable canaries, remove or disable the workflow and remove the `npm-canary`
-Environment secret/reviewer access. If validation fails before promotion, the
-existing `canary` and `latest` tags remain untouched; the staging tag is cleaned
-up by the workflow. If manual recovery is needed, inspect `npm view <package>
-dist-tags --json`, restore the previous `canary` **and** `dev` pointers with
-`npm dist-tag add <package>@<previous-version> <tag>` (or remove a newly-created
-pointer with `npm dist-tag rm <package> <tag>`), and remove any leftover
-`canary-run-<run-id>` tag. Stable releases continue to be governed exclusively
-by the reviewed Version Packages flow.
+and create GitHub Releases from the package changelogs. Ordinary merges never publish stable packages.
 
 ## Release policy: grouped stable releases, optional numbered canaries (#572)
 
@@ -108,21 +51,59 @@ promoting the `canary` dist-tag. Ensure retry safety, version uniqueness,
 rollback of partial dist-tag updates and dependency/compatibility coherence
 across the 15 independently versioned packages.
 
-**Authentication:** both stable and canary publication should use npm Trusted
-Publishing (OIDC), not expiring npm tokens; the workflow GitHub identity must
-match the configured trusted publisher for each package. A workflow that moves
-the `canary` dist-tag requires npm's additional dist-tag permission. The
-current legacy canary workflow is not yet migrated by this policy document.
+**Authentication:** both stable and canary publication use npm Trusted
+Publishing (OIDC), not expiring npm tokens. The GitHub workflow identity
+`lelabdev/svforge/.github/workflows/publish.yml` must match the trusted
+publisher configured for every package. Since this workflow moves the `canary`
+dist-tag only after the published consumer checks pass, enable **Allow npm
+dist-tag** in addition to **Allow npm publish**. Canary uses npm 11.21.0,
+required for OIDC dist-tag operations.
 
 **Do not merge or dispatch a release solely because a documentation or CI
 policy change landed.** Preserve the outstanding 2.2.0 recovery against
 already-merged Version Packages PR #562.
 
-## Stable and development npm channels
+## Stable and canary npm channels
 
-- **Stable** is `latest` (`npm install svforge@latest` or simply `npm install svforge`). Only a human-approved **Version Packages** merge can trigger the gated stable workflow.
-- **Development** is `dev` (`npm install svforge@dev`). The existing manual, protected [Canary Snapshots](../.github/workflows/canary-snapshots.yml) action publishes immutable `0.0.0-canary-<sha>-<run>` versions, validates their exact npm artifacts, and points both `dev` and the backward-compatible `canary` aliases at the successful snapshots. Neither alias affects `latest`. The aliases are promoted and restored together if any write fails.
-- A `dev` package set is only available **after** an operator explicitly runs the workflow with `publish-canary` and approves the protected `npm-canary` environment. It is not continuously published on each commit. Addon-only changes yield addon and distribution snapshots as needed for the exact compatibility manifest. The ordinary stable release continues to use Changesets independently.
+- **Stable / `latest`**: `npm install svforge`. Multiple merged PRs and
+  Changesets are grouped in a human-reviewed Version Packages PR. Only its
+  explicit maintainer merge triggers the stable publication. A `Publish`
+  dispatch with `channel=stable` and `release_pr=<merged PR number>` is an
+  exceptional recovery path, not an automatic publish on each PR.
+- **Canary / `canary`**: `npm install svforge@canary`. In the same
+  `.github/workflows/publish.yml`, choose **Run workflow → channel=canary**,
+  branch `main`, and type `publish-canary` as confirmation. No stable PR
+  merge, extra Git branch or automatic publication per PR is required.
+  With no pending Changesets, it fails before any publication. Artifacts are
+  versioned using Changesets `snapshot.useCalculatedVersion`, producing
+  `2.2.1-canary.1`, `2.2.1-canary.2`, etc. If the Changesets accumulated
+  for the eventual stable release warrant a `minor` or `major` instead of
+  `patch`, later canaries use that newly calculated prospective version.
+  Unchanged public modules retain their exact published stable versions.
+- **Staging**: temporary `canary-run-<run-id>` tags isolate published
+  artifacts from `canary` until pre-/post-publish consumer tests and the
+  golden path pass. Only then is `canary` moved. A failed promotion restores
+  prior pointers. The old `dev` tag is no longer updated (existing pointers
+  may remain on npm for compatibility). Canary never modifies `latest`.
+- **Operations**: `npm view svforge dist-tags --json` inspects `latest` and
+  `canary`. On failure, restore only the previous `canary` pointers via
+  `npm dist-tag add <package>@<previous-version> canary` (or remove a
+  newly-created `canary` tag), and remove leftover `canary-run-<run-id>`
+  staging tags. After the stable release consumes pending Changesets,
+  another canary requires new Changesets.
+
+### Validations for a canary
+
+The workflow checks out an immutable `main` commit into a disposable
+snapshot workspace, runs lint, typecheck, audit, builds and full tests against
+the stable source, then computes prospective versions from pending Changesets.
+It injects a temporary `svforge` Changeset if addons require an updated
+compatibility manifest. Each changed module is built and packed; the external
+consumer installation and generated SvelteKit app golden path are checked
+before npm publication. Changesets publishes first under the unique staging
+tag; post-publication exact-version installation and golden-path checks must
+pass before advancing `canary`. No Git tag or GitHub Release is created for
+canaries. The source worktree, stable changelogs and `latest` remain untouched.
 
 ## One-time 2.2.0 package baseline
 
@@ -238,7 +219,7 @@ Validation cost sits where it belongs:
 | **Push to `main`** (`ci.yml`) | the same fast checks + **one** representative scaffold (`test-scaffold.sh base`). |
 | **Merged Version Packages PR** (`publish.yml`) | quality + the 9-profile scaffold matrix + external and published user journeys + the one-command golden path; GitHub Releases are finalized only after all blocking checks pass. |
 | **Weekly** (`ecosystem-drift.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening or updating a deduplicated drift issue on failure. No npm publication. |
-| **Manual npm canary** (`canary-snapshots.yml`) | required `publish-canary` confirmation + protected `npm-canary` environment; isolated snapshot artifacts, pre/post-publish exact-version consumers, and compatibility golden path before `canary` dist-tag promotion. No PR, push, schedule, or `latest` publication. |
+| **Optional npm canary** (`publish.yml`, `channel=canary`) | explicit `publish-canary` confirmation on `main`; isolated numbered Changesets snapshots, packed/published consumer checks and golden-path validation, then `canary` tag promotion via OIDC. No ordinary PR, push, schedule or `latest` publication. |
 
 ### Measured CI timing snapshot (2026-10-10)
 
@@ -357,7 +338,7 @@ and 2FA):** for each of the 15 packages, set its Trusted Publisher to:
 - Repository: `svforge`
 - Workflow filename: `publish.yml`
 - Environment: none
-- Allowed action: **Allow npm publish** (not just staging)
+- Allowed actions: **Allow npm publish** and **Allow npm dist-tag** (both channels share `publish.yml`)
 
 This can be configured from each package's npmjs.com Settings → Trusted
 Publishing. Alternatively, after logging into npm locally with npm CLI
@@ -376,8 +357,9 @@ another; do not revoke an existing trust relationship without understanding it.
 The account owner must authorize this first trust setup, but **future CI
 publications have no npm credentials to manage**. npm verifies authorization
 per package on `npm publish`. Do not print, commit, or paste npm credentials.
-The separate `canary-snapshots.yml` still uses a token pending its own OIDC
-migration; stable publishing no longer depends on it.
+Both release channels now share the tokenless OIDC workflow; npm CLI
+11.21.0+ is required for OIDC dist-tag operations. Configure the same trusted
+publisher for both channels rather than creating two unrelated trust entries.
 
 Do not trigger production publication without explicit maintainer authorization.
 
