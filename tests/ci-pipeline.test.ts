@@ -7,7 +7,7 @@ const readWorkflow = (file: string) => readFileSync(join(ROOT, '.github', 'workf
 
 const ci = readWorkflow('ci.yml');
 const publish = readWorkflow('publish.yml');
-const canary = readWorkflow('canary.yml');
+const ecosystemDrift = readWorkflow('ecosystem-drift.yml');
 const scaffoldScript = readFileSync(join(ROOT, 'scripts', 'test-scaffold.sh'), 'utf8');
 
 const SCAFFOLD_PROFILES = [
@@ -81,9 +81,46 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 		expect(publish).toMatch(/needs:\s*\[quality, scaffolds, user-journey\]/);
 	});
 
-	it('keeps the canary independent on the latest ecosystem', () => {
-		expect(canary).toContain('bun-version: latest');
-		expect(canary).toContain('scripts/canary-issue.mjs');
+	it('publishes stable releases only after the merged Changesets release PR passes every gate', () => {
+		expect(publish).toContain('pull_request:');
+		expect(publish).toContain('types: [closed]');
+		expect(publish).toContain('branches: [main]');
+		expect(publish).toContain("github.event.pull_request.title == 'Version Packages'");
+		expect(publish).toContain("github.event.pull_request.head.ref == 'changeset-release/main'");
+		expect(publish).toContain("github.event.pull_request.user.login == 'github-actions[bot]'");
+		expect(publish).not.toContain('workflow_dispatch');
+		expect(publish).not.toMatch(/^\s+push:/m);
+		expect(publish).toContain('uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d');
+		expect(publish).toContain('publish: bun run changeset:publish');
+		expect(publish).toContain('createGithubReleases: false');
+		expect(publish).toContain('Validate Changesets publication scope');
+		expect(publish).toContain('node scripts/release-candidates.mjs');
+		expect(publish).toContain('node scripts/finalize-releases.mjs');
+		expect(publish).toContain('--commit "${{ github.event.pull_request.merge_commit_sha }}"');
+		expect(publish).toContain('--head "${{ github.event.pull_request.head.sha }}"');
+		expect(publish).toContain('fetch-depth: 0');
+		expect(publish).toContain("npm_config_ignore_scripts: 'true'");
+		const publishJob = jobBlock(publish, 'publish');
+		expect(publishJob).toContain('contents: write');
+		expect(publishJob).toContain('pull-requests: write');
+		expect(publishJob).toContain('ref: ${{ github.event.pull_request.merge_commit_sha }}');
+		expect(publishJob.indexOf('Validate Changesets publication scope')).toBeLessThan(publishJob.indexOf('Publish with Changesets'));
+		expect(publishJob.indexOf('Preflight release tarballs')).toBeLessThan(publishJob.indexOf('Publish with Changesets'));
+		expect(publishJob.indexOf('Publish with Changesets')).toBeLessThan(publishJob.indexOf('Consumer installation smoke test'));
+		expect(publishJob.indexOf('Consumer installation smoke test')).toBeLessThan(publishJob.indexOf('User journey smoke test (published)'));
+		expect(publishJob.indexOf('User journey smoke test (published)')).toBeLessThan(publishJob.indexOf('Golden path (published)'));
+		expect(publishJob.indexOf('Golden path (published)')).toBeLessThan(publishJob.indexOf('Finalize verified package releases'));
+		expect(publishJob).not.toContain('if: always()');
+		expect(publish).not.toContain('createGithubReleases: true');
+		expect(publish).not.toContain("if: steps.changesets.outputs.published");
+		expect(publish).not.toContain('release-plan.mjs --plan /tmp/release-plan.json --publish');
+	});
+
+	it('keeps weekly latest-ecosystem drift detection separate from npm canaries', () => {
+		expect(ecosystemDrift).toContain('bun-version: latest');
+		expect(ecosystemDrift).toContain('scripts/canary-issue.mjs');
+		expect(ecosystemDrift).toContain("cron: '0 6 * * 1'");
+		expect(ecosystemDrift).toContain('workflow_dispatch:');
 	});
 
 	it('seeds the scaffold runner package manager before invoking the addon', () => {

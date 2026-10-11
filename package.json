@@ -17,7 +17,8 @@
     "test:user-journey": "bash scripts/test-user-journey.sh",
     "release:plan": "node scripts/release-plan.mjs",
     "changeset": "changeset",
-    "changeset:version": "changeset version && bun install --ignore-scripts && bun run --filter svforge prebuild",
+    "changeset:version": "node scripts/version-packages.mjs",
+    "changeset:publish": "changeset publish",
     "changelog:check": "node scripts/changelog.mjs",
     "graphify:update": "graphify update . --no-cluster && node scripts/normalize-graphify.mjs"
   },

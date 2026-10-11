@@ -1,4 +1,4 @@
-name: Ecosystem Canary
+name: Ecosystem Drift
 
 # Weekly drift detector (#205): re-runs the scaffolds against ecosystem
 # `latest` versions (sv, Skeleton, SvelteKit) to catch external drift
@@ -12,7 +12,7 @@ name: Ecosystem Canary
 
 # Closing roadmaps: the run cited for "canary ecosystem vert" must be
 # POSTERIOR to the last commit of the lot (head_sha >= last commit). Replay
-# this workflow on the current main via `gh workflow run canary.yml --ref main`
+# this workflow on the current main via `gh workflow run ecosystem-drift.yml --ref main`
 # and record the tested SHA — an old green canary never validates a newer HEAD.
 on:
   schedule:

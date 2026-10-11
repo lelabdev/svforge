@@ -12,7 +12,7 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "ast_hash": "3a6846f64b82b89a7f9600a8ab54bc4d",
+    "ast_hash": "183b29ed9dd1e15482613e0509b1b23a",
     "semantic_hash": ""
   },
   "packages/addon-kit/package.json": {
@@ -1064,7 +1064,7 @@
     "semantic_hash": ""
   },
   "scripts/release-plan.mjs": {
-    "ast_hash": "b757ff310a0230b33b4580ce4e02246e",
+    "ast_hash": "f47f817d9f8b485fbfa490c656cb903a",
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
@@ -1344,11 +1344,11 @@
     "semantic_hash": ""
   },
   "tests/release-plan.test.ts": {
-    "ast_hash": "a376539ac5109ca58a8679c278de6604",
+    "ast_hash": "e447be4b8f8b422e182895f124673356",
     "semantic_hash": ""
   },
   "tests/repository-metadata.test.ts": {
-    "ast_hash": "0c778092215797a9ceef7ea7b1fde599",
+    "ast_hash": "692d00839355caa86b03e617d3026230",
     "semantic_hash": ""
   },
   "tests/scaffold-paths.test.ts": {
@@ -1408,7 +1408,7 @@
     "semantic_hash": ""
   },
   "tests/test-db-isolation.test.ts": {
-    "ast_hash": "e660ef686ac02042296b34de701abaf8",
+    "ast_hash": "8d2a58c46ce49574ca6506b19769eece",
     "semantic_hash": ""
   },
   "tests/theme-toggle-contract.test.ts": {
@@ -1463,16 +1463,12 @@
     "ast_hash": "f6b47b2d94e8e4f0615f56e316de38d5",
     "semantic_hash": ""
   },
-  ".github/workflows/canary.yml": {
-    "ast_hash": "39ce07cad344513a2dfbe8c575f4f3f6",
-    "semantic_hash": ""
-  },
   ".github/workflows/ci.yml": {
     "ast_hash": "b66e5d5dd8cd852e5aa5fcdae0b576b3",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
-    "ast_hash": "03d41a8316c495b45665a64e5aec5a37",
+    "ast_hash": "31f1ef903f5d7c2eb4a1230d26dae318",
     "semantic_hash": ""
   },
   "AGENTS.md": {
@@ -1496,7 +1492,7 @@
     "semantic_hash": ""
   },
   "docs/RELEASE.md": {
-    "ast_hash": "e7c03df6ef0ff567a190f2ecc8a3d1fc",
+    "ast_hash": "a1da1324701c2241f59a60e033cd883c",
     "semantic_hash": ""
   },
   "docs/better-auth-upgrades.md": {
@@ -1688,7 +1684,7 @@
     "semantic_hash": ""
   },
   "tests/ci-pipeline.test.ts": {
-    "ast_hash": "cf0ed0ad1351b90c6e8cb7acd1c42f2f",
+    "ast_hash": "9f2c8a2b7d0e4611b732a9ad7d9dfb7c",
     "semantic_hash": ""
   },
   "tests/cli-verify.test.ts": {
@@ -1716,7 +1712,7 @@
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
-    "ast_hash": "281ebfd945c4082106e13957411a7f60",
+    "ast_hash": "67920009b9c069bb926d0bde8d72ad4c",
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {
@@ -1932,7 +1928,7 @@
     "semantic_hash": ""
   },
   "tests/changesets.test.ts": {
-    "ast_hash": "b1caa5d9c020f7283b5f9179b54f2d8a",
+    "ast_hash": "5d5f8c3546e17b14162f9d9b7578467e",
     "semantic_hash": ""
   },
   ".changeset/quiet-coins-protect.md": {
@@ -1940,7 +1936,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/version-packages.yml": {
-    "ast_hash": "42af43aed2fa6cb048415458f71fda5d",
+    "ast_hash": "6be3f9c4417b2fdc43e8dddf42715264",
     "semantic_hash": ""
   },
   "packages/addon-kit/CHANGELOG.md": {
@@ -2001,6 +1997,34 @@
   },
   "packages/uploads/CHANGELOG.md": {
     "ast_hash": "2cb8da20941df02ba3a6980a007c31ed",
+    "semantic_hash": ""
+  },
+  ".github/workflows/ecosystem-drift.yml": {
+    "ast_hash": "ce3ad3ed13f9819b96f9b197b94f718f",
+    "semantic_hash": ""
+  },
+  "scripts/finalize-releases.mjs": {
+    "ast_hash": "03993c5b7c631367e5bacdb3049d86be",
+    "semantic_hash": ""
+  },
+  "scripts/release-candidates.mjs": {
+    "ast_hash": "2ea0da456f7e5ea8ee344e1f93cf62ac",
+    "semantic_hash": ""
+  },
+  "scripts/version-packages.mjs": {
+    "ast_hash": "f65b93e7a0a75e2ac0a513797e5361da",
+    "semantic_hash": ""
+  },
+  "tests/finalize-releases.test.ts": {
+    "ast_hash": "1d6ab70a203ae7b69b4f020c046fbffe",
+    "semantic_hash": ""
+  },
+  "tests/release-candidates.test.ts": {
+    "ast_hash": "b2e2fa29d28505604de54c83dc322fee",
+    "semantic_hash": ""
+  },
+  "tests/version-packages.test.ts": {
+    "ast_hash": "0c7966fbfef334fd2a39b50863a819ba",
     "semantic_hash": ""
   }
 }

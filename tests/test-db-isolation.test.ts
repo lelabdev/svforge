@@ -151,7 +151,7 @@ describe('scaffold harness and CI provision a dedicated test database (#312)', (
 
 	it('CI services create the test database', () => {
 		// PR CI no longer provisions PostgreSQL (#413); release + canary do.
-		for (const workflow of ['canary.yml', 'publish.yml']) {
+		for (const workflow of ['ecosystem-drift.yml', 'publish.yml']) {
 			const content = read(`.github/workflows/${workflow}`);
 			expect(content, workflow).toContain('POSTGRES_DB: sf_dashboard_test');
 		}

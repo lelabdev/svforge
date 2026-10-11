@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -10,7 +11,6 @@ const {
 	compareVersions,
 	orderPackages,
 	preflightPackage,
-	publishPlan,
 	parseVersion
 } = await import('../scripts/release-plan.mjs');
 
@@ -166,28 +166,10 @@ describe('independent release plan (#330)', () => {
 		expect(() => preflightPackage(pkg, ROOT, asNpm(missingFiles))).toThrow(/svforge/);
 	});
 
-	it('resumes a partial release without republishing immutable versions', () => {
-		const plan = {
-			packages: [
-				{ name: '@svforge/already', version: '1.0.0', directory: 'packages/already', registry: { published: true } },
-				{ name: '@svforge/first', version: '1.0.0', directory: 'packages/first', registry: { published: false } },
-				{ name: '@svforge/second', version: '1.0.0', directory: 'packages/second', registry: { published: false } }
-			]
-		};
-		const firstCalls: string[] = [];
-		const failingNpm = (args: string[], cwd: string) => {
-			if (args[0] === 'publish') firstCalls.push(cwd);
-			return { status: firstCalls.length === 2 ? 1 : 0, stdout: '', stderr: '' };
-		};
-		expect(() => publishPlan(plan, ROOT, asNpm(failingNpm))).toThrow(/publish failed/);
-		expect(firstCalls).toEqual([join(ROOT, 'packages/first'), join(ROOT, 'packages/second')]);
-
-		const resumed = { ...plan, packages: plan.packages.map((pkg) => pkg.name === '@svforge/first' ? { ...pkg, registry: { published: true } } : pkg) };
-		const resumedCalls: string[] = [];
-		publishPlan(resumed, ROOT, asNpm((args: string[], cwd: string) => {
-			if (args[0] === 'publish') resumedCalls.push(cwd);
-			return { status: 0, stdout: '', stderr: '' };
-		}));
-		expect(resumedCalls).toEqual([join(ROOT, 'packages/second')]);
+	it('rejects the removed custom publish command in favor of Changesets', () => {
+		expect(() => execFileSync(process.execPath, [join(ROOT, 'scripts/release-plan.mjs'), '--publish'], {
+			cwd: ROOT,
+			encoding: 'utf8'
+		})).toThrow(/Changesets owns npm publication/);
 	});
 });
