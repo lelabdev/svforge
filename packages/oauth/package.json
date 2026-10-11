@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/oauth",
-	"version": "2.0.2",
+	"version": "2.2.0",
 	"type": "module",
 	"description": "SVForge OAuth — social auth (Google, GitHub)",
 	"author": "Ludo (https://lelab.dev)",

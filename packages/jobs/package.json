@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/jobs",
-	"version": "2.0.1",
+	"version": "2.2.0",
 	"type": "module",
 	"description": "SVForge Jobs — background job foundation (encapsulated backend, retry, progress)",
 	"author": "Ludo (https://lelab.dev)",
