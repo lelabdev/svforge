@@ -32,6 +32,9 @@ jobs:
        github.event.pull_request.head.ref == 'changeset-release/main' &&
        github.event.pull_request.user.login == 'github-actions[bot]')
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
     outputs:
       release_commit: ${{ steps.verify.outputs.release_commit }}
       head_sha: ${{ steps.verify.outputs.head_sha }}
