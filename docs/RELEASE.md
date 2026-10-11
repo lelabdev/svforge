@@ -79,6 +79,45 @@ pointer with `npm dist-tag rm <package> <tag>`), and remove any leftover
 `canary-run-<run-id>` tag. Stable releases continue to be governed exclusively
 by the reviewed Version Packages flow.
 
+## Release policy: grouped stable releases, optional numbered canaries (#572)
+
+**Issues and pull requests are units of work, not releases.** Multiple reviewed
+PRs and their Changesets accumulate on `main`; `Version Packages` is a
+reviewable staging PR, and only an explicit maintainer merge starts a stable
+publication. Documentation-only changes that do not alter an npm package do not
+need a Changeset or release. A package change uses the appropriate
+`patch`, `minor`, or `major` Changeset. Changesets independently calculates
+the version for each affected package, updating dependent modules and the
+`svforge` compatibility manifest as needed.
+
+The `canary` channel is **optional**, intended to test genuine published npm
+artifacts, installability, exports and generated consumer apps ahead of a stable
+release. It is not a mandatory gate and not an npm publish per issue or PR.
+The intended canary naming scheme is `<prospective-version>-canary.<N>`, e.g.
+`2.2.1-canary.1`, `2.2.1-canary.2`, independently per public package.
+Canary numbers reflect a *prospective* version, not a commitment to release
+that exact stable version: a group of changes originally expected to be
+`2.2.1` may legitimately become `2.3.0` or `3.0.0`. Each published
+version is immutable. A stable version must be published independently from
+its prerelease and only the explicit stable publication may advance `latest`.
+
+Canary publication must be isolated from working-tree manifests and package
+changelogs, use an exact revision, and never move `latest`. Verify built
+tarballs from an external npm consumer and the generated SvelteKit app before
+promoting the `canary` dist-tag. Ensure retry safety, version uniqueness,
+rollback of partial dist-tag updates and dependency/compatibility coherence
+across the 15 independently versioned packages.
+
+**Authentication:** both stable and canary publication should use npm Trusted
+Publishing (OIDC), not expiring npm tokens; the workflow GitHub identity must
+match the configured trusted publisher for each package. A workflow that moves
+the `canary` dist-tag requires npm's additional dist-tag permission. The
+current legacy canary workflow is not yet migrated by this policy document.
+
+**Do not merge or dispatch a release solely because a documentation or CI
+policy change landed.** Preserve the outstanding 2.2.0 recovery against
+already-merged Version Packages PR #562.
+
 ## Stable and development npm channels
 
 - **Stable** is `latest` (`npm install svforge@latest` or simply `npm install svforge`). Only a human-approved **Version Packages** merge can trigger the gated stable workflow.
