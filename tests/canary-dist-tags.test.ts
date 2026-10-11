@@ -5,6 +5,7 @@ type NpmCall = (args: string[]) => { status: number; stdout: string; stderr: str
 
 function plan() {
 	return {
+		runId: '123',
 		snapshotTag: 'canary-abcdef012345-123',
 		stagingDistTag: 'canary-run-123',
 		distTag: 'canary',
@@ -48,6 +49,29 @@ describe('canary npm dist-tags (#563)', () => {
 		expect(tags.get('@svforge/addon')).toEqual({ latest: '2.3.0', canary: '0.0.0-canary-abcdef012345-123' });
 		expect(tags.get('svforge')).toEqual({ latest: '2.1.2', canary: '0.0.0-canary-abcdef012345-123' });
 		expect(calls.some((args) => args.includes('latest'))).toBe(false);
+	});
+
+	it('refuses a delayed older dispatch without rolling back any newer canary pointer', () => {
+		const newerVersion = '0.0.0-canary-fedcba987654-999';
+		const tags = new Map<string, Record<string, string>>([
+			['@svforge/addon', { latest: '2.3.0', canary: newerVersion }],
+			['svforge', { latest: '2.1.2', canary: '0.0.0-canary-abcdef012345-122' }]
+		]);
+		const writes: string[][] = [];
+		const npm: NpmCall = (args) => {
+			if (args[0] === 'view' && args[2] === 'version') {
+				return { status: 0, stdout: JSON.stringify(args[1].split('@').slice(-1)[0]), stderr: '' };
+			}
+			if (args[0] === 'view') {
+				return { status: 0, stdout: JSON.stringify(tags.get(args[1]) ?? {}), stderr: '' };
+			}
+			writes.push(args);
+			return { status: 0, stdout: '', stderr: '' };
+		};
+		expect(() => promoteCanaryDistTag(plan(), npm)).toThrow(/refusing to replace newer canary/i);
+		expect(writes).toHaveLength(0);
+		expect(tags.get('@svforge/addon')?.canary).toBe(newerVersion);
+		expect(tags.get('svforge')?.canary).toBe('0.0.0-canary-abcdef012345-122');
 	});
 
 	it('restores the prior canary tags if promotion partially fails', () => {
