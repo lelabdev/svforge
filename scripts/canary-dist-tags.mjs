@@ -73,6 +73,16 @@ export function promoteCanaryDistTag(plan, npm = runNpm) {
 	}
 
 	const previous = new Map(plan.candidates.map((pkg) => [pkg.name, currentDistTag(pkg, 'canary', npm)]));
+	// Workflow concurrency prevents simultaneous writes but does not guarantee
+	// dispatch order. A delayed or retried older run must never roll back a
+	// newer validated canary release.
+	for (const pkg of plan.candidates) {
+		const current = previous.get(pkg.name);
+		const existingRun = current?.match(/^0\.0\.0-canary-[0-9a-f]{12}-(\d+)$/);
+		if (existingRun && BigInt(existingRun[1]) > BigInt(plan.runId)) {
+			throw new Error(`Canary dist-tags: refusing to replace newer canary ${pkg.name}@${current} with older run ${plan.runId}.`);
+		}
+	}
 	try {
 		for (const pkg of plan.candidates) {
 			runChecked(npm, ['dist-tag', 'add', `${pkg.name}@${pkg.version}`, 'canary']);
