@@ -1,5 +1,11 @@
 # svforge
 
+## 2.2.1
+
+### Patch Changes
+
+- [#579](https://github.com/lelabdev/svforge/pull/579) [`8d60efe`](https://github.com/lelabdev/svforge/commit/8d60efe2d811e80b643764ebac4f42acf4fe53c5) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Fix the interactive CLI menus: display human-readable choice labels and return the actual values for templates, testing profiles, package managers, hooks, and module selections instead of `[object Object]`.
+
 ## 2.2.0
 
 ### Minor Changes
