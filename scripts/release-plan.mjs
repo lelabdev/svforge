@@ -4,7 +4,7 @@ import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validatePackageChangelogs } from './changelog.mjs';
-import { assertCompatManifestMatchesPlan, assertCompatibilityFreshness, buildCompatManifest } from './compat-manifest.mjs';
+import { DISTRIBUTION_PACKAGE, assertCompatManifestMatchesPlan, assertCompatibilityFreshness, buildCompatManifest } from './compat-manifest.mjs';
 
 const SCRIPT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const REQUIRED_FILES = ['README.md', 'package.json', 'LICENSE', 'dist/index.js', 'dist/index.d.ts'];
@@ -189,7 +189,7 @@ function registryVersions(name, npm = runNpm, cwd = SCRIPT_ROOT) {
 	return (Array.isArray(versions) ? versions : [versions]).filter((version) => typeof version === 'string');
 }
 
-export function checkRegistry(plan, root = SCRIPT_ROOT, npm = runNpm) {
+export function checkRegistry(plan, root = SCRIPT_ROOT, npm = runNpm, reviewedCandidates = null) {
 	const checked = plan.packages.map((pkg) => {
 		const versions = registryVersions(pkg.name, npm, root);
 		const published = versions.includes(pkg.version);
@@ -207,7 +207,7 @@ export function checkRegistry(plan, root = SCRIPT_ROOT, npm = runNpm) {
 	const checkedPlan = { ...plan, registry: 'https://registry.npmjs.org', packages: checked };
 	// #470: never ship a distribution whose embedded manifest would point at
 	// outdated modules because `svforge` was not bumped alongside them.
-	assertCompatibilityFreshness(checkedPlan);
+	assertCompatibilityFreshness(checkedPlan, DISTRIBUTION_PACKAGE, reviewedCandidates);
 	printPlan(checkedPlan, root);
 	return checkedPlan;
 }
@@ -348,7 +348,9 @@ async function main() {
 		plan = buildReleasePlan(root, commit);
 	}
 
-	if (args.includes('--check-registry')) plan = checkRegistry(plan, root);
+	const candidatesPath = optionValue(args, '--reviewed-candidates');
+	const reviewedCandidates = candidatesPath ? JSON.parse(readFileSync(resolve(candidatesPath), 'utf8')) : null;
+	if (args.includes('--check-registry')) plan = checkRegistry(plan, root, runNpm, reviewedCandidates);
 	if (args.includes('--check-access')) checkPublishAccess(plan, root);
 	if (args.includes('--preflight')) preflightPlan(plan, root);
 	if (!args.includes('--check-registry') && !args.includes('--check-access') && !args.includes('--preflight')) {
