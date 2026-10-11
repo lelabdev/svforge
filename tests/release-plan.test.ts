@@ -67,8 +67,10 @@ describe('independent release plan (#330)', () => {
 		expect(workflow).toContain('actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09');
 		expect(workflow).toContain('oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6');
 		expect(workflow).toContain('actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020');
-		expect(workflow).not.toContain('id-token: write');
-		expect(workflow).toContain('--check-access');
+		expect(workflow).toContain('id-token: write');
+		expect(workflow).not.toContain('--check-access');
+		expect(workflow).not.toContain('secrets.NPM_TOKEN');
+		expect(workflow).toContain('Verify OIDC publishing runtime');
 		expect(workflow).toContain('npm-consumer-smoke.mjs');
 	});
 

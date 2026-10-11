@@ -4,6 +4,12 @@ on:
   pull_request:
     types: [closed]
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      release_pr:
+        description: Merged Version Packages PR number to resume
+        required: true
+        type: number
 
 permissions:
   contents: read
@@ -16,19 +22,72 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Only reviewed, merged Changesets PRs can trigger or resume a release.
+  authorize-release:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+       github.event.pull_request.base.ref == 'main' &&
+       github.event.pull_request.title == 'Version Packages' &&
+       github.event.pull_request.head.ref == 'changeset-release/main' &&
+       github.event.pull_request.user.login == 'github-actions[bot]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      release_commit: ${{ steps.verify.outputs.release_commit }}
+      head_sha: ${{ steps.verify.outputs.head_sha }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Verify reviewed release PR and immutable commit
+        id: verify
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event_name == 'workflow_dispatch' && inputs.release_pr || github.event.pull_request.number }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_COMMIT: ${{ github.event.pull_request.merge_commit_sha }}
+        run: |
+          set -euo pipefail
+          [[ "$PR_NUMBER" =~ ^[0-9]+$ ]] || exit 1
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" > "$RUNNER_TEMP/release-pr.json"
+          jq -e --arg repo "$GITHUB_REPOSITORY" '
+            .merged == true and .base.ref == "main" and
+            .title == "Version Packages" and
+            .head.ref == "changeset-release/main" and
+            .head.repo.full_name == $repo and
+            .user.login == "github-actions[bot]"
+          ' "$RUNNER_TEMP/release-pr.json" >/dev/null || {
+            echo "Not a reviewed merged Changesets release PR" >&2
+            exit 1
+          }
+          COMMIT=$(jq -er '.merge_commit_sha' "$RUNNER_TEMP/release-pr.json")
+          HEAD_SHA=$(jq -er '.head.sha' "$RUNNER_TEMP/release-pr.json")
+          [[ "$COMMIT" =~ ^[0-9a-f]{40}$ && "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
+          if [[ "$EVENT_NAME" != "workflow_dispatch" ]]; then
+            test "$COMMIT" = "$EVENT_COMMIT" || exit 1
+          fi
+          git fetch --no-tags origin main
+          git merge-base --is-ancestor "$COMMIT" origin/main || exit 1
+          git show "$COMMIT:.changeset/release-candidates.json" > "$RUNNER_TEMP/candidates.json"
+          node -e 'const c=require(process.argv[1]); if (!Array.isArray(c.packages) || !c.packages.length) process.exit(1)' "$RUNNER_TEMP/candidates.json"
+          echo "release_commit=$COMMIT" >> "$GITHUB_OUTPUT"
+          echo "head_sha=$HEAD_SHA" >> "$GITHUB_OUTPUT"
+
   # Full quality battery (#413): the release is the SUPERSET of PR CI. Pull
   # requests only run the fast guards; everything is blocked here before any
   # package is published.
   quality:
-    if: >-
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'main' &&
-      github.event.pull_request.title == 'Version Packages' &&
-      github.event.pull_request.head.ref == 'changeset-release/main' &&
-      github.event.pull_request.user.login == 'github-actions[bot]'
+    needs: authorize-release
+    if: needs.authorize-release.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ needs.authorize-release.outputs.release_commit }}
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
@@ -73,12 +132,8 @@ jobs:
   # build. Runs in parallel — releases are infrequent, so wall-clock time is
   # preferred over total runner minutes. PostgreSQL serves the DB profiles.
   scaffolds:
-    if: >-
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'main' &&
-      github.event.pull_request.title == 'Version Packages' &&
-      github.event.pull_request.head.ref == 'changeset-release/main' &&
-      github.event.pull_request.user.login == 'github-actions[bot]'
+    needs: authorize-release
+    if: needs.authorize-release.result == 'success'
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -108,6 +163,8 @@ jobs:
           - create-cli
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ needs.authorize-release.outputs.release_commit }}
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
@@ -132,12 +189,8 @@ jobs:
   # External user journey from the packed tarball (#462, hardened in #465).
   # PostgreSQL serves the dashboard journey (setup, schema, auth, admin).
   user-journey:
-    if: >-
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'main' &&
-      github.event.pull_request.title == 'Version Packages' &&
-      github.event.pull_request.head.ref == 'changeset-release/main' &&
-      github.event.pull_request.user.login == 'github-actions[bot]'
+    needs: authorize-release
+    if: needs.authorize-release.result == 'success'
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -154,6 +207,8 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ needs.authorize-release.outputs.release_commit }}
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
@@ -184,21 +239,17 @@ jobs:
   # The release gate (#413): every validation job must succeed before the first
   # `npm publish`. This job also carries the post-publication signals.
   publish:
-    needs: [quality, scaffolds, user-journey]
-    if: >-
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'main' &&
-      github.event.pull_request.title == 'Version Packages' &&
-      github.event.pull_request.head.ref == 'changeset-release/main' &&
-      github.event.pull_request.user.login == 'github-actions[bot]'
+    needs: [authorize-release, quality, scaffolds, user-journey]
+    if: needs.authorize-release.result == 'success'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+      id-token: write
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          ref: ${{ needs.authorize-release.outputs.release_commit }}
           fetch-depth: 0
 
       - name: Setup Bun
@@ -209,8 +260,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org
+          node-version: 24
+          package-manager-cache: false
 
       - name: Install dependencies
         run: bun install --frozen-lockfile --ignore-scripts
@@ -219,10 +270,12 @@ jobs:
       - name: Build all packages
         run: bun run --filter '*' build
 
-      - name: Verify npm authentication
-        run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Verify OIDC publishing runtime
+        run: |
+          node -e 'const v=process.versions.node.split(".").map(Number); if(v[0]<22 || (v[0]===22 && v[1]<14)) process.exit(1)'
+          node -e 'const {execFileSync}=require("node:child_process"); const v=execFileSync("npm",["--version"],{encoding:"utf8"}).trim().split(".").map(Number); if(v[0]<11 || (v[0]===11 && (v[1]<5 || (v[1]===5 && v[2]<1)))) process.exit(1)'
+          test -n "$ACTIONS_ID_TOKEN_REQUEST_URL"
+          test -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN"
 
       # The plan is generated before any publication and records the exact
       # commit, independent package versions, registry state, and dependency order.
@@ -230,21 +283,16 @@ jobs:
         run: >-
           node scripts/release-plan.mjs
           --check-registry
-          --commit "${{ github.event.pull_request.merge_commit_sha }}"
+          --commit "${{ needs.authorize-release.outputs.release_commit }}"
           --output /tmp/release-plan.json
 
       - name: Validate Changesets publication scope
         run: >-
           node scripts/release-candidates.mjs
           --plan /tmp/release-plan.json
-          --commit "${{ github.event.pull_request.merge_commit_sha }}"
-          --head "${{ github.event.pull_request.head.sha }}"
+          --commit "${{ needs.authorize-release.outputs.release_commit }}"
+          --head "${{ needs.authorize-release.outputs.head_sha }}"
           --output /tmp/release-candidates.json
-
-      - name: Verify package publish access
-        run: node scripts/release-plan.mjs --plan /tmp/release-plan.json --check-access
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Show release plan
         run: cat /tmp/release-plan.json
@@ -252,20 +300,14 @@ jobs:
       # Every package is packed and checked before the first npm publish.
       - name: Preflight release tarballs
         run: node scripts/release-plan.mjs --plan /tmp/release-plan.json --preflight
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # This command skips exact versions already in the registry, so rerunning
       # after a partial failure safely resumes the release.
+      # Run Changesets directly: npm CLI exchanges the short-lived OIDC
+      # credential. The combined Changesets action writes token-based .npmrc.
       - name: Publish with Changesets
-        id: changesets
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          publish: bun run changeset:publish
-          createGithubReleases: false
+        run: bun run changeset:publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           npm_config_ignore_scripts: 'true'
 
       # Consumer gate: install every exact published version and run tsc against
@@ -298,7 +340,6 @@ jobs:
           node scripts/finalize-releases.mjs
           --plan /tmp/release-plan.json
           --candidates /tmp/release-candidates.json
-          --commit "${{ github.event.pull_request.merge_commit_sha }}"
+          --commit "${{ needs.authorize-release.outputs.release_commit }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

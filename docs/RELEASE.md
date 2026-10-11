@@ -11,12 +11,13 @@ package versions absent from npm, and remains stable across retries. GitHub
 Actions must be allowed to create pull requests in the repository's Actions
 settings; this change does not alter repository-wide permissions.
 
-Stable npm publication is handled by `.github/workflows/publish.yml` only
-when a maintainer merges the bot-created `Version Packages` PR from
-`changeset-release/main` into `main`. The release job reruns the blocking
-quality, scaffold, and packed-artifact user-journey gates, then uses the
-Changesets action to publish the selected package versions with automatic tag
-and GitHub Release creation disabled. Only after the exact-version consumer,
+Stable npm publication is handled by `.github/workflows/publish.yml` after
+a maintainer merges the bot-created `Version Packages` PR from
+`changeset-release/main` into `main`, or via an explicitly dispatched recovery
+that independently verifies this exact already-merged PR before running any jobs. The release job reruns the blocking
+quality, scaffold, and packed-artifact user-journey gates, then invokes the
+Changesets CLI directly using npm Trusted Publishing (OIDC) with no persistent
+npm token. GitHub Release creation remains separately gated. Only after the exact-version consumer,
 published user journey, and compatibility-manifest golden path all pass does a
 separate finalizer verify the exact npm versions, push `package@version` tags,
 and create GitHub Releases from the package changelogs. It uses
@@ -229,14 +230,14 @@ publication, the workflow:
    `dashboard-playwright`, `base-blog`, `base-modules`,
    `dashboard-foundations`, `base-ui-modules`, `dashboard-integrations`,
    `create-cli` — with PostgreSQL for the DB profiles;
-4. verifies npm authentication with `npm whoami`;
+4. validates npm CLI 11.5.1+ and the GitHub OIDC publishing environment (no `npm whoami`);
 5. generates and prints the complete commit/version/registry plan, then checks
    that its publishable versions match the candidate manifest committed in the
    human-reviewed Version Packages PR. This fails closed if `changeset publish`
    would include an unselected unpublished package;
-6. verifies read-only npm package access for every already-published package;
-   not-yet-created packages are allowed through this gate because
-   `npm access list packages` cannot report a package before its first publish;
+6. uses the public registry release plan to check existing package versions; npm
+   validates the trusted publisher's per-package write permissions during the actual
+   publish (OIDC does not authorize `npm access list packages` or `npm whoami`);
 7. runs `npm pack --dry-run --json --ignore-scripts` for every package and
    verifies exports, JavaScript, declarations, README, LICENSE and packaged
    paths;
@@ -270,12 +271,23 @@ scripts disabled because every package was already built and tarball-preflighted
 
 The stable publisher uses a repository-global, non-cancelling concurrency
 group. It triggers only for a merged, bot-authored `Version Packages` PR on
-`main`, so ordinary merges and the release PR while it is still open cannot
-publish. The Changesets action does not push tags or create GitHub Releases;
+`main`, or an explicit recovery dispatch that independently verifies the PR's
+identity and immutable merge commit, so ordinary merges and open PRs cannot publish. The Changesets action does not push tags or create GitHub Releases;
 the post-validation finalizer does so only for the changed, registry-verified
 versions. Third-party actions are pinned to commit SHAs.
 
 ## Resuming a failed release
+
+After an authentication/workflow fix, **do not rerun the previous GitHub Actions
+attempt**: that run uses its original workflow commit and would repeat the old
+`npm whoami` failure. Run `Publish` on `main` with **Run workflow**, entering
+`release_pr: 562` for the pending 2.2.0 baseline. The authorization job checks
+that PR #562 was merged from the expected Changesets branch by the release bot,
+that its merge commit belongs to `main`, and that it contains a reviewed release
+candidate manifest. The entire quality/scaffold/user-journey battery runs again
+against the **original release merge commit**, never the moving branch tip. Only
+after all gates pass may npm receive published artifacts. This is also valid
+for later approved release PRs, using their own numbers.
 
 Changesets checks the registry before publishing. A partial publish failure
 stops the job before post-publication checks, tags, or GitHub Releases. On a
@@ -292,17 +304,43 @@ An unchanged version produces no publication or release announcement.
 
 ## Authentication and permissions
 
-The npm account behind `NPM_TOKEN` must be allowed to publish every scoped
-`@svforge/*` package and the unscoped `svforge` package. `npm whoami` verifies
-that the token is present and valid. For packages already in the registry, the
-release plan runs `npm access list packages --json` and rejects any package
-that is absent or not reported as writable. Not-yet-published packages are
-skipped by this lookup; npm remains the authority when their first publish is
-attempted.
+Stable npm publishing uses **Trusted Publishing (OIDC)**: no `NPM_TOKEN`, no
+long-lived npm credentials, and no token rotation. A GitHub-hosted publish job
+is granted `id-token: write` and uses Node 24 / npm 11.5.1+; Changesets CLI
+invokes npm, which exchanges the workflow identity for a short-lived npm token.
+`npm whoami` and `npm access list packages` cannot check OIDC publishing
+rights and must not be reintroduced as release gates.
 
-Do not print, commit or include npm tokens in release output. Never run the
-publish command locally or trigger the production workflow without explicit
-maintainer authorization.
+**One-time npm package configuration (requires the npm package owner's login
+and 2FA):** for each of the 15 packages, set its Trusted Publisher to:
+- Provider: GitHub Actions
+- Owner: `lelabdev`
+- Repository: `svforge`
+- Workflow filename: `publish.yml`
+- Environment: none
+- Allowed action: **Allow npm publish** (not just staging)
+
+This can be configured from each package's npmjs.com Settings → Trusted
+Publishing. Alternatively, after logging into npm locally with npm CLI
+11.15.0+, the package owner can configure the entire workspace once:
+
+```bash
+for manifest in packages/*/package.json; do
+  pkg=$(node -p "require('./$manifest').name")
+  npm trust github "$pkg" --repo lelabdev/svforge --file publish.yml --allow-publish --yes
+  sleep 2
+done
+```
+
+An already configured trusted publisher may require inspection before adding
+another; do not revoke an existing trust relationship without understanding it.
+The account owner must authorize this first trust setup, but **future CI
+publications have no npm credentials to manage**. npm verifies authorization
+per package on `npm publish`. Do not print, commit, or paste npm credentials.
+The separate `canary-snapshots.yml` still uses a token pending its own OIDC
+migration; stable publishing no longer depends on it.
+
+Do not trigger production publication without explicit maintainer authorization.
 
 ## Local preflight
 
