@@ -169,7 +169,7 @@ process.stdout.write(JSON.stringify({ versions: ['${version}'], 'dist-tags': { l
 				changelog: false, updateInternalDependencies: 'patch'
 			}));
 			writeFileSync(join(root, '.changeset/cli.md'),
-				'---\\nsvforge: minor\\n---\\nNew distribution capability.\\n');
+				'---\nsvforge: minor\n---\nNew distribution capability.\n');
 			execFileSync('git', ['init', '-b', 'main'], { cwd: root, stdio: 'pipe' });
 			execFileSync('git', ['config', 'user.email', 'tests@example.com'], { cwd: root });
 			execFileSync('git', ['config', 'user.name', 'Changesets test'], { cwd: root });
