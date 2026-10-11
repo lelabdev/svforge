@@ -13,6 +13,12 @@ const CANARY_VERSION = /^(\d+\.\d+\.\d+)-canary\.(\d+)$/;
  * snapshots. The next iteration is shared across a release set, while every
  * package retains its independent base version.
  */
+/**
+ * @param {{name: string, newVersion: string}[]} releases
+ * @param {(name: string) => string[]} listVersions
+ * @param {(name: string, runId: string) => string | null} [currentStaging]
+ * @param {string} [runId]
+ */
 export function nextCanaryIteration(releases, listVersions, currentStaging = () => null, runId = '') {
 	const stagedIterations = new Set();
 	for (const release of releases) {
