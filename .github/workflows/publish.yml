@@ -526,4 +526,3 @@ jobs:
         if: ${{ always() && steps.pack.outcome == 'success' && steps.publish.outcome != 'skipped' }}
         working-directory: ${{ runner.temp }}/svforge-canary
         run: node scripts/canary-dist-tags.mjs cleanup --plan "$RUNNER_TEMP/canary-plan.json"
-        env:
