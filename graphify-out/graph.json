@@ -19560,11 +19560,20 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_canary_snapshots_validatecanaryplan",
+      "label": "validateCanaryPlan()",
+      "file_type": "code",
+      "source_file": "scripts/canary-snapshots.mjs",
+      "source_location": "L119",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_canary_snapshots_isversionpublished",
       "label": "isVersionPublished()",
       "file_type": "code",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L118",
+      "source_location": "L150",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19573,7 +19582,7 @@
       "label": "run()",
       "file_type": "code",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L129",
+      "source_location": "L161",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19582,7 +19591,7 @@
       "label": "prepareCanarySnapshot()",
       "file_type": "code",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L138",
+      "source_location": "L170",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19591,7 +19600,7 @@
       "label": "rmStatusFile()",
       "file_type": "code",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L181",
+      "source_location": "L213",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27575,7 +27584,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L78",
+      "source_location": "L81",
       "_origin": "ast"
     },
     {
@@ -27584,7 +27593,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L173",
+      "source_location": "L176",
       "_origin": "ast"
     },
     {
@@ -27593,7 +27602,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L186",
+      "source_location": "L189",
       "_origin": "ast"
     },
     {
@@ -27602,7 +27611,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L203",
+      "source_location": "L206",
       "_origin": "ast"
     },
     {
@@ -27611,7 +27620,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L261",
+      "source_location": "L264",
       "_origin": "ast"
     },
     {
@@ -27620,7 +27629,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L276",
+      "source_location": "L279",
       "_origin": "ast"
     },
     {
@@ -27629,7 +27638,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L290",
+      "source_location": "L293",
       "_origin": "ast"
     },
     {
@@ -27638,7 +27647,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L317",
+      "source_location": "L320",
       "_origin": "ast"
     },
     {
@@ -27647,7 +27656,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L343",
+      "source_location": "L346",
       "_origin": "ast"
     },
     {
@@ -67208,11 +67217,21 @@
     },
     {
       "source": "scripts_canary_snapshots",
+      "target": "scripts_canary_snapshots_validatecanaryplan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary-snapshots.mjs",
+      "source_location": "L119",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_canary_snapshots",
       "target": "scripts_canary_snapshots_isversionpublished",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L118",
+      "source_location": "L150",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67222,7 +67241,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L129",
+      "source_location": "L161",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67232,7 +67251,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L138",
+      "source_location": "L170",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67242,7 +67261,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L181",
+      "source_location": "L213",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67269,13 +67288,35 @@
       "_origin": "ast"
     },
     {
+      "source": "scripts_canary_snapshots_validatecanaryplan",
+      "target": "scripts_canary_snapshots_canarysnapshottag",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary-snapshots.mjs",
+      "source_location": "L123",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_canary_snapshots_validatecanaryplan",
+      "target": "scripts_canary_snapshots_readcanarypackageversions",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary-snapshots.mjs",
+      "source_location": "L126",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "scripts_canary_snapshots_preparecanarysnapshot",
       "target": "scripts_canary_snapshots_canarysnapshottag",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L146",
+      "source_location": "L178",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67286,7 +67327,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L147",
+      "source_location": "L179",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67297,7 +67338,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L161",
+      "source_location": "L193",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67308,7 +67349,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L172",
+      "source_location": "L204",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67319,7 +67360,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L173",
+      "source_location": "L205",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67330,7 +67371,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-snapshots.mjs",
-      "source_location": "L176",
+      "source_location": "L208",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74410,6 +74451,17 @@
     },
     {
       "source": "tests_canary_snapshots_test",
+      "target": "scripts_canary_snapshots_validatecanaryplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/canary-snapshots.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_canary_snapshots_test",
       "target": "tests_canary_snapshots_test_changeset_bin",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -74455,7 +74507,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/canary-snapshots.test.ts",
-      "source_location": "L63",
+      "source_location": "L79",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88438,7 +88490,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L78",
+      "source_location": "L81",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88448,7 +88500,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L173",
+      "source_location": "L176",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88458,7 +88510,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L186",
+      "source_location": "L189",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88468,7 +88520,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L203",
+      "source_location": "L206",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88478,7 +88530,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L261",
+      "source_location": "L264",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88488,7 +88540,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L276",
+      "source_location": "L279",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88498,7 +88550,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L290",
+      "source_location": "L293",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88508,7 +88560,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L317",
+      "source_location": "L320",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88518,7 +88570,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L343",
+      "source_location": "L346",
       "weight": 1,
       "_origin": "ast"
     },
@@ -91862,6 +91914,17 @@
       "_origin": "ast"
     },
     {
+      "source": "scripts_canary_snapshots_validatecanaryplan",
+      "target": "scripts_compat_manifest_buildcompatmanifest",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/canary-snapshots.mjs",
+      "source_location": "L143",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "scripts_finalize_releases_validateinputs",
       "target": "scripts_changelog_parsepackagechangelog",
       "relation": "calls",
@@ -92764,7 +92827,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L122",
+      "source_location": "L125",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92776,7 +92839,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L205",
+      "source_location": "L208",
       "weight": 1,
       "_origin": "ast"
     },

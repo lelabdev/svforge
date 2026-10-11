@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { buildCanaryPlan, canarySnapshotTag, assertStableVersionsPublished, ensureDistributionSnapshotChangeset, prepareCanarySnapshot } from '../scripts/canary-snapshots.mjs';
+import { buildCanaryPlan, canarySnapshotTag, assertStableVersionsPublished, ensureDistributionSnapshotChangeset, prepareCanarySnapshot, validateCanaryPlan } from '../scripts/canary-snapshots.mjs';
 
 const CHANGESET_BIN = join(process.cwd(), 'node_modules/.bin/changeset');
 type CanaryPackage = { name: string; version: string; directory?: string; snapshot?: boolean; tarball?: string };
@@ -30,6 +30,7 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 		expect(workflow).toContain('bun x changeset publish --tag "canary-run-${GITHUB_RUN_ID}" --no-git-tag');
 		expect(workflow).toContain('node scripts/canary-dist-tags.mjs promote');
 		expect(workflow).toContain('if(!p.compatibility) throw new Error');
+		expect(workflow).toContain('scripts/canary-snapshots.mjs validate');
 		expect(workflow).toContain('--compat-manifest "$RUNNER_TEMP/canary-compat.json"');
 		expect(workflow).toContain('--template dashboard');
 		expect(workflow).toContain('POSTGRES_DB: sf_canary_test');
@@ -45,6 +46,21 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 		expect(whoami).toBeGreaterThan(setupNode);
 		expect(whoami).toBeLessThan(publish);
 		expect(authGate).toContain('NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}');
+		const sourceBuild = workflow.indexOf('Build source packages before snapshot versioning');
+		const fullTest = workflow.indexOf('Test full repository suite before snapshot versioning');
+		const snapshotPrepare = workflow.indexOf('Prepare immutable Changesets snapshot');
+		const compatibilityCheck = workflow.indexOf('Validate generated snapshot compatibility manifest');
+		const snapshotBuild = workflow.indexOf('Build all snapshot packages');
+		const artifactPack = workflow.indexOf('Pack exact snapshot candidates');
+		for (const step of [sourceBuild, fullTest, snapshotPrepare, compatibilityCheck, snapshotBuild, artifactPack]) {
+			expect(step).toBeGreaterThan(-1);
+		}
+		expect(sourceBuild).toBeLessThan(fullTest);
+		expect(fullTest).toBeLessThan(snapshotPrepare);
+		expect(workflow.slice(snapshotPrepare)).not.toContain('run: bun run test');
+		expect(snapshotPrepare).toBeLessThan(compatibilityCheck);
+		expect(compatibilityCheck).toBeLessThan(snapshotBuild);
+		expect(snapshotBuild).toBeLessThan(artifactPack);
 		expect(workflow.indexOf('Pre-publish clean consumer install')).toBeLessThan(workflow.indexOf('Publish immutable snapshots'));
 		expect(workflow.indexOf('Post-publish exact-version consumer install')).toBeLessThan(workflow.indexOf('Promote validated snapshots'));
 	});
@@ -149,6 +165,7 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 			];
 
 			const plan = buildCanaryPlan(before, after, { root, tag, commit: 'abcdef0123456789', runId: '987654321' }) as CanaryPlan;
+			expect(validateCanaryPlan(plan, root)).toBe(plan);
 			expect(plan.candidates.map((pkg) => pkg.name)).toEqual([
 				'@svforge/changed', '@svforge/new-addon', 'svforge'
 			]);
@@ -163,6 +180,10 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 				snapshot: false
 			});
 			expect(plan.compatibility.template.version).toBe(plan.compatibility.packages.svforge);
+			writeFileSync(join(root, 'packages/changed/package.json'), JSON.stringify({
+				name: '@svforge/changed', version: '4.0.0'
+			}));
+			expect(() => validateCanaryPlan(plan, root)).toThrow(/does not match 4\.0\.0/);
 		} finally {
 			rmSync(root, { recursive: true, force: true });
 		}

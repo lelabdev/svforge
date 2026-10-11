@@ -115,6 +115,38 @@ export function assertStableVersionsPublished(plan, isPublished) {
 	return plan;
 }
 
+/** Recheck the generated plan against the snapshot workspace before building/publishing. */
+export function validateCanaryPlan(plan, root = ROOT) {
+	if (!plan || plan.schemaVersion !== 1 || !Array.isArray(plan.packages) || !Array.isArray(plan.candidates)) {
+		throw new Error('Canary snapshot validation: invalid plan schema.');
+	}
+	if (plan.snapshotTag !== canarySnapshotTag(plan.commit, String(plan.runId))) {
+		throw new Error('Canary snapshot validation: plan tag does not match its source commit and run ID.');
+	}
+	const actualPackages = readCanaryPackageVersions(root).filter((pkg) => !pkg.private);
+	const plannedPackages = new Map(plan.packages.map((pkg) => [pkg.name, pkg]));
+	if (plannedPackages.size !== actualPackages.length) {
+		throw new Error('Canary snapshot validation: plan package set does not match the workspace.');
+	}
+	for (const actual of actualPackages) {
+		const planned = plannedPackages.get(actual.name);
+		const snapshot = actual.version === `${SNAPSHOT_PREFIX}${plan.snapshotTag}`;
+		if (!planned || planned.version !== actual.version || planned.directory !== actual.directory || planned.snapshot !== snapshot) {
+			throw new Error(`Canary snapshot validation: plan entry for ${actual.name} does not match ${actual.version} in the workspace.`);
+		}
+	}
+	const candidateNames = actualPackages.filter((pkg) => pkg.version === `${SNAPSHOT_PREFIX}${plan.snapshotTag}`).map((pkg) => pkg.name);
+	const plannedCandidateNames = plan.candidates.map((pkg) => pkg.name);
+	if (JSON.stringify(candidateNames) !== JSON.stringify(plannedCandidateNames)) {
+		throw new Error('Canary snapshot validation: candidate list does not match the snapshot package versions.');
+	}
+	const compatibility = buildCompatManifest(root);
+	if (JSON.stringify(compatibility) !== JSON.stringify(plan.compatibility)) {
+		throw new Error('Canary snapshot validation: exact compatibility manifest does not match the snapshot workspace.');
+	}
+	return plan;
+}
+
 function isVersionPublished(name, version) {
 	const result = spawnSync('npm', ['view', `${name}@${version}`, 'version', '--json'], { encoding: 'utf8' });
 	if (result.error) throw result.error;
@@ -192,20 +224,26 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 		const index = args.indexOf(`--${name}`);
 		return index === -1 ? undefined : args[index + 1];
 	};
-	if (args[0] !== 'prepare' || !value('commit') || !value('run-id')) {
-		console.error('Usage: node scripts/canary-snapshots.mjs prepare --commit <sha> --run-id <id> [--root <dir>] [--plan <path>]');
-		process.exitCode = 1;
-	} else {
-		try {
+	try {
+		const root = value('root') ? resolve(value('root')) : ROOT;
+		if (args[0] === 'prepare' && value('commit') && value('run-id')) {
 			prepareCanarySnapshot({
-				root: value('root') ? resolve(value('root')) : ROOT,
+				root,
 				commit: value('commit'),
 				runId: value('run-id'),
 				planPath: value('plan') ?? '/tmp/canary-plan.json'
 			});
-		} catch (error) {
-			console.error(`Canary snapshot preparation failed: ${error.message}`);
+		} else if (args[0] === 'validate' && value('plan')) {
+			const plan = JSON.parse(readFileSync(resolve(value('plan')), 'utf8'));
+			validateCanaryPlan(plan, root);
+			console.log(`Validated compatibility manifest and ${plan.candidates.length} snapshot candidate(s).`);
+		} else {
+			console.error('Usage: node scripts/canary-snapshots.mjs prepare --commit <sha> --run-id <id> [--root <dir>] [--plan <path>]');
+			console.error('   or: node scripts/canary-snapshots.mjs validate --plan <path> [--root <dir>]');
 			process.exitCode = 1;
 		}
+	} catch (error) {
+		console.error(`Canary snapshot ${args[0] === 'validate' ? 'validation' : 'preparation'} failed: ${error.message}`);
+		process.exitCode = 1;
 	}
 }

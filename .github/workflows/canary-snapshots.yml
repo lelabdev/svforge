@@ -86,6 +86,28 @@ jobs:
         working-directory: ${{ runner.temp }}/svforge-canary
         run: node scripts/check-generated.mjs
 
+      # The full suite includes stable release-plan/changelog assertions. Run it
+      # before snapshot versions intentionally diverge from package changelogs.
+      - name: Lint source release
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run lint
+
+      - name: Typecheck source release
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run typecheck
+
+      - name: Dependency audit source release
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run audit
+
+      - name: Build source packages before snapshot versioning
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run build:all
+
+      - name: Test full repository suite before snapshot versioning
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run test
+
       - name: Prepare immutable Changesets snapshot and exact compatibility manifest
         id: snapshot
         working-directory: ${{ runner.temp }}/svforge-canary
@@ -96,25 +118,13 @@ jobs:
             --root "$PWD" \
             --plan "$RUNNER_TEMP/canary-plan.json"
 
-      - name: Lint
+      - name: Validate generated snapshot compatibility manifest
         working-directory: ${{ runner.temp }}/svforge-canary
-        run: bun run lint
-
-      - name: Typecheck
-        working-directory: ${{ runner.temp }}/svforge-canary
-        run: bun run typecheck
-
-      - name: Dependency audit
-        working-directory: ${{ runner.temp }}/svforge-canary
-        run: bun run audit
+        run: node scripts/canary-snapshots.mjs validate --root "$PWD" --plan "$RUNNER_TEMP/canary-plan.json"
 
       - name: Build all snapshot packages
         working-directory: ${{ runner.temp }}/svforge-canary
         run: bun run build:all
-
-      - name: Test
-        working-directory: ${{ runner.temp }}/svforge-canary
-        run: bun run test
 
       - name: Pre-publish external user journey from packed artifacts
         working-directory: ${{ runner.temp }}/svforge-canary

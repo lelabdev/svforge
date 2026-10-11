@@ -52,11 +52,14 @@ snapshot preparation or any npm registry write. The temporary user `.npmrc` is
 created by the action; no token is committed to the repository or copied into
 the archived workspace.
 
-Before the first npm write, the workflow runs lint, typecheck, audit, tests,
-package builds, the packed dashboard golden path with all modules (using the
-workflow's disposable PostgreSQL service), `npm pack` for every snapshot
-candidate, and a clean consumer install/typecheck using those exact tarballs
-plus exact stable registry versions. Changesets then publishes the immutable
+The workflow runs lint, typecheck, audit, builds, and the full repository test
+suite against stable package versions before applying snapshot versions; release
+changelog tests intentionally require the stable versions. After snapshot
+versioning, it revalidates the exact compatibility manifest, rebuilds every
+snapshot package, runs the packed dashboard golden path with all modules (using
+the workflow's disposable PostgreSQL service), packs each candidate, and runs a
+clean consumer install/typecheck using those exact tarballs plus exact stable
+registry versions. Only after those gates does Changesets publish the immutable
 versions under a unique `canary-run-<run-id>` staging tag (never `latest` or
 `canary`). The workflow repeats the consumer and golden-path checks against the
 published exact versions, and only then promotes candidate packages to the
