@@ -41,6 +41,18 @@ export function consumerSource(plan) {
 	].join('\n')).join('\n')}\n`;
 }
 
+export function consumerInstallSpecs(plan, { registryOnly = false } = {}) {
+	return plan.packages.map((pkg) => {
+		if (pkg.tarball && !registryOnly) {
+			if (!pkg.snapshot || typeof pkg.tarball !== 'string') {
+				throw new Error(`Consumer plan: only a snapshot package may use a local tarball (${pkg.name}).`);
+			}
+			return pkg.tarball;
+		}
+		return `${pkg.name}@${pkg.version}`;
+	});
+}
+
 export function consumerTsConfig() {
 	return {
 		compilerOptions: {
@@ -72,13 +84,14 @@ export function runTypecheck(consumerRoot, tsc = join(consumerRoot, 'node_module
 	}
 }
 
-export function runConsumerSmoke(plan, npm = 'npm') {
+export function runConsumerSmoke(plan, npm = 'npm', { registryOnly = false } = {}) {
 	const consumerRoot = mkdtempSync(join(tmpdir(), 'svforge-consumer-'));
 	try {
 		writeFileSync(join(consumerRoot, 'package.json'), JSON.stringify({ private: true, type: 'module' }) + '\n');
-		const exactPackages = plan.packages.map((pkg) => `${pkg.name}@${pkg.version}`);
-		// TypeScript is a test-only dependency of the clean consumer. The
-		// packages themselves remain the exact versions from the release plan.
+		const exactPackages = consumerInstallSpecs(plan, { registryOnly });
+		// TypeScript is a test-only dependency of the clean consumer. Stable
+		// packages remain exact registry versions; canary snapshots may be
+		// supplied as the exact npm tarballs that will be published.
 		execFileSync(npm, ['install', '--ignore-scripts', '--no-package-lock', '--no-save', 'typescript@6.0.3', ...exactPackages], {
 			cwd: consumerRoot,
 			stdio: 'inherit'
@@ -97,12 +110,13 @@ export function runConsumerSmoke(plan, npm = 'npm') {
 if (import.meta.url === `file://${process.argv[1]}`) {
 	const planFlagIndex = process.argv.indexOf('--plan');
 	const planPath = planFlagIndex === -1 ? null : process.argv[planFlagIndex + 1];
+	const registryOnly = process.argv.includes('--registry-only');
 	if (!planPath) {
-		console.error('Usage: node scripts/npm-consumer-smoke.mjs --plan <release-plan.json>');
+		console.error('Usage: node scripts/npm-consumer-smoke.mjs --plan <release-plan.json> [--registry-only]');
 		process.exitCode = 1;
 	} else {
 		try {
-			runConsumerSmoke(JSON.parse(readFileSync(resolve(planPath), 'utf8')));
+			runConsumerSmoke(JSON.parse(readFileSync(resolve(planPath), 'utf8')), 'npm', { registryOnly });
 		} catch (error) {
 			console.error(`Consumer smoke test failed: ${error.message}`);
 			process.exitCode = 1;

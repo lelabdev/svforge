@@ -1,0 +1,166 @@
+name: Canary Snapshots
+
+# Deliberately dispatch-only: merging this workflow cannot publish packages.
+# Maintainers configure required reviewers on the npm-canary environment and
+# manually confirm publication after the implementation and artifact gates are reviewed.
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type publish-canary to publish immutable snapshots from main'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+# Serialize canary publication with the stable release workflow.
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  canary:
+    if: >-
+      github.repository == 'lelabdev/svforge' &&
+      github.ref == 'refs/heads/main' &&
+      inputs.confirmation == 'publish-canary'
+    runs-on: ubuntu-latest
+    environment: npm-canary
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: sf_canary_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/sf_canary_test
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.14
+
+      # Work only in a disposable archive of the exact source commit. Changesets
+      # snapshot versioning, prebuild, and package builds cannot alter this checkout.
+      - name: Create isolated snapshot workspace
+        run: |
+          set -euo pipefail
+          snapshot_dir="$RUNNER_TEMP/svforge-canary"
+          mkdir -p "$snapshot_dir"
+          git archive "${GITHUB_SHA}" | tar -x -C "$snapshot_dir"
+          git -C "$snapshot_dir" init -b main
+          git -C "$snapshot_dir" config user.email canary-snapshot@localhost
+          git -C "$snapshot_dir" config user.name 'SVForge Canary Snapshot'
+          git -C "$snapshot_dir" add -A
+          git -C "$snapshot_dir" commit -m "Canary source ${GITHUB_SHA}"
+
+      - name: Install snapshot workspace dependencies
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Check generated manifests before snapshot versioning
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: node scripts/check-generated.mjs
+
+      - name: Prepare immutable Changesets snapshot and exact compatibility manifest
+        id: snapshot
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: |
+          node scripts/canary-snapshots.mjs prepare \
+            --commit "$GITHUB_SHA" \
+            --run-id "$GITHUB_RUN_ID" \
+            --root "$PWD" \
+            --plan "$RUNNER_TEMP/canary-plan.json"
+
+      - name: Lint
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run lint
+
+      - name: Typecheck
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run typecheck
+
+      - name: Dependency audit
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run audit
+
+      - name: Build all snapshot packages
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run build:all
+
+      - name: Test
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun run test
+
+      - name: Pre-publish external user journey from packed artifacts
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bash scripts/test-user-journey.sh --path create --template dashboard
+
+      - name: Pack exact snapshot candidates
+        id: pack
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: >-
+          node scripts/canary-artifacts.mjs pack
+          --plan "$RUNNER_TEMP/canary-plan.json"
+          --root "$PWD"
+          --output "$RUNNER_TEMP/canary-tarballs"
+
+      - name: Pre-publish clean consumer install and TypeScript resolution
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: node scripts/npm-consumer-smoke.mjs --plan "$RUNNER_TEMP/canary-plan.json"
+
+      # Changesets publishes only packages whose exact snapshot versions are not
+      # already present. The per-run staging tag is never `latest` or `canary`.
+      - name: Publish immutable snapshots to the per-run staging tag
+        id: publish
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: bun x changeset publish --tag "canary-run-${GITHUB_RUN_ID}" --no-git-tag
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm_config_ignore_scripts: 'true'
+
+      - name: Ensure staging tags exist for retry-skipped snapshot versions
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: node scripts/canary-dist-tags.mjs stage --plan "$RUNNER_TEMP/canary-plan.json"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Post-publish exact-version consumer install
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: node scripts/npm-consumer-smoke.mjs --plan "$RUNNER_TEMP/canary-plan.json" --registry-only
+
+      - name: Post-publish golden path with exact compatibility versions
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: |
+          version=$(node -e "const p=require(process.env.PLAN); const x=p.packages.find((pkg)=>pkg.name==='svforge'); if(!x) throw new Error('svforge missing from canary plan'); process.stdout.write(x.version)")
+          bash scripts/test-user-journey.sh --path create --published "$version" \
+            --compat-manifest "$RUNNER_TEMP/canary-plan.json" --template dashboard
+        env:
+          PLAN: ${{ runner.temp }}/canary-plan.json
+
+      # Only validated packages receive the public `canary` tag. The script
+      # restores each previous tag if promotion partially fails.
+      - name: Promote validated snapshots to the canary dist-tag
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: node scripts/canary-dist-tags.mjs promote --plan "$RUNNER_TEMP/canary-plan.json"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Remove per-run staging dist-tags
+        if: ${{ always() && steps.pack.outcome == 'success' && steps.publish.outcome != 'skipped' }}
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: node scripts/canary-dist-tags.mjs cleanup --plan "$RUNNER_TEMP/canary-plan.json"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

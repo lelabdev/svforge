@@ -1056,7 +1056,7 @@
     "semantic_hash": ""
   },
   "scripts/npm-consumer-smoke.mjs": {
-    "ast_hash": "01590f62f954453f6a71244ef5919a99",
+    "ast_hash": "a9c456ce825f72189baafcc1d0e129e2",
     "semantic_hash": ""
   },
   "scripts/prebuild-utils.ts": {
@@ -1292,7 +1292,7 @@
     "semantic_hash": ""
   },
   "tests/npm-consumer-smoke.test.ts": {
-    "ast_hash": "3a711004407ebf61a3c3be3c12a6c388",
+    "ast_hash": "14d8548237ae9b73a87a75920fa0617e",
     "semantic_hash": ""
   },
   "tests/oauth-declarations.test.ts": {
@@ -1492,7 +1492,7 @@
     "semantic_hash": ""
   },
   "docs/RELEASE.md": {
-    "ast_hash": "a1da1324701c2241f59a60e033cd883c",
+    "ast_hash": "818f438d3ef345ecb76793573b2f2446",
     "semantic_hash": ""
   },
   "docs/better-auth-upgrades.md": {
@@ -1928,7 +1928,7 @@
     "semantic_hash": ""
   },
   "tests/changesets.test.ts": {
-    "ast_hash": "5d5f8c3546e17b14162f9d9b7578467e",
+    "ast_hash": "561b398ee928e2f9453b588f4e133eb7",
     "semantic_hash": ""
   },
   ".changeset/quiet-coins-protect.md": {
@@ -2025,6 +2025,34 @@
   },
   "tests/version-packages.test.ts": {
     "ast_hash": "0c7966fbfef334fd2a39b50863a819ba",
+    "semantic_hash": ""
+  },
+  "scripts/canary-artifacts.mjs": {
+    "ast_hash": "579edf407853c8e91b3099ebed6838fe",
+    "semantic_hash": ""
+  },
+  "scripts/canary-dist-tags.mjs": {
+    "ast_hash": "84afc377bfe6388ab56905f2ea361241",
+    "semantic_hash": ""
+  },
+  "scripts/canary-snapshots.mjs": {
+    "ast_hash": "46b388eeb5beba3161dcc891b75a90f9",
+    "semantic_hash": ""
+  },
+  "tests/canary-artifacts.test.ts": {
+    "ast_hash": "50da97397f493ca0bff9144e2bc47599",
+    "semantic_hash": ""
+  },
+  "tests/canary-dist-tags.test.ts": {
+    "ast_hash": "697a4796723769888540036f5eb21dc9",
+    "semantic_hash": ""
+  },
+  "tests/canary-snapshots.test.ts": {
+    "ast_hash": "8ad3faf4c386106bfff733ac91905d97",
+    "semantic_hash": ""
+  },
+  ".github/workflows/canary-snapshots.yml": {
+    "ast_hash": "a335d353578f648a789692751d9f4f36",
     "semantic_hash": ""
   }
 }

@@ -127,16 +127,21 @@ process.stdout.write(JSON.stringify({ versions: ['${version}'], 'dist-tags': { l
 			execFileSync('bun', ['install', '--offline', '--ignore-scripts'], { cwd: root, stdio: 'pipe' });
 			execFileSync('git', ['add', '.'], { cwd: root });
 			execFileSync('git', ['commit', '-m', 'snapshot fixture baseline'], { cwd: root, stdio: 'pipe' });
-			execFileSync(process.execPath, [CHANGESET_BIN, 'version', '--snapshot', 'canary-abc123'], {
-				cwd: root,
-				stdio: 'pipe'
-			});
+			const snapshotArgs = [CHANGESET_BIN, 'version', '--snapshot', 'canary-abc123-456', '--snapshot-prerelease-template', '{tag}'];
+			execFileSync(process.execPath, snapshotArgs, { cwd: root, stdio: 'pipe' });
 
 			const changed = JSON.parse(readFileSync(join(root, 'packages/changed/package.json'), 'utf8'));
 			const unchanged = JSON.parse(readFileSync(join(root, 'packages/unchanged/package.json'), 'utf8'));
-			expect(changed.version).toMatch(/^0\.0\.0-canary-abc123-\d+$/);
+			expect(changed.version).toBe('0.0.0-canary-abc123-456');
 			expect(unchanged.version).toBe('4.5.6');
 			expect(existsSync(join(root, '.changeset/changed.md'))).toBe(false);
+
+			// A retry from the same commit/run must recreate the identical immutable
+			// version, not a new timestamp-based snapshot that npm cannot overwrite.
+			writeFileSync(join(root, 'packages/changed/package.json'), JSON.stringify({ name: '@svforge/changed', version: '1.2.3' }));
+			writeFileSync(join(root, '.changeset/changed.md'), '---\n"@svforge/changed": patch\n---\nChanged package only.\n');
+			execFileSync(process.execPath, snapshotArgs, { cwd: root, stdio: 'pipe' });
+			expect(JSON.parse(readFileSync(join(root, 'packages/changed/package.json'), 'utf8')).version).toBe(changed.version);
 		} finally {
 			rmSync(root, { recursive: true, force: true });
 		}
