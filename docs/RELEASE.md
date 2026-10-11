@@ -300,7 +300,7 @@ versions. Third-party actions are pinned to commit SHAs.
 
 After an authentication/workflow fix, **do not rerun the previous GitHub Actions
 attempt**: that run uses its original workflow commit and would repeat the old
-`npm whoami` failure. Run `Publish` on `main` with **Run workflow**, entering
+publishing logic. Launch a fresh dispatch from `main` after the fix is merged. Run `Publish` on `main` with **Run workflow**, entering
 `release_pr: 562` for the pending 2.2.0 baseline. The authorization job checks
 that PR #562 was merged from the expected Changesets branch by the release bot,
 that its merge commit belongs to `main`, and that it contains a reviewed release
@@ -308,6 +308,16 @@ candidate manifest. The entire quality/scaffold/user-journey battery runs again
 against the **original release merge commit**, never the moving branch tip. Only
 after all gates pass may npm receive published artifacts. This is also valid
 for later approved release PRs, using their own numbers.
+
+The publish job checks out the **immutable reviewed release commit** for the
+package sources, but loads the release planner and compatibility checks from
+the **new dispatch commit on `main`**. This permits reviewed CI hotfixes
+without republishing packages from a different source revision. A published
+`svforge` distribution may coexist temporarily with unpublished modules
+**only if its exact version and every pending module are present in the same
+reviewed `.changeset/release-candidates.json`**; otherwise the compatibility
+guard still blocks the release. Changelogs describe changes, but are not used
+to authorize a retry. Packages remain independently versioned.
 
 Changesets checks the registry before publishing. A partial publish failure
 stops the job before post-publication checks, tags, or GitHub Releases. On a

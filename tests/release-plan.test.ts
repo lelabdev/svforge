@@ -93,6 +93,27 @@ describe('independent release plan (#330)', () => {
 		expect(calls).toHaveLength(2);
 	});
 
+	it('uses reviewed exact versions to accept partial retries only', () => {
+		const plan = {
+			compatibility: buildReleasePlan(ROOT, 'test-commit').compatibility,
+			packages: [
+				{ name: '@svforge/audit', version: '2.2.0', directory: 'packages/audit' },
+				{ name: 'svforge', version: '2.2.0', directory: 'packages/svforge' }
+			]
+		};
+		const npm = (args: string[]) => ({
+			status: 0,
+			stdout: args[1] === 'svforge' ? '["2.2.0"]' : '["2.0.1"]',
+			stderr: ''
+		});
+		const candidates = { schemaVersion: 1, packages: plan.packages.map(({ name, version, directory }) => ({ name, version, directory })) };
+		expect(() => checkRegistry(plan, ROOT, asNpm(npm))).toThrow(/stale/);
+		const checked = checkRegistry(plan, ROOT, asNpm(npm), candidates);
+		expect(checked.packages[1].registry.published).toBe(true);
+		expect(checked.packages[0].registry.published).toBe(false);
+		expect(() => checkRegistry(plan, ROOT, asNpm(npm), { ...candidates, packages: candidates.packages.slice(0, 1) })).toThrow(/stale/);
+	});
+
 	it('fails access preflight when any existing package is not writable', () => {
 		const plan = { packages: [{ name: 'svforge' }, { name: '@svforge/audit' }] };
 		const npm = () => ({ status: 0, stdout: JSON.stringify({ svforge: 'read-write' }), stderr: '' });

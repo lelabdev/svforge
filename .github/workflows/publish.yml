@@ -289,12 +289,22 @@ jobs:
           test -n "$ACTIONS_ID_TOKEN_REQUEST_URL"
           test -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN"
 
+      # Release artifacts remain pinned to the approved merge commit. The
+      # release planner and its compatibility guard are updated from the
+      # dispatch commit so a reviewed hotfix can unblock a partial release.
+      - name: Load current release-planning guards
+        run: |
+          git fetch --no-tags origin "${{ github.sha }}"
+          git show "${{ github.sha }}:scripts/release-plan.mjs" > scripts/release-plan.mjs
+          git show "${{ github.sha }}:scripts/compat-manifest.mjs" > scripts/compat-manifest.mjs
+
       # The plan is generated before any publication and records the exact
       # commit, independent package versions, registry state, and dependency order.
       - name: Generate release plan
         run: >-
           node scripts/release-plan.mjs
           --check-registry
+          --reviewed-candidates .changeset/release-candidates.json
           --commit "${{ needs.authorize-release.outputs.release_commit }}"
           --output /tmp/release-plan.json
 

@@ -61,6 +61,40 @@ describe('release compatibility manifest (#470)', () => {
 		expect(() => assertCompatibilityFreshness({ packages: plan.packages })).not.toThrow();
 	});
 
+	it('resumes only exact, reviewed candidates after a partial distribution publication', () => {
+		const plan = {
+			compatibility: buildCompatManifest(ROOT),
+			packages: [
+				{ name: '@svforge/dnd', version: '2.2.0', directory: 'packages/dnd', registry: { published: false } },
+				{ name: '@svforge/audit', version: '2.2.0', directory: 'packages/audit', registry: { published: false } },
+				{ name: 'svforge', version: '2.2.0', directory: 'packages/svforge', registry: { published: true } }
+			]
+		};
+		const candidates = {
+			schemaVersion: 1,
+			packages: plan.packages.map(({ name, version, directory }) => ({ name, version, directory }))
+		};
+		expect(() => assertCompatibilityFreshness(plan)).toThrow(/stale/);
+		expect(() => assertCompatibilityFreshness(plan, 'svforge', candidates)).not.toThrow();
+		// Changelogs and registry "latest" are not enough to authorize a retry.
+		const invalid = [
+			{ ...candidates, packages: candidates.packages.filter((p) => p.name !== 'svforge') },
+			{ ...candidates, packages: candidates.packages.filter((p) => p.name !== '@svforge/dnd') },
+			{ ...candidates, packages: candidates.packages.map((p) => p.name === '@svforge/dnd' ? { ...p, version: '2.1.0' } : p) },
+			{ ...candidates, packages: candidates.packages.map((p) => p.name === 'svforge' ? { ...p, directory: 'packages/other' } : p) },
+			{ ...candidates, packages: [...candidates.packages, candidates.packages[0]] },
+			{ ...candidates, packages: [...candidates.packages, { name: '@svforge/unknown', version: '1.0.0', directory: 'packages/unknown' }] },
+			{ ...candidates, schemaVersion: 2 }
+		];
+		for (const bad of invalid) {
+			expect(() => assertCompatibilityFreshness(plan, 'svforge', bad)).toThrow(/stale/);
+		}
+		// Before publishing the distribution, standard release flow is unchanged.
+		const notYetPublished = { ...plan, packages: plan.packages.map((p) =>
+			p.name === 'svforge' ? { ...p, registry: { published: false } } : p) };
+		expect(() => assertCompatibilityFreshness(notYetPublished, 'svforge', candidates)).not.toThrow();
+	});
+
 	it('loads a manifest from disk, accepting a release plan that carries it', () => {
 		const dir = mkdtempSync(join(tmpdir(), 'sf-compat-'));
 		try {

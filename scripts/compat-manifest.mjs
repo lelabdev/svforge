@@ -109,7 +109,8 @@ export function assertCompatManifestMatchesPlan(compat, packages, distribution =
  * was not bumped — the published `svforge` would announce the OLD compatible
  * modules. Fail instead of shipping an incoherent release.
  */
-export function assertCompatibilityFreshness(plan, distribution = DISTRIBUTION_PACKAGE) {
+/** @param {{schemaVersion: number, packages: Array<{name: string, version: string, directory: string}>} | null} [reviewedCandidates] */
+export function assertCompatibilityFreshness(plan, distribution = DISTRIBUTION_PACKAGE, reviewedCandidates = null) {
 	if (!plan.compatibility) return plan;
 	const distributionPkg = plan.packages.find((pkg) => pkg.name === distribution);
 	const distributionPublished = distributionPkg?.registry?.published === true;
@@ -118,9 +119,33 @@ export function assertCompatibilityFreshness(plan, distribution = DISTRIBUTION_P
 		.filter((pkg) => pkg.name !== distribution && pkg.registry?.published === false)
 		.map((pkg) => `${pkg.name}@${pkg.version}`);
 	if (republished.length > 0) {
+		// The distribution may have been published first in an approved release that
+		// failed partway through. Its embedded manifest already names the exact
+		// versions still pending, so a retry of that SAME release is safe.
+		// A normal module-only bump without a new distribution version is not.
+		const candidates = reviewedCandidates?.schemaVersion === 1 && Array.isArray(reviewedCandidates.packages)
+			? reviewedCandidates.packages
+			: [];
+		const byName = new Map(plan.packages.map((pkg) => [pkg.name, pkg]));
+		const approved = new Map();
+		for (const candidate of candidates) {
+			const planned = byName.get(candidate?.name);
+			if (!planned || approved.has(candidate.name) ||
+				planned.version !== candidate.version || planned.directory !== candidate.directory) {
+				approved.clear();
+				break;
+			}
+			approved.set(candidate.name, candidate);
+		}
+		if (approved.size === candidates.length && candidates.length &&
+			[distributionPkg, ...plan.packages.filter((pkg) => pkg.name !== distribution && pkg.registry?.published === false)]
+				.every((pkg) => approved.has(pkg.name))) {
+			return plan;
+		}
 		throw new Error(
 			`Compatibility manifest is stale: ${distribution}@${distributionPkg.version} is already published, ` +
-				`but ${republished.join(', ')} changed. Bump ${distribution} so the published compatibility manifest cannot point at outdated modules.`
+				`but ${republished.join(', ')} changed. Bump ${distribution} so the published compatibility manifest cannot point at outdated modules, ` +
+				`or resume the same reviewed release candidates.`
 		);
 	}
 	return plan;
