@@ -78,7 +78,7 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 	});
 
 	it('blocks the publish job on all three release gates', () => {
-		expect(publish).toMatch(/needs:\s*\[quality, scaffolds, user-journey\]/);
+		expect(publish).toMatch(/needs:\s*\[authorize-release, quality, scaffolds, user-journey\]/);
 	});
 
 	it('publishes stable releases only after the merged Changesets release PR passes every gate', () => {
@@ -88,22 +88,33 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 		expect(publish).toContain("github.event.pull_request.title == 'Version Packages'");
 		expect(publish).toContain("github.event.pull_request.head.ref == 'changeset-release/main'");
 		expect(publish).toContain("github.event.pull_request.user.login == 'github-actions[bot]'");
-		expect(publish).not.toContain('workflow_dispatch');
+		expect(publish).toContain('workflow_dispatch:');
 		expect(publish).not.toMatch(/^\s+push:/m);
-		expect(publish).toContain('uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d');
-		expect(publish).toContain('publish: bun run changeset:publish');
-		expect(publish).toContain('createGithubReleases: false');
+		expect(publish).not.toContain('uses: changesets/action@');
+		expect(publish).toContain('run: bun run changeset:publish');
+		expect(publish).not.toContain('createGithubReleases: true');
 		expect(publish).toContain('Validate Changesets publication scope');
 		expect(publish).toContain('node scripts/release-candidates.mjs');
 		expect(publish).toContain('node scripts/finalize-releases.mjs');
-		expect(publish).toContain('--commit "${{ github.event.pull_request.merge_commit_sha }}"');
-		expect(publish).toContain('--head "${{ github.event.pull_request.head.sha }}"');
+		expect(publish).toContain('--commit "${{ needs.authorize-release.outputs.release_commit }}"');
+		expect(publish).toContain('--head "${{ needs.authorize-release.outputs.head_sha }}"');
 		expect(publish).toContain('fetch-depth: 0');
 		expect(publish).toContain("npm_config_ignore_scripts: 'true'");
+		const authJob = jobBlock(publish, 'authorize-release');
+		expect(authJob).toContain('github.event_name == \'workflow_dispatch\'');
+		expect(authJob).toContain('.merged == true');
+		expect(authJob).toContain('git merge-base --is-ancestor');
+		expect(authJob).toContain('release-candidates.json');
 		const publishJob = jobBlock(publish, 'publish');
 		expect(publishJob).toContain('contents: write');
 		expect(publishJob).toContain('pull-requests: write');
-		expect(publishJob).toContain('ref: ${{ github.event.pull_request.merge_commit_sha }}');
+		expect(publishJob).toContain('id-token: write');
+		expect(publishJob).toContain('node-version: 24');
+		expect(publishJob).toContain('package-manager-cache: false');
+		expect(publishJob).not.toContain('NODE_AUTH_TOKEN');
+		expect(publishJob).not.toContain('npm whoami');
+		expect(publishJob).not.toContain('--check-access');
+		expect(publishJob).toContain('ref: ${{ needs.authorize-release.outputs.release_commit }}');
 		expect(publishJob.indexOf('Validate Changesets publication scope')).toBeLessThan(publishJob.indexOf('Publish with Changesets'));
 		expect(publishJob.indexOf('Preflight release tarballs')).toBeLessThan(publishJob.indexOf('Publish with Changesets'));
 		expect(publishJob.indexOf('Publish with Changesets')).toBeLessThan(publishJob.indexOf('Consumer installation smoke test'));
