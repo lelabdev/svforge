@@ -222,6 +222,15 @@ Components wrap Skeleton classes + Tailwind only — never raw CSS
 - For a project-wide visual change that Skeleton supports, change the theme rather than adding a global override.
 - Add a project-specific token/effects layer only later, when a real repeated use case proves it is needed.
 
+## SVForge CLI plans
+
+Before an agent creates a project or adds modules, inspect the side-effect-free plan:
+
+- Create: \`npx svforge create <dir> --template <base|dashboard> --pm <pm> --modules <ids|all> --plan --json\`
+- Add (from the project root): \`npx svforge add <ids...> --plan --json\` (include \`--resolve install\` to approve supporting modules and \`--runtime long-lived-node\` when required)
+
+Review the exact package versions, capabilities, runtime constraints, warnings, and commands with the user. Do not write or install until the user approves; then run the same command without \`--plan --json\` and finish with \`npx svforge verify\`.
+
 ## Project commands
 
 \`\`\`bash

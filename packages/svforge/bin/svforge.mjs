@@ -10,9 +10,11 @@
  *   npx svforge check [--strict]
  *   npx svforge verify
  *   npx svforge add <module…> [--pm <pm>] [--resolve install|fail] [--yes]
+ *                            [--plan [--json]]
  *   npx svforge create <dir> [--template t] [--pm pm] [--testing x]
  *                            [--hooks h] [--modules a,b|all]
  *                            [--runtime long-lived-node] [--graphify] [--yes]
+ *                            [--plan [--json]]
  *   npx svforge upgrade <module> [--to <version>] [--force]
  */
 
@@ -81,6 +83,7 @@ async function realSpawn() {
 
 async function main() {
 	const projectRoot = process.cwd();
+	const path = await import('node:path');
 
 	if (command === 'doctor') {
 		const report = await api.doctor(projectRoot);
@@ -186,23 +189,66 @@ async function main() {
 
 	if (command === 'add') {
 		// Guided module install (#419): plan → confirm → ONE grouped sv add.
-		// Parse with the TESTED value-aware parser (#426 review): option values
-		// (--pm bun, --resolve install) must never become module ids.
+		// --plan disables prompts and spawn; --json only changes its output format.
+		const planOnly = args.includes('--plan');
+		const jsonOutput = args.includes('--json');
+		const parsed = api.parseAddArgs(args);
+		if (jsonOutput && !planOnly) {
+			console.error('--json is only supported with --plan.');
+			process.exitCode = 2;
+			return;
+		}
 		try {
-			const { runAddCommand, parseAddArgs } = api;
-			const parsed = parseAddArgs(args);
-			const result = await runAddCommand(projectRoot, {
+			const result = await api.runAddCommand(projectRoot, {
 				...parsed,
 				svCmd: parsed.svCmd ?? process.env.SVFORGE_SV_CMD,
 				devRoot: parsed.devRoot ?? process.env.SVFORGE_DEV_ROOT,
-				interactive: process.stdin.isTTY === true && !parsed.yes,
-				prompt: await realPrompt(),
-				spawn: await realSpawn()
+				interactive: planOnly ? false : process.stdin.isTTY === true && !parsed.yes,
+				prompt: planOnly ? undefined : await realPrompt(),
+				spawn: planOnly ? undefined : await realSpawn()
 			});
-			if (result.message) console.error(result.message);
+			if (planOnly) {
+				const plan = api.buildCliPlanDocument({
+					command: 'add',
+					status: result.code !== 0 ? 'blocked' : result.specs?.length ? 'ready' : 'noop',
+					exitCode: result.code,
+					choices: {
+						explicitModules: parsed.modules,
+						packageManager: parsed.pm ?? api.detectPackageManager(projectRoot),
+						resolveSupportingModules: parsed.resolve ?? 'fail',
+						runtime: parsed.runtime ?? null
+					},
+					workingDirectory: projectRoot,
+					template: result.project?.template,
+					installedModules: result.project?.installedModules,
+					explicitModules: result.requestedModules ?? parsed.modules,
+					installOrder: result.plan?.order,
+					transitive: result.plan?.supporting,
+					alreadyInstalled: result.alreadyInstalled,
+					optional: result.plan?.optionalUninstalled,
+					resolution: result.plan,
+					requiredModules: result.plan?.order ?? parsed.modules,
+					packages: result.packages,
+					commands: result.code === 0 ? result.commands : [],
+					conflicts: result.message && result.code !== 0 ? [{ code: result.aborted ?? 'blocked', message: result.message }] : [],
+					errors: result.message && result.code !== 0 ? [{ code: result.aborted ?? 'blocked', message: result.message }] : []
+				});
+				process.stdout.write(jsonOutput ? `${JSON.stringify(plan, null, 2)}\n` : api.formatCliPlan(plan));
+			} else {
+				if (result.message) console.error(result.message);
+			}
 			process.exitCode = result.code;
 		} catch (e) {
-			console.error(`Add failed: ${e instanceof Error ? e.message : e}`);
+			const message = e instanceof Error ? e.message : String(e);
+			if (planOnly) {
+				const plan = api.buildCliPlanDocument({
+					command: 'add', status: 'blocked', exitCode: 1,
+					choices: { explicitModules: parsed.modules, packageManager: parsed.pm ?? api.detectPackageManager(projectRoot) },
+					workingDirectory: projectRoot, explicitModules: parsed.modules,
+					errors: [{ code: 'error', message }]
+				});
+				process.stdout.write(jsonOutput ? `${JSON.stringify(plan, null, 2)}\n` : api.formatCliPlan(plan));
+			} else console.error(`Add failed: ${message}`);
 			process.exitCode = 1;
 		}
 		return;
@@ -210,28 +256,83 @@ async function main() {
 
 	if (command === 'create') {
 		// One-command project creator (#417): plan → official sv create →
-		// ONE grouped sv add → validate. Parsing comes from the TESTED
-		// value-aware parser (#426 review) — including --git-init/--no-git-init
-		// and --runtime, which MUST reach the orchestration.
+		// ONE grouped sv add → validate. Plan mode reuses the same orchestration
+		// and exact command builder but never creates a prompt or spawn port.
+		const planOnly = args.includes('--plan');
+		const jsonOutput = args.includes('--json');
+		const parsed = api.parseCreateArgs(args);
+		if (jsonOutput && !planOnly) {
+			console.error('--json is only supported with --plan.');
+			process.exitCode = 2;
+			return;
+		}
 		try {
-			const { runCreateCommand, parseCreateArgs } = api;
-			const parsed = parseCreateArgs(args);
-			const result = await runCreateCommand(projectRoot, {
+			const result = await api.runCreateCommand(projectRoot, {
 				...parsed,
 				svCmd: parsed.svCmd ?? process.env.SVFORGE_SV_CMD,
 				devRoot: parsed.devRoot ?? process.env.SVFORGE_DEV_ROOT,
-				interactive: process.stdin.isTTY === true && !parsed.yes,
-				prompt: await realPrompt(),
-				spawn: await realSpawn()
+				interactive: planOnly ? false : process.stdin.isTTY === true && !parsed.yes,
+				prompt: planOnly ? undefined : await realPrompt(),
+				spawn: planOnly ? undefined : await realSpawn()
 			});
-			if (result.notice) console.log(result.notice);
-			if (result.message) console.error(result.message);
-			if (result.code === 0 && result.plan) {
-				console.log(`\n✓ Project ready in ${result.plan.dir} — run \`${result.plan.pm} run dev\` to start developing.`);
+			if (planOnly) {
+				const createPlan = result.plan;
+				const requestedModules = parsed.modules === 'all' ? api.expandAllModules() : parsed.modules ?? [];
+				const plan = api.buildCliPlanDocument({
+					command: 'create',
+					status: result.code !== 0 ? 'blocked' : 'ready',
+					exitCode: result.code,
+					choices: {
+						directory: parsed.dir ?? null,
+						template: createPlan?.template ?? parsed.template ?? null,
+						packageManager: createPlan?.pm ?? parsed.pm ?? null,
+						testing: createPlan?.testing ?? parsed.testing ?? 'vitest',
+						hooks: createPlan?.hooks ?? parsed.hooks ?? 'none',
+						explicitModules: parsed.modules ?? null,
+						allModules: createPlan?.allModules ?? parsed.modules === 'all',
+						runtime: createPlan?.runtime ?? parsed.runtime ?? null,
+						gitInit: createPlan?.gitInit ?? parsed.gitInit ?? true,
+						graphify: createPlan?.graphify ?? parsed.graphify ?? false
+					},
+					workingDirectory: projectRoot,
+					directory: createPlan?.dir ?? (parsed.dir ? path.resolve(projectRoot, parsed.dir) : undefined),
+					template: createPlan?.template ?? parsed.template,
+					explicitModules: createPlan?.plan.requested ?? requestedModules,
+					installOrder: createPlan?.modules,
+					transitive: createPlan?.plan.supporting,
+					optional: createPlan?.plan.optionalUninstalled,
+					resolution: createPlan?.plan ?? result.resolution,
+					requiredModules: createPlan?.modules ?? requestedModules,
+					packages: createPlan?.packages,
+					commands: result.code === 0 ? createPlan?.commands : [],
+					warnings: createPlan?.plan.warnings ?? result.resolution?.warnings,
+					errors: result.message && result.code !== 0 ? [{ code: result.aborted ?? 'blocked', message: result.message }] : []
+				});
+				process.stdout.write(jsonOutput ? `${JSON.stringify(plan, null, 2)}\n` : api.formatCliPlan(plan));
+			} else {
+				if (result.notice) console.log(result.notice);
+				if (result.message) console.error(result.message);
+				if (result.code === 0 && result.plan) {
+					console.log(`\n✓ Project ready in ${result.plan.dir} — run \`${result.plan.pm} run dev\` to start developing.`);
+				}
 			}
 			process.exitCode = result.code;
 		} catch (e) {
-			console.error(`Create failed: ${e instanceof Error ? e.message : e}`);
+			const message = e instanceof Error ? e.message : String(e);
+			if (planOnly) {
+				const requestedModules = parsed.modules === 'all' ? api.expandAllModules() : parsed.modules ?? [];
+				const plan = api.buildCliPlanDocument({
+					command: 'create', status: 'blocked', exitCode: 1,
+					choices: { directory: parsed.dir ?? null, template: parsed.template ?? null, packageManager: parsed.pm ?? null, explicitModules: parsed.modules ?? null },
+					workingDirectory: projectRoot,
+					directory: parsed.dir ? path.resolve(projectRoot, parsed.dir) : undefined,
+					template: parsed.template,
+					explicitModules: requestedModules,
+					requiredModules: requestedModules,
+					errors: [{ code: 'error', message }]
+				});
+				process.stdout.write(jsonOutput ? `${JSON.stringify(plan, null, 2)}\n` : api.formatCliPlan(plan));
+			} else console.error(`Create failed: ${message}`);
 			process.exitCode = 1;
 		}
 		return;

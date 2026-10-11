@@ -114,6 +114,20 @@ Copy-in roots must be narrow directories under `src/lib/components/<library>`. R
 
 Generated projects use `eslint-plugin-tailwindcss` to reject unknown static Tailwind classes. The separate `svforge-check.mjs` handles SVForge design-system rules and arbitrary spacing/radius guidance (WARN by default, blocking with `--strict`). Registered copy-in component roots receive scoped exemptions. See [upstream ownership and structural reuse](docs/structural-duplication.md) for the addon boundary, audited overlaps, and opt-in WARN-only copied-component detector.
 
+## CLI plans
+
+Inspect a deterministic, versioned plan before creating a project or adding modules:
+
+```bash
+npx svforge create my-app --template dashboard --pm npm --modules chat --plan --json
+# From an existing dashboard project:
+npx svforge add realtime --runtime long-lived-node --plan --json
+```
+
+Plan mode is non-interactive and side-effect free: it does not write project files, install packages, initialize Git, or invoke `sv`. Supply all required choices up front. Schema version 1 reports choices, explicit and supporting modules, capability requirements and gaps, runtime constraints, exact compatible package versions, commands, warnings, and conflicts. Exit status is `0` for a ready plan or no-op, `1` for a blocked plan, and `2` when `--json` is used without `--plan`. `--plan` without `--json` prints a human-readable summary.
+
+Agents should inspect the JSON plan, explain the commands and conflicts, and get approval before running the same command without `--plan --json`; then finish with `svforge verify`. Create and add use the same resolvers and command builders for plan and apply. `svforge add` pins modules to the exact versions in the running CLI's compatibility manifest unless a local source or explicit version override was requested.
+
 ## Upgrade
 
 `svforge upgrade <base|dashboard|module>` shows an explicit plan before applying updates. Use `--dry-run` to inspect changes without writing, or `--json` for machine-readable results. Consumer modifications are reported as conflicts rather than silently overwritten; `--force` backs up overwritten files.

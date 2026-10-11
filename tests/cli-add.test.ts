@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { join } from 'node:path';
 import { mkdirSync, mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
+import { COMPAT_MANIFEST } from '../packages/svforge/src/compat';
 import {
 	runAddCommand,
 	detectPackageManager,
@@ -116,7 +117,7 @@ describe('svforge add — confirmations (#419)', () => {
 			spawn
 		});
 		expect(result.code).toBe(0);
-		expect(result.specs).toEqual(['@svforge/realtime']);
+		expect(result.specs).toEqual([`@svforge/realtime@${COMPAT_MANIFEST.packages['@svforge/realtime']}`]);
 		expect(calls).toHaveLength(1);
 		rmSync(dir, { recursive: true, force: true });
 	});
@@ -175,9 +176,10 @@ describe('svforge add — confirmations (#419)', () => {
 		const parsed = parseAddArgs(['chat', '--pm', 'bun', '--resolve', 'install']);
 		const result = await runAddCommand(dir, { ...parsed, interactive: false, spawn });
 		expect(result.code).toBe(0);
-		expect(result.specs).toEqual(['@svforge/chat']);
+		const chatSpec = `@svforge/chat@${COMPAT_MANIFEST.packages['@svforge/chat']}`;
+		expect(result.specs).toEqual([chatSpec]);
 		expect(calls).toHaveLength(1);
-		expect(calls[0]!.args).toEqual(['sv', 'add', '@svforge/chat', '--install', 'bun', '--no-download-check', '--no-git-check']);
+		expect(calls[0]!.args).toEqual(['sv', 'add', chatSpec, '--install', 'bun', '--no-download-check', '--no-git-check']);
 		rmSync(dir, { recursive: true, force: true });
 	});
 });
@@ -193,8 +195,8 @@ describe('svforge add — invocation shape (#419)', () => {
 		expect(calls[0]!.args).toEqual([
 			'sv',
 			'add',
-			'@svforge/dnd',
-			'@svforge/ui_toast',
+			`@svforge/dnd@${COMPAT_MANIFEST.packages['@svforge/dnd']}`,
+			`@svforge/ui_toast@${COMPAT_MANIFEST.packages['@svforge/ui_toast']}`,
 			'--install',
 			'bun',
 			'--no-download-check',

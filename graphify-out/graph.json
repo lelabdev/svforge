@@ -6781,7 +6781,7 @@
       "label": "realPrompt()",
       "file_type": "code",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L26",
+      "source_location": "L28",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6790,7 +6790,7 @@
       "label": "realSpawn()",
       "file_type": "code",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L72",
+      "source_location": "L74",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6799,7 +6799,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L82",
+      "source_location": "L84",
       "_callable": true,
       "_origin": "ast"
     },
@@ -6812,18 +6812,18 @@
       "_origin": "ast"
     },
     {
-      "id": "node_fs",
-      "label": "node:fs",
-      "file_type": "code",
-      "source_file": "node:fs",
-      "confidence": "EXTRACTED",
-      "_origin": "ast"
-    },
-    {
       "id": "node_path",
       "label": "node:path",
       "file_type": "code",
       "source_file": "node:path",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "node_fs",
+      "label": "node:fs",
+      "file_type": "code",
+      "source_file": "node:fs",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -7611,7 +7611,7 @@
       "label": "AddResolvePolicy",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L19",
+      "source_location": "L21",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7621,7 +7621,7 @@
       "label": "PromptPort",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L21",
+      "source_location": "L23",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7631,7 +7631,7 @@
       "label": ".confirm()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L22",
+      "source_location": "L24",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7640,7 +7640,7 @@
       "label": ".select()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7649,7 +7649,7 @@
       "label": "SpawnPort",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L27",
+      "source_location": "L29",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7659,7 +7659,7 @@
       "label": "AddCommandOptions",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L31",
+      "source_location": "L33",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7669,7 +7669,7 @@
       "label": "AddCommandResult",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L60",
+      "source_location": "L62",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7679,7 +7679,7 @@
       "label": "detectPackageManager()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L70",
+      "source_location": "L77",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7688,7 +7688,7 @@
       "label": "dlxRunner()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L78",
+      "source_location": "L85",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7697,7 +7697,7 @@
       "label": "svRunner()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L95",
+      "source_location": "L102",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7706,7 +7706,7 @@
       "label": "AddonSpecOptions",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L118",
+      "source_location": "L125",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7716,7 +7716,7 @@
       "label": "addonSpec()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L127",
+      "source_location": "L134",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7725,7 +7725,7 @@
       "label": "ProjectState",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L155",
+      "source_location": "L162",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7735,7 +7735,7 @@
       "label": "readState()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L161",
+      "source_location": "L169",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7744,7 +7744,7 @@
       "label": "ADD_FLAGS_WITH_VALUES",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L183",
+      "source_location": "L201",
       "_origin": "ast"
     },
     {
@@ -7752,7 +7752,7 @@
       "label": "ParsedAddArgs",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L185",
+      "source_location": "L203",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7762,7 +7762,7 @@
       "label": "parseAddArgs()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L201",
+      "source_location": "L219",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7771,7 +7771,7 @@
       "label": "runAddCommand()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L241",
+      "source_location": "L259",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7788,7 +7788,7 @@
       "label": "CreateCommandOptions",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7798,7 +7798,7 @@
       "label": "CreatePromptPort",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L63",
+      "source_location": "L64",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7808,7 +7808,7 @@
       "label": ".text()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L64",
+      "source_location": "L65",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7817,7 +7817,7 @@
       "label": ".select()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L65",
+      "source_location": "L66",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7826,7 +7826,7 @@
       "label": ".multiselect()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L66",
+      "source_location": "L67",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7835,7 +7835,7 @@
       "label": ".confirm()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L67",
+      "source_location": "L68",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7844,7 +7844,7 @@
       "label": "CreatePlan",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L70",
+      "source_location": "L71",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7854,7 +7854,7 @@
       "label": "CreateCommandResult",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L89",
+      "source_location": "L94",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7864,7 +7864,7 @@
       "label": "expandAllModules()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L100",
+      "source_location": "L107",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7873,7 +7873,7 @@
       "label": "runtimeRequiringModules()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L109",
+      "source_location": "L116",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7882,7 +7882,7 @@
       "label": "findGraphifyBinary()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L116",
+      "source_location": "L123",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7891,7 +7891,16 @@
       "label": "parseCreateArgs()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L140",
+      "source_location": "L147",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_create_createexecutionplan",
+      "label": "createExecutionPlan()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L189",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7900,16 +7909,92 @@
       "label": "runCreateCommand()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L182",
+      "source_location": "L241",
       "_callable": true,
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_src_cli_create_rationale_410",
-      "label": "NOTE: the template package is the UNSCOPED `svforge`, unlike @svforge/*.",
-      "file_type": "rationale",
-      "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L410",
+      "id": "packages_svforge_src_cli_plan",
+      "label": "plan.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_plan_plannedcommand",
+      "label": "PlannedCommand",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L5",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_plan_plannedpackage",
+      "label": "PlannedPackage",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L11",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_plan_cliplandocument",
+      "label": "CliPlanDocument",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L19",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_plan_plandocumentinput",
+      "label": "PlanDocumentInput",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L51",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_plan_unique",
+      "label": "unique()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L74",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_plan_shellquote",
+      "label": "shellQuote()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L75",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_plan_buildcliplandocument",
+      "label": "buildCliPlanDocument()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L79",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_cli_plan_formatcliplan",
+      "label": "formatCliPlan()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L178",
+      "_callable": true,
       "_origin": "ast"
     },
     {
@@ -9180,7 +9265,7 @@
       "label": "DASHBOARD()",
       "file_type": "code",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L281",
+      "source_location": "L290",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9189,7 +9274,7 @@
       "label": "scaffoldedAgents()",
       "file_type": "code",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L307",
+      "source_location": "L316",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19441,7 +19526,7 @@
       "label": "removeCanaryStagingTags()",
       "file_type": "code",
       "source_file": "scripts/canary-dist-tags.mjs",
-      "source_location": "L103",
+      "source_location": "L113",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21465,7 +21550,7 @@
       "label": "FakeSv",
       "file_type": "code",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L140",
+      "source_location": "L149",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -21475,7 +21560,7 @@
       "label": "asSvApi()",
       "file_type": "code",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L169",
+      "source_location": "L178",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22369,7 +22454,7 @@
       "label": "tempProject()",
       "file_type": "code",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22378,7 +22463,7 @@
       "label": "fakeSpawn()",
       "file_type": "code",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L28",
+      "source_location": "L29",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22387,7 +22472,7 @@
       "label": "silentPrompt",
       "file_type": "code",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L37",
+      "source_location": "L38",
       "_origin": "ast"
     },
     {
@@ -26009,6 +26094,18 @@
       "source_location": "L1",
       "frontmatter": {
         "svforge": "patch"
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_quiet_plans_check",
+      "label": "quiet-plans-check.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/quiet-plans-check.md",
+      "source_location": "L1",
+      "frontmatter": {
+        "svforge": "minor"
       },
       "_origin": "ast"
     },
@@ -30087,12 +30184,21 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_readme_cli_plans",
+      "label": "CLI plans",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L117",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_readme_upgrade",
       "label": "Upgrade",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L117",
+      "source_location": "L131",
       "_origin": "ast"
     },
     {
@@ -30101,7 +30207,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L121",
+      "source_location": "L135",
       "_origin": "ast"
     },
     {
@@ -30110,7 +30216,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L125",
+      "source_location": "L139",
       "_origin": "ast"
     },
     {
@@ -42927,7 +43033,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1,
       "_origin": "ast"
     },
@@ -42937,7 +43043,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L72",
+      "source_location": "L74",
       "weight": 1,
       "_origin": "ast"
     },
@@ -42947,7 +43053,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L82",
+      "source_location": "L84",
       "weight": 1,
       "_origin": "ast"
     },
@@ -42959,41 +43065,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L73",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_bin_svforge_main",
-      "target": "packages_svforge_bin_svforge_realspawn",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L177",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_bin_svforge_main",
-      "target": "packages_svforge_bin_svforge_realprompt",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L199",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_bin_svforge_main",
-      "target": "ref_node_fs",
-      "relation": "imports_from",
-      "context": "import",
-      "deferred": true,
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L263",
+      "source_location": "L75",
       "weight": 1,
       "_origin": "ast"
     },
@@ -43005,7 +43077,41 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/bin/svforge.mjs",
-      "source_location": "L264",
+      "source_location": "L86",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge_main",
+      "target": "packages_svforge_bin_svforge_realspawn",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L180",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge_main",
+      "target": "packages_svforge_bin_svforge_realprompt",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L207",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_bin_svforge_main",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "deferred": true,
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/bin/svforge.mjs",
+      "source_location": "L364",
       "weight": 1,
       "_origin": "ast"
     },
@@ -43019,7 +43125,7 @@
     },
     {
       "source": "packages_svforge_bin_svforge",
-      "target": "node_fs",
+      "target": "node_path",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/bin/svforge.mjs",
@@ -43027,7 +43133,7 @@
     },
     {
       "source": "packages_svforge_bin_svforge",
-      "target": "node_path",
+      "target": "node_fs",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/bin/svforge.mjs",
@@ -44387,11 +44493,66 @@
     },
     {
       "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_compat",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_compat_compat_manifest",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_plan",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_plan_plannedpackage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_cli_plan_plannedcommand",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/add.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_add",
       "target": "packages_svforge_src_cli_add_addresolvepolicy",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44401,7 +44562,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44411,7 +44572,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44421,7 +44582,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44431,7 +44592,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44441,7 +44602,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L31",
+      "source_location": "L33",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44451,7 +44612,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44461,7 +44622,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L70",
+      "source_location": "L77",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44471,7 +44632,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L78",
+      "source_location": "L85",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44481,7 +44642,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L95",
+      "source_location": "L102",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44491,7 +44652,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L118",
+      "source_location": "L125",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44501,7 +44662,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L127",
+      "source_location": "L134",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44511,7 +44672,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L155",
+      "source_location": "L162",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44521,7 +44682,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L161",
+      "source_location": "L169",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44531,7 +44692,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L183",
+      "source_location": "L201",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44541,7 +44702,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L185",
+      "source_location": "L203",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44551,7 +44712,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L201",
+      "source_location": "L219",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44561,7 +44722,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L241",
+      "source_location": "L259",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44572,7 +44733,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L97",
+      "source_location": "L104",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44583,7 +44744,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L244",
+      "source_location": "L262",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44594,7 +44755,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L265",
+      "source_location": "L274",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44605,7 +44766,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L286",
+      "source_location": "L315",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44616,7 +44777,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L319",
+      "source_location": "L356",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44627,7 +44788,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L358",
+      "source_location": "L398",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44638,7 +44799,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/add.ts",
-      "source_location": "L371",
+      "source_location": "L412",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44853,11 +45014,44 @@
     },
     {
       "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_plan",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_plan_plannedpackage",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_plan_plannedcommand",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
       "target": "packages_svforge_src_cli_create_createcommandoptions",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44867,23 +45061,13 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L63",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_src_cli_create_createpromptport",
-      "target": "packages_svforge_src_cli_create_createpromptport_text",
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/src/cli/create.ts",
       "source_location": "L64",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_src_cli_create_createpromptport",
-      "target": "packages_svforge_src_cli_create_createpromptport_select",
+      "target": "packages_svforge_src_cli_create_createpromptport_text",
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
@@ -44893,7 +45077,7 @@
     },
     {
       "source": "packages_svforge_src_cli_create_createpromptport",
-      "target": "packages_svforge_src_cli_create_createpromptport_multiselect",
+      "target": "packages_svforge_src_cli_create_createpromptport_select",
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
@@ -44903,11 +45087,21 @@
     },
     {
       "source": "packages_svforge_src_cli_create_createpromptport",
-      "target": "packages_svforge_src_cli_create_createpromptport_confirm",
+      "target": "packages_svforge_src_cli_create_createpromptport_multiselect",
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
       "source_location": "L67",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_createpromptport",
+      "target": "packages_svforge_src_cli_create_createpromptport_confirm",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44917,7 +45111,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L70",
+      "source_location": "L71",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44927,7 +45121,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L89",
+      "source_location": "L94",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44937,7 +45131,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L100",
+      "source_location": "L107",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44947,7 +45141,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L109",
+      "source_location": "L116",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44957,7 +45151,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L116",
+      "source_location": "L123",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44967,7 +45161,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L140",
+      "source_location": "L147",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create",
+      "target": "packages_svforge_src_cli_create_createexecutionplan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L189",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44977,7 +45181,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L182",
+      "source_location": "L241",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44988,7 +45192,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L202",
+      "source_location": "L261",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44999,7 +45203,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L204",
+      "source_location": "L263",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45010,7 +45214,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L234",
+      "source_location": "L293",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45021,7 +45225,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L238",
+      "source_location": "L297",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45032,7 +45236,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L257",
+      "source_location": "L316",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45043,7 +45247,18 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L274",
+      "source_location": "L333",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_runcreatecommand",
+      "target": "packages_svforge_src_cli_create_createexecutionplan",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L419",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45055,7 +45270,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L552",
+      "source_location": "L591",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45066,17 +45281,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L568",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_src_cli_create_rationale_410",
-      "target": "packages_svforge_src_cli_create",
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L410",
+      "source_location": "L607",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45086,6 +45291,185 @@
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_addon_kit_src_index",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_addon_kit_src_index_capabilities",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_addon_kit_src_index_module_contracts",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_addon_kit_src_index_capability",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_addon_kit_src_index_resolutionplan",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_svforge_src_cli_plan_plannedcommand",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_svforge_src_cli_plan_plannedpackage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_svforge_src_cli_plan_cliplandocument",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L19",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_svforge_src_cli_plan_plandocumentinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_svforge_src_cli_plan_unique",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L74",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_svforge_src_cli_plan_shellquote",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L75",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_svforge_src_cli_plan_buildcliplandocument",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L79",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan",
+      "target": "packages_svforge_src_cli_plan_formatcliplan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L178",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan_buildcliplandocument",
+      "target": "packages_svforge_src_cli_plan_unique",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_plan_formatcliplan",
+      "target": "packages_svforge_src_cli_plan_shellquote",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/cli/plan.ts",
+      "source_location": "L187",
+      "weight": 1,
       "_origin": "ast"
     },
     {
@@ -48397,6 +48781,74 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_plan",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L93",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_plan_buildcliplandocument",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L93",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_plan_formatcliplan",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L93",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_plan_plannedpackage",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L93",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_plan_cliplandocument",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L94",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "type_only": true,
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_cli_plan_plannedcommand",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L94",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_src_local_docs",
       "target": "ref_node_fs",
       "relation": "imports_from",
@@ -49298,7 +49750,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L281",
+      "source_location": "L290",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49308,7 +49760,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L307",
+      "source_location": "L316",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49330,7 +49782,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L246",
+      "source_location": "L255",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49341,7 +49793,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L316",
+      "source_location": "L325",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49352,7 +49804,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L317",
+      "source_location": "L326",
       "weight": 1,
       "_origin": "ast"
     },
@@ -66925,7 +67377,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-dist-tags.mjs",
-      "source_location": "L103",
+      "source_location": "L113",
       "weight": 1,
       "_origin": "ast"
     },
@@ -66991,7 +67443,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-dist-tags.mjs",
-      "source_location": "L78",
+      "source_location": "L88",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67002,7 +67454,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-dist-tags.mjs",
-      "source_location": "L104",
+      "source_location": "L114",
       "weight": 1,
       "_origin": "ast"
     },
@@ -67013,7 +67465,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/canary-dist-tags.mjs",
-      "source_location": "L107",
+      "source_location": "L117",
       "weight": 1,
       "_origin": "ast"
     },
@@ -72057,7 +72509,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L140",
+      "source_location": "L149",
       "weight": 1,
       "_origin": "ast"
     },
@@ -72067,7 +72519,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L169",
+      "source_location": "L178",
       "weight": 1,
       "_origin": "ast"
     },
@@ -72078,7 +72530,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L124",
+      "source_location": "L133",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74239,7 +74691,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/canary-dist-tags.test.ts",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74507,7 +74959,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/canary-snapshots.test.ts",
-      "source_location": "L79",
+      "source_location": "L81",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75383,7 +75835,7 @@
     },
     {
       "source": "tests_cli_add_test",
-      "target": "packages_svforge_src_cli_add",
+      "target": "packages_svforge_src_compat",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -75394,12 +75846,34 @@
     },
     {
       "source": "tests_cli_add_test",
-      "target": "packages_svforge_src_cli_add_runaddcommand",
+      "target": "packages_svforge_src_compat_compat_manifest",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
       "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_cli_add_test",
+      "target": "packages_svforge_src_cli_add_runaddcommand",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-add.test.ts",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75410,7 +75884,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75421,7 +75895,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75432,7 +75906,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75443,7 +75917,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75454,7 +75928,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75464,7 +75938,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75474,7 +75948,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75484,7 +75958,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75495,7 +75969,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75506,7 +75980,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1,
       "_origin": "ast"
     },
@@ -91046,7 +91520,7 @@
     },
     {
       "source": "packages_svforge_readme_svforge",
-      "target": "packages_svforge_readme_upgrade",
+      "target": "packages_svforge_readme_cli_plans",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
@@ -91056,11 +91530,21 @@
     },
     {
       "source": "packages_svforge_readme_svforge",
+      "target": "packages_svforge_readme_upgrade",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L131",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_readme_svforge",
       "target": "packages_svforge_readme_optional_graphify_setup",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L121",
+      "source_location": "L135",
       "weight": 1,
       "_origin": "ast"
     },
@@ -91070,7 +91554,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L125",
+      "source_location": "L139",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92064,6 +92548,30 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_src_cli_create_createexecutionplan",
+      "target": "packages_svforge_src_cli_add_svrunner",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L201",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_cli_create_createexecutionplan",
+      "target": "packages_svforge_src_cli_add_addonspec",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/cli/create.ts",
+      "source_location": "L219",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_src_cli_create_runcreatecommand",
       "target": "packages_svforge_src_compat_assertcompatmanifest",
       "relation": "calls",
@@ -92071,7 +92579,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L318",
+      "source_location": "L386",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92083,31 +92591,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L320",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_src_cli_create_runcreatecommand",
-      "target": "packages_svforge_src_cli_add_svrunner",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L391",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_src_cli_create_runcreatecommand",
-      "target": "packages_svforge_src_cli_add_addonspec",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L430",
+      "source_location": "L388",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92119,7 +92603,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L532",
+      "source_location": "L571",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92275,7 +92759,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L316",
+      "source_location": "L325",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92611,7 +93095,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/cli-add.test.ts",
-      "source_location": "L153",
+      "source_location": "L154",
       "weight": 1,
       "_origin": "ast"
     },

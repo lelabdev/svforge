@@ -5,6 +5,7 @@ import { regenerateLlmstxt } from '../ai-context';
 import { MODULE_CONTRACTS, resolveModules, type ResolutionPlan } from '@svforge/addon-kit';
 import { addonSpec, svRunner, type SpawnPort } from './add';
 import { COMPAT_MANIFEST, assertCompatManifest, loadCompatManifest, type CompatManifest } from '../compat';
+import { plannedPackage, type PlannedCommand, type PlannedPackage } from './plan';
 
 /**
  * `svforge create <dir>` — the one-command project creator (#417).
@@ -84,11 +85,17 @@ export interface CreatePlan {
 	/** Whether project-scoped Graphify initialization was explicitly requested. */
 	graphify: boolean;
 	plan: ResolutionPlan;
+	/** Exact commands passed to the official `sv` CLI during apply. */
+	commands: PlannedCommand[];
+	/** Package specs used by those commands, including exact compatible versions when known. */
+	packages: PlannedPackage[];
 }
 
 export interface CreateCommandResult {
 	code: number;
 	plan?: CreatePlan;
+	/** Resolver output when validation blocks before a complete create plan exists. */
+	resolution?: ResolutionPlan;
 	/** The stage that failed: create | add | git | record | validate | graphify. */
 	failedStage?: 'create' | 'add' | 'git' | 'record' | 'validate' | 'graphify';
 	aborted?: 'declined' | 'invalid' | 'safety';
@@ -177,6 +184,58 @@ export function parseCreateArgs(args: string[]): CreateCommandOptions & { dir?: 
 		if (!arg.startsWith('-') && !parsed.dir) parsed.dir = arg;
 	}
 	return parsed;
+}
+
+function createExecutionPlan(
+	cwd: string,
+	target: string,
+	dir: string,
+	template: 'base' | 'dashboard',
+	pm: string,
+	testing: 'vitest' | 'playwright',
+	hooks: 'none' | 'lefthook',
+	resolution: ResolutionPlan,
+	options: CreateCommandOptions,
+	compatVersions?: Record<string, string>
+): { commands: PlannedCommand[]; packages: PlannedPackage[] } {
+	const sv = svRunner(pm, options.svCmd);
+	const createArgs = [...sv.prefix, 'create', dir, '--template', 'minimal', '--types', 'ts', '--no-add-ons', '--no-install', '--no-download-check'];
+	const sourceForSpec = (spec: string): PlannedPackage['source'] => {
+		if (spec.startsWith('file:')) return options.addonRoot ? 'packaged-artifact' : 'workspace';
+		if (compatVersions) return 'compatibility-manifest';
+		if (options.addonVersion) return 'explicit-version';
+		return 'registry';
+	};
+	const localTemplate =
+		options.devRoot && existsSync(join(options.devRoot, 'packages', 'svforge'))
+			? `file:${join(options.devRoot, 'packages', 'svforge')}`
+			: undefined;
+	const packagedTemplate = options.addonRoot ? `file:${join(options.addonRoot, 'svforge')}` : undefined;
+	const compatibleTemplate = compatVersions?.svforge;
+	const templateAddon = localTemplate ?? packagedTemplate ??
+		(compatibleTemplate ? `svforge@${compatibleTemplate}` : options.addonVersion ? `svforge@${options.addonVersion}` : 'svforge');
+	const templateSpec = `${templateAddon}=template:${template}+testing:${testing}+hooks:${hooks}`;
+	const moduleSpecs = resolution.order.map((id) => {
+		const spec = addonSpec(id, {
+			devRoot: options.devRoot,
+			addonRoot: options.addonRoot,
+			version: options.addonVersion,
+			compatVersions
+		});
+		const addonOptions = Object.entries(MODULES[id]?.addonOptions ?? {});
+		return addonOptions.length === 0 ? spec : `${spec}=${addonOptions.map(([key, value]) => `${key}:${value}`).join('+')}`;
+	});
+	const addArgs = [...sv.prefix, 'add', templateSpec, ...moduleSpecs, '--install', pm, '--no-download-check', '--no-git-check'];
+	return {
+		commands: [
+			{ executable: sv.command, args: createArgs, cwd },
+			{ executable: sv.command, args: addArgs, cwd: target }
+		],
+		packages: [
+			plannedPackage('svforge', templateSpec, sourceForSpec(templateSpec)),
+			...resolution.order.map((id, index) => plannedPackage(`@svforge/${id}`, moduleSpecs[index]!, sourceForSpec(moduleSpecs[index]!)))
+		]
+	};
 }
 
 export async function runCreateCommand(
@@ -297,9 +356,18 @@ export async function runCreateCommand(
 
 	// ── 5. Plan through the shared resolver (#419) ──
 	const resolution = resolveModules({ requested: requestedModules, template: effectiveTemplate });
+	if (resolution.unknownModules.length > 0) {
+		return {
+			code: 1,
+			resolution,
+			aborted: 'invalid',
+			message: `Unknown module(s): ${resolution.unknownModules.join(', ')}. Available: ${Object.keys(MODULES).sort().join(', ')}.`
+		};
+	}
 	if (resolution.errors.length > 0) {
 		return {
 			code: 1,
+			resolution,
 			aborted: 'invalid',
 			message: `Invalid composition: ${resolution.errors.map((e) => `${e.kind}:${e.capability}`).join(', ')}.`
 		};
@@ -348,6 +416,9 @@ export async function runCreateCommand(
 		};
 	}
 
+	const executionPlan = createExecutionPlan(
+		cwd, target, dir!, effectiveTemplate, pm!, testing, hooks, resolution, options, compatVersions
+	);
 	const createPlan: CreatePlan = {
 		dir: target,
 		template: effectiveTemplate,
@@ -359,7 +430,8 @@ export async function runCreateCommand(
 		runtime,
 		gitInit,
 		graphify,
-		plan: resolution
+		plan: resolution,
+		...executionPlan
 	};
 
 	// ── 7. Inspectable plan, then confirm ──
@@ -387,12 +459,12 @@ export async function runCreateCommand(
 		return { code: 0, plan: createPlan };
 	}
 
-	// ── 8. Execute: official sv create, then ONE grouped sv add ──
-	const sv = svRunner(pm!, options.svCmd);
+	// ── 8. Execute the exact official sv commands exposed by plan mode ──
+	const [createCommand, addCommand] = createPlan.commands;
 	const createCode = await spawn(
-		sv.command,
-		[...sv.prefix, 'create', dir!, '--template', 'minimal', '--types', 'ts', '--no-add-ons', '--no-install', '--no-download-check'],
-		{ cwd, stdio: 'inherit' }
+		createCommand!.executable,
+		createCommand!.args,
+		{ cwd: createCommand!.cwd, stdio: 'inherit' }
 	);
 	if (createCode !== 0) {
 		return {
@@ -403,43 +475,10 @@ export async function runCreateCommand(
 		};
 	}
 
-	// Dev checkouts and packaged-artifact directories install the template addon
-	// from file: too — otherwise the exact compatible version from the
-	// compatibility manifest is used. `--addon-version` remains a single legacy
-	// override. Nothing resolves to an implicit `latest`.
-	// NOTE: the template package is the UNSCOPED `svforge`, unlike @svforge/*.
-	const devTemplate =
-		options.devRoot && existsSync(join(options.devRoot, 'packages', 'svforge'))
-			? `file:${join(options.devRoot, 'packages', 'svforge')}`
-			: undefined;
-	const packagedTemplate = options.addonRoot ? `file:${join(options.addonRoot, 'svforge')}` : undefined;
-	const compatibleTemplate = compatVersions?.svforge;
-	const templateAddon =
-		devTemplate ??
-		packagedTemplate ??
-		(compatibleTemplate
-			? `svforge@${compatibleTemplate}`
-			: options.addonVersion
-				? `svforge@${options.addonVersion}`
-				: 'svforge');
-	const templateSpec = `${templateAddon}=template:${effectiveTemplate}+testing:${testing}+hooks:${hooks}`;
-	// Headless composition must never prompt: module options come from the
-	// canonical registry's addonOptions (defaults mirrored from the addons —
-	// contract-tested), rendered as `pkg=opt:value`.
-	const moduleSpecs = resolution.order.map((id) => {
-		const spec = addonSpec(id, {
-			devRoot: options.devRoot,
-			addonRoot: options.addonRoot,
-			version: options.addonVersion,
-			compatVersions
-		});
-		const addonOptions = Object.entries(MODULES[id]?.addonOptions ?? {});
-		return addonOptions.length === 0 ? spec : `${spec}=${addonOptions.map(([k, v]) => `${k}:${v}`).join('+')}`;
-	});
 	const addCode = await spawn(
-		sv.command,
-		[...sv.prefix, 'add', templateSpec, ...moduleSpecs, '--install', pm!, '--no-download-check', '--no-git-check'],
-		{ cwd: target, stdio: 'inherit' }
+		addCommand!.executable,
+		addCommand!.args,
+		{ cwd: addCommand!.cwd, stdio: 'inherit' }
 	);
 	if (addCode !== 0) {
 		return {
