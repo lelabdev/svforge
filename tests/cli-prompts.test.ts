@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { createCliPrompt } from '../packages/svforge/bin/prompts.mjs';
+import { spawn } from 'node:child_process';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 function scriptedPrompt(answers: string[]) {
 	const output: string[] = [];
@@ -17,6 +22,67 @@ function scriptedPrompt(answers: string[]) {
 }
 
 describe('shipped CLI interactive prompt choices (#578)', () => {
+
+	it('the real shipped binary completes interactive choices without object values', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-interactive-bin-'));
+		const bin = join(process.cwd(), 'packages/svforge/bin/svforge.mjs');
+		try {
+			const bootstrap = [
+				'process.stdin.isTTY = true;',
+				`process.argv = [process.execPath, ${JSON.stringify(bin)}, 'create', 'app', '--template', 'base', '--pm', 'bun'];`,
+				`await import(${JSON.stringify(pathToFileURL(bin).href)});`
+			].join('\n');
+			const child = spawn(process.execPath, ['--input-type=module', '--eval', bootstrap], {
+				cwd,
+				stdio: ['pipe', 'pipe', 'pipe']
+			});
+			const responses = [
+				{ marker: 'Choose [1]: ', answer: '2\n' }, // Playwright
+				{ marker: 'Choose [1]: ', answer: '1\n' }, // No hooks
+				{ marker: 'Comma-separated numbers (empty = none): ', answer: '\n' },
+				{ marker: 'Initialize a Git repository? [y/N] ', answer: 'n\n' },
+				{ marker: 'Create the project with this plan?', answer: 'n\n' }
+			];
+			const result = await new Promise<{ code: number | null; stdout: string; stderr: string; steps: number }>((resolve, reject) => {
+				let stdout = '';
+				let stderr = '';
+				let cursor = 0;
+				let step = 0;
+				const timeout = setTimeout(() => {
+					child.kill();
+					reject(new Error(`Interactive CLI timed out: ${stdout} ${stderr}`));
+				}, 15000);
+				child.stdout.on('data', (chunk: Buffer) => {
+					stdout += chunk.toString();
+					while (step < responses.length) {
+						const response = responses[step]!;
+						const found = stdout.indexOf(response.marker, cursor);
+						if (found === -1) break;
+						cursor = found + response.marker.length;
+						step++;
+						child.stdin.write(response.answer);
+					}
+				});
+				child.stderr.on('data', (chunk: Buffer) => { stderr += chunk.toString(); });
+				child.on('error', (error) => { clearTimeout(timeout); reject(error); });
+				child.on('close', (code) => {
+					clearTimeout(timeout);
+					resolve({ code, stdout, stderr, steps: step });
+				});
+			});
+			expect(result.steps).toBe(5);
+			expect(result.code).toBe(0);
+			expect(result.stderr).toBe('');
+			expect(result.stdout).toContain('  1. Vitest — unit and server behavior tests');
+			expect(result.stdout).toContain('  2. Playwright — Vitest plus full browser tests');
+			expect(result.stdout).toContain('Testing:          playwright');
+			expect(result.stdout).toContain('Pre-commit hook:  none');
+			expect(result.stdout).toContain('Modules (0):');
+			expect(result.stdout).not.toContain('[object Object]');
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
 	it('shows human-readable testing labels and returns the selected primitive profile', async () => {
 		const { prompt, output } = scriptedPrompt(['2']);
 		const selected = await prompt.select('Which testing profile?', [
