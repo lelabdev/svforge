@@ -25,10 +25,10 @@ const api = await import('../dist/index.js');
 
 const [, , command, ...args] = process.argv;
 
+import { createCliPrompt } from './prompts.mjs';
+
 async function realPrompt() {
-	// Zero-dependency prompts on raw stdin/stdout: the sv add packaging
-	// contract forbids runtime dependencies on @svforge/* packages, and no
-	// readline built-in is assumed (minimal node builds lack it).
+	// Zero-dependency prompts, compatible with the shipped npm package.
 	const ask = (question) =>
 		new Promise((resolvePromise) => {
 			process.stdout.write(question);
@@ -37,38 +37,17 @@ async function realPrompt() {
 				buffer += chunk;
 				if (buffer.includes('\n')) {
 					process.stdin.removeListener('data', onData);
+					// A finished prompt must not keep the CLI alive via stdin.
+					process.stdin.pause();
+					process.stdin.unref?.();
 					resolvePromise(buffer.split('\n')[0].trim());
 				}
 			};
+			process.stdin.ref?.();
 			process.stdin.on('data', onData);
+			process.stdin.resume();
 		});
-	return {
-		confirm: async (message) => {
-			const answer = (await ask(`${message} [y/N] `)).trim().toLowerCase();
-			return answer === 'y' || answer === 'yes';
-		},
-		select: async (message, options) => {
-			console.log(message);
-			options.forEach((option, index) => console.log(`  ${index + 1}. ${option}`));
-			const answer = Number((await ask('Choose [1]: ')).trim() || '1');
-			return options[Number.isInteger(answer) && answer >= 1 && answer <= options.length ? answer - 1 : 0];
-		},
-		text: async (message, defaultValue) => {
-			const answer = (await ask(`${message}${defaultValue ? ` [${defaultValue}]` : ''} `)).trim();
-			return answer.length > 0 ? answer : (defaultValue ?? '');
-		},
-		multiselect: async (message, options) => {
-			console.log(message);
-			options.forEach((option, index) => console.log(`  ${index + 1}. ${option}`));
-			const answer = (await ask('Comma-separated numbers (empty = none): ')).trim();
-			if (answer.length === 0) return [];
-			return answer
-				.split(',')
-				.map((part) => Number(part.trim()))
-				.filter((n) => Number.isInteger(n) && n >= 1 && n <= options.length)
-				.map((n) => options[n - 1]);
-		}
-	};
+	return createCliPrompt(ask);
 }
 
 async function realSpawn() {
@@ -311,8 +290,11 @@ async function main() {
 				process.stdout.write(jsonOutput ? `${JSON.stringify(plan, null, 2)}\n` : api.formatCliPlan(plan));
 			} else {
 				if (result.notice) console.log(result.notice);
-				if (result.message) console.error(result.message);
-				if (result.code === 0 && result.plan) {
+				if (result.message) {
+					if (result.code === 0) console.log(result.message);
+					else console.error(result.message);
+				}
+				if (result.code === 0 && result.plan && !result.aborted) {
 					console.log(`\n✓ Project ready in ${result.plan.dir} — run \`${result.plan.pm} run dev\` to start developing.`);
 				}
 			}
