@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { buildCanaryPlan, canarySnapshotTag, assertStableVersionsPublished, ensureDistributionSnapshotChangeset, prepareCanarySnapshot, validateCanaryPlan } from '../scripts/canary-snapshots.mjs';
+import { buildCanaryPlan, canarySnapshotTag, assertStableVersionsPublished, ensureDistributionSnapshotChangeset, prepareCanarySnapshot, validateCanaryPlan, nextCanaryIteration } from '../scripts/canary-snapshots.mjs';
 
 const CHANGESET_BIN = join(process.cwd(), 'node_modules/.bin/changeset');
 type CanaryPackage = { name: string; version: string; directory?: string; snapshot?: boolean; tarball?: string };
@@ -21,11 +21,14 @@ function writePackage(root: string, directory: string, name: string, version: st
 
 describe('isolated Changesets canary snapshots (#563)', () => {
 	it('keeps publication manual, maintainer-gated, isolated, and behind artifact checks', () => {
-		const workflow = readFileSync(join(process.cwd(), '.github/workflows/canary-snapshots.yml'), 'utf8');
+		const workflow = readFileSync(join(process.cwd(), '.github/workflows/publish.yml'), 'utf8');
 		expect(workflow).toContain('workflow_dispatch:');
-		expect(workflow).not.toMatch(/^\s*(pull_request|push|schedule):/m);
+		expect(workflow).toContain('pull_request:');
+		expect(workflow).toContain("inputs.channel == 'canary'");
+		expect(workflow).toContain("inputs.channel == 'stable'");
 		expect(workflow).toContain("inputs.confirmation == 'publish-canary'");
-		expect(workflow).toContain('environment: npm-canary');
+		expect(workflow).not.toContain('environment: npm-canary');
+		expect(workflow).toContain('id-token: write');
 		expect(workflow).toContain('queue: max');
 		expect(readFileSync(join(process.cwd(), '.github/workflows/publish.yml'), 'utf8')).toContain('queue: max');
 		expect(workflow).toContain('git archive "${GITHUB_SHA}"');
@@ -37,17 +40,16 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 		expect(workflow).toContain('--template dashboard');
 		expect(workflow).toContain('POSTGRES_DB: sf_canary_test');
 		expect(workflow).toContain('uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020');
-		expect(workflow).toContain('registry-url: https://registry.npmjs.org');
-		expect(workflow).toContain('NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}');
+		expect(workflow).toContain('npm install --global npm@11.21.0');
+		expect(workflow).not.toContain('NODE_AUTH_TOKEN');
+		expect(workflow).not.toContain('npm whoami');
 		expect(workflow).not.toContain('--tag latest');
-		const setupNode = workflow.indexOf('uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020');
-		const whoami = workflow.indexOf('run: npm whoami');
-		const publish = workflow.indexOf('Publish immutable snapshots');
-		const authGate = workflow.slice(whoami, workflow.indexOf('\n      - name:', whoami + 1));
+		const setupNode = workflow.indexOf('uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020', workflow.indexOf('  canary:'));
+		const oidcCheck = workflow.indexOf('Setup npm with OIDC dist-tag support', workflow.indexOf('  canary:'));
+		const publication = workflow.indexOf('Publish immutable snapshots');
 		expect(setupNode).toBeGreaterThan(-1);
-		expect(whoami).toBeGreaterThan(setupNode);
-		expect(whoami).toBeLessThan(publish);
-		expect(authGate).toContain('NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}');
+		expect(oidcCheck).toBeGreaterThan(setupNode);
+		expect(oidcCheck).toBeLessThan(publication);
 		const sourceBuild = workflow.indexOf('Build source packages before snapshot versioning');
 		const fullTest = workflow.indexOf('Test full repository suite before snapshot versioning');
 		const snapshotPrepare = workflow.indexOf('Prepare immutable Changesets snapshot');
@@ -108,17 +110,19 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 				runId: '321',
 				planPath,
 				runCommand,
-				isPublished: () => true
+				isPublished: () => true,
+				listVersions: () => [],
+				currentStaging: () => null
 			}) as CanaryPlan;
 			expect(plan.candidates.map((pkg) => pkg.name)).toEqual([
 				'@svforge/addon', '@svforge/core', '@svforge/extension', 'svforge'
 			]);
-			expect(plan.compatibility.packages['@svforge/addon']).toBe('0.0.0-canary-abcdef012345-321');
-			expect(plan.compatibility.packages['@svforge/core']).toBe('0.0.0-canary-abcdef012345-321');
-			expect(plan.compatibility.packages['@svforge/extension']).toBe('0.0.0-canary-abcdef012345-321');
+			expect(plan.compatibility.packages['@svforge/addon']).toBe('1.4.1-canary.1');
+			expect(plan.compatibility.packages['@svforge/core']).toBe('1.0.1-canary.1');
+			expect(plan.compatibility.packages['@svforge/extension']).toBe('1.2.1-canary.1');
 			expect(plan.compatibility.packages['@svforge/unchanged']).toBe('3.2.0');
 			expect(JSON.parse(readFileSync(join(root, 'packages/extension/package.json'), 'utf8')).dependencies['@svforge/core'])
-				.toBe('0.0.0-canary-abcdef012345-321');
+				.toBe('1.0.1-canary.1');
 			expect(JSON.parse(readFileSync(planPath, 'utf8'))).toMatchObject({ stagingDistTag: 'canary-run-321' });
 			expect(JSON.parse(readFileSync(join(root, '.changeset/config.json'), 'utf8')).changelog)
 				.toEqual(['missing-changelog-plugin', {}]);
@@ -127,6 +131,22 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 		}
 	});
 
+
+	it('numbers canaries from prospective versions and preserves staged retry numbers', () => {
+		const releases = [
+			{ name: 'svforge', newVersion: '2.2.1' },
+			{ name: '@svforge/addon', newVersion: '3.0.0' }
+		];
+		const versions: Record<string, string[]> = {
+			svforge: ['2.2.1-canary.1', '2.2.1-canary.2', '2.3.0-canary.22'],
+			'@svforge/addon': ['3.0.0-canary.1', '3.0.0-beta.8']
+		};
+		const list = (name: string) => versions[name] ?? [];
+		expect(nextCanaryIteration(releases, list)).toBe(3);
+		expect(nextCanaryIteration(releases, list, (name: string) => name === 'svforge' ? '2.2.1-canary.2' : null, '321')).toBe(2);
+		expect(() => nextCanaryIteration(releases, list, () => '1.0.0-canary.1', '321')).toThrow(/does not match prospective/);
+		expect(nextCanaryIteration([{ name: 'svforge', newVersion: '2.3.0' }], list)).toBe(23);
+	});
 	it('derives a retry-stable tag from the source commit and workflow run', () => {
 		expect(canarySnapshotTag('abcdef0123456789', '987654321')).toBe('canary-abcdef012345-987654321');
 		expect(canarySnapshotTag('abcdef0123456789', '987654321')).toBe(canarySnapshotTag('abcdef0123456789', '987654321'));
@@ -149,10 +169,10 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 	it('keeps unchanged addon versions stable while snapshotting new and changed addons plus the CLI manifest', () => {
 		const root = mkdtempSync(join(tmpdir(), 'svforge-canary-plan-'));
 		try {
-			writePackage(root, 'svforge', 'svforge', '0.0.0-canary-abcdef012345-987654321');
+			writePackage(root, 'svforge', 'svforge', '2.1.2-canary.1');
 			writePackage(root, 'addon-kit', '@svforge/addon-kit', '2.4.0');
-			writePackage(root, 'changed', '@svforge/changed', '0.0.0-canary-abcdef012345-987654321');
-			writePackage(root, 'new-addon', '@svforge/new-addon', '0.0.0-canary-abcdef012345-987654321');
+			writePackage(root, 'changed', '@svforge/changed', '2.0.1-canary.1');
+			writePackage(root, 'new-addon', '@svforge/new-addon', '1.0.0-canary.1');
 			const tag = 'canary-abcdef012345-987654321';
 			const before = [
 				{ name: 'svforge', version: '2.1.1', directory: 'packages/svforge' },
@@ -160,22 +180,22 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 				{ name: '@svforge/changed', version: '2.0.0', directory: 'packages/changed' }
 			];
 			const after = [
-				{ name: 'svforge', version: `0.0.0-${tag}`, directory: 'packages/svforge' },
+				{ name: 'svforge', version: '2.1.2-canary.1', directory: 'packages/svforge' },
 				{ name: '@svforge/addon-kit', version: '2.4.0', directory: 'packages/addon-kit' },
-				{ name: '@svforge/changed', version: `0.0.0-${tag}`, directory: 'packages/changed' },
-				{ name: '@svforge/new-addon', version: `0.0.0-${tag}`, directory: 'packages/new-addon' }
+				{ name: '@svforge/changed', version: '2.0.1-canary.1', directory: 'packages/changed' },
+				{ name: '@svforge/new-addon', version: '1.0.0-canary.1', directory: 'packages/new-addon' }
 			];
 
-			const plan = buildCanaryPlan(before, after, { root, tag, commit: 'abcdef0123456789', runId: '987654321' }) as CanaryPlan;
+			const plan = buildCanaryPlan(before, after, { root, tag, commit: 'abcdef0123456789', runId: '987654321', iteration: 1 }) as CanaryPlan;
 			expect(validateCanaryPlan(plan, root)).toBe(plan);
 			expect(plan.candidates.map((pkg) => pkg.name)).toEqual([
 				'@svforge/changed', '@svforge/new-addon', 'svforge'
 			]);
 			expect(plan.compatibility.packages).toMatchObject({
 				'@svforge/addon-kit': '2.4.0',
-				'@svforge/changed': `0.0.0-${tag}`,
-				'@svforge/new-addon': `0.0.0-${tag}`,
-				svforge: `0.0.0-${tag}`
+				'@svforge/changed': '2.0.1-canary.1',
+				'@svforge/new-addon': '1.0.0-canary.1',
+				svforge: '2.1.2-canary.1'
 			});
 			expect(plan.packages.find((pkg) => pkg.name === '@svforge/addon-kit')).toMatchObject({
 				version: '2.4.0',
@@ -195,14 +215,14 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 		const root = mkdtempSync(join(tmpdir(), 'svforge-canary-invalid-'));
 		try {
 			writePackage(root, 'svforge', 'svforge', '2.1.1');
-			writePackage(root, 'changed', '@svforge/changed', '0.0.0-canary-abcdef012345-9');
+			writePackage(root, 'changed', '@svforge/changed', '2.0.1-canary.1');
 			expect(() => buildCanaryPlan(
 				[{ name: 'svforge', version: '2.1.1', directory: 'packages/svforge' }],
 				[
 					{ name: 'svforge', version: '2.1.1', directory: 'packages/svforge' },
-					{ name: '@svforge/changed', version: '0.0.0-canary-abcdef012345-9', directory: 'packages/changed' }
+					{ name: '@svforge/changed', version: '2.0.1-canary.1', directory: 'packages/changed' }
 				],
-				{ root, tag: 'canary-abcdef012345-9', commit: 'abcdef0123456789', runId: '9' }
+				{ root, tag: 'canary-abcdef012345-9', commit: 'abcdef0123456789', runId: '9', iteration: 1 }
 			)).toThrow(/svforge.*snapshot|compatibility/i);
 		} finally {
 			rmSync(root, { recursive: true, force: true });
