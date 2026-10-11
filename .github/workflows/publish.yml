@@ -178,6 +178,12 @@ jobs:
         with:
           ref: ${{ needs.authorize-release.outputs.release_commit }}
 
+      # The reviewed 2.2.1 commit lost this executable Git mode in #579.
+      # Restore only the file mode for its immutable checkout; the source
+      # bytes and approved release versions remain unchanged.
+      - name: Restore CLI executable bit for approved release
+        run: chmod +x packages/svforge/bin/svforge.mjs
+
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
@@ -277,6 +283,12 @@ jobs:
         with:
           ref: ${{ needs.authorize-release.outputs.release_commit }}
           fetch-depth: 0
+
+      # The reviewed 2.2.1 commit lost this executable Git mode in #579.
+      # Restore only the file mode for its immutable checkout; the source
+      # bytes and approved release versions remain unchanged.
+      - name: Restore CLI executable bit for approved release
+        run: chmod +x packages/svforge/bin/svforge.mjs
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6

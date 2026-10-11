@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { spawnSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { delimiter, join } from 'node:path';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync, readdirSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { ROOT } from './helpers';
 import { COMPAT_MANIFEST } from '../packages/svforge/src/compat';
@@ -20,6 +20,19 @@ import { scaffoldedAgents } from '../packages/svforge/src/scaffolded-agents';
  */
 
 const BIN = join(ROOT, 'packages/svforge/bin/svforge.mjs');
+
+describe('CLI file-mode release guard', () => {
+	it('tracks the shipped executable as 100755, not a non-executable regular file', () => {
+		// Git preserves the actual executable bit in release checkouts.
+		// #579 accidentally changed this mode and broke the create-cli release gate.
+		if (process.platform === 'win32') return;
+		const indexEntry = execFileSync('git', ['ls-files', '--stage', '--', 'packages/svforge/bin/svforge.mjs'], {
+			cwd: ROOT, encoding: 'utf8'
+		});
+		expect(indexEntry).toMatch(/^100755 [0-9a-f]{40} 0\t/);
+		expect(statSync(BIN).mode & 0o111).not.toBe(0);
+	});
+});
 
 const STUB_SV = [
 	'#!/usr/bin/env bash',
