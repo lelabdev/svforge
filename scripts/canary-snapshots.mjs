@@ -6,7 +6,62 @@ import { fileURLToPath } from 'node:url';
 import { buildCompatManifest } from './compat-manifest.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const SNAPSHOT_PREFIX = '0.0.0-';
+const CANARY_VERSION = /^(\d+\.\d+\.\d+)-canary\.(\d+)$/;
+
+/**
+ * Use prospective versions calculated by Changesets, not arbitrary 0.0.0
+ * snapshots. The next iteration is shared across a release set, while every
+ * package retains its independent base version.
+ */
+export function nextCanaryIteration(releases, listVersions, currentStaging = () => null, runId = '') {
+	const stagedIterations = new Set();
+	for (const release of releases) {
+		const staged = currentStaging(release.name, runId);
+		const match = staged && CANARY_VERSION.exec(staged);
+		if (match) {
+			if (match[1] !== release.newVersion) {
+				throw new Error(`Existing staging version ${staged} for ${release.name} does not match prospective version ${release.newVersion}.`);
+			}
+			stagedIterations.add(Number(match[2]));
+		}
+	}
+	if (stagedIterations.size > 1) {
+		throw new Error('Conflicting numbered canary staging versions in this Actions run.');
+	}
+	if (stagedIterations.size === 1) return [...stagedIterations][0];
+	let highest = 0;
+	for (const release of releases) {
+		for (const version of listVersions(release.name)) {
+			const match = CANARY_VERSION.exec(version);
+			if (match?.[1] === release.newVersion) {
+				highest = Math.max(highest, Number(match[2]));
+			}
+		}
+	}
+	return highest + 1;
+}
+
+function registryVersions(name) {
+	const result = spawnSync('npm', ['view', name, 'versions', '--json'], { encoding: 'utf8' });
+	if (result.error) throw result.error;
+	if (result.status !== 0) {
+		if (/E404|404 Not Found|is not in this registry/i.test(result.stderr)) return [];
+		throw new Error(`Cannot check published canaries for ${name}: ${result.stderr.trim()}`);
+	}
+	const versions = JSON.parse(result.stdout);
+	return Array.isArray(versions) ? versions : versions ? [versions] : [];
+}
+
+function stagedVersion(name, runId) {
+	const result = spawnSync('npm', ['view', name, 'dist-tags', '--json'], { encoding: 'utf8' });
+	if (result.error) throw result.error;
+	if (result.status !== 0) {
+		if (/E404|404 Not Found|is not in this registry/i.test(result.stderr)) return null;
+		throw new Error(`Cannot check current staging tags for ${name}: ${result.stderr.trim()}`);
+	}
+	return JSON.parse(result.stdout)[`canary-run-${runId}`] ?? null;
+}
+
 
 export function canarySnapshotTag(commit, runId) {
 	if (typeof commit !== 'string' || !/^[0-9a-f]{12,40}$/i.test(commit)) {
@@ -52,19 +107,20 @@ function assertUniquePackages(packages, label) {
 }
 
 /** Build an exact-version consumer plan without changing stable package versions. */
-export function buildCanaryPlan(before, after, { root = ROOT, tag, commit, runId }) {
+export function buildCanaryPlan(before, after, { root = ROOT, tag, commit, runId, iteration }) {
 	if (tag !== canarySnapshotTag(commit, String(runId))) {
 		throw new Error(`Canary snapshot: tag ${String(tag)} does not match this commit and Actions run.`);
 	}
 	assertUniquePackages(before, 'baseline');
 	assertUniquePackages(after, 'snapshot');
 	const previous = new Map(before.map((pkg) => [pkg.name, pkg]));
-	const expectedSnapshotVersion = `${SNAPSHOT_PREFIX}${tag}`;
+	if (!Number.isSafeInteger(iteration) || iteration < 1) throw new Error('Canary snapshot: invalid numbered iteration.');
+	const versionSuffix = `-canary.${iteration}`;
 	const packages = after.filter((pkg) => !pkg.private).map((pkg) => {
 		const prior = previous.get(pkg.name);
-		const snapshot = pkg.version === expectedSnapshotVersion;
-		if (pkg.version.startsWith(SNAPSHOT_PREFIX) && !snapshot) {
-			throw new Error(`Canary snapshot: ${pkg.name}@${pkg.version} does not match this run's immutable version ${expectedSnapshotVersion}.`);
+		const snapshot = pkg.version.endsWith(versionSuffix) && CANARY_VERSION.test(pkg.version);
+		if (CANARY_VERSION.test(pkg.version) && !snapshot) {
+			throw new Error(`Canary snapshot: ${pkg.name}@${pkg.version} does not match this run's numbered canary suffix ${versionSuffix}.`);
 		}
 		if (prior && pkg.version !== prior.version && !snapshot) {
 			throw new Error(`Canary snapshot: ${pkg.name} changed from ${prior.version} to non-snapshot version ${pkg.version}.`);
@@ -96,6 +152,7 @@ export function buildCanaryPlan(before, after, { root = ROOT, tag, commit, runId
 		commit,
 		runId,
 		snapshotTag: tag,
+		iteration,
 		stagingDistTag: `canary-run-${runId}`,
 		distTag: 'canary',
 		compatibility,
@@ -130,12 +187,12 @@ export function validateCanaryPlan(plan, root = ROOT) {
 	}
 	for (const actual of actualPackages) {
 		const planned = plannedPackages.get(actual.name);
-		const snapshot = actual.version === `${SNAPSHOT_PREFIX}${plan.snapshotTag}`;
+		const snapshot = actual.version.endsWith(`-canary.${plan.iteration}`) && CANARY_VERSION.test(actual.version);
 		if (!planned || planned.version !== actual.version || planned.directory !== actual.directory || planned.snapshot !== snapshot) {
 			throw new Error(`Canary snapshot validation: plan entry for ${actual.name} does not match ${actual.version} in the workspace.`);
 		}
 	}
-	const candidateNames = actualPackages.filter((pkg) => pkg.version === `${SNAPSHOT_PREFIX}${plan.snapshotTag}`).map((pkg) => pkg.name);
+	const candidateNames = actualPackages.filter((pkg) => pkg.version.endsWith(`-canary.${plan.iteration}`) && CANARY_VERSION.test(pkg.version)).map((pkg) => pkg.name);
 	const plannedCandidateNames = plan.candidates.map((pkg) => pkg.name);
 	if (JSON.stringify(candidateNames) !== JSON.stringify(plannedCandidateNames)) {
 		throw new Error('Canary snapshot validation: candidate list does not match the snapshot package versions.');
@@ -173,14 +230,16 @@ export function prepareCanarySnapshot({
 	runId,
 	planPath = '/tmp/canary-plan.json',
 	runCommand = run,
-	isPublished = isVersionPublished
+	isPublished = isVersionPublished,
+	listVersions = registryVersions,
+	currentStaging = stagedVersion
 }) {
 	const tag = canarySnapshotTag(commit, runId);
 	const before = readCanaryPackageVersions(root);
 	const statusPath = join(root, `.changeset-status-${runId}.json`);
 	runCommand('bun', ['x', 'changeset', 'status', '--output', statusPath], root);
 	const status = JSON.parse(readFileSync(statusPath, 'utf8'));
-	const selected = status.releases ?? [];
+	let selected = status.releases ?? [];
 	if (selected.length === 0) throw new Error('Canary snapshot: no pending Changesets release entries; nothing to publish.');
 
 	// Snapshot artifacts are not stable releases: do not run the repository's
@@ -189,11 +248,17 @@ export function prepareCanarySnapshot({
 	const originalConfig = readFileSync(configPath, 'utf8');
 	const config = JSON.parse(originalConfig);
 	config.changelog = false;
+	config.snapshot = { useCalculatedVersion: true, prereleaseTemplate: '{tag}' };
 	writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`);
-	ensureDistributionSnapshotChangeset(root, selected, runId);
+	const injected = ensureDistributionSnapshotChangeset(root, selected, runId);
+	if (injected) {
+		runCommand('bun', ['x', 'changeset', 'status', '--output', statusPath], root);
+		selected = JSON.parse(readFileSync(statusPath, 'utf8')).releases ?? [];
+	}
+	const iteration = nextCanaryIteration(selected, listVersions, currentStaging, runId);
 
 	runCommand('bun', [
-		'x', 'changeset', 'version', '--snapshot', tag,
+		'x', 'changeset', 'version', '--snapshot', `canary.${iteration}`,
 		'--snapshot-prerelease-template', '{tag}'
 	], root);
 	writeFileSync(configPath, originalConfig);
@@ -201,12 +266,12 @@ export function prepareCanarySnapshot({
 	runCommand('bun', ['run', '--filter', 'svforge', 'prebuild'], root);
 
 	const after = readCanaryPackageVersions(root);
-	const plan = buildCanaryPlan(before, after, { root, tag, commit, runId });
+	const plan = buildCanaryPlan(before, after, { root, tag, commit, runId, iteration });
 	assertStableVersionsPublished(plan, isPublished);
 	mkdirSync(dirname(resolve(planPath)), { recursive: true });
 	writeFileSync(resolve(planPath), `${JSON.stringify(plan, null, 2)}\n`);
 	rmStatusFile(statusPath);
-	console.log(`Prepared ${plan.candidates.length} immutable snapshot package(s) for ${plan.stagingDistTag}.`);
+	console.log(`Prepared ${plan.candidates.length} numbered canary package(s) (iteration ${iteration}) for ${plan.stagingDistTag}.`);
 	return plan;
 }
 
