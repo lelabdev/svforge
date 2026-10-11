@@ -155,6 +155,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "svforge",
+    "version": "2.1.2",
+    "date": "",
+    "body": "### Patch Changes\n\n- [#561](https://github.com/lelabdev/svforge/pull/561) [`f855f77`](https://github.com/lelabdev/svforge/commit/f855f773287425fba704c00e6c2fefd25f2c23af) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Read package-scoped Changesets release notes when displaying `svforge upgrade` history."
+  },
+  {
+    "package": "svforge",
     "version": "2.1.1",
     "date": "2026-10-09",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Remove the TipTap preview class exception from the generated strict styling lint configuration.\n- Add opt-in Graphify initialization and package-manager-aware dashboard CI to the distributed CLI.\n- Support registered user-selected UI libraries with constrained copy-in roots and scoped lint exemptions.\n- Keep generated Lix artifacts out of scaffold formatting while retaining lint diagnostics for unsupported classes and duplicate primitives.\n\n### Deprecations\n- None."
