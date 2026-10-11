@@ -1628,7 +1628,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/cli/add.ts": {
-    "ast_hash": "b91ec52c63cd2a38c28f8caaf1f3550b",
+    "ast_hash": "baa600f77f310005c025e11d08dc502b",
     "semantic_hash": ""
   },
   "packages/svforge/src/cli/create.ts": {
@@ -1648,7 +1648,7 @@
     "semantic_hash": ""
   },
   "tests/real-bin.test.ts": {
-    "ast_hash": "d3d19e568920b4ee6765d080fe9de602",
+    "ast_hash": "601ba06c8f44336a13f7da4839d2ad0c",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {

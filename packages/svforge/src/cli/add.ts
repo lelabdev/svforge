@@ -9,6 +9,7 @@ import {
 	type ResolveInput
 } from '@svforge/addon-kit';
 import { COMPAT_MANIFEST } from '../compat';
+import { MODULE_RECIPE_DATA } from '../module-recipes';
 import { plannedPackage, type PlannedCommand, type PlannedPackage } from './plan';
 
 /**
@@ -69,7 +70,7 @@ export interface AddCommandResult {
 	requestedModules?: string[];
 	alreadyInstalled?: string[];
 	/** Why the command stopped without running `sv add`. */
-	aborted?: 'declined' | 'policy' | 'errors' | 'unknown';
+	aborted?: 'declined' | 'policy' | 'errors' | 'unknown' | 'incomplete';
 	message?: string;
 }
 
@@ -277,13 +278,45 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 		state.warnings.push('package.json is missing; installed package versions and package-manager state cannot be verified.');
 	}
 	const packageModules = Object.keys(MODULE_CONTRACTS).filter((id) => snapshot.dependencies.has(`@svforge/${id}`));
-	const installedModules = [...new Set([...state.installed, ...packageModules])].sort();
+	const moduleConflicts: { moduleId: string; message: string }[] = [];
+	const installedSet = new Set(state.installed);
+	const declaredSet = new Set(packageModules);
+	const appliedModules: string[] = [];
+	for (const id of Object.keys(MODULE_CONTRACTS).sort()) {
+		const expectedFiles = Object.keys(MODULE_RECIPE_DATA[id]?.files ?? {});
+		const presentFiles = expectedFiles.filter((file) => existsSync(join(cwd, 'src', file.slice(1))));
+		const recorded = installedSet.has(id);
+		const declared = declaredSet.has(id);
+		if (recorded && expectedFiles.length > 0 && presentFiles.length === expectedFiles.length) {
+			appliedModules.push(id);
+			if (!declared) state.warnings.push(`.svforge.json records ${id} as applied and its generated files exist, but package.json has no @svforge/${id} dependency.`);
+			continue;
+		}
+		if (recorded || presentFiles.length > 0) {
+			const missingFiles = expectedFiles.filter((file) => !presentFiles.includes(file));
+			const reason = recorded
+				? `the application record exists but generated files are missing: ${missingFiles.join(', ') || 'no verifiable file recipe'}`
+				: `generated files exist without an .svforge.json application record: ${presentFiles.join(', ')}`;
+			moduleConflicts.push({ moduleId: id, message: `Incomplete ${id} add-on installation: ${reason}. Restore/inspect the scaffold before adding this module again.` });
+			continue;
+		}
+		if (declared) {
+			state.warnings.push(`package.json declares @svforge/${id}, but no application record or generated scaffold files exist; planning to apply the add-on.`);
+		}
+	}
 	for (const id of state.installed) {
-		if (!packageModules.includes(id)) state.warnings.push(`.svforge.json marks ${id} installed, but package.json has no @svforge/${id} dependency.`);
+		if (!MODULE_CONTRACTS[id]) {
+			moduleConflicts.push({ moduleId: id, message: `Unknown installed add-on "${id}" is recorded in .svforge.json.` });
+		}
 	}
-	for (const id of packageModules) {
-		if (!state.installed.includes(id)) state.warnings.push(`package.json declares @svforge/${id}, but .svforge.json does not record it as installed.`);
-	}
+	const installedModules = appliedModules;
+	const addonPackageNames = new Set(Object.keys(MODULE_CONTRACTS).map((id) => `@svforge/${id}`));
+	const resolutionSnapshot = {
+		...snapshot,
+		// A package declaration is not evidence that its add-on scaffold ran,
+		// nor may it provide capabilities through dependency-based detectors.
+		dependencies: new Set([...snapshot.dependencies].filter((name) => !addonPackageNames.has(name)))
+	};
 	const alreadyInstalled = options.modules.filter((id) => MODULE_CONTRACTS[id] && installedModules.includes(id));
 	const requestedModules = options.modules.filter((id) => !MODULE_CONTRACTS[id] || !installedModules.includes(id));
 	const resultContext = {
@@ -298,7 +331,7 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 		installed: installedModules,
 		template: state.template,
 		declaredProvides: state.declaredProvides as ResolveInput['declaredProvides'],
-		snapshot
+		snapshot: resolutionSnapshot
 	};
 
 	// Resolve ambiguities interactively before the final plan: first pass
@@ -325,6 +358,17 @@ export async function runAddCommand(cwd: string, options: AddCommandOptions): Pr
 	}
 	const plan = resolveModules(resolveInput);
 	plan.warnings.unshift(...state.warnings);
+	const relevantModules = new Set([...options.modules, ...plan.order]);
+	const relevantConflicts = moduleConflicts.filter((conflict) => relevantModules.has(conflict.moduleId));
+	if (relevantConflicts.length > 0) {
+		return {
+			code: 1,
+			plan,
+			...resultContext,
+			aborted: 'incomplete',
+			message: `${relevantConflicts.map((conflict) => conflict.message).join('\n')} Nothing was written.`
+		};
+	}
 
 	if (plan.unknownModules.length > 0) {
 		return {

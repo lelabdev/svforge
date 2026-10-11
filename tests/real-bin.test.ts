@@ -273,18 +273,34 @@ describe('real bin — svforge add (#426 review)', () => {
 		rmSync(cwd, { recursive: true, force: true });
 	});
 
-	it('add plan detects installed addons from package.json when the state manifest is stale', () => {
+	it('dependency-only declaration plans and applies the missing add-on scaffold', () => {
 		const cwd = scaffoldedProject(
 			{ schema: 1, template: 'dashboard', modules: [] },
 			{ '@svforge/dnd': COMPAT_MANIFEST.packages['@svforge/dnd'] }
 		);
-		const run = runBin(['add', 'dnd', '--plan', '--json'], cwd);
-		const plan = JSON.parse(run.stdout);
-		expect(run.code).toBe(0);
-		expect(plan.status).toBe('noop');
-		expect(plan.modules.alreadyInstalled).toEqual(['dnd']);
-		expect(plan.commands).toEqual([]);
-		expect(plan.warnings).toContainEqual(expect.stringContaining('package.json declares @svforge/dnd'));
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+		const originalFiles = readdirSync(cwd).sort();
+
+		const planned = runBin(['add', 'dnd', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(planned.stdout);
+		const spec = `@svforge/dnd@${COMPAT_MANIFEST.packages['@svforge/dnd']}`;
+		expect(planned.code).toBe(0);
+		expect(plan.status).toBe('ready');
+		expect(plan.modules.alreadyInstalled).toEqual([]);
+		expect(plan.modules.installOrder).toEqual(['dnd']);
+		expect(plan.commands).toEqual([{
+			executable: stub,
+			args: ['add', spec, '--install', 'npm', '--no-download-check', '--no-git-check'],
+			cwd
+		}]);
+		expect(plan.warnings).toContainEqual(expect.stringContaining('no application record or generated scaffold files exist'));
+		expect(readdirSync(cwd).sort()).toEqual(originalFiles);
+		expect(planned.stubLog).toEqual([]);
+
+		const applied = runBin(['add', 'dnd', '--sv-cmd', stub, '--yes'], cwd);
+		expect(applied.code).toBe(0);
+		expect(applied.stubLog).toEqual([`add ${spec} --install npm --no-download-check --no-git-check`]);
 		rmSync(cwd, { recursive: true, force: true });
 	});
 
@@ -297,8 +313,14 @@ describe('real bin — svforge add (#426 review)', () => {
 		rmSync(cwd, { recursive: true, force: true });
 	});
 
-	it('add plan recognizes already installed modules as an idempotent no-op', () => {
-		const cwd = scaffoldedProject({ schema: 1, template: 'dashboard', modules: ['dnd'] });
+	it('add plan recognizes an application record plus generated files as an idempotent no-op', () => {
+		const cwd = scaffoldedProject(
+			{ schema: 1, template: 'dashboard', modules: ['dnd'] },
+			{ '@svforge/dnd': COMPAT_MANIFEST.packages['@svforge/dnd'] }
+		);
+		const dndFile = join(cwd, 'src/lib/components/svforge/dnd/SortableList.svelte');
+		mkdirSync(join(cwd, 'src/lib/components/svforge/dnd'), { recursive: true });
+		writeFileSync(dndFile, '<!-- installed DnD component -->');
 		const stub = join(cwd, 'stub-sv.sh');
 		writeFileSync(stub, STUB_SV, { mode: 0o755 });
 		const run = runBin(['add', 'dnd', '--sv-cmd', stub, '--plan', '--json'], cwd);
@@ -308,6 +330,24 @@ describe('real bin — svforge add (#426 review)', () => {
 		expect(plan.modules.alreadyInstalled).toEqual(['dnd']);
 		expect(plan.commands).toEqual([]);
 		expect(run.stubLog).toEqual([]);
+		rmSync(cwd, { recursive: true, force: true });
+	});
+
+	it('blocks re-adding a manifest-recorded module when its generated files are missing', () => {
+		const cwd = scaffoldedProject({ schema: 1, template: 'dashboard', modules: ['dnd'] });
+		const stub = join(cwd, 'stub-sv.sh');
+		writeFileSync(stub, STUB_SV, { mode: 0o755 });
+
+		const planned = runBin(['add', 'dnd', '--sv-cmd', stub, '--plan', '--json'], cwd);
+		const plan = JSON.parse(planned.stdout);
+		expect(planned.code).toBe(1);
+		expect(plan.status).toBe('blocked');
+		expect(plan.conflicts).toContainEqual(expect.objectContaining({ code: 'incomplete' }));
+		expect(plan.commands).toEqual([]);
+
+		const applied = runBin(['add', 'dnd', '--sv-cmd', stub, '--yes'], cwd);
+		expect(applied.code).toBe(1);
+		expect(applied.stubLog).toEqual([]);
 		rmSync(cwd, { recursive: true, force: true });
 	});
 });
