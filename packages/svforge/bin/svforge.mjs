@@ -37,10 +37,15 @@ async function realPrompt() {
 				buffer += chunk;
 				if (buffer.includes('\n')) {
 					process.stdin.removeListener('data', onData);
+					// A finished prompt must not keep the CLI alive via stdin.
+					process.stdin.pause();
+					process.stdin.unref?.();
 					resolvePromise(buffer.split('\n')[0].trim());
 				}
 			};
+			process.stdin.ref?.();
 			process.stdin.on('data', onData);
+			process.stdin.resume();
 		});
 	return createCliPrompt(ask);
 }
