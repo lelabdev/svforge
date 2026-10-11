@@ -19,12 +19,17 @@ describe('Changesets release workflow (#555)', () => {
 		expect(config.linked).toEqual([]);
 		expect(config.updateInternalDependencies).toBe('patch');
 		expect(config.changelog).toEqual(['@changesets/changelog-github', { repo: 'lelabdev/svforge' }]);
-		expect(workflow).toContain('changesets/action/version@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d');
+		expect(workflow).toContain('uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d');
+		expect(workflow).not.toContain('changesets/action/version@');
 		expect(workflow).toContain('contents: write');
 		expect(workflow).toContain('pull-requests: write');
-		expect(workflow).toContain('script: bun run changeset:version');
-		expect(workflow).toContain('pr-title: Version Packages');
+		expect(workflow).toContain('version: bun run changeset:version');
+		expect(workflow).toContain('title: Version Packages');
+		expect(workflow).toContain('branch: main');
 		expect(workflow).not.toContain('npm publish');
+		expect(workflow).not.toMatch(/^\s+publish:/m);
+		const rootPackage = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
+		expect(rootPackage.scripts['changeset:version']).toBe('changeset version && bun install --ignore-scripts && bun run --filter svforge prebuild');
 	});
 
 	it('uses Changesets to version explicitly selected independent packages without publishing', () => {
