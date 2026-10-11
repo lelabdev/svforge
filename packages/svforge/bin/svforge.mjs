@@ -290,8 +290,11 @@ async function main() {
 				process.stdout.write(jsonOutput ? `${JSON.stringify(plan, null, 2)}\n` : api.formatCliPlan(plan));
 			} else {
 				if (result.notice) console.log(result.notice);
-				if (result.message) console.error(result.message);
-				if (result.code === 0 && result.plan) {
+				if (result.message) {
+					if (result.code === 0) console.log(result.message);
+					else console.error(result.message);
+				}
+				if (result.code === 0 && result.plan && !result.aborted) {
 					console.log(`\n✓ Project ready in ${result.plan.dir} — run \`${result.plan.pm} run dev\` to start developing.`);
 				}
 			}

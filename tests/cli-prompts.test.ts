@@ -78,6 +78,8 @@ describe('shipped CLI interactive prompt choices (#578)', () => {
 			expect(result.stdout).toContain('Testing:          playwright');
 			expect(result.stdout).toContain('Pre-commit hook:  none');
 			expect(result.stdout).toContain('Modules (0):');
+			expect(result.stdout).toContain('Declined — nothing was created.');
+			expect(result.stdout).not.toContain('Project ready');
 			expect(result.stdout).not.toContain('[object Object]');
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
