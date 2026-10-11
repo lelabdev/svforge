@@ -344,7 +344,7 @@ async function main() {
 		if (!planPath) throw new Error('--plan requires a path.');
 		plan = readPlan(planPath);
 	} else {
-		const commit = process.env.GITHUB_SHA ?? execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
+		const commit = optionValue(args, '--commit') ?? process.env.GITHUB_SHA ?? execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
 		plan = buildReleasePlan(root, commit);
 	}
 

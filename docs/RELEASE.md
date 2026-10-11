@@ -5,16 +5,21 @@ After Changesets are merged to `main`,
 `.github/workflows/version-packages.yml` creates or updates a **human-reviewed
 Version Packages PR**. It never publishes packages. The PR includes independent
 package versions, generated changelog entries, the refreshed compatibility
-manifest, and regenerated upgrade notes. GitHub Actions must be allowed to
-create pull requests in the repository's Actions settings; this change does not
-alter repository-wide permissions.
+manifest, regenerated upgrade notes, and `.changeset/release-candidates.json`.
+That reviewed manifest records the version-bumped packages plus first-time
+package versions absent from npm, and remains stable across retries. GitHub
+Actions must be allowed to create pull requests in the repository's Actions
+settings; this change does not alter repository-wide permissions.
 
 Stable npm publication is handled by `.github/workflows/publish.yml` only
 when a maintainer merges the bot-created `Version Packages` PR from
 `changeset-release/main` into `main`. The release job reruns the blocking
 quality, scaffold, and packed-artifact user-journey gates, then uses the
-Changesets action to publish the selected package versions and create their
-`package@version` Git tags and GitHub Releases. It uses
+Changesets action to publish the selected package versions with automatic tag
+and GitHub Release creation disabled. Only after the exact-version consumer,
+published user journey, and compatibility-manifest golden path all pass does a
+separate finalizer verify the exact npm versions, push `package@version` tags,
+and create GitHub Releases from the package changelogs. It uses
 `secrets.NPM_TOKEN`; OIDC provenance is not enabled. Ordinary merges never
 publish stable packages.
 
@@ -37,11 +42,13 @@ npm dist-tags.
 Every workspace owns its version in `packages/*/package.json`. Changesets uses
 independent mode (no `fixed` or `linked` groups): a package is versioned only
 when selected by its Changeset or by an internal dependency rule. Adoption
-leaves existing manifest versions untouched; some may be prepared for the next
-release but not yet present on npm. The release plan is a validation artifact,
-not a second version-selection or publishing engine: it rejects versions older
-than npm and stale compatibility manifests before the Changesets action runs.
-Do not reset package versions to the registry during migration.
+leaves existing manifest versions untouched. Version preparation adds any
+unchanged package version absent from npm to the candidate manifest so it is
+visible in the human-reviewed Version Packages PR. The stable workflow fails
+closed if that manifest omits a version `changeset publish` would publish. Do
+not reset package versions to the registry during migration. The release plan
+validates registry state, artifact contents, and compatibility-manifest
+freshness without becoming a second version selector.
 
 Each SVForge release still presents a single coherent distribution: the
 unscoped `svforge` package is the public **distribution version** (the one
@@ -134,7 +141,7 @@ Validation cost sits where it belongs:
 | **Push to `main`** (`version-packages.yml`) | Changesets creates or updates the human-reviewed **Version Packages** PR. No npm publication or GitHub Release. |
 | **Pull request** (`ci.yml`) | install, lint, typecheck, OSV audit, Better Auth stack audit, generated-manifest freshness, build, Vitest. **No PostgreSQL, no scaffold, no user journey.** A new push cancels the previous run. |
 | **Push to `main`** (`ci.yml`) | the same fast checks + **one** representative scaffold (`test-scaffold.sh base`). |
-| **Merged Version Packages PR** (`publish.yml`) | the full superset: quality + the 9-profile scaffold matrix + the external user journey + the one-command golden path, all blocking before Changesets publication. |
+| **Merged Version Packages PR** (`publish.yml`) | quality + the 9-profile scaffold matrix + external and published user journeys + the one-command golden path; GitHub Releases are finalized only after all blocking checks pass. |
 | **Weekly** (`ecosystem-drift.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening or updating a deduplicated drift issue on failure. No npm publication. |
 | **npm canary** | deferred; no workflow publishes the `canary` dist-tag until snapshot artifact and compatibility checks are implemented. |
 
@@ -168,7 +175,10 @@ publication, the workflow:
    `dashboard-foundations`, `base-ui-modules`, `dashboard-integrations`,
    `create-cli` — with PostgreSQL for the DB profiles;
 4. verifies npm authentication with `npm whoami`;
-5. generates and prints the complete commit/version/registry plan;
+5. generates and prints the complete commit/version/registry plan, then checks
+   that its publishable versions match the candidate manifest committed in the
+   human-reviewed Version Packages PR. This fails closed if `changeset publish`
+   would include an unselected unpublished package;
 6. verifies read-only npm package access for every already-published package;
    not-yet-created packages are allowed through this gate because
    `npm access list packages` cannot report a package before its first publish;
@@ -189,9 +199,8 @@ publication, the workflow:
    verifies the manifest, runs `svforge verify`, mounts real PostgreSQL, boots
    the app and replays the setup/login/admin flow (#437, #470);
 10. publishes only the versions selected by Changesets through the official
-action, with npm lifecycle scripts disabled because every package was already
-built and tarball-preflighted; package tags/GitHub Releases are created only
-for successful publications;
+action, with automatic GitHub Release creation disabled and npm lifecycle
+scripts disabled because every package was already built and tarball-preflighted;
 11. installs every exact published version in a clean consumer, imports every
     package from a generated TypeScript consumer, and runs `tsc --noEmit` to
     validate package export and declaration resolution;
@@ -199,25 +208,32 @@ for successful publications;
     the release plan (`--published "$VERSION"`), and reruns the golden path
     against the exact per-package versions from the release plan's
     compatibility manifest (`--path create --published "$VERSION"
-    --compat-manifest <plan>`).
+    --compat-manifest <plan>`);
+13. only after all post-publication checks pass, verifies every changed package
+    version exists on npm, then pushes its package tag and creates its GitHub
+    Release from the matching package changelog. The finalizer is idempotent.
 
 The stable publisher uses a repository-global, non-cancelling concurrency
 group. It triggers only for a merged, bot-authored `Version Packages` PR on
 `main`, so ordinary merges and the release PR while it is still open cannot
-publish. Changesets creates tags and GitHub Releases after npm publication;
-there is no parallel manual tag or publisher path. Third-party actions are
-pinned to commit SHAs.
+publish. The Changesets action does not push tags or create GitHub Releases;
+the post-validation finalizer does so only for the changed, registry-verified
+versions. Third-party actions are pinned to commit SHAs.
 
 ## Resuming a failed release
 
-Changesets checks the registry before publishing. A rerun of the merged
-Version Packages workflow therefore skips exact versions already published and
-continues with the remaining versions. The release plan is regenerated on each
-run so access, compatibility, and artifact checks reflect current registry
-state. The post-publication consumer and user-journey gates run again on a
-workflow rerun, including when Changesets has nothing left to publish.
+Changesets checks the registry before publishing. A partial publish failure
+stops the job before post-publication checks, tags, or GitHub Releases. On a
+rerun, Changesets skips exact versions already published and publishes the
+remaining versions. If consumer or golden-path validation fails, no release
+announcement is made. A later rerun validates the exact artifacts again before
+the finalizer resumes; existing tags/releases are verified and never duplicated.
+The release plan is regenerated from the same merged PR commit, while the
+reviewed candidate manifest preserves the original publish set across retries.
+This lets finalization announce packages published by an earlier partial
+attempt without publishing or announcing any unselected version.
 
-An unchanged version produces no publication.
+An unchanged version produces no publication or release announcement.
 
 ## Authentication and permissions
 

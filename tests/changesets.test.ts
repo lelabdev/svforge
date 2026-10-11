@@ -30,10 +30,11 @@ describe('Changesets release workflow (#555)', () => {
 		expect(workflow).not.toContain('npm publish');
 		expect(workflow).not.toMatch(/^\s+publish:/m);
 		const rootPackage = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
-		expect(rootPackage.scripts['changeset:version']).toBe('changeset version && bun install --ignore-scripts && bun run --filter svforge prebuild');
+		expect(rootPackage.scripts['changeset:version']).toBe('node scripts/version-packages.mjs');
 		expect(rootPackage.scripts['changeset:publish']).toBe('changeset publish');
 		expect(publish).toContain('publish: bun run changeset:publish');
-		expect(publish).toContain('createGithubReleases: true');
+		expect(publish).toContain('createGithubReleases: false');
+		expect(publish).toContain('node scripts/finalize-releases.mjs');
 		expect(publish).not.toContain('node scripts/release-plan.mjs --plan /tmp/release-plan.json --publish');
 	});
 
@@ -168,6 +169,7 @@ process.stdout.write(JSON.stringify({ versions: ['${version}'], 'dist-tags': { l
 				updateInternalDependencies: 'patch'
 			}));
 			writeFileSync(join(root, '.changeset/addon-and-cli.md'), '---\n"@svforge/blog": patch\nsvforge: patch\n---\nRefresh the compatibility manifest for the updated blog addon.\n');
+			writeFileSync(join(root, '.changeset/release-candidates.json'), JSON.stringify({ schemaVersion: 1, packages: [] }));
 			execFileSync('git', ['init', '-b', 'main'], { cwd: root, stdio: 'pipe' });
 			execFileSync('git', ['config', 'user.email', 'tests@example.com'], { cwd: root });
 			execFileSync('git', ['config', 'user.name', 'Changesets test'], { cwd: root });
@@ -184,6 +186,7 @@ process.stdout.write(JSON.stringify({ versions: ['${version}'], 'dist-tags': { l
 			expect(compatibility.packages['@svforge/blog']).toBe('2.0.3');
 			expect(compatibility.template.version).toBe('2.1.2');
 			expect(existsSync(join(root, '.changeset/addon-and-cli.md'))).toBe(false);
+			expect(existsSync(join(root, '.changeset/release-candidates.json'))).toBe(true);
 		} finally {
 			rmSync(root, { recursive: true, force: true });
 		}

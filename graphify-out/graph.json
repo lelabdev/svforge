@@ -19741,6 +19741,103 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_finalize_releases",
+      "label": "finalize-releases.mjs",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L10",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_requiresuccess",
+      "label": "requireSuccess()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L16",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_verifyregistryversion",
+      "label": "verifyRegistryVersion()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L24",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_remotetagtarget",
+      "label": "remoteTagTarget()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L41",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_gitobjecttarget",
+      "label": "gitObjectTarget()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L50",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_ensureremotetag",
+      "label": "ensureRemoteTag()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L55",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_validateinputs",
+      "label": "validateInputs()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L74",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_finalizereleases",
+      "label": "finalizeReleases()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L107",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_finalize_releases_optionvalue",
+      "label": "optionValue()",
+      "file_type": "code",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L158",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_gen_modules_table",
       "label": "gen-modules-table.mjs",
       "file_type": "code",
@@ -20064,6 +20161,58 @@
       "file_type": "code",
       "source_file": "scripts/prebuild-utils.ts",
       "source_location": "L31",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_release_candidates",
+      "label": "release-candidates.mjs",
+      "file_type": "code",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_release_candidates_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_release_candidates_rungit",
+      "label": "runGit()",
+      "file_type": "code",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L10",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_release_candidates_manifestat",
+      "label": "manifestAt()",
+      "file_type": "code",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_release_candidates_buildreleasecandidates",
+      "label": "buildReleaseCandidates()",
+      "file_type": "code",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L23",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_release_candidates_optionvalue",
+      "label": "optionValue()",
+      "file_type": "code",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L94",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20771,6 +20920,58 @@
       "file_type": "code",
       "source_file": "scripts/user-journey.mjs",
       "source_location": "L257",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_version_packages",
+      "label": "version-packages.mjs",
+      "file_type": "code",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_version_packages_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_version_packages_readpackageversions",
+      "label": "readPackageVersions()",
+      "file_type": "code",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L10",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_version_packages_selectreleasecandidates",
+      "label": "selectReleaseCandidates()",
+      "file_type": "code",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L26",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_version_packages_isversionpublished",
+      "label": "isVersionPublished()",
+      "file_type": "code",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L39",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_version_packages_prepareversionpackages",
+      "label": "prepareVersionPackages()",
+      "file_type": "code",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L56",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22377,6 +22578,40 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_finalize_releases_test",
+      "label": "finalize-releases.test.ts",
+      "file_type": "code",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_finalize_releases_test_roots",
+      "label": "roots",
+      "file_type": "code",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_finalize_releases_test_git",
+      "label": "git()",
+      "file_type": "code",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_finalize_releases_test_fixture",
+      "label": "fixture()",
+      "file_type": "code",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L18",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_fixtures_checkboxharness",
       "label": "CheckboxHarness.svelte",
       "file_type": "code",
@@ -23577,6 +23812,40 @@
       "file_type": "code",
       "source_file": "tests/realtime.test.ts",
       "source_location": "L36",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_release_candidates_test",
+      "label": "release-candidates.test.ts",
+      "file_type": "code",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_release_candidates_test_roots",
+      "label": "roots",
+      "file_type": "code",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L8",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_release_candidates_test_git",
+      "label": "git()",
+      "file_type": "code",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_release_candidates_test_fixture",
+      "label": "fixture()",
+      "file_type": "code",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L18",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24966,6 +25235,22 @@
       "file_type": "code",
       "source_file": "tests/uuid-id-contracts.test.ts",
       "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_version_packages_test",
+      "label": "version-packages.test.ts",
+      "file_type": "code",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_version_packages_test_roots",
+      "label": "roots",
+      "file_type": "code",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
@@ -26962,7 +27247,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L35",
+      "source_location": "L40",
       "_origin": "ast"
     },
     {
@@ -26971,7 +27256,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L128",
+      "source_location": "L135",
       "_origin": "ast"
     },
     {
@@ -26980,7 +27265,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L141",
+      "source_location": "L148",
       "_origin": "ast"
     },
     {
@@ -26989,7 +27274,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L158",
+      "source_location": "L165",
       "_origin": "ast"
     },
     {
@@ -26998,7 +27283,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L211",
+      "source_location": "L223",
       "_origin": "ast"
     },
     {
@@ -27007,7 +27292,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L222",
+      "source_location": "L238",
       "_origin": "ast"
     },
     {
@@ -27016,7 +27301,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L236",
+      "source_location": "L252",
       "_origin": "ast"
     },
     {
@@ -27025,7 +27310,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L263",
+      "source_location": "L279",
       "_origin": "ast"
     },
     {
@@ -27034,7 +27319,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L289",
+      "source_location": "L305",
       "_origin": "ast"
     },
     {
@@ -66949,6 +67234,315 @@
       "_origin": "ast"
     },
     {
+      "source": "scripts_finalize_releases",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_changelog",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_changelog_parsepackagechangelog",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_requiresuccess",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_verifyregistryversion",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L24",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_remotetagtarget",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_gitobjecttarget",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L50",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_ensureremotetag",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L55",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_validateinputs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L74",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_finalizereleases",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L107",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases",
+      "target": "scripts_finalize_releases_optionvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L158",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_requiresuccess",
+      "target": "scripts_finalize_releases_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_verifyregistryversion",
+      "target": "scripts_finalize_releases_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L25",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_remotetagtarget",
+      "target": "scripts_finalize_releases_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_gitobjecttarget",
+      "target": "scripts_finalize_releases_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_ensureremotetag",
+      "target": "scripts_finalize_releases_remotetagtarget",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L56",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_ensureremotetag",
+      "target": "scripts_finalize_releases_gitobjecttarget",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_finalizereleases",
+      "target": "scripts_finalize_releases_verifyregistryversion",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L115",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_finalizereleases",
+      "target": "scripts_finalize_releases_remotetagtarget",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L116",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_finalizereleases",
+      "target": "scripts_finalize_releases_gitobjecttarget",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L117",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_finalizereleases",
+      "target": "scripts_finalize_releases_requiresuccess",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L118",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_finalizereleases",
+      "target": "scripts_finalize_releases_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L121",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_finalizereleases",
+      "target": "scripts_finalize_releases_validateinputs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L134",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_finalize_releases_finalizereleases",
+      "target": "scripts_finalize_releases_ensureremotetag",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L144",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "scripts_gen_modules_table",
       "target": "ref_node_fs",
       "relation": "imports_from",
@@ -67726,6 +68320,134 @@
       "confidence": "EXTRACTED",
       "source_file": "scripts/prebuild-utils.ts",
       "source_location": "L37",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "scripts_release_candidates_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "scripts_release_candidates_rungit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "scripts_release_candidates_manifestat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "scripts_release_candidates_buildreleasecandidates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L23",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "scripts_release_candidates_optionvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L94",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates_manifestat",
+      "target": "scripts_release_candidates_rungit",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates_buildreleasecandidates",
+      "target": "scripts_release_candidates_manifestat",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L68",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_release_candidates",
+      "target": "scripts_release_candidates_rungit",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "scripts/release-candidates.mjs",
+      "source_location": "L108",
       "weight": 1,
       "_origin": "ast"
     },
@@ -69398,6 +70120,122 @@
       "confidence": "EXTRACTED",
       "source_file": "scripts/user-journey.mjs",
       "source_location": "L268",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "scripts_version_packages_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "scripts_version_packages_readpackageversions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "scripts_version_packages_selectreleasecandidates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L26",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "scripts_version_packages_isversionpublished",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L39",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages",
+      "target": "scripts_version_packages_prepareversionpackages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L56",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages_prepareversionpackages",
+      "target": "scripts_version_packages_readpackageversions",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L61",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_version_packages_prepareversionpackages",
+      "target": "scripts_version_packages_selectreleasecandidates",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/version-packages.mjs",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -75490,6 +76328,135 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_finalize_releases_test",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "scripts_finalize_releases",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "scripts_finalize_releases_finalizereleases",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "tests_finalize_releases_test_roots",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "tests_finalize_releases_test_git",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "tests_finalize_releases_test_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test_fixture",
+      "target": "tests_finalize_releases_test_git",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L21",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_finalize_releases_test",
+      "target": "tests_finalize_releases_test_fixture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/finalize-releases.test.ts",
+      "source_location": "L65",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_fixtures_checkboxharness",
       "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_checkbox",
       "relation": "imports_from",
@@ -79228,6 +80195,135 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/realtime.test.ts",
       "source_location": "L240",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "scripts_release_candidates",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "scripts_release_candidates_buildreleasecandidates",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "tests_release_candidates_test_roots",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "tests_release_candidates_test_git",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "tests_release_candidates_test_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test_fixture",
+      "target": "tests_release_candidates_test_git",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L21",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_release_candidates_test",
+      "target": "tests_release_candidates_test_fixture",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L55",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83284,6 +84380,93 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_version_packages_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_version_packages_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_version_packages_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_version_packages_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_version_packages_test",
+      "target": "scripts_version_packages",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_version_packages_test",
+      "target": "scripts_version_packages_prepareversionpackages",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_version_packages_test",
+      "target": "scripts_version_packages_selectreleasecandidates",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_version_packages_test",
+      "target": "tests_version_packages_test_roots",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/version-packages.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_vite_config_modern_scaffold_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -85967,7 +87150,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L35",
+      "source_location": "L40",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85977,7 +87160,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L128",
+      "source_location": "L135",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85987,7 +87170,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L141",
+      "source_location": "L148",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85997,7 +87180,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L158",
+      "source_location": "L165",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86007,7 +87190,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L211",
+      "source_location": "L223",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86017,7 +87200,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L222",
+      "source_location": "L238",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86027,7 +87210,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L236",
+      "source_location": "L252",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86037,7 +87220,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L263",
+      "source_location": "L279",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86047,7 +87230,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L289",
+      "source_location": "L305",
       "weight": 1,
       "_origin": "ast"
     },
@@ -89380,6 +90563,17 @@
       "_origin": "ast"
     },
     {
+      "source": "scripts_finalize_releases_validateinputs",
+      "target": "scripts_changelog_parsepackagechangelog",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/finalize-releases.mjs",
+      "source_location": "L100",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "scripts_release_plan_buildreleaseplan",
       "target": "scripts_changelog_validatepackagechangelogs",
       "relation": "calls",
@@ -90192,6 +91386,18 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_release_candidates_test",
+      "target": "tests_module_resolver_test_plan",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "tests/release-candidates.test.ts",
+      "source_location": "L72",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_release_plan_test",
       "target": "tests_module_resolver_test_plan",
       "relation": "indirect_call",
@@ -90307,7 +91513,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L77",
+      "source_location": "L84",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90319,7 +91525,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L160",
+      "source_location": "L167",
       "weight": 1,
       "_origin": "ast"
     },
