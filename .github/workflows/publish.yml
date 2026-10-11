@@ -519,10 +519,11 @@ jobs:
       # Only validated packages receive the public `canary` tag. The script
       # restores each previous tag if promotion partially fails.
       - name: Promote validated snapshots to the canary dist-tag
+        id: promote
         working-directory: ${{ runner.temp }}/svforge-canary
         run: node scripts/canary-dist-tags.mjs promote --plan "$RUNNER_TEMP/canary-plan.json"
 
       - name: Remove per-run staging dist-tags
-        if: ${{ always() && steps.pack.outcome == 'success' && steps.publish.outcome != 'skipped' }}
+        if: ${{ always() && steps.promote.outcome == 'success' }}
         working-directory: ${{ runner.temp }}/svforge-canary
         run: node scripts/canary-dist-tags.mjs cleanup --plan "$RUNNER_TEMP/canary-plan.json"
