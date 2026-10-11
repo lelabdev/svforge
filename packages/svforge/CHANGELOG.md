@@ -1,5 +1,11 @@
 # svforge
 
+## 2.1.2
+
+### Patch Changes
+
+- [#561](https://github.com/lelabdev/svforge/pull/561) [`f855f77`](https://github.com/lelabdev/svforge/commit/f855f773287425fba704c00e6c2fefd25f2c23af) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Read package-scoped Changesets release notes when displaying `svforge upgrade` history.
+
 ## 2.1.1 — 2026-10-09
 
 ### Breaking changes

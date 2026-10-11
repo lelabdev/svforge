@@ -1,6 +1,6 @@
 {
 	"name": "svforge",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"type": "module",
 	"description": "Production-ready foundations for SvelteKit projects with Skeleton UI, Tailwind CSS, Better Auth, and Drizzle ORM",
 	"author": "Ludo (https://lelab.dev)",
