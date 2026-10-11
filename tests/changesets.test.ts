@@ -32,8 +32,8 @@ describe('Changesets release workflow (#555)', () => {
 		const rootPackage = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
 		expect(rootPackage.scripts['changeset:version']).toBe('node scripts/version-packages.mjs');
 		expect(rootPackage.scripts['changeset:publish']).toBe('changeset publish');
-		expect(publish).toContain('publish: bun run changeset:publish');
-		expect(publish).toContain('createGithubReleases: false');
+		expect(publish).toContain('run: bun run changeset:publish');
+		expect(publish).not.toContain('createGithubReleases: true');
 		expect(publish).toContain('node scripts/finalize-releases.mjs');
 		expect(publish).not.toContain('node scripts/release-plan.mjs --plan /tmp/release-plan.json --publish');
 	});
