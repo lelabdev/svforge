@@ -25,7 +25,16 @@ describe('Changesets package changelogs (#555)', () => {
 		const archived = parseLegacyChangelog(readFileSync(join(ROOT, 'CHANGELOG.md'), 'utf8'));
 		const migrated = readPackageChangelogs(ROOT);
 
-		expect(migrated).toHaveLength(archived.length);
+		// The root archive is immutable, but Changesets appends new package releases.
+		// Compare only the migrated historical entries; later releases are valid extras.
+		const archivedKeys = new Set(archived.map((entry: { package: string; version: string }) =>
+			`${entry.package}@${entry.version}`
+		));
+		expect(archivedKeys.size).toBe(archived.length);
+		const migratedHistory = migrated.filter((entry: { package: string; version: string }) =>
+			archivedKeys.has(`${entry.package}@${entry.version}`)
+		);
+		expect(migratedHistory).toHaveLength(archived.length);
 		for (const oldEntry of archived) {
 			const newEntry = migrated.find((entry: { package: string; version: string }) =>
 				entry.package === oldEntry.package && entry.version === oldEntry.version
