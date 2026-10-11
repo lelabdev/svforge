@@ -206,7 +206,8 @@ describe('dashboard testing profiles', () => {
 			},
 			isKit: true,
 			directory: { src: 'src', lib: 'src/lib', kitRoutes: 'src/routes' },
-			packageManager: pm,
+			// sv's AgentName type omits the version suffix that runtime supports.
+			packageManager: pm as Parameters<typeof svforgeAddon.run>[0]['packageManager'],
 			options: { template: 'dashboard', testing: 'vitest', hooks: 'none' }
 		});
 
