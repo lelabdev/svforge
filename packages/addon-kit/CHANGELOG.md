@@ -1,5 +1,9 @@
 # @svforge/addon-kit
 
+## 2.2.0
+
+No changes in this release.
+
 ## 2.0.2 — 2026-10-09
 
 ### Breaking changes

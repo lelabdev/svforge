@@ -1,5 +1,15 @@
 # svforge
 
+## 2.2.0
+
+### Minor Changes
+
+- [#566](https://github.com/lelabdev/svforge/pull/566) [`79967a6`](https://github.com/lelabdev/svforge/commit/79967a6f7d9cc9ee2f3b483bd2141cacd589bf6b) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Add side-effect-free, versioned JSON plans for `svforge create` and `svforge add`, including resolved capabilities, exact commands, and compatible package versions.
+
+### Patch Changes
+
+- [#561](https://github.com/lelabdev/svforge/pull/561) [`f855f77`](https://github.com/lelabdev/svforge/commit/f855f773287425fba704c00e6c2fefd25f2c23af) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Read package-scoped Changesets release notes when displaying `svforge upgrade` history.
+
 ## 2.1.1 — 2026-10-09
 
 ### Breaking changes

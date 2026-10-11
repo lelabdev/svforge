@@ -11,6 +11,12 @@ export interface ChangelogEntry {
 export const RELEASE_NOTES: ChangelogEntry[] = [
   {
     "package": "@svforge/addon-kit",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
+  },
+  {
+    "package": "@svforge/addon-kit",
     "version": "2.0.2",
     "date": "2026-10-09",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Compose addon `.env.example` contributions deterministically and reject duplicate keys or invalid values.\n- Validate and atomically update registered UI-library configuration; keep module capabilities consistent with generated blog files.\n\n### Deprecations\n- None."
@@ -23,9 +29,21 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "@svforge/audit",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
+  },
+  {
+    "package": "@svforge/audit",
     "version": "2.0.1",
     "date": "2026-09-12",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Repository metadata republished against the renamed GitHub repo (`lelabdev/svforge`): `repository`, `homepage`, and `bugs` URLs corrected on npm.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/blog",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
   },
   {
     "package": "@svforge/blog",
@@ -41,6 +59,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "@svforge/chat",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
+  },
+  {
+    "package": "@svforge/chat",
     "version": "2.0.2",
     "date": "2026-10-09",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Replace the invalid Skeleton surface hover pairing with a generated utility.\n- Integrate the shared Skeleton-based NotificationsBell in the chat route.\n\n### Deprecations\n- None."
@@ -50,6 +74,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
     "version": "2.0.1",
     "date": "2026-09-12",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Repository metadata republished against the renamed GitHub repo (`lelabdev/svforge`): `repository`, `homepage`, and `bugs` URLs corrected on npm.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/dnd",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
   },
   {
     "package": "@svforge/dnd",
@@ -65,6 +95,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "@svforge/email",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
+  },
+  {
+    "package": "@svforge/email",
     "version": "2.0.2",
     "date": "2026-10-09",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Contribute the mail-provider configuration keys to the composed `.env.example` with documented placeholders.\n\n### Deprecations\n- None."
@@ -74,6 +110,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
     "version": "2.0.1",
     "date": "2026-09-12",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Repository metadata republished against the renamed GitHub repo (`lelabdev/svforge`): `repository`, `homepage`, and `bugs` URLs corrected on npm.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/graph",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
   },
   {
     "package": "@svforge/graph",
@@ -89,9 +131,21 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "@svforge/jobs",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
+  },
+  {
+    "package": "@svforge/jobs",
     "version": "2.0.1",
     "date": "2026-09-12",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Repository metadata republished against the renamed GitHub repo (`lelabdev/svforge`): `repository`, `homepage`, and `bugs` URLs corrected on npm.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/notifications",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
   },
   {
     "package": "@svforge/notifications",
@@ -107,6 +161,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "@svforge/oauth",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
+  },
+  {
+    "package": "@svforge/oauth",
     "version": "2.0.2",
     "date": "2026-10-09",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Contribute OAuth provider keys to the composed `.env.example` with documented placeholders.\n\n### Deprecations\n- None."
@@ -119,9 +179,21 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "@svforge/realtime",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
+  },
+  {
+    "package": "@svforge/realtime",
     "version": "2.0.1",
     "date": "2026-09-12",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Repository metadata republished against the renamed GitHub repo (`lelabdev/svforge`): `repository`, `homepage`, and `bugs` URLs corrected on npm.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/tiptap",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
   },
   {
     "package": "@svforge/tiptap",
@@ -137,9 +209,21 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "@svforge/ui_toast",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
+  },
+  {
+    "package": "@svforge/ui_toast",
     "version": "2.0.1",
     "date": "2026-09-12",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Repository metadata republished against the renamed GitHub repo (`lelabdev/svforge`): `repository`, `homepage`, and `bugs` URLs corrected on npm.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "@svforge/uploads",
+    "version": "2.2.0",
+    "date": "",
+    "body": "No changes in this release."
   },
   {
     "package": "@svforge/uploads",
@@ -152,6 +236,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
     "version": "2.0.1",
     "date": "2026-09-12",
     "body": "### Breaking changes\n- None.\n\n### Migrations\n- None.\n\n### Fixes\n- Repository metadata republished against the renamed GitHub repo (`lelabdev/svforge`): `repository`, `homepage`, and `bugs` URLs corrected on npm.\n\n### Deprecations\n- None."
+  },
+  {
+    "package": "svforge",
+    "version": "2.2.0",
+    "date": "",
+    "body": "### Minor Changes\n\n- [#566](https://github.com/lelabdev/svforge/pull/566) [`79967a6`](https://github.com/lelabdev/svforge/commit/79967a6f7d9cc9ee2f3b483bd2141cacd589bf6b) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Add side-effect-free, versioned JSON plans for `svforge create` and `svforge add`, including resolved capabilities, exact commands, and compatible package versions.\n\n### Patch Changes\n\n- [#561](https://github.com/lelabdev/svforge/pull/561) [`f855f77`](https://github.com/lelabdev/svforge/commit/f855f773287425fba704c00e6c2fefd25f2c23af) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Read package-scoped Changesets release notes when displaying `svforge upgrade` history."
   },
   {
     "package": "svforge",

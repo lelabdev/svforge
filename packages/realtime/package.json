@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/realtime",
-	"version": "2.0.1",
+	"version": "2.2.0",
 	"type": "module",
 	"description": "SVForge Realtime — generic WebSocket transport (publish/subscribe)",
 	"author": "Ludo (https://lelab.dev)",
