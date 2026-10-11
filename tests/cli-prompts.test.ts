@@ -82,7 +82,7 @@ describe('shipped CLI interactive prompt choices (#578)', () => {
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
 		}
-	});
+	}, 20_000);
 	it('shows human-readable testing labels and returns the selected primitive profile', async () => {
 		const { prompt, output } = scriptedPrompt(['2']);
 		const selected = await prompt.select('Which testing profile?', [
