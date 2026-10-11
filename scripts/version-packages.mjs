@@ -44,7 +44,7 @@ export function needsInitialBaseline(packages) {
 	const distribution = packages.find((pkg) => pkg.name === 'svforge');
 	if (distribution?.version !== '2.1.1') return false;
 	if (packages.length !== 15 || packages.some((pkg) =>
-		pkg.private || (pkg.name !== 'svforge' && !/^2\\.0\\.[12]$/.test(pkg.version))
+		pkg.private || (pkg.name !== 'svforge' && !/^2\.0\.[12]$/.test(pkg.version))
 	)) {
 		throw new Error('Initial 2.2.0 release baseline no longer matches the reviewed 15-package starting versions.');
 	}
@@ -66,7 +66,7 @@ export function runChangesetsVersion(root, before, run) {
 	// Use the standard Changesets fixed-group algorithm for ONE version operation;
 	// keep the source config unchanged so the next release is independent.
 	config.fixed = [before.map((pkg) => pkg.name)];
-	writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\\n`);
+	writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`);
 	try {
 		run('bun', ['x', 'changeset', 'version']);
 	} finally {
