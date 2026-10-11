@@ -17,9 +17,9 @@ function plan() {
 }
 
 describe('canary npm dist-tags (#563)', () => {
-	it('stages and promotes only validated snapshots without changing latest', () => {
+	it('stages and promotes canary and dev aliases without changing latest', () => {
 		const tags = new Map<string, Record<string, string>>([
-			['@svforge/addon', { latest: '2.3.0', canary: '0.0.0-canary-old' }],
+			['@svforge/addon', { latest: '2.3.0', canary: '0.0.0-canary-old', dev: '0.0.0-canary-previousdev' }],
 			['svforge', { latest: '2.1.2' }]
 		]);
 		const calls: string[][] = [];
@@ -46,8 +46,8 @@ describe('canary npm dist-tags (#563)', () => {
 		ensureCanaryStagingTags(plan(), npm);
 		promoteCanaryDistTag(plan(), npm);
 		removeCanaryStagingTags(plan(), npm);
-		expect(tags.get('@svforge/addon')).toEqual({ latest: '2.3.0', canary: '0.0.0-canary-abcdef012345-123' });
-		expect(tags.get('svforge')).toEqual({ latest: '2.1.2', canary: '0.0.0-canary-abcdef012345-123' });
+		expect(tags.get('@svforge/addon')).toEqual({ latest: '2.3.0', canary: '0.0.0-canary-abcdef012345-123', dev: '0.0.0-canary-abcdef012345-123' });
+		expect(tags.get('svforge')).toEqual({ latest: '2.1.2', canary: '0.0.0-canary-abcdef012345-123', dev: '0.0.0-canary-abcdef012345-123' });
 		expect(calls.some((args) => args.includes('latest'))).toBe(false);
 	});
 
@@ -74,9 +74,9 @@ describe('canary npm dist-tags (#563)', () => {
 		expect(tags.get('svforge')?.canary).toBe('0.0.0-canary-abcdef012345-122');
 	});
 
-	it('restores the prior canary tags if promotion partially fails', () => {
+	it('restores both canary and dev tags if promotion partially fails', () => {
 		const tags = new Map<string, Record<string, string>>([
-			['@svforge/addon', { latest: '2.3.0', canary: '0.0.0-canary-old' }],
+			['@svforge/addon', { latest: '2.3.0', canary: '0.0.0-canary-old', dev: '0.0.0-canary-previousdev' }],
 			['svforge', { latest: '2.1.2' }]
 		]);
 		let failed = false;
@@ -86,7 +86,7 @@ describe('canary npm dist-tags (#563)', () => {
 			if (args[0] === 'dist-tag' && args[1] === 'add') {
 				const at = args[2].lastIndexOf('@');
 				const name = args[2].slice(0, at);
-				if (args[3] === 'canary' && name === 'svforge' && !failed) {
+				if (args[3] === 'dev' && name === 'svforge' && !failed) {
 					failed = true;
 					return { status: 1, stdout: '', stderr: 'temporary registry failure' };
 				}
@@ -103,9 +103,31 @@ describe('canary npm dist-tags (#563)', () => {
 			return { status: 1, stdout: '', stderr: 'unexpected' };
 		};
 
-		expect(() => promoteCanaryDistTag(plan(), npm)).toThrow(/previous canary tags were restored/i);
+		expect(() => promoteCanaryDistTag(plan(), npm)).toThrow(/previous public tags were restored/i);
 		expect(tags.get('@svforge/addon')?.canary).toBe('0.0.0-canary-old');
+		expect(tags.get('@svforge/addon')?.dev).toBe('0.0.0-canary-previousdev');
 		expect(tags.get('svforge')?.canary).toBeUndefined();
+		expect(tags.get('svforge')?.dev).toBeUndefined();
 		expect(tags.get('svforge')?.latest).toBe('2.1.2');
 	});
+	it('refuses to overwrite a newer dev pointer even when canary is older', () => {
+		const newerVersion = '0.0.0-canary-fedcba987654-999';
+		const tags = new Map<string, Record<string, string>>([
+			['@svforge/addon', { latest: '2.3.0', canary: '0.0.0-canary-abcdef012345-122', dev: newerVersion }],
+			['svforge', { latest: '2.1.2', canary: '0.0.0-canary-abcdef012345-122' }]
+		]);
+		const writes: string[][] = [];
+		const npm: NpmCall = (args) => {
+			if (args[0] === 'view' && args[2] === 'version') {
+				return { status: 0, stdout: JSON.stringify(args[1].split('@').slice(-1)[0]), stderr: '' };
+			}
+			if (args[0] === 'view') return { status: 0, stdout: JSON.stringify(tags.get(args[1]) ?? {}), stderr: '' };
+			writes.push(args);
+			return { status: 0, stdout: '', stderr: '' };
+		};
+		expect(() => promoteCanaryDistTag(plan(), npm)).toThrow(/refusing to replace newer dev/i);
+		expect(writes).toHaveLength(0);
+		expect(tags.get('@svforge/addon')?.dev).toBe(newerVersion);
+	});
+
 });

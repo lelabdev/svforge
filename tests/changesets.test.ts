@@ -147,6 +147,45 @@ process.stdout.write(JSON.stringify({ versions: ['${version}'], 'dist-tags': { l
 		}
 	});
 
+	it('aligns mixed initial package versions to 2.2.0 with a one-time standard fixed group', () => {
+		const root = mkdtempSync(join(tmpdir(), 'svforge-changesets-baseline-'));
+		try {
+			mkdirSync(join(root, '.changeset'), { recursive: true });
+			const group = ['svforge', '@svforge/blog', '@svforge/chat'];
+			for (const [directory, name, version] of [
+				['svforge', 'svforge', '2.1.1'],
+				['blog', '@svforge/blog', '2.0.2'],
+				['chat', '@svforge/chat', '2.0.1']
+			]) {
+				mkdirSync(join(root, 'packages', directory), { recursive: true });
+				writeFileSync(join(root, 'packages', directory, 'package.json'), JSON.stringify({ name, version }));
+			}
+			writeFileSync(join(root, 'package.json'), JSON.stringify({
+				name: 'svforge-baseline-fixture', private: true,
+				packageManager: 'bun@1.3.14', workspaces: ['packages/*']
+			}));
+			writeFileSync(join(root, '.changeset/config.json'), JSON.stringify({
+				baseBranch: 'main', access: 'public', fixed: [group], linked: [],
+				changelog: false, updateInternalDependencies: 'patch'
+			}));
+			writeFileSync(join(root, '.changeset/cli.md'),
+				'---\nsvforge: minor\n---\nNew distribution capability.\n');
+			execFileSync('git', ['init', '-b', 'main'], { cwd: root, stdio: 'pipe' });
+			execFileSync('git', ['config', 'user.email', 'tests@example.com'], { cwd: root });
+			execFileSync('git', ['config', 'user.name', 'Changesets test'], { cwd: root });
+			execFileSync('bun', ['install', '--offline', '--ignore-scripts'], { cwd: root, stdio: 'pipe' });
+			execFileSync('git', ['add', '.'], { cwd: root });
+			execFileSync('git', ['commit', '-m', 'mixed-version baseline'], { cwd: root, stdio: 'pipe' });
+			execFileSync(process.execPath, [CHANGESET_BIN, 'version'], { cwd: root, stdio: 'pipe' });
+			for (const [directory] of [['svforge'], ['blog'], ['chat']]) {
+				const pkg = JSON.parse(readFileSync(join(root, 'packages', directory, 'package.json'), 'utf8'));
+				expect(pkg.version, pkg.name).toBe('2.2.0');
+			}
+		} finally {
+			rmSync(root, { recursive: true, force: true });
+		}
+	});
+
 	it('uses Changesets to version explicitly selected independent packages without publishing', () => {
 		const root = mkdtempSync(join(tmpdir(), 'svforge-changesets-'));
 		try {

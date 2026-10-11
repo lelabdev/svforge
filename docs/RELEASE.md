@@ -26,7 +26,7 @@ publish stable packages.
 The former `.github/workflows/canary.yml` was a weekly upstream drift detector,
 not an npm snapshot publisher; it is now `.github/workflows/ecosystem-drift.yml`
 with its schedule and marker-based issue deduplication preserved. npm snapshots
-use the separate `.github/workflows/canary-snapshots.yml` workflow. It is
+use the separate `.github/workflows/canary-snapshots.yml` workflow. Successful snapshots are exposed under both the `dev` and `canary` npm dist-tags. It is
 **dispatch-only** (no push, pull-request, or schedule trigger), requires the
 explicit `publish-canary` confirmation, and runs against `main` in the
 `npm-canary` GitHub Environment. Before the first dispatch, maintainers must
@@ -63,7 +63,7 @@ registry versions. Only after those gates does Changesets publish the immutable
 versions under a unique `canary-run-<run-id>` staging tag (never `latest` or
 `canary`). The workflow repeats the consumer and golden-path checks against the
 published exact versions, and only then promotes candidate packages to the
-public `canary` dist-tag. Promotion restores previous `canary` pointers if a
+public `canary` and `dev` dist-tags. Promotion restores previous `canary` pointers if a
 multi-package update fails; the per-run staging tags are removed on completion.
 The workflow serializes with stable publication, creates no Git tags/releases,
 and never changes npm `latest`.
@@ -72,11 +72,25 @@ To disable canaries, remove or disable the workflow and remove the `npm-canary`
 Environment secret/reviewer access. If validation fails before promotion, the
 existing `canary` and `latest` tags remain untouched; the staging tag is cleaned
 up by the workflow. If manual recovery is needed, inspect `npm view <package>
-dist-tags --json`, restore the previous pointer with
-`npm dist-tag add <package>@<previous-version> canary` (or remove a newly-created
-pointer with `npm dist-tag rm <package> canary`), and remove any leftover
+dist-tags --json`, restore the previous `canary` **and** `dev` pointers with
+`npm dist-tag add <package>@<previous-version> <tag>` (or remove a newly-created
+pointer with `npm dist-tag rm <package> <tag>`), and remove any leftover
 `canary-run-<run-id>` tag. Stable releases continue to be governed exclusively
 by the reviewed Version Packages flow.
+
+## Stable and development npm channels
+
+- **Stable** is `latest` (`npm install svforge@latest` or simply `npm install svforge`). Only a human-approved **Version Packages** merge can trigger the gated stable workflow.
+- **Development** is `dev` (`npm install svforge@dev`). The existing manual, protected [Canary Snapshots](../.github/workflows/canary-snapshots.yml) action publishes immutable `0.0.0-canary-<sha>-<run>` versions, validates their exact npm artifacts, and points both `dev` and the backward-compatible `canary` aliases at the successful snapshots. Neither alias affects `latest`. The aliases are promoted and restored together if any write fails.
+- A `dev` package set is only available **after** an operator explicitly runs the workflow with `publish-canary` and approves the protected `npm-canary` environment. It is not continuously published on each commit. Addon-only changes yield addon and distribution snapshots as needed for the exact compatibility manifest. The ordinary stable release continues to use Changesets independently.
+
+## One-time 2.2.0 package baseline
+
+The first release after adopting Changesets intentionally publishes all **15** public workspaces at **`2.2.0`**, aligning the initial distribution and addon package numbers. This is a **single release baseline, not ongoing lockstep versioning**.
+
+For that release only, `scripts/version-packages.mjs` temporarily provides Changesets with a fixed group while calculating versions and package changelogs, then restores `.changeset/config.json` before preparing the reviewed Version Packages PR. It refuses any unexpected starting state or a result in which packages do not all reach `2.2.0`. The PR must show all 15 candidates, matching package changelogs and the exact compatibility manifest before human approval. **Do not merge an older Version Packages PR containing mixed `2.0.x` / `2.2.0` versions.** Once this implementation PR is merged, the bot must regenerate #562.
+
+After the `2.2.0` release, `fixed: []` and `linked: []` stay in source: a changed addon gets its own patch/minor/major version, while `svforge` receives a separate small bump when its embedded manifest must be refreshed. Unchanged addons are not republished. This baseline exception is not a reason to set permanent fixed-version groups.
 
 ## Independent versioning
 
