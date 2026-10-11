@@ -236,7 +236,7 @@ describe('external user journey smoke test (#462, #465)', () => {
 		const publish = readFileSync(join(process.cwd(), '.github', 'workflows', 'publish.yml'), 'utf8');
 		const local = publish.indexOf('scripts/test-user-journey.sh');
 		const published = publish.indexOf('scripts/test-user-journey.sh --published');
-		const publishStep = publish.indexOf('name: Publish release plan');
+		const publishStep = publish.indexOf('name: Publish with Changesets');
 
 		expect(local).toBeGreaterThan(-1);
 		expect(published).toBeGreaterThan(local);
@@ -342,7 +342,7 @@ describe('golden path one-command creator (#470)', () => {
 	it('wires the pre-publish golden path before publication and the exact published version after it (#470)', () => {
 		const publish = readFileSync(join(process.cwd(), '.github', 'workflows', 'publish.yml'), 'utf8');
 		const prePublish = publish.indexOf('Golden path (local package)');
-		const publishStep = publish.indexOf('name: Publish release plan');
+		const publishStep = publish.indexOf('name: Publish with Changesets');
 		const postPublish = publish.indexOf('Golden path (published)');
 		expect(prePublish).toBeGreaterThan(-1);
 		expect(postPublish).toBeGreaterThan(-1);

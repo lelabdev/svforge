@@ -9,10 +9,28 @@ manifest, and regenerated upgrade notes. GitHub Actions must be allowed to
 create pull requests in the repository's Actions settings; this change does not
 alter repository-wide permissions.
 
-Stable npm publication remains a separate maintainer-controlled workflow in
-`.github/workflows/publish.yml`. It uses npm token authentication through
-`secrets.NPM_TOKEN`; OIDC provenance is not enabled. Do not publish as part of
-an ordinary change or merge the Version Packages PR without release review.
+Stable npm publication is handled by `.github/workflows/publish.yml` only
+when a maintainer merges the bot-created `Version Packages` PR from
+`changeset-release/main` into `main`. The release job reruns the blocking
+quality, scaffold, and packed-artifact user-journey gates, then uses the
+Changesets action to publish the selected package versions and create their
+`package@version` Git tags and GitHub Releases. It uses
+`secrets.NPM_TOKEN`; OIDC provenance is not enabled. Ordinary merges never
+publish stable packages.
+
+The former `.github/workflows/canary.yml` was a weekly upstream drift detector,
+not an npm snapshot publisher; it is now `.github/workflows/ecosystem-drift.yml`
+with its schedule and marker-based issue deduplication preserved. An npm
+`canary` dist-tag is deliberately **not enabled yet**. A disposable prototype
+confirmed Changesets snapshot mode versions only the selected package and can
+include the source SHA, but the current release plan intentionally rejects
+versions below the stable registry version and requires stable package
+changelog entries. Wiring snapshots
+through a separate compatibility-manifest, registry, tarball, and exact-version
+consumer gate needs its own verified release path. Per the explicit deferral
+path in #549, that work is tracked separately in #563 and is not part of this
+stable release change. Until then, do not publish snapshot versions or alter
+npm dist-tags.
 
 ## Independent versioning
 
@@ -20,9 +38,10 @@ Every workspace owns its version in `packages/*/package.json`. Changesets uses
 independent mode (no `fixed` or `linked` groups): a package is versioned only
 when selected by its Changeset or by an internal dependency rule. Adoption
 leaves existing manifest versions untouched; some may be prepared for the next
-release but not yet present on npm. The registry-aware release plan remains
-authoritative and rejects backward versions. Do not reset package versions to
-the registry during migration.
+release but not yet present on npm. The release plan is a validation artifact,
+not a second version-selection or publishing engine: it rejects versions older
+than npm and stale compatibility manifests before the Changesets action runs.
+Do not reset package versions to the registry during migration.
 
 Each SVForge release still presents a single coherent distribution: the
 unscoped `svforge` package is the public **distribution version** (the one
@@ -115,8 +134,9 @@ Validation cost sits where it belongs:
 | **Push to `main`** (`version-packages.yml`) | Changesets creates or updates the human-reviewed **Version Packages** PR. No npm publication or GitHub Release. |
 | **Pull request** (`ci.yml`) | install, lint, typecheck, OSV audit, Better Auth stack audit, generated-manifest freshness, build, Vitest. **No PostgreSQL, no scaffold, no user journey.** A new push cancels the previous run. |
 | **Push to `main`** (`ci.yml`) | the same fast checks + **one** representative scaffold (`test-scaffold.sh base`). |
-| **Release** (`publish.yml`) | the full superset: quality + the 9-profile scaffold matrix + the external user journey + the one-command golden path, all **blocking** before the first `npm publish`. |
-| **Weekly** (`canary.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening a drift issue on failure. |
+| **Merged Version Packages PR** (`publish.yml`) | the full superset: quality + the 9-profile scaffold matrix + the external user journey + the one-command golden path, all blocking before Changesets publication. |
+| **Weekly** (`ecosystem-drift.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening or updating a deduplicated drift issue on failure. No npm publication. |
+| **npm canary** | deferred; no workflow publishes the `canary` dist-tag until snapshot artifact and compatibility checks are implemented. |
 
 ### Measured CI timing snapshot (2026-10-10)
 
@@ -168,7 +188,10 @@ publication, the workflow:
    (`--addon-root`, never `--dev-root` or the checkout), then the journey
    verifies the manifest, runs `svforge verify`, mounts real PostgreSQL, boots
    the app and replays the setup/login/admin flow (#437, #470);
-10. publishes the plan in dependency order;
+10. publishes only the versions selected by Changesets through the official
+action, with npm lifecycle scripts disabled because every package was already
+built and tarball-preflighted; package tags/GitHub Releases are created only
+for successful publications;
 11. installs every exact published version in a clean consumer, imports every
     package from a generated TypeScript consumer, and runs `tsc --noEmit` to
     validate package export and declaration resolution;
@@ -178,19 +201,23 @@ publication, the workflow:
     compatibility manifest (`--path create --published "$VERSION"
     --compat-manifest <plan>`).
 
-The workflow uses a repository-global concurrency group so a production push
-and a manual dispatch cannot publish simultaneously, even from different refs.
-All third-party actions are pinned to commit SHAs.
+The stable publisher uses a repository-global, non-cancelling concurrency
+group. It triggers only for a merged, bot-authored `Version Packages` PR on
+`main`, so ordinary merges and the release PR while it is still open cannot
+publish. Changesets creates tags and GitHub Releases after npm publication;
+there is no parallel manual tag or publisher path. Third-party actions are
+pinned to commit SHAs.
 
 ## Resuming a failed release
 
-The publish step reads the registry state captured by the plan. It skips an
-exact package version that already exists and publishes the remaining versions.
-A rerun therefore resumes after an intermediate failure instead of attempting
-to republish an immutable npm version. The plan must be regenerated on each
-run so it reflects the current registry state.
+Changesets checks the registry before publishing. A rerun of the merged
+Version Packages workflow therefore skips exact versions already published and
+continues with the remaining versions. The release plan is regenerated on each
+run so access, compatibility, and artifact checks reflect current registry
+state. The post-publication consumer and user-journey gates run again on a
+workflow rerun, including when Changesets has nothing left to publish.
 
-An unchanged version produces no `npm publish` call.
+An unchanged version produces no publication.
 
 ## Authentication and permissions
 
@@ -298,6 +325,6 @@ Where it runs:
 
 | Workflow | Invocation | Purpose |
 |----------|-----------|---------|
-| **Publish** (`publish.yml`) | manual `bash scripts/test-user-journey.sh --hooks lefthook`, then `--path create` (pre-publish, blocking, non-TTY) | the documented two-step install and the one-command golden path from the current packed CLI/add-ons; default hooks omission and explicit Lefthook are covered |
+| **Stable release** (`publish.yml`) | after the merged Version Packages PR: `bash scripts/test-user-journey.sh --hooks lefthook`, then `--path create` (pre-publish, blocking, non-TTY) | the documented two-step install and the one-command golden path from current packed CLI/add-ons; default hooks omission and explicit Lefthook are covered |
 | **Publish, post** (`publish.yml`) | `--published "$VERSION"`, then `--path create --published "$VERSION" --compat-manifest <plan>` | the exact artifact just shipped, at its exact per-package versions |
-| **Canary** (`canary.yml`) | `SV_VERSION=latest bash scripts/test-user-journey.sh` from the `base` matrix entry | real install path against the floating ecosystem `sv` |
+| **Ecosystem drift** (`ecosystem-drift.yml`) | `SV_VERSION=latest bash scripts/test-user-journey.sh` from the `base` matrix entry | real install path against floating ecosystem `sv`; failures update the drift issue, not npm |

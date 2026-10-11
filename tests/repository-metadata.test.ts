@@ -27,12 +27,14 @@ describe('published package metadata (#334)', () => {
 
 		const ciWorkflow = readFileSync(join(ROOT, '.github', 'workflows', 'ci.yml'), 'utf8');
 		const publishWorkflow = readFileSync(join(ROOT, '.github', 'workflows', 'publish.yml'), 'utf8');
-		const canaryWorkflow = readFileSync(join(ROOT, '.github', 'workflows', 'canary.yml'), 'utf8');
+		const ecosystemDriftWorkflow = readFileSync(join(ROOT, '.github', 'workflows', 'ecosystem-drift.yml'), 'utf8');
 		expect(ciWorkflow).toContain('bun-version: 1.3.14');
 		expect(publishWorkflow).toContain('bun-version: 1.3.14');
-		expect(canaryWorkflow).toContain('bun-version: latest');
-		expect(canaryWorkflow).toContain('scripts/canary-issue.mjs');
-		expect(canaryWorkflow).toContain('Open or update drift issue on failure');
+		expect(existsSync(join(ROOT, '.github', 'workflows', 'canary.yml'))).toBe(false);
+		expect(ecosystemDriftWorkflow).toContain('name: Ecosystem Drift');
+		expect(ecosystemDriftWorkflow).toContain('bun-version: latest');
+		expect(ecosystemDriftWorkflow).toContain('scripts/canary-issue.mjs');
+		expect(ecosystemDriftWorkflow).toContain('Open or update drift issue on failure');
 	});
 
 	it('uses an existing package directory in every repository field', () => {

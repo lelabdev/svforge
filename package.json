@@ -18,6 +18,7 @@
     "release:plan": "node scripts/release-plan.mjs",
     "changeset": "changeset",
     "changeset:version": "changeset version && bun install --ignore-scripts && bun run --filter svforge prebuild",
+    "changeset:publish": "changeset publish",
     "changelog:check": "node scripts/changelog.mjs",
     "graphify:update": "graphify update . --no-cluster && node scripts/normalize-graphify.mjs"
   },

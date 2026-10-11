@@ -317,23 +317,6 @@ export function preflightPlan(plan, root = SCRIPT_ROOT, npm = runNpm) {
 	return results;
 }
 
-export function publishPlan(plan, root = SCRIPT_ROOT, npm = runNpm) {
-	for (const pkg of plan.packages) {
-		if (!pkg.registry) {
-			throw new Error('Cannot publish an unchecked release plan; run --check-registry first.');
-		}
-		if (pkg.registry.published) {
-			console.log(`Skipping ${pkg.name}@${pkg.version}: version already exists on npm.`);
-			continue;
-		}
-		console.log(`Publishing ${pkg.name}@${pkg.version} from ${pkg.directory}...`);
-		const result = npm(['publish', '--access', 'public', '--ignore-scripts'], join(root, pkg.directory), {
-			stdio: 'inherit'
-		});
-		if (result.status !== 0) throw new Error(`npm publish failed for ${pkg.name}@${pkg.version}.`);
-	}
-}
-
 function printPlan(plan) {
 	console.log(`Release plan (${plan.versionPolicy} versioning, commit ${plan.commit})`);
 	console.log(JSON.stringify(plan, null, 2));
@@ -350,6 +333,9 @@ function optionValue(args, option) {
 
 async function main() {
 	const args = process.argv.slice(2);
+	if (args.includes('--publish')) {
+		throw new Error('Changesets owns npm publication; use the gated release workflow instead of the removed custom publisher.');
+	}
 	const root = SCRIPT_ROOT;
 	const output = optionValue(args, '--output');
 	let plan;
@@ -365,8 +351,7 @@ async function main() {
 	if (args.includes('--check-registry')) plan = checkRegistry(plan, root);
 	if (args.includes('--check-access')) checkPublishAccess(plan, root);
 	if (args.includes('--preflight')) preflightPlan(plan, root);
-	if (args.includes('--publish')) publishPlan(plan, root);
-	if (!args.includes('--check-registry') && !args.includes('--check-access') && !args.includes('--preflight') && !args.includes('--publish')) {
+	if (!args.includes('--check-registry') && !args.includes('--check-access') && !args.includes('--preflight')) {
 		printPlan(plan, root);
 	}
 	if (output) writeFileSync(resolve(output), `${JSON.stringify(plan, null, 2)}\n`);
