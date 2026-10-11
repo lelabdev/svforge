@@ -81,7 +81,7 @@ export function promoteCanaryDistTag(plan, npm = runNpm) {
 			const current = currentDistTag(pkg, tag, npm);
 			previous.set(`${pkg.name}:${tag}`, current);
 			// A delayed/retried older run must not roll back EITHER public tag.
-			const existingRun = current?.match(/^0\\.0\\.0-canary-[0-9a-f]{12}-(\\d+)$/);
+			const existingRun = current?.match(/^0\.0\.0-canary-[0-9a-f]{12}-(\d+)$/);
 			if (existingRun && BigInt(existingRun[1]) > BigInt(plan.runId)) {
 				throw new Error(`Canary dist-tags: refusing to replace newer ${tag} ${pkg.name}@${current} with older run ${plan.runId}.`);
 			}
@@ -111,7 +111,7 @@ export function promoteCanaryDistTag(plan, npm = runNpm) {
 			}
 		}
 		if (rollbackErrors.length) {
-			throw new Error(`${error.message}\\nCanary/dev dist-tag rollback was incomplete: ${rollbackErrors.join('; ')}`, { cause: error });
+			throw new Error(`${error.message}\nCanary/dev dist-tag rollback was incomplete: ${rollbackErrors.join('; ')}`, { cause: error });
 		}
 		throw new Error(`Canary/dev dist-tag promotion failed; previous public tags were restored: ${error.message}`, { cause: error });
 	}
