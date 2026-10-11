@@ -26,6 +26,8 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 		expect(workflow).not.toMatch(/^\s*(pull_request|push|schedule):/m);
 		expect(workflow).toContain("inputs.confirmation == 'publish-canary'");
 		expect(workflow).toContain('environment: npm-canary');
+		expect(workflow).toContain('queue: max');
+		expect(readFileSync(join(process.cwd(), '.github/workflows/publish.yml'), 'utf8')).toContain('queue: max');
 		expect(workflow).toContain('git archive "${GITHUB_SHA}"');
 		expect(workflow).toContain('bun x changeset publish --tag "canary-run-${GITHUB_RUN_ID}" --no-git-tag');
 		expect(workflow).toContain('node scripts/canary-dist-tags.mjs promote');
