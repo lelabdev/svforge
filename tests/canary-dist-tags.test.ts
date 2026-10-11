@@ -76,7 +76,7 @@ describe('canary npm dist-tags (#563)', () => {
 
 	it('restores both canary and dev tags if promotion partially fails', () => {
 		const tags = new Map<string, Record<string, string>>([
-			['@svforge/addon', { latest: '2.3.0', canary: '0.0.0-canary-old' }],
+			['@svforge/addon', { latest: '2.3.0', canary: '0.0.0-canary-old', dev: '0.0.0-canary-previousdev' }],
 			['svforge', { latest: '2.1.2' }]
 		]);
 		let failed = false;
