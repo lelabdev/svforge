@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "e8cf083c7e39ac2b4e44ff55eca9084b",
+    "ast_hash": "0a59e8810af269c5b766dd59df9db3f2",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -576,7 +576,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte": {
-    "ast_hash": "3b1f9d5c677b94bb814eb3f0c6f01155",
+    "ast_hash": "36a64bf0b285ad2da96a5e1a4362c1c3",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/primitives/Checkbox.svelte": {
@@ -2069,6 +2069,10 @@
   },
   ".changeset/bright-cursors-click.md": {
     "ast_hash": "63bdf7463379064a7e57fc78ee03f231",
+    "semantic_hash": ""
+  },
+  ".changeset/tidy-button-classes.md": {
+    "ast_hash": "6f46a25079bb34d5ee7eb6aa6f14acab",
     "semantic_hash": ""
   }
 }

@@ -122,10 +122,15 @@
 	// #317/#320: Skeleton v5 sizes are btn-xs…btn-9xl — the medium size
 	// utility is `btn-base`; there is no invented medium size (svforge check
 	// rejects it).
-	const sizeClass = $derived(size === 'sm' ? 'btn-sm' : size === 'lg' ? 'btn-lg' : 'btn-base');
-	const presetClass = $derived(presets[variant]?.[color] ?? '');
-	const cursorClass = $derived(inactive ? 'cursor-not-allowed' : 'cursor-pointer');
-	const classes = $derived(cn('btn focus-visible:ring-2 focus-visible:ring-primary-700-300', presetClass, sizeClass, cursorClass, className));
+	const classes = $derived(
+		cn(
+			'btn focus-visible:ring-2 focus-visible:ring-primary-700-300',
+			presets[variant]?.[color] ?? '',
+			size === 'sm' ? 'btn-sm' : size === 'lg' ? 'btn-lg' : 'btn-base',
+			inactive ? 'cursor-not-allowed' : 'cursor-pointer',
+			className
+		)
+	);
 	// Anchors lack a native disabled presentation: reduced styling + pointer
 	// events off stand in for it, aria-disabled announces it to AT.
 	const anchorClasses = $derived(cn(classes, inactive && 'pointer-events-none opacity-50'));

@@ -14448,35 +14448,11 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_sizeclass",
-      "label": "sizeClass",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L125",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_presetclass",
-      "label": "presetClass",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L126",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_cursorclass",
-      "label": "cursorClass",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L127",
-      "_origin": "ast"
-    },
-    {
       "id": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_classes",
       "label": "classes",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L128",
+      "source_location": "L125",
       "_origin": "ast"
     },
     {
@@ -14484,7 +14460,7 @@
       "label": "anchorClasses",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L131",
+      "source_location": "L136",
       "_origin": "ast"
     },
     {
@@ -26277,6 +26253,15 @@
       "_origin": "ast"
     },
     {
+      "id": "changeset_tidy_button_classes",
+      "label": "tidy-button-classes.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/tidy-button-classes.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "agents",
       "label": "AGENTS.md",
       "file_type": "document",
@@ -32435,7 +32420,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
@@ -58269,7 +58255,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
-      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_sizeclass",
+      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_classes",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
@@ -58279,41 +58265,11 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
-      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_presetclass",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L126",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
-      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_cursorclass",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L127",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
-      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_classes",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L128",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
       "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button_anchorclasses",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
-      "source_location": "L131",
+      "source_location": "L136",
       "weight": 1,
       "_origin": "ast"
     },
