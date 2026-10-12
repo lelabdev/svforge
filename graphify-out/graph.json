@@ -22849,6 +22849,23 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_dashboard_trigger_affordance_test",
+      "label": "dashboard-trigger-affordance.test.ts",
+      "file_type": "code",
+      "source_file": "tests/dashboard-trigger-affordance.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_trigger_affordance_test_triggerclasses",
+      "label": "triggerClasses()",
+      "file_type": "code",
+      "source_file": "tests/dashboard-trigger-affordance.test.ts",
+      "source_location": "L5",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_dashboard_vitest_test",
       "label": "dashboard-vitest.test.ts",
       "file_type": "code",
@@ -26249,6 +26266,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/bright-cursors-click.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_bright_dialog_cursors",
+      "label": "bright-dialog-cursors.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/bright-dialog-cursors.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -77894,6 +77920,71 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-playwright.test.ts",
       "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_trigger_affordance_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-trigger-affordance.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_trigger_affordance_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-trigger-affordance.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_trigger_affordance_test",
+      "target": "tests_helpers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-trigger-affordance.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_trigger_affordance_test",
+      "target": "tests_helpers_dashboardtemplatefile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-trigger-affordance.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_trigger_affordance_test",
+      "target": "tests_dashboard_trigger_affordance_test_triggerclasses",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-trigger-affordance.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_trigger_affordance_test",
+      "target": "tests_dashboard_trigger_affordance_test_triggerclasses",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-trigger-affordance.test.ts",
+      "source_location": "L17",
       "weight": 1,
       "_origin": "ast"
     },

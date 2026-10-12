@@ -274,7 +274,7 @@
 										: m.users_modal_deactivate()}
 					</Dialog.Title>
 					<Dialog.CloseTrigger
-						class="btn-icon size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300"
+						class="btn-icon size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300 cursor-pointer"
 						aria-label={m.users_close()}
 						data-testid="users-dialog-close"
 					>
@@ -320,7 +320,7 @@
 							/>
 						{/if}
 						<div class="flex justify-end gap-2 pt-2">
-							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
+							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface cursor-pointer">{m.common_cancel()}</Dialog.CloseTrigger>
 							<Button type="submit" class="min-h-11">{modal === 'create' ? m.users_create() : m.common_save()}</Button>
 						</div>
 					</form>
@@ -336,7 +336,7 @@
 							required
 						/>
 						<div class="flex justify-end gap-2 pt-2">
-							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
+							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface cursor-pointer">{m.common_cancel()}</Dialog.CloseTrigger>
 							<Button type="submit" class="min-h-11">{m.users_invite_btn()}</Button>
 						</div>
 					</form>
@@ -350,7 +350,7 @@
 						<input type="hidden" name="id" value={statusTarget.id} />
 						<input type="hidden" name="disabled" value={String(!statusTarget.disabled)} />
 						<div class="flex justify-end gap-2">
-							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface">{m.common_cancel()}</Dialog.CloseTrigger>
+							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface cursor-pointer">{m.common_cancel()}</Dialog.CloseTrigger>
 							<Button class="min-h-11" color={statusTarget.disabled ? 'success' : 'warning'} type="submit"
 								>{statusTarget.disabled ? m.users_reactivate_btn() : m.users_deactivate_btn()}</Button
 							>

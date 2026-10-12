@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "0a59e8810af269c5b766dd59df9db3f2",
+    "ast_hash": "8ea3c6d025e49ef0678e7d2994cc08a3",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -736,7 +736,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte": {
-    "ast_hash": "da6a353749cb2cc6c04c7d42420f15c3",
+    "ast_hash": "11f5ca893c77243145fd2c1ca6347103",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/AvatarInitial.svelte": {
@@ -852,7 +852,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte": {
-    "ast_hash": "69d51410d7d665e6350d2aa80036f62a",
+    "ast_hash": "bb95a5c9bc497e80cca0ddbb777d1088",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/page.server.test.ts": {
@@ -2073,6 +2073,14 @@
   },
   ".changeset/tidy-button-classes.md": {
     "ast_hash": "6f46a25079bb34d5ee7eb6aa6f14acab",
+    "semantic_hash": ""
+  },
+  "tests/dashboard-trigger-affordance.test.ts": {
+    "ast_hash": "517752d0f4e57b837cf0a8367ca7335a",
+    "semantic_hash": ""
+  },
+  ".changeset/bright-dialog-cursors.md": {
+    "ast_hash": "fdd08c0666fe945dc1f0baf093f852f8",
     "semantic_hash": ""
   }
 }
