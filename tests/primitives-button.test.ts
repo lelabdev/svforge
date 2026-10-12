@@ -150,8 +150,10 @@ describe('Button — button|anchor union (#321)', () => {
 		const anchor = getByRole('link', { name: 'Save' });
 		expect(queryByRole('button')).toBeNull();
 		expect(anchor).toHaveAttribute('aria-disabled', 'true');
-		// Anchors have no native disabled attribute.
+		// Anchors have no native disabled attribute and remain keyboard-focusable.
 		expect(anchor).not.toHaveAttribute('disabled');
+		expect(anchor.tabIndex).toBe(0);
+		expect(anchor).toHaveClass('cursor-not-allowed');
 		expect(anchor.className).toContain('opacity-50');
 		// Anchor-specific attributes stay forwarded on this branch.
 		expect(anchor).toHaveAttribute('target', '_blank');
@@ -190,6 +192,22 @@ describe('Button — button|anchor union (#321)', () => {
 	it('loading label is overridable for context-specific copy', () => {
 		const { getByText } = button({ loading: true, loadingLabel: 'Working…' });
 		expect(getByText('Working…')).toHaveClass('sr-only');
+	});
+
+	it('enabled buttons use a pointer cursor; disabled and loading buttons use a non-interactive cursor', () => {
+		const enabled = button({}).getByRole('button', { name: 'Save' });
+		expect(enabled).toHaveClass('cursor-pointer');
+		expect(enabled).toHaveClass('focus-visible:ring-2');
+		cleanup();
+
+		const disabled = button({ disabled: true }).getByRole('button', { name: 'Save' });
+		expect(disabled).toBeDisabled();
+		expect(disabled).toHaveClass('cursor-not-allowed');
+		cleanup();
+
+		const loading = button({ loading: true }).getByRole('button', { name: /Loading… Save/ });
+		expect(loading).toBeDisabled();
+		expect(loading).toHaveClass('cursor-not-allowed');
 	});
 
 	it('idle buttons do not render the spinner or aria-busy', () => {
@@ -246,6 +264,7 @@ describe('Button — inactive anchor activation gate + button state authority (#
 		const onclick = vi.fn();
 		const { getByRole } = button({ href: '/demo-ui', onclick });
 		const anchor = getByRole('link', { name: 'Save' });
+		expect(anchor).toHaveClass('cursor-pointer');
 		const { preventDefault } = activate(anchor);
 		expect(preventDefault).not.toHaveBeenCalled();
 		expect(onclick).toHaveBeenCalledTimes(1);
