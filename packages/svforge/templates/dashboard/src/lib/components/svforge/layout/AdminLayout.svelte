@@ -96,7 +96,7 @@
 		<header class="sticky top-0 z-50 flex items-center justify-between border-b border-surface-200-800 bg-surface-50-950/80 px-4 py-3 backdrop-blur-md">
 			<div class="flex items-center gap-3">
 				<Dialog.Trigger
-					class="btn-icon size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300 lg:hidden"
+					class="btn-icon size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300 lg:hidden cursor-pointer"
 					aria-label={m.layout_menu()}
 					data-testid="admin-mobile-menu-trigger"
 				>
@@ -142,7 +142,7 @@
 					<Dialog.Title class="h3">{m.layout_admin()}</Dialog.Title>
 					<Dialog.CloseTrigger
 						type="button"
-						class="btn-icon size-11 hover:preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300"
+						class="btn-icon size-11 hover:preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300 cursor-pointer"
 						aria-label={m.layout_close_menu()}
 					>
 						<X size={20} />
