@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { cn } from '$lib/utils/cn';
-	import * as m from '$lib/paraglide/messages.js';
-	import { Check, Warning, X } from '$lib/icons';
-	import { Button } from '$lib/components/svforge/primitives';
+	import { cn } from '#lib/utils/cn.js';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Check, Warning, X } from '#lib/icons/index.js';
+	import { Button } from '#lib/components/svforge/primitives/index.js';
 
 	interface Props {
 		type: 'success' | 'error';

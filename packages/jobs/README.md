@@ -6,7 +6,7 @@ Background job foundation for SvelteKit — retry, progress, atomic claims, and 
 
 ```ts
 // src/lib/server/jobs/handlers.ts (or anywhere server-side)
-import { define } from '$lib/server/jobs';
+import { define } from '#lib/server/jobs/index.js';
 
 define('payroll.export', async (payload, ctx) => {
 	await ctx.progress(10);

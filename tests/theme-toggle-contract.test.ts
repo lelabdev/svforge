@@ -12,7 +12,7 @@ describe('base theme reuse contract (#354)', () => {
 			useFor: [expect.stringContaining('reuse this ThemeToggle')]
 		});
 		expect(baseFiles['/lib/components/svforge/ui/ThemeToggle.svelte']).toContain('localStorage.setItem');
-		expect(navbar).toContain("import ThemeToggle from '$lib/components/svforge/ui/ThemeToggle.svelte'");
+		expect(navbar).toContain("import ThemeToggle from '#lib/components/svforge/ui/ThemeToggle.svelte'");
 		expect(navbar.match(/<ThemeToggle \/>/g)).toHaveLength(2);
 		expect(demo).toContain("import { Alert, Card, Table, ThemeToggle }");
 		expect(demo).toContain('<ThemeToggle />');

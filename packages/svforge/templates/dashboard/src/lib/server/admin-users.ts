@@ -1,5 +1,5 @@
-import { db } from '$lib/server/db';
-import { user, account } from '$lib/server/db/schema';
+import { db } from '#lib/server/db/index.js';
+import { user, account } from '#lib/server/db/schema.js';
 import { eq } from 'drizzle-orm';
 import { hashPassword } from 'better-auth/crypto';
 

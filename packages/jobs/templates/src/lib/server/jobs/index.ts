@@ -1,4 +1,4 @@
-import { db } from '$lib/server/db';
+import { db } from '#lib/server/db/index.js';
 import { jobs } from './schema';
 import { eq, and, or, lt, lte, isNull, inArray, sql, asc } from 'drizzle-orm';
 import { DEFAULT_LEASE_MS, computeBackoffMs } from './leases';

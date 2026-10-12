@@ -49,7 +49,7 @@ export interface RealtimeServerOptions {
 type SocketEntry = { ws: WebSocket; client: RealtimeClient };
 
 /**
- * The realtime hub. Instantiate once in `$lib/server/realtime/index.ts` —
+ * The realtime hub. Instantiate once in `#lib/server/realtime/index.js` —
  * prefer the `createRealtimeHub` factory below.
  */
 export class RealtimeHub {

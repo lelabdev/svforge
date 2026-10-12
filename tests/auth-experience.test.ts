@@ -29,8 +29,8 @@ describe('auth experience (#541)', () => {
 	it('keeps the generated app identity neutral and the existing Logo customizable', () => {
 		expect(logo).toMatch(/brandName\??: string/);
 		expect(logo).not.toMatch(/SVForge|metalFlow|animation:/);
-		expect(login).toMatch(/from '\$lib\/components\/svforge\/layout\/AuthLayout\.svelte'/);
-		expect(setup).toMatch(/from '\$lib\/components\/svforge\/layout\/AuthLayout\.svelte'/);
+		expect(login).toMatch(/from '#lib\/components\/svforge\/layout\/AuthLayout\.svelte'/);
+		expect(setup).toMatch(/from '#lib\/components\/svforge\/layout\/AuthLayout\.svelte'/);
 		expect(read(join(BASE, 'lib/components/svforge/layout/index.ts'))).toMatch(/AuthLayout/);
 	});
 

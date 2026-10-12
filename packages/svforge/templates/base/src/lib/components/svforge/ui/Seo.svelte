@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { resolveAbsoluteUrl } from '$lib/utils/web';
+	import { resolveAbsoluteUrl } from '#lib/utils/web.js';
 
 	interface Props {
 		title: string;

@@ -6,9 +6,9 @@ export default defineConfig({
 	plugins: [svelte()],
 	resolve: {
 		alias: {
-			// SvelteKit resolves $lib via its own plugin; in a bare vitest
-			// environment we must declare it so route tests can import
-			// $lib/server/* modules (#258).
+			'#lib': resolve('src/lib'),
+			// SvelteKit resolves $lib via its own plugin; in a bare Vitest
+			// environment retain its alias for existing Kit 2 test code (#258).
 			$lib: resolve('src/lib')
 		}
 	},

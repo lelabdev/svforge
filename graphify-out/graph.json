@@ -2913,25 +2913,17 @@
     },
     {
       "id": "messages_js",
-      "label": "$lib/paraglide/messages.js",
+      "label": "#lib/paraglide/messages.js",
       "file_type": "code",
-      "source_file": "$lib/paraglide/messages.js",
+      "source_file": "#lib/paraglide/messages.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
-      "id": "ui",
-      "label": "$lib/components/svforge/ui",
+      "id": "lib_components_svforge_ui_index_js_index_js",
+      "label": "ui/index.js",
       "file_type": "code",
-      "source_file": "$lib/components/svforge/ui",
-      "confidence": "EXTRACTED",
-      "_origin": "ast"
-    },
-    {
-      "id": "primitives",
-      "label": "$lib/components/svforge/primitives",
-      "file_type": "code",
-      "source_file": "$lib/components/svforge/primitives",
+      "source_file": "#lib/components/svforge/ui/index.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -3374,18 +3366,18 @@
       "_origin": "ast"
     },
     {
-      "id": "runtime",
-      "label": "$lib/paraglide/runtime",
+      "id": "runtime_js",
+      "label": "#lib/paraglide/runtime.js",
       "file_type": "code",
-      "source_file": "$lib/paraglide/runtime",
+      "source_file": "#lib/paraglide/runtime.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
-      "id": "post_date",
-      "label": "$lib/utils/post-date",
+      "id": "post_date_js",
+      "label": "#lib/utils/post-date.js",
       "file_type": "code",
-      "source_file": "$lib/utils/post-date",
+      "source_file": "#lib/utils/post-date.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -3760,10 +3752,10 @@
       "_origin": "ast"
     },
     {
-      "id": "db",
-      "label": "$lib/server/db",
+      "id": "lib_server_db_index_js_index_js",
+      "label": "db/index.js",
       "file_type": "code",
-      "source_file": "$lib/server/db",
+      "source_file": "#lib/server/db/index.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -3911,6 +3903,14 @@
       "label": "$app/forms",
       "file_type": "code",
       "source_file": "$app/forms",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "lib_components_svforge_primitives_index_js_index_js",
+      "label": "#lib/components/svforge/primitives/index.js",
+      "file_type": "code",
+      "source_file": "#lib/components/svforge/primitives/index.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -4235,10 +4235,10 @@
       "_origin": "ast"
     },
     {
-      "id": "cn",
-      "label": "$lib/utils/cn",
+      "id": "cn_js",
+      "label": "#lib/utils/cn.js",
       "file_type": "code",
-      "source_file": "$lib/utils/cn",
+      "source_file": "#lib/utils/cn.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -5804,14 +5804,6 @@
       "_origin": "ast"
     },
     {
-      "id": "icons",
-      "label": "$lib/icons",
-      "file_type": "code",
-      "source_file": "$lib/icons",
-      "confidence": "EXTRACTED",
-      "_origin": "ast"
-    },
-    {
       "id": "skeleton_svelte",
       "label": "@skeletonlabs/skeleton-svelte",
       "file_type": "code",
@@ -6209,10 +6201,10 @@
       "_origin": "ast"
     },
     {
-      "id": "lib_client_auth_auth",
-      "label": "client/auth",
+      "id": "lib_client_auth_js_auth_js",
+      "label": "client/auth.js",
       "file_type": "code",
-      "source_file": "$lib/client/auth",
+      "source_file": "#lib/client/auth.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -9083,7 +9075,7 @@
       "label": "patchVitestConfig()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L148",
+      "source_location": "L136",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9092,7 +9084,7 @@
       "label": "applyBaseMode()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L172",
+      "source_location": "L173",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9583,10 +9575,10 @@
       "_origin": "ast"
     },
     {
-      "id": "lib_server_auth_auth",
-      "label": "server/auth",
+      "id": "lib_server_auth_js_auth_js",
+      "label": "server/auth.js",
       "file_type": "code",
-      "source_file": "$lib/server/auth",
+      "source_file": "#lib/server/auth.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -14352,17 +14344,17 @@
     },
     {
       "id": "logo_svelte",
-      "label": "$lib/components/svforge/ui/Logo.svelte",
+      "label": "#lib/components/svforge/ui/Logo.svelte",
       "file_type": "code",
-      "source_file": "$lib/components/svforge/ui/Logo.svelte",
+      "source_file": "#lib/components/svforge/ui/Logo.svelte",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
       "id": "themetoggle_svelte",
-      "label": "$lib/components/svforge/ui/ThemeToggle.svelte",
+      "label": "#lib/components/svforge/ui/ThemeToggle.svelte",
       "file_type": "code",
-      "source_file": "$lib/components/svforge/ui/ThemeToggle.svelte",
+      "source_file": "#lib/components/svforge/ui/ThemeToggle.svelte",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -14687,6 +14679,14 @@
       "_origin": "ast"
     },
     {
+      "id": "lib_icons_index_js_index_js",
+      "label": "#lib/icons/index.js",
+      "file_type": "code",
+      "source_file": "#lib/icons/index.js",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_templates_base_src_lib_components_svforge_ui_seo",
       "label": "Seo.svelte",
       "file_type": "code",
@@ -14695,10 +14695,10 @@
       "_origin": "ast"
     },
     {
-      "id": "web",
-      "label": "$lib/utils/web",
+      "id": "web_js",
+      "label": "#lib/utils/web.js",
       "file_type": "code",
-      "source_file": "$lib/utils/web",
+      "source_file": "#lib/utils/web.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -14789,10 +14789,10 @@
       "_origin": "ast"
     },
     {
-      "id": "theme",
-      "label": "$lib/utils/theme",
+      "id": "theme_js",
+      "label": "#lib/utils/theme.js",
       "file_type": "code",
-      "source_file": "$lib/utils/theme",
+      "source_file": "#lib/utils/theme.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -14933,10 +14933,10 @@
       "_origin": "ast"
     },
     {
-      "id": "layout",
-      "label": "$lib/components/svforge/layout",
+      "id": "lib_components_svforge_layout_index_js_index_js",
+      "label": "layout/index.js",
       "file_type": "code",
-      "source_file": "$lib/components/svforge/layout",
+      "source_file": "#lib/components/svforge/layout/index.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -17247,9 +17247,9 @@
     },
     {
       "id": "adminlayout_svelte",
-      "label": "$lib/components/svforge/layout/AdminLayout.svelte",
+      "label": "#lib/components/svforge/layout/AdminLayout.svelte",
       "file_type": "code",
-      "source_file": "$lib/components/svforge/layout/AdminLayout.svelte",
+      "source_file": "#lib/components/svforge/layout/AdminLayout.svelte",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -17387,18 +17387,18 @@
       "_origin": "ast"
     },
     {
-      "id": "admin",
-      "label": "$lib/server/admin",
+      "id": "admin_js",
+      "label": "#lib/server/admin.js",
       "file_type": "code",
-      "source_file": "$lib/server/admin",
+      "source_file": "#lib/server/admin.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
-      "id": "schema",
-      "label": "$lib/server/db/schema",
+      "id": "schema_js",
+      "label": "#lib/server/db/schema.js",
       "file_type": "code",
-      "source_file": "$lib/server/db/schema",
+      "source_file": "#lib/server/db/schema.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -17527,9 +17527,9 @@
     },
     {
       "id": "authlayout_svelte",
-      "label": "$lib/components/svforge/layout/AuthLayout.svelte",
+      "label": "#lib/components/svforge/layout/AuthLayout.svelte",
       "file_type": "code",
-      "source_file": "$lib/components/svforge/layout/AuthLayout.svelte",
+      "source_file": "#lib/components/svforge/layout/AuthLayout.svelte",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -18982,10 +18982,10 @@
       "_origin": "ast"
     },
     {
-      "id": "post_form",
-      "label": "$lib/uploads/post-form",
+      "id": "post_form_js",
+      "label": "#lib/uploads/post-form.js",
       "file_type": "code",
-      "source_file": "$lib/uploads/post-form",
+      "source_file": "#lib/uploads/post-form.js",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -23658,6 +23658,49 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_lib_subpath_imports_test",
+      "label": "lib-subpath-imports.test.ts",
+      "file_type": "code",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_lib_subpath_imports_test_packages",
+      "label": "PACKAGES",
+      "file_type": "code",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_lib_subpath_imports_test_templatesourcefiles",
+      "label": "templateSourceFiles()",
+      "file_type": "code",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L8",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_lib_subpath_imports_test_templatesourcefiles_visit",
+      "label": "visit()",
+      "file_type": "code",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L10",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_lib_subpath_imports_test_capturebasepackagetransform",
+      "label": "captureBasePackageTransform()",
+      "file_type": "code",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L25",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_llms_docs_freshness_test",
       "label": "llms-docs-freshness.test.ts",
       "file_type": "code",
@@ -24869,7 +24912,15 @@
       "_origin": "ast"
     },
     {
-      "id": "tests_stubs_lib_components_svforge_primitives_index",
+      "id": "tests_stubs_lib_components_svforge_primitives_index_js_tests_stubs_lib_components_svforge_primitives_index",
+      "label": "lib/components/svforge/primitives/index.js",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/components/svforge/primitives/index.js",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_components_svforge_primitives_index_ts_tests_stubs_lib_components_svforge_primitives_index",
       "label": "stubs/lib/components/svforge/primitives/index.ts",
       "file_type": "code",
       "source_file": "tests/stubs/lib/components/svforge/primitives/index.ts",
@@ -24881,6 +24932,14 @@
       "label": "icons.ts",
       "file_type": "code",
       "source_file": "tests/stubs/lib/icons.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_icons_index",
+      "label": "lib/icons/index.js",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/icons/index.js",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -25208,7 +25267,15 @@
       "_origin": "ast"
     },
     {
-      "id": "tests_stubs_lib_utils_cn",
+      "id": "tests_stubs_lib_utils_cn_js_tests_stubs_lib_utils_cn",
+      "label": "lib/utils/cn.js",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/utils/cn.js",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_utils_cn_ts_tests_stubs_lib_utils_cn",
       "label": "stubs/lib/utils/cn.ts",
       "file_type": "code",
       "source_file": "tests/stubs/lib/utils/cn.ts",
@@ -25863,7 +25930,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "_origin": "ast"
     },
     {
@@ -25871,7 +25938,7 @@
       "label": "runSv()",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L24",
+      "source_location": "L25",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25880,7 +25947,7 @@
       "label": "ensureBuilt()",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L32",
+      "source_location": "L33",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25889,7 +25956,7 @@
       "label": "realScaffold()",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L40",
+      "source_location": "L41",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25898,7 +25965,7 @@
       "label": "syntaxErrors()",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L51",
+      "source_location": "L52",
       "_callable": true,
       "_origin": "ast"
     },
@@ -26275,6 +26342,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/bright-dialog-cursors.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_quiet_lib_imports",
+      "label": "quiet-lib-imports.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/quiet-lib-imports.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -32448,6 +32524,24 @@
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "index_js",
+      "label": "index_js",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": "",
+      "_origin": "semantic"
+    },
+    {
+      "id": "auth_js",
+      "label": "auth_js",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
@@ -37037,15 +37131,7 @@
     },
     {
       "source": "packages_audit_templates_src_routes_app_admin_audit_page",
-      "target": "ui",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/audit/templates/src/routes/(app)/admin/audit/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_audit_templates_src_routes_app_admin_audit_page",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/audit/templates/src/routes/(app)/admin/audit/+page.svelte",
@@ -37717,7 +37803,7 @@
     },
     {
       "source": "packages_blog_templates_src_routes_blog_page",
-      "target": "ui",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
@@ -37725,7 +37811,7 @@
     },
     {
       "source": "packages_blog_templates_src_routes_blog_page",
-      "target": "primitives",
+      "target": "runtime_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
@@ -37733,15 +37819,7 @@
     },
     {
       "source": "packages_blog_templates_src_routes_blog_page",
-      "target": "runtime",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_blog_templates_src_routes_blog_page",
-      "target": "post_date",
+      "target": "post_date_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/templates/src/routes/blog/+page.svelte",
@@ -37801,7 +37879,7 @@
     },
     {
       "source": "packages_blog_templates_src_routes_blog_slug_page",
-      "target": "runtime",
+      "target": "runtime_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/templates/src/routes/blog/[slug]/+page.svelte",
@@ -37809,7 +37887,7 @@
     },
     {
       "source": "packages_blog_templates_src_routes_blog_slug_page",
-      "target": "post_date",
+      "target": "post_date_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/blog/templates/src/routes/blog/[slug]/+page.svelte",
@@ -38430,7 +38508,7 @@
     },
     {
       "source": "packages_chat_templates_src_lib_server_chat_chat_security_test",
-      "target": "db",
+      "target": "index_js",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/chat/templates/src/lib/server/chat/chat-security.test.ts",
@@ -38646,15 +38724,7 @@
     },
     {
       "source": "packages_chat_templates_src_routes_chat_page",
-      "target": "ui",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/chat/templates/src/routes/chat/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_chat_templates_src_routes_chat_page",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/chat/templates/src/routes/chat/+page.svelte",
@@ -38740,15 +38810,7 @@
     },
     {
       "source": "packages_chat_templates_src_routes_chat_id_page",
-      "target": "primitives",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/chat/templates/src/routes/chat/[id]/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_chat_templates_src_routes_chat_id_page",
-      "target": "ui",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/chat/templates/src/routes/chat/[id]/+page.svelte",
@@ -39209,7 +39271,7 @@
     },
     {
       "source": "packages_dnd_templates_src_lib_components_svforge_dnd_sortablelist",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/dnd/templates/src/lib/components/svforge/dnd/SortableList.svelte",
@@ -41838,15 +41900,7 @@
     },
     {
       "source": "packages_notifications_templates_src_lib_components_svforge_ui_notificationsbell",
-      "target": "primitives",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_notifications_templates_src_lib_components_svforge_ui_notificationsbell",
-      "target": "icons",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte",
@@ -42489,7 +42543,7 @@
     },
     {
       "source": "packages_oauth_templates_src_lib_components_svforge_ui_oauthbuttons",
-      "target": "auth",
+      "target": "auth_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/oauth/templates/src/lib/components/svforge/ui/OAuthButtons.svelte",
@@ -49663,7 +49717,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L148",
+      "source_location": "L136",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49673,7 +49727,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L172",
+      "source_location": "L173",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49684,7 +49738,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L122",
+      "source_location": "L108",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49695,7 +49749,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L124",
+      "source_location": "L110",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49706,7 +49760,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L243",
+      "source_location": "L248",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49717,7 +49771,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L252",
+      "source_location": "L258",
       "weight": 1,
       "_origin": "ast"
     },
@@ -50873,7 +50927,7 @@
     },
     {
       "source": "packages_svforge_src_templates",
-      "target": "auth",
+      "target": "auth_js",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
@@ -58086,7 +58140,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_layout_footer",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/layout/Footer.svelte",
@@ -58110,7 +58164,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_layout_navbar",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/layout/Navbar.svelte",
@@ -58134,7 +58188,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_layout_navbar",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/layout/Navbar.svelte",
@@ -58159,14 +58213,6 @@
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_layout_navbar",
       "target": "messages_js",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/layout/Navbar.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_src_lib_components_svforge_layout_navbar",
-      "target": "icons",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/layout/Navbar.svelte",
@@ -58207,7 +58253,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_badge",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Badge.svelte",
@@ -58301,7 +58347,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte",
@@ -58333,7 +58379,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_checkbox",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Checkbox.svelte",
@@ -58359,7 +58405,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_input",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Input.svelte",
@@ -58393,7 +58439,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_select",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Select.svelte",
@@ -58419,7 +58465,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_textarea",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Textarea.svelte",
@@ -58435,7 +58481,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_primitives_toggle",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/primitives/Toggle.svelte",
@@ -58658,7 +58704,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_alert",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/Alert.svelte",
@@ -58692,7 +58738,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_card",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/Card.svelte",
@@ -58716,7 +58762,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_logo",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/Logo.svelte",
@@ -58724,7 +58770,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_logo",
-      "target": "icons",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/Logo.svelte",
@@ -58740,7 +58786,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_seo",
-      "target": "web",
+      "target": "web_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/Seo.svelte",
@@ -58850,7 +58896,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_table",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/Table.svelte",
@@ -58874,15 +58920,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_themetoggle",
-      "target": "icons",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/ThemeToggle.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_themetoggle",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/ThemeToggle.svelte",
@@ -58898,7 +58936,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_ui_themetoggle",
-      "target": "theme",
+      "target": "theme_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/lib/components/svforge/ui/ThemeToggle.svelte",
@@ -59168,7 +59206,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
-      "target": "runtime",
+      "target": "runtime_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/routes/+layout.svelte",
@@ -59184,7 +59222,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_routes_layout_svelte_packages_svforge_templates_base_src_routes_layout",
-      "target": "layout",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/routes/+layout.svelte",
@@ -59210,15 +59248,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_routes_page",
-      "target": "ui",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/src/routes/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_src_routes_page",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/routes/+page.svelte",
@@ -59226,15 +59256,7 @@
     },
     {
       "source": "packages_svforge_templates_base_src_routes_demo_ui_page",
-      "target": "ui",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/src/routes/demo-ui/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_src_routes_demo_ui_page",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/routes/demo-ui/+page.svelte",
@@ -61033,7 +61055,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_layout_adminlayout",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte",
@@ -61065,15 +61087,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_layout_adminlayout",
-      "target": "icons",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_layout_adminlayout",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte",
@@ -61097,7 +61111,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_ui_avatarinitial",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/AvatarInitial.svelte",
@@ -61105,7 +61119,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_ui_feedback",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/Feedback.svelte",
@@ -61121,15 +61135,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_ui_feedback",
-      "target": "icons",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/Feedback.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_ui_feedback",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/Feedback.svelte",
@@ -63159,7 +63165,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test",
-      "target": "db",
+      "target": "index_js",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/server/signup-mode.test.ts",
@@ -63394,7 +63400,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_layout",
-      "target": "auth",
+      "target": "auth_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/+layout.svelte",
@@ -63465,23 +63471,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_admin_page",
-      "target": "ui",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_page",
-      "target": "primitives",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_page",
-      "target": "icons",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte",
@@ -63559,23 +63549,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_admin_settings_page",
-      "target": "ui",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/settings/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_settings_page",
-      "target": "primitives",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/settings/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_settings_page",
-      "target": "icons",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/settings/+page.svelte",
@@ -63708,23 +63682,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_admin_users_page",
-      "target": "ui",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_users_page",
-      "target": "primitives",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_users_page",
-      "target": "icons",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte",
@@ -63787,7 +63745,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_admin_users_page_server_test",
-      "target": "admin",
+      "target": "admin_js",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/page.server.test.ts",
@@ -63795,7 +63753,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_admin_users_page_server_test",
-      "target": "db",
+      "target": "index_js",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/page.server.test.ts",
@@ -63803,7 +63761,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_admin_users_page_server_test",
-      "target": "schema",
+      "target": "schema_js",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/users/page.server.test.ts",
@@ -63846,7 +63804,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_app_layout_server_test",
-      "target": "admin",
+      "target": "admin_js",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/layout.server.test.ts",
@@ -63870,7 +63828,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_layout_svelte_packages_svforge_templates_dashboard_src_routes_layout",
-      "target": "runtime",
+      "target": "runtime_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/+layout.svelte",
@@ -64066,7 +64024,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_login_page",
-      "target": "ui",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/login/+page.svelte",
@@ -64074,23 +64032,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_login_page",
-      "target": "primitives",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/login/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_login_page",
-      "target": "icons",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/login/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_login_page",
-      "target": "web",
+      "target": "web_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/login/+page.svelte",
@@ -64151,7 +64093,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_login_page_server_test",
-      "target": "auth",
+      "target": "auth_js",
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/login/page.server.test.ts",
@@ -64306,23 +64248,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_routes_setup_page",
-      "target": "ui",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/setup/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_setup_page",
-      "target": "primitives",
-      "relation": "imports_from",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/routes/setup/+page.svelte",
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_routes_setup_page",
-      "target": "icons",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/routes/setup/+page.svelte",
@@ -65026,7 +64952,7 @@
     },
     {
       "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptapeditor",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte",
@@ -65066,7 +64992,7 @@
     },
     {
       "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptappreview",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapPreview.svelte",
@@ -65098,7 +65024,7 @@
     },
     {
       "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptaptoolbar",
-      "target": "primitives",
+      "target": "index_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte",
@@ -65106,7 +65032,7 @@
     },
     {
       "source": "packages_tiptap_templates_src_lib_components_svforge_tiptap_tiptaptoolbar",
-      "target": "cn",
+      "target": "cn_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte",
@@ -66676,7 +66602,7 @@
     },
     {
       "source": "packages_uploads_templates_src_lib_components_svforge_uploads_fileupload",
-      "target": "post_form",
+      "target": "post_form_js",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/lib/components/svforge/uploads/FileUpload.svelte",
@@ -80155,6 +80081,145 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "packages_svforge_src_modes_base",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "packages_svforge_src_modes_base_applybasemode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "tests_lib_subpath_imports_test_packages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "tests_lib_subpath_imports_test_templatesourcefiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test_templatesourcefiles",
+      "target": "tests_lib_subpath_imports_test_templatesourcefiles_visit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "tests_lib_subpath_imports_test_capturebasepackagetransform",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L25",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test_templatesourcefiles",
+      "target": "tests_lib_subpath_imports_test_templatesourcefiles_visit",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test_templatesourcefiles_visit",
+      "target": "tests_lib_subpath_imports_test_templatesourcefiles_visit",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "tests_lib_subpath_imports_test_templatesourcefiles",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
+      "target": "tests_lib_subpath_imports_test_capturebasepackagetransform",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_llms_docs_freshness_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -84374,7 +84439,18 @@
       "_origin": "ast"
     },
     {
-      "source": "tests_stubs_lib_components_svforge_primitives_index",
+      "source": "tests_stubs_lib_components_svforge_primitives_index_js_tests_stubs_lib_components_svforge_primitives_index",
+      "target": "tests_stubs_lib_components_svforge_primitives_index_ts_tests_stubs_lib_components_svforge_primitives_index",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/components/svforge/primitives/index.js",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_components_svforge_primitives_index_ts_tests_stubs_lib_components_svforge_primitives_index",
       "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_badge",
       "relation": "imports_from",
       "context": "re-export",
@@ -84385,7 +84461,7 @@
       "_origin": "ast"
     },
     {
-      "source": "tests_stubs_lib_components_svforge_primitives_index",
+      "source": "tests_stubs_lib_components_svforge_primitives_index_ts_tests_stubs_lib_components_svforge_primitives_index",
       "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_button",
       "relation": "imports_from",
       "context": "re-export",
@@ -84396,7 +84472,7 @@
       "_origin": "ast"
     },
     {
-      "source": "tests_stubs_lib_components_svforge_primitives_index",
+      "source": "tests_stubs_lib_components_svforge_primitives_index_ts_tests_stubs_lib_components_svforge_primitives_index",
       "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_input",
       "relation": "imports_from",
       "context": "re-export",
@@ -84413,6 +84489,17 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/icons.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_icons_index",
+      "target": "tests_stubs_lib_icons",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/icons/index.js",
       "source_location": "L1",
       "weight": 1,
       "_origin": "ast"
@@ -84768,7 +84855,29 @@
       "_origin": "ast"
     },
     {
-      "source": "tests_stubs_lib_utils_cn",
+      "source": "tests_stubs_lib_utils_cn_js_tests_stubs_lib_utils_cn",
+      "target": "tests_stubs_lib_utils_cn_ts_tests_stubs_lib_utils_cn",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/utils/cn.js",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_utils_cn_js_tests_stubs_lib_utils_cn",
+      "target": "tests_stubs_lib_utils_cn_cn",
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/utils/cn.js",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_utils_cn_ts_tests_stubs_lib_utils_cn",
       "target": "tests_stubs_lib_utils_cn_cn",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -87287,7 +87396,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87297,7 +87406,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87307,7 +87416,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87317,7 +87426,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L40",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87327,7 +87436,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87338,7 +87447,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L42",
+      "source_location": "L43",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87350,7 +87459,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L52",
+      "source_location": "L53",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87361,7 +87470,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L61",
+      "source_location": "L62",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87372,7 +87481,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L67",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87383,7 +87492,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L83",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87394,7 +87503,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L94",
+      "source_location": "L104",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93495,6 +93604,39 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_stubs_lib_components_svforge_primitives_index_js_tests_stubs_lib_components_svforge_primitives_index",
+      "target": "tests_stubs_lib_components_svforge_primitives_index_ts_tests_stubs_lib_components_svforge_primitives_index",
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/components/svforge/primitives/index.js",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_icons_index",
+      "target": "tests_stubs_lib_icons",
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/icons/index.js",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_utils_cn_js_tests_stubs_lib_utils_cn",
+      "target": "tests_stubs_lib_utils_cn_ts_tests_stubs_lib_utils_cn",
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/utils/cn.js",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_templates_base_root_eslint_config",
       "target": "packages_svforge_templates_base_root_eslint_plugin_svforge_plugin",
       "relation": "imports",
@@ -93870,7 +94012,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L274",
+      "source_location": "L280",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93882,7 +94024,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L278",
+      "source_location": "L284",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93894,7 +94036,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L284",
+      "source_location": "L290",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93906,7 +94048,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L286",
+      "source_location": "L292",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94363,6 +94505,18 @@
       "confidence_score": 1,
       "source_file": "tests/favicon-delivery.test.ts",
       "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test_capturebasepackagetransform",
+      "target": "packages_svforge_src_modes_base_applybasemode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L34",
       "weight": 1,
       "_origin": "ast"
     },

@@ -21,7 +21,7 @@ export default defineAddon({
 
 	run: ({ sv, cancel, cwd }) => {
 		// Capability gate (#323): KnowledgeGraph imports cn() from the SVForge
-		// base kit ($lib/utils) — the project must provide the ui.svforge kit.
+		// base kit (#lib/utils) — the project must provide the ui.svforge kit.
 		const gate = checkModuleCapabilities(cwd, 'graph');
 		if (!gate.ok) {
 			cancel(gate.message);
@@ -49,7 +49,7 @@ export default defineAddon({
 	nextSteps: () => [
 		'@svforge/graph installed!',
 		'Usage:',
-		"  import { KnowledgeGraph } from '$lib/components/svforge/graph';",
+		"  import { KnowledgeGraph } from '#lib/components/svforge/graph/index.js';",
 		'  <KnowledgeGraph nodes={nodes} links={links} />',
 		'  nodes: { id: string, label?: string, group?: string }[]',
 		'  links: { source: string, target: string }[]'

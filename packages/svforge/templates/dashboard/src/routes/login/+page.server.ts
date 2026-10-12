@@ -1,9 +1,9 @@
 import { redirect } from '@sveltejs/kit';
-import { auth } from '$lib/server/auth';
-import { db } from '$lib/server/db';
-import { user } from '$lib/server/db/schema';
+import { auth } from '#lib/server/auth.js';
+import { db } from '#lib/server/db/index.js';
+import { user } from '#lib/server/db/schema.js';
 import { eq } from 'drizzle-orm';
-import { loginSchema } from '$lib/server/schemas';
+import { loginSchema } from '#lib/server/schemas.js';
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 

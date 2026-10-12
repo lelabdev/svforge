@@ -6,8 +6,8 @@ const { bootstrapFirstAdmin, AdminExistsError } = vi.hoisted(() => {
 });
 
 vi.mock('$app/env', () => ({ dev: true }));
-vi.mock('$lib/server/db', () => ({ db: {} }));
-vi.mock('$lib/server/first-admin', () => ({
+vi.mock('#lib/server/db/index.js', () => ({ db: {} }));
+vi.mock('#lib/server/first-admin.js', () => ({
 	adminExists: vi.fn(),
 	bootstrapFirstAdmin,
 	AdminExistsError

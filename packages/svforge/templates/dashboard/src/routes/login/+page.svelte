@@ -2,12 +2,12 @@
 	import { untrack } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
-	import * as m from '$lib/paraglide/messages.js';
-	import AuthLayout from '$lib/components/svforge/layout/AuthLayout.svelte';
-	import { Feedback } from '$lib/components/svforge/ui';
-	import { Button, Input } from '$lib/components/svforge/primitives';
-	import { Eye, EyeSlash } from '$lib/icons';
-	import { normalizeInternalCallback } from '$lib/utils/web';
+	import * as m from '#lib/paraglide/messages.js';
+	import AuthLayout from '#lib/components/svforge/layout/AuthLayout.svelte';
+	import { Feedback } from '#lib/components/svforge/ui/index.js';
+	import { Button, Input } from '#lib/components/svforge/primitives/index.js';
+	import { Eye, EyeSlash } from '#lib/icons/index.js';
+	import { normalizeInternalCallback } from '#lib/utils/web.js';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();

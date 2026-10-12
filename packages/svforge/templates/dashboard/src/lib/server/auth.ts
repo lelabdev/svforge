@@ -5,10 +5,10 @@ import { sveltekitCookies } from 'better-auth/svelte-kit';
 import * as env from '$app/env/private';
 import { getRequestEvent } from '$app/server';
 import { eq } from 'drizzle-orm';
-import { db } from '$lib/server/db';
-import { user, session, account, verification } from '$lib/server/db/schema';
-import { resolveSignupMode, type SignupMode } from '$lib/server/signup-mode';
-import { acceptInvitation, findValidInvitation } from '$lib/server/invitations';
+import { db } from '#lib/server/db/index.js';
+import { user, session, account, verification } from '#lib/server/db/schema.js';
+import { resolveSignupMode, type SignupMode } from '#lib/server/signup-mode.js';
+import { acceptInvitation, findValidInvitation } from '#lib/server/invitations.js';
 
 /**
  * Public sign-up policy (#318) — resolved once, enforced SERVER-side.

@@ -1,6 +1,6 @@
 <script lang="ts" generics="T extends { id: string | number }">
 	import { draggable, droppable, type DragDropState } from '@thisux/sveltednd';
-	import { cn } from '$lib/utils/cn';
+	import { cn } from '#lib/utils/cn.js';
 	import type { Snippet } from 'svelte';
 
 	interface Props {

@@ -1,8 +1,8 @@
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { getS3 } from '$lib/server/s3';
-import { MAX_FILE_SIZE, MAX_POST_BODY_SIZE } from '$lib/uploads/post-form';
+import { getS3 } from '#lib/server/s3.js';
+import { MAX_FILE_SIZE, MAX_POST_BODY_SIZE } from '#lib/uploads/post-form.js';
 import * as env from '$app/env/private';
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';

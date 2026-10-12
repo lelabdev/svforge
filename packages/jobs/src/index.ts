@@ -34,8 +34,8 @@ export default defineAddon({
 
 		// Register the schema in the Drizzle barrel.
 		sv.file('src/lib/server/db/schema.ts', (content) => {
-			if (hasPatchApplied(content, 'jobs-schema', ["from '$lib/server/jobs/schema'"])) return content;
-			return `import { jobs } from '$lib/server/jobs/schema'; // svforge:patch:jobs-schema\n${content}\nexport { jobs }; // svforge:patch:jobs-schema\n`;
+			if (hasPatchApplied(content, 'jobs-schema', ["from '#lib/server/jobs/schema.js'", "from '$lib/server/jobs/schema'"])) return content;
+			return `import { jobs } from '#lib/server/jobs/schema.js'; // svforge:patch:jobs-schema\n${content}\nexport { jobs }; // svforge:patch:jobs-schema\n`;
 		});
 
 		// #328: the runner is NEVER auto-started in the web runtime (every web
@@ -58,7 +58,7 @@ export default defineAddon({
 	nextSteps: ({ cwd }) => {
 		const steps = [
 			'@svforge/jobs installed!',
-			'Define a handler: import { define } from "$lib/server/jobs";',
+			'Define a handler: import { define } from "#lib/server/jobs/index.js";',
 			'  define("payroll.export", async (payload, ctx) => { await ctx.progress(10); ... return { fileId }; });',
 			'Enqueue: await jobs.enqueue("payroll.export", { organizationId });',
 			'Worker: `bun run jobs:worker` — the web runtime never starts a poller (#328).',

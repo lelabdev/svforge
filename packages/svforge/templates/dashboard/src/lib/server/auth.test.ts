@@ -17,8 +17,8 @@ vi.mock('$app/env/private', async () => {
 
 import { auth } from './auth';
 import { createCredentialUser } from './admin-users';
-import { db } from '$lib/server/db';
-import { session, user } from '$lib/server/db/schema';
+import { db } from '#lib/server/db/index.js';
+import { session, user } from '#lib/server/db/schema.js';
 import { eq, like } from 'drizzle-orm';
 import { runEmailDomain } from './test-db';
 

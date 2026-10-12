@@ -1,9 +1,9 @@
 // @vitest-environment node
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createUploadForm, MAX_FILE_SIZE, MAX_POST_BODY_SIZE } from '$lib/uploads/post-form';
+import { createUploadForm, MAX_FILE_SIZE, MAX_POST_BODY_SIZE } from '#lib/uploads/post-form.js';
 
 // Mock the S3 client and env so the endpoint logic is testable without AWS.
-vi.mock('$lib/server/s3', () => ({
+vi.mock('#lib/server/s3.js', () => ({
 	getS3: () => ({})
 }));
 

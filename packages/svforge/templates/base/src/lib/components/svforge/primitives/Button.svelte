@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { cn } from '$lib/utils/cn';
-	import * as m from '$lib/paraglide/messages.js';
+	import { cn } from '#lib/utils/cn.js';
+	import * as m from '#lib/paraglide/messages.js';
 	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 	import type { ButtonOrAnchorProps } from './types';
 

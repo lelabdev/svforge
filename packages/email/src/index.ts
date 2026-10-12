@@ -43,7 +43,7 @@ export default defineAddon({
 	nextSteps: () => [
 		'@svforge/email installed!',
 		'Copy RESEND_API_KEY from .env.example to .env and replace the placeholder',
-		'Usage: import { sendEmail } from "$lib/server/email"',
+		'Usage: import { sendEmail } from "#lib/server/email.js"',
 		'  await sendEmail({ to: "user@example.com", subject: "Welcome", html: "<h1>Welcome!</h1>" });'
 	]
 });

@@ -54,7 +54,7 @@ export function createDashboardProject(dir: string, options: { messages?: boolea
 	writeFileSync(
 		join(dir, 'src/hooks.server.ts'),
 		[
-			"import { auth } from '$lib/server/auth';",
+			"import { auth } from '#lib/server/auth.js';",
 			'',
 			'export const handle = async ({ event, resolve }) => {',
 			'  const session = await auth.api.getSession({ headers: event.request.headers });',

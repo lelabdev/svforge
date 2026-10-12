@@ -8,11 +8,11 @@ const query = {
 };
 
 vi.mock('$app/env', () => ({ building: false }));
-vi.mock('$lib/paraglide/runtime', () => ({ getTextDirection: vi.fn(() => 'ltr') }));
-vi.mock('$lib/paraglide/server', () => ({
+vi.mock('#lib/paraglide/runtime.js', () => ({ getTextDirection: vi.fn(() => 'ltr') }));
+vi.mock('#lib/paraglide/server.js', () => ({
 	paraglideMiddleware: vi.fn(async (request, next) => next({ request, locale: 'en' }))
 }));
-vi.mock('$lib/server/auth', () => ({
+vi.mock('#lib/server/auth.js', () => ({
 	auth: {
 		api: {
 			getSession: vi.fn(async () => ({
@@ -22,8 +22,8 @@ vi.mock('$lib/server/auth', () => ({
 		}
 	}
 }));
-vi.mock('$lib/server/db', () => ({ db: query }));
-vi.mock('$lib/server/db/schema', () => ({ user: { id: 'id', disabled: 'disabled' } }));
+vi.mock('#lib/server/db/index.js', () => ({ db: query }));
+vi.mock('#lib/server/db/schema.js', () => ({ user: { id: 'id', disabled: 'disabled' } }));
 vi.mock('drizzle-orm', () => ({ eq: vi.fn() }));
 vi.mock('better-auth/svelte-kit', () => ({
 	// Faithful to the real handler: resolve is called with the transform object.

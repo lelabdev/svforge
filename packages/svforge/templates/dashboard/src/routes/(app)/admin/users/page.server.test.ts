@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock the server modules
-vi.mock('$lib/server/db', () => {
+vi.mock('#lib/server/db/index.js', () => {
 	const mockQuery = {
 		select: vi.fn(() => mockQuery),
 		from: vi.fn(() => mockQuery),
@@ -19,13 +19,13 @@ vi.mock('$lib/server/db', () => {
 	return { db: mockQuery };
 });
 
-vi.mock('$lib/server/db/schema', () => ({
+vi.mock('#lib/server/db/schema.js', () => ({
 	user: { id: 'id', email: 'email', name: 'name', disabled: 'disabled' },
 	account: { userId: 'userId' },
 	session: { userId: 'userId' }
 }));
 
-vi.mock('$lib/server/admin', () => ({
+vi.mock('#lib/server/admin.js', () => ({
 	isAdmin: vi.fn()
 }));
 
@@ -48,7 +48,7 @@ describe('admin users +page.server — authorization', () => {
 	});
 
 	it('rejects non-admin users with 403', async () => {
-		const { isAdmin } = await import('$lib/server/admin');
+		const { isAdmin } = await import('#lib/server/admin.js');
 		vi.mocked(isAdmin).mockResolvedValue(false);
 
 		const mod = await import('./+page.server');
@@ -77,7 +77,7 @@ describe('admin users +page.server — validation', () => {
 	});
 
 	it('returns 400 for missing fields on create', async () => {
-		const { isAdmin } = await import('$lib/server/admin');
+		const { isAdmin } = await import('#lib/server/admin.js');
 		vi.mocked(isAdmin).mockResolvedValue(true);
 
 		const mod = await import('./+page.server');
@@ -100,11 +100,11 @@ describe('admin users +page.server — user management', () => {
 	});
 
 	it('deactivates a user without deleting their identity and revokes every session', async () => {
-		const { isAdmin } = await import('$lib/server/admin');
+		const { isAdmin } = await import('#lib/server/admin.js');
 		vi.mocked(isAdmin).mockResolvedValue(true);
 
-		const { db } = await import('$lib/server/db');
-		const { user } = await import('$lib/server/db/schema');
+		const { db } = await import('#lib/server/db/index.js');
+		const { user } = await import('#lib/server/db/schema.js');
 		const { eq } = await import('drizzle-orm');
 		vi.mocked(eq).mockImplementation((column: unknown, value: unknown) => ({ column, value }) as never);
 		const updateWhere = vi.fn();
@@ -135,10 +135,10 @@ describe('admin users +page.server — user management', () => {
 	});
 
 	it('refuses self-deactivation before updating the user or deleting sessions', async () => {
-		const { isAdmin } = await import('$lib/server/admin');
+		const { isAdmin } = await import('#lib/server/admin.js');
 		vi.mocked(isAdmin).mockResolvedValue(true);
 
-		const { db } = await import('$lib/server/db');
+		const { db } = await import('#lib/server/db/index.js');
 		const mod = await import('./+page.server');
 		const formData = new FormData();
 		formData.set('id', 'admin1');
@@ -155,10 +155,10 @@ describe('admin users +page.server — user management', () => {
 	});
 
 	it('reactivates a user without revoking sessions', async () => {
-		const { isAdmin } = await import('$lib/server/admin');
+		const { isAdmin } = await import('#lib/server/admin.js');
 		vi.mocked(isAdmin).mockResolvedValue(true);
 
-		const { db } = await import('$lib/server/db');
+		const { db } = await import('#lib/server/db/index.js');
 		const deleteSession = vi.fn(() => ({ where: vi.fn() }));
 		const updateUser = vi.fn(() => ({ set: vi.fn(() => ({ where: vi.fn() })) }));
 		(db.select as any).mockReturnValueOnce({
@@ -182,10 +182,10 @@ describe('admin users +page.server — user management', () => {
 	});
 
 	it('allows admin to toggle verification (success)', async () => {
-		const { isAdmin } = await import('$lib/server/admin');
+		const { isAdmin } = await import('#lib/server/admin.js');
 		vi.mocked(isAdmin).mockResolvedValue(true);
 
-		const { db } = await import('$lib/server/db');
+		const { db } = await import('#lib/server/db/index.js');
 		// Mock that user exists
 		(db.select as any).mockReturnValueOnce({
 			from: vi.fn(() => ({

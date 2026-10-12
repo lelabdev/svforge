@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { cn } from '$lib/utils/cn';
-	import * as m from '$lib/paraglide/messages.js';
+	import { cn } from '#lib/utils/cn.js';
+	import * as m from '#lib/paraglide/messages.js';
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { Users, Gear, ChartBar, SignOut, Menu, X } from '$lib/icons';
-	import { Button } from '$lib/components/svforge/primitives';
-	import ThemeToggle from '$lib/components/svforge/ui/ThemeToggle.svelte';
+	import { Users, Gear, ChartBar, SignOut, Menu, X } from '#lib/icons/index.js';
+	import { Button } from '#lib/components/svforge/primitives/index.js';
+	import ThemeToggle from '#lib/components/svforge/ui/ThemeToggle.svelte';
 	import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
 	type NavItem = { href: string; label: string; icon: typeof ChartBar };

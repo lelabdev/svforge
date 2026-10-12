@@ -39,7 +39,7 @@ export default defineAddon({
 	nextSteps: () => [
 		'@svforge/dnd installed!',
 		'Usage:',
-		"  import SortableList from '$lib/components/svforge/dnd/SortableList.svelte';",
+		"  import SortableList from '#lib/components/svforge/dnd/SortableList.svelte';",
 		'  <SortableList items={items} onReorder={(v) => items = v}>',
 		'    {#snippet children(item)}<span>{item.title}</span>{/snippet}',
 		'  </SortableList>'

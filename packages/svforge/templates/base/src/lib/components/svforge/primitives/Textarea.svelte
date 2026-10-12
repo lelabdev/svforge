@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '$lib/utils/cn';
+	import { cn } from '#lib/utils/cn.js';
 	import type { HTMLTextareaAttributes } from 'svelte/elements';
 
 	interface Props extends HTMLTextareaAttributes {

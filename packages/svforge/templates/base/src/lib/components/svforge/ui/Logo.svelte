@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { cn } from '$lib/utils/cn';
-	import { SquaresFour } from '$lib/icons';
+	import { cn } from '#lib/utils/cn.js';
+	import { SquaresFour } from '#lib/icons/index.js';
 
 	interface Props {
 		brandName?: string;

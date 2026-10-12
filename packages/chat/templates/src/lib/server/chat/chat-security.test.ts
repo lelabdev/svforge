@@ -17,8 +17,8 @@ vi.mock('$app/env/private', async () => {
 // about the SQL itself (row volume, DISTINCT ON) that results alone cannot.
 const recorded = vi.hoisted(() => [] as { sql: string; params: unknown[] }[]);
 
-vi.mock('$lib/server/db', async (importOriginal) => {
-	const actual = await importOriginal<typeof import('$lib/server/db')>();
+vi.mock('#lib/server/db/index.js', async (importOriginal) => {
+	const actual = await importOriginal<typeof import('#lib/server/db/index.js')>();
 	// Wraps a drizzle query builder: chained builders (objects returned by
 	// .from()/.where()/…) get wrapped too; awaiting (`then`) snapshots the
 	// fully built query first, then delegates to the real execution.
@@ -57,7 +57,7 @@ vi.mock('$lib/server/db', async (importOriginal) => {
 });
 
 import { chat } from './index';
-import { db } from '$lib/server/db';
+import { db } from '#lib/server/db/index.js';
 import { conversations } from './schema';
 
 /**

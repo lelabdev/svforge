@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { cn } from '$lib/utils/cn';
+	import { cn } from '#lib/utils/cn.js';
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
-	import { Button } from '$lib/components/svforge/primitives';
-	import ThemeToggle from '$lib/components/svforge/ui/ThemeToggle.svelte';
-	import Logo from '$lib/components/svforge/ui/Logo.svelte';
-	import * as m from '$lib/paraglide/messages.js';
-	import { Menu, X } from '$lib/icons';
+	import { Button } from '#lib/components/svforge/primitives/index.js';
+	import ThemeToggle from '#lib/components/svforge/ui/ThemeToggle.svelte';
+	import Logo from '#lib/components/svforge/ui/Logo.svelte';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Menu, X } from '#lib/icons/index.js';
 
 	interface Props extends HTMLAttributes<HTMLElement> {
 		brand?: Snippet;

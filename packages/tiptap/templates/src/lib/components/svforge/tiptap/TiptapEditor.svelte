@@ -2,7 +2,7 @@
 	import type { JSONContent } from '@tiptap/core';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/env';
-	import { cn } from '$lib/utils/cn';
+	import { cn } from '#lib/utils/cn.js';
 	import { getToolbarState } from './toolbar-state';
 	import { applyTiptapLink, removeTiptapLink } from './link-actions';
 	import TiptapToolbar from './TiptapToolbar.svelte';

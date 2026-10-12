@@ -1,17 +1,17 @@
-import { db } from '$lib/server/db';
-import { user, session } from '$lib/server/db/schema';
+import { db } from '#lib/server/db/index.js';
+import { user, session } from '#lib/server/db/schema.js';
 import { desc, eq } from 'drizzle-orm';
 import { fail, redirect, error, type Actions } from '@sveltejs/kit';
-import { isAdmin } from '$lib/server/admin';
-import { createCredentialUser, DuplicateEmailError } from '$lib/server/admin-users';
-import { createInvitation, DuplicateInvitationError } from '$lib/server/invitations';
+import { isAdmin } from '#lib/server/admin.js';
+import { createCredentialUser, DuplicateEmailError } from '#lib/server/admin-users.js';
+import { createInvitation, DuplicateInvitationError } from '#lib/server/invitations.js';
 import {
 	createUserSchema,
 	updateUserSchema,
 	toggleUserStatusSchema,
 	toggleVerifySchema,
 	inviteSchema
-} from '$lib/server/schemas';
+} from '#lib/server/schemas.js';
 import type { PageServerLoad } from './$types';
 import type { RequestEvent } from '@sveltejs/kit';
 

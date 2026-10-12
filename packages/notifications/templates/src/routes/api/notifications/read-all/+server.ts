@@ -1,5 +1,5 @@
 import { json, error } from '@sveltejs/kit';
-import { notificationsApi } from '$lib/server/notifications';
+import { notificationsApi } from '#lib/server/notifications/index.js';
 import type { RequestHandler } from './$types';
 
 /** Mark all notifications of the current user as read. */

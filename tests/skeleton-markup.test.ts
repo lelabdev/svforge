@@ -150,7 +150,7 @@ describe('class expression coverage (#320) — assembled classes obey the same r
 
 	it('keeps clean script and expression literals clean (imports, i18n keys, urls)', () => {
 		const violations = checkSvelteMarkup(
-			`<script lang="ts">\n\timport { cn } from '$lib/utils/cn';\n\timport { Switch } from '@skeletonlabs/skeleton-svelte';\n\tconst mode = mode === 'light' ? 'dark' : 'system';\n\tconst classes = $derived(cn('btn', 'preset-filled-primary-500', className));\n</script>\n<button class={classes} type="button">x</button>\n<span class={variant === 'info' ? 'preset-tonal-primary' : 'preset-tonal-error'}>x</span>`,
+			`<script lang="ts">\n\timport { cn } from '#lib/utils/cn.js';\n\timport { Switch } from '@skeletonlabs/skeleton-svelte';\n\tconst mode = mode === 'light' ? 'dark' : 'system';\n\tconst classes = $derived(cn('btn', 'preset-filled-primary-500', className));\n</script>\n<button class={classes} type="button">x</button>\n<span class={variant === 'info' ? 'preset-tonal-primary' : 'preset-tonal-error'}>x</span>`,
 			CTX
 		);
 		expect(violations).toEqual([]);

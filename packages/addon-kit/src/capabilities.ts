@@ -108,7 +108,7 @@ export const CAPABILITIES: Record<Capability, CapabilityInfo> = {
 		remedy: 'install the SvelteForge dashboard template (`sv add svforge=template:dashboard`) or set up Better Auth in your project'
 	},
 	'auth.admin': {
-		title: 'Admin role helpers ($lib/server/admin)',
+		title: 'Admin role helpers (#lib/server/admin.js)',
 		description: 'role helpers such as isAdmin() guarding admin-only routes',
 		remedy: 'install the SvelteForge dashboard template (`sv add svforge=template:dashboard`) or provide your own src/lib/server/admin module exporting isAdmin()'
 	},
@@ -377,7 +377,7 @@ export function detectCapability(token: Capability, project: ProjectSnapshot): D
 		}
 		case 'auth.admin':
 			// SVForge contract file — an external implementation vendors the same
-			// path (the module imports $lib/server/admin).
+			// path (the module imports #lib/server/admin.js).
 			return project.hasFile(
 				'src/lib/server/admin.ts',
 				'src/lib/server/admin.js',

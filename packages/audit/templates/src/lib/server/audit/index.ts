@@ -1,4 +1,4 @@
-import { db } from '$lib/server/db';
+import { db } from '#lib/server/db/index.js';
 import { auditLogs } from './schema';
 import { desc, eq, and } from 'drizzle-orm';
 

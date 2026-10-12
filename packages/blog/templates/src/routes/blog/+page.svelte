@@ -1,9 +1,9 @@
 <script lang="ts">
-import { Card } from '$lib/components/svforge/ui';
-import { Badge } from '$lib/components/svforge/primitives';
-import { getLocale, localizeHref } from '$lib/paraglide/runtime';
-import { formatPostDate } from '$lib/utils/post-date';
-import * as m from '$lib/paraglide/messages.js';
+import { Card } from '#lib/components/svforge/ui/index.js';
+import { Badge } from '#lib/components/svforge/primitives/index.js';
+import { getLocale, localizeHref } from '#lib/paraglide/runtime.js';
+import { formatPostDate } from '#lib/utils/post-date.js';
+import * as m from '#lib/paraglide/messages.js';
 let { data } = $props();
 </script>
 

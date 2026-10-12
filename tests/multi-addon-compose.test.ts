@@ -140,7 +140,7 @@ describe('multi-addon composition in one sv add invocation', () => {
 		);
 		expect(
 			readFileSync(join(dir, 'src/lib/components/svforge/ui/NotificationsBell.svelte'), 'utf8')
-		).toContain("import { Bell } from '$lib/icons'");
+		).toContain("import { Bell } from '#lib/icons/index.js'");
 
 		const second = await runAddons(dir, ['audit', 'notifications', 'uploads']);
 		expect(second.cancelled).toEqual([]);

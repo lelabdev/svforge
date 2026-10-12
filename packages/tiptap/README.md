@@ -18,7 +18,7 @@ Supported: `long-lived-node`, `serverless`, `edge`, `separate-worker`. Unsupport
 
 ```svelte
 <script>
-  import { TiptapEditor } from '$lib/components/svforge/tiptap';
+  import { TiptapEditor } from '#lib/components/svforge/tiptap/index.js';
   import type { JSONContent } from '@tiptap/core';
 
   let content = $state<JSONContent>({ type: 'doc', content: [] });
@@ -34,7 +34,7 @@ Supported: `long-lived-node`, `serverless`, `edge`, `separate-worker`. Unsupport
 
 ```svelte
 <script>
-  import { TiptapPreview } from '$lib/components/svforge/tiptap';
+  import { TiptapPreview } from '#lib/components/svforge/tiptap/index.js';
 </script>
 
 <TiptapPreview content={savedContent} />
@@ -44,7 +44,7 @@ Supported: `long-lived-node`, `serverless`, `edge`, `separate-worker`. Unsupport
 
 ```svelte
 <script>
-  import { TiptapEditor, TiptapPreview } from '$lib/components/svforge/tiptap';
+  import { TiptapEditor, TiptapPreview } from '#lib/components/svforge/tiptap/index.js';
   import type { JSONContent } from '@tiptap/core';
 
   let content = $state<JSONContent>({

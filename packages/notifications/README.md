@@ -20,7 +20,7 @@ Supported: `long-lived-node`, `serverless`. Unsupported: `edge`, `separate-worke
 ## Create
 
 ```ts
-import { notificationsApi } from '$lib/server/notifications';
+import { notificationsApi } from '#lib/server/notifications/index.js';
 
 await notificationsApi.create({
 	userId,
@@ -58,7 +58,7 @@ After a successful persist, publish a lightweight event — the client
 refetches; the DB stays the source of truth:
 
 ```ts
-import { realtime } from '$lib/server/realtime';
+import { realtime } from '#lib/server/realtime/index.js';
 await notificationsApi.create({ ... });
 await realtime.publish({ channel: `user:${userId}`, event: 'notification.created', payload: { notificationId } });
 ```
@@ -78,9 +78,9 @@ For specific types only (never all notifications): a job/route can check the
 
 ## What's included
 
-- `$lib/server/notifications/schema.ts` — Drizzle schema (`notifications`)
-- `$lib/server/notifications/index.ts` — create/list/unreadCount/markAsRead/markAllAsRead
-- `$lib/components/svforge/ui/NotificationsBell.svelte` — bell + badge + list
+- `src/lib/server/notifications/schema.ts` — Drizzle schema (`notifications`)
+- `src/lib/server/notifications/index.ts` — create/list/unreadCount/markAsRead/markAllAsRead
+- `src/lib/components/svforge/ui/NotificationsBell.svelte` — bell + badge + list
 - `src/routes/api/notifications/read-all/+server.ts` — mark-all endpoint
 
 ## Limits (v1)

@@ -3,10 +3,10 @@
 	import { page } from '$app/state';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '$app/forms';
-	import * as m from '$lib/paraglide/messages.js';
-	import { AvatarInitial, Card, Feedback, Table } from '$lib/components/svforge/ui';
-	import { Badge, Button, Input } from '$lib/components/svforge/primitives';
-	import { UserPlus, EnvelopeSimple, Power, Pencil, X } from '$lib/icons';
+	import * as m from '#lib/paraglide/messages.js';
+	import { AvatarInitial, Card, Feedback, Table } from '#lib/components/svforge/ui/index.js';
+	import { Badge, Button, Input } from '#lib/components/svforge/primitives/index.js';
+	import { UserPlus, EnvelopeSimple, Power, Pencil, X } from '#lib/icons/index.js';
 	import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
 	let { data }: { data: PageData } = $props();

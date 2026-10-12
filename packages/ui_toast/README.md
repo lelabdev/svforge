@@ -18,7 +18,7 @@ Add `<Toaster />` to your root layout:
 
 ```svelte
 <script>
-  import { Toaster } from '$lib/components/svforge/ui/Toaster.svelte';
+  import { Toaster } from '#lib/components/svforge/ui/Toaster.svelte';
 </script>
 
 {@render children()}
@@ -28,7 +28,7 @@ Add `<Toaster />` to your root layout:
 Trigger toasts from anywhere:
 
 ```ts
-import { toaster } from '$lib/components/svforge/ui/toaster';
+import { toaster } from '#lib/components/svforge/ui/toaster.js';
 
 toaster.success({ title: 'Saved!', description: 'Your changes have been saved.' });
 toaster.error({ title: 'Error', description: 'Something went wrong.' });
