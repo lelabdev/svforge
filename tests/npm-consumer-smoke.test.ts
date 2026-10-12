@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { describe, expect, it, vi } from 'vitest';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
@@ -129,6 +129,45 @@ describe('npm consumer smoke test (#330)', () => {
 		const post: string[] = [];
 		await waitForRegistryAvailability(plan, { registryOnly: true, probe: (spec: string) => { post.push(spec); return true; } });
 		expect(post).toEqual(['@svforge/changed@0.0.0-canary.1', '@svforge/unchanged@2.2.0']);
+	});
+
+	it('uses a fresh temporary npm cache for each registry visibility probe', () => {
+		const dirs: string[] = [];
+		const fake = ((_npm: string, args: string[]) => {
+			const idx = args.indexOf('--cache');
+			expect(idx).toBeGreaterThan(0);
+			const cache = args[idx + 1];
+			dirs.push(cache);
+			expect(existsSync(cache)).toBe(true);
+			expect(args).toContain('--prefer-online');
+			return '"2.2.1"';
+		}) as unknown as Parameters<typeof registryVersionVisible>[2];
+		expect(registryVersionVisible('svforge@2.2.1', 'npm', fake)).toBe(true);
+		expect(registryVersionVisible('svforge@2.2.1', 'npm', fake)).toBe(true);
+		expect(new Set(dirs).size).toBe(2);
+		for (const dir of dirs) expect(existsSync(dir)).toBe(false);
+	});
+
+	it('logs unexpected npm version responses instead of silently retrying forever', () => {
+		const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+		try {
+			const fake = (() => '"2.2.0"') as unknown as Parameters<typeof registryVersionVisible>[2];
+			expect(registryVersionVisible('svforge@2.2.1', 'npm', fake)).toBe(false);
+			expect(log).toHaveBeenCalledWith(expect.stringContaining('npm view returned "2.2.0"'));
+		} finally {
+			log.mockRestore();
+		}
+	});
+
+	it('cleans up the temporary cache even when npm fails unexpectedly', () => {
+		let cache = '';
+		const fake = ((_npm: string, args: string[]) => {
+			cache = args[args.indexOf('--cache') + 1];
+			throw Object.assign(new Error('access denied'), { stderr: 'npm error code E401' });
+		}) as unknown as Parameters<typeof registryVersionVisible>[2];
+		expect(() => registryVersionVisible('svforge@2.2.1', 'npm', fake)).toThrow(/Registry lookup failed/);
+		expect(cache).not.toBe('');
+		expect(existsSync(cache)).toBe(false);
 	});
 
 	it('distinguishes a missing npm version from credentials and server failures', () => {
