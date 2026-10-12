@@ -2,4 +2,4 @@
 "svforge": patch
 ---
 
-Honor the interactive “All modules” option's implied dashboard template even when the earlier menu selected Base, while preserving rejection of an explicit `--template base --modules all`.
+Filter the interactive module picker by the chosen template's actual capabilities. Base stays simple with only compatible optional modules; All modules is available only on Dashboard, which already includes Better Auth and PostgreSQL.
