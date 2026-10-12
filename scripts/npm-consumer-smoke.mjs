@@ -91,16 +91,29 @@ export function runTypecheck(consumerRoot, tsc = join(consumerRoot, 'node_module
  * remain fatal so the gate does not conceal broken releases.
  */
 export function registryVersionVisible(spec, npm = 'npm', run = execFileSync) {
+	// An earlier preflight may have cached a negative npm metadata lookup before
+	// Changesets published the version. A new cache per probe guarantees that
+	// repeating `npm view` does not just reread the same stale local response.
+	const cacheDir = mkdtempSync(join(tmpdir(), 'svforge-registry-probe-'));
 	try {
-		const output = run(npm, ['view', spec, 'version', '--json', '--prefer-online'], {
+		const output = run(npm, ['view', spec, 'version', '--json', '--prefer-online', '--cache', cacheDir], {
 			encoding: 'utf8',
 			stdio: ['ignore', 'pipe', 'pipe']
 		});
-		return JSON.parse(String(output).trim()) === spec.slice(spec.lastIndexOf('@') + 1);
+		const observed = JSON.parse(String(output).trim());
+		const expected = spec.slice(spec.lastIndexOf('@') + 1);
+		if (observed === expected) return true;
+		console.log(`Registry not ready for ${spec}: npm view returned ${JSON.stringify(observed).slice(0, 250)}`);
+		return false;
 	} catch (error) {
 		const details = [error?.stderr, error?.stdout, error?.message].filter(Boolean).map(String).join('\n');
-		if (/\b(?:E404|ETARGET)\b|404 Not Found|No matching version found|No match found for version/i.test(details)) return false;
+		if (/\b(?:E404|ETARGET)\b|404 Not Found|No matching version found|No match found for version/i.test(details)) {
+			console.log(`Registry not ready for ${spec}: npm view reported E404/ETARGET`);
+			return false;
+		}
 		throw new Error(`Registry lookup failed for ${spec}: ${details.slice(0, 700)}`, { cause: error });
+	} finally {
+		rmSync(cacheDir, { recursive: true, force: true });
 	}
 }
 
@@ -114,8 +127,8 @@ export function registryVersionVisible(spec, npm = 'npm', run = execFileSync) {
  */
 export async function waitForRegistryAvailability(plan, {
 	registryOnly = false,
-	maxAttempts = 24,
-	intervalMs = 5000,
+	maxAttempts = 60,
+	intervalMs = 10000,
 	probe = registryVersionVisible,
 	pause = sleep
 } = {}) {

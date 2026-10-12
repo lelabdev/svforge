@@ -22,6 +22,16 @@ published user journey, and compatibility-manifest golden path all pass does a
 separate finalizer verify the exact npm versions, push `package@version` tags,
 and create GitHub Releases from the package changelogs. Ordinary merges never publish stable packages.
 
+After Changesets reports a successful npm publish, the workflow **must** verify the
+exact versions are visible from the public registry before running the clean
+consumer install, published user journey, and golden path. Registry metadata can
+lag npm's publish acknowledgment: the visibility gate checks fresh npm metadata
+(with an isolated temporary cache for every probe) for up to approximately ten
+minutes. Only E404/ETARGET or a stale version response may be retried; unexpected
+npm/authentication/network/parsing failures still fail immediately. A timeout
+fails the workflow without claiming the release was not published. Recovery uses
+the same approved, already-merged `Version Packages` PR, not a new version.
+
 ## Release policy: grouped stable releases, optional numbered canaries (#572)
 
 **Issues and pull requests are units of work, not releases.** Multiple reviewed
