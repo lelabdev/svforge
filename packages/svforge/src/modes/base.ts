@@ -19,6 +19,16 @@ const LEFTHOOK_CONFIG = `pre-commit:
 
 type HookMode = 'none' | 'lefthook';
 
+const SVFORGE_LIB_IMPORT_MAPPING = './src/lib/*';
+
+/** Return an actionable error when a project already routes #lib elsewhere. */
+export function libImportMappingConflict(packageJsonContent: string): string | undefined {
+	const pkg = JSON.parse(packageJsonContent) as { imports?: Record<string, unknown> };
+	const existing = pkg.imports?.['#lib/*'];
+	if (existing === undefined || existing === SVFORGE_LIB_IMPORT_MAPPING) return undefined;
+	return `SVForge cannot be applied because package.json imports["#lib/*"] is ${JSON.stringify(existing)}; SVForge installs its library files under src/lib and requires "${SVFORGE_LIB_IMPORT_MAPPING}". Update or remove the conflicting mapping, then run sv add again. The existing mapping will not be overwritten.`;
+}
+
 /**
  * Split a plugins-array body on top-level commas only — commas inside call
  * args, object literals or strings must not split (#325).
@@ -133,21 +143,39 @@ export function patchViteConfig(content: string): string {
  * (including the one emitted by the official Vitest add-on) instead of adding
  * a duplicate resolve key.
  */
+function ensureFileURLToPathImport(content: string): { content: string; binding: string } {
+	const namedImports = /import\s+(type\s+)?\{([\s\S]*?)\}\s*from\s*(['"])node:url\3\s*;?/g;
+	for (const match of content.matchAll(namedImports)) {
+		if (match[1]) continue;
+		for (const rawBinding of match[2].split(',')) {
+			const binding = rawBinding.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '').trim();
+			const [imported, local = imported] = binding.split(/\s+as\s+/);
+			if (imported === 'fileURLToPath') return { content, binding: local };
+		}
+	}
+
+	let binding = 'fileURLToPath';
+	while (content.includes(binding)) binding = binding === 'fileURLToPath' ? 'svforgeFileURLToPath' : `${binding}2`;
+	const alias = binding === 'fileURLToPath' ? '' : ` as ${binding}`;
+	return {
+		content: `import { fileURLToPath${alias} } from 'node:url';\n${content}`,
+		binding
+	};
+}
+
 export function patchVitestConfig(content: string): string {
 	let updated = content;
-	const aliases = [
-		{ key: '#lib', value: "fileURLToPath(new URL('./src/lib', import.meta.url))" },
-		{ key: '$lib', value: "fileURLToPath(new URL('./src/lib', import.meta.url))" }
-	];
-	const missingAliases = aliases.filter(({ key }) =>
+	const aliases = ['#lib', '$lib'];
+	const missingAliases = aliases.filter((key) =>
 		key === '#lib' ? !/#lib["']?\s*:/.test(updated) : !/(?:["']\$lib["']|\$lib)\s*:/.test(updated)
 	);
 	if (missingAliases.length === 0) return updated;
 
-	if (!/from ["']node:url["']/.test(updated)) {
-		updated = `import { fileURLToPath } from 'node:url';\n${updated}`;
-	}
-	const entries = missingAliases.map(({ key, value }) => `'${key}': ${value}`);
+	const fileUrlImport = ensureFileURLToPathImport(updated);
+	updated = fileUrlImport.content;
+	const entries = missingAliases.map(
+		(key) => `'${key}': ${fileUrlImport.binding}(new URL('./src/lib', import.meta.url))`
+	);
 	if (/\balias\s*:\s*\{/.test(updated)) {
 		updated = updated.replace(/\balias\s*:\s*\{/, (match) => `${match} ${entries.join(', ')},`);
 	} else if (/\bresolve\s*:\s*\{/.test(updated)) {
@@ -202,10 +230,12 @@ export function applyBaseMode(
 	// variant advertised by the template reference fails on the generated
 	// Paraglide messages.
 	sv.file('package.json', (content: string) => {
+		const conflict = libImportMappingConflict(content);
+		if (conflict) throw new Error(conflict);
 		const pkg = JSON.parse(content);
 		pkg.imports = {
 			...(pkg.imports && typeof pkg.imports === 'object' ? pkg.imports : {}),
-			'#lib/*': pkg.imports?.['#lib/*'] ?? './src/lib/*'
+			'#lib/*': pkg.imports?.['#lib/*'] ?? SVFORGE_LIB_IMPORT_MAPPING
 		};
 		pkg.scripts = {
 			...pkg.scripts,

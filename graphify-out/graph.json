@@ -9044,11 +9044,20 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_src_modes_base_libimportmappingconflict",
+      "label": "libImportMappingConflict()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L25",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_src_modes_base_splittoplevel",
       "label": "splitTopLevel()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L26",
+      "source_location": "L36",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9057,7 +9066,7 @@
       "label": "matchBracket()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L59",
+      "source_location": "L69",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9066,7 +9075,16 @@
       "label": "patchViteConfig()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L83",
+      "source_location": "L93",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_modes_base_ensurefileurltopathimport",
+      "label": "ensureFileURLToPathImport()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L146",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9075,7 +9093,7 @@
       "label": "patchVitestConfig()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L136",
+      "source_location": "L166",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9084,7 +9102,7 @@
       "label": "applyBaseMode()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L173",
+      "source_location": "L201",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25990,7 +26008,7 @@
       "label": "SV_0_17_VITE_CONFIG",
       "file_type": "code",
       "source_file": "tests/vite-config-regex.test.ts",
-      "source_location": "L10",
+      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -48052,12 +48070,34 @@
     },
     {
       "source": "packages_svforge_src_index",
-      "target": "packages_svforge_src_templates",
+      "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
       "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_templates",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48068,7 +48108,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L2",
+      "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48079,7 +48119,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L2",
+      "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48090,7 +48130,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L2",
+      "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48101,7 +48141,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L2",
+      "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48112,7 +48152,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L3",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48123,7 +48163,18 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L3",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_index",
+      "target": "packages_svforge_src_modes_base_libimportmappingconflict",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/index.ts",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48134,7 +48185,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L4",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48145,7 +48196,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L4",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48156,7 +48207,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48167,7 +48218,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48178,7 +48229,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48190,7 +48241,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L8",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48202,7 +48253,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L8",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48213,7 +48264,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48224,7 +48275,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48235,7 +48286,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48246,7 +48297,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48257,7 +48308,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48268,7 +48319,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48279,7 +48330,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48291,7 +48342,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48303,7 +48354,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48315,7 +48366,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L17",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48326,7 +48377,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48337,7 +48388,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48348,7 +48399,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48359,7 +48410,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48370,7 +48421,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48381,7 +48432,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L18",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48393,7 +48444,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48405,7 +48456,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48416,7 +48467,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48427,7 +48478,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48438,7 +48489,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48450,7 +48501,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48462,7 +48513,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48474,7 +48525,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48486,7 +48537,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L21",
+      "source_location": "L23",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48497,7 +48548,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48508,7 +48559,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48519,7 +48570,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48530,7 +48581,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48541,7 +48592,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L22",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48553,7 +48604,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L23",
+      "source_location": "L25",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48564,7 +48615,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48575,7 +48626,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48586,7 +48637,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48597,7 +48648,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L24",
+      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48609,7 +48660,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L29",
+      "source_location": "L31",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48620,7 +48671,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48631,7 +48682,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48642,7 +48693,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48653,7 +48704,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48664,7 +48715,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48676,7 +48727,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L36",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48688,7 +48739,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L36",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48699,7 +48750,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48710,7 +48761,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48721,7 +48772,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48732,7 +48783,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48743,7 +48794,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48754,7 +48805,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48765,7 +48816,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48776,7 +48827,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48787,7 +48838,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L37",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48798,7 +48849,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L57",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48810,7 +48861,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L58",
+      "source_location": "L60",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48822,7 +48873,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L58",
+      "source_location": "L60",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48834,7 +48885,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L58",
+      "source_location": "L60",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48846,7 +48897,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L58",
+      "source_location": "L60",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48858,7 +48909,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L58",
+      "source_location": "L60",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48869,7 +48920,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48880,7 +48931,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48892,7 +48943,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48903,7 +48954,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48914,7 +48965,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48925,7 +48976,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48936,7 +48987,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48947,7 +48998,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48958,7 +49009,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48969,7 +49020,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48980,7 +49031,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -48991,7 +49042,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49002,7 +49053,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49013,7 +49064,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49024,7 +49075,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49035,7 +49086,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49047,7 +49098,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49059,7 +49110,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49071,7 +49122,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49083,7 +49134,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49095,7 +49146,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49107,7 +49158,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49118,7 +49169,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L86",
+      "source_location": "L88",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49129,7 +49180,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L86",
+      "source_location": "L88",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49140,7 +49191,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L86",
+      "source_location": "L88",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49152,7 +49203,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L87",
+      "source_location": "L89",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49163,7 +49214,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L88",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49174,7 +49225,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L88",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49185,7 +49236,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L88",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49196,7 +49247,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L88",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49207,7 +49258,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L88",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49218,7 +49269,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L88",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49230,7 +49281,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L89",
+      "source_location": "L91",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49242,7 +49293,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L90",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49254,7 +49305,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L90",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49266,7 +49317,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L90",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49278,7 +49329,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L90",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49290,7 +49341,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L90",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49301,7 +49352,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L91",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49312,7 +49363,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L91",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49323,7 +49374,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L91",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49334,7 +49385,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L91",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49346,7 +49397,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L92",
+      "source_location": "L94",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49358,7 +49409,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L92",
+      "source_location": "L94",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49370,7 +49421,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L92",
+      "source_location": "L94",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49381,7 +49432,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L93",
+      "source_location": "L95",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49392,7 +49443,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L93",
+      "source_location": "L95",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49403,7 +49454,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L93",
+      "source_location": "L95",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49414,7 +49465,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L93",
+      "source_location": "L95",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49426,7 +49477,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L94",
+      "source_location": "L96",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49438,7 +49489,7 @@
       "context": "re-export",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/index.ts",
-      "source_location": "L94",
+      "source_location": "L96",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49683,11 +49734,21 @@
     },
     {
       "source": "packages_svforge_src_modes_base",
+      "target": "packages_svforge_src_modes_base_libimportmappingconflict",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L25",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_base",
       "target": "packages_svforge_src_modes_base_splittoplevel",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L26",
+      "source_location": "L36",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49697,7 +49758,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L59",
+      "source_location": "L69",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49707,7 +49768,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L83",
+      "source_location": "L93",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_base",
+      "target": "packages_svforge_src_modes_base_ensurefileurltopathimport",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L146",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49717,7 +49788,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L136",
+      "source_location": "L166",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49727,7 +49798,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L173",
+      "source_location": "L201",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49738,7 +49809,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L108",
+      "source_location": "L118",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49749,7 +49820,29 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L110",
+      "source_location": "L120",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_base_patchvitestconfig",
+      "target": "packages_svforge_src_modes_base_ensurefileurltopathimport",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L174",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_base_applybasemode",
+      "target": "packages_svforge_src_modes_base_libimportmappingconflict",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L233",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49760,7 +49853,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L248",
+      "source_location": "L278",
       "weight": 1,
       "_origin": "ast"
     },
@@ -49771,7 +49864,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L258",
+      "source_location": "L288",
       "weight": 1,
       "_origin": "ast"
     },
@@ -80137,6 +80230,17 @@
     },
     {
       "source": "tests_lib_subpath_imports_test",
+      "target": "packages_svforge_src_modes_base_libimportmappingconflict",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/lib-subpath-imports.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_lib_subpath_imports_test",
       "target": "tests_lib_subpath_imports_test_packages",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -87528,11 +87632,44 @@
     },
     {
       "source": "tests_vite_config_regex_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-regex.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_vite_config_regex_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-regex.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_vite_config_regex_test",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/vite-config-regex.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_vite_config_regex_test",
       "target": "tests_vite_config_regex_test_sv_0_17_vite_config",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-regex.test.ts",
-      "source_location": "L10",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87544,7 +87681,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-regex.test.ts",
-      "source_location": "L46",
+      "source_location": "L49",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94012,7 +94149,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L280",
+      "source_location": "L310",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94024,7 +94161,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L284",
+      "source_location": "L314",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94036,7 +94173,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L290",
+      "source_location": "L320",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94048,7 +94185,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L292",
+      "source_location": "L322",
       "weight": 1,
       "_origin": "ast"
     },

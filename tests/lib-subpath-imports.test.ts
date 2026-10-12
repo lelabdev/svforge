@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync, readdirSync, statSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { applyBaseMode } from '../packages/svforge/src/modes/base';
+import { applyBaseMode, libImportMappingConflict } from '../packages/svforge/src/modes/base';
 
 const PACKAGES = join(process.cwd(), 'packages');
 
@@ -70,9 +70,12 @@ describe('Kit 3 #lib package subpath imports (#584)', () => {
 		});
 		expect(pkg.scripts.dev).toBe('vite dev');
 
-		const customized = JSON.parse(
-			patchPackage(JSON.stringify({ imports: { '#lib/*': './custom/lib/*' } }))
-		);
-		expect(customized.imports['#lib/*']).toBe('./custom/lib/*');
+		const expectedMapping = JSON.stringify({ imports: { '#lib/*': './src/lib/*' } });
+		expect(libImportMappingConflict(expectedMapping)).toBeUndefined();
+		expect(JSON.parse(patchPackage(expectedMapping)).imports['#lib/*']).toBe('./src/lib/*');
+
+		const conflictingMapping = JSON.stringify({ imports: { '#lib/*': './custom/lib/*' } });
+		expect(libImportMappingConflict(conflictingMapping)).toMatch(/#lib\/\*.*\.\/custom\/lib\/\*/);
+		expect(() => patchPackage(conflictingMapping)).toThrow(/#lib\/\*.*\.\/custom\/lib\/\*/);
 	});
 });

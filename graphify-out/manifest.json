@@ -448,7 +448,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "53125211fba4134aaffb630e699be5e9",
+    "ast_hash": "f39f960a7f96f68b56b882cc397adc7b",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -456,7 +456,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/base.ts": {
-    "ast_hash": "738317873ed698e3201ef674b18ad5f1",
+    "ast_hash": "355695409f4cf27bfe6657bf23cca298",
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/dashboard.ts": {
@@ -1212,7 +1212,7 @@
     "semantic_hash": ""
   },
   "tests/eslint-design-system.test.ts": {
-    "ast_hash": "a073c8b1a3126d12679fa3653f2bdc4b",
+    "ast_hash": "85f62a96cbc386e37ca2e6f91027faa6",
     "semantic_hash": ""
   },
   "tests/favicon-delivery.test.ts": {
@@ -1716,11 +1716,11 @@
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {
-    "ast_hash": "9f9e24377e412cc0ed80e66b37c95ff1",
+    "ast_hash": "58461bf851f5d86375c8e0d7eae1ddeb",
     "semantic_hash": ""
   },
   "tests/vite-config-regex.test.ts": {
-    "ast_hash": "76dafb8a468517b86dcf735b13d0a864",
+    "ast_hash": "962fa70d742fc65380703f9a810979f5",
     "semantic_hash": ""
   },
   "tests/card-surface.test.ts": {
@@ -1920,7 +1920,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/sveltekit-compatibility.md": {
-    "ast_hash": "dbd5466ec5bbc7db9cc8304a031276fc",
+    "ast_hash": "e448a88bcb6182e5e431e267176a2a75",
     "semantic_hash": ""
   },
   ".changeset/config.json": {
@@ -2084,7 +2084,7 @@
     "semantic_hash": ""
   },
   "tests/lib-subpath-imports.test.ts": {
-    "ast_hash": "4e78fe686977cca21c8ff5b2792bea77",
+    "ast_hash": "361bdc58c71929ffee120b3bd5f78cc3",
     "semantic_hash": ""
   },
   "tests/stubs/lib/components/svforge/primitives/index.js": {
@@ -2100,7 +2100,7 @@
     "semantic_hash": ""
   },
   ".changeset/quiet-lib-imports.md": {
-    "ast_hash": "57486720ca9d0cceabc74c522c88ab1e",
+    "ast_hash": "c5f0c8287e0323fa95e78b17fae6eff4",
     "semantic_hash": ""
   }
 }

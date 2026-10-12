@@ -1,4 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const { patchVitestConfig, patchViteConfig } = await import('../packages/svforge/src/modes/base');
 
@@ -82,6 +85,28 @@ describe('vite/Vitest config patches keep imports and runes valid (#415, #584)',
 		expect(once).toContain("'#lib': fileURLToPath(new URL('./src/lib', import.meta.url))");
 		expect(once).toContain("'$lib': fileURLToPath(new URL('./src/lib', import.meta.url))");
 		expect(patchVitestConfig(once)).toBe(once);
+	});
+
+	it('adds fileURLToPath when node:url already imports another utility and loads', async () => {
+		const config = `import { defineConfig } from 'vitest/config';
+import { pathToFileURL } from 'node:url';
+export default defineConfig({ plugins: [] });`;
+		const patched = patchVitestConfig(config);
+		const directory = mkdtempSync(join(process.cwd(), 'tests', '.vitest-config-'));
+		const configPath = join(directory, 'vitest.config.mjs');
+		try {
+			writeFileSync(configPath, patched);
+			expect(patched).toContain("import { fileURLToPath } from 'node:url';");
+			expect(patchVitestConfig(patched)).toBe(patched);
+
+			const loaded = await import(`${pathToFileURL(configPath).href}?test=${Date.now()}`);
+			expect(loaded.default.resolve.alias).toMatchObject({
+				'#lib': expect.any(String),
+				'$lib': expect.any(String)
+			});
+		} finally {
+			rmSync(directory, { recursive: true, force: true });
+		}
 	});
 
 	it('merges #lib into the official Vitest alias without duplicating resolve', () => {
