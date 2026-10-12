@@ -124,7 +124,8 @@
 	// rejects it).
 	const sizeClass = $derived(size === 'sm' ? 'btn-sm' : size === 'lg' ? 'btn-lg' : 'btn-base');
 	const presetClass = $derived(presets[variant]?.[color] ?? '');
-	const classes = $derived(cn('btn focus-visible:ring-2 focus-visible:ring-primary-700-300', presetClass, sizeClass, className));
+	const cursorClass = $derived(inactive ? 'cursor-not-allowed' : 'cursor-pointer');
+	const classes = $derived(cn('btn focus-visible:ring-2 focus-visible:ring-primary-700-300', presetClass, sizeClass, cursorClass, className));
 	// Anchors lack a native disabled presentation: reduced styling + pointer
 	// events off stand in for it, aria-disabled announces it to AT.
 	const anchorClasses = $derived(cn(classes, inactive && 'pointer-events-none opacity-50'));
