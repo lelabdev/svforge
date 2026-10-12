@@ -79,6 +79,75 @@ describe('all-modules expansion (#417)', () => {
 	});
 });
 
+describe('interactive all-modules template implication', () => {
+	it('upgrades a menu-selected base template to dashboard when All modules is picked', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-interactive-'));
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const confirmations: string[] = [];
+			const prompt = {
+				text: async () => 'app',
+				select: async () => 'base',
+				multiselect: async () => ['__all__'],
+				confirm: async (message: string) => { confirmations.push(message); return true; }
+			};
+			const result = await runCreateCommand(cwd, {
+				dir: 'app',
+				pm: 'bun',
+				testing: 'vitest',
+				hooks: 'none',
+				gitInit: false,
+				interactive: true,
+				yes: false,
+				prompt,
+				spawn,
+				validate: async () => 0
+			});
+			expect(result.code).toBe(0);
+			expect(result.plan?.template).toBe('dashboard');
+			expect(result.plan?.allModules).toBe(true);
+			expect([...(result.plan?.modules ?? [])].sort()).toEqual(expandAllModules());
+			expect(result.plan?.runtime).toBe('long-lived-node');
+			expect(result.plan?.commands[1]?.args.join(' ')).toContain('template:dashboard');
+			expect(confirmations.some((message) => message.includes('long-lived Node runtime'))).toBe(true);
+			expect(confirmations.some((message) => message.includes('dashboard (implied by all-modules)'))).toBe(true);
+			expect(calls).toHaveLength(2);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('keeps a CLI-supplied --template base authoritative even in interactive mode', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-interactive-'));
+		try {
+			const { spawn, calls } = fakeSpawn();
+			const result = await runCreateCommand(cwd, {
+				dir: 'app',
+				template: 'base',
+				pm: 'bun',
+				testing: 'vitest',
+				hooks: 'none',
+				gitInit: false,
+				interactive: true,
+				prompt: {
+					text: async () => 'app',
+					select: async () => 'base',
+					multiselect: async () => ['__all__'],
+					confirm: async () => true
+				},
+				spawn,
+				validate: async () => 0
+			});
+			expect(result.code).toBe(1);
+			expect(result.aborted).toBe('invalid');
+			expect(result.message).toContain('Drop --template base');
+			expect(calls).toEqual([]);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+});
+
 describe('composition rules before any file is written (#417)', () => {
 	it('refuses --template base combined with --modules all', async () => {
 		const cwd = mkdtempSync(join(tmpdir(), 'sf-create-'));

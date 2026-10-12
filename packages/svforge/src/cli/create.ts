@@ -316,7 +316,11 @@ export async function runCreateCommand(
 	const requestedModules: string[] = allModules ? expandAllModules() : (modulesChoice as string[]);
 	let effectiveTemplate = template;
 	if (allModules) {
-		if (template === 'base') {
+		// A template selected in the interactive menu is a preference, not the
+		// explicit --template base flag. The "All modules" choice itself promises
+		// to imply dashboard; honor that promise regardless of the earlier menu.
+		// Keep rejecting contradictory explicit non-interactive CLI arguments.
+		if (options.template === 'base') {
 			return {
 				code: 1,
 				aborted: 'invalid',
