@@ -67,7 +67,7 @@ export const MODULES: Record<string, ModuleMeta> = {
 	tiptap: meta('tiptap', 'Rich text editor (Tiptap, toolbar + preview)', ['src/lib/components/svforge/tiptap/']),
 	graph: meta('graph', 'Knowledge graph visualization (force-graph)', ['src/lib/components/svforge/graph/']),
 	email: meta('email', 'Transactional emails (Resend)', ['src/lib/server/email.ts', 'src/lib/server/templates/']),
-	oauth: meta('oauth', 'Social auth buttons (Google, GitHub)', ['src/lib/components/svforge/ui/OAuthButtons.svelte']),
+	oauth: meta('oauth', 'Google/GitHub login buttons (uses the existing Better Auth setup)', ['src/lib/components/svforge/ui/OAuthButtons.svelte']),
 	uploads: {
 		...meta('uploads', 'File uploads (S3-compatible POST hard limit, PUT best-effort fallback)', [
 			'src/lib/components/svforge/uploads/',

@@ -2,7 +2,7 @@ import { accessSync, constants, existsSync, readdirSync, readFileSync, rmSync, w
 import { delimiter, join, resolve } from 'node:path';
 import { MODULES } from '../module-composition';
 import { regenerateLlmstxt } from '../ai-context';
-import { MODULE_CONTRACTS, resolveModules, type ResolutionPlan } from '@svforge/addon-kit';
+import { MODULE_CONTRACTS, compositionGaps, resolveModules, type ResolutionPlan } from '@svforge/addon-kit';
 import { addonSpec, svRunner, type SpawnPort } from './add';
 import { COMPAT_MANIFEST, assertCompatManifest, loadCompatManifest, type CompatManifest } from '../compat';
 import { plannedPackage, type PlannedCommand, type PlannedPackage } from './plan';
@@ -106,6 +106,11 @@ export interface CreateCommandResult {
 /** Every official module, from the canonical registry — never a hard list. */
 export function expandAllModules(): string[] {
 	return Object.keys(MODULES).sort();
+}
+
+/** Modules that can be added to one template without missing structural capabilities. */
+export function selectableModulesForTemplate(template: 'base' | 'dashboard'): string[] {
+	return Object.keys(MODULES).sort().filter((id) => compositionGaps(template, [MODULES[id]]).length === 0);
 }
 
 /**
@@ -262,7 +267,7 @@ export async function runCreateCommand(
 		if (!template && !wantsAll) {
 			template = (await prompt.select('Which SvelteForge template?', [
 				{ value: 'base', label: 'Base — UI kit + layouts + forms (landing, portfolio, marketing…)' },
-				{ value: 'dashboard', label: 'Dashboard — base + admin dashboard + auth + DB' }
+				{ value: 'dashboard', label: 'Dashboard — Base + Better Auth + PostgreSQL + admin UI' }
 			])) as 'base' | 'dashboard';
 		}
 		if (!pm) {
@@ -286,11 +291,17 @@ export async function runCreateCommand(
 			])) as 'none' | 'lefthook';
 		}
 		if (!modulesChoice) {
-			const choices = [
-				...Object.keys(MODULES).sort().map((id) => ({ value: id, label: `${id} — ${MODULES[id].description}` })),
-				{ value: '__all__', label: 'All modules — the complete stack (implies dashboard)' }
-			];
-			const picked = await prompt.multiselect('Which modules?', choices);
+			// Present only modules whose declared capabilities this template provides.
+			// Base remains simple: no cross-template "All modules" shortcut and no
+			// auth/database-only addons that would fail later in the resolver.
+			const choices = selectableModulesForTemplate(template!).map((id) => ({
+				value: id,
+				label: `${id} — ${MODULES[id].description}`
+			}));
+			if (template === 'dashboard') {
+				choices.push({ value: '__all__', label: 'All modules — the complete dashboard stack' });
+			}
+			const picked = await prompt.multiselect('Optional modules (empty = none)?', choices);
 			modulesChoice = picked.includes('__all__') ? 'all' : picked;
 		}
 		if (options.gitInit === undefined) {
@@ -316,6 +327,9 @@ export async function runCreateCommand(
 	const requestedModules: string[] = allModules ? expandAllModules() : (modulesChoice as string[]);
 	let effectiveTemplate = template;
 	if (allModules) {
+		// The interactive picker offers All only on Dashboard. Keep rejecting
+		// contradictory explicit arguments or invalid prompt responses, even
+		// before file creation. --modules all alone can still imply Dashboard.
 		if (template === 'base') {
 			return {
 				code: 1,
@@ -437,7 +451,7 @@ export async function runCreateCommand(
 	// ── 7. Inspectable plan, then confirm ──
 	const summary = [
 		`Directory:        ${target}`,
-		`Template:         ${effectiveTemplate}${allModules ? ' (implied by all-modules)' : ''}`,
+		`Template:         ${effectiveTemplate}${allModules && !template ? ' (implied by all-modules)' : ''}`,
 		`Package manager:  ${pm}`,
 		`Testing:          ${testing}`,
 		`Pre-commit hook:  ${hooks}`,

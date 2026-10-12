@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import {
 	runCreateCommand,
 	expandAllModules,
+	selectableModulesForTemplate,
 	parseCreateArgs,
 } from '../packages/svforge/src/cli/create';
 import type { SpawnPort } from '../packages/svforge/src/cli/add';
@@ -76,6 +77,77 @@ describe('all-modules expansion (#417)', () => {
 		// Sorted and unique — deterministic plans.
 		expect([...all].sort()).toEqual(all);
 		expect(new Set(all).size).toBe(all.length);
+	});
+});
+
+describe('template-aware interactive module picker (#585)', () => {
+	it('uses actual capabilities to filter Base, not a module template hint', () => {
+		const base = selectableModulesForTemplate('base');
+		expect(base).toContain('dnd');
+		for (const id of ['oauth', 'uploads', 'audit', 'notifications', 'jobs', 'chat']) {
+			expect(base).not.toContain(id);
+		}
+		expect(selectableModulesForTemplate('dashboard')).toEqual(expandAllModules());
+	});
+
+	it('Base shows only compatible optional modules, not All, and can install DnD', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-base-menu-'));
+		try {
+			const { spawn, calls } = fakeSpawn();
+			let values: string[] = [];
+			const result = await runCreateCommand(cwd, {
+				dir: 'app', pm: 'bun', testing: 'vitest', hooks: 'none',
+				gitInit: false, interactive: true,
+				prompt: {
+					text: async () => 'app',
+					select: async () => 'base',
+					multiselect: async (_question, choices) => {
+						values = choices.map((item) => item.value);
+						return ['dnd'];
+					},
+					confirm: async () => true
+				},
+				spawn, validate: async () => 0
+			});
+			expect(values).toContain('dnd');
+			for (const id of ['__all__', 'oauth', 'uploads', 'audit', 'notifications', 'jobs', 'chat']) {
+				expect(values).not.toContain(id);
+			}
+			expect(result.code).toBe(0);
+			expect(result.plan?.template).toBe('base');
+			expect(result.plan?.modules).toEqual(['dnd']);
+			expect(calls).toHaveLength(2);
+		} finally { rmSync(cwd, { recursive: true, force: true }); }
+	});
+
+	it('Dashboard alone offers All modules and retains long-lived runtime confirmation', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-dashboard-menu-'));
+		try {
+			const { spawn, calls } = fakeSpawn();
+			let values: string[] = [];
+			const confirmations: string[] = [];
+			const result = await runCreateCommand(cwd, {
+				dir: 'app', pm: 'bun', testing: 'vitest', hooks: 'none',
+				gitInit: false, interactive: true,
+				prompt: {
+					text: async () => 'app',
+					select: async () => 'dashboard',
+					multiselect: async (_question, choices) => {
+						values = choices.map((item) => item.value);
+						return ['__all__'];
+					},
+					confirm: async (message) => { confirmations.push(message); return true; }
+				},
+				spawn, validate: async () => 0
+			});
+			expect(values).toEqual([...expandAllModules(), '__all__']);
+			expect(result.code).toBe(0);
+			expect(result.plan?.template).toBe('dashboard');
+			expect(result.plan?.allModules).toBe(true);
+			expect(result.plan?.runtime).toBe('long-lived-node');
+			expect(confirmations.some((message) => message.includes('long-lived Node runtime'))).toBe(true);
+			expect(calls).toHaveLength(2);
+		} finally { rmSync(cwd, { recursive: true, force: true }); }
 	});
 });
 
