@@ -239,6 +239,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "svforge",
+    "version": "2.2.2",
+    "date": "",
+    "body": "### Patch Changes\n\n- [#587](https://github.com/lelabdev/svforge/pull/587) [`fbe244f`](https://github.com/lelabdev/svforge/commit/fbe244f052890cf0d79fea2732fff92a58157faa) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Filter the interactive module picker by the chosen template's actual capabilities. Base stays simple with only compatible optional modules; All modules is available only on Dashboard, which already includes Better Auth and PostgreSQL."
+  },
+  {
+    "package": "svforge",
     "version": "2.2.1",
     "date": "",
     "body": "### Patch Changes\n\n- [#579](https://github.com/lelabdev/svforge/pull/579) [`8d60efe`](https://github.com/lelabdev/svforge/commit/8d60efe2d811e80b643764ebac4f42acf4fe53c5) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Fix the interactive CLI menus: display human-readable choice labels and return the actual values for templates, testing profiles, package managers, hooks, and module selections instead of `[object Object]`."

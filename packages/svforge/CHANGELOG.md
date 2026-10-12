@@ -1,5 +1,11 @@
 # svforge
 
+## 2.2.2
+
+### Patch Changes
+
+- [#587](https://github.com/lelabdev/svforge/pull/587) [`fbe244f`](https://github.com/lelabdev/svforge/commit/fbe244f052890cf0d79fea2732fff92a58157faa) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Filter the interactive module picker by the chosen template's actual capabilities. Base stays simple with only compatible optional modules; All modules is available only on Dashboard, which already includes Better Auth and PostgreSQL.
+
 ## 2.2.1
 
 ### Patch Changes
