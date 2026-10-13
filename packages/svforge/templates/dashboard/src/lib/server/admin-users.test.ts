@@ -22,8 +22,8 @@ vi.mock('$app/server', () => ({ getRequestEvent: () => undefined }));
 import { createCredentialUser, DuplicateEmailError } from './admin-users';
 import { verifyPassword } from 'better-auth/crypto';
 import { auth } from './auth';
-import { db } from '$lib/server/db';
-import { user, account, session } from '$lib/server/db/schema';
+import { db } from '#lib/server/db/index.js';
+import { user, account, session } from '#lib/server/db/schema.js';
 import { eq, like, notLike, sql } from 'drizzle-orm';
 import { runEmailDomain } from './test-db';
 

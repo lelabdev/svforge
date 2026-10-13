@@ -1,8 +1,8 @@
 <script lang="ts">
-	import * as m from '$lib/paraglide/messages.js';
+	import * as m from '#lib/paraglide/messages.js';
 	import { enhance } from '$app/forms';
-	import { Button, Textarea } from '$lib/components/svforge/primitives';
-	import { Card } from '$lib/components/svforge/ui';
+	import { Button, Textarea } from '#lib/components/svforge/primitives/index.js';
+	import { Card } from '#lib/components/svforge/ui/index.js';
 
 	let { data, form }: { data: import('./$types').PageData; form: any } = $props();
 	const messages = $derived(data.messages);

@@ -58,7 +58,7 @@ describe('chat module (#233)', () => {
 
 	it('uses the shared Badge for unread counts (#475)', () => {
 		const page = readFileSync(join(ROOT, 'packages/chat/templates/src/routes/chat/+page.svelte'), 'utf-8');
-		expect(page).toMatch(/import \{ Badge \} from '\$lib\/components\/svforge\/primitives'/);
+		expect(page).toMatch(/import \{ Badge \} from '#lib\/components\/svforge\/primitives\/index\.js'/);
 		expect(page).toContain('<Badge>{conv.unreadCount}</Badge>');
 		expect(page).not.toMatch(/bg-primary-500\s+text-white/);
 	});

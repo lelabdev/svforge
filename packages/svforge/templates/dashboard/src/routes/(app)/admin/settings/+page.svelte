@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import * as m from '$lib/paraglide/messages.js';
-	import { Card, AvatarInitial, Feedback } from '$lib/components/svforge/ui';
-	import { Button, Input } from '$lib/components/svforge/primitives';
-	import { Lock } from '$lib/icons';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Card, AvatarInitial, Feedback } from '#lib/components/svforge/ui/index.js';
+	import { Button, Input } from '#lib/components/svforge/primitives/index.js';
+	import { Lock } from '#lib/icons/index.js';
 	import type { ActionData } from './$types';
 
 	let { data, form }: { data: { user: { id: string; name: string; email: string } | null }, form: ActionData } = $props();

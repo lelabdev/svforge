@@ -16,7 +16,7 @@ Supported: `long-lived-node`, `serverless`, `edge`, `separate-worker`. Unsupport
 
 ```svelte
 <script>
-import { KnowledgeGraph } from '$lib/components/svforge/graph';
+import { KnowledgeGraph } from '#lib/components/svforge/graph/index.js';
 
 const nodes = [
 { id: '1', label: 'Svelte', group: 'framework' },

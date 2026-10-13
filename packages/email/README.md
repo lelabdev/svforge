@@ -23,8 +23,8 @@ RESEND_API_KEY=your_resend_api_key
 ## Usage
 
 ```ts
-import { sendEmail } from '$lib/server/email';
-import { welcomeEmailHtml } from '$lib/server/templates';
+import { sendEmail } from '#lib/server/email.js';
+import { welcomeEmailHtml } from '#lib/server/templates/index.js';
 
 await sendEmail({
   to: 'user@example.com',
@@ -54,13 +54,13 @@ Pre-built HTML email templates:
 - **`resetPasswordEmailHtml(resetUrl)`** — password reset with styled CTA button
 
 ```ts
-import { welcomeEmailHtml, resetPasswordEmailHtml } from '$lib/server/templates';
+import { welcomeEmailHtml, resetPasswordEmailHtml } from '#lib/server/templates/index.js';
 ```
 
 ## What's included
 
-- `$lib/server/email.ts` — Resend client + `sendEmail()` helper
-- `$lib/server/templates/` — welcome and reset-password email templates
+- `src/lib/server/email.ts` — Resend client + `sendEmail()` helper
+- `src/lib/server/templates/` — welcome and reset-password email templates
 
 ## Dependencies
 

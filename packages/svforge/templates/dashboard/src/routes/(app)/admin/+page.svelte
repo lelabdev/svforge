@@ -1,9 +1,9 @@
 <script lang="ts">
-	import * as m from '$lib/paraglide/messages.js';
-	import { Card, AvatarInitial } from '$lib/components/svforge/ui';
-	import { Badge } from '$lib/components/svforge/primitives';
-	import { Button } from '$lib/components/svforge/primitives';
-	import { Users, ChartBar, Clock } from '$lib/icons';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Card, AvatarInitial } from '#lib/components/svforge/ui/index.js';
+	import { Badge } from '#lib/components/svforge/primitives/index.js';
+	import { Button } from '#lib/components/svforge/primitives/index.js';
+	import { Users, ChartBar, Clock } from '#lib/icons/index.js';
 
 	let { data } = $props();
 </script>

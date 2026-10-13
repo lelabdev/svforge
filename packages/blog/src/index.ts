@@ -151,7 +151,7 @@ export default defineAddon({
 	},
 	run: ({ sv, cancel, cwd }) => {
 		// Capability gate (#323): blog imports Card/Badge from the SVForge base
-		// UI kit ($lib/components/svforge) — the project must provide it.
+		// UI kit (#lib/components/svforge) — the project must provide it.
 		const gate = checkModuleCapabilities(cwd, 'blog');
 		if (!gate.ok) {
 			cancel(gate.message);
@@ -242,7 +242,7 @@ export default defineAddon({
 			// Transport type from Kit's root or hooks subpath).
 			const hasKitTransportImport = /import\s+[^;]*\bTransport\b[^;]*from\s*'@sveltejs\/kit(?:\/hooks)?'/.test(content);
 			const imports =
-				(content.includes('loadPostComponent') ? '' : "import { loadPostComponent, PostComponent } from '$lib/utils/posts';\n") +
+				(content.includes('loadPostComponent') ? '' : "import { loadPostComponent, PostComponent } from '#lib/utils/posts.js';\n") +
 				(hasKitTransportImport ? '' : "import type { Transport } from '@sveltejs/kit/hooks';\n");
 			const mdxPostCodec =
 				"'mdx-post': {" +

@@ -44,7 +44,7 @@ beforeAll(async () => {
 	writeFileSync(join(generatedDir, 'web-hardening-utils.ts'), scaffoldFile('/lib/utils/web.ts'));
 	const seoSource = scaffoldFile('/lib/components/svforge/ui/Seo.svelte')
 		.replace("import { page } from '$app/state';", "const page = { url: new URL('https://example.test/docs/page') };")
-		.replace("from '$lib/utils/web'", "from './web-hardening-utils.ts'");
+		.replace("from '#lib/utils/web.js'", "from './web-hardening-utils.ts'");
 	writeFileSync(compiledSeo, compile(seoSource, { generate: 'server', filename: 'Seo.svelte' }).js.code);
 	Seo = (await import(/* @vite-ignore */ compiledSeo)).default;
 
@@ -52,10 +52,10 @@ beforeAll(async () => {
 	writeFileSync(compiledButton, compile(buttonSource, { generate: 'client', filename: 'Button.svelte' }).js.code);
 
 	const themeToggleSource = scaffoldFile('/lib/components/svforge/ui/ThemeToggle.svelte')
-		.replace("import * as m from '$lib/paraglide/messages.js';", "const m = { common_toggle_theme: () => 'Toggle theme' };")
-		.replace("import { Button } from '$lib/components/svforge/primitives';", "import Button from './Button.web-hardening.compiled.js';")
-		.replace("import { Sun, Moon } from '$lib/icons';", 'const Sun = () => null; const Moon = () => null;')
-		.replace("from '$lib/utils/theme'", "from './theme.web-hardening.ts'")
+		.replace("import * as m from '#lib/paraglide/messages.js';", "const m = { common_toggle_theme: () => 'Toggle theme' };")
+		.replace("import { Button } from '#lib/components/svforge/primitives/index.js';", "import Button from './Button.web-hardening.compiled.js';")
+		.replace("import { Sun, Moon } from '#lib/icons/index.js';", 'const Sun = () => null; const Moon = () => null;')
+		.replace("from '#lib/utils/theme.js'", "from './theme.web-hardening.ts'")
 		.replace(/\{#if isDark\}[\s\S]*?\{\/if\}/, '<span>{isDark ? \'dark\' : \'light\'}</span>');
 	writeFileSync(join(generatedDir, 'theme.web-hardening.ts'), scaffoldFile('/lib/utils/theme.ts'));
 	writeFileSync(compiledThemeToggle, compile(themeToggleSource, { generate: 'client', filename: 'ThemeToggle.svelte' }).js.code);

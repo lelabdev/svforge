@@ -1,8 +1,8 @@
 import { dev } from '$app/env';
 import { fail, redirect } from '@sveltejs/kit';
-import { db } from '$lib/server/db';
-import { setupSchema } from '$lib/server/schemas';
-import { adminExists, bootstrapFirstAdmin, AdminExistsError } from '$lib/server/first-admin';
+import { db } from '#lib/server/db/index.js';
+import { setupSchema } from '#lib/server/schemas.js';
+import { adminExists, bootstrapFirstAdmin, AdminExistsError } from '#lib/server/first-admin.js';
 import type { Actions, PageServerLoad } from './$types';
 
 /**

@@ -19,7 +19,7 @@ Supported: `long-lived-node`, `serverless`. Unsupported: `edge`, `separate-worke
 ## API
 
 ```ts
-import { chat } from '$lib/server/chat';
+import { chat } from '#lib/server/chat/index.js';
 
 // Create a conversation (≥2 participants, creator included)
 const conv = await chat.createConversation({ participantIds: [userA, userB] });
@@ -68,8 +68,8 @@ message_reads           messageId, userId, readAt
 
 ## What's included
 
-- `$lib/server/chat/schema.ts` — 4 Drizzle tables
-- `$lib/server/chat/index.ts` — service layer (`chat.*`)
+- `src/lib/server/chat/schema.ts` — 4 Drizzle tables
+- `src/lib/server/chat/index.ts` — service layer (`chat.*`)
 - `src/routes/chat/` and `src/routes/chat/[id]/` — demo pages (small, canonical)
 
 ## License

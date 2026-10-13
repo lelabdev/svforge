@@ -119,6 +119,7 @@ describe('scaffolded ESLint configuration (#346)', () => {
 
 		svforgeAddon.run({
 			sv: sv as never,
+			cwd: process.cwd(),
 			options: { template: 'base', testing: 'vitest', hooks: 'none' },
 			packageManager: 'bun'
 		} as never);

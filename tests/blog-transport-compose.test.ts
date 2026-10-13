@@ -50,7 +50,7 @@ function runAddon(hooksTs?: string): {
 	return { result, reapply };
 }
 
-const BASE_HOOKS = `import { reroute } from '$lib/paraglide/runtime.js';
+const BASE_HOOKS = `import { reroute } from '#lib/paraglide/runtime.js';
 
 export const reroute = (id: string) => reroute(id);
 `;

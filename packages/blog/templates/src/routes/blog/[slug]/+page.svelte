@@ -1,7 +1,7 @@
 <script lang="ts">
-import { getLocale, localizeHref } from '$lib/paraglide/runtime';
-import { formatPostDate } from '$lib/utils/post-date';
-import * as m from '$lib/paraglide/messages.js';
+import { getLocale, localizeHref } from '#lib/paraglide/runtime.js';
+import { formatPostDate } from '#lib/utils/post-date.js';
+import * as m from '#lib/paraglide/messages.js';
 
 let { data } = $props();
 // Svelte 5: components are dynamic by default — a capitalized variable holds

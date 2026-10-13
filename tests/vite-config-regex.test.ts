@@ -1,4 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const { patchVitestConfig, patchViteConfig } = await import('../packages/svforge/src/modes/base');
 
@@ -31,7 +34,7 @@ const SV_0_17_VITE_CONFIG = [
 	''
 ].join('\n');
 
-describe('vite.config.ts patch keeps the runes regex valid (#415)', () => {
+describe('vite/Vitest config patches keep imports and runes valid (#415, #584)', () => {
 	it('never injects a newline into a regex character class', () => {
 		const patched = patchViteConfig(SV_0_17_VITE_CONFIG);
 
@@ -58,14 +61,15 @@ describe('vite.config.ts patch keeps the runes regex valid (#415)', () => {
 		expect(patched).toContain('svforgeDesignSystemPlugin()');
 		expect(patched).toContain('paraglideVitePlugin({');
 		expect(patched).toContain('sveltekit({');
-		expect(patched).toContain("alias: { $lib: 'src/lib' }");
+		expect(patched).not.toContain("alias: { $lib: 'src/lib' }");
 		expect(patched).toContain('adapter: adapter()');
 		expect(patched).toContain('compilerOptions: {');
 	});
 
-	it('adds the same alias when sv emits a bare sveltekit() call', () => {
-		const patched = patchViteConfig("import { sveltekit } from '@sveltejs/kit/vite';\nexport default { plugins: [sveltekit()] };\n");
-		expect(patched).toContain("sveltekit({ alias: { $lib: 'src/lib' } })");
+	it('leaves the SvelteKit plugin free of the deprecated Kit 3 alias option', () => {
+		const config = "import { sveltekit } from '@sveltejs/kit/vite';\nexport default { plugins: [sveltekit()] };\n";
+		const patched = patchViteConfig(config);
+		expect(patched).not.toContain('alias:');
 		expect(patchViteConfig(patched)).toBe(patched);
 	});
 
@@ -74,11 +78,49 @@ describe('vite.config.ts patch keeps the runes regex valid (#415)', () => {
 		expect(patchViteConfig(once)).toBe(once);
 	});
 
-	it('adds a cross-platform $lib alias to Vitest config idempotently', () => {
+	it('adds #lib resolution and keeps the legacy $lib test alias idempotently', () => {
 		const config = "import { defineConfig } from 'vitest/config';\nexport default defineConfig({ plugins: [] });\n";
 		const once = patchVitestConfig(config);
 		expect(once).toContain("import { fileURLToPath } from 'node:url';");
+		expect(once).toContain("'#lib': fileURLToPath(new URL('./src/lib', import.meta.url))");
 		expect(once).toContain("'$lib': fileURLToPath(new URL('./src/lib', import.meta.url))");
 		expect(patchVitestConfig(once)).toBe(once);
+	});
+
+	it('adds fileURLToPath when node:url already imports another utility and loads', async () => {
+		const config = `import { defineConfig } from 'vitest/config';
+import { pathToFileURL } from 'node:url';
+export default defineConfig({ plugins: [] });`;
+		const patched = patchVitestConfig(config);
+		const directory = mkdtempSync(join(process.cwd(), 'tests', '.vitest-config-'));
+		const configPath = join(directory, 'vitest.config.mjs');
+		try {
+			writeFileSync(configPath, patched);
+			expect(patched).toContain("import { fileURLToPath } from 'node:url';");
+			expect(patchVitestConfig(patched)).toBe(patched);
+
+			const loaded = await import(`${pathToFileURL(configPath).href}?test=${Date.now()}`);
+			expect(loaded.default.resolve.alias).toMatchObject({
+				'#lib': expect.any(String),
+				'$lib': expect.any(String)
+			});
+		} finally {
+			rmSync(directory, { recursive: true, force: true });
+		}
+	});
+
+	it('merges #lib into the official Vitest alias without duplicating resolve', () => {
+		const config = `import { defineConfig } from 'vitest/config';
+import { resolve } from 'node:path';
+export default defineConfig({
+	resolve: { alias: { $lib: resolve('src/lib') } },
+	test: { environment: 'node' }
+});`;
+		const patched = patchVitestConfig(config);
+		expect(patched.match(/\bresolve\s*:/g)).toHaveLength(1);
+		expect(patched).toContain("'#lib': fileURLToPath(new URL('./src/lib', import.meta.url))");
+		expect(patched).toContain("$lib: resolve('src/lib')");
+		expect(patched).not.toContain("'$lib': fileURLToPath(new URL('./src/lib', import.meta.url))");
+		expect(patchVitestConfig(patched)).toBe(patched);
 	});
 });

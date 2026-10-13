@@ -19,6 +19,16 @@ const LEFTHOOK_CONFIG = `pre-commit:
 
 type HookMode = 'none' | 'lefthook';
 
+const SVFORGE_LIB_IMPORT_MAPPING = './src/lib/*';
+
+/** Return an actionable error when a project already routes #lib elsewhere. */
+export function libImportMappingConflict(packageJsonContent: string): string | undefined {
+	const pkg = JSON.parse(packageJsonContent) as { imports?: Record<string, unknown> };
+	const existing = pkg.imports?.['#lib/*'];
+	if (existing === undefined || existing === SVFORGE_LIB_IMPORT_MAPPING) return undefined;
+	return `SVForge cannot be applied because package.json imports["#lib/*"] is ${JSON.stringify(existing)}; SVForge installs its library files under src/lib and requires "${SVFORGE_LIB_IMPORT_MAPPING}". Update or remove the conflicting mapping, then run sv add again. The existing mapping will not be overwritten.`;
+}
+
 /**
  * Split a plugins-array body on top-level commas only — commas inside call
  * args, object literals or strings must not split (#325).
@@ -97,20 +107,6 @@ export function patchViteConfig(content: string): string {
 	if (!updated.includes('svforgeDesignSystemPlugin()')) {
 		updated = updated.replace(/plugins:\s*\[/, 'plugins: [svforgeDesignSystemPlugin(), ');
 	}
-	// sv@1.x scaffolds Kit 3, which no longer supplies the `$lib` alias by
-	// default. Keep the existing template imports working via the plugin config.
-	const libAlias = "alias: { $lib: 'src/lib' }";
-	if (!updated.includes(libAlias)) {
-		const optionsCall = /\bsveltekit\(\s*\{/.exec(updated);
-		if (optionsCall) {
-			const lineStart = updated.lastIndexOf('\n', optionsCall.index) + 1;
-			const callIndent = updated.slice(lineStart, optionsCall.index).match(/^\s*/)?.[0] ?? '';
-			const insertAt = optionsCall.index + optionsCall[0].length;
-			updated = `${updated.slice(0, insertAt)}\n${callIndent}\t${libAlias},${updated.slice(insertAt)}`;
-		} else {
-			updated = updated.replace(/\bsveltekit\(\s*\)/, `sveltekit({ ${libAlias} })`);
-		}
-	}
 	// #325: the scaffold ships `lint: prettier --check . && eslint .` — the
 	// patched plugins array must be prettier-stable (printWidth 100). When the
 	// single-line form no longer fits, render one plugin per line (exactly what
@@ -142,19 +138,52 @@ export function patchViteConfig(content: string): string {
 
 /**
  * Vitest's own config bypasses the Kit plugin options from vite.config.ts.
- * Give it an explicit `$lib` alias so the scaffold's example tests also work
- * with Kit 3 (where `$lib` is opt-in).
+ * Give it the `#lib` package-subpath alias, while retaining a `$lib` fallback
+ * for existing Kit 2 test code. Merge into an existing resolve.alias object
+ * (including the one emitted by the official Vitest add-on) instead of adding
+ * a duplicate resolve key.
  */
+function ensureFileURLToPathImport(content: string): { content: string; binding: string } {
+	const namedImports = /import\s+(type\s+)?\{([\s\S]*?)\}\s*from\s*(['"])node:url\3\s*;?/g;
+	for (const match of content.matchAll(namedImports)) {
+		if (match[1]) continue;
+		for (const rawBinding of match[2].split(',')) {
+			const binding = rawBinding.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '').trim();
+			const [imported, local = imported] = binding.split(/\s+as\s+/);
+			if (imported === 'fileURLToPath') return { content, binding: local };
+		}
+	}
+
+	let binding = 'fileURLToPath';
+	while (content.includes(binding)) binding = binding === 'fileURLToPath' ? 'svforgeFileURLToPath' : `${binding}2`;
+	const alias = binding === 'fileURLToPath' ? '' : ` as ${binding}`;
+	return {
+		content: `import { fileURLToPath${alias} } from 'node:url';\n${content}`,
+		binding
+	};
+}
+
 export function patchVitestConfig(content: string): string {
 	let updated = content;
-	if (!updated.includes("from 'node:url'")) {
-		updated = `import { fileURLToPath } from 'node:url';\n${updated}`;
-	}
-	const alias = "'$lib': fileURLToPath(new URL('./src/lib', import.meta.url))";
-	if (!updated.includes(alias)) {
+	const aliases = ['#lib', '$lib'];
+	const missingAliases = aliases.filter((key) =>
+		key === '#lib' ? !/#lib["']?\s*:/.test(updated) : !/(?:["']\$lib["']|\$lib)\s*:/.test(updated)
+	);
+	if (missingAliases.length === 0) return updated;
+
+	const fileUrlImport = ensureFileURLToPathImport(updated);
+	updated = fileUrlImport.content;
+	const entries = missingAliases.map(
+		(key) => `'${key}': ${fileUrlImport.binding}(new URL('./src/lib', import.meta.url))`
+	);
+	if (/\balias\s*:\s*\{/.test(updated)) {
+		updated = updated.replace(/\balias\s*:\s*\{/, (match) => `${match} ${entries.join(', ')},`);
+	} else if (/\bresolve\s*:\s*\{/.test(updated)) {
+		updated = updated.replace(/\bresolve\s*:\s*\{/, (match) => `${match} alias: { ${entries.join(', ')} },`);
+	} else {
 		updated = updated.replace(
 			/export default defineConfig\(\s*\{/,
-			(match) => `${match}\n\tresolve: { alias: { ${alias} } },`
+			(match) => `${match}\n\tresolve: { alias: { ${entries.join(', ')} } },`
 		);
 	}
 	return updated;
@@ -201,7 +230,13 @@ export function applyBaseMode(
 	// variant advertised by the template reference fails on the generated
 	// Paraglide messages.
 	sv.file('package.json', (content: string) => {
+		const conflict = libImportMappingConflict(content);
+		if (conflict) throw new Error(conflict);
 		const pkg = JSON.parse(content);
+		pkg.imports = {
+			...(pkg.imports && typeof pkg.imports === 'object' ? pkg.imports : {}),
+			'#lib/*': pkg.imports?.['#lib/*'] ?? SVFORGE_LIB_IMPORT_MAPPING
+		};
 		pkg.scripts = {
 			...pkg.scripts,
 			lint: 'prettier --check . && eslint .',
@@ -247,8 +282,9 @@ export function applyBaseMode(
 		sv.file(resolveDestination(path, BASE_ROOT_PATHS), () => content);
 	}
 
-	// Kit 3 removes `$lib` by default. Vitest runs its own Vite config rather
-	// than the app config, so preserve the legacy alias for scaffold tests too.
+	// Vitest resolves package imports independently from SvelteKit; add the
+	// #lib path alias and retain $lib only as a compatibility fallback for
+	// test files in existing Kit 2 projects.
 	sv.file('vitest.config.ts', (content) => patchVitestConfig(content));
 
 	// Write root-level project files (messages/, project.inlang/) at the

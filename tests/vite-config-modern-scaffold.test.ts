@@ -1,28 +1,29 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
 /**
- * REAL-GENERATION regression for #415.
+ * REAL-GENERATION regression for #415 and #584.
  *
  * `sv@1.1` creates a Kit 3 project with config options inside
- * `sveltekit({ ... })` in `vite.config.ts`; Kit 3 no longer defines `$lib` by
- * default. A hardcoded fixture can silently drift from that shape, so this
- * scaffolds a REAL project, applies SVForge through the real CLI (`file:`
- * add-on), and validates the generated alias/config.
+ * `sveltekit({ ... })` in `vite.config.ts`. The regression checks the generated
+ * `#lib` package import mapping and ensures no deprecated `alias` plugin
+ * option is added. A hardcoded fixture can silently drift from that shape, so this
+ * scaffolds a REAL project and applies SVForge through the real CLI (`file:`
+ * add-on).
  *
  * `--no-install` keeps it fast and hermetic: `sv create`/`sv add` copy files
- * without resolving dependencies, and the config is validated by PARSING it.
+ * without resolving dependencies, and the generated config is validated by PARSING it.
  */
 const ROOT = process.cwd();
 const SV_VERSION = '1.1.1';
 const SVFORGE = `file:${join(ROOT, 'packages', 'svforge')}`;
 const DND = `file:${join(ROOT, 'packages', 'dnd')}`;
 
-function runSv(args: string[], cwd: string): void {
-	execFileSync('npm', ['exec', '--yes', '--package', `sv@${SV_VERSION}`, '--', 'sv', ...args], {
+function runSv(args: string[], cwd: string): string {
+	return execFileSync('npm', ['exec', '--yes', '--package', `sv@${SV_VERSION}`, '--', 'sv', ...args], {
 		cwd,
 		encoding: 'utf8',
 		stdio: ['ignore', 'pipe', 'pipe']
@@ -56,7 +57,7 @@ async function syntaxErrors(source: string, fileName: string): Promise<string[]>
 		.map((diagnostic) => String(diagnostic.messageText));
 }
 
-describe('modern sv layout generates a valid vite.config.ts (#415)', () => {
+describe('modern sv layout generates a valid vite.config.ts (#415, #584)', () => {
 	beforeAll(() => {
 		ensureBuilt('svforge');
 		ensureBuilt('dnd');
@@ -68,8 +69,15 @@ describe('modern sv layout generates a valid vite.config.ts (#415)', () => {
 			try {
 				const config = readFileSync(join(app, 'vite.config.ts'), 'utf8');
 				const manifest = JSON.parse(readFileSync(join(app, 'package.json'), 'utf8'));
+				const vitestConfig = readFileSync(join(app, 'vitest.config.ts'), 'utf8');
 				expect(manifest.devDependencies['@sveltejs/kit']).toMatch(/^\^3\./);
 				expect(manifest.imports['#lib/*']).toBe('./src/lib/*');
+				writeFileSync(join(app, 'src/lib/esm-resolution-probe.mjs'), "export default 'resolved';\n");
+				execFileSync(
+					'node',
+					['--input-type=module', '-e', "import value from '#lib/esm-resolution-probe.mjs'; if (value !== 'resolved') process.exit(1);"],
+					{ cwd: app, stdio: 'pipe' }
+				);
 				expect(existsSync(join(app, 'svelte.config.js'))).toBe(false);
 				// The path-separator regex is byte-identical…
 				expect(config).toContain('filename.split(/[/\\\\]/)');
@@ -78,7 +86,9 @@ describe('modern sv layout generates a valid vite.config.ts (#415)', () => {
 				// …and SVForge wired its plugins into the generated config.
 				expect(config).toContain('svforgeDesignSystemPlugin()');
 				expect(config).toContain('paraglideVitePlugin({');
-				expect(config).toContain("alias: { $lib: 'src/lib' }");
+				expect(config).not.toMatch(/\balias\s*:/);
+				expect(vitestConfig).toMatch(/'#lib': (?:fileURLToPath\(new URL\('\.\/src\/lib', import\.meta\.url\)\)|resolve\('src\/lib'\))/);
+				expect(vitestConfig).toMatch(/(?:'\$lib': fileURLToPath\(new URL\('\.\/src\/lib', import\.meta\.url\)\)|\$lib: resolve\('src\/lib'\))/);
 				// The result PARSES (a broken regex is an unterminated literal).
 				expect(await syntaxErrors(config, 'vite.config.ts')).toEqual([]);
 
@@ -87,6 +97,41 @@ describe('modern sv layout generates a valid vite.config.ts (#415)', () => {
 			}
 		}, 120_000);
 	}
+
+	it('rejects a conflicting #lib mapping before writing any SVForge files', () => {
+		const root = mkdtempSync(join(tmpdir(), 'sf584-conflicting-lib-map-'));
+		try {
+			runSv(
+				['create', 'app', '--template', 'minimal', '--types', 'ts', '--no-install', '--no-add-ons', '--no-download-check'],
+				root
+			);
+			const app = join(root, 'app');
+			const packagePath = join(app, 'package.json');
+			const manifest = JSON.parse(readFileSync(packagePath, 'utf8'));
+			manifest.imports['#lib/*'] = './custom/lib/*';
+			writeFileSync(packagePath, `${JSON.stringify(manifest, null, 2)}\n`);
+			const originalViteConfig = readFileSync(join(app, 'vite.config.ts'), 'utf8');
+
+			let output = '';
+			try {
+				output = runSv(
+					['add', `${SVFORGE}=template:base+testing:vitest+hooks:none`, '--no-install', '--no-download-check'],
+					app
+				);
+			} catch (error) {
+				const commandError = error as NodeJS.ErrnoException & { stdout?: Buffer; stderr?: Buffer };
+				output = `${commandError.stdout?.toString() ?? ''}\n${commandError.stderr?.toString() ?? ''}`;
+			}
+
+			expect(output).toContain('SVForge cannot be applied because package.json imports["#lib/*"]');
+			expect(JSON.parse(readFileSync(packagePath, 'utf8'))).toEqual(manifest);
+			expect(readFileSync(join(app, 'vite.config.ts'), 'utf8')).toBe(originalViteConfig);
+			expect(existsSync(join(app, 'src/lib/components/svforge/primitives/Button.svelte'))).toBe(false);
+			expect(existsSync(join(app, '.svforge.json'))).toBe(false);
+		} finally {
+			rmSync(root, { recursive: true, force: true });
+		}
+	}, 120_000);
 
 	it('composes the official Tailwind add-on after SVForge without duplicate base wiring', async () => {
 		const { root, app } = realScaffold('base');

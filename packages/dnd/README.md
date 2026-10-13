@@ -16,7 +16,7 @@ Supported: `long-lived-node`, `serverless`, `edge`, `separate-worker`. Unsupport
 
 ```svelte
 <script>
-  import SortableList from '$lib/components/svforge/dnd/SortableList.svelte';
+  import SortableList from '#lib/components/svforge/dnd/SortableList.svelte';
 
   let items = $state([
     { id: '1', title: 'First item' },

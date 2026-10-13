@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import * as m from '$lib/paraglide/messages.js';
-	import { Button, Input } from '$lib/components/svforge/primitives';
-	import { cn } from '$lib/utils/cn';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Button, Input } from '#lib/components/svforge/primitives/index.js';
+	import { cn } from '#lib/utils/cn.js';
 	import { isSafeHref } from './render-tiptap';
 	import { Popover, Portal, ToggleGroup } from '@skeletonlabs/skeleton-svelte';
 

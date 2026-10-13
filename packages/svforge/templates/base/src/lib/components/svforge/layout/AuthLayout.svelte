@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import * as m from '$lib/paraglide/messages.js';
-	import Logo from '$lib/components/svforge/ui/Logo.svelte';
-	import ThemeToggle from '$lib/components/svforge/ui/ThemeToggle.svelte';
+	import * as m from '#lib/paraglide/messages.js';
+	import Logo from '#lib/components/svforge/ui/Logo.svelte';
+	import ThemeToggle from '#lib/components/svforge/ui/ThemeToggle.svelte';
 
 	interface Props {
 		title: string;

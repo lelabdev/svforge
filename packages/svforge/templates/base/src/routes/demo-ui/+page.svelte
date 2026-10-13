@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Alert, Card, Table, ThemeToggle } from '$lib/components/svforge/ui';
-	import { Badge, Button, Checkbox, Input, Select, Textarea, Toggle } from '$lib/components/svforge/primitives';
-	import * as m from '$lib/paraglide/messages.js';
+	import { Alert, Card, Table, ThemeToggle } from '#lib/components/svforge/ui/index.js';
+	import { Badge, Button, Checkbox, Input, Select, Textarea, Toggle } from '#lib/components/svforge/primitives/index.js';
+	import * as m from '#lib/paraglide/messages.js';
 
 	// Literal example shown in a <code> block — a string constant so Svelte
 	// never parses the braces as an expression (#271).

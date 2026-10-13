@@ -1,7 +1,7 @@
 <script lang="ts">
-	import * as m from '$lib/paraglide/messages.js';
-	import { Card } from '$lib/components/svforge/ui';
-	import { Button } from '$lib/components/svforge/primitives';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Card } from '#lib/components/svforge/ui/index.js';
+	import { Button } from '#lib/components/svforge/primitives/index.js';
 </script>
 
 <svelte:head>

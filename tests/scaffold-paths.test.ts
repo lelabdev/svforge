@@ -9,7 +9,7 @@ const ROOT = process.cwd();
  *
  * The template directories had an extra src/ level, causing the addon to install
  * files at src/src/lib/components/... instead of src/lib/components/....
- * Documentation imports from $lib/components/....
+ * Documentation imports from #lib/components/.../index.js.
  */
 describe('dnd and ui_toast scaffold paths (#172)', () => {
 	describe('dnd template directory structure', () => {

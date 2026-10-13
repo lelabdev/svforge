@@ -40,7 +40,7 @@ beforeEach(async () => {
 	// upload-form helper at the template source rather than that fixture dir.
 	writeFileSync(
 		COMPILED,
-		js.code.replace('$lib/uploads/post-form', pathToFileURL(join(ROOT, 'packages/uploads/templates/src/lib/uploads/post-form.ts')).href)
+		js.code.replace('#lib/uploads/post-form.js', pathToFileURL(join(ROOT, 'packages/uploads/templates/src/lib/uploads/post-form.ts')).href)
 	);
 	Component = (await import(join(ROOT, 'tests/__gen__/FileUpload.compiled.js'))).default;
 });

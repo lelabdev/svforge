@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { JSONContent } from '@tiptap/core';
-	import { cn } from '$lib/utils/cn';
+	import { cn } from '#lib/utils/cn.js';
 	import { renderTiptap } from './render-tiptap';
 
 	interface Props {

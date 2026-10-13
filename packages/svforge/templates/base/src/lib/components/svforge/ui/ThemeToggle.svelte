@@ -1,9 +1,9 @@
 <script lang="ts">
-	import * as m from '$lib/paraglide/messages.js';
-	import { Sun, Moon } from '$lib/icons';
-	import { Button } from '$lib/components/svforge/primitives';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Sun, Moon } from '#lib/icons/index.js';
+	import { Button } from '#lib/components/svforge/primitives/index.js';
 	import { onMount } from 'svelte';
-	import { followSystemTheme } from '$lib/utils/theme';
+	import { followSystemTheme } from '#lib/utils/theme.js';
 
 	interface Props {
 		class?: string;

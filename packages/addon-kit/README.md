@@ -39,7 +39,7 @@ stay byte-for-byte identical.
 | `ui.svforge` | SVForge base UI kit (primitives/ui + utils) | `src/lib/components/svforge/` present |
 | `i18n.messages` | Paraglide message catalogs (FR/EN initial locales) | paraglide dependency + `messages/*.json` |
 | `auth.currentUser` | Authenticated user in `locals.user` | `better-auth` dependency |
-| `auth.admin` | Admin role helpers (`$lib/server/admin`) | `src/lib/server/admin.*` present |
+| `auth.admin` | Admin role helpers (`#lib/server/admin.js`) | `src/lib/server/admin.*` present |
 | `database.drizzle.postgres` | Drizzle ORM + PostgreSQL driver | `drizzle-orm` + `postgres`/`pg` dependencies |
 | `storage.object` | S3-compatible object storage client | `@aws-sdk/client-s3` dependency |
 | `runtime.longLivedWorker` | Runtime keeping a worker alive | not verifiable from files → warning |

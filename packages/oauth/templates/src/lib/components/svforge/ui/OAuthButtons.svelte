@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { authClient } from '$lib/client/auth';
+  import { authClient } from '#lib/client/auth.js';
   let loading = $state<'google' | 'github' | null>(null);
 
   async function signIn(provider: 'google' | 'github') {

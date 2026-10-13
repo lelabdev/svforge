@@ -118,7 +118,7 @@ export default defineAddon({
 	nextSteps: () => [
 		'@svforge/tiptap installed!',
 		'Usage:',
-		"  import { TiptapEditor, TiptapPreview } from '$lib/components/svforge/tiptap';",
+		"  import { TiptapEditor, TiptapPreview } from '#lib/components/svforge/tiptap/index.js';",
 		'  <TiptapEditor content={content} onUpdate={(json) => content = json} />',
 		'  <TiptapPreview content={content} />'
 	]

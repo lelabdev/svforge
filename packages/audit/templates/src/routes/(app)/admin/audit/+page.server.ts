@@ -1,6 +1,6 @@
-import { isAdmin } from '$lib/server/admin';
-import { audit } from '$lib/server/audit';
-import { parsePagination } from '$lib/server/audit/pagination';
+import { isAdmin } from '#lib/server/admin.js';
+import { audit } from '#lib/server/audit/index.js';
+import { parsePagination } from '#lib/server/audit/pagination.js';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 

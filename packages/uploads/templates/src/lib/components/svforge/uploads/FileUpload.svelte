@@ -1,6 +1,6 @@
 <script lang="ts">
-	import * as m from '$lib/paraglide/messages.js';
-	import { createUploadForm } from '$lib/uploads/post-form';
+	import * as m from '#lib/paraglide/messages.js';
+	import { createUploadForm } from '#lib/uploads/post-form.js';
 
 	/** Marker for the only user-safe error surface: a recognized API error payload. */
 	class UploadError extends Error {}

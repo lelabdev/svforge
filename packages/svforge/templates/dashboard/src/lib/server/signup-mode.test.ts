@@ -46,12 +46,12 @@ vi.mock('$app/server', () => ({ getRequestEvent: () => undefined }));
 
 // One real db instance, frozen for every module graph below (mode switching
 // re-evaluates ./auth and ./invitations, which must keep using THIS pool).
-const dbModule = await import('$lib/server/db');
+const dbModule = await import('#lib/server/db/index.js');
 const envModule = await import('$app/env/private');
-vi.doMock('$lib/server/db', () => ({ db: dbModule.db, closeDb: dbModule.closeDb }));
+vi.doMock('#lib/server/db/index.js', () => ({ db: dbModule.db, closeDb: dbModule.closeDb }));
 
 import { createInvitation, findValidInvitation } from './invitations';
-import { db } from '$lib/server/db';
+import { db } from '#lib/server/db/index.js';
 import { user } from './db/schema';
 import { eq, like } from 'drizzle-orm';
 import { runEmailDomain } from './test-db';
@@ -72,7 +72,7 @@ const uniqueEmail = (tag: string) => `signup-${tag}-${crypto.randomUUID()}@${RUN
 async function authWithMode(mode?: string) {
 	state.overrides.SIGNUP_MODE = mode;
 	vi.resetModules();
-	vi.doMock('$lib/server/db', () => ({ db: dbModule.db, closeDb: dbModule.closeDb }));
+	vi.doMock('#lib/server/db/index.js', () => ({ db: dbModule.db, closeDb: dbModule.closeDb }));
 	const { auth } = await import('./auth');
 	return auth;
 }

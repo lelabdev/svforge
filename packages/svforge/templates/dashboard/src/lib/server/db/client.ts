@@ -8,7 +8,7 @@ import * as schema from './schema';
  * The factory is the serverless escape hatch: create a short-lived client in a
  * request and close it in a finally block. A long-lived Node process should
  * create one client and reuse it for the life of the process (the `db` export
- * of `$lib/server/db` keeps that convenient default for dashboard routes).
+ * of `#lib/server/db/index.js` keeps that convenient default for dashboard routes).
  *
  * This module is intentionally free of SvelteKit virtual modules: the
  * first-admin bootstrap command (`scripts/create-admin.ts`, #318) shares the

@@ -112,17 +112,17 @@ export function goto(url) {
 		.replace(/^import type \{ ActionData \} from '\.\/\$types';$/m, '')
 		.replace("from '$app/forms'", "from './login-harness-forms.js'")
 		.replace("from '$app/navigation'", "from './login-harness-nav.js'")
-		.replace("from '$lib/paraglide/messages.js'", "from './login-harness-messages.js'")
-		.replace("from '$lib/components/svforge/ui'", "from './login-harness-ui.js'")
-		.replace("from '$lib/components/svforge/primitives'", "from './login-harness-primitives.js'")
+		.replace("from '#lib/paraglide/messages.js'", "from './login-harness-messages.js'")
+		.replace("from '#lib/components/svforge/ui/index.js'", "from './login-harness-ui.js'")
+		.replace("from '#lib/components/svforge/primitives/index.js'", "from './login-harness-primitives.js'")
 		.replace(
-			"from '$lib/components/svforge/layout/AuthLayout.svelte'",
+			"from '#lib/components/svforge/layout/AuthLayout.svelte'",
 			"from './login-harness-layout.js'"
 		)
 		.replace("from 'phosphor-svelte/lib/Eye'", "from './login-harness-icon.js'")
 		.replace("from 'phosphor-svelte/lib/EyeSlash'", "from './login-harness-icon.js'")
-		.replace("from '$lib/icons'", "from './login-harness-icons.js'")
-		.replace("from '$lib/utils/web'", "from './login-harness-web'");
+		.replace("from '#lib/icons/index.js'", "from './login-harness-icons.js'")
+		.replace("from '#lib/utils/web.js'", "from './login-harness-web'");
 	writeFileSync(
 		join(GEN, 'login-harness-page.js'),
 		compile(source, { generate: 'client', filename: 'LoginPage.svelte' }).js.code

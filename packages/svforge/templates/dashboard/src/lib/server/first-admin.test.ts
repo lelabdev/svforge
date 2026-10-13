@@ -20,7 +20,7 @@ import { auth } from './auth';
 import { adminExists, bootstrapFirstAdmin, AdminExistsError } from './first-admin';
 import { isAdmin } from './admin';
 import { createCredentialUser } from './admin-users';
-import { db } from '$lib/server/db';
+import { db } from '#lib/server/db/index.js';
 import { user, account } from './db/schema';
 import { eq, inArray, like, notLike, sql } from 'drizzle-orm';
 import { runEmailDomain } from './test-db';

@@ -57,7 +57,7 @@ A signed PUT does **not** reliably enforce `ContentLength` at the storage layer.
 
 ```svelte
 <script>
-	import FileUpload from '$lib/components/svforge/uploads/FileUpload.svelte';
+	import FileUpload from '#lib/components/svforge/uploads/FileUpload.svelte';
 </script>
 
 <FileUpload onUpload={(key) => console.log('Uploaded:', key)} />

@@ -33,7 +33,7 @@ export default defineAddon({
 
 	run: ({ sv, cancel, cwd }) => {
 		// Capability gate (#323): the OAuth buttons call the authenticated
-		// session client ($lib/client/auth) — Better Auth must be present.
+		// session client (#lib/client/auth.js) — Better Auth must be present.
 		const gate = checkModuleCapabilities(cwd, 'oauth');
 		if (!gate.ok) {
 			cancel(gate.message);
@@ -71,7 +71,7 @@ export default defineAddon({
 			'    google: { clientId: env.GOOGLE_CLIENT_ID, clientSecret: env.GOOGLE_CLIENT_SECRET },',
 			'    github: { clientId: env.GITHUB_CLIENT_ID, clientSecret: env.GITHUB_CLIENT_SECRET }',
 			'  }',
-			'Add OAuth buttons: import OAuthButtons from "$lib/components/svforge/ui/OAuthButtons.svelte"',
+			'Add OAuth buttons: import OAuthButtons from "#lib/components/svforge/ui/OAuthButtons.svelte"',
 			'Copy the OAuth placeholders from .env.example into .env and replace them (src/env.ts declarations were added automatically):',
 			'  GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET'
 		];

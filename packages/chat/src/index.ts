@@ -68,8 +68,8 @@ export default defineAddon({
 
 		// Register the chat schemas in the Drizzle barrel.
 		sv.file('src/lib/server/db/schema.ts', (content) => {
-			if (hasPatchApplied(content, 'chat-schema', ["from '$lib/server/chat/schema'"])) return content;
-			return `import { conversations, conversationParticipants, messages as chatMessages, messageReads } from '$lib/server/chat/schema'; // svforge:patch:chat-schema\n${content}\nexport { conversations, conversationParticipants, chatMessages, messageReads }; // svforge:patch:chat-schema\n`;
+			if (hasPatchApplied(content, 'chat-schema', ["from '#lib/server/chat/schema.js'", "from '$lib/server/chat/schema'"])) return content;
+			return `import { conversations, conversationParticipants, messages as chatMessages, messageReads } from '#lib/server/chat/schema.js'; // svforge:patch:chat-schema\n${content}\nexport { conversations, conversationParticipants, chatMessages, messageReads }; // svforge:patch:chat-schema\n`;
 		});
 
 		// Paraglide messages (#239) + manifest (#234): PLANNED in memory before
@@ -85,7 +85,7 @@ export default defineAddon({
 		const steps = [
 			'@svforge/chat installed!',
 			'Routes: /chat (list) and /chat/[id] (conversation)',
-			'API: import { chat } from "$lib/server/chat";',
+			'API: import { chat } from "#lib/server/chat/index.js";',
 			'  await chat.createConversation({ participantIds: [userA, userB] });',
 			'  await chat.sendMessage({ conversationId, authorId: user.id, content: "Bonjour" });',
 			'Optional: realtime → publish message.created on conversation:{id}',

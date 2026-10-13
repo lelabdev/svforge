@@ -50,10 +50,10 @@ export default defineAddon({
 	nextSteps: () => [
 		'@svforge/ui_toast installed!',
 		'Import Toaster in your root layout:',
-		"  import { Toaster } from '$lib/components/svforge/ui/Toaster.svelte';",
+		"  import { Toaster } from '#lib/components/svforge/ui/Toaster.svelte';",
 		'  <Toaster />',
 		'Trigger toasts from anywhere:',
-		"  import { toaster } from '$lib/components/svforge/ui/toaster';",
+		"  import { toaster } from '#lib/components/svforge/ui/toaster.js';",
 		'  toaster.success({ title: "Done!" });'
 	]
 });

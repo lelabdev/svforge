@@ -1,6 +1,6 @@
 import { and, eq, gt, isNull } from 'drizzle-orm';
-import { db } from '$lib/server/db';
-import { invitation } from '$lib/server/db/schema';
+import { db } from '#lib/server/db/index.js';
+import { invitation } from '#lib/server/db/schema.js';
 
 /**
  * Sign-up invitations (#318) — the `invite-only` sign-up mode.

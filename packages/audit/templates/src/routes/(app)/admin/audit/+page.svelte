@@ -1,7 +1,7 @@
 <script lang="ts">
-	import * as m from '$lib/paraglide/messages.js';
-	import { Card, Table } from '$lib/components/svforge/ui';
-	import { Button, Input } from '$lib/components/svforge/primitives';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Card, Table } from '#lib/components/svforge/ui/index.js';
+	import { Button, Input } from '#lib/components/svforge/primitives/index.js';
 	import { page } from '$app/state';
 
 	let { data }: { data: import('./$types').PageData } = $props();

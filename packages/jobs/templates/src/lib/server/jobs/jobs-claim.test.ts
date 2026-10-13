@@ -16,7 +16,7 @@ vi.mock('$app/env/private', async () => {
 	};
 });
 
-import { db } from '$lib/server/db';
+import { db } from '#lib/server/db/index.js';
 import { jobs } from './schema';
 import { jobsApi, define, NonRetryableJobError } from './index';
 import { startJobRunner, stopJobRunner, runnerState } from './runner';

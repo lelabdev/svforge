@@ -25,7 +25,7 @@ client Svelte → rt.subscribe(channel, event, handler)
 ## Server — publish
 
 ```ts
-import { realtime } from '$lib/server/realtime';
+import { realtime } from '#lib/server/realtime/index.js';
 
 await realtime.publish({
 	channel: `organization:${orgId}`,
@@ -39,11 +39,11 @@ envelope shape clients receive. There is no positional form.
 
 ## Server — configuration (auth)
 
-The shared instance is created in `$lib/server/realtime/index.ts`. Configure
+The shared instance is created in `src/lib/server/realtime/index.ts`. Configure
 `authenticate` + `authorize` there at creation time:
 
 ```ts
-// $lib/server/realtime/index.ts
+// src/lib/server/realtime/index.ts
 import { createRealtimeHub } from './hub';
 
 export const realtime = createRealtimeHub({
@@ -88,7 +88,7 @@ Compatible with `@sveltejs/adapter-node` and another long-lived Node HTTP server
 In `svelte.config.js` / `vite.config.ts` build, attach the hub:
 
 ```ts
-import { realtime } from '$lib/server/realtime';
+import { realtime } from '#lib/server/realtime/index.js';
 // inside your custom server bootstrap:
 realtime.attach(server);
 ```
@@ -100,7 +100,7 @@ This is the separate-WS-server option: deploy this Node process independently fr
 Start the WS server on its own port (e.g. in a server bootstrap):
 
 ```ts
-import { realtime } from '$lib/server/realtime';
+import { realtime } from '#lib/server/realtime/index.js';
 
 // in +layout.server.ts or a server bootstrap:
 if (import.meta.env.PROD) realtime.listen(3001);
@@ -111,7 +111,7 @@ if (import.meta.env.PROD) realtime.listen(3001);
 ```svelte
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { createRealtimeClient } from '$lib/realtime/client';
+	import { createRealtimeClient } from '#lib/realtime/client.js';
 	import { invalidate } from '$app/navigation';
 
 	const rt = createRealtimeClient('/api/realtime');
@@ -132,9 +132,9 @@ a reconnection.
 
 ## What's included
 
-- `$lib/server/realtime/hub.ts` — `RealtimeHub` + `createRealtimeHub` (publish, subscribe, isolation)
-- `$lib/server/realtime/index.ts` — shared `realtime` instance (configure auth here)
-- `$lib/realtime/client.ts` — Svelte client (auto-reconnect with backoff, typed envelopes, ref-counted channels)
+- `src/lib/server/realtime/hub.ts` — `RealtimeHub` + `createRealtimeHub` (publish, subscribe, isolation)
+- `src/lib/server/realtime/index.ts` — shared `realtime` instance (configure auth here)
+- `src/lib/realtime/client.ts` — Svelte client (auto-reconnect with backoff, typed envelopes, ref-counted channels)
 
 ## Envelope
 

@@ -75,7 +75,7 @@ Import the OAuth buttons component anywhere in your app:
 
 ```svelte
 <script lang="ts">
-  import OAuthButtons from '$lib/components/svforge/ui/OAuthButtons.svelte';
+  import OAuthButtons from '#lib/components/svforge/ui/OAuthButtons.svelte';
 </script>
 
 <div class="max-w-sm mx-auto">

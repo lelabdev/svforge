@@ -50,7 +50,7 @@ export default defineAddon({
 			'@svforge/realtime installed!',
 			'Wire the hub: in src/hooks.server.ts, attach the WS server on startup',
 			'  or run `realtime.listen(PORT)` (see README)',
-			'Publish: import { realtime } from "$lib/server/realtime";',
+			'Publish: import { realtime } from "#lib/server/realtime/index.js";',
 			'  await realtime.publish({ channel: "org:1", event: "punch.created", payload: { punchId } });',
 			'Client: const rt = createRealtimeClient("/api/realtime");',
 			'  rt.subscribe("org:1", "punch.created", (p) => invalidate("app:punches"));'

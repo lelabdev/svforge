@@ -32,9 +32,16 @@ describe('named patch markers (#331)', () => {
 		expect(hasPatchApplied(undefined, 'jobs-schema')).toBe(true);
 		expect(hasPatchApplied('', 'jobs-schema')).toBe(true);
 		expect(hasPatchApplied('export {};', 'jobs-schema')).toBe(false);
-		// legacy: a pre-marker install already carrying the precise import stays idempotent
+		// Pre-marker Kit 2 installs keep their legacy import; new Kit 3 installs
+		// use the explicit-extension package subpath. Both remain idempotent.
 		expect(
 			hasPatchApplied("import { jobs } from '$lib/server/jobs/schema';", 'jobs-schema', [
+				"from '$lib/server/jobs/schema'"
+			])
+		).toBe(true);
+		expect(
+			hasPatchApplied("import { jobs } from '#lib/server/jobs/schema.js';", 'jobs-schema', [
+				"from '#lib/server/jobs/schema.js'",
 				"from '$lib/server/jobs/schema'"
 			])
 		).toBe(true);

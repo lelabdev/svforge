@@ -1,6 +1,8 @@
 import { defineAddon, defineAddonOptions } from 'sv';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { baseFiles, dashboardFiles, dashboardRootFiles, baseRootFiles } from './templates';
-import { applyBaseMode } from './modes/base';
+import { applyBaseMode, libImportMappingConflict } from './modes/base';
 import { applyDashboardMode } from './modes/dashboard';
 
 // Export doctor diagnostics for programmatic use
@@ -137,7 +139,12 @@ export default defineAddon({
 		if (!isKit) unsupported('SvelteForge requires SvelteKit');
 	},
 
-	run: ({ sv, options, packageManager }) => {
+	run: ({ sv, options, packageManager, cwd, cancel }) => {
+		const conflict = libImportMappingConflict(readFileSync(join(cwd, 'package.json'), 'utf8'));
+		if (conflict) {
+			cancel(conflict);
+			return;
+		}
 		const template = options.template as 'base' | 'dashboard';
 		const testing = options.testing as 'vitest' | 'playwright';
 		const hooks = options.hooks as 'none' | 'lefthook';

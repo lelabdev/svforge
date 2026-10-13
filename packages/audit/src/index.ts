@@ -81,8 +81,8 @@ export default defineAddon({
 
 		// Audit schema must be registered in the Drizzle schema barrel.
 		sv.file('src/lib/server/db/schema.ts', (content) => {
-			if (hasPatchApplied(content, 'audit-schema', ["from '$lib/server/audit/schema'"])) return content;
-			return `import { auditLogs } from '$lib/server/audit/schema'; // svforge:patch:audit-schema\n${content}\nexport { auditLogs }; // svforge:patch:audit-schema\n`;
+			if (hasPatchApplied(content, 'audit-schema', ["from '#lib/server/audit/schema.js'", "from '$lib/server/audit/schema'"])) return content;
+			return `import { auditLogs } from '#lib/server/audit/schema.js'; // svforge:patch:audit-schema\n${content}\nexport { auditLogs }; // svforge:patch:audit-schema\n`;
 		});
 
 		// Paraglide messages (#239): audit UI copy merged FR/EN — precomputed
@@ -100,7 +100,7 @@ export default defineAddon({
 	nextSteps: ({ cwd }) => {
 		const steps = [
 			'@svforge/audit installed!',
-			'Record: import { audit } from "$lib/server/audit";',
+			'Record: import { audit } from "#lib/server/audit/index.js";',
 			'  await audit.record({ actorId: user.id, action: "punch.corrected", entityType: "punch", entityId: punch.id });',
 			'Read: await audit.forEntity("punch", punchId); await audit.byActor(userId);',
 			'Admin view: /admin/audit (pagination + filters)'

@@ -22,7 +22,7 @@ Set a product retention period, classify metadata/PII, and limit read access to 
 ## Record
 
 ```ts
-import { audit } from '$lib/server/audit';
+import { audit } from '#lib/server/audit/index.js';
 
 await audit.record({
 	actorId: user.id, // null → system action
@@ -87,8 +87,8 @@ CREATE TRIGGER audit_logs_append_only
 
 ## What's included
 
-- `$lib/server/audit/schema.ts` — Drizzle schema (`audit_logs`)
-- `$lib/server/audit/index.ts` — `audit.record` / `forEntity` / `byActor` / `list`
+- `src/lib/server/audit/schema.ts` — Drizzle schema (`audit_logs`)
+- `src/lib/server/audit/index.ts` — `audit.record` / `forEntity` / `byActor` / `list`
 - `src/routes/(app)/admin/audit/` — paginated admin view (FR/EN via Paraglide)
 
 ## Limits (v1)

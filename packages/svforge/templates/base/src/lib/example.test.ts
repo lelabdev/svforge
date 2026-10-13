@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { cn } from '$lib/utils/cn';
-import { generateSitemap } from '$lib/components/svforge/ui/Sitemap';
+import { cn } from '#lib/utils/cn.js';
+import { generateSitemap } from '#lib/components/svforge/ui/Sitemap.js';
 
 describe('cn utility', () => {
 	it('merges class names', () => {

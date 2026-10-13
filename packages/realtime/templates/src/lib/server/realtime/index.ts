@@ -2,7 +2,7 @@ import { createRealtimeHub } from './hub';
 
 /**
  * Shared realtime hub instance — import from anywhere server-side:
- *   import { realtime } from '$lib/server/realtime';
+ *   import { realtime } from '#lib/server/realtime/index.js';
  *   await realtime.publish({ channel, event, payload });
  *
  * Secure by default (#264): without an `authorize` callback every subscription

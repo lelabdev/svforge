@@ -1,4 +1,4 @@
-// Stub for `$lib/utils/cn` used by template components compiled in repo-root
+// Stub for `#lib/utils/cn.js` used by template components compiled in repo-root
 // tests (see vitest.config.ts alias). Values are not asserted — a plain join
 // mirrors the clsx + tailwind-merge behaviour closely enough for the DOM
 // assertions these tests make.

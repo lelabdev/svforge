@@ -1,4 +1,4 @@
-import { db } from '$lib/server/db';
+import { db } from '#lib/server/db/index.js';
 import { notifications } from './schema';
 import { desc, eq, and, isNull } from 'drizzle-orm';
 

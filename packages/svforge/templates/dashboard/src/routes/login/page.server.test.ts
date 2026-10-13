@@ -7,10 +7,10 @@ const query = {
 	limit: vi.fn<() => any[]>()
 };
 
-vi.mock('$lib/server/db', () => ({ db: query }));
-vi.mock('$lib/server/db/schema', () => ({ user: { email: 'email', disabled: 'disabled' } }));
+vi.mock('#lib/server/db/index.js', () => ({ db: query }));
+vi.mock('#lib/server/db/schema.js', () => ({ user: { email: 'email', disabled: 'disabled' } }));
 vi.mock('drizzle-orm', () => ({ eq: vi.fn() }));
-vi.mock('$lib/server/auth', () => ({ auth: { api: { signInEmail: vi.fn() } } }));
+vi.mock('#lib/server/auth.js', () => ({ auth: { api: { signInEmail: vi.fn() } } }));
 
 describe('login action', () => {
 	beforeEach(() => {
@@ -18,7 +18,7 @@ describe('login action', () => {
 	});
 
 	it('rejects a disabled identity without attempting to sign in', async () => {
-		const { auth } = await import('$lib/server/auth');
+		const { auth } = await import('#lib/server/auth.js');
 		query.limit.mockReturnValueOnce([{ disabled: true }]);
 
 		const { actions } = await import('./+page.server');
@@ -35,7 +35,7 @@ describe('login action', () => {
 	});
 
 	it('returns the same generic code for bad credentials without echoing the password', async () => {
-		const { auth } = await import('$lib/server/auth');
+		const { auth } = await import('#lib/server/auth.js');
 		vi.mocked(auth.api.signInEmail).mockRejectedValueOnce(new Error('private detail'));
 		query.limit.mockReturnValueOnce([]);
 

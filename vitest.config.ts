@@ -6,9 +6,10 @@ export default defineConfig({
 	resolve: {
 		conditions: ['module', 'browser', 'development|production'],
 		alias: {
-			// Templates import Paraglide messages via `$lib/paraglide/messages.js`.
-			// In repo-root tests we stub that module (tests/stubs/lib/...) instead
-			// of requiring a full scaffolded Paraglide build.
+			// Template #lib imports resolve to stubs in repo-root tests instead of
+			// requiring a full scaffolded Paraglide build.
+			'#lib': fileURLToPath(new URL('./tests/stubs/lib', import.meta.url)),
+			// Keep the legacy alias for tests covering Kit 2 compatibility.
 			$lib: fileURLToPath(new URL('./tests/stubs/lib', import.meta.url)),
 			// Same for `$app/env` (Table's dev-only rowKey warning).
 			'$app/env': fileURLToPath(new URL('./tests/stubs/app/environment.ts', import.meta.url)),

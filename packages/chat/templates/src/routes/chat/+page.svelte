@@ -1,7 +1,7 @@
 <script lang="ts">
-	import * as m from '$lib/paraglide/messages.js';
-	import { Card } from '$lib/components/svforge/ui';
-	import { Badge } from '$lib/components/svforge/primitives';
+	import * as m from '#lib/paraglide/messages.js';
+	import { Card } from '#lib/components/svforge/ui/index.js';
+	import { Badge } from '#lib/components/svforge/primitives/index.js';
 
 	let { data }: { data: import('./$types').PageData } = $props();
 	const conversations = $derived(data.conversations);

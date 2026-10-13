@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 
 // Mock the server modules so the test can run without a real database.
-vi.mock('$lib/server/db', () => ({
+vi.mock('#lib/server/db/index.js', () => ({
 	db: {
 		select: vi.fn(() => ({ from: vi.fn(() => ({ orderBy: vi.fn(() => []) })) })),
 		insert: vi.fn(() => ({ values: vi.fn() })),
@@ -10,7 +10,7 @@ vi.mock('$lib/server/db', () => ({
 	}
 }));
 
-vi.mock('$lib/server/admin', () => ({
+vi.mock('#lib/server/admin.js', () => ({
 	isAdmin: vi.fn()
 }));
 
@@ -20,7 +20,7 @@ vi.mock('$lib/server/admin', () => ({
  */
 describe('(app) layout auth guard', () => {
 	it('redirects anonymous users to /login', async () => {
-		const { isAdmin } = await import('$lib/server/admin');
+		const { isAdmin } = await import('#lib/server/admin.js');
 		vi.mocked(isAdmin).mockResolvedValue(false);
 
 		// Simulate an unauthenticated request
@@ -46,7 +46,7 @@ describe('(app) layout auth guard', () => {
 	});
 
 	it('returns user data for authenticated users', async () => {
-		const { isAdmin } = await import('$lib/server/admin');
+		const { isAdmin } = await import('#lib/server/admin.js');
 		vi.mocked(isAdmin).mockResolvedValue(true);
 
 		const load = (await import('./+layout.server')).load;

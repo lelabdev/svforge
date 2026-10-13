@@ -18,7 +18,7 @@
       "description": "an authenticated user is available in server locals (Better Auth in SVForge) so endpoints can enforce identity"
     },
     "auth.admin": {
-      "title": "Admin role helpers ($lib/server/admin)",
+      "title": "Admin role helpers (#lib/server/admin.js)",
       "description": "role helpers such as isAdmin() guarding admin-only routes"
     },
     "database.drizzle.postgres": {

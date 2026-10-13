@@ -212,7 +212,7 @@ Components wrap Skeleton classes + Tailwind only — never raw CSS
 - \`cn()\` + \`class\` prop on every component (merge/override)
 - \`HTMLAttributes<T>\` from \`svelte/elements\` for native attribute extension
 - \`$bindable()\` declared in the Props interface
-- Phosphor icons: import from \`$lib/icons\`; keep deep \`phosphor-svelte/lib/*\` imports inside \`src/lib/icons/\` definition modules only
+- Phosphor icons: import from \`#lib/icons/index.js\`; keep deep \`phosphor-svelte/lib/*\` imports inside \`src/lib/icons/\` definition modules only
 
 ## Theme
 
@@ -256,7 +256,7 @@ ${renderAgentLocaleBlock(localeSettings)}
 Locales live in \`project.inlang/settings.json\`; copy lives in \`messages/<locale>.json\`.
 
 MUST:
-- use Paraglide for static user-facing UI copy: \`import * as m from '$lib/paraglide/messages.js'\`
+- use Paraglide for static user-facing UI copy: \`import * as m from '#lib/paraglide/messages.js'\`
 - edit the JSON catalogs in \`messages/\` — NEVER edit generated \`src/lib/paraglide/\` (regenerated at build/dev time)
 - add/update EVERY catalog in \`messages/\` — every locale configured in \`project.inlang/settings.json\` — for each UI copy change; key parity across all configured locales is required
 - reuse existing message keys when semantics are identical (\`common_save\`, \`common_cancel…\`)
@@ -310,7 +310,7 @@ The admin screens are canonical examples agents should copy:
 - **\`/admin\`** — stats cards (\`Card variant="elevated"\`) + recent list with \`Badge\` status.
 - **\`/admin/settings\`** — form with client-side validation + \`Feedback\`.
 - **\`AdminLayout\`** — sidebar/mobile drawer with \`aria-expanded\`, \`aria-current\`, labelled navigation.
-- **All UI copy is i18n via Paraglide**: import \`* as m from '$lib/paraglide/messages.js'\` and call \`m.key()\` — never hard-code user-visible text. Keys live in EVERY catalog under \`messages/\` (keep parity across all locales configured in \`project.inlang/settings.json\`).
+- **All UI copy is i18n via Paraglide**: import \`* as m from '#lib/paraglide/messages.js'\` and call \`m.key()\` — never hard-code user-visible text. Keys live in EVERY catalog under \`messages/\` (keep parity across all locales configured in \`project.inlang/settings.json\`).
 `;
 
 export function scaffoldedAgents(

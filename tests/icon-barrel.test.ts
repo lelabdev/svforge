@@ -56,7 +56,7 @@ describe('generated Phosphor icon barrel (#545)', () => {
 		const notifications = notificationRecipeFiles;
 		expect(notifications['/lib/icons/notifications.ts']).toContain("export { default as Bell } from 'phosphor-svelte/lib/Bell';");
 		expect(notifications['/lib/components/svforge/ui/NotificationsBell.svelte']).toContain(
-			"import { Bell } from '$lib/icons'"
+			"import { Bell } from '#lib/icons/index.js'"
 		);
 
 		const generatedFiles = [

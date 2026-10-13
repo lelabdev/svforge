@@ -1,5 +1,5 @@
-import { auth } from '$lib/server/auth';
-import { changePasswordSchema } from '$lib/server/schemas';
+import { auth } from '#lib/server/auth.js';
+import { changePasswordSchema } from '#lib/server/schemas.js';
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
