@@ -22,10 +22,8 @@
 		warning: 'preset-tonal-warning',
 		error: 'preset-tonal-error'
 	};
-
-	let classes = $derived(cn('card p-2', presets[variant], className));
 </script>
 
-<div class={classes} {...rest}>
+<div class={cn('card p-2', presets[variant], className)} {...rest}>
 	{@render children()}
 </div>
