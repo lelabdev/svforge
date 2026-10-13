@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/graph",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"type": "module",
 	"description": "SVForge Graph — interactive knowledge graph / node-edge visualization (Obsidian-style)",
 	"author": "Ludo (https://lelab.dev)",

@@ -12,23 +12,23 @@ export const COMPAT_MANIFEST: CompatManifest = {
   "schema": 1,
   "template": {
     "name": "svforge",
-    "version": "2.2.2"
+    "version": "2.2.3"
   },
   "packages": {
-    "@svforge/addon-kit": "2.2.0",
-    "@svforge/audit": "2.2.0",
-    "@svforge/blog": "2.2.0",
-    "@svforge/chat": "2.2.0",
-    "@svforge/dnd": "2.2.0",
-    "@svforge/email": "2.2.0",
-    "@svforge/graph": "2.2.0",
-    "@svforge/jobs": "2.2.0",
-    "@svforge/notifications": "2.2.0",
-    "@svforge/oauth": "2.2.0",
-    "@svforge/realtime": "2.2.0",
-    "@svforge/tiptap": "2.2.0",
-    "@svforge/ui_toast": "2.2.0",
-    "@svforge/uploads": "2.2.0",
-    "svforge": "2.2.2"
+    "@svforge/addon-kit": "2.2.1",
+    "@svforge/audit": "2.2.1",
+    "@svforge/blog": "2.2.1",
+    "@svforge/chat": "2.2.1",
+    "@svforge/dnd": "2.2.1",
+    "@svforge/email": "2.2.1",
+    "@svforge/graph": "2.2.1",
+    "@svforge/jobs": "2.2.1",
+    "@svforge/notifications": "2.2.1",
+    "@svforge/oauth": "2.2.1",
+    "@svforge/realtime": "2.2.1",
+    "@svforge/tiptap": "2.2.1",
+    "@svforge/ui_toast": "2.2.1",
+    "@svforge/uploads": "2.2.1",
+    "svforge": "2.2.3"
   }
 };
