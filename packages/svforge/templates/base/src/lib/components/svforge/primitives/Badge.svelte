@@ -56,11 +56,8 @@
 	// --badge-size. The former size prop emitted invented per-size classes
 	// (dead in v5, rejected by svforge check); a smaller/larger badge is a
 	// theme change (--badge-size), not a local override.
-	let presetClass = $derived(presets[variant][color]);
-
-	let classes = $derived(cn('badge', presetClass, className));
 </script>
 
-<span class={classes} {...rest}>
+<span class={cn('badge', presets[variant][color], className)} {...rest}>
 	{@render children()}
 </span>

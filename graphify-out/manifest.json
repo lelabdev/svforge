@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "45944ccabfdddddea22cb9f895bd8399",
+    "ast_hash": "3136b546212ced01f45ec40895b95434",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -572,7 +572,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/primitives/Badge.svelte": {
-    "ast_hash": "1770661d69922df5e4ecffbc64116c7b",
+    "ast_hash": "2e4c9fc1f776ce4179de9f01c2fcb8c1",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/primitives/Button.svelte": {
@@ -608,11 +608,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/ui/Alert.svelte": {
-    "ast_hash": "1ed6de77dc0081213f774263a143f432",
+    "ast_hash": "f76f5ea141808a7bbdbdf68026e0cd69",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/ui/Card.svelte": {
-    "ast_hash": "4254dfefc2fbc9f17dd1a41f15642544",
+    "ast_hash": "01a989ccc1b348ca5f8bc4271fce47c4",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/ui/Logo.svelte": {
@@ -2101,6 +2101,14 @@
   },
   ".changeset/quiet-lib-imports.md": {
     "ast_hash": "c5f0c8287e0323fa95e78b17fae6eff4",
+    "semantic_hash": ""
+  },
+  "tests/base-derived-classes.test.ts": {
+    "ast_hash": "3d63aa4e9d6cf63788d92d839776270b",
+    "semantic_hash": ""
+  },
+  ".changeset/plain-base-class-derivations.md": {
+    "ast_hash": "7778c6938a8841c5a60545fb9b168b42",
     "semantic_hash": ""
   }
 }
