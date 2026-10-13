@@ -3,6 +3,7 @@
   let loading = $state<'google' | 'github' | null>(null);
 
   async function signIn(provider: 'google' | 'github') {
+    if (loading !== null) return;
     loading = provider;
     try {
       await authClient.signIn.social({ provider, callbackURL: '/admin' });
@@ -18,6 +19,8 @@
   <button
     onclick={() => signIn('google')}
     disabled={loading !== null}
+    class:cursor-pointer={loading === null}
+    class:cursor-not-allowed={loading !== null}
     class="btn preset-filled-surface-400-600 w-full flex items-center justify-center gap-2"
   >
     {#if loading === 'google'}
@@ -31,6 +34,8 @@
   <button
     onclick={() => signIn('github')}
     disabled={loading !== null}
+    class:cursor-pointer={loading === null}
+    class:cursor-not-allowed={loading !== null}
     class="btn preset-filled-surface-400-600 w-full flex items-center justify-center gap-2"
   >
     {#if loading === 'github'}

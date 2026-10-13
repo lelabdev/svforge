@@ -356,11 +356,11 @@
     "semantic_hash": ""
   },
   "packages/oauth/src/templates.ts": {
-    "ast_hash": "b5e8f3f4f97840ec7d675f79c72128a3",
+    "ast_hash": "48fa5e2e35b61cda9c6ab1e257b375bc",
     "semantic_hash": ""
   },
   "packages/oauth/templates/src/lib/components/svforge/ui/OAuthButtons.svelte": {
-    "ast_hash": "894977405199a0cfae8a47c3dd39a484",
+    "ast_hash": "b1cbc7d558697ad51d9033921bdd79dc",
     "semantic_hash": ""
   },
   "packages/oauth/tsdown.config.ts": {
@@ -468,7 +468,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "2ec6703fd3a12b827fae6f1e87678689",
+    "ast_hash": "540ac79110d5e3c5ef73bec5c547a070",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -2117,6 +2117,18 @@
   },
   ".changeset/clear-avatar-initial.md": {
     "ast_hash": "75e717999620fe7c44c536ab7aaf9e77",
+    "semantic_hash": ""
+  },
+  "tests/oauth-buttons.test.ts": {
+    "ast_hash": "083e1ee99d63564adbb1c1f36f91f190",
+    "semantic_hash": ""
+  },
+  "tests/stubs/lib/client/auth.ts": {
+    "ast_hash": "ac05ca4c245974ed25e4e981658ed112",
+    "semantic_hash": ""
+  },
+  ".changeset/cursor-oauth-buttons.md": {
+    "ast_hash": "9bf17e5f09ab95ae546e393c1fb7dec3",
     "semantic_hash": ""
   }
 }
