@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "3136b546212ced01f45ec40895b95434",
+    "ast_hash": "af298d7862569aeb90dc421a2df9b5df",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -740,7 +740,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/AvatarInitial.svelte": {
-    "ast_hash": "2429a1b2d87321a7bcc4205edeadd459",
+    "ast_hash": "6824a407a2889c63bdceeb85bd4e5614",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/Feedback.svelte": {
@@ -2109,6 +2109,14 @@
   },
   ".changeset/plain-base-class-derivations.md": {
     "ast_hash": "7778c6938a8841c5a60545fb9b168b42",
+    "semantic_hash": ""
+  },
+  "tests/avatar-initial.test.ts": {
+    "ast_hash": "53a0adb8832b105297d25494fd9bb3dc",
+    "semantic_hash": ""
+  },
+  ".changeset/clear-avatar-initial.md": {
+    "ast_hash": "75e717999620fe7c44c536ab7aaf9e77",
     "semantic_hash": ""
   }
 }

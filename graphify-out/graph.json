@@ -21917,6 +21917,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_avatar_initial_test",
+      "label": "avatar-initial.test.ts",
+      "file_type": "code",
+      "source_file": "tests/avatar-initial.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_avoid_patterns_test",
       "label": "avoid-patterns.test.ts",
       "file_type": "code",
@@ -26376,6 +26384,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/bright-dialog-cursors.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_clear_avatar_initial",
+      "label": "clear-avatar-initial.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/clear-avatar-initial.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -74055,6 +74072,39 @@
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_avatar_initial_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/avatar-initial.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_avatar_initial_test",
+      "target": "ref_testing_library_svelte",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/avatar-initial.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_avatar_initial_test",
+      "target": "packages_svforge_templates_dashboard_src_lib_components_svforge_ui_avatarinitial",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/avatar-initial.test.ts",
+      "source_location": "L4",
+      "weight": 1,
       "_origin": "ast"
     },
     {
