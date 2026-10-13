@@ -1,5 +1,23 @@
 # svforge
 
+## 2.2.3
+
+### Patch Changes
+
+- [#591](https://github.com/lelabdev/svforge/pull/591) [`746b5de`](https://github.com/lelabdev/svforge/commit/746b5deea1b1308718fa4ab065819b27eee5e5ee) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Use pointer and non-interactive cursors for enabled, disabled, and loading buttons.
+
+- [#596](https://github.com/lelabdev/svforge/pull/596) [`d9d2e71`](https://github.com/lelabdev/svforge/commit/d9d2e713845329e3a84683708f15e8a4809b6ae2) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Show a pointer cursor on enabled dashboard dialog triggers.
+
+- [#599](https://github.com/lelabdev/svforge/pull/599) [`cf5ff96`](https://github.com/lelabdev/svforge/commit/cf5ff9607cac2a8fdec34a339ccac5f83377ee6a) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Inline Dashboard avatar initials in the reactive markup without changing empty-name or variant behavior.
+
+- [#600](https://github.com/lelabdev/svforge/pull/600) [`3032aee`](https://github.com/lelabdev/svforge/commit/3032aee83c8d2df87891f3cd35419e45a0397ac7) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Give enabled OAuth provider buttons a pointer cursor and retain a not-allowed cursor while sign-in is pending.
+
+- [#598](https://github.com/lelabdev/svforge/pull/598) [`a7d9de6`](https://github.com/lelabdev/svforge/commit/a7d9de6ae192a67e2f8ba54ed0d5e2b787bc6a90) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Simplify the single-use class expressions in Base Badge, Alert, and Card components while preserving reactive variants.
+
+- [#597](https://github.com/lelabdev/svforge/pull/597) [`6304081`](https://github.com/lelabdev/svforge/commit/6304081b92bdd1fa50c5167bf150544391eec19a) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Replace deprecated SvelteKit alias configuration with explicit `#lib` package subpath imports while retaining Kit 2 compatibility.
+
+- [#595](https://github.com/lelabdev/svforge/pull/595) [`617e895`](https://github.com/lelabdev/svforge/commit/617e895fff1d549259b7f6b92da3a1dab2538724) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Simplify the shared Button class derivation without changing its rendered behavior.
+
 ## 2.2.2
 
 ### Patch Changes
