@@ -16250,7 +16250,7 @@
     },
     {
       "id": "packages_svforge_templates_dashboard_src_lib_client_auth",
-      "label": "client/auth.ts",
+      "label": "src/lib/client/auth.ts",
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/lib/client/auth.ts",
       "source_location": "L1",
@@ -24119,6 +24119,22 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_oauth_buttons_test",
+      "label": "oauth-buttons.test.ts",
+      "file_type": "code",
+      "source_file": "tests/oauth-buttons.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_oauth_buttons_test_socialsignin",
+      "label": "{ socialSignIn }",
+      "file_type": "code",
+      "source_file": "tests/oauth-buttons.test.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_oauth_declarations_test",
       "label": "oauth-declarations.test.ts",
       "file_type": "code",
@@ -24951,6 +24967,22 @@
       "file_type": "code",
       "source_file": "tests/stubs/app/environment.ts",
       "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_client_auth",
+      "label": "stubs/lib/client/auth.ts",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/client/auth.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_client_auth_authclient",
+      "label": "authClient",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/client/auth.ts",
+      "source_location": "L1",
       "_origin": "ast"
     },
     {
@@ -26393,6 +26425,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/clear-avatar-initial.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_cursor_oauth_buttons",
+      "label": "cursor-oauth-buttons.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/cursor-oauth-buttons.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -81789,6 +81830,49 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_oauth_buttons_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/oauth-buttons.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_oauth_buttons_test",
+      "target": "ref_testing_library_svelte",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/oauth-buttons.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_oauth_buttons_test",
+      "target": "tests_oauth_buttons_test_socialsignin",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/oauth-buttons.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_oauth_buttons_test",
+      "target": "packages_oauth_templates_src_lib_components_svforge_ui_oauthbuttons",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/oauth-buttons.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_oauth_declarations_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -84690,6 +84774,16 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/app/environment.ts",
       "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_client_auth",
+      "target": "tests_stubs_lib_client_auth_authclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/client/auth.ts",
+      "source_location": "L1",
       "weight": 1,
       "_origin": "ast"
     },
