@@ -1,0 +1,5 @@
+# Build this image from only the SVForge dependency manifest + pinned lockfile.
+# Exclude the monorepo's source, node_modules and worktrees from build context.
+**
+!packages/svforge/templates/dashboard/package.json
+!docker/builder.bun.lock
