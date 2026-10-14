@@ -1,0 +1,50 @@
+# Isolated proof of concept: no exposed host ports and no production impact.
+# Each project has an individual node_modules volume; store is common.
+name: svforge-shared-bun-poc
+
+x-bun-common: &bun-common
+  image: oven/bun:1.3.14@sha256:e10577f0db68676a7024391c6e5cb4b879ebd17188ab750cf10024a6d700e5c4
+  working_dir: /app
+  environment:
+    BUN_INSTALL_CACHE_DIR: /bun-store
+    BUN_INSTALL_GLOBAL_STORE: "1"
+
+services:
+  install-a:
+    <<: *bun-common
+    volumes:
+      - shared-store:/bun-store
+      - modules-a:/app/node_modules
+      - ./app-a:/app
+    command: ["bun", "install", "--frozen-lockfile", "--production", "--linker", "isolated", "--ignore-scripts"]
+
+  install-b:
+    <<: *bun-common
+    volumes:
+      - shared-store:/bun-store
+      - modules-b:/app/node_modules
+      - ./app-b:/app
+    command: ["bun", "install", "--frozen-lockfile", "--production", "--linker", "isolated", "--ignore-scripts"]
+
+  app-a:
+    user: bun
+    <<: *bun-common
+    volumes:
+      - shared-store:/bun-store:ro
+      - modules-a:/app/node_modules:ro
+      - ./app-a:/app
+    command: ["bun", "run", "index.ts"]
+
+  app-b:
+    user: bun
+    <<: *bun-common
+    volumes:
+      - shared-store:/bun-store:ro
+      - modules-b:/app/node_modules:ro
+      - ./app-b:/app
+    command: ["bun", "run", "index.ts"]
+
+volumes:
+  shared-store:
+  modules-a:
+  modules-b:
