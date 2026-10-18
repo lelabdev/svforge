@@ -301,7 +301,7 @@ const DASHBOARD = (pm: string) => `
 - **DB**: Drizzle + PostgreSQL. Schema in \`src/lib/server/db/schema.ts\`, config \`drizzle.config.ts\` at the root (dialect postgresql). Env in \`.env\` (copy \`.env.example\` — local / Docker / managed connection strings).
 - **Auth schema**: \`src/lib/server/db/auth.schema.ts\` is the runtime-gated source of truth. \`${pm} run auth:schema\` regenerates a REVIEW copy (\`auth-schema.review.ts\`) via the version-lagging CLI — diff it and port deliberate changes manually; never commit it blindly.
 - **Validation**: zod schemas in \`src/lib/server/schemas.ts\`.
-- **Setup**: \`bash scripts/setup.sh\` creates \`.env\`, generates \`BETTER_AUTH_SECRET\`, pushes the schema. Then create the admin: \`${pm} run admin:create -- --name … --email … --password …\`.
+- **Setup**: \`bash scripts/setup.sh\` prepares a private \`.env\` and generates a missing/invalid \`BETTER_AUTH_SECRET\` without rotating a valid one. It never starts services or changes a schema; \`--defer\` leaves configuration for later. Configure PostgreSQL and review \`DATABASE_URL\`, then explicitly run \`${pm} run db:push\` for initial local development (or \`db:generate\` / \`db:migrate\` for versioned migrations). Then create the admin: \`${pm} run admin:create -- --name … --email … --password …\`.
 ### Golden references (#267) — imitate these screens when building new UI
 
 The admin screens are canonical examples agents should copy:

@@ -72,8 +72,8 @@ describe('addon .env.example composition (#422)', () => {
 
 		expect(emailFirst).toBe(oauthFirst);
 		expect(emailFirst.startsWith(dashboardExample.trimEnd())).toBe(true);
-		expect(emailFirst).toContain('# Local PostgreSQL (installed on your machine)');
-		expect(emailFirst).toContain('DATABASE_URL="postgres://postgres:postgres@localhost:5432/sf_dashboard"');
+		expect(emailFirst).toContain('# Database (PostgreSQL) — configure separately from local file preparation.');
+		expect(emailFirst).toMatch(/^DATABASE_URL=$/m);
 		expect(emailFirst.indexOf('svforge addon: email')).toBeLessThan(emailFirst.indexOf('svforge addon: oauth'));
 		expect(emailFirst.match(/^RESEND_API_KEY=/gm)).toHaveLength(1);
 		expect(emailFirst.match(/^GOOGLE_CLIENT_SECRET=/gm)).toHaveLength(1);
