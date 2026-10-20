@@ -476,7 +476,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
-    "ast_hash": "c91e1be1a6cfd37ec2dec7f72fcf359b",
+    "ast_hash": "397b0eb4007388ff4c6637eb51b4f0fa",
     "semantic_hash": ""
   },
   "packages/svforge/src/skeleton-inventory.ts": {
@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "2ae63b3c8dbc2629467d879134896ac9",
+    "ast_hash": "51422e8096b4e4c27ef9a5cb6c1e53dd",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -704,7 +704,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/root/scripts/setup.sh": {
-    "ast_hash": "e99441e32cffc3b147db4486b0884135",
+    "ast_hash": "777598ccfd27aa1e0d96e3c4babdec31",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/app.d.ts": {
@@ -1068,7 +1068,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "f8a27f71cd66e014b00240fae5df6f6b",
+    "ast_hash": "9dd0bf88af65f9796a8aeebaf8f456de",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1552,7 +1552,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "1ed9f058cf2f92c931ed1c70b4fc9736",
+    "ast_hash": "b25f67fc963e32dad78190d902c11931",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1744,7 +1744,7 @@
     "semantic_hash": ""
   },
   "tests/addon-env.test.ts": {
-    "ast_hash": "7d7fabcd60d6f84619bdb86768bb378c",
+    "ast_hash": "ec9b337da6623b69f432fbfe3f0d6716",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts": {
@@ -2157,6 +2157,18 @@
   },
   ".changeset/shared-app-dialog.md": {
     "ast_hash": "486ad9cce016cb95ad07ad6d41604b3b",
+    "semantic_hash": ""
+  },
+  "packages/svforge/templates/dashboard/root/scripts/setup.mjs": {
+    "ast_hash": "271cf29565f0cd31c748ccdd48919047",
+    "semantic_hash": ""
+  },
+  "tests/local-bootstrap.test.ts": {
+    "ast_hash": "478aa4d7bc1e5da904aa3ef0eb41b7d6",
+    "semantic_hash": ""
+  },
+  ".changeset/safe-dashboard-bootstrap.md": {
+    "ast_hash": "a0bf1296ca413d99e093b4764d851985",
     "semantic_hash": ""
   }
 }

@@ -9589,7 +9589,7 @@
       "label": "baseRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L112",
+      "source_location": "L113",
       "_origin": "ast"
     },
     {
@@ -16122,7 +16122,68 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_dashboard_root_scripts_setup",
+      "id": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "label": "setup.mjs",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_root_scripts_setup_root",
+      "label": "root",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_root_scripts_setup_path",
+      "label": "path()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L15",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_root_scripts_setup_readoptional",
+      "label": "readOptional()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L17",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_root_scripts_setup_writeprivateenv",
+      "label": "writePrivateEnv()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L29",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_root_scripts_setup_envisindexed",
+      "label": "envIsIndexed()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L51",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_root_scripts_setup_prepare",
+      "label": "prepare()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L65",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_root_scripts_setup_sh_packages_svforge_templates_dashboard_root_scripts_setup",
       "label": "setup.sh",
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.sh",
@@ -16142,18 +16203,6 @@
       "metadata": {
         "language": "bash",
         "kind": "bash_entrypoint"
-      },
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_root_scripts_setup_detect_pm",
-      "label": "detect_pm()",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.sh",
-      "source_location": "L9",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_function"
       },
       "_origin": "ast"
     },
@@ -23866,6 +23915,48 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_local_bootstrap_test",
+      "label": "local-bootstrap.test.ts",
+      "file_type": "code",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_local_bootstrap_test_template",
+      "label": "template",
+      "file_type": "code",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_local_bootstrap_test_directories",
+      "label": "directories",
+      "file_type": "code",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_local_bootstrap_test_project",
+      "label": "project()",
+      "file_type": "code",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L11",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_local_bootstrap_test_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L28",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_login_enhance_test",
       "label": "login-enhance.test.ts",
       "file_type": "code",
@@ -26593,6 +26684,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/remaining-native-cursors.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_safe_dashboard_bootstrap",
+      "label": "safe-dashboard-bootstrap.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/safe-dashboard-bootstrap.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -30847,7 +30947,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L34",
+      "source_location": "L41",
       "_origin": "ast"
     },
     {
@@ -30856,7 +30956,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L44",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -30865,7 +30965,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L48",
+      "source_location": "L55",
       "_origin": "ast"
     },
     {
@@ -30874,7 +30974,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L57",
+      "source_location": "L64",
       "_origin": "ast"
     },
     {
@@ -30883,7 +30983,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L101",
+      "source_location": "L108",
       "_origin": "ast"
     },
     {
@@ -30892,7 +30992,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L117",
+      "source_location": "L124",
       "_origin": "ast"
     },
     {
@@ -30901,7 +31001,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L131",
+      "source_location": "L138",
       "_origin": "ast"
     },
     {
@@ -30910,7 +31010,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L135",
+      "source_location": "L142",
       "_origin": "ast"
     },
     {
@@ -30919,7 +31019,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L139",
+      "source_location": "L146",
       "_origin": "ast"
     },
     {
@@ -51247,7 +51347,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L112",
+      "source_location": "L113",
       "weight": 1,
       "_origin": "ast"
     },
@@ -61142,34 +61242,216 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_root_scripts_setup",
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "ref_node_crypto",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "ref_node_util",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_path",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_readoptional",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_writeprivateenv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L29",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_envisindexed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_mjs_packages_svforge_templates_dashboard_root_scripts_setup",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_prepare",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L65",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_readoptional",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_path",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L19",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_writeprivateenv",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_path",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_writeprivateenv",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_readoptional",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L35",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_prepare",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_envisindexed",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L78",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_prepare",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_readoptional",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L84",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_prepare",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_path",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L119",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_prepare",
+      "target": "packages_svforge_templates_dashboard_root_scripts_setup_writeprivateenv",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.mjs",
+      "source_location": "L121",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_root_scripts_setup_sh_packages_svforge_templates_dashboard_root_scripts_setup",
       "target": "packages_svforge_templates_dashboard_root_scripts_setup_sh__entry",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.sh",
       "source_location": "L1",
       "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_root_scripts_setup",
-      "target": "packages_svforge_templates_dashboard_root_scripts_setup_detect_pm",
-      "relation": "defines",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.sh",
-      "source_location": "L9",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_root_scripts_setup_sh__entry",
-      "target": "packages_svforge_templates_dashboard_root_scripts_setup_detect_pm",
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/root/scripts/setup.sh",
-      "source_location": "L20",
-      "weight": 1,
-      "context": "call",
       "_origin": "ast"
     },
     {
@@ -80983,6 +81265,167 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_local_bootstrap_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "ref_node_util",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "packages_svforge_src_templates",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "packages_svforge_src_templates_baserootfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "packages_svforge_src_templates_dashboardrootfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "tests_local_bootstrap_test_template",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "tests_local_bootstrap_test_directories",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "tests_local_bootstrap_test_project",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "tests_local_bootstrap_test_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L28",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "tests_local_bootstrap_test_project",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L38",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "tests_local_bootstrap_test_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L39",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_login_enhance_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -93667,7 +94110,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L34",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93677,7 +94120,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L44",
+      "source_location": "L51",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93687,7 +94130,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L46",
+      "source_location": "L53",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93697,7 +94140,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L48",
+      "source_location": "L55",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93707,7 +94150,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L57",
+      "source_location": "L64",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93717,7 +94160,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L101",
+      "source_location": "L108",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93727,7 +94170,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L115",
+      "source_location": "L122",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93737,7 +94180,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L117",
+      "source_location": "L124",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93747,7 +94190,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L131",
+      "source_location": "L138",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93757,7 +94200,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L135",
+      "source_location": "L142",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93767,7 +94210,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L139",
+      "source_location": "L146",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95903,6 +96346,18 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_readme_install",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
+      "relation": "references",
+      "context": "DATABASE_URL",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L29",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_readme_templates",
       "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
       "relation": "references",
@@ -95910,7 +96365,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/README.md",
-      "source_location": "L53",
+      "source_location": "L60",
       "weight": 1,
       "_origin": "ast"
     }
