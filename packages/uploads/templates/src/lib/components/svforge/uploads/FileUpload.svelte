@@ -100,7 +100,7 @@
 </script>
 
 <div>
-	<input type="file" onchange={handleFile} disabled={uploading} />
+	<input type="file" class="cursor-pointer disabled:cursor-not-allowed" onchange={handleFile} disabled={uploading} />
 	{#if uploading}<span>{m.uploads_uploading()}</span>{/if}
 	{#if error}<p class="text-error-700-300 mt-1 text-sm" role="alert">{error}</p>{/if}
 </div>

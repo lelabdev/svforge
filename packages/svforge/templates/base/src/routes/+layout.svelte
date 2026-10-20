@@ -15,7 +15,7 @@
 
 <Footer links={[{ href: '/demo-ui', label: m.nav_components() }]} />
 
-<div style="display:none">
+<div class="hidden">
 	{#each locales as locale (locale)}
 		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
 	{/each}
