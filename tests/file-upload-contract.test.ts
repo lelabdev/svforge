@@ -228,4 +228,25 @@ describe('FileUpload ↔ /api/upload contract (#279)', () => {
 		await vi.waitFor(() => expect(target.textContent).toContain('Upload failed'));
 		expect(onUpload).not.toHaveBeenCalled();
 	});
+
+	it('presents the file control as clickable, and not clickable while uploading (#594)', async () => {
+		let finishUpload!: (value: Response) => void;
+		vi.stubGlobal(
+			'fetch',
+			vi.fn(() => new Promise<Response>((resolve) => (finishUpload = resolve)))
+		);
+
+		const target = document.createElement('div');
+		mount(Component, { target });
+		const input = attachFile(target, makeFile());
+
+		expect(input.classList.contains('cursor-pointer')).toBe(true);
+
+		input.dispatchEvent(new Event('change', { bubbles: true }));
+		await vi.waitFor(() => expect(input.disabled).toBe(true));
+		expect(input.classList.contains('disabled:cursor-not-allowed')).toBe(true);
+
+		finishUpload(new Response(null, { status: 500 }));
+		await vi.waitFor(() => expect(input.disabled).toBe(false));
+	});
 });

@@ -64,4 +64,10 @@ describe('NotificationsBell (#475)', () => {
 		await waitFor(() => expect(fetchMock).toHaveBeenCalledWith('/api/notifications/read-all', { method: 'POST' }));
 		await waitFor(() => expect(queryByRole('dialog')).not.toBeInTheDocument());
 	});
+
+	it('presents the enabled bell trigger as clickable (#594)', () => {
+		const { getByRole } = render(NotificationsBell, { props: { items: [], unreadCount: 1 } });
+
+		expect(getByRole('button', { name: 'Notifications' }).classList.contains('cursor-pointer')).toBe(true);
+	});
 });

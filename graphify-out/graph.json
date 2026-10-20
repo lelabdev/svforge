@@ -23970,6 +23970,23 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_native_button_affordance_test",
+      "label": "native-button-affordance.test.ts",
+      "file_type": "code",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_native_button_affordance_test_templatesources",
+      "label": "templateSources()",
+      "file_type": "code",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L15",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_normalize_graphify_test",
       "label": "normalize-graphify.test.ts",
       "file_type": "code",
@@ -25782,6 +25799,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_toast_dismiss_test",
+      "label": "toast-dismiss.test.ts",
+      "file_type": "code",
+      "source_file": "tests/toast-dismiss.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_ui_libraries_test",
       "label": "ui-libraries.test.ts",
       "file_type": "code",
@@ -26452,6 +26477,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/quiet-lib-imports.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_remaining_native_cursors",
+      "label": "remaining-native-cursors.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/remaining-native-cursors.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -81450,6 +81484,93 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_native_button_affordance_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_native_button_affordance_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_native_button_affordance_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_native_button_affordance_test",
+      "target": "tests_helpers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_native_button_affordance_test",
+      "target": "tests_helpers_root",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_native_button_affordance_test",
+      "target": "tests_native_button_affordance_test_templatesources",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_native_button_affordance_test_templatesources",
+      "target": "tests_native_button_affordance_test_templatesources",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_native_button_affordance_test",
+      "target": "tests_native_button_affordance_test_templatesources",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/native-button-affordance.test.ts",
+      "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_normalize_graphify_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -86428,6 +86549,61 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/tiptap-xss.test.ts",
       "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_toast_dismiss_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/toast-dismiss.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_toast_dismiss_test",
+      "target": "ref_testing_library_svelte",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/toast-dismiss.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_toast_dismiss_test",
+      "target": "packages_ui_toast_templates_src_lib_components_svforge_ui_toaster_ts_packages_ui_toast_templates_src_lib_components_svforge_ui_toaster",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/toast-dismiss.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_toast_dismiss_test",
+      "target": "packages_ui_toast_templates_src_lib_components_svforge_ui_toaster_toaster",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/toast-dismiss.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_toast_dismiss_test",
+      "target": "packages_ui_toast_templates_src_lib_components_svforge_ui_toaster_svelte_packages_ui_toast_templates_src_lib_components_svforge_ui_toaster",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/toast-dismiss.test.ts",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },

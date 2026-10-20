@@ -320,11 +320,11 @@
     "semantic_hash": ""
   },
   "packages/notifications/src/templates.ts": {
-    "ast_hash": "eb7376833e2ceb24430c8e80384409dd",
+    "ast_hash": "b2d4e9cf4c6a735ffad556c68be56c2f",
     "semantic_hash": ""
   },
   "packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte": {
-    "ast_hash": "d3b14e9808264daa7bca482e45ff08e7",
+    "ast_hash": "b1288be371acfd468ba224b3ac1730b3",
     "semantic_hash": ""
   },
   "packages/notifications/templates/src/lib/server/notifications/index.ts": {
@@ -468,7 +468,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "540ac79110d5e3c5ef73bec5c547a070",
+    "ast_hash": "5d7dbdb82366e62312107a66daa2acf7",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "af298d7862569aeb90dc421a2df9b5df",
+    "ast_hash": "0a26669abc0dbf3a02f77d0e789266d6",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -660,7 +660,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/routes/+layout.svelte": {
-    "ast_hash": "a062877ebbe4ffe60d33b0bf74cd28f2",
+    "ast_hash": "5ea3dfc4450aa7c7945b6dc89684d680",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/routes/+page.svelte": {
@@ -668,7 +668,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/routes/demo-ui/+page.svelte": {
-    "ast_hash": "2c9eddef4a98e57d1e6a9fdad1dd2936",
+    "ast_hash": "a10b3316f2bc64a079be74e2c7023dd4",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/routes/favicon.ico/+server.ts": {
@@ -864,7 +864,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/routes/+layout.svelte": {
-    "ast_hash": "2914d9110682e2243341b5847b28f1ed",
+    "ast_hash": "c888a6ab197fa42ec284a737a1248abd",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/routes/+page.server.ts": {
@@ -920,7 +920,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/src/templates.ts": {
-    "ast_hash": "095057071d51c02a44f9915934c9ea64",
+    "ast_hash": "babd3739fb4571e2eb5da6221555e4a0",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte": {
@@ -932,7 +932,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte": {
-    "ast_hash": "cb3676162e6c059f30492aaa2a72ee2f",
+    "ast_hash": "77dd5ef83757727601e6a765b2778180",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/index.ts": {
@@ -964,11 +964,11 @@
     "semantic_hash": ""
   },
   "packages/ui_toast/src/templates.ts": {
-    "ast_hash": "f7a55d39032ba84ece3bda78a0156f6e",
+    "ast_hash": "3a60935cd45a99558e0b25002fd3d536",
     "semantic_hash": ""
   },
   "packages/ui_toast/templates/src/lib/components/svforge/ui/Toaster.svelte": {
-    "ast_hash": "2f25bfd23e556aef3360be2d1591d08c",
+    "ast_hash": "91f66a0482438d91712126898bc1357a",
     "semantic_hash": ""
   },
   "packages/ui_toast/templates/src/lib/components/svforge/ui/toaster.ts": {
@@ -992,11 +992,11 @@
     "semantic_hash": ""
   },
   "packages/uploads/src/templates.ts": {
-    "ast_hash": "1f9e873b2d0e71794ab03d4500ec3bd4",
+    "ast_hash": "92808886721e025d93d4ccef76104a3d",
     "semantic_hash": ""
   },
   "packages/uploads/templates/src/lib/components/svforge/uploads/FileUpload.svelte": {
-    "ast_hash": "ab06f260ce3686fc7e56239ab17532e1",
+    "ast_hash": "0bf885acd1bf08da4762dfc9ed54b4a4",
     "semantic_hash": ""
   },
   "packages/uploads/templates/src/lib/server/s3.ts": {
@@ -1220,7 +1220,7 @@
     "semantic_hash": ""
   },
   "tests/file-upload-contract.test.ts": {
-    "ast_hash": "11367b46a7b5b693b6fceb54ffa557c6",
+    "ast_hash": "c577ae8cdd473d5cc191569e40add4c9",
     "semantic_hash": ""
   },
   "tests/fixtures/CheckboxHarness.svelte": {
@@ -1708,7 +1708,7 @@
     "semantic_hash": ""
   },
   "tests/tiptap-toolbar.test.ts": {
-    "ast_hash": "63891803f862c9f52cc07d56391e5ff0",
+    "ast_hash": "4f10ca057827f2bbe5751ced44eee944",
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
@@ -1760,7 +1760,7 @@
     "semantic_hash": ""
   },
   "tests/notifications-component.test.ts": {
-    "ast_hash": "f343045cc6a975e9c620e6e1fe1ff15a",
+    "ast_hash": "7cb0783b4ee0c9b8363000e54a63ca65",
     "semantic_hash": ""
   },
   "tests/stubs/phosphor-svelte/lib/Bell.svelte": {
@@ -2129,6 +2129,18 @@
   },
   ".changeset/cursor-oauth-buttons.md": {
     "ast_hash": "9bf17e5f09ab95ae546e393c1fb7dec3",
+    "semantic_hash": ""
+  },
+  "tests/native-button-affordance.test.ts": {
+    "ast_hash": "20df491766f027ff93fd5bdb351c113d",
+    "semantic_hash": ""
+  },
+  "tests/toast-dismiss.test.ts": {
+    "ast_hash": "af3f4206c8c9cc27b685e8b062726bee",
+    "semantic_hash": ""
+  },
+  ".changeset/remaining-native-cursors.md": {
+    "ast_hash": "1883d8f6b89c41a790bb47fd7da862fb",
     "semantic_hash": ""
   }
 }

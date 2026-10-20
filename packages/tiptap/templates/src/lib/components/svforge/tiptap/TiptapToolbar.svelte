@@ -234,7 +234,7 @@
 				{...attributes}
 				type="button"
 				class={cn(
-					'btn btn-sm min-h-11 shrink-0',
+					'btn btn-sm min-h-11 shrink-0 cursor-pointer',
 					activeLink ? 'preset-tonal-primary' : 'hover:preset-tonal-surface'
 				)}
 				aria-pressed={activeLink}
@@ -287,7 +287,7 @@
 									</Button>
 								{/if}
 								<Popover.CloseTrigger
-									class="btn btn-sm hover:preset-tonal-surface"
+									class="btn btn-sm cursor-pointer hover:preset-tonal-surface"
 									aria-label={m.tiptap_link_cancel()}
 								>
 									{m.tiptap_link_cancel()}
