@@ -111,6 +111,7 @@ const BASE_PATTERNS: Record<string, string> = {
 };
 
 const DASHBOARD_PATTERNS: Record<string, string> = {
+	'Application modal': 'src/lib/components/svforge/ui/AppDialog.svelte',
 	'Auth guard': 'src/routes/(app)/admin/*/+page.server.ts',
 	'DB access': 'src/lib/server/db/',
 	'Schemas (zod)': 'src/lib/server/schemas.ts',

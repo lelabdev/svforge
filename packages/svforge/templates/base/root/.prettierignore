@@ -65,6 +65,7 @@ src/lib/components/svforge/primitives/Toggle.svelte
 src/lib/components/svforge/primitives/index.ts
 src/lib/components/svforge/primitives/types.ts
 src/lib/components/svforge/ui/Alert.svelte
+src/lib/components/svforge/ui/AppDialog.svelte
 src/lib/components/svforge/ui/AvatarInitial.svelte
 src/lib/components/svforge/ui/Card.svelte
 src/lib/components/svforge/ui/Feedback.svelte
