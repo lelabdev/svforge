@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Local file preparation only. Database provisioning and schema changes are
 // separate, deliberate operations; never source .env as executable shell code.
+import { execFileSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
 import {
 	chmodSync, existsSync, linkSync, lstatSync, readFileSync, renameSync,
@@ -39,6 +40,28 @@ function writePrivateEnv(content, existing) {
 	}
 }
 
+/**
+ * Whether Git already tracks OR stages `.env`.
+ *
+ * An ignore rule only keeps an UNTRACKED file out of commits: Git keeps
+ * committing an `.env` that is already in the index. Writing or repairing a
+ * credential there would make the secret eligible for the next commit, so
+ * preparation refuses instead of relying on `.gitignore`.
+ */
+function envIsIndexed() {
+	try {
+		const indexed = execFileSync(
+			'git',
+			['-C', root, 'ls-files', '--cached', '--', '.env'],
+			{ encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }
+		);
+		return indexed.trim().length > 0;
+	} catch {
+		// Not a Git repository, or Git is unavailable: nothing can be indexed.
+		return false;
+	}
+}
+
 function prepare() {
 	const { values } = parseArgs({ options: { defer: { type: 'boolean' }, help: { type: 'boolean' } } });
 	if (values.help) {
@@ -48,6 +71,14 @@ function prepare() {
 	if (values.defer) {
 		console.log('Local configuration deferred. No files changed. Later: bash scripts/setup.sh');
 		return;
+	}
+
+	// Checked before anything is written, so a refused run leaves no partial
+	// state (no .gitignore edit, no credential).
+	if (envIsIndexed()) {
+		throw new Error(
+			'Refusing to prepare credentials: .env is tracked by Git (staged or committed), so a generated secret could be committed. Run `git rm --cached .env`, commit that removal, rotate any secret that was already committed, then rerun setup.'
+		);
 	}
 
 	const existing = readOptional('.env');

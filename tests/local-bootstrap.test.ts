@@ -109,6 +109,37 @@ describe('Dashboard local preparation (#589)', () => {
 		expect(readFileSync(target, 'utf8')).toBe('BETTER_AUTH_SECRET=changeme\n');
 	});
 
+	it('refuses to generate a secret into a Git-indexed .env (#589 review)', () => {
+		const dir = project();
+		const content = 'DATABASE_URL=\nBETTER_AUTH_SECRET=changeme\n';
+		writeFileSync(join(dir, '.env'), content);
+		const git = (...args: string[]) => spawnSync('git', args, { cwd: dir, encoding: 'utf8' });
+		expect(git('init', '-q').status).toBe(0);
+		expect(git('add', '.env').status).toBe(0);
+		expect(git('ls-files', '--cached', '--', '.env').stdout.trim()).toBe('.env');
+
+		const result = run(dir);
+		expect(result.status).not.toBe(0);
+		// Actionable remediation, and no credential reached the indexed file.
+		expect(result.stderr).toContain('git rm --cached .env');
+		expect(readFileSync(join(dir, '.env'), 'utf8')).toBe(content);
+		// Refusal is atomic: no ignore rule and no temporary files are left behind.
+		expect(existsSync(join(dir, '.gitignore'))).toBe(false);
+		expect(existsSync(join(dir, 'invoked'))).toBe(false);
+	});
+
+	it('still prepares a Git repository whose .env is untracked', () => {
+		const dir = project();
+		expect(spawnSync('git', ['init', '-q'], { cwd: dir, encoding: 'utf8' }).status).toBe(0);
+
+		const result = run(dir);
+		expect(result.status, result.stderr).toBe(0);
+		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		expect(Buffer.from(env.BETTER_AUTH_SECRET ?? '', 'base64')).toHaveLength(32);
+		expect(readFileSync(join(dir, '.gitignore'), 'utf8')).toContain('/.env');
+		expect(spawnSync('git', ['ls-files', '--cached', '--', '.env'], { cwd: dir, encoding: 'utf8' }).stdout.trim()).toBe('');
+	});
+
 	it('works when Docker and OpenSSL are absent and resolves the project from its script', () => {
 		const dir = project();
 		const result = spawnSync(process.execPath, [join(dir, 'scripts/setup.mjs')], {
