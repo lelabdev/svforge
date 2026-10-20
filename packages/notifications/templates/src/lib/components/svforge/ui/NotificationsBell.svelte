@@ -31,7 +31,7 @@
 	restoreFocus={true}
 >
 	<Popover.Trigger
-		class="btn-icon relative size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300"
+		class="btn-icon relative size-11 cursor-pointer preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300"
 		aria-label={m.notif_bell()}
 	>
 		<Bell size={20} />

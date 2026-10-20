@@ -68,11 +68,22 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		expect(canonical).toContain('width follow the content');
 	});
 
-	it('propagates the Skeleton Dialog users-page golden reference into generated AGENTS.md', () => {
+	it('propagates the shared AppDialog users-page golden reference into generated AGENTS.md (#603)', () => {
 		const canonical = scaffoldedAgents('dashboard');
 		expect(canonical).toContain('Golden references');
-		expect(canonical).toContain('create/edit/invite/status flows using the official Skeleton `Dialog` with SvelteForge form primitives');
+		expect(canonical).toContain('create/edit/invite/status flows composed through the shared `AppDialog` shell');
 		expect(canonical).not.toContain('create/edit modal (`Card` + `Input`)');
+	});
+
+	it('documents the application-modal composition contract in dashboard guidance (#603)', () => {
+		const dashboard = scaffoldedAgents('dashboard');
+		const base = scaffoldedAgents('base');
+
+		expect(dashboard).toContain('Application modals (#603)');
+		expect(dashboard).toContain('ui/AppDialog.svelte');
+		expect(dashboard).toContain('never add `animate-dialog`');
+		// Base has no AppDialog: the dashboard-only pattern must not leak.
+		expect(base).not.toContain('AppDialog');
 	});
 
 	it('renders and refreshes configured locales, including legacy generated guidance (#438)', () => {

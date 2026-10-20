@@ -4,10 +4,9 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '$app/forms';
 	import * as m from '#lib/paraglide/messages.js';
-	import { AvatarInitial, Card, Feedback, Table } from '#lib/components/svforge/ui/index.js';
+	import { AppDialog, AvatarInitial, Card, Feedback, Table } from '#lib/components/svforge/ui/index.js';
 	import { Badge, Button, Input } from '#lib/components/svforge/primitives/index.js';
-	import { UserPlus, EnvelopeSimple, Power, Pencil, X } from '#lib/icons/index.js';
-	import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
+	import { UserPlus, EnvelopeSimple, Power, Pencil } from '#lib/icons/index.js';
 
 	let { data }: { data: PageData } = $props();
 	let currentUserId = $derived(page.data.user?.id);
@@ -72,6 +71,30 @@
 		editUser = null;
 		statusTarget = null;
 	}
+
+	// Modal copy stays page-owned: the AppDialog shell renders the title and
+	// description it receives without knowing which flow is open (#603).
+	let modalTitle = $derived(
+		modal === 'create'
+			? m.users_modal_create()
+			: modal === 'edit'
+				? m.users_modal_edit()
+				: modal === 'invite'
+					? m.users_invite_title()
+					: statusTarget?.disabled
+						? m.users_modal_reactivate()
+						: m.users_modal_deactivate()
+	);
+
+	let modalDescription = $derived(
+		modal === 'invite'
+			? m.users_invite_desc()
+			: modal === 'status' && statusTarget
+				? statusTarget.disabled
+					? m.users_reactivate_confirm({ name: statusTarget.name })
+					: m.users_deactivate_confirm({ name: statusTarget.name })
+				: undefined
+	);
 
 	/**
 	 * Stable server codes → localized feedback (#295). The server never sends
@@ -249,115 +272,87 @@
 	{/if}
 </div>
 
-<Dialog
+<AppDialog
 	open={modal !== null}
-	closeOnInteractOutside={false}
-	restoreFocus={true}
-	onOpenChange={(details) => {
-		if (!details.open) closeModal();
+	onOpenChange={(open) => {
+		if (!open) closeModal();
 	}}
+	title={modalTitle}
+	description={modalDescription}
 >
-	<Portal>
-		<Dialog.Backdrop class="fixed inset-0 z-50 bg-surface-50-950/50" />
-		<Dialog.Positioner class="fixed inset-0 z-50 flex items-center justify-center p-4">
-			<Dialog.Content class="card preset-filled-surface-50-950 w-full max-w-md p-4 shadow-xl">
-				<div class="mb-4 flex items-center justify-between">
-					<Dialog.Title class="h3">
-						{modal === 'create'
-							? m.users_modal_create()
-							: modal === 'edit'
-								? m.users_modal_edit()
-								: modal === 'invite'
-									? m.users_invite_title()
-									: statusTarget?.disabled
-										? m.users_modal_reactivate()
-										: m.users_modal_deactivate()}
-					</Dialog.Title>
-					<Dialog.CloseTrigger
-						class="btn-icon size-11 preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300 cursor-pointer"
-						aria-label={m.users_close()}
-						data-testid="users-dialog-close"
-					>
-						<X size={18} />
-					</Dialog.CloseTrigger>
-				</div>
-
-				{#if modal === 'create' || modal === 'edit'}
-					<!-- Real SvelteKit form action (#295): method=POST + action=?/create|?/update,
-					     use:enhance handles deserialize/applyAction. No fetch().json() anywhere. -->
-					<form
-						method="POST"
-						action={modal === 'create' ? '?/create' : '?/update'}
-						use:enhance={submitEnhance}
-						class="space-y-4"
-					>
-						{#if modal === 'edit' && editUser}
-							<input type="hidden" name="id" value={editUser.id} />
-						{/if}
-						<Input
-							label={m.users_label_name()}
-							name="name"
-							bind:value={formName}
-							placeholder={m.users_placeholder_name()}
-							required
-						/>
-						<Input
-							label={m.users_label_email()}
-							name="email"
-							type="email"
-							bind:value={formEmail}
-							placeholder={m.users_placeholder_email()}
-							required
-						/>
-						{#if modal === 'create'}
-							<Input
-								label={m.users_label_password()}
-								name="password"
-								type="password"
-								bind:value={formPassword}
-								placeholder={m.common_min_chars()}
-								required
-							/>
-						{/if}
-						<div class="flex justify-end gap-2 pt-2">
-							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface cursor-pointer">{m.common_cancel()}</Dialog.CloseTrigger>
-							<Button type="submit" class="min-h-11">{modal === 'create' ? m.users_create() : m.common_save()}</Button>
-						</div>
-					</form>
-				{:else if modal === 'invite'}
-					<Dialog.Description class="mb-4 text-sm text-surface-700-300">{m.users_invite_desc()}</Dialog.Description>
-					<form method="POST" action="?/invite" use:enhance={submitEnhance} class="space-y-4">
-						<Input
-							label={m.users_label_email()}
-							name="email"
-							type="email"
-							bind:value={formEmail}
-							placeholder={m.users_placeholder_email()}
-							required
-						/>
-						<div class="flex justify-end gap-2 pt-2">
-							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface cursor-pointer">{m.common_cancel()}</Dialog.CloseTrigger>
-							<Button type="submit" class="min-h-11">{m.users_invite_btn()}</Button>
-						</div>
-					</form>
-				{:else if modal === 'status' && statusTarget}
-					<Dialog.Description class="mb-4 text-surface-700-300">
-						{statusTarget.disabled
-							? m.users_reactivate_confirm({ name: statusTarget.name })
-							: m.users_deactivate_confirm({ name: statusTarget.name })}
-					</Dialog.Description>
-					<form method="POST" action="?/toggleStatus" use:enhance={submitEnhance}>
-						<input type="hidden" name="id" value={statusTarget.id} />
-						<input type="hidden" name="disabled" value={String(!statusTarget.disabled)} />
-						<div class="flex justify-end gap-2">
-							<Dialog.CloseTrigger type="button" class="btn min-h-11 hover:preset-tonal-surface cursor-pointer">{m.common_cancel()}</Dialog.CloseTrigger>
-							<Button class="min-h-11" color={statusTarget.disabled ? 'success' : 'warning'} type="submit"
-								>{statusTarget.disabled ? m.users_reactivate_btn() : m.users_deactivate_btn()}</Button
-							>
-						</div>
-					</form>
-				{/if}
-			</Dialog.Content>
-		</Dialog.Positioner>
-	</Portal>
-</Dialog>
+	{#if modal === 'create' || modal === 'edit'}
+		<!-- Real SvelteKit form action (#295): method=POST + action=?/create|?/update,
+		     use:enhance handles deserialize/applyAction. No fetch().json() anywhere. -->
+		<form
+			method="POST"
+			action={modal === 'create' ? '?/create' : '?/update'}
+			use:enhance={submitEnhance}
+			class="space-y-4"
+		>
+			{#if modal === 'edit' && editUser}
+				<input type="hidden" name="id" value={editUser.id} />
+			{/if}
+			<Input
+				label={m.users_label_name()}
+				name="name"
+				bind:value={formName}
+				placeholder={m.users_placeholder_name()}
+				required
+			/>
+			<Input
+				label={m.users_label_email()}
+				name="email"
+				type="email"
+				bind:value={formEmail}
+				placeholder={m.users_placeholder_email()}
+				required
+			/>
+			{#if modal === 'create'}
+				<Input
+					label={m.users_label_password()}
+					name="password"
+					type="password"
+					bind:value={formPassword}
+					placeholder={m.common_min_chars()}
+					required
+				/>
+			{/if}
+			<div class="flex justify-end gap-2 pt-2">
+				<Button type="button" variant="ghost" color="surface" class="min-h-11" onclick={closeModal}>
+					{m.common_cancel()}
+				</Button>
+				<Button type="submit" class="min-h-11">{modal === 'create' ? m.users_create() : m.common_save()}</Button>
+			</div>
+		</form>
+	{:else if modal === 'invite'}
+		<form method="POST" action="?/invite" use:enhance={submitEnhance} class="space-y-4">
+			<Input
+				label={m.users_label_email()}
+				name="email"
+				type="email"
+				bind:value={formEmail}
+				placeholder={m.users_placeholder_email()}
+				required
+			/>
+			<div class="flex justify-end gap-2 pt-2">
+				<Button type="button" variant="ghost" color="surface" class="min-h-11" onclick={closeModal}>
+					{m.common_cancel()}
+				</Button>
+				<Button type="submit" class="min-h-11">{m.users_invite_btn()}</Button>
+			</div>
+		</form>
+	{:else if modal === 'status' && statusTarget}
+		<form method="POST" action="?/toggleStatus" use:enhance={submitEnhance}>
+			<input type="hidden" name="id" value={statusTarget.id} />
+			<input type="hidden" name="disabled" value={String(!statusTarget.disabled)} />
+			<div class="flex justify-end gap-2">
+				<Button type="button" variant="ghost" color="surface" class="min-h-11" onclick={closeModal}>
+					{m.common_cancel()}
+				</Button>
+				<Button class="min-h-11" color={statusTarget.disabled ? 'success' : 'warning'} type="submit"
+					>{statusTarget.disabled ? m.users_reactivate_btn() : m.users_deactivate_btn()}</Button
+				>
+			</div>
+		</form>
+	{/if}
+</AppDialog>

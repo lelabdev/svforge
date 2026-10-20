@@ -7,6 +7,7 @@ export const uploads_error_invalid_file_type = () => 'File type not allowed';
 export const uploads_error_file_too_large = () => 'File too large';
 export const uploads_error_invalid_request = () => 'Invalid upload request';
 export const common_loading = () => 'Loading…';
+export const common_close = () => 'Close';
 export const notif_bell = () => 'Notifications';
 export const notif_title = () => 'Notifications';
 export const notif_mark_all = () => 'Mark all as read';

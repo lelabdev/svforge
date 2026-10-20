@@ -6,4 +6,5 @@ export { default as Table } from './Table.svelte';
 export { default as ThemeToggle } from './ThemeToggle.svelte';
 export { generateSitemap } from './Sitemap';
 export { default as AvatarInitial } from './AvatarInitial.svelte';
+export { default as AppDialog } from './AppDialog.svelte';
 export { default as Feedback } from './Feedback.svelte';

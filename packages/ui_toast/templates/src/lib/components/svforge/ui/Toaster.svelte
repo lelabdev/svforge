@@ -12,7 +12,7 @@
 					<Toast.Description>{toast.description}</Toast.Description>
 				{/if}
 			</Toast.Message>
-			<Toast.CloseTrigger />
+			<Toast.CloseTrigger class="cursor-pointer" />
 		</Toast>
 	{/snippet}
 </Toast.Group>

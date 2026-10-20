@@ -70,17 +70,22 @@ describe('Svelte accessibility and reactivity (#176)', () => {
 		}
 	});
 
-	describe('admin users Skeleton Dialog composition', () => {
+	describe('admin users modal composition', () => {
 		const source = readFile('packages/svforge/templates/dashboard/src/routes/(app)/admin/users/+page.svelte');
+		const shell = readFile('packages/svforge/templates/dashboard/src/lib/components/svforge/ui/AppDialog.svelte');
 
-		it('uses the official controlled Dialog and never treats a presentation overlay as accessible', () => {
-			expect(source).toContain("import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte'");
-			expect(source).toMatch(/<Dialog[\s\S]*?open=\{modal !== null\}/);
-			expect(source).toContain('<Dialog.Title');
-			expect(source).toContain('restoreFocus');
-			expect(source).toContain('closeOnInteractOutside={false}');
-			expect(source).not.toMatch(/role=["']presentation["']/);
-			expect(source).not.toMatch(/bg-black\/50/);
+		it('delegates the controlled Dialog semantics to the shared AppDialog shell (#603)', () => {
+			expect(source).toContain('<AppDialog');
+			expect(source).toContain('open={modal !== null}');
+			expect(source).not.toContain("from '@skeletonlabs/skeleton-svelte'");
+
+			// The Skeleton composition (title, focus restoration, outside policy)
+			// lives once, inside the shell.
+			expect(shell).toContain('<Dialog.Title');
+			expect(shell).toContain('restoreFocus');
+			expect(shell).toContain('closeOnInteractOutside');
+			expect(shell).not.toMatch(/role=["']presentation["']/);
+			expect(shell).not.toMatch(/bg-black\/50/);
 		});
 
 		it('keeps all user mutations as enhanced SvelteKit POST forms', () => {

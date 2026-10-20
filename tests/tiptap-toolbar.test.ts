@@ -237,4 +237,16 @@ describe('Tiptap toolbar controls (#484)', () => {
 		expect(actions.onRemoveLink).not.toHaveBeenCalled();
 		expect(queryByRole('textbox', { name: 'Link URL' })).toBeNull();
 	});
+
+	it('presents the link trigger and popover dismiss control as clickable (#594)', async () => {
+		const { getByRole } = setup();
+		const trigger = getByRole('button', { name: 'Link' });
+
+		expect(trigger.classList.contains('cursor-pointer')).toBe(true);
+
+		await fireEvent.click(trigger);
+		await waitFor(() => expect(document.activeElement).toBe(getByRole('textbox', { name: 'Link URL' })));
+
+		expect(getByRole('button', { name: 'Cancel' }).classList.contains('cursor-pointer')).toBe(true);
+	});
 });
