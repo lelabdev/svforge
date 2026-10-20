@@ -300,13 +300,14 @@ const DASHBOARD = (pm: string) => `
 - **Server errors**: never leak \`e.message\` to the UI — return a generic message.
 - **DB**: Drizzle + PostgreSQL. Schema in \`src/lib/server/db/schema.ts\`, config \`drizzle.config.ts\` at the root (dialect postgresql). Env in \`.env\` (copy \`.env.example\` — local / Docker / managed connection strings).
 - **Auth schema**: \`src/lib/server/db/auth.schema.ts\` is the runtime-gated source of truth. \`${pm} run auth:schema\` regenerates a REVIEW copy (\`auth-schema.review.ts\`) via the version-lagging CLI — diff it and port deliberate changes manually; never commit it blindly.
+- **Application modals (#603)**: compose admin forms and confirmations with \`ui/AppDialog.svelte\` — \`open\` + \`onOpenChange\` + \`title\` and a body snippet. It owns the one Skeleton \`Dialog\` composition (portal, backdrop, panel surface, accessible title, focus trap/restore, scroll lock) and the "an outside click never discards an open form" policy. Do not copy \`Dialog/Portal/Backdrop/Positioner\` into a route, and never add \`animate-dialog\` — that Skeleton utility animates a native \`<dialog open>\`, while \`Dialog.Content\` is a \`div[data-state]\` and would stay transparent behind a dimmed backdrop. The mobile navigation drawer deliberately keeps its own geometry and outside-click dismissal instead of the form-modal shell.
 - **Validation**: zod schemas in \`src/lib/server/schemas.ts\`.
 - **Setup**: \`bash scripts/setup.sh\` creates \`.env\`, generates \`BETTER_AUTH_SECRET\`, pushes the schema. Then create the admin: \`${pm} run admin:create -- --name … --email … --password …\`.
 ### Golden references (#267) — imitate these screens when building new UI
 
 The admin screens are canonical examples agents should copy:
 
-- **\`/admin/users\`** — CRUD data table: the SvelteForge \`Table\` primitive (columns + \`children\` slot for avatar/badge/actions), search filter, create/edit/invite/status flows using the official Skeleton \`Dialog\` with SvelteForge form primitives, \`Feedback\` for success/error, empty state. Never hand-roll a raw \`<table>\` (see catalogue \`avoid\`).
+- **\`/admin/users\`** — CRUD data table: the SvelteForge \`Table\` primitive (columns + \`children\` slot for avatar/badge/actions), search filter, create/edit/invite/status flows composed through the shared \`AppDialog\` shell with SvelteForge form primitives, \`Feedback\` for success/error, empty state. Never hand-roll a raw \`<table>\` (see catalogue \`avoid\`).
 - **\`/admin\`** — stats cards (\`Card variant="elevated"\`) + recent list with \`Badge\` status.
 - **\`/admin/settings\`** — form with client-side validation + \`Feedback\`.
 - **\`AdminLayout\`** — sidebar/mobile drawer with \`aria-expanded\`, \`aria-current\`, labelled navigation.

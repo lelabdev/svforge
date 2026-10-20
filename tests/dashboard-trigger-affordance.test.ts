@@ -12,7 +12,8 @@ describe('dashboard dialog trigger affordances (#594)', () => {
 	it('gives enabled dialog triggers a pointer cursor without replacing Skeleton triggers', () => {
 		const files = [
 			dashboardTemplateFile('lib', 'components', 'svforge', 'layout', 'AdminLayout.svelte'),
-			dashboardTemplateFile('routes', '(app)', 'admin', 'users', '+page.svelte')
+			// The users page consumes the shared shell; its close trigger lives there (#603).
+			dashboardTemplateFile('lib', 'components', 'svforge', 'ui', 'AppDialog.svelte')
 		];
 		const classes = files.flatMap((file) => triggerClasses(readFileSync(file, 'utf-8')));
 
