@@ -19,6 +19,37 @@ docker build -f docker/builder.Dockerfile -t svforge-builder:local .
 Use a versioned, immutable tag or digest if publishing this build image for
 multiple projects. Do not automatically replace existing pinned images.
 
+## Validate the builder
+
+`docker/builder-smoke.sh` builds the image from the current checkout and proves
+the three things that can rot independently:
+
+1. the image carries the **exact** checked-in Dashboard `package.json` and
+   `docker/builder.bun.lock` (no second, drifting package list);
+2. `bun install --frozen-lockfile --ignore-scripts` inside the image is a
+   **no-op**, so the manifest and the pinned lockfile agree;
+3. the preinstalled stack really **imports** with Bun (zod, svelte, vite,
+   SvelteKit, Drizzle, Better Auth, postgres) and the Svelte component packages
+   are present for a build stage.
+
+```sh
+bash docker/builder-smoke.sh
+```
+
+It performs no registry push and touches no deployed application. CI runs the
+same script in the `docker-builder` job whenever `docker/**` or the Dashboard
+package manifest changes.
+
+If a local Docker cache is corrupt (a BuildKit "parent snapshot does not exist"
+error before any build step), build with a disposable isolated builder instead
+of clearing the shared cache:
+
+```sh
+docker buildx create --name svforge-builder-iso --driver docker-container
+SVFORGE_BUILDER_BUILDX_BUILDER=svforge-builder-iso bash docker/builder-smoke.sh
+docker buildx rm svforge-builder-iso
+```
+
 ## From an independent application
 
 In the application's **build stage**, use this image, then install from that
