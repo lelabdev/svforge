@@ -73,6 +73,52 @@ jobs:
       - name: Run tests
         run: bun x vitest run --no-file-parallelism
 
+  # Optional reusable Docker builder (#606). Its only inputs are the pinned
+  # lockfile, the dashboard manifest it is generated from, and the Dockerfile,
+  # so it runs when one of those changes instead of on every PR. The job builds
+  # the image and executes docker/builder-smoke.sh: manifest+lockfile identity,
+  # a no-op frozen install, and real Bun imports of the preinstalled stack.
+  docker-builder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      # Pull requests diff against their base; pushes diff the pushed range
+      # (`github.event.before`..`github.sha`). Both paths classify the changed
+      # files with scripts/docker-builder-changed.mjs, so a documentation-only
+      # push to main or dev does not rebuild the ~1.1 GB image.
+      - name: Detect builder inputs
+        id: changes
+        run: |
+          set -eu
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            base="${{ github.base_ref }}"
+            git fetch --no-tags origin "+refs/heads/$base:refs/remotes/origin/$base"
+            base_ref="origin/$base"
+            head_ref="HEAD"
+          else
+            head_ref="${{ github.sha }}"
+            base_ref="${{ github.event.before }}"
+            # A brand-new branch reports an all-zero `before`: there is no range
+            # to classify, so validate the builder instead of skipping it.
+            if ! git cat-file -e "${base_ref}^{commit}" 2>/dev/null; then
+              base_ref="$(git rev-parse "${head_ref}^" 2>/dev/null || true)"
+            fi
+          fi
+          if [ -z "$base_ref" ]; then
+            changed=true
+          else
+            changed="$(node scripts/docker-builder-changed.mjs --base "$base_ref" --head "$head_ref")"
+          fi
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          echo "Builder inputs changed: $changed"
+
+      - name: Build and smoke the reusable builder image
+        if: steps.changes.outputs.changed == 'true'
+        run: bash docker/builder-smoke.sh
+
   # One representative scaffold after a merge to `main` (#413): catches a
   # fundamental composition break between releases without replaying the full
   # matrix on every merge. `base` does not need PostgreSQL.
