@@ -175,8 +175,8 @@ SV_CMD="$WORK_DIR/node_modules/.bin/sv"
 [ -x "$SV_CMD" ] || fail "external sv CLI missing at $SV_CMD (registry acquisition failed)"
 echo "sv CLI: $SV_CMD"
 
-# 4. Install the local packed CLI exactly as a consumer would; published mode
-#    uses the exact npm version through npx.
+# 4. Install either CLI into one scratch prefix and reuse the ABSOLUTE
+#    executable path for both base and dashboard (#617).
 if [ "$MODE" = "local" ]; then
 	CLI_TARBALLS=("$WORK_DIR"/packs/"$PRIMARY_PACKAGE"-*.tgz)
 	[ -f "${CLI_TARBALLS[0]}" ] || fail "packed $PRIMARY_PACKAGE CLI tarball is missing"
@@ -189,7 +189,10 @@ if [ "$MODE" = "local" ]; then
 		file:"$REPO_ROOT"/*) fail "local mode resolved a monorepo path: $SOURCE" ;;
 	esac
 elif [ -n "$VERSION" ]; then
-	SVFORGE_CLI=(npx --yes "$PRIMARY_PACKAGE@$VERSION")
+	step "Installing exact published $PRIMARY_PACKAGE@$VERSION into an isolated prefix"
+	SVFORGE_BIN="$(cd "$REPO_ROOT" && node scripts/user-journey.mjs install-cli --published "$VERSION" --dest "$WORK_DIR/svforge-cli")"
+	[ -x "$SVFORGE_BIN" ] || fail "installed published $PRIMARY_PACKAGE CLI missing at $SVFORGE_BIN"
+	SVFORGE_CLI=("$SVFORGE_BIN")
 else
 	fail "published mode requires an exact version"
 fi

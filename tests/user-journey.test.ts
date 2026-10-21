@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 
 const {
@@ -9,6 +10,7 @@ const {
 	extractAddon,
 	goldenPathCreateArgs,
 	installPackedCli,
+	installPublishedCli,
 	installSv,
 	packLocalAddon,
 	packModuleSet,
@@ -158,6 +160,49 @@ describe('external user journey smoke test (#462, #465)', () => {
 		]);
 		expect(bin).toBe('/tmp/svforge-cli/node_modules/.bin/svforge');
 	});
+
+
+	it('installs the exact published CLI in an absolute prefix, never via cwd-sensitive npx (#617)', () => {
+		const calls: { cmd: string; args: string[] }[] = [];
+		const run = ((cmd: string, args: string[]) => {
+			calls.push({ cmd, args });
+		}) as unknown as Run;
+		const bin = installPublishedCli('2.2.4', '/tmp/svforge-exact-cli', { run });
+		expect(bin).toBe('/tmp/svforge-exact-cli/node_modules/.bin/svforge');
+		expect(calls).toHaveLength(1);
+		expect(calls[0]).toEqual({
+			cmd: 'npm',
+			args: ['install', '--prefix', '/tmp/svforge-exact-cli', '--no-save', '--no-package-lock', '--ignore-scripts', 'svforge@2.2.4']
+		});
+		expect(() => installPublishedCli('latest', '/tmp/cli', { run })).toThrow(/exact npm version/);
+		expect(() => installPublishedCli('^2.2.4', '/tmp/cli', { run })).toThrow(/exact npm version/);
+		const journey = readFileSync(join(process.cwd(), 'scripts/test-user-journey.sh'), 'utf8');
+		expect(journey).toContain('install-cli --published "$VERSION"');
+		expect(journey).not.toContain('SVFORGE_CLI=(npx');
+	});
+
+	it('runs one installed CLI binary from two different app directories (#617)', () => {
+		const root = mkdtempSync(join(tmpdir(), 'svforge-cli-repeat-'));
+		try {
+			const pkg = fixtureAddon(join(root, 'package'));
+			const manifest = JSON.parse(readFileSync(join(pkg, 'package.json'), 'utf8'));
+			manifest.name = 'svforge';
+			manifest.bin = { svforge: './bin/cli.mjs' };
+			writeFileSync(join(pkg, 'package.json'), JSON.stringify(manifest));
+			writeFileSync(join(pkg, 'bin/cli.mjs'), '#!/usr/bin/env node\nconsole.log("cli-ok")\n', { mode: 0o755 });
+			const tarball = packLocalAddon(pkg, join(root, 'packs'));
+			const bin = installPackedCli(tarball, join(root, 'cli'));
+			for (const dir of ['base-create', 'dashboard-create']) {
+				const cwd = join(root, dir);
+				mkdirSync(cwd);
+				const result = spawnSync(bin, ['--version'], { cwd, encoding: 'utf8' });
+				expect(result.status, result.stderr).toBe(0);
+				expect(result.stdout.trim()).toBe('cli-ok');
+			}
+		} finally {
+			rmSync(root, { recursive: true, force: true });
+		}
+	}, 30_000);
 
 	it('acquires sv externally into the scratch prefix', () => {
 		const scratch = mkdtempSync(join(tmpdir(), 'svforge-sv-scratch-'));
