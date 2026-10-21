@@ -309,7 +309,7 @@ if [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "dashboard-playwright" ] || 
 
 	# PostgreSQL is real in CI (#255): require the drizzle push to actually
 	# succeed against the service (the dashboard must be usable out of the box).
-	# Local dev without a running DB stays best-effort (setup.sh warns).
+	# Local preparation never connects to a DB; this harness initializes its isolated test DB explicitly.
 	if [ "${CI:-}" = "true" ]; then
 		bunx drizzle-kit push --force >/tmp/drizzle-push.log 2>&1 \
 			|| { cat /tmp/drizzle-push.log; echo "❌ drizzle-kit push failed against PostgreSQL (#255)"; exit 1; }

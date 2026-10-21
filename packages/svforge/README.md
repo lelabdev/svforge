@@ -18,10 +18,17 @@ npx sv create my-dashboard
 cd my-dashboard
 npx sv add svforge=template:dashboard+testing:vitest
 bash scripts/setup.sh
+# Configure PostgreSQL and DATABASE_URL in .env, then review the target:
+npm run db:push
+# Create the first admin via /setup in development or npm run admin:create
 npm run dev
 ```
 
-Dashboard projects use PostgreSQL. Configure the generated `.env` using `.env.example` before starting the app. Playwright is an optional profile:
+Dashboard projects use PostgreSQL. `bash scripts/setup.sh` (Node.js 20.12+; use a supported SvelteKit Node version) only prepares local files: it copies the final, add-on-composed `.env.example` if `.env` is absent, restricts `.env` to owner access, ensures Git ignores it, and generates a cryptographic Better Auth secret when missing, shorter than 32 characters, or a placeholder. A `.env` that Git already tracks (staged or committed) is refused rather than filled with a secret — an ignore rule cannot protect an indexed file; untrack it with `git rm --cached .env` and rotate any committed secret first. Existing settings and valid secrets are preserved on reruns. It never executes `.env`, connects to a database, starts Docker, or runs Drizzle. `bash scripts/setup.sh --defer` leaves files unchanged and prints how to resume.
+
+Create PostgreSQL yourself and set `DATABASE_URL` privately in `.env`; database provisioning and the CLI setup prompt are not included in this first bootstrap step. After verifying the target, use `<pm> run db:push` for initial local development, or review versioned migrations with `<pm> run db:generate` followed by `<pm> run db:migrate`. These commands are separate from preparation; no forced schema push runs automatically. Once the schema is ready, create the first admin with `<pm> run admin:create` or `/setup` in development. Setup reports the database as unchecked, even when a URL already exists.
+
+Playwright is an optional profile:
 
 ```bash
 npx sv add svforge=template:dashboard+testing:playwright

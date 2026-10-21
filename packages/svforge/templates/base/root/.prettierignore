@@ -42,6 +42,7 @@ messages/fr.json
 playwright.config.ts
 project.inlang/settings.json
 scripts/create-admin.ts
+scripts/setup.mjs
 scripts/setup.sh
 src/app.d.ts
 src/app.html
