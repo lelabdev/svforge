@@ -309,14 +309,21 @@ jobs:
           test -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN"
 
       # Release artifacts remain pinned to the approved merge commit. The
-      # release planner and its compatibility guard are updated from the
-      # dispatch commit so a reviewed hotfix can unblock a partial release.
-      - name: Load current release-planning guards
+      # release VALIDATION scripts are updated from the dispatch commit so a
+      # reviewed hotfix can unblock a partial release (#617, #620): the 2.2.4
+      # recovery failed in the published golden path because this list did not
+      # include the journey scripts, so the stale pre-fix copy ran again.
+      - name: Load current release validation guards
         run: |
           git fetch --no-tags origin "${{ github.sha }}"
           git show "${{ github.sha }}:scripts/release-plan.mjs" > scripts/release-plan.mjs
           git show "${{ github.sha }}:scripts/compat-manifest.mjs" > scripts/compat-manifest.mjs
           git show "${{ github.sha }}:scripts/npm-consumer-smoke.mjs" > scripts/npm-consumer-smoke.mjs
+          # Published user journey + golden path (#462, #470, #617): these run
+          # against the released artifacts, not the released validation code.
+          git show "${{ github.sha }}:scripts/test-user-journey.sh" > scripts/test-user-journey.sh
+          git show "${{ github.sha }}:scripts/user-journey.mjs" > scripts/user-journey.mjs
+          chmod +x scripts/test-user-journey.sh
 
       # The plan is generated before any publication and records the exact
       # commit, independent package versions, registry state, and dependency order.
