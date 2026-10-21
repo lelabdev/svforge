@@ -82,7 +82,7 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 	});
 
 	it('publishes stable releases only after the merged Changesets release PR passes every gate', () => {
-		expect(publish).not.toMatch(/^  pull_request:/m);
+		expect(publish).not.toMatch(/^ {2}pull_request:/m);
 		expect(publish).toContain('workflow_dispatch:');
 		expect(publish).toContain("inputs.channel == 'stable'");
 		expect(publish).toContain("inputs.confirmation == 'publish-stable'");
