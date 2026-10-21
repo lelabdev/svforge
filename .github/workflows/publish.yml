@@ -1,13 +1,11 @@
 name: Publish
 
 on:
-  pull_request:
-    types: [closed]
-    branches: [main]
+  # Merging a release PR only stages versions. Publication is manually dispatched.
   workflow_dispatch:
     inputs:
       channel:
-        description: Publication channel (stable resumes an approved merged release PR)
+        description: Publication channel (explicit release of an already merged Version Packages PR)
         required: true
         type: choice
         options:
@@ -19,7 +17,7 @@ on:
         required: false
         type: number
       confirmation:
-        description: Type publish-canary to authorize optional canary publication
+        description: Type publish-stable or publish-canary to authorize publication
         required: false
         type: string
 
@@ -34,15 +32,15 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Only reviewed, merged Changesets PRs can trigger or resume a release.
+  # Only an explicit, channel-confirmed dispatch from main can publish npm packages.
+  # Release PRs must still be merged, bot-authored and immutable (verified below).
   authorize-release:
     if: >-
-      (github.event_name == 'workflow_dispatch' && inputs.channel == 'stable') ||
-      (github.event.pull_request.merged == true &&
-       github.event.pull_request.base.ref == 'main' &&
-       github.event.pull_request.title == 'Version Packages' &&
-       github.event.pull_request.head.ref == 'changeset-release/main' &&
-       github.event.pull_request.user.login == 'github-actions[bot]')
+      github.event_name == 'workflow_dispatch' &&
+      github.repository == 'lelabdev/svforge' &&
+      github.ref == 'refs/heads/main' &&
+      inputs.channel == 'stable' &&
+      inputs.confirmation == 'publish-stable'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -59,9 +57,7 @@ jobs:
         id: verify
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event_name == 'workflow_dispatch' && inputs.release_pr || github.event.pull_request.number }}
-          EVENT_NAME: ${{ github.event_name }}
-          EVENT_COMMIT: ${{ github.event.pull_request.merge_commit_sha }}
+          PR_NUMBER: ${{ inputs.release_pr }}
         run: |
           set -euo pipefail
           [[ "$PR_NUMBER" =~ ^[0-9]+$ ]] || exit 1
@@ -79,9 +75,6 @@ jobs:
           COMMIT=$(jq -er '.merge_commit_sha' "$RUNNER_TEMP/release-pr.json")
           HEAD_SHA=$(jq -er '.head.sha' "$RUNNER_TEMP/release-pr.json")
           [[ "$COMMIT" =~ ^[0-9a-f]{40}$ && "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
-          if [[ "$EVENT_NAME" != "workflow_dispatch" ]]; then
-            test "$COMMIT" = "$EVENT_COMMIT" || exit 1
-          fi
           git fetch --no-tags origin main
           git merge-base --is-ancestor "$COMMIT" origin/main || exit 1
           git show "$COMMIT:.changeset/release-candidates.json" > "$RUNNER_TEMP/candidates.json"

@@ -11,10 +11,12 @@ package versions absent from npm, and remains stable across retries. GitHub
 Actions must be allowed to create pull requests in the repository's Actions
 settings; this change does not alter repository-wide permissions.
 
-Stable npm publication is handled by `.github/workflows/publish.yml` after
-a maintainer merges the bot-created `Version Packages` PR from
-`changeset-release/main` into `main`, or via an explicitly dispatched recovery
-that independently verifies this exact already-merged PR before running any jobs. The release job reruns the blocking
+Stable npm publication is **never triggered by merging a PR**. After a maintainer
+merges the bot-created `Version Packages` PR from `changeset-release/main`
+into `main`, they must independently dispatch `.github/workflows/publish.yml`
+on `main`: select `channel=stable`, supply the merged `release_pr` number,
+and enter the exact confirmation `publish-stable`. The workflow verifies that
+specific already-merged PR and its immutable merge commit before running any jobs. The release job reruns the blocking
 quality, scaffold, and packed-artifact user-journey gates, then invokes the
 Changesets CLI directly using npm Trusted Publishing (OIDC) with no persistent
 npm token. GitHub Release creation remains separately gated. Only after the exact-version consumer,
@@ -36,8 +38,8 @@ the same approved, already-merged `Version Packages` PR, not a new version.
 
 **Issues and pull requests are units of work, not releases.** Multiple reviewed
 PRs and their Changesets accumulate on `main`; `Version Packages` is a
-reviewable staging PR, and only an explicit maintainer merge starts a stable
-publication. Documentation-only changes that do not alter an npm package do not
+reviewable staging PR. A maintainer can merge it without publishing;
+an explicit, confirmed stable workflow dispatch is required to publish. Documentation-only changes that do not alter an npm package do not
 need a Changeset or release. A package change uses the appropriate
 `patch`, `minor`, or `major` Changeset. Changesets independently calculates
 the version for each affected package, updating dependent modules and the
@@ -77,9 +79,11 @@ already-merged Version Packages PR #562.
 
 - **Stable / `latest`**: `npm install svforge`. Multiple merged PRs and
   Changesets are grouped in a human-reviewed Version Packages PR. Only its
-  explicit maintainer merge triggers the stable publication. A `Publish`
-  dispatch with `channel=stable` and `release_pr=<merged PR number>` is an
-  exceptional recovery path, not an automatic publish on each PR.
+  merge only stages their versions. To publish, use **Actions → Publish →
+  Run workflow** on `main`, choose `channel=stable`, provide the reviewed,
+  merged `release_pr` number and enter **`publish-stable`** in `confirmation`.
+  The same command resumes a failed or partial release after the fix is merged;
+  merging a PR never dispatches the publisher.
 - **Canary / `canary`**: `npm install svforge@canary`. In the same
   `.github/workflows/publish.yml`, choose **Run workflow → channel=canary**,
   branch `main`, and type `publish-canary` as confirmation. No stable PR
@@ -227,7 +231,8 @@ Validation cost sits where it belongs:
 | **Push to `main`** (`version-packages.yml`) | Changesets creates or updates the human-reviewed **Version Packages** PR. No npm publication or GitHub Release. |
 | **Pull request** (`ci.yml`) | install, lint, typecheck, OSV audit, Better Auth stack audit, generated-manifest freshness, build, Vitest. **No PostgreSQL, no scaffold, no user journey.** A new push cancels the previous run. |
 | **Push to `main`** (`ci.yml`) | the same fast checks + **one** representative scaffold (`test-scaffold.sh base`). |
-| **Merged Version Packages PR** (`publish.yml`) | quality + the 9-profile scaffold matrix + external and published user journeys + the one-command golden path; GitHub Releases are finalized only after all blocking checks pass. |
+| **Merged Version Packages PR** | Only stages versioned release candidates on `main`; no npm publishing. |
+| **Explicit stable `Publish` dispatch** (`publish.yml`) | Requires `main`, `channel=stable`, the merged `release_pr`, and `confirmation=publish-stable`; then quality + 9 scaffold profiles + external and published journeys + golden path; GitHub Releases only after all blocking checks pass. |
 | **Weekly** (`ecosystem-drift.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening or updating a deduplicated drift issue on failure. No npm publication. |
 | **Optional npm canary** (`publish.yml`, `channel=canary`) | explicit `publish-canary` confirmation on `main`; isolated numbered Changesets snapshots, packed/published consumer checks and golden-path validation, then `canary` tag promotion via OIDC. No ordinary PR, push, schedule or `latest` publication. |
 
@@ -300,9 +305,10 @@ scripts disabled because every package was already built and tarball-preflighted
     Release from the matching package changelog. The finalizer is idempotent.
 
 The stable publisher uses a repository-global, non-cancelling concurrency
-group. It triggers only for a merged, bot-authored `Version Packages` PR on
-`main`, or an explicit recovery dispatch that independently verifies the PR's
-identity and immutable merge commit, so ordinary merges and open PRs cannot publish. The Changesets action does not push tags or create GitHub Releases;
+group. Only a manual `workflow_dispatch` on `main` with the channel-specific
+confirmation can run publication. Stable dispatch verifies the identity and
+immutable merge commit of a bot-authored, merged `Version Packages` PR;
+merging any PR (including `Version Packages`) never publishes. The Changesets action does not push tags or create GitHub Releases;
 the post-validation finalizer does so only for the changed, registry-verified
 versions. Third-party actions are pinned to commit SHAs.
 
@@ -310,8 +316,10 @@ versions. Third-party actions are pinned to commit SHAs.
 
 After an authentication/workflow fix, **do not rerun the previous GitHub Actions
 attempt**: that run uses its original workflow commit and would repeat the old
-publishing logic. Launch a fresh dispatch from `main` after the fix is merged. Run `Publish` on `main` with **Run workflow**, entering
-`release_pr: 562` for the pending 2.2.0 baseline. The authorization job checks
+publishing logic. Launch a fresh dispatch from `main` after the fix is merged. Run `Publish` on
+`main` with **Run workflow**, choosing `channel=stable`, entering the
+reviewed merged release PR number (for example `release_pr: 562` for the
+historical 2.2.0 baseline) and the exact `confirmation: publish-stable`. The authorization job checks
 that PR #562 was merged from the expected Changesets branch by the release bot,
 that its merge commit belongs to `main`, and that it contains a reviewed release
 candidate manifest. The entire quality/scaffold/user-journey battery runs again
