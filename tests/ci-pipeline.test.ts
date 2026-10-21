@@ -82,13 +82,11 @@ describe('CI pipeline split (#413): fast PR CI, full release gate', () => {
 	});
 
 	it('publishes stable releases only after the merged Changesets release PR passes every gate', () => {
-		expect(publish).toContain('pull_request:');
-		expect(publish).toContain('types: [closed]');
-		expect(publish).toContain('branches: [main]');
-		expect(publish).toContain("github.event.pull_request.title == 'Version Packages'");
-		expect(publish).toContain("github.event.pull_request.head.ref == 'changeset-release/main'");
-		expect(publish).toContain("github.event.pull_request.user.login == 'github-actions[bot]'");
+		expect(publish).not.toMatch(/^  pull_request:/m);
 		expect(publish).toContain('workflow_dispatch:');
+		expect(publish).toContain("inputs.channel == 'stable'");
+		expect(publish).toContain("inputs.confirmation == 'publish-stable'");
+		expect(publish).toContain("github.ref == 'refs/heads/main'");
 		expect(publish).not.toMatch(/^\s+push:/m);
 		expect(publish).not.toContain('uses: changesets/action@');
 		expect(publish).toContain('run: bun run changeset:publish');
