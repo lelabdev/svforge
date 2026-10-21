@@ -1,5 +1,29 @@
 # svforge
 
+## 2.2.3
+
+### Patch Changes
+
+- [#591](https://github.com/lelabdev/svforge/pull/591) [`746b5de`](https://github.com/lelabdev/svforge/commit/746b5deea1b1308718fa4ab065819b27eee5e5ee) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Use pointer and non-interactive cursors for enabled, disabled, and loading buttons.
+
+- [#596](https://github.com/lelabdev/svforge/pull/596) [`d9d2e71`](https://github.com/lelabdev/svforge/commit/d9d2e713845329e3a84683708f15e8a4809b6ae2) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Show a pointer cursor on enabled dashboard dialog triggers.
+
+- [#599](https://github.com/lelabdev/svforge/pull/599) [`cf5ff96`](https://github.com/lelabdev/svforge/commit/cf5ff9607cac2a8fdec34a339ccac5f83377ee6a) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Inline Dashboard avatar initials in the reactive markup without changing empty-name or variant behavior.
+
+- [#600](https://github.com/lelabdev/svforge/pull/600) [`3032aee`](https://github.com/lelabdev/svforge/commit/3032aee83c8d2df87891f3cd35419e45a0397ac7) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Give enabled OAuth provider buttons a pointer cursor and retain a not-allowed cursor while sign-in is pending.
+
+- [#598](https://github.com/lelabdev/svforge/pull/598) [`a7d9de6`](https://github.com/lelabdev/svforge/commit/a7d9de6ae192a67e2f8ba54ed0d5e2b787bc6a90) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Simplify the single-use class expressions in Base Badge, Alert, and Card components while preserving reactive variants.
+
+- [#597](https://github.com/lelabdev/svforge/pull/597) [`6304081`](https://github.com/lelabdev/svforge/commit/6304081b92bdd1fa50c5167bf150544391eec19a) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Replace deprecated SvelteKit alias configuration with explicit `#lib` package subpath imports while retaining Kit 2 compatibility.
+
+- [#611](https://github.com/lelabdev/svforge/pull/611) [`a9bed6b`](https://github.com/lelabdev/svforge/commit/a9bed6b2e057abae4879e81ef1a3ef40e09ae58d) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Show a pointer cursor on the remaining scaffolded native controls — the notifications bell, Tiptap link and dismiss controls, toast dismiss, and the upload file input (not-allowed while busy) — and hide the locale helper links with the `hidden` utility instead of an inline style.
+
+- [#609](https://github.com/lelabdev/svforge/pull/609) [`e4e76e1`](https://github.com/lelabdev/svforge/commit/e4e76e10cb0351783b434ab5f4f38de5c00f8d2a) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Make Dashboard local setup prepare a private, ignored .env idempotently, preserving existing credentials and valid Better Auth secrets. Refuse a .env that Git already tracks (staged or committed) instead of writing a generated secret into a committable file. Remove automatic forced schema pushes; report manual database steps and support deferring configuration.
+
+- [#612](https://github.com/lelabdev/svforge/pull/612) [`b40bc61`](https://github.com/lelabdev/svforge/commit/b40bc61ca26d951860e13c00214ec5e2a13919d7) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Add a shared `AppDialog` modal shell to the dashboard template: admin forms and confirmations compose one Skeleton dialog composition (title, size, controlled open state, accessible close control, focus trap/restore and the outside-click policy) instead of re-implementing `Dialog/Portal/Backdrop/Positioner` in each route. Generated agent guidance and `llms.txt` patterns now point at the shell, and the users Playwright suite asserts an opaque, hit-testable panel on desktop and mobile.
+
+- [#595](https://github.com/lelabdev/svforge/pull/595) [`617e895`](https://github.com/lelabdev/svforge/commit/617e895fff1d549259b7f6b92da3a1dab2538724) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Simplify the shared Button class derivation without changing its rendered behavior.
+
 ## 2.2.2
 
 ### Patch Changes
