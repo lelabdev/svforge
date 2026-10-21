@@ -23,7 +23,8 @@ describe('isolated Changesets canary snapshots (#563)', () => {
 	it('keeps publication manual, maintainer-gated, isolated, and behind artifact checks', () => {
 		const workflow = readFileSync(join(process.cwd(), '.github/workflows/publish.yml'), 'utf8');
 		expect(workflow).toContain('workflow_dispatch:');
-		expect(workflow).toContain('pull_request:');
+		expect(workflow).not.toMatch(/^ {2}pull_request:/m);
+		expect(workflow).toContain("inputs.confirmation == 'publish-stable'");
 		expect(workflow).toContain("inputs.channel == 'canary'");
 		expect(workflow).toContain("inputs.channel == 'stable'");
 		expect(workflow).toContain("inputs.confirmation == 'publish-canary'");
