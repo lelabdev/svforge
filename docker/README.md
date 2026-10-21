@@ -38,7 +38,9 @@ bash docker/builder-smoke.sh
 
 It performs no registry push and touches no deployed application. CI runs the
 same script in the `docker-builder` job whenever `docker/**` or the Dashboard
-package manifest changes.
+package manifest changes — for pull requests (diff against the base branch) and
+for pushes (diff of the pushed commit range), so a documentation-only push never
+rebuilds the image.
 
 If a local Docker cache is corrupt (a BuildKit "parent snapshot does not exist"
 error before any build step), build with a disposable isolated builder instead
