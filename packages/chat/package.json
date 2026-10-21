@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/chat",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"type": "module",
 	"description": "SVForge Chat — composable app chat (conversations, messages, read-state)",
 	"author": "Ludo (https://lelab.dev)",
