@@ -45,8 +45,10 @@ describe('auth experience (#541)', () => {
 		expect(setup).not.toMatch(/<p[^>]+text-error/);
 		expect(login).toMatch(/loading=\{loading\}/);
 		expect(setup).toMatch(/loading=\{loading\}/);
-		expect(login).toMatch(/aria-pressed=\{passwordVisible\}/);
-		expect(setup).toMatch(/aria-pressed=\{passwordVisible\}/);
+		// The reveal affordance lives once in the shared field (#603); the routes
+		// only pass their native autocomplete hint and the bound value.
+		expect(login).toMatch(/<PasswordInput[\s\S]*?autocomplete="current-password"/);
+		expect(setup).toMatch(/<PasswordInput[\s\S]*?autocomplete="new-password"/);
 		expect(read(join(DASHBOARD, 'lib/components/svforge/ui/Feedback.svelte'))).toMatch(/role=\{type === 'error' \? 'alert'/);
 	});
 
