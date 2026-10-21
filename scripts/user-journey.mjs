@@ -111,6 +111,16 @@ export function installPackedCli(tarball, scratch, { run = execFileSync } = {}) 
 	return join(scratch, 'node_modules', '.bin', 'svforge');
 }
 
+/** Install one EXACT published svforge version in a durable scratch prefix.
+ * A single absolute CLI path works across all generated app directories (#617).
+ */
+export function installPublishedCli(version, scratch, { run = execFileSync } = {}) {
+	if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(version ?? '')) {
+		throw new Error('installPublishedCli requires an exact npm version');
+	}
+	return installPackedCli(PRIMARY_PACKAGE + '@' + version, scratch, { run });
+}
+
 /** `npm pack` the package as it would be published; return the tarball path. */
 export function packLocalAddon(packageDir, destination) {
 	mkdirSync(destination, { recursive: true });
@@ -285,10 +295,13 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 			console.log(packModuleSet({ destination }));
 		} else if (command === 'install-cli') {
 			const tarball = flag('--tarball');
+			const published = flag('--published');
 			const destination = flag('--dest');
-			if (!tarball) throw new Error('install-cli requires --tarball <path>');
+			if (Boolean(tarball) === Boolean(published)) {
+				throw new Error('install-cli requires exactly one of --tarball <path> or --published <version>');
+			}
 			if (!destination) throw new Error('install-cli requires --dest <directory>');
-			console.log(installPackedCli(tarball, destination));
+			console.log(tarball ? installPackedCli(tarball, destination) : installPublishedCli(published, destination));
 		} else {
 			console.error('Usage: node scripts/user-journey.mjs <source|addon-set|install-cli> [options]');
 			process.exitCode = 1;
