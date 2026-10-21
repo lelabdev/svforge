@@ -327,6 +327,14 @@ against the **original release merge commit**, never the moving branch tip. Only
 after all gates pass may npm receive published artifacts. This is also valid
 for later approved release PRs, using their own numbers.
 
+For the already-published #615 recovery only, the immutable release lockfile
+resolves development-only `@vitest/mocker@5.0.0`, which received two advisories
+after publication. The release quality job combines its original audit baseline
+with the two exact advisory/path exceptions in `docs/release-615-audit-waivers.json`
+**only when the approved release commit equals `44f726cf4bc45d90ad558b01777bb8335d538f92`**.
+Other releases and ordinary `main` CI remain strictly audited. Remove this
+historical exception after #615 is finalized; never reuse it for a new release.
+
 The publish job checks out the **immutable reviewed release commit** for the
 package sources, but loads the release planner and compatibility checks from
 the **new dispatch commit on `main`**. This permits reviewed CI hotfixes

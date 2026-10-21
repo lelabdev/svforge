@@ -108,6 +108,19 @@ jobs:
       - name: Typecheck (tsc)
         run: bun run typecheck
 
+      # #615 recovery is pinned to its immutable release commit, whose dev-only
+      # @vitest/mocker@5.0.0 acquired two advisories after npm publication.
+      # Add ONLY those reviewed exceptions to the historical audit baseline.
+      # Ordinary main CI and all other releases keep their normal strict audit.
+      - name: Apply scoped audit waivers for historical release 615
+        if: needs.authorize-release.outputs.release_commit == '44f726cf4bc45d90ad558b01777bb8335d538f92'
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "${{ github.sha }}"
+          git show "${{ github.sha }}:docs/release-615-audit-waivers.json" > "$RUNNER_TEMP/release-615-audit-waivers.json"
+          jq -s '.[0] + .[1]' docs/audit-baseline.json "$RUNNER_TEMP/release-615-audit-waivers.json" > "$RUNNER_TEMP/release-615-audit-baseline.json"
+          cp "$RUNNER_TEMP/release-615-audit-baseline.json" docs/audit-baseline.json
+
       - name: Dependency audit (OSV)
         run: bun run audit
 
