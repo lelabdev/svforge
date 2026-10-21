@@ -1,0 +1,16 @@
+[
+	{
+		"package": "@vitest/mocker",
+		"version": "5.0.0",
+		"path": "@vitest/mocker",
+		"advisory": "GHSA-qxg6-89mg-rqv8",
+		"reason": "Applies only to immutable reviewed release commit 44f726cf4bc45d90ad558b01777bb8335d538f92 for #615 recovery. Vitest mocker 5.0.0 is a development-time test dependency, never a distributed runtime dependency. This manual-mock registration advisory was published after the 2.2.4 npm artifacts were released. Tests use trusted repository fixtures on CI, not untrusted registrations. The maintained main branch is patched to Vitest 5.0.5 in #622. This waiver does not authorize any new release."
+	},
+	{
+		"package": "@vitest/mocker",
+		"version": "5.0.0",
+		"path": "@vitest/mocker",
+		"advisory": "GHSA-xp26-3454-mjgp",
+		"reason": "Applies only to immutable reviewed release commit 44f726cf4bc45d90ad558b01777bb8335d538f92 for #615 recovery. The advisory concerns backslash path traversal in Windows-only development tooling; the release CI uses Linux and the library is not in distributed runtime artifacts. The maintained main branch is patched to Vitest 5.0.5 in #622. This waiver does not authorize any new release."
+	}
+]
