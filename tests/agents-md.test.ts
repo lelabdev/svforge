@@ -82,8 +82,11 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		expect(dashboard).toContain('Application modals (#603)');
 		expect(dashboard).toContain('ui/AppDialog.svelte');
 		expect(dashboard).toContain('never add `animate-dialog`');
-		// Base has no AppDialog: the dashboard-only pattern must not leak.
+		expect(dashboard).toContain('Password fields (#603)');
+		expect(dashboard).toContain('ui/PasswordInput.svelte');
+		// Base has neither component: dashboard-only patterns must not leak.
 		expect(base).not.toContain('AppDialog');
+		expect(base).not.toContain('PasswordInput');
 	});
 
 	it('renders and refreshes configured locales, including legacy generated guidance (#438)', () => {

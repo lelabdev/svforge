@@ -4,9 +4,8 @@
 	import { goto } from '$app/navigation';
 	import * as m from '#lib/paraglide/messages.js';
 	import AuthLayout from '#lib/components/svforge/layout/AuthLayout.svelte';
-	import { Feedback } from '#lib/components/svforge/ui/index.js';
+	import { Feedback, PasswordInput } from '#lib/components/svforge/ui/index.js';
 	import { Button, Input } from '#lib/components/svforge/primitives/index.js';
-	import { Eye, EyeSlash } from '#lib/icons/index.js';
 	import { normalizeInternalCallback } from '#lib/utils/web.js';
 	import type { ActionData } from './$types';
 
@@ -14,7 +13,6 @@
 	let email = $state(untrack(() => form?.email ?? ''));
 	let password = $state('');
 	let loading = $state(false);
-	let passwordVisible = $state(false);
 
 	function loginError(code: string | undefined) {
 		switch (code) {
@@ -67,29 +65,14 @@
 			placeholder={m.login_placeholder_email()}
 			required
 		/>
-		<Input
+		<PasswordInput
 			label={m.login_label_password()}
-			type={passwordVisible ? 'text' : 'password'}
 			name="password"
 			autocomplete="current-password"
 			bind:value={password}
 			placeholder="••••••••"
 			required
-		>
-			{#snippet trailing()}
-				<Button
-					type="button"
-					variant="ghost"
-					color="surface"
-					class="size-11 shrink-0 p-0"
-					aria-label={passwordVisible ? m.common_hide_password() : m.common_show_password()}
-					aria-pressed={passwordVisible}
-					onclick={() => (passwordVisible = !passwordVisible)}
-				>
-					{#if passwordVisible}<EyeSlash size={18} />{:else}<Eye size={18} />{/if}
-				</Button>
-			{/snippet}
-		</Input>
+		/>
 		<div class="pt-2">
 			<Button type="submit" class="min-h-11 w-full" loading={loading} loadingLabel={m.login_signing_in()}>
 				{loading ? m.login_signing_in() : m.login_sign_in()}

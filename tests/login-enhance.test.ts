@@ -53,7 +53,7 @@ beforeAll(async () => {
 	);
 	writeFileSync(
 		join(GEN, 'login-harness-ui.js'),
-		`export { default as AuthLayout } from './login-harness-empty.js';\nexport { default as Feedback } from './login-harness-empty.js';`
+		`export { default as AuthLayout } from './login-harness-empty.js';\nexport { default as Feedback } from './login-harness-empty.js';\nexport { default as PasswordInput } from './login-harness-empty.js';`
 	);
 	writeFileSync(
 		join(GEN, 'login-harness-primitives.js'),
