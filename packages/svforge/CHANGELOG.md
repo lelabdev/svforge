@@ -1,5 +1,11 @@
 # svforge
 
+## 2.2.4
+
+### Patch Changes
+
+- [#614](https://github.com/lelabdev/svforge/pull/614) [`701ddad`](https://github.com/lelabdev/svforge/commit/701ddad1fdd0ed5326714947d5b4e5c17047514d) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Add a shared `PasswordInput` field to the dashboard template: the login and setup screens compose one masked/unmasked field with an accessible Show/Hide control instead of re-implementing the eye toggle and local visibility state in each route. Generated agent guidance and `llms.txt` patterns now point at the shared field.
+
 ## 2.2.3
 
 ### Patch Changes
