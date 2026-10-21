@@ -38,6 +38,26 @@ describe('Changesets release workflow (#555)', () => {
 		expect(publish).not.toContain('node scripts/release-plan.mjs --plan /tmp/release-plan.json --publish');
 	});
 
+	it('refreshes the published journey validation scripts from the dispatch commit (#620)', () => {
+		const publish = readFileSync(join(ROOT, '.github/workflows/publish.yml'), 'utf8');
+		// Publish jobs check out the reviewed release commit on purpose. The
+		// published-mode validation scripts must therefore be reloaded from the
+		// dispatch commit: the 2.2.4 recovery re-ran the stale pre-fix golden
+		// path and failed with `svforge: not found` even though #619 was merged.
+		const guards = publish.slice(
+			publish.indexOf('Load current release validation guards'),
+			publish.indexOf('The plan is generated before any publication')
+		);
+		const lines = guards.split('\n').map((line) => line.trim());
+
+		expect(guards).not.toBe('');
+		for (const script of ['scripts/test-user-journey.sh', 'scripts/user-journey.mjs']) {
+			expect(lines).toContain('git show "${{ github.sha }}:' + script + '" > ' + script);
+		}
+		// The released artifacts themselves stay pinned to the reviewed commit.
+		expect(publish).toContain('ref: ${{ needs.authorize-release.outputs.release_commit }}');
+	});
+
 	it('skips exact versions already on npm when a stable publish is retried', () => {
 		const root = mkdtempSync(join(tmpdir(), 'svforge-changesets-retry-'));
 		try {
