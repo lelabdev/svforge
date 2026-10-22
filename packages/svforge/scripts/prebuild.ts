@@ -27,7 +27,9 @@ const pkg = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8')
 		FAVICON_ICO: 'favicon.ico',
 		FAVICON_32: 'favicon-32x32.png',
 		FAVICON_16: 'favicon-16x16.png',
-		APPLE_TOUCH_ICON: 'apple-touch-icon.png'
+		APPLE_TOUCH_ICON: 'apple-touch-icon.png',
+		ANDROID_CHROME_192: 'android-chrome-192x192.png',
+		ANDROID_CHROME_512: 'android-chrome-512x512.png'
 	};
 	const entries = Object.entries(brandIcons).map(
 		([constant, file]) =>

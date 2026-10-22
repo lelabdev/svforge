@@ -489,7 +489,9 @@ for favicon_route in \
 	src/routes/favicon.ico/+server.ts \
 	src/routes/favicon/favicon-32x32.png/+server.ts \
 	src/routes/favicon/favicon-16x16.png/+server.ts \
-	src/routes/favicon/apple-touch-icon.png/+server.ts; do
+	src/routes/favicon/apple-touch-icon.png/+server.ts \
+	src/routes/favicon/android-chrome-192x192.png/+server.ts \
+	src/routes/favicon/android-chrome-512x512.png/+server.ts; do
 	test -f "$favicon_route" || { echo "❌ favicon route missing at $favicon_route (#613)"; exit 1; }
 done
 test -f src/lib/assets/brand-favicons.ts || { echo "❌ embedded brand favicons missing at src/lib/assets/brand-favicons.ts (#613)"; exit 1; }
@@ -497,6 +499,7 @@ if grep -q 'M16 8.5 23.5 23h-15Z' src/lib/assets/brand-favicons.ts src/routes/fa
 	echo "❌ the cyan-square/white-triangle placeholder is still shipped as the favicon (#613)"; exit 1
 fi
 test -f static/robots.txt || { echo "❌ static/robots.txt missing (#325)"; exit 1; }
+test -f static/site.webmanifest || { echo "❌ static/site.webmanifest missing (#613)"; exit 1; }
 
 # Destinations contract (#325): known root files must exist EXACTLY once —
 # never duplicated under src/ by a destination-resolution drift.

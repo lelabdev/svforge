@@ -24,14 +24,18 @@ const BRAND_ICONS = {
 	FAVICON_ICO: { file: 'favicon.ico', magic: [0x00, 0x00, 0x01, 0x00] },
 	FAVICON_32: { file: 'favicon-32x32.png', magic: [0x89, 0x50, 0x4e, 0x47] },
 	FAVICON_16: { file: 'favicon-16x16.png', magic: [0x89, 0x50, 0x4e, 0x47] },
-	APPLE_TOUCH_ICON: { file: 'apple-touch-icon.png', magic: [0x89, 0x50, 0x4e, 0x47] }
+	APPLE_TOUCH_ICON: { file: 'apple-touch-icon.png', magic: [0x89, 0x50, 0x4e, 0x47] },
+	ANDROID_CHROME_192: { file: 'android-chrome-192x192.png', magic: [0x89, 0x50, 0x4e, 0x47] },
+	ANDROID_CHROME_512: { file: 'android-chrome-512x512.png', magic: [0x89, 0x50, 0x4e, 0x47] }
 } as const;
 
 const ROUTES = [
 	{ path: '/routes/favicon.ico/+server.ts', type: 'image/x-icon' },
 	{ path: '/routes/favicon/favicon-32x32.png/+server.ts', type: 'image/png' },
 	{ path: '/routes/favicon/favicon-16x16.png/+server.ts', type: 'image/png' },
-	{ path: '/routes/favicon/apple-touch-icon.png/+server.ts', type: 'image/png' }
+	{ path: '/routes/favicon/apple-touch-icon.png/+server.ts', type: 'image/png' },
+	{ path: '/routes/favicon/android-chrome-192x192.png/+server.ts', type: 'image/png' },
+	{ path: '/routes/favicon/android-chrome-512x512.png/+server.ts', type: 'image/png' }
 ];
 
 const decode = (base64: string) => Buffer.from(base64, 'base64');
@@ -71,7 +75,9 @@ describe('SVForge brand favicon (#613)', () => {
 		for (const [constant, size] of [
 			['FAVICON_32', 32],
 			['FAVICON_16', 16],
-			['APPLE_TOUCH_ICON', 180]
+			['APPLE_TOUCH_ICON', 180],
+			['ANDROID_CHROME_192', 192],
+			['ANDROID_CHROME_512', 512]
 		] as const) {
 			const png = await embedded(constant);
 			expect(png.readUInt32BE(16)).toBe(size);
@@ -97,6 +103,9 @@ describe('SVForge brand favicon (#613)', () => {
 		expect(app).toContain('href="%sveltekit.assets%/favicon/favicon-32x32.png"');
 		expect(app).toContain('href="%sveltekit.assets%/favicon/favicon-16x16.png"');
 		expect(app).toContain('href="%sveltekit.assets%/favicon/apple-touch-icon.png"');
+		expect(app).toContain('href="%sveltekit.assets%/favicon/android-chrome-192x192.png"');
+		expect(app).toContain('href="%sveltekit.assets%/favicon/android-chrome-512x512.png"');
+		expect(app).toContain('href="%sveltekit.assets%/site.webmanifest"');
 		expect(app).not.toContain('favicon.svg');
 	});
 
