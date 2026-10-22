@@ -408,7 +408,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/scripts/fetch-llms-docs.sh": {
-    "ast_hash": "74eebbd53362da8e502065adf6581cfb",
+    "ast_hash": "dffd3173dbf76b7ee09072d859928942",
     "semantic_hash": ""
   },
   "packages/svforge/scripts/generate-skeleton-inventory.ts": {
@@ -1468,7 +1468,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
-    "ast_hash": "5c62900e84851ec3166b648434be2017",
+    "ast_hash": "719d64767e8efac420faa9496b0fa4bf",
     "semantic_hash": ""
   },
   "AGENTS.md": {
@@ -1484,7 +1484,7 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "ast_hash": "669c3358bf50a19fc561ba5b92c48899",
+    "ast_hash": "34e9d3bb35a8c0f71b68aa715166f00c",
     "semantic_hash": ""
   },
   "SECURITY.md": {
@@ -1492,7 +1492,7 @@
     "semantic_hash": ""
   },
   "docs/RELEASE.md": {
-    "ast_hash": "1615271b89bebe1153fa52321cad6500",
+    "ast_hash": "d270676fc81fc633b5250ddb29aa941f",
     "semantic_hash": ""
   },
   "docs/better-auth-upgrades.md": {
@@ -1593,18 +1593,6 @@
   },
   "packages/uploads/README.md": {
     "ast_hash": "9e71bf2ffb438ef4fac08ec9352cff2d",
-    "semantic_hash": ""
-  },
-  "docs/screenshots/dashboard.png": {
-    "ast_hash": "ddd09ee8a808175a2e76ed392d201c74",
-    "semantic_hash": ""
-  },
-  "docs/screenshots/login.png": {
-    "ast_hash": "6e38b0dee6ea3ab56cf0e535e0148e99",
-    "semantic_hash": ""
-  },
-  "docs/screenshots/users.png": {
-    "ast_hash": "3a7ae4240668ee7116c9725cc910fe0b",
     "semantic_hash": ""
   },
   ".githooks/pre-commit": {
@@ -2149,6 +2137,18 @@
   },
   "tests/docs-current-contract.test.ts": {
     "ast_hash": "d9ff2871ac03dd7f2f7dbd27d92e521c",
+    "semantic_hash": ""
+  },
+  "packages/svforge/docs/llms-snapshots.json": {
+    "ast_hash": "358e948d8ca5029a157f3ec5521e5097",
+    "semantic_hash": ""
+  },
+  "scripts/check-release-docs.mjs": {
+    "ast_hash": "e33aa4b5d2ab87f829f2b801a9455144",
+    "semantic_hash": ""
+  },
+  "tests/release-docs.test.ts": {
+    "ast_hash": "dbfa667f3c871bb8d1094ef2e9c847eb",
     "semantic_hash": ""
   }
 }

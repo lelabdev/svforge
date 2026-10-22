@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Regenerate the llms-*.txt documentation dumps in packages/svforge/docs/.
-# Sources serve the current major versions (Skeleton v5, Svelte 5 + SvelteKit 2).
-# A fetch header (source + date) is prepended — tests/llms-docs-freshness.test.ts
-# verifies it and fails when the dumps go stale.
+# Fetch exactly the two official Svelte/Skeleton references for review in a PR.
+# Never refresh these unreviewed during publishing. The SHA-256 lock also pins
+# the root's supported dependency ranges and sv CLI version.
 #
 # Usage: bash packages/svforge/scripts/fetch-llms-docs.sh
 set -euo pipefail
@@ -26,5 +26,7 @@ fetch() {
 fetch "https://skeleton.dev/llms-full.txt" "$DOCS_DIR/llms-skeleton.txt"
 fetch "https://svelte.dev/llms-full.txt" "$DOCS_DIR/llms-svelte.txt"
 
-echo "✅ Dumps regenerated in $DOCS_DIR"
-echo "   Commit the result to refresh the offline reference."
+node "$(dirname "$0")/../../../scripts/check-release-docs.mjs" --update-lock
+
+echo "✅ Reference snapshots regenerated and version-pinned in $DOCS_DIR"
+echo "   Review compatibility and commit the docs and llms-snapshots.json together in a PR."

@@ -67,8 +67,6 @@ The goal is to **reuse upstream tools, not duplicate them**. Your generated app 
 
 Both are starting points rather than fixed application architectures. The dashboard does not enable public sign-up by default; see the [template and authentication details](packages/svforge/README.md#templates).
 
-![SVForge dashboard preview](docs/screenshots/dashboard.png)
-
 ## Optional modules
 
 Install only the capabilities you need using the same official addon workflow:

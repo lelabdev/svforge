@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "svCliVersion": "1.1.1",
+  "sources": [
+    {
+      "file": "llms-skeleton.txt",
+      "url": "https://skeleton.dev/llms-full.txt",
+      "dependency": "@skeletonlabs/skeleton",
+      "versionRange": "^5.0.1",
+      "major": 5,
+      "sha256": "4a10e207fd3823f63f27bd644e1f1817bedcc7c2aece64ad4a4348ca49f92ff1"
+    },
+    {
+      "file": "llms-svelte.txt",
+      "url": "https://svelte.dev/llms-full.txt",
+      "dependency": "svelte",
+      "versionRange": "^5.57.0",
+      "major": 5,
+      "sha256": "74cc18a1a272feab26f985a81541e90a65162a2fee3628b0beb1129eb76a00e5"
+    }
+  ]
+}
