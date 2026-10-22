@@ -22,6 +22,11 @@ describe('scoped audit exceptions for immutable release #615 (#623)', () => {
 		expect(quality.indexOf('Apply scoped audit waivers')).toBeLessThan(
 			quality.indexOf('name: Dependency audit (OSV)')
 		);
+		// The freshness gate compares the clean checkout and fails on ANY diff, so
+		// it must run BEFORE the waiver mutates the tracked baseline (#620).
+		expect(quality.indexOf('name: Check generated manifests freshness')).toBeLessThan(
+			quality.indexOf('Apply scoped audit waivers')
+		);
 		expect(quality).toContain('run: bun run audit');
 		// No changes to audit enforcement on the main branch.
 		const ci = readFileSync(join(root, '.github/workflows/ci.yml'), 'utf8');

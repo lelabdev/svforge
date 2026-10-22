@@ -108,6 +108,12 @@ jobs:
       - name: Typecheck (tsc)
         run: bun run typecheck
 
+      # Freshness must be checked BEFORE the scoped waiver below mutates the
+      # tracked baseline: the gate regenerates manifests and fails on ANY diff
+      # in the clean checkout.
+      - name: Check generated manifests freshness
+        run: node scripts/check-generated.mjs
+
       # #615 recovery is pinned to its immutable release commit, whose dev-only
       # @vitest/mocker@5.0.0 acquired two advisories after npm publication.
       # Add ONLY those reviewed exceptions to the historical audit baseline.
@@ -136,9 +142,6 @@ jobs:
           bun add "better-auth@$PIN" >/dev/null
           cd "$GITHUB_WORKSPACE"
           node scripts/better-auth-audit.mjs "$AUDIT_DIR/bun.lock"
-
-      - name: Check generated manifests freshness
-        run: node scripts/check-generated.mjs
 
       - name: Build all packages
         run: bun run --filter '*' build
