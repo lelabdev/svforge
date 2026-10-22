@@ -22,7 +22,22 @@ const SV_VERSION = '1.1.1';
 const SVFORGE = `file:${join(ROOT, 'packages', 'svforge')}`;
 const DND = `file:${join(ROOT, 'packages', 'dnd')}`;
 
+/**
+ * Run the PINNED Svelte CLI.
+ *
+ * The workspace already pins `sv@1.1.1` as a devDependency, so use that exact
+ * binary when present: `npm exec --yes --package sv@1.1.1` re-downloads the CLI
+ * on every call, and a slow registry stalled this suite past its 120s budget on
+ * CI (three consecutive runs) while the identical code passed a minute earlier.
+ * The fallback keeps the test usable outside an installed workspace.
+ */
 function runSv(args: string[], cwd: string): string {
+	const localSv = join(ROOT, 'node_modules', '.bin', 'sv');
+	const command = existsSync(localSv) ? localSv : null;
+	if (command) {
+		execFileSync(command, args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+		return '';
+	}
 	return execFileSync('npm', ['exec', '--yes', '--package', `sv@${SV_VERSION}`, '--', 'sv', ...args], {
 		cwd,
 		encoding: 'utf8',
