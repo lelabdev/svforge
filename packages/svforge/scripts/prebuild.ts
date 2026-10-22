@@ -15,6 +15,39 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // from the actually shipped package.
 const pkg = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8'));
 
+// Brand favicons (#613): the template manifest embeds every delivered file as a
+// UTF-8 string, so binary icons cannot travel as-is. The canonical binaries in
+// packages/svforge/brand/ are embedded as base64 in this generated module and
+// decoded by the prerendered favicon routes at build time.
+// Regenerate with `bun run prebuild`; scripts/tests assert the bytes match the
+// canonical binaries.
+{
+	const brandDir = join(__dirname, '../brand');
+	const brandIcons: Record<string, string> = {
+		FAVICON_ICO: 'favicon.ico',
+		FAVICON_32: 'favicon-32x32.png',
+		FAVICON_16: 'favicon-16x16.png',
+		APPLE_TOUCH_ICON: 'apple-touch-icon.png',
+		ANDROID_CHROME_192: 'android-chrome-192x192.png',
+		ANDROID_CHROME_512: 'android-chrome-512x512.png'
+	};
+	const entries = Object.entries(brandIcons).map(
+		([constant, file]) =>
+			`export const ${constant} = '${readFileSync(join(brandDir, file)).toString('base64')}';`
+	);
+	writeFileSync(
+		join(__dirname, '../templates/base/src/lib/assets/brand-favicons.ts'),
+		`// AUTO-GENERATED - DO NOT EDIT.
+// Canonical SVForge brand favicons (#613), embedded as base64 because the
+// template manifest is text-only. Decoded by the prerendered favicon routes.
+// Canonical binaries: packages/svforge/brand/ (see README.md there).
+// Regenerate with \`bun run prebuild\`.
+
+${entries.join('\n')}
+`
+	);
+}
+
 const baseFiles = readDirRecursively(join(__dirname, '../templates/base/src'));
 const dashboardOverlay = readDirRecursively(join(__dirname, '../templates/dashboard/src'));
 // Dashboard = base + overlay (dashboard files override base if same path)

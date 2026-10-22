@@ -4,11 +4,16 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
-		<!-- #325: the SVG icon is the primary (rendered by every modern
-		     browser); the prerendered /favicon.ico route answers direct
-		     requests from crawlers and legacy consumers. -->
-		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
-		<link rel="alternate icon" href="%sveltekit.assets%/favicon.ico" />
+		<!-- #325/#613: the SVForge brand icon is delivered by prerendered routes
+		     decoded from the canonical binaries in packages/svforge/brand/, so
+		     every declared icon is the real brand artwork (never a placeholder). -->
+		<link rel="icon" href="%sveltekit.assets%/favicon.ico" sizes="any" />
+		<link rel="icon" type="image/png" sizes="32x32" href="%sveltekit.assets%/favicon/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicon/favicon-16x16.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/favicon/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="192x192" href="%sveltekit.assets%/favicon/android-chrome-192x192.png" />
+		<link rel="icon" type="image/png" sizes="512x512" href="%sveltekit.assets%/favicon/android-chrome-512x512.png" />
+		<link rel="manifest" href="%sveltekit.assets%/site.webmanifest" />
 		<script src="%sveltekit.assets%/theme-init.js"></script>
 		%sveltekit.head%
 	</head>

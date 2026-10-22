@@ -482,11 +482,24 @@ NODE
 	rm -rf src/lib/lint-probe
 fi
 
-# Favicon + static assets (#325): the app.html-referenced /favicon.ico must
-# resolve (prerendered route) and the primary SVG icon must ship.
-test -f src/routes/favicon.ico/+server.ts || { echo "❌ favicon route missing at src/routes/favicon.ico/+server.ts (#325)"; exit 1; }
-test -f static/favicon.svg || { echo "❌ static/favicon.svg missing (#325)"; exit 1; }
+# Favicon + static assets (#325, #613): every app.html-referenced brand icon is
+# delivered by a prerendered route decoded from the canonical binaries, and the
+# template module carrying those bytes must ship with the project.
+for favicon_route in \
+	src/routes/favicon.ico/+server.ts \
+	src/routes/favicon/favicon-32x32.png/+server.ts \
+	src/routes/favicon/favicon-16x16.png/+server.ts \
+	src/routes/favicon/apple-touch-icon.png/+server.ts \
+	src/routes/favicon/android-chrome-192x192.png/+server.ts \
+	src/routes/favicon/android-chrome-512x512.png/+server.ts; do
+	test -f "$favicon_route" || { echo "❌ favicon route missing at $favicon_route (#613)"; exit 1; }
+done
+test -f src/lib/assets/brand-favicons.ts || { echo "❌ embedded brand favicons missing at src/lib/assets/brand-favicons.ts (#613)"; exit 1; }
+if grep -q 'M16 8.5 23.5 23h-15Z' src/lib/assets/brand-favicons.ts src/routes/favicon.ico/+server.ts 2>/dev/null; then
+	echo "❌ the cyan-square/white-triangle placeholder is still shipped as the favicon (#613)"; exit 1
+fi
 test -f static/robots.txt || { echo "❌ static/robots.txt missing (#325)"; exit 1; }
+test -f static/site.webmanifest || { echo "❌ static/site.webmanifest missing (#613)"; exit 1; }
 
 # Destinations contract (#325): known root files must exist EXACTLY once —
 # never duplicated under src/ by a destination-resolution drift.
@@ -794,9 +807,16 @@ if [ "$TEMPLATE" = "dashboard" ]; then
 		done
 		curl -sf -o /dev/null "$ORIGIN/login" || fail "dev server never became ready on :$SMOKE_PORT"
 
-		# Favicon (#325): /favicon.ico must resolve over HTTP (never 404).
+		# Favicon (#325, #613): the brand ICO and its PNG variants must resolve as
+		# real image bytes — never a 404, never the old SVG placeholder.
 		favicon_status=$(curl -s -o /dev/null -w '%{http_code}' "$ORIGIN/favicon.ico")
 		[ "$favicon_status" = "200" ] || fail "/favicon.ico returned HTTP $favicon_status (#325)"
+		favicon_type=$(curl -s -o /dev/null -w '%{content_type}' "$ORIGIN/favicon.ico")
+		case "$favicon_type" in image/x-icon*) ;; *) fail "/favicon.ico served unexpected Content-Type: $favicon_type (#613)" ;; esac
+		favicon_magic=$(curl -s "$ORIGIN/favicon.ico" | head -c 4 | od -An -tx1 | tr -d ' \n')
+		[ "$favicon_magic" = "00000100" ] || fail "/favicon.ico is not a real ICO (magic: $favicon_magic) (#613)"
+		png_status=$(curl -s -o /dev/null -w '%{http_code}' "$ORIGIN/favicon/favicon-32x32.png")
+		[ "$png_status" = "200" ] || fail "/favicon/favicon-32x32.png returned HTTP $png_status (#613)"
 
 		ADMIN_JAR="${TMPDIR:-/tmp}/sf-smoke-admin-jar.txt"
 		USER_JAR="${TMPDIR:-/tmp}/sf-smoke-user-jar.txt"

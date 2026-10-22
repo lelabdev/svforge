@@ -110,4 +110,39 @@ test.describe('scaffold UI browser smoke', () => {
 			expect(await fitsViewport()).toBe(true);
 		}
 	});
+	test('serves the real SVForge brand favicon to the browser (#613)', async ({ page, request }) => {
+		await page.goto('/');
+
+		const icons = await page.evaluate(() =>
+			[...globalThis.document.querySelectorAll('link[rel~="icon"]')].map((link) => ({
+				href: link.getAttribute('href') ?? '',
+				type: link.getAttribute('type') ?? '',
+				sizes: link.getAttribute('sizes') ?? ''
+			}))
+		);
+		expect(icons.length).toBeGreaterThanOrEqual(2);
+		// No SVG placeholder: the declared icons are the brand ICO + brand PNGs.
+		expect(icons.some((icon) => icon.href.endsWith('favicon.svg'))).toBe(false);
+		expect(icons.some((icon) => icon.href.endsWith('favicon.ico'))).toBe(true);
+		expect(icons.some((icon) => icon.sizes === '32x32')).toBe(true);
+
+		const ico = icons.find((icon) => icon.href.endsWith('favicon.ico'));
+		const icoResponse = await request.get(ico.href);
+		expect(icoResponse.status()).toBe(200);
+		expect(icoResponse.headers()['content-type']).toContain('image/x-icon');
+		const icoBody = await icoResponse.body();
+		// Real ICO magic + the multi-frame brand icon, not the old 118-byte SVG.
+		expect([...icoBody.subarray(0, 4)]).toEqual([0x00, 0x00, 0x01, 0x00]);
+		expect(icoBody.readUInt16LE(4)).toBe(3);
+		expect(icoBody.length).toBeGreaterThan(1000);
+
+		const png = icons.find((icon) => icon.sizes === '32x32');
+		const pngResponse = await request.get(png.href);
+		expect(pngResponse.status()).toBe(200);
+		expect(pngResponse.headers()['content-type']).toContain('image/png');
+		const pngBody = await pngResponse.body();
+		expect([...pngBody.subarray(0, 4)]).toEqual([0x89, 0x50, 0x4e, 0x47]);
+		expect(pngBody.readUInt32BE(16)).toBe(32);
+	});
 });
+
