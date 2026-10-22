@@ -4,6 +4,7 @@
  * imports for every package through its declared TypeScript entry point.
  */
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -118,6 +119,83 @@ export function registryVersionVisible(spec, npm = 'npm', run = execFileSync) {
 }
 
 /**
+ * The exact published TARBALL must be fetchable, not just the version metadata
+ * (#628): npm exposed `svforge@2.2.5` metadata while `svforge-2.2.5.tgz` still
+ * answered 404, and the consumer gate failed on a release that was already
+ * published.
+ *
+ * Retry ONLY a verified 404/410 of the EXPECTED tarball resolved from the
+ * registry metadata. A checksum mismatch, a non-gzip artifact, an unexpected
+ * HTTP status, or a network/auth error stays fatal: those mean the published
+ * artifact is broken, not that propagation is still in flight.
+ */
+export async function tarballAvailable(spec, npm = 'npm', { run = execFileSync, fetchImpl = fetch } = {}) {
+	const cacheDir = mkdtempSync(join(tmpdir(), 'svforge-tarball-probe-'));
+	let metadata;
+	try {
+		const output = run(
+			npm,
+			['view', spec, 'dist.tarball', 'dist.integrity', '--json', '--prefer-online', '--cache', cacheDir],
+			{ encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }
+		);
+		metadata = JSON.parse(String(output).trim());
+	} catch (error) {
+		const details = [error?.stderr, error?.stdout, error?.message].filter(Boolean).map(String).join('\n');
+		if (/\b(?:E404|ETARGET)\b|404 Not Found|No matching version found|No match found for version/i.test(details)) {
+			console.log(`Registry not ready for ${spec}: npm view reported E404/ETARGET`);
+			return false;
+		}
+		throw new Error(`Registry lookup failed for ${spec}: ${details.slice(0, 700)}`, { cause: error });
+	} finally {
+		rmSync(cacheDir, { recursive: true, force: true });
+	}
+
+	const url = metadata?.['dist.tarball'];
+	const integrity = metadata?.['dist.integrity'];
+	if (typeof url !== 'string' || !url) {
+		throw new Error(`Registry metadata for ${spec} has no dist.tarball; refusing to guess a tarball URL.`);
+	}
+
+	let response;
+	try {
+		response = await fetchImpl(url, { redirect: 'follow' });
+	} catch (error) {
+		throw new Error(`Tarball fetch failed for ${spec} (${url}): ${error?.message ?? error}`, { cause: error });
+	}
+	if (response.status === 404 || response.status === 410) {
+		console.log(`Registry not ready for ${spec}: tarball ${url} returned HTTP ${response.status}`);
+		return false;
+	}
+	if (!response.ok) {
+		throw new Error(`Tarball fetch for ${spec} returned HTTP ${response.status} (${url})`);
+	}
+
+	const bytes = Buffer.from(await response.arrayBuffer());
+	if (bytes.length < 2 || bytes[0] !== 0x1f || bytes[1] !== 0x8b) {
+		throw new Error(`Tarball for ${spec} is not a gzip artifact (${bytes.length} bytes from ${url}).`);
+	}
+	if (typeof integrity === 'string' && integrity.startsWith('sha512-')) {
+		const digest = `sha512-${createHash('sha512').update(bytes).digest('base64')}`;
+		if (digest !== integrity) {
+			throw new Error(`Tarball integrity mismatch for ${spec}: registry ${integrity}, downloaded ${digest}.`);
+		}
+	}
+	return true;
+}
+
+/**
+ * Version metadata AND its exact tarball must be consumable before installing.
+ *
+ * @param {string} spec
+ * @param {string} [npm]
+ * @param {{ run?: typeof execFileSync, fetchImpl?: typeof fetch }} [options]
+ */
+export async function registryReleaseConsumable(spec, npm = 'npm', options = {}) {
+	if (!registryVersionVisible(spec, npm, options.run ?? execFileSync)) return false;
+	return tarballAvailable(spec, npm, options);
+}
+
+/**
  * @param {{packages: Array<{name: string, version: string, tarball?: string}>}} plan
  * @param {{
  *  registryOnly?: boolean, maxAttempts?: number, intervalMs?: number,
@@ -129,7 +207,7 @@ export async function waitForRegistryAvailability(plan, {
 	registryOnly = false,
 	maxAttempts = 60,
 	intervalMs = 10000,
-	probe = registryVersionVisible,
+	probe = registryReleaseConsumable,
 	pause = sleep
 } = {}) {
 	if (!Number.isInteger(maxAttempts) || maxAttempts < 1) throw new Error('maxAttempts must be positive.');

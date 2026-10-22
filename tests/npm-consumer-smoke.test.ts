@@ -1,9 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
+import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
-const { consumerInstallSpecs, consumerSource, consumerTsConfig, packageTypePath, validateInstalledTypes, waitForRegistryAvailability, registryVersionVisible } = await import('../scripts/npm-consumer-smoke.mjs');
+const { consumerInstallSpecs, consumerSource, consumerTsConfig, packageTypePath, validateInstalledTypes, waitForRegistryAvailability, registryVersionVisible, tarballAvailable, registryReleaseConsumable } = await import('../scripts/npm-consumer-smoke.mjs');
 
 describe('npm consumer smoke test (#330)', () => {
 	it('resolves the declared type entry for every exact package', () => {
@@ -180,5 +181,121 @@ describe('npm consumer smoke test (#330)', () => {
 			fake(Object.assign(new Error('not found'), { stderr: 'npm error code ETARGET' })))).toBe(false);
 		expect(() => registryVersionVisible('@svforge/audit@2.2.0', 'npm',
 			fake(Object.assign(new Error('access denied'), { stderr: 'npm error code E401' })))).toThrow(/Registry lookup failed/);
+	});
+
+	describe('exact tarball availability (#628)', () => {
+		const gzipBody = Buffer.from([0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]);
+		const integrityOf = (body: Buffer) => `sha512-${createHash('sha512').update(body).digest('base64')}`;
+		const tarballUrl = 'https://registry.npmjs.org/svforge/-/svforge-2.5.0.tgz';
+		const metadata = (url = tarballUrl, integrity = integrityOf(gzipBody)) =>
+			JSON.stringify({ 'dist.tarball': url, 'dist.integrity': integrity });
+		const npmReturning = (payload: string) => (() => payload) as unknown as NonNullable<Parameters<typeof tarballAvailable>[2]>['run'];
+		const fetchReturning = (status: number, body: Buffer = gzipBody) =>
+			(async () => new Response(status === 200 ? new Uint8Array(body) : 'missing', { status })) as unknown as typeof fetch;
+
+		it('accepts the exact tarball when the registry metadata and bytes agree', async () => {
+			expect(
+				await tarballAvailable('svforge@2.5.0', 'npm', {
+					run: npmReturning(metadata()),
+					fetchImpl: fetchReturning(200)
+				})
+			).toBe(true);
+		});
+
+		it('retries only a verified 404 of the expected tarball', async () => {
+			const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+			try {
+				expect(
+					await tarballAvailable('svforge@2.5.0', 'npm', {
+						run: npmReturning(metadata()),
+						fetchImpl: fetchReturning(404)
+					})
+				).toBe(false);
+				expect(log).toHaveBeenCalledWith(expect.stringContaining(`tarball ${tarballUrl} returned HTTP 404`));
+			} finally {
+				log.mockRestore();
+			}
+		});
+
+		it('treats a missing version (E404/ETARGET) as not-ready but never retries other npm failures', async () => {
+			const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+			try {
+				const notFound = (() => {
+					throw Object.assign(new Error('missing'), { stderr: 'npm error code E404' });
+				}) as unknown as NonNullable<Parameters<typeof tarballAvailable>[2]>['run'];
+				expect(await tarballAvailable('svforge@2.5.0', 'npm', { run: notFound, fetchImpl: fetchReturning(200) })).toBe(false);
+
+				const denied = (() => {
+					throw Object.assign(new Error('denied'), { stderr: 'npm error code E401' });
+				}) as unknown as NonNullable<Parameters<typeof tarballAvailable>[2]>['run'];
+				await expect(
+					tarballAvailable('svforge@2.5.0', 'npm', { run: denied, fetchImpl: fetchReturning(200) })
+				).rejects.toThrow(/Registry lookup failed/);
+			} finally {
+				log.mockRestore();
+			}
+		});
+
+		it('fails hard on a checksum mismatch instead of retrying a broken artifact', async () => {
+			await expect(
+				tarballAvailable('svforge@2.5.0', 'npm', {
+					run: npmReturning(metadata(tarballUrl, integrityOf(Buffer.from('other')))),
+					fetchImpl: fetchReturning(200)
+				})
+			).rejects.toThrow(/integrity mismatch/);
+		});
+
+		it('fails hard on unexpected HTTP statuses, network errors and non-gzip bodies', async () => {
+			await expect(
+				tarballAvailable('svforge@2.5.0', 'npm', { run: npmReturning(metadata()), fetchImpl: fetchReturning(503) })
+			).rejects.toThrow(/HTTP 503/);
+
+			const networkError = (async () => {
+				throw new Error('ECONNRESET');
+			}) as unknown as typeof fetch;
+			await expect(
+				tarballAvailable('svforge@2.5.0', 'npm', { run: npmReturning(metadata()), fetchImpl: networkError })
+			).rejects.toThrow(/Tarball fetch failed .*ECONNRESET/);
+
+			await expect(
+				tarballAvailable('svforge@2.5.0', 'npm', {
+					run: npmReturning(metadata()),
+					fetchImpl: fetchReturning(200, Buffer.from('<!doctype html>'))
+				})
+			).rejects.toThrow(/not a gzip artifact/);
+		});
+
+		it('refuses to guess a tarball URL from incomplete metadata', async () => {
+			await expect(
+				tarballAvailable('svforge@2.5.0', 'npm', { run: npmReturning('{}'), fetchImpl: fetchReturning(200) })
+			).rejects.toThrow(/no dist\.tarball/);
+		});
+
+		it('waits for a tarball 404 to clear and then installs', async () => {
+			let probes = 0;
+			let waits = 0;
+			await waitForRegistryAvailability({ packages: [{ name: 'svforge', version: '2.5.0' }] }, {
+				maxAttempts: 4,
+				intervalMs: 1,
+				probe: async () => ++probes > 2,
+				pause: async () => {
+					waits++;
+				}
+			});
+			expect(probes).toBe(3);
+			expect(waits).toBe(2);
+		});
+
+		it('verifies metadata and bytes through the composed consumability probe', async () => {
+			const fields: string[] = [];
+			const run = ((_npm: string, args: string[]) => {
+				fields.push(args[2]);
+				return args[2] === 'version' ? '"2.5.0"' : '{"dist.tarball":"u","dist.integrity":"x"}';
+			}) as unknown as NonNullable<Parameters<typeof registryReleaseConsumable>[2]>['run'];
+			const fetchImpl = (async () => new Response('missing', { status: 404 })) as unknown as typeof fetch;
+
+			expect(await registryReleaseConsumable('svforge@2.5.0', 'npm', { run, fetchImpl })).toBe(false);
+			expect(fields).toEqual(['version', 'dist.tarball']);
+		});
 	});
 });
