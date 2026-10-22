@@ -1,5 +1,11 @@
 # svforge
 
+## 2.2.5
+
+### Patch Changes
+
+- [#626](https://github.com/lelabdev/svforge/pull/626) [`a135611`](https://github.com/lelabdev/svforge/commit/a13561141270edcc8fb2f3e5f1743b1c914ac870) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Ship the real SVForge brand favicon in Base and Dashboard scaffolds instead of the cyan-square/white-triangle placeholder: the canonical brand binaries are vendored once in `packages/svforge/brand/`, embedded as base64 by prebuild, and served by prerendered `/favicon.ico` and `/favicon/*.png` routes with correct `Content-Type`. `app.html` declares the same icons, and the generated-site browser smoke now verifies the served bytes.
+
 ## 2.2.4
 
 ### Patch Changes

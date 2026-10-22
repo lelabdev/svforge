@@ -323,6 +323,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "svforge",
+    "version": "2.2.5",
+    "date": "",
+    "body": "### Patch Changes\n\n- [#626](https://github.com/lelabdev/svforge/pull/626) [`a135611`](https://github.com/lelabdev/svforge/commit/a13561141270edcc8fb2f3e5f1743b1c914ac870) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Ship the real SVForge brand favicon in Base and Dashboard scaffolds instead of the cyan-square/white-triangle placeholder: the canonical brand binaries are vendored once in `packages/svforge/brand/`, embedded as base64 by prebuild, and served by prerendered `/favicon.ico` and `/favicon/*.png` routes with correct `Content-Type`. `app.html` declares the same icons, and the generated-site browser smoke now verifies the served bytes."
+  },
+  {
+    "package": "svforge",
     "version": "2.2.4",
     "date": "",
     "body": "### Patch Changes\n\n- [#614](https://github.com/lelabdev/svforge/pull/614) [`701ddad`](https://github.com/lelabdev/svforge/commit/701ddad1fdd0ed5326714947d5b4e5c17047514d) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Add a shared `PasswordInput` field to the dashboard template: the login and setup screens compose one masked/unmasked field with an accessible Show/Hide control instead of re-implementing the eye toggle and local visibility state in each route. Generated agent guidance and `llms.txt` patterns now point at the shared field."

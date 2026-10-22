@@ -2,78 +2,8 @@
   "schemaVersion": 1,
   "packages": [
     {
-      "name": "@svforge/addon-kit",
-      "version": "2.2.1",
-      "directory": "packages/addon-kit"
-    },
-    {
-      "name": "@svforge/audit",
-      "version": "2.2.1",
-      "directory": "packages/audit"
-    },
-    {
-      "name": "@svforge/blog",
-      "version": "2.2.1",
-      "directory": "packages/blog"
-    },
-    {
-      "name": "@svforge/chat",
-      "version": "2.2.1",
-      "directory": "packages/chat"
-    },
-    {
-      "name": "@svforge/dnd",
-      "version": "2.2.1",
-      "directory": "packages/dnd"
-    },
-    {
-      "name": "@svforge/email",
-      "version": "2.2.1",
-      "directory": "packages/email"
-    },
-    {
-      "name": "@svforge/graph",
-      "version": "2.2.1",
-      "directory": "packages/graph"
-    },
-    {
-      "name": "@svforge/jobs",
-      "version": "2.2.1",
-      "directory": "packages/jobs"
-    },
-    {
-      "name": "@svforge/notifications",
-      "version": "2.2.1",
-      "directory": "packages/notifications"
-    },
-    {
-      "name": "@svforge/oauth",
-      "version": "2.2.1",
-      "directory": "packages/oauth"
-    },
-    {
-      "name": "@svforge/realtime",
-      "version": "2.2.1",
-      "directory": "packages/realtime"
-    },
-    {
-      "name": "@svforge/tiptap",
-      "version": "2.2.1",
-      "directory": "packages/tiptap"
-    },
-    {
-      "name": "@svforge/ui_toast",
-      "version": "2.2.1",
-      "directory": "packages/ui_toast"
-    },
-    {
-      "name": "@svforge/uploads",
-      "version": "2.2.1",
-      "directory": "packages/uploads"
-    },
-    {
       "name": "svforge",
-      "version": "2.2.4",
+      "version": "2.2.5",
       "directory": "packages/svforge"
     }
   ]
