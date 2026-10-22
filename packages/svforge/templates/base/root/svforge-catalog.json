@@ -21,13 +21,18 @@
 		"layout": {
 			"Navbar": { "path": "layout/Navbar.svelte", "useFor": ["top navigation"], "avoid": ["custom header per page"] },
 			"Footer": { "path": "layout/Footer.svelte", "useFor": ["page footer"], "avoid": ["custom footer per page"] },
-			"AuthLayout": { "path": "layout/AuthLayout.svelte", "useFor": ["shared login and setup composition"], "avoid": ["duplicated authentication page layout"] }
+			"AuthLayout": { "path": "layout/AuthLayout.svelte", "useFor": ["shared login and setup composition"], "avoid": ["duplicated authentication page layout"] },
+			"PageHeader": { "path": "layout/PageHeader.svelte", "useFor": ["page title + description + header actions", "the one canonical page-header composition"], "avoid": ["hand-rolled flex/justify-between page header per route", "explicit size/variant overrides on equivalent primary header actions"] }
 		}
 	},
 	"skeletonSource": "@skeletonlabs/skeleton-svelte",
 	"skeletonPrimitives": ["Accordion","AppBar","Avatar","Carousel","Collapsible","Combobox","DatePicker","Dialog","FileUpload","FloatingPanel","Listbox","LocaleProvider","Marquee","Menu","Navigation","Pagination","Popover","Portal","Progress","QrCode","RatingGroup","SegmentedControl","Slider","Steps","Switch","Tabs","TagsInput","Toast","ToggleGroup","Tooltip","TreeView"],
 	"rules": {
 		"reuseFirst": "Prefer reuse over invention. Coherence > originality on first pass.",
+		"defaultFirst": "Pass style props (size, variant, color) only when the context genuinely differs; equivalent page-header actions keep the shared Button defaults.",
+		"pageHeader": "Compose page titles and header actions with layout/PageHeader.svelte; svforge check warns when a header action pins its own size.",
+		"pageWidth": "Admin content is full width by default; constrain a page only for focused forms or readable prose.",
+		"titleIcons": "Decorative page-title icons are optional, never required for consistency; functional/navigation icons are a separate concern.",
 		"mustNot": [
 			"add a UI library without explicit user request",
 			"duplicate a Skeleton/SvelteForge primitive",

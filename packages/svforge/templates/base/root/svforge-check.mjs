@@ -13,7 +13,8 @@
  *         `class` into an SVForge wrapper, invented Skeleton-looking utility,
  *         removed scaffold alias, hex outside theme
  * WARN  — hex outside theme, arbitrary radius/spacing classes (#345),
- *         catalog avoid patterns (#342), component outside canonical structure
+ *         catalog avoid patterns (#342), page-header action size override
+ *         (#601), component outside canonical structure
  */
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, relative, basename, sep, resolve } from 'node:path';
@@ -35,12 +36,45 @@ const AVOID_PATTERNS = /*__AVOID_PATTERNS__*/ [];
 // this checker is the single source of truth shared with `bun run check`
 // and the Vite build gate. Never duplicate engine logic in the adapter.
 export const DESIGN_RULE_IDS = {
-	duplicatedSkeletonPrimitive: 'duplicatedSkeletonPrimitive'
+	duplicatedSkeletonPrimitive: 'duplicatedSkeletonPrimitive',
+	pageHeaderActionSize: 'pageHeaderActionSize'
 };
 export const DESIGN_MESSAGES = {
 	duplicatedSkeletonPrimitive: (name, file) =>
-		`Duplicated Skeleton primitive "${name}" at ${file}. Use ${name} from @skeletonlabs/skeleton-svelte or the svforge catalog instead.`
+		`Duplicated Skeleton primitive "${name}" at ${file}. Use ${name} from @skeletonlabs/skeleton-svelte or the svforge catalog instead.`,
+	pageHeaderActionSize: (size, location) =>
+		`Page header action at ${location} pins size "${size}". Equivalent page-header actions share the canonical Button defaults (variant, typography, size); drop the size override, or keep it only for a genuinely different context (compact toolbar, icon-only control) and say why.`
 };
+
+// ── Page-header action drift (#601, WARN) ────────────────────
+// One canonical page header (`layout/PageHeader.svelte`) owns the title block
+// and the action row. Its actions are plain Buttons, so equivalent primary
+// actions cannot drift in size/variant. An explicit `size` inside the header
+// action slot is the reviewable exception; table rows, toolbars and icon-only
+// controls are never inspected, so legitimate contextual sizes stay silent.
+const PAGE_HEADER_COMPONENT = 'PageHeader';
+export function pageHeaderActionOverrides(source) {
+	const overrides = [];
+	const pageHeaderBlocks = new RegExp(`<${PAGE_HEADER_COMPONENT}\\b[^>]*>([\\s\\S]*?)</${PAGE_HEADER_COMPONENT}>`, 'g');
+	for (const block of source.matchAll(pageHeaderBlocks)) {
+		const body = block[1] ?? '';
+		const bodyOffset = (block.index ?? 0) + block[0].indexOf('>') + 1;
+		for (const snippet of body.matchAll(/\{#snippet\s+actions\s*\([^)]*\)\}/g)) {
+			const regionStart = (snippet.index ?? 0) + snippet[0].length;
+			const rest = body.slice(regionStart);
+			const end = rest.indexOf('{/snippet}');
+			const region = end === -1 ? rest : rest.slice(0, end);
+			for (const button of region.matchAll(/<Button\b[^>]*>/g)) {
+				const size = button[0].match(/\bsize\s*=\s*(?:"([^"]*)"|'([^']*)'|\{\s*(?:'([^']*)'|"([^"]*)"|`([^`]*)`)\s*\})/);
+				if (!size) continue;
+				const literal = size[1] ?? size[2] ?? size[3] ?? size[4] ?? size[5] ?? '';
+				const absolute = bodyOffset + regionStart + (button.index ?? 0);
+				overrides.push({ size: literal, line: source.slice(0, absolute).split('\n').length });
+			}
+		}
+	}
+	return overrides;
+}
 const THEME_FILES = new Set([
 	'src/lib/styles/svelteforge-theme.css',
 	'src/lib/styles/tokens.css',
@@ -541,6 +575,21 @@ for (const file of walk(join(ROOT, 'src'), ['.svelte'])) {
 		for (const { component, reason } of findings) {
 			results.push({ status: 'warn', msg: `${relative(ROOT, file)}: ${reason} — consider ${component}` });
 		}
+	}
+}
+
+// ── 4e. Page-header action drift (#601, WARN) ───────────────────
+// Equivalent page-header actions share the shared Button defaults; a pinned
+// size on one of them is the drift this rule surfaces.
+for (const file of walk(join(ROOT, 'src'), ['.svelte'])) {
+	if (isRegisteredUiComponent(file, ROOT)) continue;
+	const rel = relative(ROOT, file);
+	for (const override of pageHeaderActionOverrides(readFileSync(file, 'utf-8'))) {
+		const location = `${rel}:${override.line}`;
+		results.push({
+			status: 'warn',
+			msg: `[svforge/${DESIGN_RULE_IDS.pageHeaderActionSize}] ${DESIGN_MESSAGES.pageHeaderActionSize(override.size, location)}`
+		});
 	}
 }
 

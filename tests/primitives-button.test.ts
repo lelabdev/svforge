@@ -278,3 +278,25 @@ describe('Button — inactive anchor activation gate + button state authority (#
 		expect(el).toHaveAttribute('aria-busy', 'true');
 	});
 });
+
+describe('Button — one shared default style for both branches (#601)', () => {
+	/**
+	 * The page-header contract relies on this: an action that does NOT ask for a
+	 * variant renders the same filled primary, `md` (`btn-base`) button whether
+	 * it is a link (`href`) or a click handler (`onclick`). A per-branch default
+	 * would silently reintroduce the visual drift #601 removed.
+	 */
+	it('renders the same default variant and size for the anchor and button branches', () => {
+		const link = button({ href: '/admin/users' }).getByRole('link', { name: 'Save' });
+		const action = button({}).getByRole('button', { name: 'Save' });
+		for (const el of [link, action]) {
+			expect(el).toHaveClass('btn', 'btn-base', 'preset-filled-primary-400-600');
+		}
+	});
+
+	it('keeps explicit sizes available for genuinely different contexts', () => {
+		const small = button({ size: 'sm', href: '/admin/users' }).getByRole('link', { name: 'Save' });
+		expect(small).toHaveClass('btn-sm');
+		expect(small).not.toHaveClass('btn-base');
+	});
+});

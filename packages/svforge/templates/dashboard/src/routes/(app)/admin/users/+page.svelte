@@ -6,6 +6,7 @@
 	import * as m from '#lib/paraglide/messages.js';
 	import { AppDialog, AvatarInitial, Card, Feedback, Table } from '#lib/components/svforge/ui/index.js';
 	import { Badge, Button, Input } from '#lib/components/svforge/primitives/index.js';
+	import PageHeader from '#lib/components/svforge/layout/PageHeader.svelte';
 	import { UserPlus, EnvelopeSimple, Power, Pencil } from '#lib/icons/index.js';
 
 	let { data }: { data: PageData } = $props();
@@ -178,19 +179,21 @@
 </svelte:head>
 
 <div class="space-y-6">
-	<div class="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-		<h2 class="h2">{m.users_heading()}</h2>
-		<div class="flex w-full flex-wrap gap-2 sm:w-auto">
-			<Button type="button" class="min-h-11 flex-1 sm:flex-none" data-testid="users-invite" variant="tonal" color="secondary" onclick={openInvite}>
+	<!-- Same canonical page header as /admin (#601): the primary "Add user"
+	     action keeps the shared Button defaults, the supporting invite action
+	     is tonal/secondary — no per-page size or layout override. -->
+	<PageHeader title={m.users_heading()}>
+		{#snippet actions()}
+			<Button type="button" data-testid="users-invite" variant="tonal" color="secondary" onclick={openInvite}>
 				<EnvelopeSimple size={16} class="mr-1" />
 				{m.users_invite_btn()}
 			</Button>
-			<Button type="button" class="min-h-11 flex-1 sm:flex-none" data-testid="users-add" onclick={openCreate}>
+			<Button type="button" data-testid="users-add" onclick={openCreate}>
 				<UserPlus size={16} class="mr-1" />
 				{m.users_add()}
 			</Button>
-		</div>
-	</div>
+		{/snippet}
+	</PageHeader>
 
 	{#if feedback}
 		<Feedback type={feedback.type} message={feedback.message} ondismiss={() => (feedback = null)} />

@@ -235,6 +235,15 @@ export const SVFORGE_CATALOG: Record<string, CatalogEntry> = {
 		category: 'layout',
 		useFor: ['shared login and setup composition'],
 		avoid: ['duplicated authentication page layout']
+	},
+	PageHeader: {
+		path: 'layout/PageHeader.svelte',
+		category: 'layout',
+		useFor: ['page title + description + header actions', 'the one canonical page-header composition'],
+		avoid: [
+			'hand-rolled flex/justify-between page header per route',
+			'explicit size/variant overrides on equivalent primary header actions'
+		]
 	}
 };
 
@@ -440,14 +449,60 @@ export function checkClassString(classString: string, ctx: MarkupContext): Marku
 
 /** Shared rule identifiers for deterministic design-system diagnostics. */
 export const DESIGN_RULE_IDS = {
-	duplicatedSkeletonPrimitive: 'duplicatedSkeletonPrimitive'
+	duplicatedSkeletonPrimitive: 'duplicatedSkeletonPrimitive',
+	pageHeaderActionSize: 'pageHeaderActionSize'
 } as const;
 
 /** Shared text for CLI and ESLint diagnostics (#346). */
 export const DESIGN_MESSAGES = {
 	duplicatedSkeletonPrimitive: (name: string, file: string) =>
-		`Duplicated Skeleton primitive "${name}" at ${file}. Use ${name} from @skeletonlabs/skeleton-svelte or the svforge catalog instead.`
+		`Duplicated Skeleton primitive "${name}" at ${file}. Use ${name} from @skeletonlabs/skeleton-svelte or the svforge catalog instead.`,
+	pageHeaderActionSize: (size: string, location: string) =>
+		`Page header action at ${location} pins size "${size}". Equivalent page-header actions share the canonical Button defaults (variant, typography, size); drop the size override, or keep it only for a genuinely different context (compact toolbar, icon-only control) and say why.`
 } as const;
+
+// ── Page-header action drift (#601) ────────────────────────────
+
+/** Canonical page header component shipped by the base template. */
+export const PAGE_HEADER_COMPONENT = 'PageHeader';
+
+export interface PageHeaderActionOverride {
+	/** Literal size value pinned on the header action. */
+	size: string;
+	/** 1-based line of the offending <Button> tag. */
+	line: number;
+}
+
+/**
+ * Page-header actions share one semantic default (#601), so an explicit `size`
+ * on a Button composed through the canonical `PageHeader` action slot is the
+ * drift this rule reports. Deliberately narrow: only Buttons inside a
+ * `<PageHeader>` `actions` snippet are inspected — table rows, toolbars and
+ * icon-only controls keep their legitimate contextual sizes without a warning.
+ */
+export function pageHeaderActionOverrides(source: string): PageHeaderActionOverride[] {
+	const overrides: PageHeaderActionOverride[] = [];
+	const pageHeaderBlocks = new RegExp(`<${PAGE_HEADER_COMPONENT}\\b[^>]*>([\\s\\S]*?)</${PAGE_HEADER_COMPONENT}>`, 'g');
+	for (const block of source.matchAll(pageHeaderBlocks)) {
+		const body = block[1] ?? '';
+		// Body offset: absolute index right after the opening tag.
+		const bodyOffset = (block.index ?? 0) + block[0].indexOf('>') + 1;
+		for (const snippet of body.matchAll(/\{#snippet\s+actions\s*\([^)]*\)\}/g)) {
+			const regionStart = (snippet.index ?? 0) + snippet[0].length;
+			const rest = body.slice(regionStart);
+			const end = rest.indexOf('{/snippet}');
+			const region = end === -1 ? rest : rest.slice(0, end);
+			for (const button of region.matchAll(/<Button\b[^>]*>/g)) {
+				const size = button[0].match(/\bsize\s*=\s*(?:"([^"]*)"|'([^']*)'|\{\s*(?:'([^']*)'|"([^"]*)"|`([^`]*)`)\s*\})/);
+				if (!size) continue;
+				const literal = size[1] ?? size[2] ?? size[3] ?? size[4] ?? size[5] ?? '';
+				const absolute = bodyOffset + regionStart + (button.index ?? 0);
+				overrides.push({ size: literal, line: source.slice(0, absolute).split('\n').length });
+			}
+		}
+	}
+	return overrides;
+}
 
 /** Deterministic file-name check shared by the CLI and ESLint rule (#346). */
 export function duplicatedSkeletonPrimitiveName(filename: string, projectRoot: string): string | null {
@@ -702,6 +757,15 @@ export async function checkDesignSystem(
 						message: `${rel}: "${className}" — ${violation.message}`
 					});
 				}
+			}
+			// Page-header action drift (#601, WARN): equivalent header actions must
+			// share the shared Button defaults; a pinned size is reviewable, not fatal.
+			for (const override of pageHeaderActionOverrides(source)) {
+				results.push({
+					module: 'ds',
+					status: 'warn',
+					message: `[svforge/${DESIGN_RULE_IDS.pageHeaderActionSize}] ${DESIGN_MESSAGES.pageHeaderActionSize(override.size, `${rel}:${override.line}`)}`
+				});
 			}
 		}
 	}

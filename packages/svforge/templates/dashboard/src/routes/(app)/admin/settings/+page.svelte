@@ -3,6 +3,7 @@
 	import * as m from '#lib/paraglide/messages.js';
 	import { Card, AvatarInitial, Feedback } from '#lib/components/svforge/ui/index.js';
 	import { Button, Input } from '#lib/components/svforge/primitives/index.js';
+	import PageHeader from '#lib/components/svforge/layout/PageHeader.svelte';
 	import { Lock } from '#lib/icons/index.js';
 	import type { ActionData } from './$types';
 
@@ -20,7 +21,9 @@
 </svelte:head>
 
 <div class="max-w-2xl space-y-8">
-	<h2 class="h2">{m.settings_heading()}</h2>
+	<!-- Focused form page: the width constraint is deliberate (#601), the
+	     page header still comes from the canonical composition. -->
+	<PageHeader title={m.settings_heading()} />
 
 	<!-- Profile info -->
 	<Card>
