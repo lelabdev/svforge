@@ -79,8 +79,7 @@ dist-tag** in addition to **Allow npm publish**. Canary uses npm 11.21.0,
 required for OIDC dist-tag operations.
 
 **Do not merge or dispatch a release solely because a documentation or CI
-policy change landed.** Preserve the outstanding 2.2.0 recovery against
-already-merged Version Packages PR #562.
+policy change landed.**
 
 ## Stable and canary npm channels
 
@@ -126,14 +125,6 @@ tag; post-publication exact-version installation and golden-path checks must
 pass before advancing `canary`. No Git tag or GitHub Release is created for
 canaries. The source worktree, stable changelogs and `latest` remain untouched.
 
-## One-time 2.2.0 package baseline
-
-The first release after adopting Changesets intentionally publishes all **15** public workspaces at **`2.2.0`**, aligning the initial distribution and addon package numbers. This is a **single release baseline, not ongoing lockstep versioning**.
-
-For that release only, `scripts/version-packages.mjs` temporarily provides Changesets with a fixed group while calculating versions and package changelogs, then restores `.changeset/config.json` before preparing the reviewed Version Packages PR. It refuses any unexpected starting state or a result in which packages do not all reach `2.2.0`. The PR must show all 15 candidates, matching package changelogs and the exact compatibility manifest before human approval. **Do not merge an older Version Packages PR containing mixed `2.0.x` / `2.2.0` versions.** Once this implementation PR is merged, the bot must regenerate #562.
-
-After the `2.2.0` release, `fixed: []` and `linked: []` stay in source: a changed addon gets its own patch/minor/major version, while `svforge` receives a separate small bump when its embedded manifest must be refreshed. Unchanged addons are not republished. This baseline exception is not a reason to set permanent fixed-version groups.
-
 ## Independent versioning
 
 Every workspace owns its version in `packages/*/package.json`. Changesets uses
@@ -154,7 +145,8 @@ independent version. A module that did not change is never republished merely
 because `svforge` was.
 
 To keep those two levels coherent, the planner derives a machine-readable
-**compatibility manifest** from the actual package manifests:
+**compatibility manifest** from the actual package manifests (illustrative
+version numbers below, not a current release candidate):
 
 ```json
 {
@@ -243,23 +235,6 @@ Validation cost sits where it belongs:
 | **Weekly** (`ecosystem-drift.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening or updating a deduplicated drift issue on failure. No npm publication. |
 | **Optional npm canary** (`publish.yml`, `channel=canary`) | explicit `publish-canary` confirmation on `main`; isolated numbered Changesets snapshots, packed/published consumer checks and golden-path validation, then `canary` tag promotion via OIDC. No ordinary PR, push, schedule or `latest` publication. |
 
-### Measured CI timing snapshot (2026-10-10)
-
-These are successful, sequential main-branch runs around the final CI audit—not a
-controlled benchmark. No CI workflow topology, cache, or artifact changes were
-made between them, so the differences must not be claimed as an optimization.
-
-| Run / commit | `quality` job | `Run tests` step | `main-smoke` job |
-|--------------|---------------|-----------------|-----------------|
-| [#534 / `8a9a4bd`](https://github.com/lelabdev/svforge/actions/runs/38008231900) | 2m13s | 1m29s | 1m09s |
-| [#535 / `855df3a`](https://github.com/lelabdev/svforge/actions/runs/38011140207) | 1m44s | 1m08s | 0m51s |
-
-The Vitest step is the largest measured quality step. The observed variation is
-not enough evidence for shared build artifacts, cache complexity, or weaker
-isolation; the simple blocking pipeline is retained. No current post-change
-`publish.yml` run is available, and a release workflow must not be triggered
-just to manufacture a benchmark.
-
 ## Workflow gates
 
 `publish.yml` runs as separate jobs; the `publish` job starts only once
@@ -296,9 +271,9 @@ publication, the workflow:
    (`--addon-root`, never `--dev-root` or the checkout), then the journey
    verifies the manifest, runs `svforge verify`, mounts real PostgreSQL, boots
    the app and replays the setup/login/admin flow (#437, #470);
-10. publishes only the versions selected by Changesets through the official
-action, with automatic GitHub Release creation disabled and npm lifecycle
-scripts disabled because every package was already built and tarball-preflighted;
+10. publishes only the versions selected by Changesets through its CLI,
+with automatic GitHub Release creation disabled and npm lifecycle scripts
+disabled because every package was already built and tarball-preflighted;
 11. installs every exact published version in a clean consumer, imports every
     package from a generated TypeScript consumer, and runs `tsc --noEmit` to
     validate package export and declaration resolution;
@@ -325,22 +300,14 @@ After an authentication/workflow fix, **do not rerun the previous GitHub Actions
 attempt**: that run uses its original workflow commit and would repeat the old
 publishing logic. Launch a fresh dispatch from `main` after the fix is merged. Run `Publish` on
 `main` with **Run workflow**, choosing `channel=stable`, entering the
-reviewed merged release PR number (for example `release_pr: 562` for the
-historical 2.2.0 baseline) and the exact `confirmation: publish-stable`. The authorization job checks
-that PR #562 was merged from the expected Changesets branch by the release bot,
+reviewed merged release PR number and the exact
+`confirmation: publish-stable`. The authorization job checks
+that this PR was merged from the expected Changesets branch by the release bot,
 that its merge commit belongs to `main`, and that it contains a reviewed release
 candidate manifest. The entire quality/scaffold/user-journey battery runs again
 against the **original release merge commit**, never the moving branch tip. Only
 after all gates pass may npm receive published artifacts. This is also valid
 for later approved release PRs, using their own numbers.
-
-For the already-published #615 recovery only, the immutable release lockfile
-resolves development-only `@vitest/mocker@5.0.0`, which received two advisories
-after publication. The release quality job combines its original audit baseline
-with the two exact advisory/path exceptions in `docs/release-615-audit-waivers.json`
-**only when the approved release commit equals `44f726cf4bc45d90ad558b01777bb8335d538f92`**.
-Other releases and ordinary `main` CI remain strictly audited. Remove this
-historical exception after #615 is finalized; never reuse it for a new release.
 
 The publish job checks out the **immutable reviewed release commit** for the
 package sources, but loads the release planner and compatibility checks from
@@ -352,15 +319,13 @@ reviewed `.changeset/release-candidates.json`**; otherwise the compatibility
 guard still blocks the release. Changelogs describe changes, but are not used
 to authorize a retry. Packages remain independently versioned.
 
-The post-publication consumer smoke test polls each exact version from npm for up
-to 24 checks (five seconds apart) before running a clean external install and
-TypeScript resolution test. Only missing versions are retried: auth/network
-failures and broken tarballs or type declarations remain blocking. The install
-uses a fresh npm cache to avoid stale registry metadata. The post-publish
-dashboard user journey runs with its own PostgreSQL 17 service, matching the
-pre-publish gate. A previous release stopped at npm `ETARGET` during immediate
-registry propagation and later at Drizzle initialization because that service
-was missing from the publish job (issue #576).
+The post-publication consumer smoke test checks each exact version and its
+metadata-advertised tarball with up to 60 probes, ten seconds apart. A missing
+version or exact tarball HTTP 404/410 may be retried. Invalid gzip, mismatched
+SHA-512 integrity, authorization and unexpected network/registry failures stay
+blocking. After registry availability is confirmed, a fresh consumer install
+and TypeScript resolution test run. The post-publish dashboard journey uses
+its own PostgreSQL service, matching the pre-publish validation.
 
 Changesets checks the registry before publishing. A partial publish failure
 stops the job before post-publication checks, tags, or GitHub Releases. On a

@@ -7268,7 +7268,7 @@
       "label": "baseFiles",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L49",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -7276,7 +7276,7 @@
       "label": "dashboardOverlay",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L50",
+      "source_location": "L52",
       "_origin": "ast"
     },
     {
@@ -7284,7 +7284,7 @@
       "label": "skeletonInventory",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L56",
+      "source_location": "L58",
       "_origin": "ast"
     },
     {
@@ -7292,7 +7292,7 @@
       "label": "addonComponents",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L82",
+      "source_location": "L84",
       "_origin": "ast"
     },
     {
@@ -7300,7 +7300,7 @@
       "label": "baseRootFilesRaw",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L83",
+      "source_location": "L85",
       "_origin": "ast"
     },
     {
@@ -7308,7 +7308,7 @@
       "label": "dashboardRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L88",
+      "source_location": "L90",
       "_origin": "ast"
     },
     {
@@ -7316,7 +7316,7 @@
       "label": "ROOT_DELIVERED_EXACT",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L107",
+      "source_location": "L109",
       "_origin": "ast"
     },
     {
@@ -7324,7 +7324,7 @@
       "label": "deliveredIgnorePath()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L109",
+      "source_location": "L111",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7333,7 +7333,7 @@
       "label": "prettierIgnoredDelivered",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L115",
+      "source_location": "L117",
       "_origin": "ast"
     },
     {
@@ -7341,7 +7341,7 @@
       "label": "PRETTIER_STATIC_IGNORES",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L122",
+      "source_location": "L124",
       "_origin": "ast"
     },
     {
@@ -7349,7 +7349,7 @@
       "label": "compatManifest",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L218",
+      "source_location": "L220",
       "_origin": "ast"
     },
     {
@@ -7357,7 +7357,7 @@
       "label": "MODULE_DIRS",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L247",
+      "source_location": "L249",
       "_origin": "ast"
     },
     {
@@ -7365,7 +7365,7 @@
       "label": "makeExtractionFixture()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L252",
+      "source_location": "L254",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7374,7 +7374,7 @@
       "label": "ExtractedRecipe",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L298",
+      "source_location": "L300",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7384,7 +7384,7 @@
       "label": "extractModuleRecipe()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L306",
+      "source_location": "L308",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7393,7 +7393,7 @@
       "label": "extractionFixture",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L347",
+      "source_location": "L349",
       "_origin": "ast"
     },
     {
@@ -7401,7 +7401,7 @@
       "label": "moduleRecipes",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L348",
+      "source_location": "L350",
       "_origin": "ast"
     },
     {
@@ -7409,7 +7409,7 @@
       "label": "changelogEntries",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L379",
+      "source_location": "L381",
       "_origin": "ast"
     },
     {
@@ -7644,7 +7644,7 @@
       "label": "compareVersions()",
       "file_type": "code",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L374",
+      "source_location": "L380",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7653,7 +7653,7 @@
       "label": "entriesBetween()",
       "file_type": "code",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L384",
+      "source_location": "L390",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9605,7 +9605,7 @@
       "label": "dashboardFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L51",
+      "source_location": "L53",
       "_origin": "ast"
     },
     {
@@ -9613,7 +9613,7 @@
       "label": "dashboardRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L109",
+      "source_location": "L111",
       "_origin": "ast"
     },
     {
@@ -9621,7 +9621,7 @@
       "label": "baseRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L118",
+      "source_location": "L120",
       "_origin": "ast"
     },
     {
@@ -14432,6 +14432,22 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_templates_base_src_lib_assets_brand_favicons_android_chrome_192",
+      "label": "ANDROID_CHROME_192",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/lib/assets/brand-favicons.ts",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_lib_assets_brand_favicons_android_chrome_512",
+      "label": "ANDROID_CHROME_512",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/lib/assets/brand-favicons.ts",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_templates_base_src_lib_components_svforge_layout_authlayout",
       "label": "lib/components/svforge/layout/AuthLayout.svelte",
       "file_type": "code",
@@ -15108,6 +15124,72 @@
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/src/routes/favicon.ico/+server.ts",
       "source_location": "L18",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server",
+      "label": "android-chrome-192x192.png/+server.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server_prerender",
+      "label": "prerender",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server_brand_icon",
+      "label": "BRAND_ICON",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server_get",
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server",
+      "label": "android-chrome-512x512.png/+server.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server_prerender",
+      "label": "prerender",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server_brand_icon",
+      "label": "BRAND_ICON",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server_get",
+      "label": "GET()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L14",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20749,7 +20831,7 @@
       "label": "packageTypePath()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L12",
+      "source_location": "L14",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20758,7 +20840,7 @@
       "label": "validateInstalledTypes()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L19",
+      "source_location": "L21",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20767,7 +20849,7 @@
       "label": "consumerSource()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L38",
+      "source_location": "L40",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20776,7 +20858,7 @@
       "label": "consumerInstallSpecs()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L45",
+      "source_location": "L47",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20785,7 +20867,7 @@
       "label": "consumerTsConfig()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L57",
+      "source_location": "L59",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20794,7 +20876,7 @@
       "label": "runTypecheck()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L71",
+      "source_location": "L73",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20803,7 +20885,25 @@
       "label": "registryVersionVisible()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L93",
+      "source_location": "L95",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_npm_consumer_smoke_tarballavailable",
+      "label": "tarballAvailable()",
+      "file_type": "code",
+      "source_file": "scripts/npm-consumer-smoke.mjs",
+      "source_location": "L133",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_npm_consumer_smoke_registryreleaseconsumable",
+      "label": "registryReleaseConsumable()",
+      "file_type": "code",
+      "source_file": "scripts/npm-consumer-smoke.mjs",
+      "source_location": "L200",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20812,7 +20912,7 @@
       "label": "waitForRegistryAvailability()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L128",
+      "source_location": "L213",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20821,7 +20921,7 @@
       "label": "runConsumerSmoke()",
       "file_type": "code",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L155",
+      "source_location": "L240",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21165,7 +21265,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L797",
+      "source_location": "L800",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -23557,7 +23657,7 @@
       "label": "ROUTES",
       "file_type": "code",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L30",
+      "source_location": "L32",
       "_origin": "ast"
     },
     {
@@ -23565,7 +23665,7 @@
       "label": "decode()",
       "file_type": "code",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L37",
+      "source_location": "L41",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23574,7 +23674,7 @@
       "label": "sha256()",
       "file_type": "code",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L38",
+      "source_location": "L42",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23583,7 +23683,7 @@
       "label": "embedded()",
       "file_type": "code",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L41",
+      "source_location": "L45",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25024,54 +25124,6 @@
       "source_file": "tests/realtime.test.ts",
       "source_location": "L36",
       "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_release_615_audit_test",
-      "label": "release-615-audit.test.ts",
-      "file_type": "code",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_release_615_audit_test_root",
-      "label": "root",
-      "file_type": "code",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L5",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_release_615_audit_test_workflow",
-      "label": "workflow",
-      "file_type": "code",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L6",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_release_615_audit_test_regularbaseline",
-      "label": "regularBaseline",
-      "file_type": "code",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L7",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_release_615_audit_test_recoverywaivers",
-      "label": "recoveryWaivers",
-      "file_type": "code",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L8",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_release_615_audit_test_expectedadvisories",
-      "label": "expectedAdvisories",
-      "file_type": "code",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L10",
       "_origin": "ast"
     },
     {
@@ -26648,7 +26700,7 @@
       "label": "runSv()",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L25",
+      "source_location": "L34",
       "_callable": true,
       "_origin": "ast"
     },
@@ -26657,7 +26709,7 @@
       "label": "ensureBuilt()",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L33",
+      "source_location": "L48",
       "_callable": true,
       "_origin": "ast"
     },
@@ -26666,7 +26718,7 @@
       "label": "realScaffold()",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L41",
+      "source_location": "L56",
       "_callable": true,
       "_origin": "ast"
     },
@@ -26675,7 +26727,7 @@
       "label": "syntaxErrors()",
       "file_type": "code",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L52",
+      "source_location": "L67",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27034,15 +27086,6 @@
       "label": "vitest.config.ts",
       "file_type": "code",
       "source_file": "vitest.config.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "changeset_brand_favicon",
-      "label": "brand-favicon.md",
-      "file_type": "document",
-      "node_kind": "page",
-      "source_file": ".changeset/brand-favicon.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -28384,7 +28427,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L24",
+      "source_location": "L29",
       "_origin": "ast"
     },
     {
@@ -28393,7 +28436,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L35",
+      "source_location": "L40",
       "_origin": "ast"
     },
     {
@@ -28402,7 +28445,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L41",
+      "source_location": "L46",
       "_origin": "ast"
     },
     {
@@ -28411,7 +28454,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L47",
+      "source_location": "L52",
       "_origin": "ast"
     },
     {
@@ -28672,7 +28715,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L37",
+      "source_location": "L44",
       "_origin": "ast"
     },
     {
@@ -28681,7 +28724,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L78",
+      "source_location": "L84",
       "_origin": "ast"
     },
     {
@@ -28690,16 +28733,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L109",
-      "_origin": "ast"
-    },
-    {
-      "id": "docs_release_one_time_2_2_0_package_baseline",
-      "label": "One-time 2.2.0 package baseline",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "docs/RELEASE.md",
-      "source_location": "L122",
+      "source_location": "L115",
       "_origin": "ast"
     },
     {
@@ -28708,7 +28742,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L130",
+      "source_location": "L128",
       "_origin": "ast"
     },
     {
@@ -28717,16 +28751,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L225",
-      "_origin": "ast"
-    },
-    {
-      "id": "docs_release_measured_ci_timing_snapshot_2026_10_10",
-      "label": "Measured CI timing snapshot (2026-10-10)",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "docs/RELEASE.md",
-      "source_location": "L239",
+      "source_location": "L224",
       "_origin": "ast"
     },
     {
@@ -28735,7 +28760,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L256",
+      "source_location": "L238",
       "_origin": "ast"
     },
     {
@@ -28744,7 +28769,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L315",
+      "source_location": "L297",
       "_origin": "ast"
     },
     {
@@ -28753,7 +28778,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L371",
+      "source_location": "L343",
       "_origin": "ast"
     },
     {
@@ -28762,7 +28787,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L412",
+      "source_location": "L384",
       "_origin": "ast"
     },
     {
@@ -28771,7 +28796,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L439",
+      "source_location": "L411",
       "_origin": "ast"
     },
     {
@@ -28780,7 +28805,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L465",
+      "source_location": "L437",
       "_origin": "ast"
     },
     {
@@ -31301,8 +31326,8 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_4",
-      "label": "2.2.4",
+      "id": "packages_svforge_changelog_2_2_5",
+      "label": "2.2.5",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31319,8 +31344,8 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_3",
-      "label": "2.2.3",
+      "id": "packages_svforge_changelog_2_2_4",
+      "label": "2.2.4",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31337,26 +31362,26 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_2",
-      "label": "2.2.2",
+      "id": "packages_svforge_changelog_2_2_3",
+      "label": "2.2.3",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L33",
+      "source_location": "L15",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_patch_changes_35",
+      "id": "packages_svforge_changelog_patch_changes_17",
       "label": "Patch Changes",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L35",
+      "source_location": "L17",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_1",
-      "label": "2.2.1",
+      "id": "packages_svforge_changelog_2_2_2",
+      "label": "2.2.2",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31373,12 +31398,30 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_changelog_2_2_1",
+      "label": "2.2.1",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L45",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_patch_changes_47",
+      "label": "Patch Changes",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L47",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_changelog_2_2_0",
       "label": "2.2.0",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L45",
+      "source_location": "L51",
       "_origin": "ast"
     },
     {
@@ -31387,16 +31430,16 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L47",
+      "source_location": "L53",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_patch_changes_51",
+      "id": "packages_svforge_changelog_patch_changes_57",
       "label": "Patch Changes",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L51",
+      "source_location": "L57",
       "_origin": "ast"
     },
     {
@@ -31405,7 +31448,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L55",
+      "source_location": "L61",
       "_origin": "ast"
     },
     {
@@ -31414,7 +31457,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L57",
+      "source_location": "L63",
       "_origin": "ast"
     },
     {
@@ -31423,7 +31466,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L60",
+      "source_location": "L66",
       "_origin": "ast"
     },
     {
@@ -31432,7 +31475,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L63",
+      "source_location": "L69",
       "_origin": "ast"
     },
     {
@@ -31441,7 +31484,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L69",
+      "source_location": "L75",
       "_origin": "ast"
     },
     {
@@ -31450,30 +31493,12 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L72",
+      "source_location": "L78",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_breaking_changes_74",
+      "id": "packages_svforge_changelog_breaking_changes_80",
       "label": "Breaking changes",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L74",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_changelog_migrations_77",
-      "label": "Migrations",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L77",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_changelog_fixes_80",
-      "label": "Fixes",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31481,12 +31506,30 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_deprecations_83",
-      "label": "Deprecations",
+      "id": "packages_svforge_changelog_migrations_83",
+      "label": "Migrations",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L83",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_fixes_86",
+      "label": "Fixes",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L86",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_deprecations_89",
+      "label": "Deprecations",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L89",
       "_origin": "ast"
     },
     {
@@ -31495,30 +31538,12 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L86",
+      "source_location": "L92",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_breaking_changes_88",
+      "id": "packages_svforge_changelog_breaking_changes_94",
       "label": "Breaking changes",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L88",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_changelog_migrations_91",
-      "label": "Migrations",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L91",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_changelog_fixes_94",
-      "label": "Fixes",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31526,12 +31551,30 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_deprecations_97",
-      "label": "Deprecations",
+      "id": "packages_svforge_changelog_migrations_97",
+      "label": "Migrations",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L97",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_fixes_100",
+      "label": "Fixes",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L100",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_deprecations_103",
+      "label": "Deprecations",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L103",
       "_origin": "ast"
     },
     {
@@ -33605,13 +33648,21 @@
       "_origin": "semantic"
     },
     {
-      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_603_password_field_packages_jobs_templates_src_lib_server_test_db",
-      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_603_password_field_packages_jobs_templates_src_lib_server_test_db",
+      "id": "repo_worktrees_603_password_field_packages_jobs_templates_src_lib_server_test_db",
+      "label": "repo_worktrees_603_password_field_packages_jobs_templates_src_lib_server_test_db",
       "file_type": "concept",
       "type": "external",
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "ref_node_zlib",
+      "label": "ref_node_zlib",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
     }
   ],
   "links": [
@@ -45420,7 +45471,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L49",
+      "source_location": "L51",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45430,7 +45481,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L50",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45440,7 +45491,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L56",
+      "source_location": "L58",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45450,7 +45501,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L82",
+      "source_location": "L84",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45460,7 +45511,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L83",
+      "source_location": "L85",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45470,7 +45521,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L88",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45480,7 +45531,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L107",
+      "source_location": "L109",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45490,7 +45541,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L109",
+      "source_location": "L111",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45500,7 +45551,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L115",
+      "source_location": "L117",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45510,7 +45561,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L122",
+      "source_location": "L124",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45520,7 +45571,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L218",
+      "source_location": "L220",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45530,7 +45581,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L247",
+      "source_location": "L249",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45540,7 +45591,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L252",
+      "source_location": "L254",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45550,7 +45601,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L298",
+      "source_location": "L300",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45560,7 +45611,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L306",
+      "source_location": "L308",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45570,7 +45621,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L347",
+      "source_location": "L349",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45580,7 +45631,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L348",
+      "source_location": "L350",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45590,7 +45641,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L379",
+      "source_location": "L381",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45602,7 +45653,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L116",
+      "source_location": "L118",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45997,7 +46048,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L374",
+      "source_location": "L380",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46007,7 +46058,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L384",
+      "source_location": "L390",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46018,7 +46069,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L387",
+      "source_location": "L393",
       "weight": 1,
       "_origin": "ast"
     },
@@ -52066,7 +52117,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L51",
+      "source_location": "L53",
       "weight": 1,
       "_origin": "ast"
     },
@@ -52076,7 +52127,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L109",
+      "source_location": "L111",
       "weight": 1,
       "_origin": "ast"
     },
@@ -52086,7 +52137,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L118",
+      "source_location": "L120",
       "weight": 1,
       "_origin": "ast"
     },
@@ -59310,6 +59361,26 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_templates_base_src_lib_assets_brand_favicons",
+      "target": "packages_svforge_templates_base_src_lib_assets_brand_favicons_android_chrome_192",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/lib/assets/brand-favicons.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_lib_assets_brand_favicons",
+      "target": "packages_svforge_templates_base_src_lib_assets_brand_favicons_android_chrome_512",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/lib/assets/brand-favicons.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_templates_base_src_lib_components_svforge_layout_authlayout",
       "target": "packages_svforge_templates_base_src_lib_components_svforge_layout_authlayout_children",
       "relation": "contains",
@@ -60553,6 +60624,112 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/src/routes/favicon.ico/+server.ts",
       "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server",
+      "target": "ref_types",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "type_only": true,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server",
+      "target": "ref_lib",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server",
+      "target": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server_prerender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server",
+      "target": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server_brand_icon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server",
+      "target": "packages_svforge_templates_base_src_routes_favicon_android_chrome_192x192_png_server_get",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-192x192.png/+server.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server",
+      "target": "ref_types",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "type_only": true,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server",
+      "target": "ref_lib",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server",
+      "target": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server_prerender",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server",
+      "target": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server_brand_icon",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server",
+      "target": "packages_svforge_templates_base_src_routes_favicon_android_chrome_512x512_png_server_get",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/src/routes/favicon/android-chrome-512x512.png/+server.ts",
+      "source_location": "L14",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71662,7 +71839,7 @@
     },
     {
       "source": "scripts_npm_consumer_smoke",
-      "target": "ref_node_fs",
+      "target": "ref_node_crypto",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -71673,7 +71850,7 @@
     },
     {
       "source": "scripts_npm_consumer_smoke",
-      "target": "ref_node_path",
+      "target": "ref_node_zlib",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -71684,7 +71861,7 @@
     },
     {
       "source": "scripts_npm_consumer_smoke",
-      "target": "ref_node_os",
+      "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -71695,7 +71872,7 @@
     },
     {
       "source": "scripts_npm_consumer_smoke",
-      "target": "ref_node_timers",
+      "target": "ref_node_path",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -71706,11 +71883,33 @@
     },
     {
       "source": "scripts_npm_consumer_smoke",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/npm-consumer-smoke.mjs",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_npm_consumer_smoke",
+      "target": "ref_node_timers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/npm-consumer-smoke.mjs",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_npm_consumer_smoke",
       "target": "scripts_npm_consumer_smoke_packagetypepath",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L12",
+      "source_location": "L14",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71720,7 +71919,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71730,7 +71929,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L38",
+      "source_location": "L40",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71740,7 +71939,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L45",
+      "source_location": "L47",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71750,7 +71949,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L57",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71760,7 +71959,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L71",
+      "source_location": "L73",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71770,7 +71969,27 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L93",
+      "source_location": "L95",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_npm_consumer_smoke",
+      "target": "scripts_npm_consumer_smoke_tarballavailable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/npm-consumer-smoke.mjs",
+      "source_location": "L133",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_npm_consumer_smoke",
+      "target": "scripts_npm_consumer_smoke_registryreleaseconsumable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/npm-consumer-smoke.mjs",
+      "source_location": "L200",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71780,7 +71999,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L128",
+      "source_location": "L213",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71790,7 +72009,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L155",
+      "source_location": "L240",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71801,7 +72020,29 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L29",
+      "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_npm_consumer_smoke_registryreleaseconsumable",
+      "target": "scripts_npm_consumer_smoke_registryversionvisible",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/npm-consumer-smoke.mjs",
+      "source_location": "L201",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_npm_consumer_smoke_registryreleaseconsumable",
+      "target": "scripts_npm_consumer_smoke_tarballavailable",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/npm-consumer-smoke.mjs",
+      "source_location": "L202",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71812,7 +72053,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L159",
+      "source_location": "L244",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71823,7 +72064,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L167",
+      "source_location": "L252",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71834,7 +72075,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L169",
+      "source_location": "L254",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71845,7 +72086,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L170",
+      "source_location": "L255",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71856,7 +72097,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/npm-consumer-smoke.mjs",
-      "source_location": "L171",
+      "source_location": "L256",
       "weight": 1,
       "_origin": "ast"
     },
@@ -72693,7 +72934,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L797",
+      "source_location": "L800",
       "weight": 1,
       "_origin": "ast"
     },
@@ -72703,7 +72944,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L805",
+      "source_location": "L808",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -80985,7 +81226,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L30",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -80995,7 +81236,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L37",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81005,7 +81246,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L38",
+      "source_location": "L42",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81015,7 +81256,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L41",
+      "source_location": "L45",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81027,7 +81268,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L42",
+      "source_location": "L46",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81038,24 +81279,13 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L46",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "tests_favicon_delivery_test",
       "target": "tests_favicon_delivery_test_embedded",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L53",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_favicon_delivery_test",
-      "target": "tests_favicon_delivery_test_sha256",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -81066,13 +81296,24 @@
     },
     {
       "source": "tests_favicon_delivery_test",
+      "target": "tests_favicon_delivery_test_sha256",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/favicon-delivery.test.ts",
+      "source_location": "L61",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_favicon_delivery_test",
       "target": "packages_svforge_src_templates",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L83",
+      "source_location": "L89",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81084,7 +81325,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L105",
+      "source_location": "L114",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81096,7 +81337,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L124",
+      "source_location": "L133",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81107,7 +81348,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L143",
+      "source_location": "L152",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84011,7 +84252,7 @@
     },
     {
       "source": "tests_npm_consumer_smoke_test",
-      "target": "ref_node_fs",
+      "target": "ref_node_crypto",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -84022,7 +84263,7 @@
     },
     {
       "source": "tests_npm_consumer_smoke_test",
-      "target": "ref_node_path",
+      "target": "ref_node_zlib",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -84033,12 +84274,34 @@
     },
     {
       "source": "tests_npm_consumer_smoke_test",
-      "target": "ref_node_os",
+      "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/npm-consumer-smoke.test.ts",
       "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_npm_consumer_smoke_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/npm-consumer-smoke.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_npm_consumer_smoke_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/npm-consumer-smoke.test.ts",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -85643,101 +85906,6 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/realtime.test.ts",
       "source_location": "L240",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "ref_vitest",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "ref_node_fs",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L2",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "ref_node_path",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L3",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "tests_release_615_audit_test_root",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L5",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "tests_release_615_audit_test_workflow",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L6",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "tests_release_615_audit_test_regularbaseline",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L7",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "tests_release_615_audit_test_recoverywaivers",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L8",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "tests_release_615_audit_test_expectedadvisories",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L10",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_release_615_audit_test",
-      "target": "scripts_audit",
-      "relation": "imports_from",
-      "context": "import",
-      "deferred": true,
-      "confidence": "EXTRACTED",
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L51",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90339,7 +90507,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L25",
+      "source_location": "L34",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90349,7 +90517,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L33",
+      "source_location": "L48",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90359,7 +90527,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L41",
+      "source_location": "L56",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90369,7 +90537,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L52",
+      "source_location": "L67",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90380,7 +90548,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L43",
+      "source_location": "L58",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90392,7 +90560,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L53",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90403,7 +90571,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L62",
+      "source_location": "L77",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90414,7 +90582,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L68",
+      "source_location": "L83",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90425,7 +90593,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L93",
+      "source_location": "L108",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90436,7 +90604,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/vite-config-modern-scaffold.test.ts",
-      "source_location": "L104",
+      "source_location": "L119",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92645,7 +92813,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L24",
+      "source_location": "L29",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92655,7 +92823,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L35",
+      "source_location": "L40",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92665,7 +92833,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L37",
+      "source_location": "L42",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92675,7 +92843,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L39",
+      "source_location": "L44",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92685,7 +92853,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L41",
+      "source_location": "L46",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92695,7 +92863,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L45",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92705,7 +92873,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L45",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92715,7 +92883,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L47",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92725,7 +92893,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L49",
+      "source_location": "L54",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93035,7 +93203,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L37",
+      "source_location": "L44",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93045,7 +93213,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L78",
+      "source_location": "L84",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93055,17 +93223,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L109",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "docs_release_release_process",
-      "target": "docs_release_one_time_2_2_0_package_baseline",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/RELEASE.md",
-      "source_location": "L122",
+      "source_location": "L115",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93075,7 +93233,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L130",
+      "source_location": "L128",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93085,17 +93243,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L225",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "docs_release_pipeline_levels_413",
-      "target": "docs_release_measured_ci_timing_snapshot_2026_10_10",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/RELEASE.md",
-      "source_location": "L239",
+      "source_location": "L224",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93105,7 +93253,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L256",
+      "source_location": "L238",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93115,7 +93263,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L315",
+      "source_location": "L297",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93125,7 +93273,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L371",
+      "source_location": "L343",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93135,7 +93283,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L412",
+      "source_location": "L384",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93145,7 +93293,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L439",
+      "source_location": "L411",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93155,7 +93303,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L465",
+      "source_location": "L437",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95711,7 +95859,7 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_4",
+      "target": "packages_svforge_changelog_2_2_5",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -95720,7 +95868,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_4",
+      "source": "packages_svforge_changelog_2_2_5",
       "target": "packages_svforge_changelog_patch_changes",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -95731,7 +95879,7 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_3",
+      "target": "packages_svforge_changelog_2_2_4",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -95740,7 +95888,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_3",
+      "source": "packages_svforge_changelog_2_2_4",
       "target": "packages_svforge_changelog_patch_changes_11",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -95751,27 +95899,27 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_2",
+      "target": "packages_svforge_changelog_2_2_3",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L33",
+      "source_location": "L15",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_2",
-      "target": "packages_svforge_changelog_patch_changes_35",
+      "source": "packages_svforge_changelog_2_2_3",
+      "target": "packages_svforge_changelog_patch_changes_17",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L35",
+      "source_location": "L17",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_1",
+      "target": "packages_svforge_changelog_2_2_2",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -95780,7 +95928,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_1",
+      "source": "packages_svforge_changelog_2_2_2",
       "target": "packages_svforge_changelog_patch_changes_41",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -95791,11 +95939,31 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_0",
+      "target": "packages_svforge_changelog_2_2_1",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L45",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_2_1",
+      "target": "packages_svforge_changelog_patch_changes_47",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L47",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_svforge",
+      "target": "packages_svforge_changelog_2_2_0",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L51",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95805,17 +95973,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L47",
+      "source_location": "L53",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_changelog_2_2_0",
-      "target": "packages_svforge_changelog_patch_changes_51",
+      "target": "packages_svforge_changelog_patch_changes_57",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L51",
+      "source_location": "L57",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95825,7 +95993,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L55",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95835,7 +96003,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L57",
+      "source_location": "L63",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95845,7 +96013,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L60",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95855,7 +96023,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L63",
+      "source_location": "L69",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95865,7 +96033,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L69",
+      "source_location": "L75",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95875,33 +96043,13 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L72",
+      "source_location": "L78",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_changelog_2_1_0_2026_10_04",
-      "target": "packages_svforge_changelog_breaking_changes_74",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L74",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_changelog_2_1_0_2026_10_04",
-      "target": "packages_svforge_changelog_migrations_77",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L77",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_changelog_2_1_0_2026_10_04",
-      "target": "packages_svforge_changelog_fixes_80",
+      "target": "packages_svforge_changelog_breaking_changes_80",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -95911,11 +96059,31 @@
     },
     {
       "source": "packages_svforge_changelog_2_1_0_2026_10_04",
-      "target": "packages_svforge_changelog_deprecations_83",
+      "target": "packages_svforge_changelog_migrations_83",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_1_0_2026_10_04",
+      "target": "packages_svforge_changelog_fixes_86",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L86",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_1_0_2026_10_04",
+      "target": "packages_svforge_changelog_deprecations_89",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L89",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95925,33 +96093,13 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L86",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_changelog_2_0_1_2026_09_12",
-      "target": "packages_svforge_changelog_breaking_changes_88",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L88",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_changelog_2_0_1_2026_09_12",
-      "target": "packages_svforge_changelog_migrations_91",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L91",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_changelog_2_0_1_2026_09_12",
-      "target": "packages_svforge_changelog_fixes_94",
+      "target": "packages_svforge_changelog_breaking_changes_94",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -95961,11 +96109,31 @@
     },
     {
       "source": "packages_svforge_changelog_2_0_1_2026_09_12",
-      "target": "packages_svforge_changelog_deprecations_97",
+      "target": "packages_svforge_changelog_migrations_97",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L97",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_0_1_2026_09_12",
+      "target": "packages_svforge_changelog_fixes_100",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L100",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_0_1_2026_09_12",
+      "target": "packages_svforge_changelog_deprecations_103",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L103",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97882,7 +98050,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/favicon-delivery.test.ts",
-      "source_location": "L129",
+      "source_location": "L138",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97983,18 +98151,6 @@
       "_origin": "ast"
     },
     {
-      "source": "tests_release_615_audit_test",
-      "target": "scripts_audit_isbaselined",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "tests/release-615-audit.test.ts",
-      "source_location": "L57",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "tests_signup_security_test",
       "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_resolvesignupmode",
       "relation": "calls",
@@ -98086,7 +98242,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L174",
+      "source_location": "L173",
       "weight": 1,
       "_origin": "ast"
     },
@@ -98098,7 +98254,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L258",
+      "source_location": "L240",
       "weight": 1,
       "_origin": "ast"
     },
