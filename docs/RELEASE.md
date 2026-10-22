@@ -31,7 +31,14 @@ lag npm's publish acknowledgment: the visibility gate checks fresh npm metadata
 (with an isolated temporary cache for every probe) for up to approximately ten
 minutes. Only E404/ETARGET or a stale version response may be retried; unexpected
 npm/authentication/network/parsing failures still fail immediately. A timeout
-fails the workflow without claiming the release was not published. Recovery uses
+fails the workflow without claiming the release was not published.
+
+The gate also fetches the **exact tarball** named by that metadata and verifies
+its mandatory sha512 `dist.integrity` and complete gzip structure before installing (#628): npm can expose
+version metadata while `<name>-<version>.tgz` still answers 404, which failed an
+already-published release. Only a verified 404/410 of the expected tarball URL is
+retried; a checksum mismatch, an invalid artifact, an unexpected HTTP status or a
+network/auth error fails immediately, and the URL is never guessed. Recovery uses
 the same approved, already-merged `Version Packages` PR, not a new version.
 
 ## Release policy: grouped stable releases, optional numbered canaries (#572)
