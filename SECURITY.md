@@ -16,10 +16,10 @@ maturity:
 | `1.0.0` and later: latest published version of the package | ✅ |
 | `1.0.0` and later: any older version | ❌ upgrade instead |
 
-While packages are pre-1.0, only `main` is supported: consumers tracking npm
-releases must upgrade to the fixed version when it ships. Once a package
-reaches `1.0.0`, its latest published version receives security fixes; there
-is no backport policy for older lines.
+SVForge's current published package line is `2.x`, not pre-1.0. Security
+fixes land on `main` first and are shipped in the **latest published version**
+of each independently versioned package. Historical `0.x` packages and older
+`1.x`/`2.x` versions are not maintained; there is no backport policy.
 
 ## Reporting a vulnerability
 

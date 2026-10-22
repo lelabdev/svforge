@@ -6,7 +6,7 @@
 
 - **Scaffold target:** the current stable SvelteKit major, currently Kit 3, created by the exact `sv` version pinned in the repository root (`sv@1.1.1`). The release workflow's existing scaffold and packed-consumer jobs are the blocking certification gates.
 - **Previous Kit major:** Kit 2 is not a fresh-scaffold target. Existing Kit 2 projects must use Svelte's official `sv migrate sveltekit-3`; `svforge upgrade` only updates SVForge recipes and is not a framework migrator. As of this report, Kit 2 → Kit 3 migration of a project containing the current SVForge overlay is **not certified** because the official migration has reproducible unresolved issues (see below). Do not advertise a successful migration until the resolution criteria are met.
-- **Stable versus drift:** the root `package.json` and `bun.lock` pin the exact `sv` CLI used by deterministic CI/release jobs. Generated SvelteKit dependencies use the ranges emitted by `sv create`; package managers resolve them normally and projects should commit their own lockfile. The weekly `canary.yml` remains the sole floating ecosystem-drift workflow (`sv@latest` and latest ecosystem dependencies). Do not add another scheduled drift workflow.
+- **Stable versus drift:** the root `package.json` and `bun.lock` pin the exact `sv` CLI used by deterministic CI/release jobs. Generated SvelteKit dependencies use the ranges emitted by `sv create`; package managers resolve them normally and projects should commit their own lockfile. The weekly `.github/workflows/ecosystem-drift.yml` runs the floating ecosystem-drift checks (`sv@latest` and latest ecosystem dependencies). This is distinct from the optional manually dispatched npm `canary` release channel in `publish.yml`. Do not add another scheduled drift workflow.
 - **Promotion is human-controlled:** after a canary or manual compatibility run passes, a reviewed PR updates the exact root `sv` pin and lockfile, this report's tested-version row, and any CLI-specific regression tests. Never make a successful `latest` run rewrite stable pins automatically. A release is not compatible merely because an upstream version was announced.
 
 ## Reproducible current-major report
@@ -64,6 +64,7 @@ The packed base/blog path can be reproduced with the following steps after `bun 
 ```sh
 REPO=$PWD
 WORK=$(mktemp -d)
+trap 'cd "$REPO"; rm -rf "$WORK"' EXIT
 SOURCE=$(node scripts/user-journey.mjs source --dest "$WORK/addons" --sv 1.1.1)
 SV="$WORK/addons/node_modules/.bin/sv"
 CLI_TARBALL=$(find "$WORK/addons/packs" -maxdepth 1 -name 'svforge-*.tgz' | head -1)
@@ -104,6 +105,7 @@ After `bun install --frozen-lockfile --ignore-scripts` and `bun run build:all` i
 ```sh
 REPO=$PWD
 TMP=$(mktemp -d)
+trap 'cd "$REPO"; rm -rf "$TMP"' EXIT
 npm install --prefix "$TMP/sv2" --no-save --no-package-lock --ignore-scripts sv@0.15.4
 "$TMP/sv2/node_modules/.bin/sv" create "$TMP/app" --template minimal --types ts --no-install --no-add-ons --no-download-check
 SOURCE=$(node scripts/user-journey.mjs source --dest "$TMP/addon" --sv 1.1.1)

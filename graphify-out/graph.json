@@ -23418,6 +23418,31 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_docs_current_contract_test",
+      "label": "docs-current-contract.test.ts",
+      "file_type": "code",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_docs_current_contract_test_root",
+      "label": "root",
+      "file_type": "code",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_docs_current_contract_test_read",
+      "label": "read()",
+      "file_type": "code",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L6",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_doctor_test",
       "label": "doctor.test.ts",
       "file_type": "code",
@@ -28751,7 +28776,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L224",
+      "source_location": "L227",
       "_origin": "ast"
     },
     {
@@ -28760,7 +28785,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L238",
+      "source_location": "L241",
       "_origin": "ast"
     },
     {
@@ -28769,7 +28794,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L297",
+      "source_location": "L300",
       "_origin": "ast"
     },
     {
@@ -28778,7 +28803,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L343",
+      "source_location": "L346",
       "_origin": "ast"
     },
     {
@@ -28787,7 +28812,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L384",
+      "source_location": "L387",
       "_origin": "ast"
     },
     {
@@ -28796,7 +28821,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L411",
+      "source_location": "L417",
       "_origin": "ast"
     },
     {
@@ -28805,7 +28830,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L437",
+      "source_location": "L443",
       "_origin": "ast"
     },
     {
@@ -31709,7 +31734,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/brand/README.md",
-      "source_location": "L15",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -31718,7 +31743,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/brand/README.md",
-      "source_location": "L29",
+      "source_location": "L38",
       "_origin": "ast"
     },
     {
@@ -31889,7 +31914,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L90",
+      "source_location": "L91",
       "_origin": "ast"
     },
     {
@@ -31898,7 +31923,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L96",
+      "source_location": "L97",
       "_origin": "ast"
     },
     {
@@ -31907,7 +31932,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L100",
+      "source_location": "L101",
       "_origin": "ast"
     },
     {
@@ -31916,7 +31941,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L143",
+      "source_location": "L145",
       "_origin": "ast"
     },
     {
@@ -33662,7 +33687,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
@@ -80529,6 +80555,70 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_docs_current_contract_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_docs_current_contract_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_docs_current_contract_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_docs_current_contract_test",
+      "target": "tests_docs_current_contract_test_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_docs_current_contract_test",
+      "target": "tests_docs_current_contract_test_read",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_docs_current_contract_test",
+      "target": "tests_docs_current_contract_test_read",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/docs-current-contract.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_doctor_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -93243,7 +93333,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L224",
+      "source_location": "L227",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93253,7 +93343,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L238",
+      "source_location": "L241",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93263,7 +93353,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L297",
+      "source_location": "L300",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93273,7 +93363,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L343",
+      "source_location": "L346",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93283,7 +93373,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L384",
+      "source_location": "L387",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93293,7 +93383,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L411",
+      "source_location": "L417",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93303,7 +93393,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/RELEASE.md",
-      "source_location": "L437",
+      "source_location": "L443",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93324,6 +93414,16 @@
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
       "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_better_auth_upgrades",
+      "target": "packages_svforge_docs_sveltekit_compatibility",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -93363,7 +93463,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L65",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96293,7 +96393,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/brand/README.md",
-      "source_location": "L15",
+      "source_location": "L18",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96303,7 +96403,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/brand/README.md",
-      "source_location": "L29",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96483,7 +96583,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96493,7 +96593,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L96",
+      "source_location": "L97",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96503,7 +96603,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L100",
+      "source_location": "L101",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96513,7 +96613,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L143",
+      "source_location": "L145",
       "weight": 1,
       "_origin": "ast"
     },
@@ -98254,7 +98354,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/RELEASE.md",
-      "source_location": "L240",
+      "source_location": "L243",
       "weight": 1,
       "_origin": "ast"
     },

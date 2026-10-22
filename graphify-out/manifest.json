@@ -1472,7 +1472,7 @@
     "semantic_hash": ""
   },
   "AGENTS.md": {
-    "ast_hash": "1dbda9d270e8db0ccc9851c192e91b5a",
+    "ast_hash": "39233a4152d480b7b64d4bf64af307f5",
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
@@ -1480,7 +1480,7 @@
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
-    "ast_hash": "f13da81bf02724bdf0f2513538e5d910",
+    "ast_hash": "0904e5e12a64d866e6b79b36626473d6",
     "semantic_hash": ""
   },
   "README.md": {
@@ -1488,15 +1488,15 @@
     "semantic_hash": ""
   },
   "SECURITY.md": {
-    "ast_hash": "35064b0714c534196f88e61cbc9a1840",
+    "ast_hash": "9a29eef58982869c59953d7d65d86cdd",
     "semantic_hash": ""
   },
   "docs/RELEASE.md": {
-    "ast_hash": "9bbebc6992d55eca9a4bc5d2878cf5aa",
+    "ast_hash": "1615271b89bebe1153fa52321cad6500",
     "semantic_hash": ""
   },
   "docs/better-auth-upgrades.md": {
-    "ast_hash": "4c11cf30ffa691bc9d2e00bfb477a9d1",
+    "ast_hash": "310e43c3e59b6c7d41e145ffd7465e7a",
     "semantic_hash": ""
   },
   "packages/addon-kit/README.md": {
@@ -1852,7 +1852,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/sveltekit-compatibility.md": {
-    "ast_hash": "e448a88bcb6182e5e431e267176a2a75",
+    "ast_hash": "ec06d0c7c0ee799a47068363aec6eb71",
     "semantic_hash": ""
   },
   ".changeset/config.json": {
@@ -2116,7 +2116,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/brand/README.md": {
-    "ast_hash": "1dccf6ab65286984bb0d7ea13243e3a8",
+    "ast_hash": "5dca97e7c705794b0786bdff3130267d",
     "semantic_hash": ""
   },
   "packages/svforge/brand/apple-touch-icon.png": {
@@ -2145,6 +2145,10 @@
   },
   "packages/svforge/brand/android-chrome-512x512.png": {
     "ast_hash": "bc37e60eb4ce8207eb5034b453987b90",
+    "semantic_hash": ""
+  },
+  "tests/docs-current-contract.test.ts": {
+    "ast_hash": "d9ff2871ac03dd7f2f7dbd27d92e521c",
     "semantic_hash": ""
   }
 }

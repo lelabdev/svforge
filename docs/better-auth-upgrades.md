@@ -10,7 +10,7 @@ The dashboard template pins Better Auth; it never scaffolds `latest` or `*`. The
 | Auth request/session hooks, closed-by-default signup, invitations, roles, disabled-user lifecycle, first-admin bootstrap, and dashboard UX | SVForge dashboard          | These are product/security policies, not generic auth setup.                                                 |
 | Generic Better Auth and Drizzle add-on generation                                                                                          | Upstream `sv` add-ons      | Not composed with the dashboard until their generated foundation is compatible and safely extensible.        |
 
-This is a compatibility decision based on the pinned `sv@1.1.0`, not a general rejection of upstream ownership. In a clean scaffold, `sv create` generates SvelteKit `^3.0.0`; the official Better Auth add-on requests `^1.6.24`, which currently resolves to Better Auth `1.7.7` with an optional `@sveltejs/kit: ^2.0.0` peer. npm therefore fails installation with `ERESOLVE`. Bun, pnpm, and Yarn install paths were also exercised, but their more permissive peer handling does not make the generated add-ons composable.
+The compatibility experiments below were recorded with published `sv@1.1.0`; the repository currently pins `sv@1.1.1` (see `package.json` and the [dated compatibility report](../packages/svforge/docs/sveltekit-compatibility.md)). The findings are historical evidence, **not a verified failure claim for `sv@1.1.1`**. In that tested fixture, `sv create` generated SvelteKit `^3.0.0`; the official Better Auth add-on requested `^1.6.24`, resolved to `1.7.7` at the time, and declared an optional `@sveltejs/kit: ^2.0.0` peer. npm installation failed with `ERESOLVE`. Bun, pnpm, and Yarn were also tested, but their more permissive peer handling did not make the generated add-ons composable in that fixture.
 
 Both application orders were tested with `sv@1.1.0`. Adding official Drizzle after a dashboard scaffold cancels with `Preexisting drizzle config file`. The official Better Auth add-on proceeds but appends duplicate `auth`/`db` imports, auth exports, and request handlers to the dashboard's existing files; the generated dashboard then fails `svelte-check` with duplicate identifiers. Applying the dashboard after the official add-ons instead overwrites their generated auth, hook, schema, Drizzle, and script files; the package manifest can retain conflicting runtime/dev dependency entries and an unused upstream CLI. The official `demo:none` option only omits demo UI: its generated `emailAndPassword.enabled` remains true with no `disableSignUp`, so it does not meet SVForge's closed-signup default.
 
@@ -58,6 +58,7 @@ To run the audit against the current pin, resolve it in a temporary project as C
 ```bash
 PIN=$(node --input-type=module -e "import { currentPin } from './scripts/better-auth-upgrade.mjs'; console.log(currentPin().version)")
 AUDIT_DIR=$(mktemp -d)
+trap 'rm -rf "$AUDIT_DIR"' EXIT
 ( cd "$AUDIT_DIR" && echo '{"name":"audit","private":true}' > package.json && bun add "better-auth@$PIN" )
 node scripts/better-auth-audit.mjs "$AUDIT_DIR/bun.lock"
 ```

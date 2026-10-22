@@ -207,9 +207,12 @@ bun run release:plan
 Query npm and save the registry-aware plan:
 
 ```bash
+RELEASE_PLAN=$(mktemp)
+trap 'rm -f "$RELEASE_PLAN"' EXIT
 node scripts/release-plan.mjs \
   --check-registry \
-  --output /tmp/svforge-release-plan.json
+  --output "$RELEASE_PLAN"
+cat "$RELEASE_PLAN"
 ```
 
 The planner orders local dependencies before their dependents. Independent
@@ -398,7 +401,10 @@ The post-publication consumer smoke test is also available locally with a
 registry-aware plan:
 
 ```bash
-node scripts/npm-consumer-smoke.mjs --plan /tmp/svforge-release-plan.json
+RELEASE_PLAN=$(mktemp)
+trap 'rm -f "$RELEASE_PLAN"' EXIT
+node scripts/release-plan.mjs --check-registry --output "$RELEASE_PLAN"
+node scripts/npm-consumer-smoke.mjs --plan "$RELEASE_PLAN"
 ```
 
 It installs exact package versions plus a temporary TypeScript compiler with
@@ -466,7 +472,7 @@ bash scripts/test-user-journey.sh --path create --template base </dev/null
 # explicit hook override remains available
 bash scripts/test-user-journey.sh --path create --template base --hooks lefthook </dev/null
 # post-publish, exact per-package versions from the release plan
-bash scripts/test-user-journey.sh --path create --published <version> --compat-manifest /tmp/svforge-compat.json
+bash scripts/test-user-journey.sh --path create --published <version> --compat-manifest <release-plan.json>
 ```
 
 Where it runs:
