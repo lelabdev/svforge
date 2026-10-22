@@ -323,6 +323,12 @@ export const RELEASE_NOTES: ChangelogEntry[] = [
   },
   {
     "package": "svforge",
+    "version": "2.2.6",
+    "date": "",
+    "body": "### Patch Changes\n\n- [#637](https://github.com/lelabdev/svforge/pull/637) [`d1e91e1`](https://github.com/lelabdev/svforge/commit/d1e91e1e6a153b0eae7dad2f519fe0bd17cc1e96) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Add a canonical `layout/PageHeader.svelte` to the Base/Dashboard templates and compose the Dashboard admin page headers with it, so equivalent primary actions share the shared Button defaults: the `Manage users` CTA no longer pins `size=\"sm\"` while `Add user` relies on the default. `svforge check` now warns (`pageHeaderActionSize`) when a page-header action pins its own size — table rows, toolbars and icon-only controls are never inspected. Generated AGENTS.md/`llms.txt` guidance and `svforge-catalog.json` document the default-first rule, the full-width-admin vs constrained-form policy and the optional decorative page-title icon policy."
+  },
+  {
+    "package": "svforge",
     "version": "2.2.5",
     "date": "",
     "body": "### Patch Changes\n\n- [#626](https://github.com/lelabdev/svforge/pull/626) [`a135611`](https://github.com/lelabdev/svforge/commit/a13561141270edcc8fb2f3e5f1743b1c914ac870) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Ship the real SVForge brand favicon in Base and Dashboard scaffolds instead of the cyan-square/white-triangle placeholder: the canonical brand binaries are vendored once in `packages/svforge/brand/`, embedded as base64 by prebuild, and served by prerendered `/favicon.ico` and `/favicon/*.png` routes with correct `Content-Type`. `app.html` declares the same icons, and the generated-site browser smoke now verifies the served bytes."
