@@ -108,11 +108,23 @@ jobs:
       - name: Typecheck (tsc)
         run: bun run typecheck
 
-      # Freshness must be checked BEFORE the scoped waiver below mutates the
-      # tracked baseline: the gate regenerates manifests and fails on ANY diff
-      # in the clean checkout.
+      # Freshness must be checked before the build regenerates artifacts;
+      # this gate fails if the reviewed checkout contains stale manifests.
       - name: Check generated manifests freshness
         run: node scripts/check-generated.mjs
+
+      # Block a release on stale, unreviewed or incompatible documentation.
+      # Upstream drift is advisory so retries can use immutable reviewed docs.
+      - name: Check pinned agent documentation for release
+        run: |
+          if [ -f packages/svforge/docs/llms-snapshots.json ]; then
+            node scripts/check-release-docs.mjs --check-upstream
+          else
+            # Backward-compatible retry of a previously reviewed release whose
+            # immutable commit predates this lock and script. Existing tests
+            # still verify the historical offline documentation snapshots.
+            echo '::warning::This older release predates the pinned docs gate; its original documentation tests still run.'
+          fi
 
       - name: Dependency audit (OSV)
         run: bun run audit
@@ -471,6 +483,10 @@ jobs:
       - name: Check generated manifests before snapshot versioning
         working-directory: ${{ runner.temp }}/svforge-canary
         run: node scripts/check-generated.mjs
+
+      - name: Check pinned agent documentation before canary publication
+        working-directory: ${{ runner.temp }}/svforge-canary
+        run: node scripts/check-release-docs.mjs --check-upstream
 
       # The full suite includes stable release-plan/changelog assertions. Run it
       # before snapshot versions intentionally diverge from package changelogs.

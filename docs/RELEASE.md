@@ -238,6 +238,27 @@ Validation cost sits where it belongs:
 | **Weekly** (`ecosystem-drift.yml`) | the scaffolds (and the external journey) against the `latest` ecosystem, opening or updating a deduplicated drift issue on failure. No npm publication. |
 | **Optional npm canary** (`publish.yml`, `channel=canary`) | explicit `publish-canary` confirmation on `main`; isolated numbered Changesets snapshots, packed/published consumer checks and golden-path validation, then `canary` tag promotion via OIDC. No ordinary PR, push, schedule or `latest` publication. |
 
+## Release documentation gate
+
+Each manually authorized npm release runs `node scripts/check-release-docs.mjs --check-upstream` as part
+of `publish.yml`'s blocking quality checks. The two bundled offline Svelte and
+Skeleton references must match the SHA-256 hashes recorded in
+`packages/svforge/docs/llms-snapshots.json`, the supported dependency
+ranges and exact `sv` CLI pin, and be less than 90 days old.
+Errors block publication for newly reviewed releases. Previously approved
+release commits without this lock retain their original checks, so recovery
+remains possible. Changes on the public documentation sites are reported as
+warnings, not silently copied into a release or used to block an immutable
+release retry.
+
+To refresh the **two** snapshots, review their compatibility with the pinned
+Svelte/Skeleton versions and run
+`bash packages/svforge/scripts/fetch-llms-docs.sh` on a development
+branch. Commit and review both updated reference files and their
+version/integrity lock in a PR. Never refresh these files automatically during
+production publishing. The full offline reference is retained until a
+smaller, version-scoped replacement has been tested against generated agents.
+
 ## Workflow gates
 
 `publish.yml` runs as separate jobs; the `publish` job starts only once
