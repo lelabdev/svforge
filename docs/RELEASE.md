@@ -34,7 +34,7 @@ npm/authentication/network/parsing failures still fail immediately. A timeout
 fails the workflow without claiming the release was not published.
 
 The gate also fetches the **exact tarball** named by that metadata and verifies
-its `dist.integrity` and gzip structure before installing (#628): npm can expose
+its mandatory sha512 `dist.integrity` and complete gzip structure before installing (#628): npm can expose
 version metadata while `<name>-<version>.tgz` still answers 404, which failed an
 already-published release. Only a verified 404/410 of the expected tarball URL is
 retried; a checksum mismatch, an invalid artifact, an unexpected HTTP status or a

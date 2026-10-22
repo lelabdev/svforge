@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createHash } from 'node:crypto';
+import { gzipSync } from 'node:zlib';
 import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -184,7 +185,7 @@ describe('npm consumer smoke test (#330)', () => {
 	});
 
 	describe('exact tarball availability (#628)', () => {
-		const gzipBody = Buffer.from([0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00]);
+		const gzipBody = gzipSync(Buffer.from('test tarball payload'));
 		const integrityOf = (body: Buffer) => `sha512-${createHash('sha512').update(body).digest('base64')}`;
 		const tarballUrl = 'https://registry.npmjs.org/svforge/-/svforge-2.5.0.tgz';
 		const metadata = (url = tarballUrl, integrity = integrityOf(gzipBody)) =>
@@ -234,6 +235,28 @@ describe('npm consumer smoke test (#330)', () => {
 			} finally {
 				log.mockRestore();
 			}
+		});
+
+		it('rejects missing or invalid sha512 metadata before accepting a tarball', async () => {
+			for (const integrity of [undefined, 'sha1-test', 'sha512-invalid']) {
+				const response = JSON.stringify({ 'dist.tarball': tarballUrl, ...(integrity === undefined ? {} : { 'dist.integrity': integrity }) });
+				await expect(
+					tarballAvailable('svforge@2.5.0', 'npm', {
+						run: npmReturning(response),
+						fetchImpl: fetchReturning(200)
+					})
+				).rejects.toThrow(/valid sha512 dist\.integrity/);
+			}
+		});
+
+		it('rejects truncated gzip data even when sha512 matches its bytes', async () => {
+			const truncated = Buffer.from([0x1f, 0x8b, 0x08, 0, 0, 0, 0, 0]);
+			await expect(
+				tarballAvailable('svforge@2.5.0', 'npm', {
+					run: npmReturning(metadata(tarballUrl, integrityOf(truncated))),
+					fetchImpl: fetchReturning(200, truncated)
+				})
+			).rejects.toThrow(/invalid gzip payload/);
 		});
 
 		it('fails hard on a checksum mismatch instead of retrying a broken artifact', async () => {
@@ -290,7 +313,7 @@ describe('npm consumer smoke test (#330)', () => {
 			const fields: string[] = [];
 			const run = ((_npm: string, args: string[]) => {
 				fields.push(args[2]);
-				return args[2] === 'version' ? '"2.5.0"' : '{"dist.tarball":"u","dist.integrity":"x"}';
+				return args[2] === 'version' ? '"2.5.0"' : JSON.stringify({ 'dist.tarball': tarballUrl, 'dist.integrity': integrityOf(gzipBody) });
 			}) as unknown as NonNullable<Parameters<typeof registryReleaseConsumable>[2]>['run'];
 			const fetchImpl = (async () => new Response('missing', { status: 404 })) as unknown as typeof fetch;
 

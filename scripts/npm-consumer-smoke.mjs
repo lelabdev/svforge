@@ -5,6 +5,7 @@
  */
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import { gunzipSync } from 'node:zlib';
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -155,10 +156,13 @@ export async function tarballAvailable(spec, npm = 'npm', { run = execFileSync, 
 	if (typeof url !== 'string' || !url) {
 		throw new Error(`Registry metadata for ${spec} has no dist.tarball; refusing to guess a tarball URL.`);
 	}
+	if (typeof integrity !== 'string' || !/^sha512-[A-Za-z0-9+/]{86}==$/.test(integrity)) {
+		throw new Error(`Registry metadata for ${spec} has no valid sha512 dist.integrity; refusing an unverified tarball.`);
+	}
 
 	let response;
 	try {
-		response = await fetchImpl(url, { redirect: 'follow' });
+		response = await fetchImpl(url, { redirect: 'follow', signal: AbortSignal.timeout(30_000) });
 	} catch (error) {
 		throw new Error(`Tarball fetch failed for ${spec} (${url}): ${error?.message ?? error}`, { cause: error });
 	}
@@ -174,11 +178,14 @@ export async function tarballAvailable(spec, npm = 'npm', { run = execFileSync, 
 	if (bytes.length < 2 || bytes[0] !== 0x1f || bytes[1] !== 0x8b) {
 		throw new Error(`Tarball for ${spec} is not a gzip artifact (${bytes.length} bytes from ${url}).`);
 	}
-	if (typeof integrity === 'string' && integrity.startsWith('sha512-')) {
-		const digest = `sha512-${createHash('sha512').update(bytes).digest('base64')}`;
-		if (digest !== integrity) {
-			throw new Error(`Tarball integrity mismatch for ${spec}: registry ${integrity}, downloaded ${digest}.`);
-		}
+	const digest = `sha512-${createHash('sha512').update(bytes).digest('base64')}`;
+	if (digest !== integrity) {
+		throw new Error(`Tarball integrity mismatch for ${spec}: registry ${integrity}, downloaded ${digest}.`);
+	}
+	try {
+		gunzipSync(bytes);
+	} catch (error) {
+		throw new Error(`Tarball for ${spec} has an invalid gzip payload (${url}).`, { cause: error });
 	}
 	return true;
 }
