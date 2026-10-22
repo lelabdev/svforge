@@ -42,6 +42,8 @@ Agent decision order:
 
 **The agent MUST NOT** add or register a new UI library, change the preferred UI strategy, invent a new generic Button/Input/Card/Dialog, or create a parallel styling system without an explicit user request. Multiple buttons with different labels or appearances must share one Button and its variants, not spawn FancyButton and CustomButton.
 
+**Default-first styling.** The shared defaults of a component are the contract: a page-header action is a plain `Button`, and equivalent primary actions must not drift in size, variant or typography. Compose page titles and their actions with `layout/PageHeader.svelte`, add a style prop (`size`, `variant`, `color`) only when the context genuinely differs (compact table row, dense toolbar, icon-only control), and be ready to justify it. `svforge check` reports a pinned size inside the page-header action slot (`pageHeaderActionSize`). Admin content is full width by default — constrain a page only for a focused form or readable prose — and decorative page-title icons are optional, never a consistency requirement.
+
 Use only verified Tailwind utilities and Skeleton classes/presets. Do not invent classes, theme tokens or CSS overrides, and never disable ESLint or `svforge check` to bypass a design-system diagnostic. A selected external library must not be removed just because Skeleton overlaps it.
 
 ## Skeleton v5

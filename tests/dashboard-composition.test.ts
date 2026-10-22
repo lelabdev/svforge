@@ -81,8 +81,20 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 			`<script lang="ts">
 	import * as m from './messages.js';
 	import Empty from './Empty.js';
+	import PageHeader from './PageHeader.js';
 	const Card = Empty, AvatarInitial = Empty, Badge = Empty, Button = Empty, Users = Empty, ChartBar = Empty, Clock = Empty;`
 		);
+	// The canonical page header (#601) is rendered for REAL — the page title and
+	// its description are owned by that component, not by the route markup.
+	const pageHeader = readFileSync(
+		join(project, 'src/lib/components/svforge/layout/PageHeader.svelte'),
+		'utf8'
+	)
+		.replace(/^\s*import .*;\n/gm, '')
+		.replace('<script lang="ts">', `<script lang="ts">
+	import { cn } from './cn.js';`);
+
+	writeFileSync(join(renderDir, 'PageHeader.js'), compileComponent(pageHeader, 'PageHeader.svelte'));
 
 	writeFileSync(join(renderDir, 'AdminLayout.js'), compileComponent(layout, 'AdminLayout.svelte'));
 	writeFileSync(join(renderDir, 'AdminPage.js'), compileComponent(page, 'AdminPage.svelte'));
@@ -128,13 +140,13 @@ describe('dashboard admin composition', () => {
 			] as const) {
 				const html = await renderAdminDashboard(project, locale);
 				expect(html).toMatch(new RegExp(`<h1[^>]*>${shellTitle}</h1>`));
-				expect(html).toMatch(new RegExp(`<h2[^>]*>${pageTitle}</h2>`));
+				expect(html).toMatch(new RegExp(`<h2 class="h2[^"]*">${pageTitle}</h2>`));
 				expect(pageTitle).not.toBe(shellTitle);
 				// #317: the page title consumes the native Skeleton h2 utility
 				// (shell chrome keeps its compact local heading). Order matters:
 				// the shell title renders first, the page title after it.
 				expect(html.indexOf(`<h1 class="text-lg font-bold">${shellTitle}</h1>`)).toBeLessThan(
-					html.indexOf(`<h2 class="h2">${pageTitle}</h2>`)
+					html.indexOf(`<h2 class="h2`)
 				);
 			}
 		} finally {

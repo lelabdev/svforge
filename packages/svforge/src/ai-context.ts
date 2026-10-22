@@ -287,6 +287,7 @@ export function renderLlmstxt(manifest: SvforgeManifest): string {
 	lines.push('- reuse installed SVForge components/modules before creating alternatives');
 	lines.push('- change the Skeleton theme/presets first for global visual decisions that Skeleton supports');
 	lines.push('- use standard Tailwind utilities for local structure, whitespace and responsive layout');
+	lines.push('- compose page titles and header actions with layout/PageHeader.svelte, and keep its actions on the canonical Button defaults');
 	lines.push('- use Paraglide messages for user-facing copy and keep key parity across every configured locale');
 	lines.push('- follow the canonical patterns above');
 	lines.push('MUST NOT:');
@@ -294,6 +295,7 @@ export function renderLlmstxt(manifest: SvforgeManifest): string {
 	if (ui.libraries.length) lines.push('- remove or replace a project-selected UI library merely because Skeleton has an overlapping primitive');
 	lines.push('- recreate Button/Input/Card/Table primitives (they exist)');
 	lines.push('- create a parallel global palette/token layer or visual overrides by default');
+	lines.push('- pin a style prop (size, variant) on an equivalent page-header action, or add a page-level max-w-* without a deliberate content reason');
 	lines.push('- modify generated internals (src/lib/paraglide, .svforge.json) without understanding the workflow');
 	lines.push('');
 	lines.push('## Inspect first');

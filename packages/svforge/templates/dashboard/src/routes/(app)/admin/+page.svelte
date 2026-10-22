@@ -3,6 +3,7 @@
 	import { Card, AvatarInitial } from '#lib/components/svforge/ui/index.js';
 	import { Badge } from '#lib/components/svforge/primitives/index.js';
 	import { Button } from '#lib/components/svforge/primitives/index.js';
+	import PageHeader from '#lib/components/svforge/layout/PageHeader.svelte';
 	import { Users, ChartBar, Clock } from '#lib/icons/index.js';
 
 	let { data } = $props();
@@ -13,16 +14,19 @@
 </svelte:head>
 
 <div class="space-y-8">
-	<div class="flex items-center justify-between">
-		<div>
-			<h2 class="h2">{m.admin_dashboard()}</h2>
-			<p class="text-surface-700-300">{m.admin_welcome_back({ name: data.user.name })}</p>
-		</div>
-		<Button href="/admin/users" size="sm">
-			<Users size={16} class="mr-1" />
-			{m.admin_manage_users()}
-		</Button>
-	</div>
+	<!-- Page header actions keep the shared Button defaults (#601): one
+	     canonical header composition, no per-page size override. -->
+	<PageHeader
+		title={m.admin_dashboard()}
+		description={m.admin_welcome_back({ name: data.user.name })}
+	>
+		{#snippet actions()}
+			<Button href="/admin/users">
+				<Users size={16} class="mr-1" />
+				{m.admin_manage_users()}
+			</Button>
+		{/snippet}
+	</PageHeader>
 
 	<!-- Stats -->
 	<!-- #317: icon chips use the Skeleton tonal presets — the preset owns the

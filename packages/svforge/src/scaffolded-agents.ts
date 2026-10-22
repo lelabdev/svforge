@@ -135,7 +135,7 @@ Canonical structure (#242) — the filesystem IS the registry:
 
 - \`primitives/\` — small generic bricks: Button, Input, Select, Textarea, Checkbox, Toggle, Badge
 - \`ui/\` — composed reusable components: Card, Alert, Table, ThemeToggle, Seo, Logo, Sitemap
-- \`layout/\` — page structure: Navbar, Footer, AuthLayout
+- \`layout/\` — page structure: Navbar, Footer, AuthLayout, PageHeader
 
 **Before creating a UI component, ALWAYS:**
 1. search \`src/lib/components/svforge/primitives/\`
@@ -152,13 +152,16 @@ keep it in its feature area (e.g. \`src/lib/features/...\` or the route folder).
 ## Composition grammar
 
 - The **shell owns navigation and global context**; page content states its purpose without unnecessarily repeating the shell title.
+- **Every page header uses \`layout/PageHeader.svelte\`** (\`title\`, optional \`description\`, \`actions\` snippet). It owns the heading typography, the description, the spacing and the responsive action row. Do not hand-roll a \`flex … justify-between\` header with an \`<h2>\` per route.
+- **Default-first styling**: a page-header action is a plain \`Button\` — the shared defaults (variant, color, size, typography) ARE the contract, for both the \`href\` and the \`onclick\` branch. Add a style prop (\`size\`, \`variant\`, \`color\`, a sizing \`class\`) only when the context genuinely differs (compact table row, dense toolbar, icon-only control) and be ready to justify it. An explicit \`size\` on an equivalent header action is the drift \`svforge check\` reports (\`pageHeaderActionSize\`).
 - A **section** groups related content. A Card is a functional unit, not a default wrapper: use it for a stat, focused form, or bounded detail. Keep lists and tables direct when that better serves scanning.
-- Let width follow the content: compact forms, readable prose, wide data views, and field workflows have different needs. No \`max-w-*\` value is a universal rule.
+- Let width follow the content: compact forms, readable prose, wide data views, and field workflows have different needs. Admin pages are full width by default — add a page-level \`max-w-*\` only for a deliberately constrained form or prose column, not to imitate a screenshot, and never narrow a data table.
 - Give an area **one dominant action**. Use secondary/tonal or outlined actions for supporting work; \`primary\`, \`secondary\`, \`surface\`, and semantic colors describe roles, not a mandatory brand.
-- On small screens preserve hierarchy, reading order, readable targets, and no overflow — do not preserve arbitrary desktop dimensions.
-- Do not add \`Page*\`/\`Section*\` components just to freeze dimensions; abstract only a genuinely repeated product convention.
+- **Decorative page-title icons are optional**, never a consistency requirement: do not add an icon to a title only because another page has one. Functional/navigation icons (sidebar item, toolbar control, status) are a separate concern and stay where they communicate behavior.
+- On small screens preserve hierarchy, reading order, readable targets, and no overflow — do not preserve arbitrary desktop dimensions. The page-header action row already wraps and stretches full width below \`sm\`.
+- Do not add \`Page*\`/\`Section*\` components just to freeze dimensions; \`PageHeader\` is the ONE canonical page convention — extend it through props instead of forking it per page.
 
-Use the existing screens as concrete references, not a gallery to copy: \`/demo-ui\` shows the available building blocks, \`/admin\` is a dashboard with one primary route action, \`/admin/users\` keeps a CRUD list/table direct, and \`/admin/settings\` uses focused form units.
+Use the existing screens as concrete references, not a gallery to copy: \`/demo-ui\` shows the available building blocks, \`/admin\` is a dashboard with one primary route action in a canonical \`PageHeader\`, \`/admin/users\` keeps a CRUD list/table direct behind the same header composition, and \`/admin/settings\` uses focused form units with its deliberate \`max-w-2xl\` column.
 
 ## Design-system contract (#240, #313)
 
@@ -309,7 +312,7 @@ const DASHBOARD = (pm: string) => `
 The admin screens are canonical examples agents should copy:
 
 - **\`/admin/users\`** — CRUD data table: the SvelteForge \`Table\` primitive (columns + \`children\` slot for avatar/badge/actions), search filter, create/edit/invite/status flows composed through the shared \`AppDialog\` shell with SvelteForge form primitives, \`Feedback\` for success/error, empty state. Never hand-roll a raw \`<table>\` (see catalogue \`avoid\`).
-- **\`/admin\`** — stats cards (\`Card variant="elevated"\`) + recent list with \`Badge\` status.
+- **\`/admin\`** — the canonical page header (\`layout/PageHeader.svelte\`) with ONE primary route action, stats cards (\`Card variant="elevated"\`) + recent list with \`Badge\` status. Equivalent header actions keep the shared Button defaults — never pin a \`size\` on one of them (\`svforge check\`: \`pageHeaderActionSize\`).
 - **\`/admin/settings\`** — form with client-side validation + \`Feedback\`.
 - **\`AdminLayout\`** — sidebar/mobile drawer with \`aria-expanded\`, \`aria-current\`, labelled navigation.
 - **All UI copy is i18n via Paraglide**: import \`* as m from '#lib/paraglide/messages.js'\` and call \`m.key()\` — never hard-code user-visible text. Keys live in EVERY catalog under \`messages/\` (keep parity across all locales configured in \`project.inlang/settings.json\`).
