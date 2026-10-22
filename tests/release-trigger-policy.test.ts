@@ -36,6 +36,15 @@ describe('explicit release authorization (#616)', () => {
 		}
 	});
 
+	it('uses the ordinary strict OSV audit without completed-release waivers', () => {
+		const quality = workflow.slice(workflow.indexOf('  quality:'), workflow.indexOf('  scaffolds:'));
+		expect(quality).toContain('run: bun run audit');
+		expect(quality).toContain('Check generated manifests freshness');
+		expect(quality).not.toContain('release-615-audit-waivers');
+		expect(quality).not.toContain('Apply scoped audit waivers');
+		expect(quality).not.toContain('cp "$RUNNER_TEMP/release-615-audit-baseline.json" docs/audit-baseline.json');
+	});
+
 	it('keeps manual canary publication separately confirmed', () => {
 		const canary = workflow.slice(workflow.indexOf('  canary:'));
 		expect(canary).toContain("github.event_name == 'workflow_dispatch'");

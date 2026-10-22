@@ -19,7 +19,12 @@ bash scripts/test-scaffold.sh base
 bash scripts/test-scaffold.sh dashboard
 ```
 
-Run `node scripts/check-generated.mjs` to verify committed generated artifacts. The CI workflow is the authoritative list of required checks.
+Run `node scripts/check-generated.mjs` on a clean working tree to verify committed generated artifacts. The CI workflow is the authoritative list of required checks.
+
+Use disposable scratch directories with an EXIT cleanup trap for manual tests and
+scaffold experiments. Do not leave temporary clones, logs or generated projects
+under `/tmp` after a run. Never delete another project's temporary files or
+active test directories when cleaning up.
 
 ## Contribution process
 
