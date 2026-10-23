@@ -6,6 +6,7 @@ import svforge from '../packages/svforge/templates/base/root/eslint-plugin-svfor
 import { baseFiles, baseRootFiles, dashboardFiles, dashboardRootFiles } from '../packages/svforge/src/templates';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
+import { seedOfficialFoundation } from './helpers/official-foundation';
 import svforgeAddon from '../packages/svforge/src/index';
 
 const eslint = new ESLint({
@@ -62,6 +63,7 @@ function scaffoldFiles(template: 'base' | 'dashboard'): Map<string, string> {
 		}
 	};
 	const api = sv as unknown as SvApi;
+	if (template === 'dashboard') seedOfficialFoundation(sv.files);
 	applyBaseMode(api, template === 'base' ? baseFiles : {}, baseRootFiles);
 	if (template === 'dashboard') applyDashboardMode(api, baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
 	return sv.files;

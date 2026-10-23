@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { patchHooksServer } from '../packages/svforge/src/modes/dashboard';
+import { OFFICIAL_FOUNDATION_FILES } from './helpers/official-foundation';
 
 const ROOT = process.cwd();
 const USERS_PAGE = join(
@@ -84,14 +86,15 @@ describe('auth hooks composition (#268 screenshots regression)', () => {
 		// undefined and every protected route redirected to /login. #280 keeps
 		// the session population inside the single composed handle, after the
 		// paraglide request rewrite and before svelteKitHandler resolution.
-		const hooks = readFileSync(join(ROOT, 'packages/svforge/templates/dashboard/src/hooks.server.ts'), 'utf-8');
-		expect(hooks).toMatch(/paraglideMiddleware\(event\.request, async \(\{ request, locale \}\) =>/);
-		expect(hooks).toMatch(/svelteKitHandler\(\{/);
-		expect(hooks).toMatch(/auth\.api\.getSession/);
-		expect(hooks).toMatch(/locals\.session/);
-		expect(hooks).toMatch(/locals\.user/);
-		expect(hooks).not.toMatch(/handle: Handle = handleParaglide/);
-		expect(hooks).not.toMatch(/handleParaglide/);
+		// #547: the official Better Auth add-on owns hooks.server.ts; SVForge
+		// composes Paraglide and its disabled-identity guard around it.
+		const hooks = patchHooksServer(OFFICIAL_FOUNDATION_FILES['src/hooks.server.ts']);
+		expect(hooks).toContain('paraglideMiddleware(event.request');
+		expect(hooks).toContain('svelteKitHandler({');
+		expect(hooks).toContain('auth.api.getSession');
+		expect(hooks).toContain('locals.session');
+		expect(hooks).toContain('locals.user');
+		expect(hooks).toContain('sequence(handleParaglide, handleBetterAuth, handleSvforgePolicy)');
 	});
 });
 

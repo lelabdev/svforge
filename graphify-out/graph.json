@@ -1818,7 +1818,7 @@
     },
     {
       "id": "packages_addon_kit_src_env",
-      "label": "addon-kit/src/env.ts",
+      "label": "env.ts",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/env.ts",
       "source_location": "L1",
@@ -7349,7 +7349,7 @@
       "label": "compatManifest",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L220",
+      "source_location": "L226",
       "_origin": "ast"
     },
     {
@@ -7357,7 +7357,7 @@
       "label": "MODULE_DIRS",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L249",
+      "source_location": "L255",
       "_origin": "ast"
     },
     {
@@ -7365,7 +7365,7 @@
       "label": "makeExtractionFixture()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L254",
+      "source_location": "L260",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7374,7 +7374,7 @@
       "label": "ExtractedRecipe",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L300",
+      "source_location": "L306",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -7384,7 +7384,7 @@
       "label": "extractModuleRecipe()",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L308",
+      "source_location": "L314",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7393,7 +7393,7 @@
       "label": "extractionFixture",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L349",
+      "source_location": "L355",
       "_origin": "ast"
     },
     {
@@ -7401,7 +7401,7 @@
       "label": "moduleRecipes",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L350",
+      "source_location": "L356",
       "_origin": "ast"
     },
     {
@@ -7409,7 +7409,7 @@
       "label": "changelogEntries",
       "file_type": "code",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L381",
+      "source_location": "L387",
       "_origin": "ast"
     },
     {
@@ -7977,7 +7977,7 @@
       "label": "runCreateCommand()",
       "file_type": "code",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L246",
+      "source_location": "L273",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9191,11 +9191,47 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_src_modes_dashboard_patchauthconfig",
+      "label": "patchAuthConfig()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L51",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_modes_dashboard_patchhooksserver",
+      "label": "patchHooksServer()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L81",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_modes_dashboard_patchenvconfig",
+      "label": "patchEnvConfig()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L118",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_modes_dashboard_patchdotenv",
+      "label": "patchDotEnv()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L133",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_src_modes_dashboard_applydashboardmode",
       "label": "applyDashboardMode()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L42",
+      "source_location": "L143",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9640,7 +9676,7 @@
       "label": "dashboardRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L112",
+      "source_location": "L107",
       "_origin": "ast"
     },
     {
@@ -9648,7 +9684,15 @@
       "label": "baseRootFiles",
       "file_type": "code",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L121",
+      "source_location": "L114",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_auth_guard",
+      "label": "./auth-guard",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/auth-guard",
+      "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
@@ -14387,7 +14431,7 @@
     },
     {
       "id": "packages_svforge_templates_base_src_hooks_server",
-      "label": "base/src/hooks.server.ts",
+      "label": "hooks.server.ts",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/src/hooks.server.ts",
       "source_location": "L1",
@@ -16353,14 +16397,6 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_dashboard_root_drizzle_config",
-      "label": "drizzle.config.ts",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/root/drizzle.config.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
       "id": "packages_svforge_templates_dashboard_root_scripts_create_admin",
       "label": "create-admin.ts",
       "file_type": "code",
@@ -16512,32 +16548,6 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_dashboard_src_app_d",
-      "label": "dashboard/src/app.d.ts",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/app.d.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_app_d_app",
-      "label": "App",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/app.d.ts",
-      "source_location": "L6",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_app_d_locals",
-      "label": "Locals",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/app.d.ts",
-      "source_location": "L7",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast"
-    },
-    {
       "id": "packages_svforge_templates_dashboard_src_e2e_auth_test",
       "label": "e2e/auth.test.ts",
       "file_type": "code",
@@ -16567,55 +16577,6 @@
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/e2e/users-dialog.test.ts",
       "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_env",
-      "label": "dashboard/src/env.ts",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/env.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_env_variables",
-      "label": "variables",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/env.ts",
-      "source_location": "L7",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_hooks_server_test",
-      "label": "hooks.server.test.ts",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.test.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_hooks_server_test_query",
-      "label": "query",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.test.ts",
-      "source_location": "L3",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_hooks_server",
-      "label": "dashboard/src/hooks.server.ts",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_hooks_server_handle",
-      "label": "handle()",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.ts",
-      "source_location": "L26",
-      "_callable": true,
       "_origin": "ast"
     },
     {
@@ -16847,27 +16808,60 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "label": "auth.schema.config.ts",
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_test",
+      "label": "auth-guard.test.ts",
       "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.test.ts",
       "source_location": "L1",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config_db",
-      "label": "{ db }",
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_test_query",
+      "label": "query",
       "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
-      "source_location": "L14",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.test.ts",
+      "source_location": "L3",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config_auth",
-      "label": "auth",
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_guard",
+      "label": "auth-guard.ts",
       "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
-      "source_location": "L19",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_handlesvforgepolicy",
+      "label": "handleSvforgePolicy()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.ts",
+      "source_location": "L15",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_policy",
+      "label": "auth-policy.ts",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_policy_signupmode",
+      "label": "signupMode",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
+      "source_location": "L32",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_policy_svforgeauthpolicy",
+      "label": "svforgeAuthPolicy",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
+      "source_location": "L40",
       "_origin": "ast"
     },
     {
@@ -16896,94 +16890,6 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_auth",
-      "label": "server/auth.ts",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_signupmode",
-      "label": "signupMode",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L26",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_auth_auth",
-      "label": "auth",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L28",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "label": "auth.schema.ts",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_user",
-      "label": "user",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L4",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_session",
-      "label": "session",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L25",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_account",
-      "label": "account",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L46",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_verification",
-      "label": "verification",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L72",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_userrelations",
-      "label": "userRelations",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L89",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_sessionrelations",
-      "label": "sessionRelations",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L94",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_accountrelations",
-      "label": "accountRelations",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L101",
-      "_origin": "ast"
-    },
-    {
       "id": "packages_svforge_templates_dashboard_src_lib_server_db_client",
       "label": "db/client.ts",
       "file_type": "code",
@@ -17008,38 +16914,6 @@
       "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/client.ts",
       "source_location": "L24",
       "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "label": "db/index.ts",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_index_database",
-      "label": "database",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L11",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_index_db",
-      "label": "db",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L12",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_src_lib_server_db_index_closedb",
-      "label": "closeDb",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -17491,6 +17365,14 @@
       "label": "$app/env/private",
       "file_type": "code",
       "source_file": "$app/env/private",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_lib_server_auth",
+      "label": "./auth",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth",
       "confidence": "EXTRACTED",
       "_origin": "ast"
     },
@@ -19781,62 +19663,19 @@
       "_origin": "ast"
     },
     {
-      "id": "scripts_better_auth_upgrade",
-      "label": "better-auth-upgrade.mjs",
+      "id": "scripts_better_auth_version",
+      "label": "better-auth-version.mjs",
       "file_type": "code",
-      "source_file": "scripts/better-auth-upgrade.mjs",
+      "source_file": "scripts/better-auth-version.mjs",
       "source_location": "L1",
       "_origin": "ast"
     },
     {
-      "id": "scripts_better_auth_upgrade_root",
-      "label": "ROOT",
+      "id": "scripts_better_auth_version_officialbetterauthrange",
+      "label": "officialBetterAuthRange()",
       "file_type": "code",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L18",
-      "_origin": "ast"
-    },
-    {
-      "id": "scripts_better_auth_upgrade_pin_files",
-      "label": "PIN_FILES",
-      "file_type": "code",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L21",
-      "_origin": "ast"
-    },
-    {
-      "id": "scripts_better_auth_upgrade_readpinnedversions",
-      "label": "readPinnedVersions()",
-      "file_type": "code",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L29",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "scripts_better_auth_upgrade_currentpin",
-      "label": "currentPin()",
-      "file_type": "code",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L45",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "scripts_better_auth_upgrade_bumprangeinsource",
-      "label": "bumpRangeInSource()",
-      "file_type": "code",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L61",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "scripts_better_auth_upgrade_applyupgrades",
-      "label": "applyUpgrades()",
-      "file_type": "code",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L96",
+      "source_file": "scripts/better-auth-version.mjs",
+      "source_location": "L20",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20348,7 +20187,7 @@
       "label": "normalizeDefaultLiteral()",
       "file_type": "code",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L222",
+      "source_location": "L227",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20357,7 +20196,7 @@
       "label": "parseDrizzleTables()",
       "file_type": "code",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L237",
+      "source_location": "L242",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20366,7 +20205,7 @@
       "label": "sameDefault()",
       "file_type": "code",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L279",
+      "source_location": "L284",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20375,7 +20214,7 @@
       "label": "compareSchemas()",
       "file_type": "code",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L298",
+      "source_location": "L303",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20384,7 +20223,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L387",
+      "source_location": "L392",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21760,7 +21599,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L800",
+      "source_location": "L807",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -22347,7 +22186,7 @@
       "label": "dashboardExample",
       "file_type": "code",
       "source_file": "tests/addon-env.test.ts",
-      "source_location": "L6",
+      "source_location": "L8",
       "_origin": "ast"
     },
     {
@@ -22355,7 +22194,7 @@
       "label": "emailExample",
       "file_type": "code",
       "source_file": "tests/addon-env.test.ts",
-      "source_location": "L10",
+      "source_location": "L9",
       "_origin": "ast"
     },
     {
@@ -22363,7 +22202,7 @@
       "label": "oauthExample",
       "file_type": "code",
       "source_file": "tests/addon-env.test.ts",
-      "source_location": "L13",
+      "source_location": "L12",
       "_origin": "ast"
     },
     {
@@ -22496,7 +22335,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
@@ -22504,7 +22343,7 @@
       "label": "USERS_PAGE",
       "file_type": "code",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L6",
+      "source_location": "L8",
       "_origin": "ast"
     },
     {
@@ -22512,7 +22351,7 @@
       "label": "USERS_SERVER",
       "file_type": "code",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L10",
+      "source_location": "L12",
       "_origin": "ast"
     },
     {
@@ -22520,7 +22359,7 @@
       "label": "LOGIN_SERVER",
       "file_type": "code",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L14",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
@@ -22528,7 +22367,7 @@
       "label": "SETTINGS_SERVER",
       "file_type": "code",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L15",
+      "source_location": "L17",
       "_origin": "ast"
     },
     {
@@ -22536,7 +22375,7 @@
       "label": "SETUP_SERVER",
       "file_type": "code",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L19",
+      "source_location": "L21",
       "_origin": "ast"
     },
     {
@@ -22544,7 +22383,7 @@
       "label": "LAYOUT",
       "file_type": "code",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L20",
+      "source_location": "L22",
       "_origin": "ast"
     },
     {
@@ -22560,7 +22399,7 @@
       "label": "FakeSv",
       "file_type": "code",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L157",
+      "source_location": "L159",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -22570,7 +22409,7 @@
       "label": "asSvApi()",
       "file_type": "code",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L186",
+      "source_location": "L189",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22791,7 +22630,7 @@
       "label": "COMMITTED_PATH",
       "file_type": "code",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L8",
+      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -22799,7 +22638,7 @@
       "label": "RuntimeField",
       "file_type": "code",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L10",
+      "source_location": "L15",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -22809,7 +22648,7 @@
       "label": "RuntimeModelTable",
       "file_type": "code",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L22",
+      "source_location": "L27",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -22819,7 +22658,7 @@
       "label": "schemaModule",
       "file_type": "code",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L23",
+      "source_location": "L28",
       "_origin": "ast"
     },
     {
@@ -22827,7 +22666,7 @@
       "label": "committedSource()",
       "file_type": "code",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L46",
+      "source_location": "L51",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22836,7 +22675,7 @@
       "label": "runtimeSchemaFixture()",
       "file_type": "code",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L54",
+      "source_location": "L59",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22845,7 +22684,7 @@
       "label": "ALLOW",
       "file_type": "code",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L130",
+      "source_location": "L135",
       "_origin": "ast"
     },
     {
@@ -22853,7 +22692,7 @@
       "label": "stubProject()",
       "file_type": "code",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L327",
+      "source_location": "L338",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22931,59 +22770,11 @@
       "_origin": "ast"
     },
     {
-      "id": "tests_better_auth_manual_upgrade_test",
-      "label": "better-auth-manual-upgrade.test.ts",
+      "id": "tests_better_auth_version_test",
+      "label": "better-auth-version.test.ts",
       "file_type": "code",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
+      "source_file": "tests/better-auth-version.test.ts",
       "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_better_auth_manual_upgrade_test_root",
-      "label": "ROOT",
-      "file_type": "code",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
-      "source_location": "L5",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_better_auth_manual_upgrade_test_workflows",
-      "label": "WORKFLOWS",
-      "file_type": "code",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
-      "source_location": "L6",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_better_auth_manual_upgrade_test_workflowfiles",
-      "label": "workflowFiles",
-      "file_type": "code",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
-      "source_location": "L8",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_better_auth_upgrade_test",
-      "label": "better-auth-upgrade.test.ts",
-      "file_type": "code",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_better_auth_upgrade_test_root",
-      "label": "ROOT",
-      "file_type": "code",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L6",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_better_auth_upgrade_test_dashboard_ts",
-      "label": "DASHBOARD_TS",
-      "file_type": "code",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L15",
       "_origin": "ast"
     },
     {
@@ -23170,7 +22961,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast"
     },
     {
@@ -23178,7 +22969,7 @@
       "label": "FakeSv",
       "file_type": "code",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L23",
+      "source_location": "L24",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -23188,7 +22979,7 @@
       "label": "asSvApi()",
       "file_type": "code",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L56",
+      "source_location": "L57",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23197,7 +22988,7 @@
       "label": "generatedCheckScript()",
       "file_type": "code",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L58",
+      "source_location": "L59",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23206,7 +22997,7 @@
       "label": "scaffoldDashboard()",
       "file_type": "code",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L73",
+      "source_location": "L74",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23723,7 +23514,7 @@
       "label": "FilesystemSv",
       "file_type": "code",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -23733,7 +23524,7 @@
       "label": "asSvApi()",
       "file_type": "code",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L39",
+      "source_location": "L40",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23742,7 +23533,7 @@
       "label": "compileComponent()",
       "file_type": "code",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L41",
+      "source_location": "L42",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23751,7 +23542,7 @@
       "label": "renderAdminDashboard()",
       "file_type": "code",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L45",
+      "source_location": "L46",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23768,7 +23559,7 @@
       "label": "FakeSv",
       "file_type": "code",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L7",
+      "source_location": "L16",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -23778,7 +23569,7 @@
       "label": "asSvApi()",
       "file_type": "code",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L36",
+      "source_location": "L50",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23787,7 +23578,7 @@
       "label": "baseFiles",
       "file_type": "code",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L38",
+      "source_location": "L52",
       "_origin": "ast"
     },
     {
@@ -23795,7 +23586,7 @@
       "label": "dashboardFiles",
       "file_type": "code",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L39",
+      "source_location": "L53",
       "_origin": "ast"
     },
     {
@@ -23803,7 +23594,7 @@
       "label": "rootFiles",
       "file_type": "code",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L45",
+      "source_location": "L61",
       "_origin": "ast"
     },
     {
@@ -24099,7 +23890,7 @@
       "label": "eslint",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L11",
+      "source_location": "L12",
       "_origin": "ast"
     },
     {
@@ -24107,7 +23898,7 @@
       "label": "FakeSv",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L47",
+      "source_location": "L48",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -24117,7 +23908,7 @@
       "label": "scaffoldFiles()",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L54",
+      "source_location": "L55",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24126,7 +23917,7 @@
       "label": "dependency()",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L110",
+      "source_location": "L112",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24135,7 +23926,7 @@
       "label": "devDependency()",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L111",
+      "source_location": "L113",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24144,7 +23935,7 @@
       "label": "file()",
       "file_type": "code",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L114",
+      "source_location": "L116",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24514,6 +24305,40 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_helpers_official_foundation",
+      "label": "official-foundation.ts",
+      "file_type": "code",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_helpers_official_foundation_official_foundation_files",
+      "label": "OFFICIAL_FOUNDATION_FILES",
+      "file_type": "code",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_helpers_official_foundation_seedofficialfoundation",
+      "label": "seedOfficialFoundation()",
+      "file_type": "code",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L124",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_helpers_official_foundation_seedofficialfoundationondisk",
+      "label": "seedOfficialFoundationOnDisk()",
+      "file_type": "code",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L129",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_helpers_skeleton_theme_validator",
       "label": "skeleton-theme-validator.ts",
       "file_type": "code",
@@ -24829,7 +24654,7 @@
       "label": "template",
       "file_type": "code",
       "source_file": "tests/local-bootstrap.test.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "_origin": "ast"
     },
     {
@@ -24837,7 +24662,7 @@
       "label": "directories",
       "file_type": "code",
       "source_file": "tests/local-bootstrap.test.ts",
-      "source_location": "L10",
+      "source_location": "L12",
       "_origin": "ast"
     },
     {
@@ -24845,7 +24670,7 @@
       "label": "project()",
       "file_type": "code",
       "source_file": "tests/local-bootstrap.test.ts",
-      "source_location": "L11",
+      "source_location": "L13",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24854,7 +24679,7 @@
       "label": "run()",
       "file_type": "code",
       "source_file": "tests/local-bootstrap.test.ts",
-      "source_location": "L28",
+      "source_location": "L30",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25407,7 +25232,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "tests/paraglide.test.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
@@ -25415,7 +25240,7 @@
       "label": "BASE_ROOT",
       "file_type": "code",
       "source_file": "tests/paraglide.test.ts",
-      "source_location": "L6",
+      "source_location": "L8",
       "_origin": "ast"
     },
     {
@@ -25952,7 +25777,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
@@ -25960,7 +25785,7 @@
       "label": "AUTH",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L8",
+      "source_location": "L10",
       "_origin": "ast"
     },
     {
@@ -25968,7 +25793,7 @@
       "label": "SIGNUP_MODE",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "_origin": "ast"
     },
     {
@@ -25976,7 +25801,7 @@
       "label": "FIRST_ADMIN",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L10",
+      "source_location": "L12",
       "_origin": "ast"
     },
     {
@@ -25984,7 +25809,7 @@
       "label": "ADMIN",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L11",
+      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -25992,15 +25817,7 @@
       "label": "ADMIN_USERS",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L12",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_signup_security_test_auth_schema",
-      "label": "AUTH_SCHEMA",
-      "file_type": "code",
-      "source_file": "tests/signup-security.test.ts",
-      "source_location": "L13",
+      "source_location": "L14",
       "_origin": "ast"
     },
     {
@@ -26008,7 +25825,7 @@
       "label": "CLIENT",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L14",
+      "source_location": "L15",
       "_origin": "ast"
     },
     {
@@ -26016,20 +25833,12 @@
       "label": "SETUP_SERVER",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L15",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
       "id": "tests_signup_security_test_create_admin",
       "label": "CREATE_ADMIN",
-      "file_type": "code",
-      "source_file": "tests/signup-security.test.ts",
-      "source_location": "L16",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_signup_security_test_env_example",
-      "label": "ENV_EXAMPLE",
       "file_type": "code",
       "source_file": "tests/signup-security.test.ts",
       "source_location": "L17",
@@ -27171,7 +26980,7 @@
       "label": "scaffoldDir()",
       "file_type": "code",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L312",
+      "source_location": "L313",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27180,7 +26989,7 @@
       "label": "readdirRecursive()",
       "file_type": "code",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L409",
+      "source_location": "L411",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27750,6 +27559,15 @@
       "label": "vitest.config.ts",
       "file_type": "code",
       "source_file": "vitest.config.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_547_official_auth_db_foundation",
+      "label": "547-official-auth-db-foundation.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/547-official-auth-db-foundation.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -29500,8 +29318,8 @@
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
-      "label": "Better Auth upgrade runbook",
+      "id": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
+      "label": "Better Auth ownership, upgrade and security runbook",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
@@ -29509,8 +29327,8 @@
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_ownership_and_upstream_sv_compatibility",
-      "label": "Ownership and upstream `sv` compatibility",
+      "id": "docs_better_auth_upgrades_ownership_contract",
+      "label": "Ownership contract",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
@@ -29518,21 +29336,48 @@
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_manual_upgrade_policy_and_validation",
-      "label": "Manual upgrade policy and validation",
+      "id": "docs_better_auth_upgrades_how_svforge_extends_the_official_output",
+      "label": "How SVForge extends the official output",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L19",
+      "source_location": "L14",
       "_origin": "ast"
     },
     {
-      "id": "docs_better_auth_upgrades_pin_and_schema_constraints",
-      "label": "Pin and schema constraints",
+      "id": "docs_better_auth_upgrades_security_behavior_must_stay_identical",
+      "label": "Security behavior (must stay identical)",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L27",
+      "source_location": "L25",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_better_auth_upgrades_historical_compatibility_record_why_the_migration_waited",
+      "label": "Historical compatibility record (why the migration waited)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L33",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_better_auth_upgrades_schema_generation",
+      "label": "Schema generation",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L44",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_better_auth_upgrades_upgrade_and_audit_policy",
+      "label": "Upgrade and audit policy",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L48",
       "_origin": "ast"
     },
     {
@@ -29541,7 +29386,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L40",
+      "source_location": "L66",
       "_origin": "ast"
     },
     {
@@ -34553,6 +34398,30 @@
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_547_phase_a_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_547_phase_a_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
+    },
+    {
+      "id": "ref_auth",
+      "label": "ref_auth",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
+    },
+    {
+      "id": "ref_auth_schema",
+      "label": "ref_auth_schema",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
     }
   ],
   "links": [
@@ -43233,7 +43102,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_547_phase_a_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -46461,7 +46330,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L220",
+      "source_location": "L226",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46471,7 +46340,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L249",
+      "source_location": "L255",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46481,7 +46350,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L254",
+      "source_location": "L260",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46491,7 +46360,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L300",
+      "source_location": "L306",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46501,7 +46370,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L308",
+      "source_location": "L314",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46511,7 +46380,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L349",
+      "source_location": "L355",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46521,7 +46390,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L350",
+      "source_location": "L356",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46531,7 +46400,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/scripts/prebuild.ts",
-      "source_location": "L381",
+      "source_location": "L387",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47795,7 +47664,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L246",
+      "source_location": "L273",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47806,7 +47675,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L266",
+      "source_location": "L293",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47817,7 +47686,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L268",
+      "source_location": "L295",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47828,7 +47697,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L297",
+      "source_location": "L324",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47839,7 +47708,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L304",
+      "source_location": "L331",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47850,7 +47719,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L308",
+      "source_location": "L335",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47861,7 +47730,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L327",
+      "source_location": "L354",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47872,7 +47741,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L347",
+      "source_location": "L374",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47883,7 +47752,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L433",
+      "source_location": "L460",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47895,7 +47764,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L605",
+      "source_location": "L636",
       "weight": 1,
       "_origin": "ast"
     },
@@ -47906,7 +47775,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L621",
+      "source_location": "L652",
       "weight": 1,
       "_origin": "ast"
     },
@@ -52143,11 +52012,51 @@
     },
     {
       "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_modes_dashboard_patchauthconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_modes_dashboard_patchhooksserver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_modes_dashboard_patchenvconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L118",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_modes_dashboard_patchdotenv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L133",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
       "target": "packages_svforge_src_modes_dashboard_applydashboardmode",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L42",
+      "source_location": "L143",
       "weight": 1,
       "_origin": "ast"
     },
@@ -52158,7 +52067,51 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L52",
+      "source_location": "L153",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "target": "packages_svforge_src_modes_dashboard_patchauthconfig",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L234",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "target": "packages_svforge_src_modes_dashboard_patchhooksserver",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L235",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "target": "packages_svforge_src_modes_dashboard_patchenvconfig",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L236",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "target": "packages_svforge_src_modes_dashboard_patchdotenv",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L238",
       "weight": 1,
       "_origin": "ast"
     },
@@ -53058,7 +53011,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L112",
+      "source_location": "L107",
       "weight": 1,
       "_origin": "ast"
     },
@@ -53068,8 +53021,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/templates.ts",
-      "source_location": "L121",
+      "source_location": "L114",
       "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_templates",
+      "target": "packages_svforge_src_auth_guard",
+      "relation": "dynamic_import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/templates.ts",
       "_origin": "ast"
     },
     {
@@ -63218,17 +63179,6 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_root_drizzle_config",
-      "target": "ref_drizzle_kit",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/root/drizzle.config.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "packages_svforge_templates_dashboard_root_scripts_create_admin",
       "target": "ref_node_util",
       "relation": "imports_from",
@@ -63578,38 +63528,6 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_app_d",
-      "target": "ref_better_auth",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/app.d.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "type_only": true,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_app_d",
-      "target": "packages_svforge_templates_dashboard_src_app_d_app",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/app.d.ts",
-      "source_location": "L6",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_app_d",
-      "target": "packages_svforge_templates_dashboard_src_app_d_locals",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/app.d.ts",
-      "source_location": "L7",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "packages_svforge_templates_dashboard_src_e2e_auth_test",
       "target": "ref_playwright_test",
       "relation": "imports_from",
@@ -63650,126 +63568,6 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/e2e/users-dialog.test.ts",
       "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_env",
-      "target": "ref_sveltejs_kit",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/env.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_env",
-      "target": "packages_svforge_templates_dashboard_src_env_variables",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/env.ts",
-      "source_location": "L7",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server_test",
-      "target": "ref_vitest",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.test.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server_test",
-      "target": "packages_svforge_templates_dashboard_src_hooks_server_test_query",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.test.ts",
-      "source_location": "L3",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server_test",
-      "target": "packages_svforge_templates_dashboard_src_hooks_server",
-      "relation": "imports_from",
-      "context": "import",
-      "deferred": true,
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.test.ts",
-      "source_location": "L36",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server",
-      "target": "ref_sveltejs_kit",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "type_only": true,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server",
-      "target": "ref_app",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.ts",
-      "source_location": "L3",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server",
-      "target": "ref_lib",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.ts",
-      "source_location": "L4",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server",
-      "target": "ref_drizzle_orm",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.ts",
-      "source_location": "L9",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server",
-      "target": "ref_better_auth",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.ts",
-      "source_location": "L10",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server",
-      "target": "packages_svforge_templates_dashboard_src_hooks_server_handle",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.ts",
-      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64145,19 +63943,8 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_server_admin_users_test",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth",
+      "target": "ref_auth",
       "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/admin-users.test.ts",
-      "source_location": "L24",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_admin_users_test",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_auth",
-      "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/server/admin-users.test.ts",
@@ -64450,110 +64237,144 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "ref_better_auth",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_test",
+      "target": "ref_vitest",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.test.ts",
       "source_location": "L1",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client",
-      "relation": "imports_from",
-      "context": "import",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_test",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_test_query",
+      "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.test.ts",
       "source_location": "L3",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
-      "relation": "imports",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_test",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_guard",
+      "relation": "imports_from",
+      "context": "import",
+      "deferred": true,
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.test.ts",
+      "source_location": "L22",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_guard",
+      "target": "ref_sveltejs_kit",
+      "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "type_only": true,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_guard",
+      "target": "ref_drizzle_orm",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_guard",
+      "target": "ref_lib",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.ts",
       "source_location": "L3",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_guard",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_handlesvforgepolicy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.ts",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_policy",
+      "target": "ref_better_auth",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
-      "source_location": "L4",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
+      "source_location": "L1",
       "weight": 1,
+      "type_only": true,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_user",
-      "relation": "imports",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_policy",
+      "target": "ref_drizzle_orm",
+      "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
-      "source_location": "L4",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
+      "source_location": "L3",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_session",
-      "relation": "imports",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_policy",
+      "target": "ref_app",
+      "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
       "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_account",
-      "relation": "imports",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_policy",
+      "target": "ref_lib",
+      "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
-      "source_location": "L4",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_verification",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
-      "source_location": "L4",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config_db",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_policy",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_policy_signupmode",
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
-      "source_location": "L14",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_schema_config_auth",
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_policy",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_policy_svforgeauthpolicy",
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.schema.config.ts",
-      "source_location": "L19",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-policy.ts",
+      "source_location": "L40",
       "weight": 1,
       "_origin": "ast"
     },
@@ -64570,19 +64391,8 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_server_auth_test",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth",
+      "target": "ref_auth",
       "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.test.ts",
-      "source_location": "L18",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_test",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_auth",
-      "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.test.ts",
@@ -64689,151 +64499,6 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth",
-      "target": "ref_better_auth",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth",
-      "target": "ref_app",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L5",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth",
-      "target": "ref_drizzle_orm",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L7",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth",
-      "target": "ref_lib",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L8",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_signupmode",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L26",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_auth",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_auth",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth.ts",
-      "source_location": "L28",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "target": "ref_drizzle_orm",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_user",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L4",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_session",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L25",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_account",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L46",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_verification",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L72",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_userrelations",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L89",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_sessionrelations",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L94",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema_accountrelations",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/auth.schema.ts",
-      "source_location": "L101",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "packages_svforge_templates_dashboard_src_lib_server_db_client",
       "target": "ref_drizzle_orm",
       "relation": "imports_from",
@@ -64887,92 +64552,6 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "target": "ref_app",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L2",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
-      "relation": "re_exports",
-      "context": "re-export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L4",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "type_only": true,
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_databaseoptions",
-      "relation": "re_exports",
-      "context": "re-export",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L5",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_index_database",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L11",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_index_db",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L12",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_db_index",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_index_closedb",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/db/index.ts",
-      "source_location": "L13",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "packages_svforge_templates_dashboard_src_lib_server_db_schema",
       "target": "ref_drizzle_orm",
       "relation": "imports_from",
@@ -65005,7 +64584,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_server_db_schema",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_auth_schema",
+      "target": "ref_auth_schema",
       "relation": "imports_from",
       "context": "re-export",
       "confidence": "EXTRACTED",
@@ -65027,19 +64606,8 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_src_lib_server_first_admin_test",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth",
+      "target": "ref_auth",
       "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/src/lib/server/first-admin.test.ts",
-      "source_location": "L19",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_src_lib_server_first_admin_test",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_auth",
-      "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/server/first-admin.test.ts",
@@ -70391,117 +69959,45 @@
       "_origin": "ast"
     },
     {
-      "source": "scripts_better_auth_upgrade",
+      "source": "scripts_better_auth_version",
       "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
+      "source_file": "scripts/better-auth-version.mjs",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_better_auth_version",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/better-auth-version.mjs",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_better_auth_version",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/better-auth-version.mjs",
       "source_location": "L14",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "scripts_better_auth_upgrade",
-      "target": "ref_node_path",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L15",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade",
-      "target": "ref_node_url",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L16",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade",
-      "target": "scripts_better_auth_upgrade_root",
+      "source": "scripts_better_auth_version",
+      "target": "scripts_better_auth_version_officialbetterauthrange",
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L18",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade",
-      "target": "scripts_better_auth_upgrade_pin_files",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L21",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade",
-      "target": "scripts_better_auth_upgrade_readpinnedversions",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L29",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade",
-      "target": "scripts_better_auth_upgrade_currentpin",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L45",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade",
-      "target": "scripts_better_auth_upgrade_bumprangeinsource",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L61",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade",
-      "target": "scripts_better_auth_upgrade_applyupgrades",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L96",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade_currentpin",
-      "target": "scripts_better_auth_upgrade_readpinnedversions",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L47",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_better_auth_upgrade_applyupgrades",
-      "target": "scripts_better_auth_upgrade_bumprangeinsource",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/better-auth-upgrade.mjs",
-      "source_location": "L106",
+      "source_file": "scripts/better-auth-version.mjs",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71517,7 +71013,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L222",
+      "source_location": "L227",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71527,7 +71023,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L237",
+      "source_location": "L242",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71537,7 +71033,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L279",
+      "source_location": "L284",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71547,7 +71043,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L298",
+      "source_location": "L303",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71557,7 +71053,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L387",
+      "source_location": "L392",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71601,7 +71097,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L213",
+      "source_location": "L218",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71612,7 +71108,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L243",
+      "source_location": "L248",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71623,7 +71119,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L245",
+      "source_location": "L250",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71634,7 +71130,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L246",
+      "source_location": "L251",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71645,7 +71141,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L254",
+      "source_location": "L259",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71656,7 +71152,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L299",
+      "source_location": "L304",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71667,7 +71163,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L336",
+      "source_location": "L341",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71678,7 +71174,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L409",
+      "source_location": "L414",
       "weight": 1,
       "_origin": "ast"
     },
@@ -71689,7 +71185,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L417",
+      "source_location": "L422",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74860,7 +74356,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L800",
+      "source_location": "L807",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74870,7 +74366,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L808",
+      "source_location": "L815",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -76222,7 +75718,7 @@
     },
     {
       "source": "tests_addon_env_test",
-      "target": "ref_node_fs",
+      "target": "ref_vitest",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -76233,7 +75729,7 @@
     },
     {
       "source": "tests_addon_env_test",
-      "target": "ref_node_path",
+      "target": "packages_addon_kit_src_env",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -76244,7 +75740,29 @@
     },
     {
       "source": "tests_addon_env_test",
-      "target": "ref_vitest",
+      "target": "packages_addon_kit_src_env_mergeenvexample",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
+      "target": "packages_addon_kit_src_env_mergesveltekitenvvars",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
+      "target": "packages_svforge_src_modes_dashboard",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -76255,7 +75773,18 @@
     },
     {
       "source": "tests_addon_env_test",
-      "target": "packages_addon_kit_src_env",
+      "target": "packages_svforge_src_modes_dashboard_patchdotenv",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/addon-env.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_addon_env_test",
+      "target": "tests_helpers_official_foundation",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -76266,18 +75795,7 @@
     },
     {
       "source": "tests_addon_env_test",
-      "target": "packages_addon_kit_src_env_mergeenvexample",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/addon-env.test.ts",
-      "source_location": "L4",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_addon_env_test",
-      "target": "packages_addon_kit_src_env_mergesveltekitenvvars",
+      "target": "tests_helpers_official_foundation_official_foundation_files",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -76292,7 +75810,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/addon-env.test.ts",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76302,7 +75820,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/addon-env.test.ts",
-      "source_location": "L10",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76312,7 +75830,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/addon-env.test.ts",
-      "source_location": "L13",
+      "source_location": "L12",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76805,11 +76323,55 @@
     },
     {
       "source": "tests_admin_feedback_test",
+      "target": "packages_svforge_src_modes_dashboard",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/admin-feedback.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_admin_feedback_test",
+      "target": "packages_svforge_src_modes_dashboard_patchhooksserver",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/admin-feedback.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_admin_feedback_test",
+      "target": "tests_helpers_official_foundation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/admin-feedback.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_admin_feedback_test",
+      "target": "tests_helpers_official_foundation_official_foundation_files",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/admin-feedback.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_admin_feedback_test",
       "target": "tests_admin_feedback_test_root",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76819,7 +76381,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76829,7 +76391,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L10",
+      "source_location": "L12",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76839,7 +76401,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L14",
+      "source_location": "L16",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76849,7 +76411,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L15",
+      "source_location": "L17",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76859,7 +76421,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -76869,7 +76431,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/admin-feedback.test.ts",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77052,11 +76614,33 @@
     },
     {
       "source": "tests_agents_md_test",
+      "target": "tests_helpers_official_foundation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/agents-md.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_agents_md_test",
+      "target": "tests_helpers_official_foundation_seedofficialfoundation",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/agents-md.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_agents_md_test",
       "target": "tests_agents_md_test_fakesv",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L157",
+      "source_location": "L159",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77066,7 +76650,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L186",
+      "source_location": "L189",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77077,7 +76661,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L141",
+      "source_location": "L142",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77905,7 +77489,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L8",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77915,7 +77499,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L10",
+      "source_location": "L15",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77925,7 +77509,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L22",
+      "source_location": "L27",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77935,7 +77519,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L23",
+      "source_location": "L28",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77945,7 +77529,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L46",
+      "source_location": "L51",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77955,7 +77539,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L54",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77965,7 +77549,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L130",
+      "source_location": "L135",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77975,7 +77559,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L327",
+      "source_location": "L338",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77986,7 +77570,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L135",
+      "source_location": "L140",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77997,7 +77581,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L164",
+      "source_location": "L169",
       "weight": 1,
       "_origin": "ast"
     },
@@ -78008,7 +77592,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/auth-schema-check.test.ts",
-      "source_location": "L345",
+      "source_location": "L356",
       "weight": 1,
       "_origin": "ast"
     },
@@ -78473,150 +78057,69 @@
       "_origin": "ast"
     },
     {
-      "source": "tests_better_auth_manual_upgrade_test",
+      "source": "tests_better_auth_version_test",
       "target": "ref_vitest",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
+      "source_file": "tests/better-auth-version.test.ts",
       "source_location": "L1",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "tests_better_auth_manual_upgrade_test",
+      "source": "tests_better_auth_version_test",
       "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
+      "source_file": "tests/better-auth-version.test.ts",
       "source_location": "L2",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "tests_better_auth_manual_upgrade_test",
+      "source": "tests_better_auth_version_test",
       "target": "ref_node_path",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
+      "source_file": "tests/better-auth-version.test.ts",
       "source_location": "L3",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "tests_better_auth_manual_upgrade_test",
-      "target": "tests_better_auth_manual_upgrade_test_root",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
-      "source_location": "L5",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_better_auth_manual_upgrade_test",
-      "target": "tests_better_auth_manual_upgrade_test_workflows",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
-      "source_location": "L6",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_better_auth_manual_upgrade_test",
-      "target": "tests_better_auth_manual_upgrade_test_workflowfiles",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-manual-upgrade.test.ts",
-      "source_location": "L8",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_better_auth_upgrade_test",
-      "target": "ref_vitest",
+      "source": "tests_better_auth_version_test",
+      "target": "ref_node_os",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_better_auth_upgrade_test",
-      "target": "ref_node_fs",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L2",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_better_auth_upgrade_test",
-      "target": "ref_node_path",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L3",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_better_auth_upgrade_test",
-      "target": "ref_node_child_process",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-upgrade.test.ts",
+      "source_file": "tests/better-auth-version.test.ts",
       "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "tests_better_auth_upgrade_test",
-      "target": "tests_better_auth_upgrade_test_root",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L6",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_better_auth_upgrade_test",
-      "target": "tests_better_auth_upgrade_test_dashboard_ts",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L15",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_better_auth_upgrade_test",
-      "target": "ref_node_os",
+      "source": "tests_better_auth_version_test",
+      "target": "scripts_better_auth_version",
       "relation": "imports_from",
       "context": "import",
-      "deferred": true,
       "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-upgrade.test.ts",
-      "source_location": "L106",
+      "source_file": "tests/better-auth-version.test.ts",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "tests_better_auth_upgrade_test",
-      "target": "scripts_better_auth_upgrade",
-      "relation": "dynamic_import",
+      "source": "tests_better_auth_version_test",
+      "target": "scripts_better_auth_version_officialbetterauthrange",
+      "relation": "imports",
+      "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "tests/better-auth-upgrade.test.ts",
+      "source_file": "tests/better-auth-version.test.ts",
+      "source_location": "L5",
+      "weight": 1,
       "_origin": "ast"
     },
     {
@@ -79223,7 +78726,7 @@
     },
     {
       "source": "tests_bun_run_check_test",
-      "target": "ref_node_fs",
+      "target": "tests_helpers_official_foundation",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -79234,7 +78737,18 @@
     },
     {
       "source": "tests_bun_run_check_test",
-      "target": "ref_node_path",
+      "target": "tests_helpers_official_foundation_seedofficialfoundation",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/bun-run-check.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_bun_run_check_test",
+      "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -79245,11 +78759,22 @@
     },
     {
       "source": "tests_bun_run_check_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/bun-run-check.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_bun_run_check_test",
       "target": "tests_bun_run_check_test_root",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79259,7 +78784,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79269,7 +78794,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L56",
+      "source_location": "L57",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79279,7 +78804,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L58",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79289,7 +78814,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L73",
+      "source_location": "L74",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79300,7 +78825,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L66",
+      "source_location": "L67",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79311,7 +78836,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L67",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79322,7 +78847,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L75",
+      "source_location": "L77",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79333,7 +78858,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L81",
+      "source_location": "L83",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81031,7 +80556,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L161",
+      "source_location": "L163",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81042,7 +80567,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L333",
+      "source_location": "L335",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81054,7 +80579,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L687",
+      "source_location": "L705",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81066,7 +80591,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L689",
+      "source_location": "L707",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81643,7 +81168,7 @@
     },
     {
       "source": "tests_dashboard_composition_test",
-      "target": "packages_svforge_src_templates",
+      "target": "tests_helpers_official_foundation",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -81654,12 +81179,34 @@
     },
     {
       "source": "tests_dashboard_composition_test",
-      "target": "packages_svforge_src_templates_basefiles",
+      "target": "tests_helpers_official_foundation_seedofficialfoundationondisk",
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
       "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_composition_test",
+      "target": "packages_svforge_src_templates",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-composition.test.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_composition_test",
+      "target": "packages_svforge_src_templates_basefiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-composition.test.ts",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81670,7 +81217,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81681,7 +81228,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81692,7 +81239,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81702,7 +81249,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81712,7 +81259,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81722,7 +81269,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81732,7 +81279,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81743,7 +81290,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L69",
+      "source_location": "L70",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81754,7 +81301,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L130",
+      "source_location": "L132",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81765,7 +81312,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L151",
+      "source_location": "L154",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81838,6 +81385,50 @@
     },
     {
       "source": "tests_dashboard_mode_test",
+      "target": "packages_svforge_src_modes_dashboard_patchauthconfig",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_mode_test",
+      "target": "packages_svforge_src_modes_dashboard_patchdotenv",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_mode_test",
+      "target": "packages_svforge_src_modes_dashboard_patchenvconfig",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_mode_test",
+      "target": "packages_svforge_src_modes_dashboard_patchhooksserver",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_mode_test",
       "target": "packages_svforge_src_modes_dashboard_resolvedlxrunner",
       "relation": "imports",
       "context": "import",
@@ -81854,7 +81445,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L5",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81865,7 +81456,40 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L5",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_mode_test",
+      "target": "tests_helpers_official_foundation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_mode_test",
+      "target": "tests_helpers_official_foundation_official_foundation_files",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_mode_test",
+      "target": "tests_helpers_official_foundation_seedofficialfoundation",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L14",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81875,7 +81499,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L7",
+      "source_location": "L16",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81885,7 +81509,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L36",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81895,7 +81519,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L38",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81905,7 +81529,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L39",
+      "source_location": "L53",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81915,7 +81539,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L45",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81926,7 +81550,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-mode.test.ts",
-      "source_location": "L55",
+      "source_location": "L69",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83011,7 +82635,7 @@
     },
     {
       "source": "tests_eslint_design_system_test",
-      "target": "packages_svforge_src_index",
+      "target": "tests_helpers_official_foundation",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -83022,11 +82646,33 @@
     },
     {
       "source": "tests_eslint_design_system_test",
+      "target": "tests_helpers_official_foundation_seedofficialfoundation",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/eslint-design-system.test.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_eslint_design_system_test",
+      "target": "packages_svforge_src_index",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/eslint-design-system.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_eslint_design_system_test",
       "target": "tests_eslint_design_system_test_eslint",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83036,7 +82682,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L47",
+      "source_location": "L48",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83046,7 +82692,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L54",
+      "source_location": "L55",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83056,7 +82702,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L110",
+      "source_location": "L112",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83066,7 +82712,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L111",
+      "source_location": "L113",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83076,7 +82722,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L114",
+      "source_location": "L116",
       "weight": 1,
       "_origin": "ast"
     },
@@ -83087,7 +82733,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L72",
+      "source_location": "L74",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84000,6 +83646,58 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_helpers_official_foundation",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_official_foundation",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_official_foundation",
+      "target": "tests_helpers_official_foundation_official_foundation_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_official_foundation",
+      "target": "tests_helpers_official_foundation_seedofficialfoundation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L124",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_official_foundation",
+      "target": "tests_helpers_official_foundation_seedofficialfoundationondisk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/official-foundation.ts",
+      "source_location": "L129",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_helpers_skeleton_theme_validator",
       "target": "tests_helpers_skeleton_theme_validator_themeviolation",
       "relation": "contains",
@@ -84894,8 +84592,31 @@
     },
     {
       "source": "tests_local_bootstrap_test",
-      "target": "tests_local_bootstrap_test_template",
-      "relation": "contains",
+      "target": "tests_helpers_official_foundation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "tests_helpers_official_foundation_official_foundation_files",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "packages_svforge_src_modes_dashboard",
+      "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/local-bootstrap.test.ts",
       "source_location": "L9",
@@ -84904,17 +84625,18 @@
     },
     {
       "source": "tests_local_bootstrap_test",
-      "target": "tests_local_bootstrap_test_directories",
-      "relation": "contains",
+      "target": "packages_svforge_src_modes_dashboard_patchdotenv",
+      "relation": "imports",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/local-bootstrap.test.ts",
-      "source_location": "L10",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "tests_local_bootstrap_test",
-      "target": "tests_local_bootstrap_test_project",
+      "target": "tests_local_bootstrap_test_template",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/local-bootstrap.test.ts",
@@ -84924,11 +84646,31 @@
     },
     {
       "source": "tests_local_bootstrap_test",
+      "target": "tests_local_bootstrap_test_directories",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
+      "target": "tests_local_bootstrap_test_project",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/local-bootstrap.test.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_local_bootstrap_test",
       "target": "tests_local_bootstrap_test_run",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/local-bootstrap.test.ts",
-      "source_location": "L28",
+      "source_location": "L30",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84939,7 +84681,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/local-bootstrap.test.ts",
-      "source_location": "L38",
+      "source_location": "L40",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84950,7 +84692,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/local-bootstrap.test.ts",
-      "source_location": "L39",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87037,11 +86779,55 @@
     },
     {
       "source": "tests_paraglide_test",
+      "target": "tests_helpers_official_foundation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/paraglide.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_paraglide_test",
+      "target": "tests_helpers_official_foundation_official_foundation_files",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/paraglide.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_paraglide_test",
+      "target": "packages_svforge_src_modes_dashboard",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/paraglide.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_paraglide_test",
+      "target": "packages_svforge_src_modes_dashboard_patchhooksserver",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/paraglide.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_paraglide_test",
       "target": "tests_paraglide_test_root",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/paraglide.test.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87051,7 +86837,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/paraglide.test.ts",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87063,7 +86849,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/paraglide.test.ts",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88916,11 +88702,66 @@
     },
     {
       "source": "tests_signup_security_test",
+      "target": "packages_svforge_src_modes_dashboard",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/signup-security.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_signup_security_test",
+      "target": "packages_svforge_src_modes_dashboard_patchauthconfig",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/signup-security.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_signup_security_test",
+      "target": "packages_svforge_src_modes_dashboard_patchdotenv",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/signup-security.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_signup_security_test",
+      "target": "tests_helpers_official_foundation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/signup-security.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_signup_security_test",
+      "target": "tests_helpers_official_foundation_official_foundation_files",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/signup-security.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_signup_security_test",
       "target": "tests_signup_security_test_root",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88930,7 +88771,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L8",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88940,7 +88781,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L9",
+      "source_location": "L11",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88950,7 +88791,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L10",
+      "source_location": "L12",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88960,7 +88801,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88970,17 +88811,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L12",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_signup_security_test",
-      "target": "tests_signup_security_test_auth_schema",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/signup-security.test.ts",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1,
       "_origin": "ast"
     },
@@ -88990,7 +88821,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1,
       "_origin": "ast"
     },
@@ -89000,23 +88831,13 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L15",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_signup_security_test",
-      "target": "tests_signup_security_test_create_admin",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/signup-security.test.ts",
       "source_location": "L16",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "tests_signup_security_test",
-      "target": "tests_signup_security_test_env_example",
+      "target": "tests_signup_security_test_create_admin",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
@@ -89073,7 +88894,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L44",
+      "source_location": "L47",
       "weight": 1,
       "_origin": "ast"
     },
@@ -91156,12 +90977,56 @@
     },
     {
       "source": "tests_test_db_isolation_test",
+      "target": "packages_svforge_src_modes_dashboard",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test-db-isolation.test.ts",
+      "source_location": "L26",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_db_isolation_test",
+      "target": "packages_svforge_src_modes_dashboard_patchdotenv",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test-db-isolation.test.ts",
+      "source_location": "L26",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_db_isolation_test",
+      "target": "tests_helpers_official_foundation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test-db-isolation.test.ts",
+      "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_db_isolation_test",
+      "target": "tests_helpers_official_foundation_official_foundation_files",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/test-db-isolation.test.ts",
+      "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_test_db_isolation_test",
       "target": "tests_test_db_isolation_test_read",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/test-db-isolation.test.ts",
-      "source_location": "L69",
+      "source_location": "L71",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92260,12 +92125,34 @@
     },
     {
       "source": "tests_upgrade_behavioral_test",
-      "target": "packages_svforge_src_templates",
+      "target": "tests_helpers_official_foundation",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
       "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_upgrade_behavioral_test",
+      "target": "tests_helpers_official_foundation_seedofficialfoundationondisk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/upgrade-behavioral.test.ts",
+      "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_upgrade_behavioral_test",
+      "target": "packages_svforge_src_templates",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/upgrade-behavioral.test.ts",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92276,7 +92163,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92287,7 +92174,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92298,7 +92185,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92309,7 +92196,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92320,7 +92207,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92331,7 +92218,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92342,7 +92229,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92353,7 +92240,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92363,7 +92250,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L312",
+      "source_location": "L313",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92373,7 +92260,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L409",
+      "source_location": "L411",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92384,7 +92271,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L320",
+      "source_location": "L321",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92395,7 +92282,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L400",
+      "source_location": "L402",
       "weight": 1,
       "_origin": "ast"
     },
@@ -92406,7 +92293,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L413",
+      "source_location": "L415",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95955,7 +95842,7 @@
     },
     {
       "source": "docs_better_auth_upgrades",
-      "target": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
+      "target": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
@@ -95964,12 +95851,42 @@
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
-      "target": "docs_better_auth_upgrades_ownership_and_upstream_sv_compatibility",
+      "source": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
+      "target": "docs_better_auth_upgrades_ownership_contract",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
       "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
+      "target": "docs_better_auth_upgrades_how_svforge_extends_the_official_output",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
+      "target": "docs_better_auth_upgrades_security_behavior_must_stay_identical",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L25",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
+      "target": "docs_better_auth_upgrades_historical_compatibility_record_why_the_migration_waited",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L33",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95979,37 +95896,47 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L13",
+      "source_location": "L35",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
-      "target": "docs_better_auth_upgrades_manual_upgrade_policy_and_validation",
+      "source": "docs_better_auth_upgrades",
+      "target": "docs_spikes_547_official_integrations_poc",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
+      "target": "docs_better_auth_upgrades_schema_generation",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L19",
+      "source_location": "L44",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
-      "target": "docs_better_auth_upgrades_pin_and_schema_constraints",
+      "source": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
+      "target": "docs_better_auth_upgrades_upgrade_and_audit_policy",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L27",
+      "source_location": "L48",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_better_auth_upgrade_runbook",
+      "source": "docs_better_auth_upgrades_better_auth_ownership_upgrade_and_security_runbook",
       "target": "docs_better_auth_upgrades_local_validation",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L40",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96019,7 +95946,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L66",
+      "source_location": "L82",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100338,7 +100265,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L400",
+      "source_location": "L427",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100350,7 +100277,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L402",
+      "source_location": "L429",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100362,7 +100289,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/cli/create.ts",
-      "source_location": "L585",
+      "source_location": "L616",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100470,7 +100397,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L136",
+      "source_location": "L223",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100482,7 +100409,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L160",
+      "source_location": "L256",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100494,7 +100421,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L163",
+      "source_location": "L259",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100506,7 +100433,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L165",
+      "source_location": "L261",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100595,18 +100522,6 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_dashboard_src_hooks_server_test",
-      "target": "packages_svforge_templates_dashboard_src_hooks_server_handle",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "packages/svforge/templates/dashboard/src/hooks.server.test.ts",
-      "source_location": "L43",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "packages_svforge_templates_dashboard_src_lib_server_admin_users_test",
       "target": "packages_svforge_templates_dashboard_src_lib_server_test_db_resolvetestdburl",
       "relation": "calls",
@@ -100615,6 +100530,18 @@
       "confidence_score": 1,
       "source_file": "packages/svforge/templates/dashboard/src/lib/server/admin-users.test.ts",
       "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_test",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_handlesvforgepolicy",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/templates/dashboard/src/lib/server/auth-guard.test.ts",
+      "source_location": "L28",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100710,7 +100637,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.85,
       "source_file": "scripts/check-auth-schema.mjs",
-      "source_location": "L409",
+      "source_location": "L414",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100812,13 +100739,25 @@
     },
     {
       "source": "tests_bun_run_check_test_scaffolddashboard",
+      "target": "tests_helpers_official_foundation_seedofficialfoundation",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/bun-run-check.test.ts",
+      "source_location": "L76",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_bun_run_check_test_scaffolddashboard",
       "target": "packages_svforge_src_modes_base_applybasemode",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L75",
+      "source_location": "L77",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100830,7 +100769,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/bun-run-check.test.ts",
-      "source_location": "L76",
+      "source_location": "L78",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100883,6 +100822,18 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_dashboard_mode_test_fakesv",
+      "target": "tests_helpers_official_foundation_seedofficialfoundation",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-mode.test.ts",
+      "source_location": "L44",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_docker_builder_changed_test",
       "target": "tests_eslint_design_system_test_file",
       "relation": "indirect_call",
@@ -100896,13 +100847,25 @@
     },
     {
       "source": "tests_eslint_design_system_test_scaffoldfiles",
+      "target": "tests_helpers_official_foundation_seedofficialfoundation",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/eslint-design-system.test.ts",
+      "source_location": "L66",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_eslint_design_system_test_scaffoldfiles",
       "target": "packages_svforge_src_modes_base_applybasemode",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L65",
+      "source_location": "L67",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100914,7 +100877,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/eslint-design-system.test.ts",
-      "source_location": "L66",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -101046,7 +101009,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/signup-security.test.ts",
-      "source_location": "L45",
+      "source_location": "L48",
       "weight": 1,
       "_origin": "ast"
     },
@@ -101123,6 +101086,18 @@
       "_origin": "ast"
     },
     {
+      "source": "changeset_547_official_auth_db_foundation",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
+      "relation": "references",
+      "context": "DATABASE_URL",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": ".changeset/547-official-auth-db-foundation.md",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "agents_workflow",
       "target": "scripts_spike_547_patch",
       "relation": "references",
@@ -101195,14 +101170,50 @@
       "_origin": "ast"
     },
     {
-      "source": "docs_better_auth_upgrades_ownership_and_upstream_sv_compatibility",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
+      "source": "docs_better_auth_upgrades_how_svforge_extends_the_official_output",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
       "relation": "references",
-      "context": "createDb()",
+      "context": "SIGNUP_MODE",
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/better-auth-upgrades.md",
-      "source_location": "L9",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_better_auth_upgrades_security_behavior_must_stay_identical",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
+      "relation": "references",
+      "context": "SIGNUP_MODE",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_better_auth_upgrades_schema_generation",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
+      "relation": "references",
+      "context": "DATABASE_URL",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/better-auth-upgrades.md",
+      "source_location": "L46",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_1_question_answered",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_auth_guard_handlesvforgepolicy",
+      "relation": "references",
+      "context": "handleSvforgePolicy",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L16",
       "weight": 1,
       "_origin": "ast"
     },

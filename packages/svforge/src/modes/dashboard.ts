@@ -39,6 +39,107 @@ export function resolveDlxRunner(packageManager: string): string {
 	return DLX_RUNNERS[agent] ?? DLX_RUNNERS.npm;
 }
 
+/**
+ * #547 — SVForge extends the official foundation instead of shipping its own.
+ *
+ * Each transform is anchored, idempotent and fails loudly when the upstream
+ * output changed: a silent no-op would ship a dashboard without the security
+ * policy. They are exported for behavioural tests.
+ */
+
+/** Spread SVForge's auth policy into the official Better Auth configuration. */
+export function patchAuthConfig(content: string): string {
+	if (content.includes('svforgeAuthPolicy')) return content;
+	const importAnchor = "import { betterAuth } from 'better-auth/minimal';";
+	if (!content.includes(importAnchor)) {
+		throw new Error('auth.ts no longer imports betterAuth from better-auth/minimal; review the official integration output before scaffolding.');
+	}
+	const withImport = content.replace(
+		importAnchor,
+		`${importAnchor}\nimport { signupMode, svforgeAuthPolicy } from '#lib/server/auth-policy.js';`
+	);
+	// Signup modes belong on the official emailAndPassword entry (rewriting it
+	// in place avoids a duplicate key, which TypeScript rejects on a spread).
+	const passwordAnchor = '\temailAndPassword: { enabled: true },';
+	if (!withImport.includes(passwordAnchor)) {
+		throw new Error('auth.ts no longer declares `emailAndPassword: { enabled: true }`; review the official integration output before scaffolding.');
+	}
+	const withPolicy = withImport.replace(
+		passwordAnchor,
+		"\temailAndPassword: { enabled: true, disableSignUp: signupMode === 'closed' },"
+	);
+	const pluginsAnchor = '\tplugins: [';
+	if (!withPolicy.includes(pluginsAnchor)) {
+		throw new Error('auth.ts no longer declares a plugins array; review the official integration output before scaffolding.');
+	}
+	// Spread BEFORE plugins: SVForge adds user columns and signup hooks, while
+	// the official sveltekitCookies plugin must stay last.
+	return withPolicy.replace(pluginsAnchor, `\t...svforgeAuthPolicy,\n${pluginsAnchor}`);
+}
+
+/** Compose the SVForge guard (and Paraglide) around the official auth handle. */
+export function patchHooksServer(content: string): string {
+	if (content.includes('handleSvforgePolicy')) return content;
+	const handleImport = "import type { Handle } from '@sveltejs/kit/hooks';";
+	const svelteKitHandlerImport = "import { svelteKitHandler } from 'better-auth/svelte-kit';";
+	const handleExport = 'export const handle: Handle = handleBetterAuth;';
+	for (const anchor of [handleImport, svelteKitHandlerImport, handleExport]) {
+		if (!content.includes(anchor)) {
+			throw new Error(`hooks.server.ts is missing the expected official anchor: ${anchor}`);
+		}
+	}
+	let updated = content.replace(handleImport, "import { sequence, type Handle } from '@sveltejs/kit/hooks';");
+	updated = updated.replace(
+		svelteKitHandlerImport,
+		`${svelteKitHandlerImport}\nimport { getTextDirection } from '#lib/paraglide/runtime.js';\nimport { paraglideMiddleware } from '#lib/paraglide/server.js';\nimport { handleSvforgePolicy } from '#lib/server/auth-guard.js';`
+	);
+	return updated.replace(
+		handleExport,
+		`const handleParaglide: Handle = ({ event, resolve }) =>
+	paraglideMiddleware(event.request, ({ request, locale }) =>
+		resolve(
+			{ ...event, request },
+			{
+				transformPageChunk: ({ html }) =>
+					html
+						.replace('%paraglide.lang%', locale)
+						.replace('%paraglide.dir%', getTextDirection(locale))
+			}
+		)
+	);
+
+// Official Better Auth handler, Paraglide locale transform, then SVForge's
+// disabled-identity guard (which must run after the session is populated).
+export const handle: Handle = sequence(handleParaglide, handleBetterAuth, handleSvforgePolicy);`
+	);
+}
+
+/** Declare SIGNUP_MODE next to the official env variables. */
+export function patchEnvConfig(content: string): string {
+	if (content.includes('SIGNUP_MODE')) return content;
+	const closing = content.lastIndexOf('});');
+	if (closing === -1 || !content.includes('defineEnvVars')) {
+		throw new Error('env.ts no longer declares defineEnvVars({...}); review the official integration output before scaffolding.');
+	}
+	// Keep the official formatting: the comma lands right after the previous
+	// property, and the scaffold's Prettier config uses trailingComma: none.
+	const head = content.slice(0, closing).replace(/\s+$/, '');
+	const tail = content.slice(closing);
+	const entry = `,\n\tSIGNUP_MODE: {\n\t\tdescription: 'Sign-up policy: closed, invite-only, or self-service',\n\t\tschema: (value) => value ?? 'closed'\n\t}`;
+	return `${head}${entry}\n${tail}`;
+}
+
+/** Append SVForge's sign-up policy to the official dotenv files. */
+export function patchDotEnv(content: string): string {
+	if (content.includes('SIGNUP_MODE')) return content;
+	const signup = '# SVForge sign-up policy: closed (default) | invite-only | self-service';
+	const testDb =
+		'# Dedicated TEST database for the shipped integration suites — its name must contain "test"\n# TEST_DATABASE_URL="postgres://user:password@host:port/app_test"';
+	const separator = content === '' || content.endsWith('\n') ? '' : '\n';
+	return `${content}${separator}${content === '' ? '' : '\n'}${signup}\nSIGNUP_MODE="closed"\n\n${testDb}\n`;
+}
+
+
 export function applyDashboardMode(
 	sv: SvApi,
 	baseFiles: Record<string, string>,
@@ -54,21 +155,10 @@ export function applyDashboardMode(
 	// gets tsx through its own on-demand runner (same download policy as the
 	// better-auth CLI — never a scaffold dependency).
 	const runTs = packageManager.split('@')[0] === 'bun' ? 'bun' : `${dlx} tsx`;
-	// Dashboard-specific runtime dependencies
-	sv.dependency('drizzle-orm', '^0.45.2');
+	// Auth/DB foundation (#547): the official `sv add drizzle better-auth`
+	// integrations own the packages, the schema generation script and their
+	// versions. SVForge only declares what its own domain code needs.
 	sv.dependency('zod', '^4.3.5'); // schemas.ts — explicit, not transitive via better-auth (#192)
-	sv.dependency('postgres', '^3.4.5'); // PostgreSQL driver (drizzle-orm/postgres-js) (#255)
-	// Pinned, never floating (#197). The stack carries security fixes only up
-	// to the pinned minor — #319 migrated 1.4.21 → 1.7.3 to cover
-	// GHSA-g38m-r43w-p2q7 (OAuth auto-link account takeover, fixed 1.6.11).
-	// Upgrades are manual (normal PR) and validated by CI: repository tests,
-	// the dashboard scaffold gate and the stack audit. See
-	// docs/better-auth-upgrades.md (#460).
-	sv.dependency('better-auth', '~1.7.3');
-
-	// Dashboard-specific dev dependencies
-	sv.devDependency('drizzle-kit', '^0.31.10');
-	sv.devDependency('@types/node', '^22');
 
 	// Dashboard-specific Vitest baseline (#180)
 	sv.devDependency('@testing-library/jest-dom', '^6.9.1');
@@ -90,20 +180,10 @@ export function applyDashboardMode(
 		pkg.scripts = {
 			...pkg.scripts,
 			test: 'vitest run',
-			'db:push': 'drizzle-kit push',
-			'db:generate': 'drizzle-kit generate',
-			'db:migrate': 'drizzle-kit migrate',
-			'db:studio': 'drizzle-kit studio',
+			// db:*, auth:schema and the Drizzle/Better Auth packages are owned by
+			// the official integrations (#547). Only SVForge-specific commands
+			// are added here.
 			'admin:create': `${runTs} scripts/create-admin.ts`,
-			// The CLI's bundled schema knowledge LAGS the runtime (1.4.x vs 1.7.x
-			// — it omits runtime columns like user.role/disabled), so a blind
-			// overwrite of the committed auth.schema.ts breaks the app. The
-			// regeneration lands in a REVIEW copy instead: diff it against the
-			// runtime-gated src/lib/server/db/auth.schema.ts and port deliberate
-			// changes manually (#325, policy in docs/better-auth-upgrades.md).
-			// The CLI runs via jiti, outside SvelteKit's Vite resolver, so it uses
-			// the Kit-independent schema config instead of runtime auth.ts (#491).
-			'auth:schema': `${dlx} @better-auth/cli@1.4.21 generate --config src/lib/server/auth.schema.config.ts --output auth-schema.review.ts --yes`,
 			...(testing === 'playwright' ? { 'test:e2e': 'playwright test' } : {})
 		};
 		return `${JSON.stringify(pkg, null, '\t')}\n`;
@@ -112,7 +192,14 @@ export function applyDashboardMode(
 	// Write all base files first — same canonical resolver as the overlay
 	// (#327): base '/vitest.config.ts' lands at the root where the dashboard
 	// overlay then overwrites it with the dashboard version (no stray copy).
-	for (const [path, content] of Object.entries(baseFiles)) {
+	//
+	// #547: the official Drizzle/Better Auth integrations own `app.d.ts` and
+	// `hooks.server.ts` for the dashboard; SVForge only extends them below.
+	const OFFICIAL_DASHBOARD_FILES = new Set(['/hooks.server.ts', '/app.d.ts']);
+	const dashboardBaseFiles = Object.fromEntries(
+		Object.entries(baseFiles).filter(([path]) => !OFFICIAL_DASHBOARD_FILES.has(path))
+	);
+	for (const [path, content] of Object.entries(dashboardBaseFiles)) {
 		sv.file(resolveDestination(path, DASHBOARD_ROOT_PATHS), () => content);
 	}
 
@@ -142,6 +229,15 @@ export function applyDashboardMode(
 		sv.file(path.slice(1), () => content);
 	}
 
+	// #547: extend the official foundation (never replace it) — auth policy,
+	// request guard composition, env declaration and signup mode.
+	sv.file('src/lib/server/auth.ts', (content) => patchAuthConfig(content));
+	sv.file('src/hooks.server.ts', (content) => patchHooksServer(content));
+	sv.file('src/env.ts', (content) => patchEnvConfig(content));
+	for (const dotenv of ['.env', '.env.example']) {
+		sv.file(dotenv, (content) => patchDotEnv(content));
+	}
+
 	// Upgrade baseline (#327): initialize .svforge-versions.json for the
 	// dashboard recipe — the FULL merged delivery (base src + overlay + base
 	// root files + dashboard root files) — so the first upgrade already has a
@@ -150,7 +246,7 @@ export function applyDashboardMode(
 		initTrackingJson(
 			'dashboard',
 			SDFORGE_RECIPE_VERSION,
-			{ ...baseFiles, ...baseRootFiles, ...deliveredFiles, ...renderedRootFiles },
+			{ ...dashboardBaseFiles, ...baseRootFiles, ...deliveredFiles, ...renderedRootFiles },
 			DASHBOARD_ROOT_PATHS
 		)
 	);

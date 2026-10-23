@@ -1,12 +1,11 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { mergeEnvExample, mergeSvelteKitEnvVars } from '../packages/addon-kit/src/env';
+import { patchDotEnv } from '../packages/svforge/src/modes/dashboard';
+import { OFFICIAL_FOUNDATION_FILES } from './helpers/official-foundation';
 
-const dashboardExample = readFileSync(
-	join(process.cwd(), 'packages/svforge/templates/dashboard/root/.env.example'),
-	'utf-8'
-);
+// #547: the official integrations own .env.example; SVForge appends its
+// SIGNUP_MODE/test-database guidance to it.
+const dashboardExample = patchDotEnv(OFFICIAL_FOUNDATION_FILES['.env.example']);
 const emailExample = {
 	RESEND_API_KEY: { description: 'Resend API key', placeholder: 'your_resend_api_key' }
 };
@@ -72,8 +71,10 @@ describe('addon .env.example composition (#422)', () => {
 
 		expect(emailFirst).toBe(oauthFirst);
 		expect(emailFirst.startsWith(dashboardExample.trimEnd())).toBe(true);
-		expect(emailFirst).toContain('# Database (PostgreSQL) — configure separately from local file preparation.');
-		expect(emailFirst).toMatch(/^DATABASE_URL=$/m);
+		// #547: the official add-ons own the foundation block; SVForge appends
+		// its sign-up policy to it.
+		expect(emailFirst).toContain('DATABASE_URL="postgres://');
+		expect(emailFirst).toContain('SIGNUP_MODE="closed"');
 		expect(emailFirst.indexOf('svforge addon: email')).toBeLessThan(emailFirst.indexOf('svforge addon: oauth'));
 		expect(emailFirst.match(/^RESEND_API_KEY=/gm)).toHaveLength(1);
 		expect(emailFirst.match(/^GOOGLE_CLIENT_SECRET=/gm)).toHaveLength(1);

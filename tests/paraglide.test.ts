@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { OFFICIAL_FOUNDATION_FILES } from './helpers/official-foundation';
+import { patchHooksServer } from '../packages/svforge/src/modes/dashboard';
 
 const ROOT = process.cwd();
 const BASE_ROOT = join(ROOT, 'packages/svforge/templates/base/root');
@@ -92,19 +94,14 @@ describe('Paraglide baseline (#239, #322)', () => {
 		});
 
 		it('dashboard composes paraglide + better-auth hooks', () => {
-			const hooks = readFileSync(
-				join(ROOT, 'packages/svforge/templates/dashboard/src/hooks.server.ts'),
-				'utf-8'
-			);
+			// #547: the official Better Auth add-on owns hooks.server.ts.
+			const hooks = patchHooksServer(OFFICIAL_FOUNDATION_FILES['src/hooks.server.ts']);
 			expect(hooks).toMatch(/paraglideMiddleware/);
-			expect(hooks).toMatch(/handleBetterAuth|svelteKitHandler/);
+			expect(hooks).toMatch(/handleBetterAuth/);
 		});
 
 		it('dashboard handle keeps the Paraglide html transform (#280)', () => {
-			const hooks = readFileSync(
-				join(ROOT, 'packages/svforge/templates/dashboard/src/hooks.server.ts'),
-				'utf-8'
-			);
+			const hooks = patchHooksServer(OFFICIAL_FOUNDATION_FILES['src/hooks.server.ts']);
 			// The exported handle must rewrite the i18n placeholders in the final
 			// HTML — the #268 composition dropped transformPageChunk and left
 			// %paraglide.lang% / %paraglide.dir% in the rendered output.
@@ -112,11 +109,8 @@ describe('Paraglide baseline (#239, #322)', () => {
 			expect(hooks).toMatch(/%paraglide\.lang%/);
 			expect(hooks).toMatch(/%paraglide\.dir%/);
 			expect(hooks).toMatch(/getTextDirection/);
-			// No dead duplicate handle left behind.
-			expect(hooks).not.toMatch(/handleParaglide/);
-			// The transform must be applied through the resolve used by the auth
-			// handler, i.e. the exported handle resolves the app with it.
-			expect(hooks.indexOf('export const handle')).toBeLessThan(hooks.indexOf('transformPageChunk'));
+			// Paraglide runs FIRST so Better Auth sees the localized request.
+			expect(hooks).toContain('sequence(handleParaglide, handleBetterAuth, handleSvforgePolicy)');
 		});
 
 		it('scaffold guard asserts paraglide files on base scaffold', () => {

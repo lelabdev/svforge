@@ -65,9 +65,16 @@ describe('monorepo structure', () => {
 		expect(layoutCss).not.toMatch(/\b(body|:focus-visible|::selection)\s*\{/);
 	});
 
-	it('dashboard template has auth files', () => {
+	it('dashboard template owns only the SVForge extensions of the auth/DB foundation (#547)', () => {
+		// The official `sv add drizzle better-auth` integrations generate auth.ts,
+		// db/index.ts, db/auth.schema.ts, drizzle.config.ts and hooks.server.ts.
+		// SVForge ships only its policy, guard, domain schema and DB helper.
 		const authDir = join(ROOT, 'packages/svforge/templates/dashboard/src/lib/server');
-		expect(existsSync(join(authDir, 'auth.ts'))).toBe(true);
-		expect(existsSync(join(authDir, 'db/index.ts'))).toBe(true);
+		for (const owned of ['auth-policy.ts', 'auth-guard.ts', 'db/schema.ts', 'db/client.ts']) {
+			expect(existsSync(join(authDir, owned)), owned).toBe(true);
+		}
+		for (const official of ['auth.ts', 'db/index.ts', 'db/auth.schema.ts', 'auth.schema.config.ts']) {
+			expect(existsSync(join(authDir, official)), official).toBe(false);
+		}
 	});
 });

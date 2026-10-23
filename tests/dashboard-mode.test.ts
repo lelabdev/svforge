@@ -1,8 +1,17 @@
 import { describe, it, expect } from 'vitest';
 import type { SvApi } from 'sv';
 import svforgeAddon from '../packages/svforge/src/index';
-import { applyDashboardMode, DLX_RUNNERS, resolveDlxRunner } from '../packages/svforge/src/modes/dashboard';
+import {
+	applyDashboardMode,
+	DLX_RUNNERS,
+	patchAuthConfig,
+	patchDotEnv,
+	patchEnvConfig,
+	patchHooksServer,
+	resolveDlxRunner
+} from '../packages/svforge/src/modes/dashboard';
 import { dashboardRootFiles } from '../packages/svforge/src/templates';
+import { OFFICIAL_FOUNDATION_FILES, seedOfficialFoundation } from './helpers/official-foundation';
 
 type FakeSv = {
 	dependencies: string[];
@@ -25,9 +34,14 @@ function fakeSv(): FakeSv {
 			this.devDependencies.push(name);
 		},
 		file(path, transform) {
-			this.files.set(path, transform(path === 'package.json' ? '{"scripts":{}}' : ''));
+			// Accumulate like the real sv add: later transforms read what the
+			// official add-ons (seeded here) or a previous mode wrote.
+			const seed = this.files.get(path) ?? (path === 'package.json' ? '{"scripts":{}}' : '');
+			this.files.set(path, transform(seed));
 		}
 	};
+	// #547: the official integrations run before SVForge, so their files exist.
+	seedOfficialFoundation(sv.files);
 	return sv;
 }
 
@@ -42,9 +56,9 @@ const dashboardFiles = {
 	'/vitest.config.ts': 'vitest-config',
 	'/e2e/auth.test.ts': 'e2e'
 };
+// Root files STILL delivered by SVForge. drizzle.config.ts and .env.example
+// are now produced by the official integrations (#547).
 const rootFiles = {
-	'/drizzle.config.ts': 'drizzle-config',
-	'/.env.example': 'env-example',
 	'/scripts/setup.sh': 'setup-script',
 	'/static/robots.txt': 'robots'
 };
@@ -72,22 +86,101 @@ describe('dashboard testing profiles', () => {
 		expect(sv.files.has('e2e/auth.test.ts')).toBe(true);
 		expect(JSON.parse(sv.files.get('package.json')!).scripts['test:e2e']).toBe('playwright test');
 	});
+});
 
-	it('adds the PostgreSQL driver and never libsql (#255)', () => {
+describe('official foundation ownership (#547)', () => {
+	it('never declares the official auth/DB packages or their scripts', () => {
 		const sv = fakeSv();
 		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest');
 
-		expect(sv.dependencies).toContain('postgres');
-		expect(sv.dependencies).not.toContain('@libsql/client');
-		expect(sv.dependencies).toContain('drizzle-orm');
+		for (const owned of ['better-auth', 'drizzle-orm', 'postgres', 'drizzle-kit']) {
+			expect(sv.dependencies, owned).not.toContain(owned);
+			expect(sv.devDependencies, owned).not.toContain(owned);
+		}
+		expect(sv.dependencies).toContain('zod');
+
+		const scripts = JSON.parse(sv.files.get('package.json')!).scripts;
+		for (const owned of ['db:push', 'db:generate', 'db:migrate', 'db:studio', 'auth:schema']) {
+			expect(scripts[owned], owned).toBeUndefined();
+		}
+		expect(scripts['admin:create']).toBeDefined();
 	});
 
+	it('no longer ships the foundation files in the dashboard template', () => {
+		// The official add-ons own these paths; SVForge must not deliver them.
+		for (const path of [
+			'/lib/server/auth.ts',
+			'/lib/server/db/index.ts',
+			'/lib/server/db/auth.schema.ts',
+			'/lib/server/auth.schema.config.ts',
+			'/hooks.server.ts',
+			'/app.d.ts',
+			'/drizzle.config.ts'
+		]) {
+			expect(Object.keys(dashboardFiles), path).not.toContain(path);
+		}
+	});
+
+	it('extends the official files instead of replacing them', () => {
+		const sv = fakeSv();
+		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest');
+
+		const auth = sv.files.get('src/lib/server/auth.ts') ?? '';
+		expect(auth).toContain('betterAuth({');
+		expect(auth).toContain('...svforgeAuthPolicy,');
+		const hooks = sv.files.get('src/hooks.server.ts') ?? '';
+		expect(hooks).toContain('const handleBetterAuth');
+		expect(hooks).toContain('sequence(handleParaglide, handleBetterAuth, handleSvforgePolicy)');
+		// The base template's Paraglide-only hook must NOT overwrite the
+		// official Better Auth hook (it is seeded by fakeSv).
+		expect(sv.files.get('src/app.d.ts')).toContain("from 'better-auth'");
+	});
+
+	it('spreads the SVForge auth policy into the official config and keeps plugins last', () => {
+		const auth = patchAuthConfig(OFFICIAL_FOUNDATION_FILES['src/lib/server/auth.ts']);
+		expect(auth).toContain("import { signupMode, svforgeAuthPolicy } from '#lib/server/auth-policy.js';");
+		expect(auth).toContain('...svforgeAuthPolicy,');
+		expect(auth).toContain("disableSignUp: signupMode === 'closed'");
+		expect(auth.indexOf('...svforgeAuthPolicy,')).toBeLessThan(auth.indexOf('plugins: ['));
+		// Idempotent.
+		expect(patchAuthConfig(auth)).toBe(auth);
+	});
+
+	it('composes the SVForge guard and Paraglide around the official handle', () => {
+		const hooks = patchHooksServer(OFFICIAL_FOUNDATION_FILES['src/hooks.server.ts']);
+		expect(hooks).toContain("import { sequence, type Handle } from '@sveltejs/kit/hooks';");
+		expect(hooks).toContain("import { handleSvforgePolicy } from '#lib/server/auth-guard.js';");
+		expect(hooks).toContain('sequence(handleParaglide, handleBetterAuth, handleSvforgePolicy)');
+		// Idempotent.
+		expect(patchHooksServer(hooks)).toBe(hooks);
+	});
+
+	it('declares SIGNUP_MODE in env.ts and appends it to both dotenv files', () => {
+		const env = patchEnvConfig(OFFICIAL_FOUNDATION_FILES['src/env.ts']);
+		expect(env).toContain('SIGNUP_MODE');
+		expect(env).toContain("value ?? 'closed'");
+		expect(patchEnvConfig(env)).toBe(env);
+
+		for (const file of ['.env', '.env.example']) {
+			const updated = patchDotEnv(OFFICIAL_FOUNDATION_FILES[file]);
+			expect(updated, file).toContain('SIGNUP_MODE="closed"');
+			expect(updated, file).toContain('DATABASE_URL');
+			expect(patchDotEnv(updated), file).toBe(updated);
+		}
+	});
+
+	it('fails loudly when the official output is missing (direct sv add without the official add-ons)', () => {
+		expect(() => patchAuthConfig('')).toThrow(/better-auth\/minimal/);
+		expect(() => patchHooksServer('')).toThrow(/hooks\.server\.ts/);
+		expect(() => patchEnvConfig('')).toThrow(/defineEnvVars/);
+	});
+});
+
+describe('delivered project files', () => {
 	it('writes test configs at the project root, not under src/ (#186)', () => {
 		const sv = fakeSv();
 		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'playwright');
 
-		// Playwright and Vitest discover their config only at the project root,
-		// and playwright.config.ts references testDir './e2e' relative to root.
 		expect(sv.files.has('playwright.config.ts')).toBe(true);
 		expect(sv.files.has('vitest.config.ts')).toBe(true);
 		expect(sv.files.has('e2e/auth.test.ts')).toBe(true);
@@ -96,19 +189,14 @@ describe('dashboard testing profiles', () => {
 		expect(sv.files.has('src/e2e/auth.test.ts')).toBe(false);
 	});
 
-	it('writes root-level files at the project root (#187)', () => {
+	it('writes the remaining SVForge root-level files at the project root (#187)', () => {
 		const sv = fakeSv();
 		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', rootFiles);
 
-		// drizzle.config.ts, .env.example, scripts/setup.sh, static/robots.txt
-		// must land at the project root — prebuild only ships templates/src/**,
-		// so without the root/ embed they were never scaffolded (#187).
-		expect(sv.files.has('drizzle.config.ts')).toBe(true);
-		expect(sv.files.has('.env.example')).toBe(true);
 		expect(sv.files.has('scripts/setup.sh')).toBe(true);
 		expect(sv.files.has('static/robots.txt')).toBe(true);
-		expect(sv.files.has('src/drizzle.config.ts')).toBe(false);
-		expect(sv.files.has('src/.env.example')).toBe(false);
+		expect(sv.files.has('src/scripts/setup.sh')).toBe(false);
+		expect(sv.files.has('src/static/robots.txt')).toBe(false);
 	});
 
 	it.each([
@@ -206,7 +294,6 @@ describe('dashboard testing profiles', () => {
 			},
 			isKit: true,
 			directory: { src: 'src', lib: 'src/lib', kitRoutes: 'src/routes' },
-			// sv's AgentName type omits the version suffix that runtime supports.
 			packageManager: pm as Parameters<typeof svforgeAddon.run>[0]['packageManager'],
 			options: { template: 'dashboard', testing: 'vitest', hooks: 'none' }
 		});
@@ -223,7 +310,6 @@ describe('dashboard testing profiles', () => {
 		const agents = sv.files.get('AGENTS.md') ?? '';
 		expect(agents).toMatch(/Golden references \(#267\)/);
 		expect(agents).toMatch(/\/admin\/users/);
-		// #322: parity is defined over every configured locale, not a hard-coded pair.
 		expect(agents).toMatch(/EVERY catalog under .messages\//);
 		expect(agents).toMatch(/never hard-code user-visible text/);
 	});
@@ -258,18 +344,15 @@ describe('on-demand PM runners (#325 review) — exact commands, supported manag
 		expect(resolveDlxRunner('deno')).toBe('npx --yes'); // unknown → npx fallback
 	});
 
-	it('generated scripts use the selected manager runner, never another one', () => {
+	it('admin:create uses the selected manager runner, never another one', () => {
 		const sv = fakeSv();
 		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', {}, 'pnpm');
 		const pkg = JSON.parse(sv.files.get('package.json') ?? '{}') as Record<string, Record<string, string>>;
-		expect(pkg.scripts['auth:schema']).toContain('pnpm dlx');
-		expect(pkg.scripts['auth:schema']).not.toMatch(/\b(bunx|npx)\b/);
 		expect(pkg.scripts['admin:create']).toContain('pnpm dlx');
 
 		const svBun = fakeSv();
 		applyDashboardMode(asSvApi(svBun), baseFiles, dashboardFiles, 'vitest', {}, 'bun');
 		const pkgBun = JSON.parse(svBun.files.get('package.json') ?? '{}') as Record<string, Record<string, string>>;
-		expect(pkgBun.scripts['auth:schema']).toContain('bunx');
-		expect(pkgBun.scripts['auth:schema']).not.toMatch(/\b(npx|pnpm dlx)\b/);
+		expect(pkgBun.scripts['admin:create']).toContain('bun');
 	});
 });

@@ -215,6 +215,13 @@ export default defineAddon({
 			`SvelteForge ${(options.template as string)} template applied!`,
 			`Run \`${pm} run dev\` to start developing.`
 		];
+		if (options.template === 'dashboard') {
+			// #547: the official add-ons generate a schema stub; the app needs the
+			// real Better Auth tables before the first type-check or DB push.
+			lines.push(
+				`Dashboard setup: configure DATABASE_URL, then run \`${pm} run auth:schema\` (official Better Auth schema generation, includes role/disabled) and \`${pm} run db:push\` before \`${pm} run check\`.`
+			);
+		}
 		if (hooks === 'lefthook') {
 			// #416: state the practical consequence and the removal path.
 			lines.push(

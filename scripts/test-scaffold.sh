@@ -80,6 +80,10 @@ if [ "$TEMPLATE" = "create-cli" ]; then
 	export TEST_DATABASE_URL="${TEST_DATABASE_URL:-postgres://postgres:postgres@localhost:5432/sf_dashboard_test}"
 	export DATABASE_URL="$TEST_DATABASE_URL"
 	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
+	# #547: generate the official Better Auth tables (role/disabled included)
+	# before the push and the build.
+	bun run auth:schema >/tmp/auth-schema-all-modules.log 2>&1 \
+		|| { cat /tmp/auth-schema-all-modules.log; echo "❌ official auth:schema generation failed (all-modules #547)"; exit 1; }
 	if [ "${CI:-}" = "true" ]; then
 		bunx drizzle-kit push --force >/tmp/drizzle-push-all-modules.log 2>&1 \
 			|| { cat /tmp/drizzle-push-all-modules.log; echo "❌ drizzle-kit push failed (all-modules #417)"; exit 1; }
@@ -136,6 +140,18 @@ elif [ "$TEMPLATE" = "base-ui-modules" ]; then
 elif [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	ADD_SPEC="file:$REPO_ROOT/packages/svforge=template:dashboard+testing:vitest+hooks:none"
 fi
+# #547: the dashboard's auth/DB foundation is owned by the OFFICIAL add-ons.
+# They run first (no install) so the SVForge add-on only extends their output;
+# the final SVForge add installs everything once.
+case "$TEMPLATE" in
+	dashboard|dashboard-playwright|dashboard-integrations|dashboard-foundations)
+		$SV_CMD add "drizzle=database:postgresql+client:postgres.js+docker:no" --no-install --no-download-check --no-git-check \
+			|| { echo "❌ official drizzle add-on failed (#547)"; exit 1; }
+		$SV_CMD add "better-auth=demo:" --no-install --no-download-check --no-git-check \
+			|| { echo "❌ official better-auth add-on failed (#547)"; exit 1; }
+		test -f src/lib/server/auth.ts || { echo "❌ official auth.ts missing (#547)"; exit 1; }
+		;;
+esac
 if [ "$TEMPLATE" != "base-modules" ] && [ "$TEMPLATE" != "dashboard-foundations" ]; then
 	ADD_SPEC="${ADD_SPEC:-file:$REPO_ROOT/packages/svforge=template:base+testing:vitest+hooks:none}"
 	$SV_CMD add "$ADD_SPEC" --install "$SF_PM" --no-download-check
@@ -306,6 +322,16 @@ if [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "dashboard-playwright" ] || 
 	# Kit 3 evaluates dynamic private env vars during build-time route analysis.
 	export DATABASE_URL="$TEST_DATABASE_URL"
 	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
+
+	# #547: the official Better Auth add-on ships a schema STUB; generate the
+	# real tables from auth.ts (including role/disabled) before the DB push and
+	# before the template suites type-check.
+	$CI_SCRIPT_RUNNER auth:schema >/tmp/auth-schema.log 2>&1 \
+		|| { cat /tmp/auth-schema.log; echo "❌ official auth:schema generation failed (#547)"; exit 1; }
+	grep -q 'role: text' src/lib/server/db/auth.schema.ts \
+		|| { echo "❌ auth:schema did not generate the SVForge role column (#547)"; exit 1; }
+	grep -q 'disabled: boolean' src/lib/server/db/auth.schema.ts \
+		|| { echo "❌ auth:schema did not generate the SVForge disabled column (#547)"; exit 1; }
 
 	# PostgreSQL is real in CI (#255): require the drizzle push to actually
 	# succeed against the service (the dashboard must be usable out of the box).
@@ -753,31 +779,12 @@ if [ "$TEMPLATE" = "dashboard" ]; then
 	# 5f.a Template vitest baseline (uses the .env + schema pushed above).
 	bun run test || { echo "❌ vitest failed on dashboard scaffold (#319 better-auth runtime gate)"; exit 1; }
 
-	# 5f.b The CLI-generated schema must be reproducible (the template's
-	# `auth:schema` path works), and the committed auth.schema.ts must match
-	# the INSTALLED better-auth runtime schema — derived via `getSchema()`
-	# from the project's own node_modules, NOT from the version-lagging CLI
-	# (whose 1.4.x schema knowledge misses runtime 1.7 type/nullability/
-	# default/index/FK drift — #319 review). The generator runs via bunx —
-	# @better-auth/cli must NOT be a project dependency (its nested
-	# @better-auth/core@1.4.x hoists over the runtime's 1.7.x copy and breaks
-	# the SSR build). The CLI version is pinned here and in the template's
-	# auth:schema source. Two CLI gotchas (#319): the output path must NOT
-	# already exist (pre-existing files get overwritten to 0 bytes) and must
-	# be relative (absolute paths resolved from the bunx cache are
-	# unreliable) — hence the guarded temp file inside the project.
-	SCHEMA_GEN=".sf-auth-schema-gate.ts"
-	rm -f "$SCHEMA_GEN"
-	if ! bunx @better-auth/cli@1.4.21 generate --config src/lib/server/auth.schema.config.ts --output "$SCHEMA_GEN" --yes >"${TMPDIR:-/tmp}/sf-auth-generate.log" 2>&1; then
-		cat "${TMPDIR:-/tmp}/sf-auth-generate.log"
-		echo "❌ better-auth generate failed (#319)"; exit 1
-	fi
-	if [ ! -s "$SCHEMA_GEN" ]; then
-		echo "❌ better-auth generate produced an empty schema file (#319)"; exit 1
-	fi
-	rm -f "$SCHEMA_GEN"
+	# 5f.b The schema must stay reproducible from the SVForge config and match
+	# the INSTALLED better-auth runtime schema (role/disabled are app-level
+	# auth-user extensions on the allowlist). #547: generation is the official
+	# script above; this gate only compares the result with the runtime.
 	if ! node "$REPO_ROOT/scripts/check-auth-schema.mjs" src/lib/server/db/auth.schema.ts --project .; then
-		echo "❌ committed auth.schema.ts drifted from the installed better-auth runtime schema (#319)"; exit 1
+		echo "❌ generated auth.schema.ts drifted from the installed better-auth runtime schema (#547)"; exit 1
 	fi
 
 	# 5f.c Runtime HTTP smoke against the dev server (the /setup route is

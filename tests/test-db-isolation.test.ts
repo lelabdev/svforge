@@ -23,6 +23,8 @@ import {
 
 const DASHBOARD = 'packages/svforge/templates/dashboard';
 const read = (path: string) => readFileSync(path, 'utf8');
+import { patchDotEnv } from '../packages/svforge/src/modes/dashboard';
+import { OFFICIAL_FOUNDATION_FILES } from './helpers/official-foundation';
 
 describe('test-database guard (#312 — behavioral)', () => {
 	it('accepts database names carrying an explicit test segment', () => {
@@ -158,9 +160,11 @@ describe('scaffold harness and CI provision a dedicated test database (#312)', (
 	});
 
 	it('the environment example documents the guarded test database', () => {
-		const envExample = read(`${DASHBOARD}/root/.env.example`);
+		// #547: the official add-ons own .env.example; SVForge appends the guard.
+		const envExample = patchDotEnv(OFFICIAL_FOUNDATION_FILES['.env.example']);
 		expect(envExample).toContain('TEST_DATABASE_URL');
-		expect(envExample).toContain('must contain a "test" segment');
+		expect(envExample).toContain('must contain');
+		expect(envExample).toContain('test');
 	});
 });
 

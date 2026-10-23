@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import type { SvApi } from 'sv';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
+import { seedOfficialFoundation } from './helpers/official-foundation';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -72,6 +73,7 @@ describe('bun run check chains the design-system check (#343)', () => {
 	// Real scaffold order: the base mode runs first, the dashboard overlay after.
 	function scaffoldDashboard(testing: 'vitest' | 'playwright'): Map<string, string> {
 		const sv = fakeSv();
+		seedOfficialFoundation(sv.files);
 		applyBaseMode(asSvApi(sv), { '/lib/base.ts': 'base' });
 		applyDashboardMode(asSvApi(sv), { '/lib/base.ts': 'base' }, {}, testing);
 		return sv.files;

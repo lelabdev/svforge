@@ -15,6 +15,7 @@ import {
 } from '../packages/svforge/src';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
+import { seedOfficialFoundationOnDisk } from './helpers/official-foundation';
 import { baseFiles, baseRootFiles } from '../packages/svforge/src/templates';
 import { diskSv } from './helpers/fixtures';
 import { SDFORGE_RECIPE_VERSION } from '../packages/svforge/src/recipe-version';
@@ -339,6 +340,7 @@ describe('install-time baseline initialization (#327 scaffold)', () => {
 			// Real scaffold order: base mode with an EMPTY file set, then the dashboard overlay.
 			applyBaseMode(sv as never, {}, {});
 			expect(existsSync(join(dir, TRACKING_FILE))).toBe(false);
+			seedOfficialFoundationOnDisk(dir);
 			applyDashboardMode(
 				sv as never,
 				{ '/lib/base.ts': 'B\n', '/vitest.config.ts': 'V\n' },
