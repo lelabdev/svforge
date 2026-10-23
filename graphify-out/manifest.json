@@ -448,7 +448,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "f84c8ff30e4ed204c02bda8af2080abb",
+    "ast_hash": "c552eea5e930b998a4cf03c44e6adc13",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -476,7 +476,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
-    "ast_hash": "cd1832ddc14aafee18c18d50661a159c",
+    "ast_hash": "364defeffa424593528d244ad5f8e206",
     "semantic_hash": ""
   },
   "packages/svforge/src/skeleton-inventory.ts": {
@@ -1136,7 +1136,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-mode.test.ts": {
-    "ast_hash": "7354e1370ff363213014c72e30a71d80",
+    "ast_hash": "6b0c0b969576bfe281dc70fd26764273",
     "semantic_hash": ""
   },
   "tests/dashboard-playwright.test.ts": {
@@ -1164,7 +1164,7 @@
     "semantic_hash": ""
   },
   "tests/eslint-design-system.test.ts": {
-    "ast_hash": "a368c7b35a25bde22b85547e7ec1644d",
+    "ast_hash": "dc9de061e638e5ef7057456296757a27",
     "semantic_hash": ""
   },
   "tests/favicon-delivery.test.ts": {
@@ -1448,7 +1448,7 @@
     "semantic_hash": ""
   },
   "docs/better-auth-upgrades.md": {
-    "ast_hash": "2ddacd09b551d80832af2d17a50b0756",
+    "ast_hash": "1093a5f2d93224b14a442c2d5a76731e",
     "semantic_hash": ""
   },
   "packages/addon-kit/README.md": {
@@ -1520,7 +1520,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/structural-duplication.md": {
-    "ast_hash": "576fca9ebaec058cba386c0dd3587e3a",
+    "ast_hash": "680c7b21fdc87e76b688c3a3f9cbd3f1",
     "semantic_hash": ""
   },
   "packages/svforge/llms.txt": {
@@ -1648,7 +1648,7 @@
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {
-    "ast_hash": "0881df1aac119e25046da1f69fdf505a",
+    "ast_hash": "d05dbef5bfe2281cf12e98343d850dbd",
     "semantic_hash": ""
   },
   "tests/vite-config-regex.test.ts": {
@@ -2140,7 +2140,7 @@
     "semantic_hash": ""
   },
   "tests/helpers/official-foundation.ts": {
-    "ast_hash": "7df4f93c07ac650870c53bf667fc9216",
+    "ast_hash": "f077dc9393a9112568bbca4658347d33",
     "semantic_hash": ""
   },
   ".changeset/547-official-auth-db-foundation.md": {
@@ -2157,6 +2157,18 @@
   },
   ".changeset/547-phase-b-official-paraglide.md": {
     "ast_hash": "a35cda2e5901a91c8004d157bba4640a",
+    "semantic_hash": ""
+  },
+  "packages/svforge/src/official-integrations.ts": {
+    "ast_hash": "3c3d478b541adadf03447692582f7411",
+    "semantic_hash": ""
+  },
+  "tests/official-integrations.test.ts": {
+    "ast_hash": "5efc03d77dfe90585a168b8e5bb09815",
+    "semantic_hash": ""
+  },
+  ".changeset/547-phase-c-direct-add.md": {
+    "ast_hash": "a3936d26fe026ac5bedbe58e43e8a7e7",
     "semantic_hash": ""
   }
 }

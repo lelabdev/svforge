@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { baseFiles, dashboardFiles, dashboardRootFiles, baseRootFiles } from './templates';
 import { applyBaseMode, libImportMappingConflict } from './modes/base';
 import { applyDashboardMode } from './modes/dashboard';
+import { missingOfficialIntegrations, officialIntegrationsRequiredMessage } from './official-integrations';
 
 // Export doctor diagnostics for programmatic use
 export { doctor, printReport } from './doctor';
@@ -146,6 +147,13 @@ export default defineAddon({
 			return;
 		}
 		const template = options.template as 'base' | 'dashboard';
+		// #547 phase C: fail closed BEFORE writing anything when the official
+		// integrations are absent (direct `sv add` without the official add-ons).
+		const missing = missingOfficialIntegrations(cwd, template);
+		if (missing.length > 0) {
+			cancel(officialIntegrationsRequiredMessage(template, packageManager));
+			return;
+		}
 		const testing = options.testing as 'vitest' | 'playwright';
 		const hooks = options.hooks as 'none' | 'lefthook';
 		// The PM the user selected in `sv` (#325) — scaffolded scripts and the
