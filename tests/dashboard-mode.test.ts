@@ -1,4 +1,7 @@
 import { describe, it, expect } from 'vitest';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import type { SvApi } from 'sv';
 import svforgeAddon from '../packages/svforge/src/index';
 import {
@@ -11,7 +14,7 @@ import {
 	resolveDlxRunner
 } from '../packages/svforge/src/modes/dashboard';
 import { dashboardRootFiles } from '../packages/svforge/src/templates';
-import { OFFICIAL_FOUNDATION_FILES, seedOfficialFoundation } from './helpers/official-foundation';
+import { OFFICIAL_FOUNDATION_FILES, seedOfficialFoundation, seedOfficialFoundationOnDisk } from './helpers/official-foundation';
 
 type FakeSv = {
 	dependencies: string[];
@@ -291,10 +294,15 @@ describe('delivered project files', () => {
 		{ pm: 'bun@1.2.0', setup: 'bun-version: 1.2.0', install: 'bun install --frozen-lockfile' }
 	])('preserves the versioned package manager through the addon run path ($pm)', async ({ pm, setup, install }) => {
 		const sv = fakeSv();
-		await svforgeAddon.run({
+		// #547 phase C: the add-on preflights the official output on disk.
+		const dir = mkdtempSync(join(tmpdir(), 'sf-addon-run-'));
+		writeFileSync(join(dir, 'package.json'), '{"name":"app","imports":{}}');
+		seedOfficialFoundationOnDisk(dir);
+		try {
+			await svforgeAddon.run({
 			sv: asSvApi(sv),
 			cancel: () => {},
-			cwd: process.cwd(),
+			cwd: dir,
 			dependencyVersion: () => undefined,
 			language: 'ts',
 			file: {
@@ -310,7 +318,10 @@ describe('delivered project files', () => {
 			directory: { src: 'src', lib: 'src/lib', kitRoutes: 'src/routes' },
 			packageManager: pm as Parameters<typeof svforgeAddon.run>[0]['packageManager'],
 			options: { template: 'dashboard', testing: 'vitest', hooks: 'none' }
-		});
+			});
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
 
 		const workflow = sv.files.get('.github/workflows/ci.yml')!;
 		expect(workflow).toContain(setup);

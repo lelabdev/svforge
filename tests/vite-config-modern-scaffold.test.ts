@@ -3,6 +3,8 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+import { BETTER_AUTH_ADD_SPEC, DRIZZLE_ADD_SPEC } from '../packages/svforge/src/official-integrations';
+import { PARAGLIDE_ADD_SPEC } from '../packages/svforge/src/i18n';
 
 /**
  * REAL-GENERATION regression for #415 and #584.
@@ -60,6 +62,13 @@ function realScaffold(template: string): { root: string; app: string } {
 		root
 	);
 	const app = join(root, 'app');
+	// #547 phase C: the official integrations must run first — SVForge only
+	// extends their output (direct add fails closed otherwise).
+	runSv(['add', PARAGLIDE_ADD_SPEC, '--no-install', '--no-download-check', '--no-git-check'], app);
+	if (template === 'dashboard') {
+		runSv(['add', DRIZZLE_ADD_SPEC, '--no-install', '--no-download-check', '--no-git-check'], app);
+		runSv(['add', BETTER_AUTH_ADD_SPEC, '--no-install', '--no-download-check', '--no-git-check'], app);
+	}
 	runSv(['add', `${SVFORGE}=template:${template}+testing:vitest+hooks:none`, '--no-install', '--no-download-check'], app);
 	return { root, app };
 }

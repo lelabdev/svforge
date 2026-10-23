@@ -37,7 +37,9 @@ This historical inventory is based on the **published [`sv@1.1.0`](https://www.n
 
 ### Reproducing the composition checks
 
-The non-installing audit used the published `sv@1.1.0` CLI to create a fresh minimal project, apply the local SVForge addon, and then add official addons to that same project. The targeted Tailwind test now repeats the supported additive path against the real CLI and checks the resulting configuration and stylesheet. The Prettier and Playwright findings above are deliberately recorded as **known composition gaps**, not as supported combinations. The Paraglide gap is resolved by #547 phase B (official add-on first, SVForge catalogs/shell only).
+The non-installing audit used the published `sv@1.1.0` CLI to create a fresh minimal project, apply the local SVForge addon, and then add official addons to that same project. The targeted Tailwind test now repeats the supported additive path against the real CLI and checks the resulting configuration and stylesheet. **Direct `sv add svforge=…` (#547 phase C).** The published `sv` (1.1.1) cannot express conditional add-on dependencies with options (`setup()` does not receive the add-on options; upstream sveltejs/cli#1419 is still open). A direct SVForge add therefore fails closed **before writing anything** when the official Paraglide/Drizzle/Better Auth output is missing, and prints the exact supported manual sequence. `svforge create` remains the one-command path: it runs the official add-ons first, then SVForge.
+
+The Prettier and Playwright findings above are deliberately recorded as **known composition gaps**, not as supported combinations. The Paraglide gap is resolved by #547 phase B (official add-on first, SVForge catalogs/shell only).
 
 Before proposing a new generic foundation, a contribution should:
 

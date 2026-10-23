@@ -234,6 +234,8 @@ Before an agent creates a project or adds modules, inspect the side-effect-free 
 
 Review the exact package versions, capabilities, runtime constraints, warnings, and commands with the user. Do not write or install until the user approves; then run the same command without \`--plan --json\` and finish with \`npx svforge verify\`.
 
+**Direct \`sv add\` is only supported after the official foundation.** SVForge no longer generates the Paraglide, Drizzle or Better Auth foundations; it extends the official \`sv add\` output. If you run \`sv add <svforge-addon>=template:<base|dashboard>\` on a fresh project, SVForge stops before writing anything and prints the required official commands — or use \`npx svforge create\`, which runs them first.
+
 ## Project commands
 
 \`\`\`bash

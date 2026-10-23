@@ -1,4 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { ESLint } from 'eslint';
 import type { SvApi } from 'sv';
 import svelte from 'eslint-plugin-svelte';
@@ -6,7 +9,7 @@ import svforge from '../packages/svforge/templates/base/root/eslint-plugin-svfor
 import { baseFiles, baseRootFiles, dashboardFiles, dashboardRootFiles } from '../packages/svforge/src/templates';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
-import { seedOfficialFoundation } from './helpers/official-foundation';
+import { seedOfficialFoundation, seedOfficialFoundationOnDisk } from './helpers/official-foundation';
 import svforgeAddon from '../packages/svforge/src/index';
 
 const eslint = new ESLint({
@@ -119,12 +122,21 @@ describe('scaffolded ESLint configuration (#346)', () => {
 			}
 		};
 
-		svforgeAddon.run({
-			sv: sv as never,
-			cwd: process.cwd(),
-			options: { template: 'base', testing: 'vitest', hooks: 'none' },
-			packageManager: 'bun'
-		} as never);
+		// #547 phase C: the add-on preflights the official foundation on disk.
+		const dir = mkdtempSync(join(tmpdir(), 'sf-eslint-deps-'));
+		writeFileSync(join(dir, 'package.json'), '{"name":"app","imports":{}}');
+		seedOfficialFoundationOnDisk(dir);
+		try {
+			svforgeAddon.run({
+				sv: sv as never,
+				cwd: dir,
+				cancel: () => {},
+				options: { template: 'base', testing: 'vitest', hooks: 'none' },
+				packageManager: 'bun'
+			} as never);
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
 
 		expect(dependencies.get('eslint-plugin-tailwindcss')).toBe('^4.4.0');
 	});

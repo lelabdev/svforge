@@ -36,6 +36,17 @@ export const variables = defineEnvVars({
 	}
 });
 `,
+	'project.inlang/settings.json': `{
+	"$schema": "https://inlang.com/schema/project-settings",
+	"baseLocale": "fr",
+	"locales": ["fr", "en"]
+}
+`,
+	'src/hooks.ts': `import type { Reroute } from '@sveltejs/kit/hooks';
+import { deLocalizeUrl } from '#lib/paraglide/runtime.js';
+
+export const reroute: Reroute = (request) => deLocalizeUrl(request.url).pathname;
+`,
 	'src/hooks.server.ts': `import { building } from '$app/env';
 import { auth } from '#lib/server/auth.ts';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
