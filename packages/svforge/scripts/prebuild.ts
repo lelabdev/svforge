@@ -141,6 +141,12 @@ const PRETTIER_STATIC_IGNORES = [
 	'.svforge.json',
 	'.svforge-versions.json',
 	'auth-schema.review.ts',
+	// #547: official integrations own these generated artifacts and rewrite
+	// them without Prettier (tsconfig arrays, the auth schema, migrations).
+	'tsconfig.json',
+	'src/env.ts',
+	'src/lib/server/db/auth.schema.ts',
+	'drizzle',
 	'AGENTS.md',
 	'llms.txt'
 ];

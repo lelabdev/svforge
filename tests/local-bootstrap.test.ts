@@ -5,6 +5,8 @@ import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { parseEnv } from 'node:util';
 import { baseRootFiles, dashboardRootFiles } from '../packages/svforge/src/templates';
+import { OFFICIAL_FOUNDATION_FILES } from './helpers/official-foundation';
+import { patchDotEnv } from '../packages/svforge/src/modes/dashboard';
 
 const template = resolve('packages/svforge/templates/dashboard/root');
 const directories: string[] = [];
@@ -184,8 +186,12 @@ describe('Dashboard local preparation (#589)', () => {
 			);
 			expect(baseRootFiles).not.toHaveProperty(`/scripts/${file}`);
 		}
-		expect(parseEnv(dashboardRootFiles['/.env.example']).BETTER_AUTH_SECRET).toBe('changeme');
-		expect(parseEnv(dashboardRootFiles['/.env.example']).DATABASE_URL).toBe('');
+		// #547: the official integrations own .env.example; SVForge appends its
+		// policy (no runtime secret is ever embedded).
+		const envExample = parseEnv(patchDotEnv(OFFICIAL_FOUNDATION_FILES['.env.example']));
+		expect(envExample.BETTER_AUTH_SECRET).toBe('');
+		expect(envExample.DATABASE_URL).toContain('postgres://');
+		expect(envExample.SIGNUP_MODE).toBe('closed');
 	});
 
 	it('rejects unsupported flags before writing configuration', () => {

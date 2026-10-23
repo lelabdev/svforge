@@ -23,14 +23,16 @@ yarn.lock
 .svforge.json
 .svforge-versions.json
 auth-schema.review.ts
+tsconfig.json
+src/env.ts
+src/lib/server/db/auth.schema.ts
+drizzle
 AGENTS.md
 llms.txt
 
 # SVForge-delivered files
-.env.example
 .github/workflows/ci.yml
 .prettierrc
-drizzle.config.ts
 e2e/auth.test.ts
 e2e/navigation.test.ts
 e2e/user-crud.test.ts
@@ -46,8 +48,6 @@ scripts/setup.mjs
 scripts/setup.sh
 src/app.d.ts
 src/app.html
-src/env.ts
-src/hooks.server.test.ts
 src/hooks.server.ts
 src/hooks.ts
 src/lib/assets/brand-favicons.ts
@@ -86,12 +86,11 @@ src/lib/index.ts
 src/lib/server/admin-users.test.ts
 src/lib/server/admin-users.ts
 src/lib/server/admin.ts
-src/lib/server/auth.schema.config.ts
+src/lib/server/auth-guard.test.ts
+src/lib/server/auth-guard.ts
+src/lib/server/auth-policy.ts
 src/lib/server/auth.test.ts
-src/lib/server/auth.ts
-src/lib/server/db/auth.schema.ts
 src/lib/server/db/client.ts
-src/lib/server/db/index.ts
 src/lib/server/db/schema.ts
 src/lib/server/first-admin.test.ts
 src/lib/server/first-admin.ts

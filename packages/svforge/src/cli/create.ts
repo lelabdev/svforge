@@ -231,9 +231,36 @@ function createExecutionPlan(
 		return addonOptions.length === 0 ? spec : `${spec}=${addonOptions.map(([key, value]) => `${key}:${value}`).join('+')}`;
 	});
 	const addArgs = [...sv.prefix, 'add', templateSpec, ...moduleSpecs, '--install', pm, '--no-download-check', '--no-git-check'];
+	// #547: the dashboard's auth/DB foundation belongs to the official `sv`
+	// integrations. They run BEFORE the SVForge add-on (which only extends
+	// their output); installation is deferred to the final `sv add` so the
+	// project is installed exactly once with the selected package manager.
+	const officialCommands =
+		template === 'dashboard'
+			? [
+					{
+						executable: sv.command,
+						args: [
+							...sv.prefix,
+							'add',
+							'drizzle=database:postgresql+client:postgres.js+docker:no',
+							'--no-install',
+							'--no-download-check',
+							'--no-git-check'
+						],
+						cwd: target
+					},
+					{
+						executable: sv.command,
+						args: [...sv.prefix, 'add', 'better-auth=demo:', '--no-install', '--no-download-check', '--no-git-check'],
+						cwd: target
+					}
+				]
+			: [];
 	return {
 		commands: [
 			{ executable: sv.command, args: createArgs, cwd },
+			...officialCommands,
 			{ executable: sv.command, args: addArgs, cwd: target }
 		],
 		packages: [
@@ -474,7 +501,9 @@ export async function runCreateCommand(
 	}
 
 	// ── 8. Execute the exact official sv commands exposed by plan mode ──
-	const [createCommand, addCommand] = createPlan.commands;
+	// #547: a dashboard plan runs the official auth/DB add-ons before the
+	// grouped SVForge add, so every planned add executes in order.
+	const [createCommand, ...addCommands] = createPlan.commands;
 	const createCode = await spawn(
 		createCommand!.executable,
 		createCommand!.args,
@@ -489,18 +518,20 @@ export async function runCreateCommand(
 		};
 	}
 
-	const addCode = await spawn(
-		addCommand!.executable,
-		addCommand!.args,
-		{ cwd: addCommand!.cwd, stdio: 'inherit' }
-	);
-	if (addCode !== 0) {
-		return {
-			code: addCode,
-			plan: createPlan,
-			failedStage: 'add',
-			message: '`sv add` failed — see its output above. The project exists but is not fully configured; it is NOT ready to use.'
-		};
+	for (const addCommand of addCommands) {
+		const addCode = await spawn(
+			addCommand.executable,
+			addCommand.args,
+			{ cwd: addCommand.cwd, stdio: 'inherit' }
+		);
+		if (addCode !== 0) {
+			return {
+				code: addCode,
+				plan: createPlan,
+				failedStage: 'add',
+				message: '`sv add` failed — see its output above. The project exists but is not fully configured; it is NOT ready to use.'
+			};
+		}
 	}
 	// #426 review: sv can CANCEL the add silently (verifications prompt
 	// answered by its non-TTY default) while still exiting 0. The manifest

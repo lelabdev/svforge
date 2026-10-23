@@ -198,8 +198,13 @@ function parseColumnChunk(chunk) {
 	const code = chunk.replace(/^\s*\/\/.*$/gm, '');
 	const header = code.match(/^\s*([A-Za-z_$][\w$]*)\s*:\s*([A-Za-z_$][\w$]*)\s*\(\s*['"]([^'"]+)['"]/);
 	if (!header) return null;
-	const referenceMatch = code.match(/\.references\(\s*\(\s*\)\s*=>\s*([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*(?:,\s*\{\s*onDelete:\s*'(\w+)'\s*\})?/);
+	// The official `auth:schema` script emits double-quoted strings; older
+	// hand-written schemas used single quotes. Accept both.
+	const referenceMatch = code.match(/\.references\(\s*\(\s*\)\s*=>\s*([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*(?:,\s*\{\s*onDelete:\s*['"](\w+)['"]\s*\})?/);
 	const defaultMatch = code.match(/\.default\(\s*([^)]*?)\s*\)/);
+	// The official `auth:schema` output uses `.defaultNow()` for timestamps;
+	// hand-written schemas used `.default(sql\`now()\`)`. Both are computed.
+	const defaultNow = /\.defaultNow\(\)/.test(code);
 	return {
 		property: header[1],
 		drizzleType: header[2],
@@ -207,10 +212,10 @@ function parseColumnChunk(chunk) {
 		notNull: /\.notNull\(\)/.test(code),
 		primaryKey: /\.primaryKey\(\)/.test(code),
 		unique: /\.unique\(\)/.test(code),
-		hasDefault: Boolean(defaultMatch),
+		hasDefault: Boolean(defaultMatch || defaultNow),
 		// 'computed' covers sql`…`, new Date(), function calls — anything
 		// without a comparable scalar literal.
-		defaultLiteral: defaultMatch ? normalizeDefaultLiteral(defaultMatch[1]) : null,
+		defaultLiteral: defaultMatch ? normalizeDefaultLiteral(defaultMatch[1]) : defaultNow ? 'computed' : null,
 		references: referenceMatch
 			? { table: referenceMatch[1], property: referenceMatch[2], onDelete: referenceMatch[3] ?? null }
 			: null,

@@ -7,6 +7,7 @@ import { ROOT } from './helpers';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
 import { scaffoldedAgents, syncAgentLocaleContext } from '../packages/svforge/src/scaffolded-agents';
+import { seedOfficialFoundation } from './helpers/official-foundation';
 
 /**
  * #347 — AGENTS.md is the SOLE agent convention of a SvelteForge project.
@@ -147,6 +148,7 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 
 	it('dashboard scaffold writes only AGENTS.md as instruction file', () => {
 		const sv = fakeSv();
+		seedOfficialFoundation(sv.files);
 		applyBaseMode(asSvApi(sv), { '/lib/base.ts': 'base' });
 		applyDashboardMode(asSvApi(sv), { '/lib/base.ts': 'base' }, {}, 'vitest');
 		expect(sv.files.has('AGENTS.md')).toBe(true);
@@ -175,7 +177,8 @@ function fakeSv(): FakeSv {
 			this.devDependencies.push(name);
 		},
 		file(path, transform) {
-			this.files.set(path, transform(path === 'package.json' ? '{"scripts":{}}' : ''));
+			const seed = this.files.get(path) ?? (path === 'package.json' ? '{"scripts":{}}' : '');
+			this.files.set(path, transform(seed));
 		}
 	};
 	return sv;

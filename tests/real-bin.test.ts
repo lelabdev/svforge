@@ -377,12 +377,15 @@ describe('real bin — svforge create (#426 review)', () => {
 		expect(kept.code).toBe(0);
 		expect(existsSync(join(withGit, 'app', '.git'))).toBe(true);
 		expect(kept.stubLog[0]).toContain('create app');
-		expect(kept.stubLog[1]).toContain(
+		// #547: the official auth/DB add-ons run first; the grouped SVForge add
+		// is the LAST `sv add` line.
+		const groupedAdd = [...kept.stubLog].reverse().find((line) => line.includes(`svforge@${COMPAT_MANIFEST.packages.svforge}`))!;
+		expect(groupedAdd).toContain(
 			`add svforge@${COMPAT_MANIFEST.packages.svforge}=template:dashboard+testing:vitest+hooks:none`
 		);
 		// Module versions come from the embedded compatibility manifest — never
 		// hardcoded and never an implicit `latest`.
-		expect(kept.stubLog[1]).toContain(`@svforge/chat@${COMPAT_MANIFEST.packages['@svforge/chat']}`);
+		expect(groupedAdd).toContain(`@svforge/chat@${COMPAT_MANIFEST.packages['@svforge/chat']}`);
 		// Git init went through the real git binary.
 		expect(kept.stubLog.every((line) => !line.startsWith('init'))).toBe(true);
 
@@ -504,6 +507,20 @@ printf '%s|%s\\n' "$PWD" "$*" >> "$GRAPHIFY_STUB_LOG"
 				executable: stub,
 				args: ['create', 'app', '--template', 'minimal', '--types', 'ts', '--no-add-ons', '--no-install', '--no-download-check'],
 				cwd
+			},
+			// #547: official foundation first (no install), then the grouped add.
+			{
+				executable: stub,
+				args: [
+					'add', 'drizzle=database:postgresql+client:postgres.js+docker:no',
+					'--no-install', '--no-download-check', '--no-git-check'
+				],
+				cwd: join(cwd, 'app')
+			},
+			{
+				executable: stub,
+				args: ['add', 'better-auth=demo:', '--no-install', '--no-download-check', '--no-git-check'],
+				cwd: join(cwd, 'app')
 			},
 			{
 				executable: stub,

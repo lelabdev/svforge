@@ -48,7 +48,7 @@ vi.mock('$app/server', () => ({ getRequestEvent: () => undefined }));
 // re-evaluates ./auth and ./invitations, which must keep using THIS pool).
 const dbModule = await import('#lib/server/db/index.js');
 const envModule = await import('$app/env/private');
-vi.doMock('#lib/server/db/index.js', () => ({ db: dbModule.db, closeDb: dbModule.closeDb }));
+vi.doMock('#lib/server/db/index.js', () => ({ db: dbModule.db }));
 
 import { createInvitation, findValidInvitation } from './invitations';
 import { db } from '#lib/server/db/index.js';
@@ -72,7 +72,7 @@ const uniqueEmail = (tag: string) => `signup-${tag}-${crypto.randomUUID()}@${RUN
 async function authWithMode(mode?: string) {
 	state.overrides.SIGNUP_MODE = mode;
 	vi.resetModules();
-	vi.doMock('#lib/server/db/index.js', () => ({ db: dbModule.db, closeDb: dbModule.closeDb }));
+	vi.doMock('#lib/server/db/index.js', () => ({ db: dbModule.db }));
 	const { auth } = await import('./auth');
 	return auth;
 }

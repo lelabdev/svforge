@@ -146,7 +146,9 @@ describe('template-aware interactive module picker (#585)', () => {
 			expect(result.plan?.allModules).toBe(true);
 			expect(result.plan?.runtime).toBe('long-lived-node');
 			expect(confirmations.some((message) => message.includes('long-lived Node runtime'))).toBe(true);
-			expect(calls).toHaveLength(2);
+			// #547: dashboard = sv create + official drizzle + official better-auth
+			// + ONE grouped SVForge sv add.
+			expect(calls).toHaveLength(4);
 		} finally { rmSync(cwd, { recursive: true, force: true }); }
 	});
 });
@@ -180,9 +182,9 @@ describe('composition rules before any file is written (#417)', () => {
 			expect(result.code).toBe(0);
 			expect(result.plan?.template).toBe('dashboard');
 			expect(result.plan?.allModules).toBe(true);
-			// sv create runs in the parent cwd, sv add in the target.
+			// sv create runs in the parent cwd; every add runs in the target.
 			expect(calls[0]!.options.cwd).toBe(cwd);
-			expect(calls[1]!.options.cwd).toBe(join(cwd, 'app'));
+			for (const call of calls.slice(1)) expect(call.options.cwd).toBe(join(cwd, 'app'));
 			rmSync(cwd, { recursive: true, force: true });
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
@@ -366,7 +368,8 @@ describe('two-stage orchestration (#417)', () => {
 			);
 			expect(result.code).toBe(0);
 			expect(result.plan?.hooks).toBe('none');
-			expect(calls).toHaveLength(3);
+			// create + drizzle + better-auth + grouped SVForge add + git init.
+			expect(calls).toHaveLength(5);
 
 			// Stage 1: the OFFICIAL generator, minimal, no add-ons, no install.
 			expect(calls[0]!.args).toEqual([
@@ -375,15 +378,27 @@ describe('two-stage orchestration (#417)', () => {
 			]);
 			expect(calls[0]!.command).toBe('bunx');
 
-			// Stage 2: ONE grouped sv add — template spec + modules, single install.
-			expect(calls[1]!.args[0]).toBe('sv');
-			expect(calls[1]!.args[1]).toBe('add');
+			// Stage 2-3 (#547): the OFFICIAL auth/DB add-ons, no install — their
+			// files are the foundation SVForge extends next.
+			expect(calls[1]!.args).toEqual([
+				'sv', 'add', 'drizzle=database:postgresql+client:postgres.js+docker:no',
+				'--no-install', '--no-download-check', '--no-git-check'
+			]);
+			expect(calls[2]!.args).toEqual([
+				'sv', 'add', 'better-auth=demo:',
+				'--no-install', '--no-download-check', '--no-git-check'
+			]);
+
+			// Stage 4: ONE grouped sv add — template spec + modules, single install.
+			expect(calls[3]!.args[0]).toBe('sv');
+			expect(calls[3]!.args[1]).toBe('add');
 			// #470: an ordinary `svforge create` pins the exact compatible
 			// versions from the embedded distribution manifest — never `latest`.
-			expect(calls[1]!.args[2]).toBe(`svforge@${COMPAT_MANIFEST.packages.svforge}=template:dashboard+testing:vitest+hooks:none`);
-			expect(calls[1]!.args).toContain(`@svforge/dnd@${COMPAT_MANIFEST.packages['@svforge/dnd']}`);
-			expect(calls[1]!.args).toContain(`@svforge/ui_toast@${COMPAT_MANIFEST.packages['@svforge/ui_toast']}`);
-			expect(calls[1]!.args).toEqual([
+			const groupedAdd = calls.filter((call) => call.args[0] === 'sv' && call.args[1] === 'add').at(-1)!;
+			expect(groupedAdd.args[2]).toBe(`svforge@${COMPAT_MANIFEST.packages.svforge}=template:dashboard+testing:vitest+hooks:none`);
+			expect(groupedAdd.args).toContain(`@svforge/dnd@${COMPAT_MANIFEST.packages['@svforge/dnd']}`);
+			expect(groupedAdd.args).toContain(`@svforge/ui_toast@${COMPAT_MANIFEST.packages['@svforge/ui_toast']}`);
+			expect(groupedAdd.args).toEqual([
 				'sv',
 				'add',
 				`svforge@${COMPAT_MANIFEST.packages.svforge}=template:dashboard+testing:vitest+hooks:none`,
@@ -396,9 +411,9 @@ describe('two-stage orchestration (#417)', () => {
 			]);
 
 			// #417: Git initialization is part of the orchestration (default on).
-			expect(calls[2]!.command).toBe('git');
-			expect(calls[2]!.args).toEqual(['init']);
-			expect(calls[2]!.options.cwd).toBe(join(cwd, 'app'));
+			const gitInit = calls.find((call) => call.command === 'git')!;
+			expect(gitInit.args).toEqual(['init']);
+			expect(gitInit.options.cwd).toBe(join(cwd, 'app'));
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
 		}
@@ -472,7 +487,8 @@ describe('packaged-artifact and exact-version resolution (#470)', () => {
 				)
 			);
 			expect(result.code).toBe(0);
-			const addArgs = calls[1]!.args;
+			// The grouped SVForge add is the LAST `sv add` (git init may follow).
+			const addArgs = calls.filter((call) => call.args[0] === 'sv' && call.args[1] === 'add').at(-1)!.args;
 			expect(addArgs).toContain(`file:${join(addonRoot, 'svforge')}=template:dashboard+testing:vitest+hooks:none`);
 			expect(addArgs).toContain(`file:${join(addonRoot, 'dnd')}`);
 			expect(addArgs).toContain(`file:${join(addonRoot, 'ui_toast')}`);
@@ -496,7 +512,8 @@ describe('packaged-artifact and exact-version resolution (#470)', () => {
 				)
 			);
 			expect(result.code).toBe(0);
-			const addArgs = calls[1]!.args;
+			// The grouped SVForge add is the LAST `sv add` (git init may follow).
+			const addArgs = calls.filter((call) => call.args[0] === 'sv' && call.args[1] === 'add').at(-1)!.args;
 			expect(addArgs).toContain('svforge@2.0.1=template:dashboard+testing:vitest+hooks:none');
 			expect(addArgs).toContain('@svforge/dnd@2.0.1');
 			expect(addArgs).toContain('@svforge/ui_toast@2.0.1');
@@ -531,7 +548,8 @@ describe('compatibility manifest + fail-closed packaging (#470)', () => {
 				)
 			);
 			expect(result.code).toBe(0);
-			const addArgs = calls[1]!.args;
+			// The grouped SVForge add is the LAST `sv add` (git init may follow).
+			const addArgs = calls.filter((call) => call.args[0] === 'sv' && call.args[1] === 'add').at(-1)!.args;
 			// Intentionally divergent versions: each package keeps its own exact version.
 			expect(addArgs).toContain('svforge@2.1.0=template:dashboard+testing:vitest+hooks:none');
 			expect(addArgs).toContain('@svforge/dnd@2.0.3');
