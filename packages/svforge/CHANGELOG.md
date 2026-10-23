@@ -1,5 +1,11 @@
 # svforge
 
+## 2.2.6
+
+### Patch Changes
+
+- [#637](https://github.com/lelabdev/svforge/pull/637) [`d1e91e1`](https://github.com/lelabdev/svforge/commit/d1e91e1e6a153b0eae7dad2f519fe0bd17cc1e96) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Add a canonical `layout/PageHeader.svelte` to the Base/Dashboard templates and compose the Dashboard admin page headers with it, so equivalent primary actions share the shared Button defaults: the `Manage users` CTA no longer pins `size="sm"` while `Add user` relies on the default. `svforge check` now warns (`pageHeaderActionSize`) when a page-header action pins its own size — table rows, toolbars and icon-only controls are never inspected. Generated AGENTS.md/`llms.txt` guidance and `svforge-catalog.json` document the default-first rule, the full-width-admin vs constrained-form policy and the optional decorative page-title icon policy.
+
 ## 2.2.5
 
 ### Patch Changes
