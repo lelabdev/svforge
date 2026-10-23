@@ -2164,11 +2164,19 @@
     "semantic_hash": ""
   },
   "scripts/spike-547.mjs": {
-    "ast_hash": "d477f4528ea135b04461150d528e3bed",
+    "ast_hash": "5e24612e54296323158015e27698f5af",
     "semantic_hash": ""
   },
   "docs/spikes/547-official-integrations-poc.md": {
-    "ast_hash": "a2eba70315c91c28252288d81ba01b34",
+    "ast_hash": "96920ea457d61ecbe16c1e629ed4fffd",
+    "semantic_hash": ""
+  },
+  "scripts/spike-547-safety.mjs": {
+    "ast_hash": "fdf7c0c1f5cf13324ed149ba81a5bd22",
+    "semantic_hash": ""
+  },
+  "tests/spike-547-safety.test.ts": {
+    "ast_hash": "456ba718a5533c62cc0cb77c75a8c074",
     "semantic_hash": ""
   }
 }

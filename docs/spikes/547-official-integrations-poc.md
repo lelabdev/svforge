@@ -18,6 +18,27 @@ Answer from this POC: **yes**, with three documented, additive adaptations:
 
 Everything else stays upstream-owned. `role`/`disabled` do **not** need a parallel schema generator.
 
+## 1b. Database safety (review blocker)
+
+The spike never targets a caller-supplied database. `scripts/spike-547-safety.mjs` enforces:
+
+- the URL is an **admin** URL: used only to `CREATE DATABASE` / `DROP DATABASE` for a generated
+  `sf_spike_547_*` name — schema pushes and row mutations run against that owned database only;
+- ambiguous URLs are rejected before anything runs (non-`postgres://`, no explicit database, multiple
+  hosts, unsupported query parameters);
+- the owned database must be **empty** before `db:push` (`CREATE DATABASE` copies `template1`, so a
+  pre-seeded template is the one way a "new" database could contain tables);
+- child processes inherit the owned URL only: `process.env.DATABASE_URL` is pinned for the workflow and
+  restored afterwards (drizzle-kit and the app prefer an exported variable over `.env` — verified the hard
+  way during this spike, see F12);
+- cleanup drops only the owned database, and only if the spike created it (a failed `CREATE DATABASE`
+  drops nothing);
+- the run ends by asserting the caller-supplied database's table list is **unchanged**.
+
+Regression tests (no PostgreSQL needed) live in `tests/spike-547-safety.test.ts`: URL validation, owned-name
+guard, non-empty refusal, and a fail-closed provisioning test proving a non-empty target aborts before the
+workflow runs and that only the owned database is created/inspected/dropped.
+
 ## 2. Environment (recorded 2026-10-23)
 
 | Component | Version |
@@ -156,6 +177,14 @@ fork and no second schema path are needed.
 - Direct `sv add svforge=template:dashboard` was **not** part of this POC (no template change). The
   collision remains until phase C / published conditional dependency options.
 
+### F11 — a child-process `DATABASE_URL` overrides `.env` (found while hardening this spike)
+
+Writing the owned URL to `.env` was **not** enough: `drizzle-kit` and the app resolve an exported
+`DATABASE_URL` first, so an inherited admin URL silently pointed `db:push` at the admin database. The spike
+now pins `process.env.DATABASE_URL` to the owned database and asserts the caller database is unchanged.
+The same hazard applies to the future scaffold harness: the test-database URL must be exported, not just
+written to `.env`.
+
 ## 4. Ownership matrix (target)
 
 | Path / responsibility | Owner | SVForge action |
@@ -207,4 +236,5 @@ DATABASE_URL=postgres://postgres:postgres@localhost:5432/sf_547 \
 
 Checks: official add commands, install without peer forcing, hook composition, `additionalFields`
 generation (NOT NULL), domain+auth schema push, closed signup, signup role injection ignored, disabled
-session rejection through the composed handle, re-enabled restore.
+session rejection through the composed handle, re-enabled restore, and the caller database left unchanged.
+`--keep` keeps only the fixture directory; the spike-owned database is always dropped.

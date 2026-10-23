@@ -21414,6 +21414,101 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_spike_547_safety",
+      "label": "spike-547-safety.mjs",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_spike_db_prefix",
+      "label": "SPIKE_DB_PREFIX",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_owned_database",
+      "label": "OWNED_DATABASE",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_allowed_params",
+      "label": "ALLOWED_PARAMS",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L24",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_parseadminurl",
+      "label": "parseAdminUrl()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L27",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_redacturl",
+      "label": "redactUrl()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L57",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_spikedatabasename",
+      "label": "spikeDatabaseName()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L64",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_assertowneddatabasename",
+      "label": "assertOwnedDatabaseName()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L70",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_withdatabase",
+      "label": "withDatabase()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L80",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_assertdisposabletables",
+      "label": "assertDisposableTables()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L88",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_withowneddatabase",
+      "label": "withOwnedDatabase()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L124",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_spike_547",
       "label": "spike-547.mjs",
       "file_type": "code",
@@ -21426,7 +21521,7 @@
       "label": "args",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L33",
+      "source_location": "L49",
       "_origin": "ast"
     },
     {
@@ -21434,7 +21529,7 @@
       "label": "flag()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L34",
+      "source_location": "L50",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21443,7 +21538,7 @@
       "label": "has()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L38",
+      "source_location": "L54",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21452,7 +21547,7 @@
       "label": "repoRoot",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L40",
+      "source_location": "L56",
       "_origin": "ast"
     },
     {
@@ -21460,7 +21555,7 @@
       "label": "sv",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L41",
+      "source_location": "L57",
       "_origin": "ast"
     },
     {
@@ -21468,7 +21563,7 @@
       "label": "pm",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L42",
+      "source_location": "L58",
       "_origin": "ast"
     },
     {
@@ -21476,15 +21571,15 @@
       "label": "keep",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L43",
+      "source_location": "L59",
       "_origin": "ast"
     },
     {
-      "id": "scripts_spike_547_databaseurl",
-      "label": "databaseUrl",
+      "id": "scripts_spike_547_adminurl",
+      "label": "adminUrl",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L44",
+      "source_location": "L60",
       "_origin": "ast"
     },
     {
@@ -21492,7 +21587,7 @@
       "label": "workdir",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L45",
+      "source_location": "L61",
       "_origin": "ast"
     },
     {
@@ -21500,7 +21595,7 @@
       "label": "app",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L47",
+      "source_location": "L62",
       "_origin": "ast"
     },
     {
@@ -21508,7 +21603,7 @@
       "label": "port",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L48",
+      "source_location": "L63",
       "_origin": "ast"
     },
     {
@@ -21516,7 +21611,7 @@
       "label": "results",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L55",
+      "source_location": "L68",
       "_origin": "ast"
     },
     {
@@ -21524,7 +21619,7 @@
       "label": "failures",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L56",
+      "source_location": "L69",
       "_origin": "ast"
     },
     {
@@ -21532,7 +21627,7 @@
       "label": "check()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L57",
+      "source_location": "L70",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21541,7 +21636,7 @@
       "label": "run()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L63",
+      "source_location": "L76",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21550,7 +21645,7 @@
       "label": "patch()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L77",
+      "source_location": "L90",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21559,17 +21654,25 @@
       "label": "read()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L87",
+      "source_location": "L100",
       "_callable": true,
       "_origin": "ast"
     },
     {
-      "id": "scripts_spike_547_query",
-      "label": "query()",
+      "id": "scripts_spike_547_pg",
+      "label": "pg()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L91",
+      "source_location": "L106",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_database",
+      "label": "database",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L122",
       "_origin": "ast"
     },
     {
@@ -21577,7 +21680,7 @@
       "label": "waitFor()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L104",
+      "source_location": "L148",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21586,7 +21689,16 @@
       "label": "server",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L118",
+      "source_location": "L162",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_startserver",
+      "label": "startServer()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L163",
+      "_callable": true,
       "_origin": "ast"
     },
     {
@@ -21594,7 +21706,16 @@
       "label": "stopServer()",
       "file_type": "code",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L119",
+      "source_location": "L172",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_listadmintables",
+      "label": "listAdminTables()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L182",
       "_callable": true,
       "_origin": "ast"
     },
@@ -26034,6 +26155,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_spike_547_safety_test",
+      "label": "spike-547-safety.test.ts",
+      "file_type": "code",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_strict_check_test",
       "label": "strict-check.test.ts",
       "file_type": "code",
@@ -29443,12 +29572,21 @@
       "_origin": "ast"
     },
     {
+      "id": "docs_spikes_547_official_integrations_poc_1b_database_safety_review_blocker",
+      "label": "1b. Database safety (review blocker)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
       "id": "docs_spikes_547_official_integrations_poc_2_environment_recorded_2026_10_23",
       "label": "2. Environment (recorded 2026-10-23)",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L21",
+      "source_location": "L42",
       "_origin": "ast"
     },
     {
@@ -29457,7 +29595,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L44",
+      "source_location": "L65",
       "_origin": "ast"
     },
     {
@@ -29466,7 +29604,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L46",
+      "source_location": "L67",
       "_origin": "ast"
     },
     {
@@ -29475,7 +29613,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L52",
+      "source_location": "L73",
       "_origin": "ast"
     },
     {
@@ -29484,7 +29622,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L62",
+      "source_location": "L83",
       "_origin": "ast"
     },
     {
@@ -29493,7 +29631,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L70",
+      "source_location": "L91",
       "_origin": "ast"
     },
     {
@@ -29502,7 +29640,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L93",
+      "source_location": "L114",
       "_origin": "ast"
     },
     {
@@ -29511,7 +29649,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L99",
+      "source_location": "L120",
       "_origin": "ast"
     },
     {
@@ -29520,7 +29658,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L106",
+      "source_location": "L127",
       "_origin": "ast"
     },
     {
@@ -29529,7 +29667,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L129",
+      "source_location": "L150",
       "_origin": "ast"
     },
     {
@@ -29538,7 +29676,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L136",
+      "source_location": "L157",
       "_origin": "ast"
     },
     {
@@ -29547,7 +29685,16 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L146",
+      "source_location": "L167",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f11_a_child_process_database_url_overrides_env_found_while_hardening_this_spike",
+      "label": "F11 — a child-process `DATABASE_URL` overrides `.env` (found while hardening this spike)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L180",
       "_origin": "ast"
     },
     {
@@ -29556,7 +29703,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L159",
+      "source_location": "L188",
       "_origin": "ast"
     },
     {
@@ -29565,7 +29712,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L173",
+      "source_location": "L202",
       "_origin": "ast"
     },
     {
@@ -29574,7 +29721,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L188",
+      "source_location": "L217",
       "_origin": "ast"
     },
     {
@@ -29583,7 +29730,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L201",
+      "source_location": "L230",
       "_origin": "ast"
     },
     {
@@ -74117,13 +74264,190 @@
       "_origin": "ast"
     },
     {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_spike_db_prefix",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L22",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_owned_database",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L23",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_allowed_params",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L24",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_redacturl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_spikedatabasename",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L64",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L70",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_withdatabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L80",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_assertdisposabletables",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L88",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_withowneddatabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L124",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_redacturl",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L58",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withdatabase",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withdatabase",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L82",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withowneddatabase",
+      "target": "scripts_spike_547_safety_spikedatabasename",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L125",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withowneddatabase",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L126",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withowneddatabase",
+      "target": "scripts_spike_547_safety_assertdisposabletables",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L129",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withowneddatabase",
+      "target": "scripts_spike_547_safety_withdatabase",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L130",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "scripts_spike_547",
       "target": "ref_node_child_process",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L27",
+      "source_location": "L36",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74134,7 +74458,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L28",
+      "source_location": "L37",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74145,7 +74469,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L29",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74156,7 +74480,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L30",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74167,7 +74491,73 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L31",
+      "source_location": "L40",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_redacturl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_withdatabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_withowneddatabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74177,7 +74567,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L33",
+      "source_location": "L49",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74187,7 +74577,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L34",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74197,7 +74587,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L38",
+      "source_location": "L54",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74207,7 +74597,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L40",
+      "source_location": "L56",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74217,7 +74607,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L41",
+      "source_location": "L57",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74227,7 +74617,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L42",
+      "source_location": "L58",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74237,17 +74627,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L43",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "scripts_spike_547",
-      "target": "scripts_spike_547_databaseurl",
+      "target": "scripts_spike_547_adminurl",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L44",
+      "source_location": "L60",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74257,7 +74647,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L45",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74267,7 +74657,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L47",
+      "source_location": "L62",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74277,7 +74667,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L48",
+      "source_location": "L63",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74287,7 +74677,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L55",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74297,7 +74687,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L56",
+      "source_location": "L69",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74307,7 +74697,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L57",
+      "source_location": "L70",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74317,7 +74707,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L63",
+      "source_location": "L76",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74327,7 +74717,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L77",
+      "source_location": "L90",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74337,17 +74727,27 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L87",
+      "source_location": "L100",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "scripts_spike_547",
-      "target": "scripts_spike_547_query",
+      "target": "scripts_spike_547_pg",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L91",
+      "source_location": "L106",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_database",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L122",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74357,7 +74757,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L104",
+      "source_location": "L148",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74367,7 +74767,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L118",
+      "source_location": "L162",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_startserver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L163",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74377,18 +74787,50 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L119",
+      "source_location": "L172",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "scripts_spike_547_query",
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_listadmintables",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L182",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_pg",
       "target": "scripts_spike_547_run",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547.mjs",
-      "source_location": "L92",
+      "source_location": "L107",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_startserver",
+      "target": "scripts_spike_547_stopserver",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L164",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_listadmintables",
+      "target": "scripts_spike_547_pg",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L183",
       "weight": 1,
       "_origin": "ast"
     },
@@ -89052,6 +89494,116 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_spike_547_safety_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_spike_db_prefix",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_assertdisposabletables",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_redacturl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_spikedatabasename",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_withdatabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_withowneddatabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_strict_check_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -95493,7 +96045,7 @@
     },
     {
       "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
-      "target": "docs_spikes_547_official_integrations_poc_2_environment_recorded_2026_10_23",
+      "target": "docs_spikes_547_official_integrations_poc_1b_database_safety_review_blocker",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
@@ -95503,11 +96055,21 @@
     },
     {
       "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_2_environment_recorded_2026_10_23",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
       "target": "docs_spikes_547_official_integrations_poc_3_findings",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L44",
+      "source_location": "L65",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95517,7 +96079,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L46",
+      "source_location": "L67",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95527,7 +96089,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L52",
+      "source_location": "L73",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95537,7 +96099,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L62",
+      "source_location": "L83",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95547,7 +96109,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L70",
+      "source_location": "L91",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95557,7 +96119,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L93",
+      "source_location": "L114",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95567,7 +96129,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L99",
+      "source_location": "L120",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95577,7 +96139,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L106",
+      "source_location": "L127",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95587,7 +96149,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L129",
+      "source_location": "L150",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95597,7 +96159,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L136",
+      "source_location": "L157",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95607,7 +96169,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L146",
+      "source_location": "L167",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f11_a_child_process_database_url_overrides_env_found_while_hardening_this_spike",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L180",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95617,7 +96189,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L159",
+      "source_location": "L188",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95627,7 +96199,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L173",
+      "source_location": "L202",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95637,7 +96209,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L188",
+      "source_location": "L217",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95647,7 +96219,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L201",
+      "source_location": "L230",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100642,7 +101214,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L138",
+      "source_location": "L159",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100654,7 +101226,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L150",
+      "source_location": "L171",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100666,36 +101238,12 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L153",
+      "source_location": "L174",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "docs_spikes_547_official_integrations_poc_4_ownership_matrix_target",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
-      "relation": "references",
-      "context": "createDb",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L164",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "docs_spikes_547_official_integrations_poc_4_ownership_matrix_target",
-      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
-      "relation": "references",
-      "context": "SIGNUP_MODE",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L170",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "docs_spikes_547_official_integrations_poc_5_suggested_phase_a_not_implemented_here",
+      "source": "docs_spikes_547_official_integrations_poc_f11_a_child_process_database_url_overrides_env_found_while_hardening_this_spike",
       "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
       "relation": "references",
       "context": "DATABASE_URL",
@@ -100707,6 +101255,42 @@
       "_origin": "ast"
     },
     {
+      "source": "docs_spikes_547_official_integrations_poc_4_ownership_matrix_target",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
+      "relation": "references",
+      "context": "createDb",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L193",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_4_ownership_matrix_target",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
+      "relation": "references",
+      "context": "SIGNUP_MODE",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L199",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_5_suggested_phase_a_not_implemented_here",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
+      "relation": "references",
+      "context": "DATABASE_URL",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L209",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "docs_spikes_547_official_integrations_poc_6_risks_open_questions",
       "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
       "relation": "references",
@@ -100714,7 +101298,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L194",
+      "source_location": "L223",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100726,7 +101310,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L195",
+      "source_location": "L224",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100738,7 +101322,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/spikes/547-official-integrations-poc.md",
-      "source_location": "L198",
+      "source_location": "L227",
       "weight": 1,
       "_origin": "ast"
     },
@@ -100763,6 +101347,18 @@
       "confidence_score": 0.95,
       "source_file": "packages/addon-kit/README.md",
       "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_readme_vocabulary",
+      "target": "scripts_spike_547_pg",
+      "relation": "references",
+      "context": "pg",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "packages/addon-kit/README.md",
+      "source_location": "L43",
       "weight": 1,
       "_origin": "ast"
     },
