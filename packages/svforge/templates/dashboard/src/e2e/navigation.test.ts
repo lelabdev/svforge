@@ -72,4 +72,21 @@ test.describe('dashboard navigation (authenticated)', () => {
 		await expect(page).toHaveURL(/\/admin\/users$/);
 		await expect(drawer).toBeHidden();
 	});
+
+	test('desktop sidebar collapse announces its state and changes the width', async ({ page }) => {
+		await page.setViewportSize({ width: 1280, height: 900 });
+		await page.goto('/admin');
+
+		const toggle = page.getByTestId('admin-sidebar-toggle');
+		const sidebar = page.locator('#admin-sidebar');
+		await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+		const expanded = (await sidebar.boundingBox())?.width ?? 0;
+		expect(expanded).toBeGreaterThan(200);
+
+		await toggle.click();
+		await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+		await expect.poll(async () => (await sidebar.boundingBox())?.width ?? 0).toBeLessThan(expanded);
+		// Collapsed items stay reachable: labels move to the accessible name.
+		await expect(sidebar.getByRole('link', { name: /users|utilisateurs/i })).toBeVisible();
+	});
 });

@@ -17,3 +17,5 @@ export { default as Lock } from 'phosphor-svelte/lib/Lock';
 export { default as Clock } from 'phosphor-svelte/lib/Clock';
 export { default as Eye } from 'phosphor-svelte/lib/Eye';
 export { default as EyeSlash } from 'phosphor-svelte/lib/EyeSlash';
+export { default as CaretDoubleLeft } from 'phosphor-svelte/lib/CaretDoubleLeft';
+export { default as CaretDoubleRight } from 'phosphor-svelte/lib/CaretDoubleRight';

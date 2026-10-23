@@ -47,11 +47,20 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 	mkdirSync(renderDir, { recursive: true });
 
 	const messages = JSON.parse(readFileSync(join(project, 'messages', `${locale}.json`), 'utf8')) as Record<string, string>;
+	// Paraglide messages are functions taking params — mirror that contract so
+	// interpolated copy (e.g. the welcome headline) renders like production.
+	const messageFunction = (key: string, value: string) => {
+		const parts = value.split(/\{(\w+)\}/g);
+		const expression = parts
+			.map((part, index) => (index % 2 === 1 ? `(params?.${part} ?? '')` : JSON.stringify(part)))
+			.join(' + ');
+		return `export const ${key} = (params) => ${expression};`;
+	};
 	writeFileSync(
 		join(renderDir, 'messages.js'),
 		Object.entries(messages)
 			.filter(([key]) => key !== '$schema')
-			.map(([key, value]) => `export const ${key} = () => ${JSON.stringify(value)};`)
+			.map(([key, value]) => messageFunction(key, value))
 			.join('\n')
 	);
 	writeFileSync(join(renderDir, 'cn.js'), 'export const cn = (...classes) => classes.filter(Boolean).join(" ");');
@@ -64,22 +73,23 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 		join(project, 'src/lib/components/svforge/layout/AdminLayout.svelte'),
 		'utf8'
 	)
-		.replace(/^\s*import .*;\n/gm, '')
+		.replace(/^\s*import\s[^;]*;\s*$/gm, '')
 		.replace(
 			'<script lang="ts">',
 			`<script lang="ts">
 	import * as m from './messages.js';
 	import { cn } from './cn.js';
 	import Empty from './Empty.js';
-	const Users = Empty, Gear = Empty, ChartBar = Empty, SignOut = Empty, Menu = Empty, X = Empty, ThemeToggle = Empty, Button = Empty, Portal = Empty;
+	const Users = Empty, Gear = Empty, ChartBar = Empty, SignOut = Empty, Menu = Empty, X = Empty, SquaresFour = Empty, CaretDoubleLeft = Empty, CaretDoubleRight = Empty, ThemeToggle = Empty, AvatarInitial = Empty, Button = Empty, Portal = Empty;
 	const Dialog = Object.assign(Empty, { Trigger: Empty, Backdrop: Empty, Positioner: Empty, Content: Empty, Title: Empty, CloseTrigger: Empty });`
 		);
 	const page = readFileSync(join(project, 'src/routes/(app)/admin/+page.svelte'), 'utf8')
-		.replace(/^\s*import .*;\n/gm, '')
+		.replace(/^\s*import\s[^;]*;\s*$/gm, '')
 		.replace(
 			'<script lang="ts">',
 			`<script lang="ts">
 	import * as m from './messages.js';
+	import { cn } from './cn.js';
 	import Empty from './Empty.js';
 	import PageHeader from './PageHeader.js';
 	const Card = Empty, AvatarInitial = Empty, Badge = Empty, Button = Empty, Users = Empty, ChartBar = Empty, Clock = Empty;`
@@ -90,7 +100,7 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 		join(project, 'src/lib/components/svforge/layout/PageHeader.svelte'),
 		'utf8'
 	)
-		.replace(/^\s*import .*;\n/gm, '')
+		.replace(/^\s*import\s[^;]*;\s*$/gm, '')
 		.replace('<script lang="ts">', `<script lang="ts">
 	import { cn } from './cn.js';`);
 
@@ -127,28 +137,44 @@ describe('dashboard admin composition', () => {
 		}
 	});
 
-	it('scaffolds and renders a shell title before a distinct localized admin page title', async () => {
+	it('scaffolds and renders a shell title before a welcome page header (#636)', async () => {
 		const project = mkdtempSync(join(process.cwd(), '.svforge-dashboard-composition-'));
 		try {
 			const sv = filesystemSv(project);
 			applyBaseMode(asSvApi(sv), baseFiles, baseRootFiles);
 			applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
 
-			for (const [locale, shellTitle, pageTitle] of [
-				['en', 'Admin', 'Dashboard'],
-				['fr', 'Admin', 'Tableau de bord']
+			for (const [locale, shellTitle, navLabel, welcome, totalLabel] of [
+				['en', 'Admin', 'Dashboard', 'Welcome back, Ada', 'Total Users'],
+				['fr', 'Admin', 'Tableau de bord', 'Bon retour, Ada', 'Utilisateurs totaux']
 			] as const) {
 				const html = await renderAdminDashboard(project, locale);
-				expect(html).toMatch(new RegExp(`<h1[^>]*>${shellTitle}</h1>`));
-				expect(html).toMatch(new RegExp(`<h2 class="h2[^"]*">${pageTitle}</h2>`));
-				expect(pageTitle).not.toBe(shellTitle);
-				// #317: the page title consumes the native Skeleton h2 utility
-				// (shell chrome keeps its compact local heading). Order matters:
-				// the shell title renders first, the page title after it.
-				expect(html.indexOf(`<h1 class="text-lg font-bold">${shellTitle}</h1>`)).toBeLessThan(
-					html.indexOf(`<h2 class="h2`)
-				);
+				// The shell title exists exactly once per rendered viewport…
+				expect(html).toContain(`>${shellTitle}</h1>`);
+				// …and the page header states the personal context instead of
+				// repeating the navigation label (#636).
+				expect(html).toMatch(new RegExp(`<h2 class="h2[^"]*">${welcome}</h2>`));
+				expect(html).not.toMatch(new RegExp(`<h2 class="h2[^"]*">${navLabel}</h2>`));
+				// Order matters: the shell title renders first, the page title after it.
+				expect(html.indexOf(`<h1`)).toBeLessThan(html.indexOf('<h2 class="h2'));
+				// Real metric values stay rendered with their localized labels.
+				expect(html).toContain(totalLabel);
 			}
+		} finally {
+			rmSync(project, { recursive: true, force: true });
+		}
+	});
+
+	it('presents the recent-users section with an explicit empty state (#636)', async () => {
+		const project = mkdtempSync(join(process.cwd(), '.svforge-dashboard-empty-'));
+		try {
+			const sv = filesystemSv(project);
+			applyBaseMode(asSvApi(sv), baseFiles, baseRootFiles);
+			applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
+
+			const html = await renderAdminDashboard(project, 'en');
+			// The harness passes recentUsers: [] — a real zero-record situation.
+			expect(html).toContain('No users found');
 		} finally {
 			rmSync(project, { recursive: true, force: true });
 		}

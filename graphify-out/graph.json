@@ -16647,8 +16647,16 @@
       "label": "#each()",
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte",
-      "source_location": "L152",
+      "source_location": "L234",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "avatarinitial_svelte",
+      "label": "#lib/components/svforge/ui/AvatarInitial.svelte",
+      "file_type": "code",
+      "source_file": "#lib/components/svforge/ui/AvatarInitial.svelte",
+      "confidence": "EXTRACTED",
       "_origin": "ast"
     },
     {
@@ -16661,7 +16669,7 @@
     },
     {
       "id": "packages_svforge_templates_dashboard_src_lib_components_svforge_ui_avatarinitial",
-      "label": "AvatarInitial.svelte",
+      "label": "lib/components/svforge/ui/AvatarInitial.svelte",
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/AvatarInitial.svelte",
       "source_location": "L1",
@@ -17680,6 +17688,15 @@
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte",
       "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_src_routes_app_admin_page_metric",
+      "label": "metric()",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte",
+      "source_location": "L61",
+      "_callable": true,
       "_origin": "ast"
     },
     {
@@ -27419,6 +27436,15 @@
       "label": "vitest.config.ts",
       "file_type": "code",
       "source_file": "vitest.config.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_dashboard_admin_polish",
+      "label": "dashboard-admin-polish.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/dashboard-admin-polish.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -63262,7 +63288,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte",
-      "source_location": "L152",
+      "source_location": "L234",
       "weight": 1,
       "_origin": "ast"
     },
@@ -63301,6 +63327,14 @@
     {
       "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_layout_adminlayout",
       "target": "index_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_lib_components_svforge_layout_adminlayout",
+      "target": "avatarinitial_svelte",
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte",
@@ -65750,6 +65784,36 @@
       "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.server.ts",
       "source_location": "L8",
       "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_page",
+      "target": "packages_svforge_templates_dashboard_src_routes_app_admin_page_metric",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte",
+      "source_location": "L61",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_page",
+      "target": "packages_svforge_templates_dashboard_src_routes_app_admin_page_metric",
+      "relation": "indirect_call",
+      "context": "collection",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte",
+      "source_location": "L71",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_src_routes_app_admin_page",
+      "target": "cn_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte",
       "_origin": "ast"
     },
     {
@@ -80596,7 +80660,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L60",
+      "source_location": "L69",
       "weight": 1,
       "_origin": "ast"
     },
@@ -80607,7 +80671,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L120",
+      "source_location": "L130",
       "weight": 1,
       "_origin": "ast"
     },
@@ -80618,7 +80682,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L141",
+      "source_location": "L151",
       "weight": 1,
       "_origin": "ast"
     },

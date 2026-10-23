@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "9d2cdf13c7470a3d38054cab7dfd57d4",
+    "ast_hash": "7a7ab4eb15b6fca627898a451bf607c3",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -716,7 +716,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/e2e/navigation.test.ts": {
-    "ast_hash": "fb67486e5b236625ed955bcba5c79409",
+    "ast_hash": "9454398c4ce230d02e5411fe0cd619be",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/e2e/user-crud.test.ts": {
@@ -736,7 +736,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/components/svforge/layout/AdminLayout.svelte": {
-    "ast_hash": "d286c98b8949d614d4e96906851f1a62",
+    "ast_hash": "3fe5a0a119b5dc92f13394892b44c407",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/AvatarInitial.svelte": {
@@ -836,7 +836,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/routes/(app)/admin/+page.svelte": {
-    "ast_hash": "53d48d787a7dcb25e43c11f11ea944ca",
+    "ast_hash": "bab5758b21be16f6a3ac23674d2d0513",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/routes/(app)/admin/settings/+page.server.ts": {
@@ -1180,7 +1180,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-composition.test.ts": {
-    "ast_hash": "304adfaa056cbf3cfb75d4464de96f00",
+    "ast_hash": "280c9c2f6b06eafc23ab251259cc79ce",
     "semantic_hash": ""
   },
   "tests/dashboard-mode.test.ts": {
@@ -1828,7 +1828,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/icons/core.ts": {
-    "ast_hash": "213cb1eb5d62acceac19f41805264dd9",
+    "ast_hash": "f0cc3d8120e339ab42efc46ca902bb29",
     "semantic_hash": ""
   },
   "tests/icon-barrel.test.ts": {
@@ -2161,6 +2161,10 @@
   },
   ".changeset/page-header-actions.md": {
     "ast_hash": "cfe7894d81d0c7549686bbfb6b540c2d",
+    "semantic_hash": ""
+  },
+  ".changeset/dashboard-admin-polish.md": {
+    "ast_hash": "ccc98c32b734ec1bc5b4f6e4c75310d0",
     "semantic_hash": ""
   }
 }
