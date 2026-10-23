@@ -6,6 +6,10 @@ frontend/
 tests/__gen__/
 .worktrees/
 
+# Local agent runtime state (session/process identifiers, retry telemetry) —
+# machine-specific operational artifacts, never repository source.
+.pi-glla/
+
 # Graphify knowledge graph (updated by `graphify update .`, committed) —
 # keep the canonical graph artifacts, ignore volatile/local-only outputs.
 graphify-out/cost.json
