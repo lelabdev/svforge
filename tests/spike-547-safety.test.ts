@@ -25,6 +25,9 @@ describe('spike #547 — admin URL validation', () => {
 	it('accepts an explicit postgres URL and extracts its database', () => {
 		expect(parseAdminUrl(ADMIN_URL).database).toBe('postgres');
 		expect(parseAdminUrl('postgresql://u:p@db.internal:5432/postgres?sslmode=require').database).toBe('postgres');
+		// The approved TLS/observability parameters are part of the contract.
+		expect(parseAdminUrl('postgres://u:p@db:5432/postgres?application_name=sf_spike_547').database).toBe('postgres');
+		expect(parseAdminUrl('postgres://u:p@db:5432/postgres?sslmode=require&application_name=sf_spike_547').database).toBe('postgres');
 	});
 
 	it('rejects ambiguous or non-postgres URLs before anything runs', () => {
@@ -45,6 +48,28 @@ describe('spike #547 — admin URL validation', () => {
 		const redacted = redactUrl(ADMIN_URL);
 		expect(redacted).not.toContain('secret');
 		expect(redacted).toContain('***');
+	});
+
+	it('logs every URL that validation accepts, including approved query parameters', () => {
+		// Regression (review B-02): an accepted `?sslmode=require` URL used to
+		// throw at log time because redaction re-validated with a stricter policy.
+		for (const [url, expected] of [
+			['postgres://postgres:secret@db.internal:5432/postgres?sslmode=require', 'sslmode=require'],
+			['postgres://postgres:secret@db.internal:5432/postgres?application_name=sf_spike_547', 'application_name=sf_spike_547'],
+			['postgres://postgres:secret@db.internal:5432/postgres?sslmode=require&application_name=sf_spike_547', 'sslmode=require']
+		] as const) {
+			const redacted = redactUrl(url);
+			expect(redacted, url).not.toContain('secret');
+			expect(redacted, url).toContain('***');
+			expect(redacted, url).toContain(expected);
+			expect(() => parseAdminUrl(url), url).not.toThrow();
+		}
+	});
+
+	it('still rejects unknown parameters in both the validation and log paths', () => {
+		const ambiguous = 'postgres://postgres:secret@db:5432/postgres?options=-c%20search_path%3Dpublic';
+		expect(() => parseAdminUrl(ambiguous)).toThrow(/unsupported parameter/);
+		expect(() => redactUrl(ambiguous)).toThrow(/unsupported parameter/);
 	});
 });
 

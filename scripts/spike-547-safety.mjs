@@ -53,9 +53,14 @@ export function parseAdminUrl(raw, { allowQueryParams = true } = {}) {
 	return { url, database };
 }
 
-/** Connection URL with the password masked, for logs. */
+/**
+ * Connection URL with the password masked, for logs. Uses the SAME approved
+ * query-parameter policy as `parseAdminUrl`, so a URL accepted by validation
+ * (for example `?sslmode=require`) can always be logged — unknown or
+ * host-redirection parameters are still rejected here.
+ */
 export function redactUrl(raw) {
-	const { url } = parseAdminUrl(raw, { allowQueryParams: false });
+	const { url } = parseAdminUrl(raw);
 	if (url.password) url.password = '***';
 	return url.toString();
 }

@@ -21459,7 +21459,7 @@
       "label": "redactUrl()",
       "file_type": "code",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L57",
+      "source_location": "L62",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21468,7 +21468,7 @@
       "label": "spikeDatabaseName()",
       "file_type": "code",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L64",
+      "source_location": "L69",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21477,7 +21477,7 @@
       "label": "assertOwnedDatabaseName()",
       "file_type": "code",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L70",
+      "source_location": "L75",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21486,7 +21486,7 @@
       "label": "withDatabase()",
       "file_type": "code",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L80",
+      "source_location": "L85",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21495,7 +21495,7 @@
       "label": "assertDisposableTables()",
       "file_type": "code",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L88",
+      "source_location": "L93",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21504,7 +21504,7 @@
       "label": "withOwnedDatabase()",
       "file_type": "code",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L124",
+      "source_location": "L129",
       "_callable": true,
       "_origin": "ast"
     },
@@ -74309,7 +74309,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L57",
+      "source_location": "L62",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74319,7 +74319,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L64",
+      "source_location": "L69",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74329,7 +74329,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L70",
+      "source_location": "L75",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74339,7 +74339,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L80",
+      "source_location": "L85",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74349,7 +74349,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L88",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74359,7 +74359,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L124",
+      "source_location": "L129",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74370,7 +74370,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L58",
+      "source_location": "L63",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74381,7 +74381,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L81",
+      "source_location": "L86",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74392,7 +74392,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L82",
+      "source_location": "L87",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74403,7 +74403,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L125",
+      "source_location": "L130",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74414,7 +74414,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L126",
+      "source_location": "L131",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74425,7 +74425,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L129",
+      "source_location": "L134",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74436,7 +74436,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/spike-547-safety.mjs",
-      "source_location": "L130",
+      "source_location": "L135",
       "weight": 1,
       "_origin": "ast"
     },

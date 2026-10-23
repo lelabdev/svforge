@@ -2172,11 +2172,11 @@
     "semantic_hash": ""
   },
   "scripts/spike-547-safety.mjs": {
-    "ast_hash": "fdf7c0c1f5cf13324ed149ba81a5bd22",
+    "ast_hash": "6432fad290b63f083200b6502b074f74",
     "semantic_hash": ""
   },
   "tests/spike-547-safety.test.ts": {
-    "ast_hash": "456ba718a5533c62cc0cb77c75a8c074",
+    "ast_hash": "ec5fdbc124e258ea89b29b2cf2ffd972",
     "semantic_hash": ""
   }
 }
