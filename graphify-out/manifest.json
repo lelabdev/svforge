@@ -404,7 +404,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
-    "ast_hash": "99b870d01496a7428c521ca5df554bb7",
+    "ast_hash": "9d878a79441ef912964ee57357360e2f",
     "semantic_hash": ""
   },
   "packages/svforge/scripts/fetch-llms-docs.sh": {
@@ -432,7 +432,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/changelog.ts": {
-    "ast_hash": "9fc1a8a657321674d09f92d0cb2a0714",
+    "ast_hash": "964fe61d2d7a7d690459c7d37a18f951",
     "semantic_hash": ""
   },
   "packages/svforge/src/design-system.ts": {
@@ -472,7 +472,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
-    "ast_hash": "8f9a1533c3ab481f2db1b1492154fb21",
+    "ast_hash": "ceef48acbd2caee04776edde6245a182",
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
@@ -1636,7 +1636,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {
-    "ast_hash": "ee4355fbfffb1a82c754d1a98557ee1f",
+    "ast_hash": "23d78750536b8c6bd610d7179bdfd9c3",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat.ts": {
@@ -1900,7 +1900,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/CHANGELOG.md": {
-    "ast_hash": "98b643bb935fe1eed82fff58cc60c8ed",
+    "ast_hash": "95a92b615d1484a5ac796c37c4e3465f",
     "semantic_hash": ""
   },
   "packages/tiptap/CHANGELOG.md": {
@@ -1976,7 +1976,7 @@
     "semantic_hash": ""
   },
   ".changeset/release-candidates.json": {
-    "ast_hash": "08ff51e4698afa418719b4835b081300",
+    "ast_hash": "1d01e30627fa6831f4d539fb886b54a4",
     "semantic_hash": ""
   },
   "packages/svforge/bin/prompts.mjs": {
@@ -2159,12 +2159,16 @@
     "ast_hash": "4f312c8e9e308f930283f1088edd1eee",
     "semantic_hash": ""
   },
-  ".changeset/page-header-actions.md": {
-    "ast_hash": "cfe7894d81d0c7549686bbfb6b540c2d",
-    "semantic_hash": ""
-  },
   ".changeset/dashboard-admin-polish.md": {
     "ast_hash": "ccc98c32b734ec1bc5b4f6e4c75310d0",
+    "semantic_hash": ""
+  },
+  "scripts/spike-547.mjs": {
+    "ast_hash": "d477f4528ea135b04461150d528e3bed",
+    "semantic_hash": ""
+  },
+  "docs/spikes/547-official-integrations-poc.md": {
+    "ast_hash": "a2eba70315c91c28252288d81ba01b34",
     "semantic_hash": ""
   }
 }
