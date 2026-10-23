@@ -7644,7 +7644,7 @@
       "label": "compareVersions()",
       "file_type": "code",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L380",
+      "source_location": "L386",
       "_callable": true,
       "_origin": "ast"
     },
@@ -7653,7 +7653,7 @@
       "label": "entriesBetween()",
       "file_type": "code",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L390",
+      "source_location": "L396",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21414,6 +21414,312 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_spike_547_safety",
+      "label": "spike-547-safety.mjs",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_spike_db_prefix",
+      "label": "SPIKE_DB_PREFIX",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_owned_database",
+      "label": "OWNED_DATABASE",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L23",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_allowed_params",
+      "label": "ALLOWED_PARAMS",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L24",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_parseadminurl",
+      "label": "parseAdminUrl()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L27",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_redacturl",
+      "label": "redactUrl()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L62",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_spikedatabasename",
+      "label": "spikeDatabaseName()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L69",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_assertowneddatabasename",
+      "label": "assertOwnedDatabaseName()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L75",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_withdatabase",
+      "label": "withDatabase()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L85",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_assertdisposabletables",
+      "label": "assertDisposableTables()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L93",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_safety_withowneddatabase",
+      "label": "withOwnedDatabase()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L129",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547",
+      "label": "spike-547.mjs",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_args",
+      "label": "args",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L49",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_flag",
+      "label": "flag()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L50",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_has",
+      "label": "has()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L54",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_reporoot",
+      "label": "repoRoot",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L56",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_sv",
+      "label": "sv",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L57",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_pm",
+      "label": "pm",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L58",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_keep",
+      "label": "keep",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L59",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_adminurl",
+      "label": "adminUrl",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L60",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_workdir",
+      "label": "workdir",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L61",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_app",
+      "label": "app",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L62",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_port",
+      "label": "port",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L63",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_results",
+      "label": "results",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L68",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_failures",
+      "label": "failures",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L69",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_check",
+      "label": "check()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L70",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_run",
+      "label": "run()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L76",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_patch",
+      "label": "patch()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L90",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_read",
+      "label": "read()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L100",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_pg",
+      "label": "pg()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L106",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_database",
+      "label": "database",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L122",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_waitfor",
+      "label": "waitFor()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L148",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_server",
+      "label": "server",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L162",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_startserver",
+      "label": "startServer()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L163",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_stopserver",
+      "label": "stopServer()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L172",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_spike_547_listadmintables",
+      "label": "listAdminTables()",
+      "file_type": "code",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L182",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_test_scaffold",
       "label": "test-scaffold.sh",
       "file_type": "code",
@@ -25849,6 +26155,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_spike_547_safety_test",
+      "label": "spike-547-safety.test.ts",
+      "file_type": "code",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_strict_check_test",
       "label": "strict-check.test.ts",
       "file_type": "code",
@@ -27445,15 +27759,6 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/dashboard-admin-polish.md",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "changeset_page_header_actions",
-      "label": "page-header-actions.md",
-      "file_type": "document",
-      "node_kind": "page",
-      "source_file": ".changeset/page-header-actions.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -29237,6 +29542,195 @@
       "node_kind": "heading",
       "source_file": "docs/better-auth-upgrades.md",
       "source_location": "L40",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc",
+      "label": "547-official-integrations-poc.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "label": "Spike #547 — official `sv` foundations: audit + proof-of-concept",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_1_question_answered",
+      "label": "1. Question answered",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_1b_database_safety_review_blocker",
+      "label": "1b. Database safety (review blocker)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_2_environment_recorded_2026_10_23",
+      "label": "2. Environment (recorded 2026-10-23)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L42",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_3_findings",
+      "label": "3. Findings",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L65",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f1_the_historical_npm_peer_blocker_no_longer_reproduces",
+      "label": "F1 — the historical npm peer blocker no longer reproduces",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L67",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f2_official_addons_compose_hooks_instead_of_overwriting_them",
+      "label": "F2 — official addons compose hooks instead of overwriting them",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L73",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f3_official_check_is_incomplete_without_a_paraglide_compile_step",
+      "label": "F3 — official `check` is incomplete without a Paraglide compile step",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L83",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f4_role_disabled_have_a_supported_extension_point_the_547_stop_condition_is_cleared",
+      "label": "F4 — `role` / `disabled` have a supported extension point (the #547 stop condition is cleared)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L91",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f5_a_signup_body_cannot_set_role_or_disabled",
+      "label": "F5 — a signup body cannot set `role` or `disabled`",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L114",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f6_closed_signup_is_a_supported_configuration",
+      "label": "F6 — closed signup is a supported configuration",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L120",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f7_a_disabled_identity_keeps_its_session_so_svforge_still_owns_one_policy_handle",
+      "label": "F7 — a disabled identity keeps its session, so SVForge still owns one policy handle",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L127",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f8_schema_ownership_already_matches_the_intended_split",
+      "label": "F8 — schema ownership already matches the intended split",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L150",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f9_schema_generation_details_to_plan_for",
+      "label": "F9 — schema generation details to plan for",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L157",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f10_smaller_differences_to_decide_not_blockers",
+      "label": "F10 — smaller differences to decide, not blockers",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L167",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_f11_a_child_process_database_url_overrides_env_found_while_hardening_this_spike",
+      "label": "F11 — a child-process `DATABASE_URL` overrides `.env` (found while hardening this spike)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L180",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_4_ownership_matrix_target",
+      "label": "4. Ownership matrix (target)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L188",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_5_suggested_phase_a_not_implemented_here",
+      "label": "5. Suggested phase A (not implemented here)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L202",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_6_risks_open_questions",
+      "label": "6. Risks / open questions",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L217",
+      "_origin": "ast"
+    },
+    {
+      "id": "docs_spikes_547_official_integrations_poc_7_reproduce",
+      "label": "7. Reproduce",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L230",
       "_origin": "ast"
     },
     {
@@ -31703,8 +32197,8 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_5",
-      "label": "2.2.5",
+      "id": "packages_svforge_changelog_2_2_6",
+      "label": "2.2.6",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31721,8 +32215,8 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_4",
-      "label": "2.2.4",
+      "id": "packages_svforge_changelog_2_2_5",
+      "label": "2.2.5",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31739,8 +32233,8 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_3",
-      "label": "2.2.3",
+      "id": "packages_svforge_changelog_2_2_4",
+      "label": "2.2.4",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31757,26 +32251,26 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_2",
-      "label": "2.2.2",
+      "id": "packages_svforge_changelog_2_2_3",
+      "label": "2.2.3",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L39",
+      "source_location": "L21",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_patch_changes_41",
+      "id": "packages_svforge_changelog_patch_changes_23",
       "label": "Patch Changes",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L41",
+      "source_location": "L23",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_2_2_1",
-      "label": "2.2.1",
+      "id": "packages_svforge_changelog_2_2_2",
+      "label": "2.2.2",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31793,12 +32287,30 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_changelog_2_2_1",
+      "label": "2.2.1",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L51",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_patch_changes_53",
+      "label": "Patch Changes",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L53",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_changelog_2_2_0",
       "label": "2.2.0",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L51",
+      "source_location": "L57",
       "_origin": "ast"
     },
     {
@@ -31807,16 +32319,16 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L53",
+      "source_location": "L59",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_patch_changes_57",
+      "id": "packages_svforge_changelog_patch_changes_63",
       "label": "Patch Changes",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L57",
+      "source_location": "L63",
       "_origin": "ast"
     },
     {
@@ -31825,7 +32337,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L61",
+      "source_location": "L67",
       "_origin": "ast"
     },
     {
@@ -31834,7 +32346,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L63",
+      "source_location": "L69",
       "_origin": "ast"
     },
     {
@@ -31843,7 +32355,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L66",
+      "source_location": "L72",
       "_origin": "ast"
     },
     {
@@ -31852,7 +32364,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L69",
+      "source_location": "L75",
       "_origin": "ast"
     },
     {
@@ -31861,7 +32373,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L75",
+      "source_location": "L81",
       "_origin": "ast"
     },
     {
@@ -31870,30 +32382,12 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L78",
+      "source_location": "L84",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_breaking_changes_80",
+      "id": "packages_svforge_changelog_breaking_changes_86",
       "label": "Breaking changes",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L80",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_changelog_migrations_83",
-      "label": "Migrations",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L83",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_changelog_fixes_86",
-      "label": "Fixes",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31901,12 +32395,30 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_deprecations_89",
-      "label": "Deprecations",
+      "id": "packages_svforge_changelog_migrations_89",
+      "label": "Migrations",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L89",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_fixes_92",
+      "label": "Fixes",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L92",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_deprecations_95",
+      "label": "Deprecations",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L95",
       "_origin": "ast"
     },
     {
@@ -31915,30 +32427,12 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L92",
+      "source_location": "L98",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_breaking_changes_94",
+      "id": "packages_svforge_changelog_breaking_changes_100",
       "label": "Breaking changes",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L94",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_changelog_migrations_97",
-      "label": "Migrations",
-      "file_type": "document",
-      "node_kind": "heading",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L97",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_changelog_fixes_100",
-      "label": "Fixes",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -31946,12 +32440,30 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_changelog_deprecations_103",
-      "label": "Deprecations",
+      "id": "packages_svforge_changelog_migrations_103",
+      "label": "Migrations",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L103",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_fixes_106",
+      "label": "Fixes",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L106",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_changelog_deprecations_109",
+      "label": "Deprecations",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L109",
       "_origin": "ast"
     },
     {
@@ -46426,7 +46938,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L380",
+      "source_location": "L386",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46436,7 +46948,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L390",
+      "source_location": "L396",
       "weight": 1,
       "_origin": "ast"
     },
@@ -46447,7 +46959,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/changelog.ts",
-      "source_location": "L393",
+      "source_location": "L399",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73752,6 +74264,577 @@
       "_origin": "ast"
     },
     {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_spike_db_prefix",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L22",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_owned_database",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L23",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_allowed_params",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L24",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_redacturl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_spikedatabasename",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L69",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L75",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_withdatabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L85",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_assertdisposabletables",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L93",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety",
+      "target": "scripts_spike_547_safety_withowneddatabase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L129",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_redacturl",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L63",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withdatabase",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L86",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withdatabase",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L87",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withowneddatabase",
+      "target": "scripts_spike_547_safety_spikedatabasename",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L130",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withowneddatabase",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L131",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withowneddatabase",
+      "target": "scripts_spike_547_safety_assertdisposabletables",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L134",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_safety_withowneddatabase",
+      "target": "scripts_spike_547_safety_withdatabase",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547-safety.mjs",
+      "source_location": "L135",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L36",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L37",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L38",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L39",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L40",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_redacturl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_withdatabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_safety_withowneddatabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L41",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_args",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L49",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_flag",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L50",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_has",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L54",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_reporoot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L56",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_sv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_pm",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L58",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_keep",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L59",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_adminurl",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L60",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_workdir",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L61",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_app",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_port",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L63",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_results",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L68",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_failures",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L69",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_check",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L70",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L76",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_patch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L90",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_read",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L100",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_pg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L106",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_database",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L122",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_waitfor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L148",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_server",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L162",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_startserver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L163",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_stopserver",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L172",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547",
+      "target": "scripts_spike_547_listadmintables",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L182",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_pg",
+      "target": "scripts_spike_547_run",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L107",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_startserver",
+      "target": "scripts_spike_547_stopserver",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L164",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_spike_547_listadmintables",
+      "target": "scripts_spike_547_pg",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/spike-547.mjs",
+      "source_location": "L183",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "scripts_test_scaffold",
       "target": "scripts_test_scaffold_sh__entry",
       "relation": "contains",
@@ -88411,6 +89494,116 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_spike_547_safety_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_spike_db_prefix",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_assertdisposabletables",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_assertowneddatabasename",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_parseadminurl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_redacturl",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_spikedatabasename",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_withdatabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_spike_547_safety_test",
+      "target": "scripts_spike_547_safety_withowneddatabase",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/spike-547-safety.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_strict_check_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -94831,6 +96024,206 @@
       "_origin": "ast"
     },
     {
+      "source": "docs_spikes_547_official_integrations_poc",
+      "target": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_1_question_answered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_1b_database_safety_review_blocker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L21",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_2_environment_recorded_2026_10_23",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_3_findings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L65",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f1_the_historical_npm_peer_blocker_no_longer_reproduces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L67",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f2_official_addons_compose_hooks_instead_of_overwriting_them",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L73",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f3_official_check_is_incomplete_without_a_paraglide_compile_step",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f4_role_disabled_have_a_supported_extension_point_the_547_stop_condition_is_cleared",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L91",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f5_a_signup_body_cannot_set_role_or_disabled",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L114",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f6_closed_signup_is_a_supported_configuration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L120",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f7_a_disabled_identity_keeps_its_session_so_svforge_still_owns_one_policy_handle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L127",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f8_schema_ownership_already_matches_the_intended_split",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L150",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f9_schema_generation_details_to_plan_for",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L157",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f10_smaller_differences_to_decide_not_blockers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L167",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_3_findings",
+      "target": "docs_spikes_547_official_integrations_poc_f11_a_child_process_database_url_overrides_env_found_while_hardening_this_spike",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L180",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_4_ownership_matrix_target",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L188",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_5_suggested_phase_a_not_implemented_here",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L202",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_6_risks_open_questions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L217",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_spike_547_official_sv_foundations_audit_proof_of_concept",
+      "target": "docs_spikes_547_official_integrations_poc_7_reproduce",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L230",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_addon_kit_changelog",
       "target": "packages_addon_kit_changelog_svforge_addon_kit",
       "relation": "contains",
@@ -97322,7 +98715,7 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_5",
+      "target": "packages_svforge_changelog_2_2_6",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -97331,7 +98724,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_5",
+      "source": "packages_svforge_changelog_2_2_6",
       "target": "packages_svforge_changelog_patch_changes",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -97342,7 +98735,7 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_4",
+      "target": "packages_svforge_changelog_2_2_5",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -97351,7 +98744,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_4",
+      "source": "packages_svforge_changelog_2_2_5",
       "target": "packages_svforge_changelog_patch_changes_11",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -97362,7 +98755,7 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_3",
+      "target": "packages_svforge_changelog_2_2_4",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -97371,7 +98764,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_3",
+      "source": "packages_svforge_changelog_2_2_4",
       "target": "packages_svforge_changelog_patch_changes_17",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -97382,27 +98775,27 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_2",
+      "target": "packages_svforge_changelog_2_2_3",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L39",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_2",
-      "target": "packages_svforge_changelog_patch_changes_41",
+      "source": "packages_svforge_changelog_2_2_3",
+      "target": "packages_svforge_changelog_patch_changes_23",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L41",
+      "source_location": "L23",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_1",
+      "target": "packages_svforge_changelog_2_2_2",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -97411,7 +98804,7 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_changelog_2_2_1",
+      "source": "packages_svforge_changelog_2_2_2",
       "target": "packages_svforge_changelog_patch_changes_47",
       "relation": "contains",
       "confidence": "EXTRACTED",
@@ -97422,11 +98815,31 @@
     },
     {
       "source": "packages_svforge_changelog_svforge",
-      "target": "packages_svforge_changelog_2_2_0",
+      "target": "packages_svforge_changelog_2_2_1",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_2_1",
+      "target": "packages_svforge_changelog_patch_changes_53",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L53",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_svforge",
+      "target": "packages_svforge_changelog_2_2_0",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L57",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97436,17 +98849,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L53",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_changelog_2_2_0",
-      "target": "packages_svforge_changelog_patch_changes_57",
+      "target": "packages_svforge_changelog_patch_changes_63",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L57",
+      "source_location": "L63",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97456,7 +98869,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L61",
+      "source_location": "L67",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97466,7 +98879,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L63",
+      "source_location": "L69",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97476,7 +98889,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L66",
+      "source_location": "L72",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97486,7 +98899,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L69",
+      "source_location": "L75",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97496,7 +98909,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L75",
+      "source_location": "L81",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97506,33 +98919,13 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L78",
+      "source_location": "L84",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_changelog_2_1_0_2026_10_04",
-      "target": "packages_svforge_changelog_breaking_changes_80",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L80",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_changelog_2_1_0_2026_10_04",
-      "target": "packages_svforge_changelog_migrations_83",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L83",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_changelog_2_1_0_2026_10_04",
-      "target": "packages_svforge_changelog_fixes_86",
+      "target": "packages_svforge_changelog_breaking_changes_86",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -97542,11 +98935,31 @@
     },
     {
       "source": "packages_svforge_changelog_2_1_0_2026_10_04",
-      "target": "packages_svforge_changelog_deprecations_89",
+      "target": "packages_svforge_changelog_migrations_89",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L89",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_1_0_2026_10_04",
+      "target": "packages_svforge_changelog_fixes_92",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L92",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_1_0_2026_10_04",
+      "target": "packages_svforge_changelog_deprecations_95",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L95",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97556,33 +98969,13 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L92",
+      "source_location": "L98",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "packages_svforge_changelog_2_0_1_2026_09_12",
-      "target": "packages_svforge_changelog_breaking_changes_94",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L94",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_changelog_2_0_1_2026_09_12",
-      "target": "packages_svforge_changelog_migrations_97",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/CHANGELOG.md",
-      "source_location": "L97",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_changelog_2_0_1_2026_09_12",
-      "target": "packages_svforge_changelog_fixes_100",
+      "target": "packages_svforge_changelog_breaking_changes_100",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
@@ -97592,11 +98985,31 @@
     },
     {
       "source": "packages_svforge_changelog_2_0_1_2026_09_12",
-      "target": "packages_svforge_changelog_deprecations_103",
+      "target": "packages_svforge_changelog_migrations_103",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/CHANGELOG.md",
       "source_location": "L103",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_0_1_2026_09_12",
+      "target": "packages_svforge_changelog_fixes_106",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L106",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_changelog_2_0_1_2026_09_12",
+      "target": "packages_svforge_changelog_deprecations_109",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/CHANGELOG.md",
+      "source_location": "L109",
       "weight": 1,
       "_origin": "ast"
     },
@@ -99710,6 +101123,54 @@
       "_origin": "ast"
     },
     {
+      "source": "agents_workflow",
+      "target": "scripts_spike_547_patch",
+      "relation": "references",
+      "context": "patch",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "AGENTS.md",
+      "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "contributing_contribution_process",
+      "target": "scripts_spike_547_patch",
+      "relation": "references",
+      "context": "patch",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L34",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_release_release_policy_grouped_stable_releases_optional_numbered_canaries_572",
+      "target": "scripts_spike_547_patch",
+      "relation": "references",
+      "context": "patch",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/RELEASE.md",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_release_stable_and_canary_npm_channels",
+      "target": "scripts_spike_547_patch",
+      "relation": "references",
+      "context": "patch",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/RELEASE.md",
+      "source_location": "L101",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "docs_release_independent_versioning",
       "target": "scripts_compat_manifest_assertcompatibilityfreshness",
       "relation": "references",
@@ -99734,18 +101195,6 @@
       "_origin": "ast"
     },
     {
-      "source": "docs_release_workflow_gates",
-      "target": "tests_release_docs_test_check",
-      "relation": "references",
-      "context": "check",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "docs/RELEASE.md",
-      "source_location": "L287",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "docs_better_auth_upgrades_ownership_and_upstream_sv_compatibility",
       "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
       "relation": "references",
@@ -99754,6 +101203,126 @@
       "confidence_score": 0.95,
       "source_file": "docs/better-auth-upgrades.md",
       "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_f9_schema_generation_details_to_plan_for",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
+      "relation": "references",
+      "context": "DATABASE_URL",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L159",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_f10_smaller_differences_to_decide_not_blockers",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
+      "relation": "references",
+      "context": "createDb()",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L171",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_f10_smaller_differences_to_decide_not_blockers",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
+      "relation": "references",
+      "context": "SIGNUP_MODE",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L174",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_f11_a_child_process_database_url_overrides_env_found_while_hardening_this_spike",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
+      "relation": "references",
+      "context": "DATABASE_URL",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L180",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_4_ownership_matrix_target",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
+      "relation": "references",
+      "context": "createDb",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L193",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_4_ownership_matrix_target",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
+      "relation": "references",
+      "context": "SIGNUP_MODE",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L199",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_5_suggested_phase_a_not_implemented_here",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
+      "relation": "references",
+      "context": "DATABASE_URL",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L209",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_6_risks_open_questions",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_db_client_createdb",
+      "relation": "references",
+      "context": "createDb",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L223",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_6_risks_open_questions",
+      "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_database_url",
+      "relation": "references",
+      "context": "DATABASE_URL",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L224",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_spikes_547_official_integrations_poc_6_risks_open_questions",
+      "target": "tests_tiptap_toolbar_test_setup",
+      "relation": "references",
+      "context": "setup()",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/spikes/547-official-integrations-poc.md",
+      "source_location": "L227",
       "weight": 1,
       "_origin": "ast"
     },
@@ -99778,6 +101347,18 @@
       "confidence_score": 0.95,
       "source_file": "packages/addon-kit/README.md",
       "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_addon_kit_readme_vocabulary",
+      "target": "scripts_spike_547_pg",
+      "relation": "references",
+      "context": "pg",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "packages/addon-kit/README.md",
+      "source_location": "L43",
       "weight": 1,
       "_origin": "ast"
     },
