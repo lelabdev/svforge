@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { OFFICIAL_FOUNDATION_FILES } from './helpers/official-foundation';
+import { PARAGLIDE_ADD_SPEC, SCAFFOLD_BASE_LOCALE, SCAFFOLD_LOCALES } from '../packages/svforge/src/i18n';
 import { patchHooksServer } from '../packages/svforge/src/modes/dashboard';
 
 const ROOT = process.cwd();
@@ -18,9 +19,9 @@ const BASE_ROOT = join(ROOT, 'packages/svforge/templates/base/root');
  * scaffolded fr/en defaults are documented by a dedicated test.
  */
 describe('Paraglide baseline (#239, #322)', () => {
-	const settings = JSON.parse(
-		readFileSync(join(BASE_ROOT, 'project.inlang/settings.json'), 'utf-8')
-	) as { baseLocale: string; locales: string[] };
+	// #547 phase B: the OFFICIAL add-on owns project.inlang/settings.json; the
+	// scaffold requests these locales (single source: src/i18n.ts).
+	const settings = { baseLocale: SCAFFOLD_BASE_LOCALE, locales: [...SCAFFOLD_LOCALES] };
 
 	const readCatalog = (locale: string): Record<string, unknown> =>
 		JSON.parse(readFileSync(join(BASE_ROOT, `messages/${locale}.json`), 'utf-8'));
@@ -57,11 +58,21 @@ describe('Paraglide baseline (#239, #322)', () => {
 	});
 
 	describe('delivery', () => {
-		it('root files are embedded in the manifest (#239)', async () => {
+		it('SVForge ships the catalogs, the official add-on owns the inlang project', async () => {
 			const { baseRootFiles } = await import('../packages/svforge/src/templates');
 			expect(Object.keys(baseRootFiles)).toContain('/messages/fr.json');
 			expect(Object.keys(baseRootFiles)).toContain('/messages/en.json');
-			expect(Object.keys(baseRootFiles)).toContain('/project.inlang/settings.json');
+			expect(Object.keys(baseRootFiles)).not.toContain('/project.inlang/settings.json');
+			expect(Object.keys(baseRootFiles)).not.toContain('/hooks.server.ts');
+		});
+
+		it('requests the same locales from the official Paraglide add-on', () => {
+			const create = readFileSync(join(ROOT, 'packages/svforge/src/cli/create.ts'), 'utf-8');
+			expect(create).toContain('PARAGLIDE_ADD_SPEC');
+			expect(PARAGLIDE_ADD_SPEC).toBe('paraglide=languageTags:fr,en+demo:no');
+			// Scaffold matrix drift guard: the shell harness uses the same spec.
+			const scaffold = readFileSync(join(ROOT, 'scripts/test-scaffold.sh'), 'utf-8');
+			expect(scaffold).toContain(PARAGLIDE_ADD_SPEC);
 		});
 
 		it('base mode writes root files to the project root', () => {
@@ -71,11 +82,8 @@ describe('Paraglide baseline (#239, #322)', () => {
 			expect(mode).toMatch(/rootFiles/);
 		});
 
-		it('hooks + layout are wired for Paraglide', () => {
-			const hooks = readFileSync(
-				join(ROOT, 'packages/svforge/templates/base/src/hooks.server.ts'),
-				'utf-8'
-			);
+		it('layout is wired for Paraglide (official add-on owns the hooks)', () => {
+			const hooks = patchHooksServer(OFFICIAL_FOUNDATION_FILES['src/hooks.server.ts']);
 			expect(hooks).toMatch(/paraglideMiddleware/);
 			const layout = readFileSync(
 				join(ROOT, 'packages/svforge/templates/base/src/routes/+layout.svelte'),

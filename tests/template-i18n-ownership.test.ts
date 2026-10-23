@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { SCAFFOLD_LOCALES } from '../packages/svforge/src/i18n';
 
 const root = process.cwd();
 const template = join(root, 'packages/svforge/templates/base');
@@ -18,9 +19,9 @@ function messageReferences(source: string): string[] {
 	return [...source.matchAll(/\bm\.([a-zA-Z][\w]*)\s*\(/g)].map((match) => match[1]);
 }
 
-const { locales } = JSON.parse(
-	readFileSync(join(template, 'root/project.inlang/settings.json'), 'utf8')
-) as { locales: string[] };
+// #547 phase B: the official Paraglide add-on owns the inlang project; the
+// scaffolded locales live in src/i18n.ts.
+const locales = [...SCAFFOLD_LOCALES];
 const catalogs = Object.fromEntries(
 	locales.map((locale) => [
 		locale,

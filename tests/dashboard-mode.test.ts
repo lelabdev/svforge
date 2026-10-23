@@ -146,13 +146,27 @@ describe('official foundation ownership (#547)', () => {
 		expect(patchAuthConfig(auth)).toBe(auth);
 	});
 
-	it('composes the SVForge guard and Paraglide around the official handle', () => {
+	it('appends the SVForge guard to the official Paraglide + Better Auth sequence', () => {
+		// #547 phase B: the official add-ons already compose both handles.
 		const hooks = patchHooksServer(OFFICIAL_FOUNDATION_FILES['src/hooks.server.ts']);
-		expect(hooks).toContain("import { sequence, type Handle } from '@sveltejs/kit/hooks';");
 		expect(hooks).toContain("import { handleSvforgePolicy } from '#lib/server/auth-guard.js';");
 		expect(hooks).toContain('sequence(handleParaglide, handleBetterAuth, handleSvforgePolicy)');
+		// No duplicate paraglide handle definition.
+		expect(hooks.match(/const handleParaglide/g)).toHaveLength(1);
 		// Idempotent.
 		expect(patchHooksServer(hooks)).toBe(hooks);
+	});
+
+	it('still composes both handles when only the auth foundation is present (legacy direct add)', () => {
+		const authOnly = OFFICIAL_FOUNDATION_FILES['src/hooks.server.ts']
+			.replace(/import \{ getTextDirection \}.*\n/, '')
+			.replace(/import \{ paraglideMiddleware \}.*\n/, '')
+			.replace(/const handleParaglide[\s\S]*?\n\};\n\n/, '')
+			.replace('sequence(handleParaglide, handleBetterAuth)', 'handleBetterAuth')
+			.replace("import { type Handle, sequence } from '@sveltejs/kit/hooks';", "import type { Handle } from '@sveltejs/kit/hooks';");
+		const hooks = patchHooksServer(authOnly);
+		expect(hooks).toContain('handleParaglide');
+		expect(hooks).toContain('sequence(handleParaglide, handleBetterAuth, handleSvforgePolicy)');
 	});
 
 	it('declares SIGNUP_MODE in env.ts and appends it to both dotenv files', () => {

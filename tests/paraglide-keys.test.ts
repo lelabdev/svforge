@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { SCAFFOLD_LOCALES } from '../packages/svforge/src/i18n';
 
 const ROOT = process.cwd();
 
@@ -71,11 +72,8 @@ describe('Paraglide key freshness (#271)', () => {
 		expect([...enKeys].filter((k) => !frKeys.has(k))).toEqual([]);
 	});
 
-	it('catalog key parity holds for EVERY locale configured in settings.json (#322)', () => {
-		const settings = JSON.parse(
-			readFileSync(join(ROOT, 'packages/svforge/templates/base/root/project.inlang/settings.json'), 'utf-8')
-		) as { locales: string[] };
-		const keySets = settings.locales.map((locale) => {
+	it('catalog key parity holds for EVERY scaffolded locale (#322, #547)', () => {
+		const keySets = [...SCAFFOLD_LOCALES].map((locale) => {
 			const catalog = JSON.parse(
 				readFileSync(join(ROOT, `packages/svforge/templates/base/root/messages/${locale}.json`), 'utf-8')
 			);

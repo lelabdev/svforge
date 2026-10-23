@@ -80,6 +80,17 @@ export function patchAuthConfig(content: string): string {
 /** Compose the SVForge guard (and Paraglide) around the official auth handle. */
 export function patchHooksServer(content: string): string {
 	if (content.includes('handleSvforgePolicy')) return content;
+	const guardImport = "import { handleSvforgePolicy } from '#lib/server/auth-guard.js';";
+
+	// #547 phase B: official Paraglide already composed with Better Auth.
+	const composed = 'sequence(handleParaglide, handleBetterAuth)';
+	if (content.includes(composed)) {
+		const withImport = content.includes(guardImport)
+			? content
+			: `${content.replace(/(^|\n)(import [^;]+;\n)/, `$1$2${guardImport}\n`)}`;
+		return withImport.replace(composed, 'sequence(handleParaglide, handleBetterAuth, handleSvforgePolicy)');
+	}
+
 	const handleImport = "import type { Handle } from '@sveltejs/kit/hooks';";
 	const svelteKitHandlerImport = "import { svelteKitHandler } from 'better-auth/svelte-kit';";
 	const handleExport = 'export const handle: Handle = handleBetterAuth;';

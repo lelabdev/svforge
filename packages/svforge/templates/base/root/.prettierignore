@@ -24,6 +24,8 @@ yarn.lock
 .svforge-versions.json
 auth-schema.review.ts
 tsconfig.json
+project.inlang/settings.json
+src/hooks.server.ts
 src/env.ts
 src/lib/server/db/auth.schema.ts
 drizzle
@@ -42,14 +44,11 @@ eslint.config.js
 messages/en.json
 messages/fr.json
 playwright.config.ts
-project.inlang/settings.json
 scripts/create-admin.ts
 scripts/setup.mjs
 scripts/setup.sh
 src/app.d.ts
 src/app.html
-src/hooks.server.ts
-src/hooks.ts
 src/lib/assets/brand-favicons.ts
 src/lib/client/auth.ts
 src/lib/components/svforge/layout/AdminLayout.svelte
