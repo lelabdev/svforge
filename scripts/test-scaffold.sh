@@ -117,6 +117,12 @@ packageJson.packageManager = process.argv[2];
 fs.writeFileSync('package.json', `${JSON.stringify(packageJson, null, 2)}\n`);
 NODE
 
+# #547 phase B: the OFFICIAL Paraglide integration runs first for every
+# profile — it owns the inlang project, vite plugin, hooks and html
+# placeholders; SVForge only extends them and keeps the FR/EN catalogs.
+$SV_CMD add "paraglide=languageTags:fr,en+demo:no" --no-install --no-download-check --no-git-check \
+	|| { echo "❌ official paraglide add-on failed (#547)"; exit 1; }
+
 # 2. Add the LOCAL svforge addon with all options set (no prompts in CI)
 #    Profile variants: base, dashboard (vitest), dashboard-playwright, base-blog
 #    base-modules adds svforge itself at the right point (#190 bare-project refusal).

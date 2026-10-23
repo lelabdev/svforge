@@ -512,6 +512,14 @@ printf '%s|%s\\n' "$PWD" "$*" >> "$GRAPHIFY_STUB_LOG"
 			{
 				executable: stub,
 				args: [
+					'add', 'paraglide=languageTags:fr,en+demo:no',
+					'--no-install', '--no-download-check', '--no-git-check'
+				],
+				cwd: join(cwd, 'app')
+			},
+			{
+				executable: stub,
+				args: [
 					'add', 'drizzle=database:postgresql+client:postgres.js+docker:no',
 					'--no-install', '--no-download-check', '--no-git-check'
 				],

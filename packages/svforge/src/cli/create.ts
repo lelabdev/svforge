@@ -6,6 +6,7 @@ import { MODULE_CONTRACTS, compositionGaps, resolveModules, type ResolutionPlan 
 import { addonSpec, svRunner, type SpawnPort } from './add';
 import { COMPAT_MANIFEST, assertCompatManifest, loadCompatManifest, type CompatManifest } from '../compat';
 import { plannedPackage, type PlannedCommand, type PlannedPackage } from './plan';
+import { PARAGLIDE_ADD_SPEC } from '../i18n';
 
 /**
  * `svforge create <dir>` — the one-command project creator (#417).
@@ -235,8 +236,24 @@ function createExecutionPlan(
 	// integrations. They run BEFORE the SVForge add-on (which only extends
 	// their output); installation is deferred to the final `sv add` so the
 	// project is installed exactly once with the selected package manager.
-	const officialCommands =
-		template === 'dashboard'
+	// #547 phase B: the official Paraglide integration owns the i18n wiring
+	// (inlang project, vite plugin, hooks, html placeholders) for EVERY
+	// template. It runs FIRST so the Better Auth add-on composes its handle
+	// after `handleParaglide`.
+	const officialCommands = [
+		{
+			executable: sv.command,
+			args: [
+				...sv.prefix,
+				'add',
+				PARAGLIDE_ADD_SPEC,
+				'--no-install',
+				'--no-download-check',
+				'--no-git-check'
+			],
+			cwd: target
+		},
+		...(template === 'dashboard'
 			? [
 					{
 						executable: sv.command,
@@ -256,7 +273,8 @@ function createExecutionPlan(
 						cwd: target
 					}
 				]
-			: [];
+			: [])
+	];
 	return {
 		commands: [
 			{ executable: sv.command, args: createArgs, cwd },

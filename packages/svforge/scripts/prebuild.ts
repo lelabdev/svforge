@@ -144,6 +144,9 @@ const PRETTIER_STATIC_IGNORES = [
 	// #547: official integrations own these generated artifacts and rewrite
 	// them without Prettier (tsconfig arrays, the auth schema, migrations).
 	'tsconfig.json',
+	// #547 phase B: the official Paraglide add-on writes these without Prettier.
+	'project.inlang/settings.json',
+	'src/hooks.server.ts',
 	'src/env.ts',
 	'src/lib/server/db/auth.schema.ts',
 	'drizzle',

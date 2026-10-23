@@ -116,7 +116,8 @@ describe('template-aware interactive module picker (#585)', () => {
 			expect(result.code).toBe(0);
 			expect(result.plan?.template).toBe('base');
 			expect(result.plan?.modules).toEqual(['dnd']);
-			expect(calls).toHaveLength(2);
+			// create + official paraglide + grouped SVForge add.
+			expect(calls).toHaveLength(3);
 		} finally { rmSync(cwd, { recursive: true, force: true }); }
 	});
 
@@ -146,9 +147,9 @@ describe('template-aware interactive module picker (#585)', () => {
 			expect(result.plan?.allModules).toBe(true);
 			expect(result.plan?.runtime).toBe('long-lived-node');
 			expect(confirmations.some((message) => message.includes('long-lived Node runtime'))).toBe(true);
-			// #547: dashboard = sv create + official drizzle + official better-auth
-			// + ONE grouped SVForge sv add.
-			expect(calls).toHaveLength(4);
+			// #547: dashboard = sv create + official paraglide + drizzle +
+			// better-auth + ONE grouped SVForge sv add.
+			expect(calls).toHaveLength(5);
 		} finally { rmSync(cwd, { recursive: true, force: true }); }
 	});
 });
@@ -368,8 +369,8 @@ describe('two-stage orchestration (#417)', () => {
 			);
 			expect(result.code).toBe(0);
 			expect(result.plan?.hooks).toBe('none');
-			// create + drizzle + better-auth + grouped SVForge add + git init.
-			expect(calls).toHaveLength(5);
+			// create + paraglide + drizzle + better-auth + grouped add + git init.
+			expect(calls).toHaveLength(6);
 
 			// Stage 1: the OFFICIAL generator, minimal, no add-ons, no install.
 			expect(calls[0]!.args).toEqual([
@@ -378,20 +379,24 @@ describe('two-stage orchestration (#417)', () => {
 			]);
 			expect(calls[0]!.command).toBe('bunx');
 
-			// Stage 2-3 (#547): the OFFICIAL auth/DB add-ons, no install — their
-			// files are the foundation SVForge extends next.
+			// Stage 2-4 (#547): the OFFICIAL paraglide + auth/DB add-ons, no
+			// install — their files are the foundation SVForge extends next.
 			expect(calls[1]!.args).toEqual([
-				'sv', 'add', 'drizzle=database:postgresql+client:postgres.js+docker:no',
+				'sv', 'add', 'paraglide=languageTags:fr,en+demo:no',
 				'--no-install', '--no-download-check', '--no-git-check'
 			]);
 			expect(calls[2]!.args).toEqual([
+				'sv', 'add', 'drizzle=database:postgresql+client:postgres.js+docker:no',
+				'--no-install', '--no-download-check', '--no-git-check'
+			]);
+			expect(calls[3]!.args).toEqual([
 				'sv', 'add', 'better-auth=demo:',
 				'--no-install', '--no-download-check', '--no-git-check'
 			]);
 
-			// Stage 4: ONE grouped sv add — template spec + modules, single install.
-			expect(calls[3]!.args[0]).toBe('sv');
-			expect(calls[3]!.args[1]).toBe('add');
+			// Stage 5: ONE grouped sv add — template spec + modules, single install.
+			expect(calls[4]!.args[0]).toBe('sv');
+			expect(calls[4]!.args[1]).toBe('add');
 			// #470: an ordinary `svforge create` pins the exact compatible
 			// versions from the embedded distribution manifest — never `latest`.
 			const groupedAdd = calls.filter((call) => call.args[0] === 'sv' && call.args[1] === 'add').at(-1)!;
@@ -432,7 +437,8 @@ describe('two-stage orchestration (#417)', () => {
 			);
 			expect(result.code).toBe(0);
 			expect(result.plan?.hooks).toBe('lefthook');
-			expect(calls[1]!.args[2]).toContain('+hooks:lefthook');
+			const groupedAdd = calls.filter((call) => call.args[0] === 'sv' && call.args[1] === 'add').at(-1)!;
+			expect(groupedAdd.args[2]).toContain('+hooks:lefthook');
 		} finally {
 			rmSync(cwd, { recursive: true, force: true });
 		}

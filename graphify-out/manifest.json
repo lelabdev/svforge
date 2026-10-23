@@ -416,7 +416,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/scripts/prebuild.ts": {
-    "ast_hash": "4e4cd2b9f924dd60fdf432684fabee3b",
+    "ast_hash": "d560279d162557945a798ce9b06342d5",
     "semantic_hash": ""
   },
   "packages/svforge/src/addon-components.ts": {
@@ -460,7 +460,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/dashboard.ts": {
-    "ast_hash": "62073fcfcd8e9f0add6d0c9069877ede",
+    "ast_hash": "394ee57d483b1f8636b3e01638a1c70e",
     "semantic_hash": ""
   },
   "packages/svforge/src/module-composition.ts": {
@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "a863e624750ed5b9e91ad4331c8f9527",
+    "ast_hash": "3b84b6a66f457e6485549ac2aaff8ddb",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -523,10 +523,6 @@
     "ast_hash": "8734ae3d9d0779f2ebc7e2f88c0d6dd3",
     "semantic_hash": ""
   },
-  "packages/svforge/templates/base/root/project.inlang/settings.json": {
-    "ast_hash": "0280f80c4e0873a5f0b2eb1c16259237",
-    "semantic_hash": ""
-  },
   "packages/svforge/templates/base/root/static/theme-init.js": {
     "ast_hash": "8c3c3a97900aa832b17ef65df382ff11",
     "semantic_hash": ""
@@ -549,14 +545,6 @@
   },
   "packages/svforge/templates/base/src/app.d.ts": {
     "ast_hash": "78b56494b3f78d7f9bacda13678f159e",
-    "semantic_hash": ""
-  },
-  "packages/svforge/templates/base/src/hooks.server.ts": {
-    "ast_hash": "349af9516dd6fe84ebc848670e299949",
-    "semantic_hash": ""
-  },
-  "packages/svforge/templates/base/src/hooks.ts": {
-    "ast_hash": "fe898db2f5014a7e6a8c4edd094b80d4",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/layout/Footer.svelte": {
@@ -1036,7 +1024,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "9f7a8b8325d7530949e2ad39f93009d9",
+    "ast_hash": "186b2fd27a1ba677d29de66a3b137f43",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1148,7 +1136,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-mode.test.ts": {
-    "ast_hash": "1906ec9b7c1e1374a3eb1802c1b24e86",
+    "ast_hash": "7354e1370ff363213014c72e30a71d80",
     "semantic_hash": ""
   },
   "tests/dashboard-playwright.test.ts": {
@@ -1268,11 +1256,11 @@
     "semantic_hash": ""
   },
   "tests/paraglide-keys.test.ts": {
-    "ast_hash": "8080d8360cc3b634034552ecdcb6809e",
+    "ast_hash": "90ad68ad13fed4d2796877ebbad32c57",
     "semantic_hash": ""
   },
   "tests/paraglide.test.ts": {
-    "ast_hash": "c6e146ffca4d0f99fa817898f1859b42",
+    "ast_hash": "3ad48a18200b29af0fcc33dfa946c7cb",
     "semantic_hash": ""
   },
   "tests/patch-markers.test.ts": {
@@ -1532,7 +1520,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/structural-duplication.md": {
-    "ast_hash": "7f263af39eb2ab75a6d4c841487f9799",
+    "ast_hash": "576fca9ebaec058cba386c0dd3587e3a",
     "semantic_hash": ""
   },
   "packages/svforge/llms.txt": {
@@ -1580,7 +1568,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/cli/create.ts": {
-    "ast_hash": "06aa18780395e2197b02e756c576e038",
+    "ast_hash": "e03c5a4fcfa2e2121aba63053855653b",
     "semantic_hash": ""
   },
   "tests/cli-add.test.ts": {
@@ -1588,7 +1576,7 @@
     "semantic_hash": ""
   },
   "tests/cli-create.test.ts": {
-    "ast_hash": "d4c92351ace8dc8a483a8bf365374b4d",
+    "ast_hash": "c536bf68180e2291e53bc6a704370083",
     "semantic_hash": ""
   },
   "tests/module-resolver.test.ts": {
@@ -1596,7 +1584,7 @@
     "semantic_hash": ""
   },
   "tests/real-bin.test.ts": {
-    "ast_hash": "bc6a010e547249748207a4738ed6abfb",
+    "ast_hash": "54eddfe6cd01779a0c0a28c1f262e1aa",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {
@@ -1748,7 +1736,7 @@
     "semantic_hash": ""
   },
   "tests/template-i18n-ownership.test.ts": {
-    "ast_hash": "cd6baf605944be1e863fc1a1104bcfd9",
+    "ast_hash": "9dbed24dac886b760645c547aba03bc8",
     "semantic_hash": ""
   },
   "scripts/ui-browser-contrast.test.mjs": {
@@ -2152,7 +2140,7 @@
     "semantic_hash": ""
   },
   "tests/helpers/official-foundation.ts": {
-    "ast_hash": "2c901ff5c20cfbe79a66fd6ed71e4a9d",
+    "ast_hash": "7df4f93c07ac650870c53bf667fc9216",
     "semantic_hash": ""
   },
   ".changeset/547-official-auth-db-foundation.md": {
@@ -2161,6 +2149,14 @@
   },
   "tests/fixtures/official-auth-schema.txt": {
     "ast_hash": "ea9438c7fe02c7ee91bd17f4e4a19e65",
+    "semantic_hash": ""
+  },
+  "packages/svforge/src/i18n.ts": {
+    "ast_hash": "2079627fb2b31566160e3ad3f7815ed5",
+    "semantic_hash": ""
+  },
+  ".changeset/547-phase-b-official-paraglide.md": {
+    "ast_hash": "a35cda2e5901a91c8004d157bba4640a",
     "semantic_hash": ""
   }
 }
