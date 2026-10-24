@@ -8,9 +8,9 @@
  *   guards lint/typecheck/audit/generated-manifest still run);
  * - tests-only → build everything (a changed test may import a built package),
  *   run only the changed test files;
- * - workspace changes → FULL build + FULL tests by default. Scoped package
- *   selection is opt-in per PR with the `ci:targeted` label until the report
- *   has been confronted with real PRs;
+ * - workspace changes → FULL build + FULL tests by default; the
+ *   `ci:targeted` opt-in selects the TESTS only and still builds every
+ *   workspace (repository guards inspect all `dist/` outputs);
  * - detector failure / unknown path / release metadata / root config force a
  *   full scope in the resolver already, so this module never narrows them.
  */
@@ -43,13 +43,17 @@ export function planCiSteps(scope, { targeted = false } = {}) {
 			reason: 'workspace change: full validation until ci:targeted opt-in'
 		};
 	}
+	// Measured on a real PR (#570 phase C): scoping the BUILD to the affected
+	// closure fails repository tests that inspect every workspace's `dist/`
+	// (structure/cli-create addon inventory, package-entry). Target only the
+	// tests; the build stays complete so those guards remain meaningful.
 	return {
 		mode: 'targeted',
-		build: 'selected',
-		buildDirs: (scope.buildOrder ?? []).map((entry) => entry.dir),
+		build: 'all',
+		buildDirs: [],
 		tests: tests.files.length > 0 ? 'selected' : 'all',
 		testFiles: tests.files,
-		reason: 'workspace change: ci:targeted opt-in'
+		reason: 'workspace change: ci:targeted opt-in (tests only; full build)'
 	};
 }
 

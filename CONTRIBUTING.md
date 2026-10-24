@@ -47,14 +47,20 @@ and applies it conservatively:
 | Docs / committed `graphify-out/**` artifacts | skipped | skipped | lint, typecheck, audits, generated-manifest check |
 | Tests only | all workspaces | only the changed test files | always run |
 | Workspace change | **all by default** | **all by default** | always run |
-| Workspace change + `ci:targeted` label | affected workspaces in dependency order | affected suites (ownership derived from test imports) | always run |
+| Workspace change + `ci:targeted` label | **all workspaces** | affected suites (ownership derived from test imports) | always run |
 | Lockfile, root config, workflows, `scripts/`, `docker/`, release metadata (`.changeset/`, package `package.json`/`CHANGELOG.md`), unknown path, detector failure | all | all | always run |
 
 - Run the report locally: `node scripts/affected-scope.mjs --base origin/main`
   (`--json` for machines, `--force-full` to force full scope).
-- Workspace-scoped execution is opt-in with the **`ci:targeted`** label until
-  the report has been confronted with real PRs; the **`ci:full`** label (or a
-  push / manual dispatch) forces the complete pipeline.
+- Test-scoped execution is opt-in with the **`ci:targeted`** label until the
+  report has been confronted with real PRs. The build is **never** scoped in
+  this phase: a measured targeted run (2026-10-24) failed repository guards that
+  inspect every workspace `dist/` (structure/cli-create addon inventory,
+  package-entry), so only test selection is enabled. The **`ci:full`** label
+  (or a push / manual dispatch) forces the complete pipeline.
+- Measure a PR (or explicit runs) with `node scripts/ci/measure-ci.mjs --pr
+  <number> --markdown`; it reads the scope mode and job/step durations from
+  GitHub Actions without re-running anything.
 - A detector failure exits non-zero and reports FULL scope: it can never make a
   job green by narrowing the run. Skipped optional work is stated in the job
   summary; the required `quality` job still runs every mandatory guard.
