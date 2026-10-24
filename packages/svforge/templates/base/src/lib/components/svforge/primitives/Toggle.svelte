@@ -63,11 +63,18 @@
 </script>
 
 <Switch {checked} {name} {disabled} {required} {form} onCheckedChange={handleChange}>
-	<Switch.Control class={cn('focus-visible:ring-2 focus-visible:ring-primary-700-300', className)}>
+	<Switch.Control
+		class={cn(
+			'focus-visible:ring-2 focus-visible:ring-primary-700-300',
+			// #594: Skeleton's switch sets no pointer affordance of its own.
+			disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+			className
+		)}
+	>
 		<Switch.Thumb />
 	</Switch.Control>
 	{#if label}
-		<Switch.Label>{label}</Switch.Label>
+		<Switch.Label class={disabled ? 'cursor-not-allowed' : 'cursor-pointer'}>{label}</Switch.Label>
 	{/if}
 	<Switch.HiddenInput {onchange} {onblur} {onfocus} {onclick} {oninput} {onkeydown} {onkeyup} />
 </Switch>

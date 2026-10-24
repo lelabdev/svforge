@@ -14,9 +14,9 @@
 	let { variant = 'info', class: className = '', children, ...rest }: Props = $props();
 
 	const presets: Record<Variant, string> = {
-	// #317/#320: Skeleton v5 has no info color — the informational variant
-	// maps to the theme's primary tonal preset: an invented info tonal preset
-	// renders UNSTYLED in v5.
+		// #317/#320: Skeleton v5 has no info color — the informational variant
+		// maps to the theme's primary tonal preset: an invented info tonal preset
+		// renders UNSTYLED in v5.
 		info: 'preset-tonal-primary',
 		success: 'preset-tonal-success',
 		warning: 'preset-tonal-warning',
