@@ -444,7 +444,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/doctor.ts": {
-    "ast_hash": "ce555515b93bf00723b19d8de36b1452",
+    "ast_hash": "345a6df48d41e668d988f202a6af716e",
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
@@ -504,7 +504,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/package.json": {
-    "ast_hash": "b6175061ba979fed25d65cd87d7169a6",
+    "ast_hash": "22a792451d35a26e555c84aa903def76",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/eslint-plugin-svforge.mjs": {
@@ -667,20 +667,16 @@
     "ast_hash": "0924b83585632c8de7e804ccdeb6ef61",
     "semantic_hash": ""
   },
-  "packages/svforge/templates/base/svelte.config.js": {
-    "ast_hash": "c135fc0c12db4b099db6423ba19cc924",
-    "semantic_hash": ""
-  },
   "packages/svforge/templates/base/tsconfig.json": {
-    "ast_hash": "c610e6d5aeb2c3bcf0b9f1b90599250e",
+    "ast_hash": "b151a8a5a0e2645ea5c3e05c94896c2a",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/vite.config.ts": {
-    "ast_hash": "232313094c9b2b33904e59b9d4b45c01",
+    "ast_hash": "77dd2f93e3388a029a7dc7e0ab058ef9",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/package.json": {
-    "ast_hash": "9ed207f61c571c3c1b59416f0fdc07c7",
+    "ast_hash": "860b6dd9658d872a4948bb57bbcbaef0",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/root/scripts/create-admin.ts": {
@@ -853,10 +849,6 @@
   },
   "packages/svforge/templates/dashboard/src/vitest.config.ts": {
     "ast_hash": "42ed1e11085ab6681c21ee136b23e64c",
-    "semantic_hash": ""
-  },
-  "packages/svforge/templates/dashboard/svelte.config.js": {
-    "ast_hash": "ef008944b499d74fcda8ae83df93ac17",
     "semantic_hash": ""
   },
   "packages/svforge/tsdown.config.ts": {
@@ -1508,7 +1500,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
-    "ast_hash": "3c87089dc259caa4736c51d9569ea64b",
+    "ast_hash": "e82a3ea3ac1f4644cbe76062e53f05c6",
     "semantic_hash": ""
   },
   "packages/svforge/docs/llms-skeleton.txt": {
@@ -1780,7 +1772,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/sveltekit-compatibility.md": {
-    "ast_hash": "ec06d0c7c0ee799a47068363aec6eb71",
+    "ast_hash": "b73306e59f9624bd4e9d0b616ad72646",
     "semantic_hash": ""
   },
   ".changeset/config.json": {
@@ -2181,6 +2173,14 @@
   },
   "tests/measure-ci.test.ts": {
     "ast_hash": "a41df078121468aae151542537f3a00b",
+    "semantic_hash": ""
+  },
+  "tests/sveltekit-3.test.ts": {
+    "ast_hash": "1d530b4ab18e495c168655415232de0b",
+    "semantic_hash": ""
+  },
+  ".changeset/608-sveltekit-3.md": {
+    "ast_hash": "b938de2f3c368e4c0bdfd14857188b23",
     "semantic_hash": ""
   }
 }

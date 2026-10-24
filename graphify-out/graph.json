@@ -10928,6 +10928,22 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_templates_base_package_engines",
+      "label": "engines",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/package.json",
+      "source_location": "L56",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_base_package_engines_node",
+      "label": "node",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/base/package.json",
+      "source_location": "L57",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_templates_base_root_eslint_plugin_svforge",
       "label": "eslint-plugin-svforge.mjs",
       "file_type": "code",
@@ -15426,30 +15442,6 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_base_svelte_config",
-      "label": "base/svelte.config.js",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/svelte.config.js",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_svelte_config_config",
-      "label": "config",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/svelte.config.js",
-      "source_location": "L4",
-      "_origin": "ast"
-    },
-    {
-      "id": "kit",
-      "label": "@sveltejs/kit",
-      "file_type": "code",
-      "source_file": "@sveltejs/kit",
-      "confidence": "EXTRACTED",
-      "_origin": "ast"
-    },
-    {
       "id": "packages_svforge_templates_base_tsconfig",
       "label": "base/tsconfig.json",
       "file_type": "code",
@@ -15466,8 +15458,8 @@
       "_origin": "ast"
     },
     {
-      "id": "ref_svelte_kit_tsconfig_json",
-      "label": "./.svelte-kit/tsconfig.json",
+      "id": "ref_app_tsconfig",
+      "label": "$app/tsconfig",
       "file_type": "concept",
       "source_file": "packages/svforge/templates/base/tsconfig.json",
       "source_location": "L2",
@@ -15482,83 +15474,19 @@
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_rewriterelativeimportextensions",
-      "label": "rewriteRelativeImportExtensions",
+      "id": "packages_svforge_templates_base_tsconfig_compileroptions_strict",
+      "label": "strict",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/tsconfig.json",
       "source_location": "L4",
       "_origin": "ast"
     },
     {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_allowjs",
-      "label": "allowJs",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L5",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_checkjs",
-      "label": "checkJs",
+      "id": "packages_svforge_templates_base_tsconfig_include",
+      "label": "include",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/tsconfig.json",
       "source_location": "L6",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_esmoduleinterop",
-      "label": "esModuleInterop",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L7",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_forceconsistentcasinginfilenames",
-      "label": "forceConsistentCasingInFileNames",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L8",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_resolvejsonmodule",
-      "label": "resolveJsonModule",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L9",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_skiplibcheck",
-      "label": "skipLibCheck",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L10",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_sourcemap",
-      "label": "sourceMap",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L11",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_strict",
-      "label": "strict",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L12",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_base_tsconfig_compileroptions_moduleresolution",
-      "label": "moduleResolution",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -16431,6 +16359,22 @@
       "file_type": "concept",
       "source_file": "packages/svforge/templates/dashboard/package.json",
       "source_location": "L68",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_package_engines",
+      "label": "engines",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/package.json",
+      "source_location": "L70",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_templates_dashboard_package_engines_node",
+      "label": "node",
+      "file_type": "code",
+      "source_file": "packages/svforge/templates/dashboard/package.json",
+      "source_location": "L71",
       "_origin": "ast"
     },
     {
@@ -17986,22 +17930,6 @@
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/vitest.config.ts",
       "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_svelte_config",
-      "label": "dashboard/svelte.config.js",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/svelte.config.js",
-      "source_location": "L1",
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_svforge_templates_dashboard_svelte_config_config",
-      "label": "config",
-      "file_type": "code",
-      "source_file": "packages/svforge/templates/dashboard/svelte.config.js",
-      "source_location": "L4",
       "_origin": "ast"
     },
     {
@@ -23251,6 +23179,14 @@
       "_origin": "ast"
     },
     {
+      "id": "kit",
+      "label": "@sveltejs/kit",
+      "file_type": "code",
+      "source_file": "@sveltejs/kit",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_blog_transport_compose_test",
       "label": "blog-transport-compose.test.ts",
       "file_type": "code",
@@ -27058,6 +26994,57 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_sveltekit_3_test",
+      "label": "sveltekit-3.test.ts",
+      "file_type": "code",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_sveltekit_3_test_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L12",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_sveltekit_3_test_templates",
+      "label": "TEMPLATES",
+      "file_type": "code",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_sveltekit_3_test_manifest",
+      "label": "manifest()",
+      "file_type": "code",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L14",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_sveltekit_3_test_minimum",
+      "label": "minimum()",
+      "file_type": "code",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L21",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_sveltekit_3_test_atleast",
+      "label": "atLeast()",
+      "file_type": "code",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L26",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_svforge_test",
       "label": "svforge.test.ts",
       "file_type": "code",
@@ -28058,6 +28045,15 @@
       "label": "vitest.config.ts",
       "file_type": "code",
       "source_file": "vitest.config.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_608_sveltekit_3",
+      "label": "608-sveltekit-3.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/608-sveltekit-3.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -33140,7 +33136,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L12",
+      "source_location": "L13",
       "_origin": "ast"
     },
     {
@@ -33149,7 +33145,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L39",
+      "source_location": "L43",
       "_origin": "ast"
     },
     {
@@ -33158,7 +33154,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L91",
+      "source_location": "L95",
       "_origin": "ast"
     },
     {
@@ -33167,7 +33163,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L97",
+      "source_location": "L101",
       "_origin": "ast"
     },
     {
@@ -33176,7 +33172,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L101",
+      "source_location": "L105",
       "_origin": "ast"
     },
     {
@@ -33185,7 +33181,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L145",
+      "source_location": "L149",
       "_origin": "ast"
     },
     {
@@ -35030,7 +35026,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
@@ -43721,7 +43718,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_570_c_packages_jobs_templates_src_lib_server_test_db",
+      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -56030,6 +56027,26 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_templates_base_package",
+      "target": "packages_svforge_templates_base_package_engines",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/package.json",
+      "source_location": "L56",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_package_engines",
+      "target": "packages_svforge_templates_base_package_engines_node",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/package.json",
+      "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_templates_base_root_eslint_plugin_svforge",
       "target": "ref_node_path",
       "relation": "imports_from",
@@ -62597,35 +62614,6 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_base_svelte_config",
-      "target": "ref_sveltejs_adapter_auto",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/svelte.config.js",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_svelte_config",
-      "target": "packages_svforge_templates_base_svelte_config_config",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/svelte.config.js",
-      "source_location": "L4",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_svelte_config",
-      "target": "kit",
-      "relation": "dynamic_import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/svelte.config.js",
-      "_origin": "ast"
-    },
-    {
       "source": "packages_svforge_templates_base_tsconfig",
       "target": "packages_svforge_templates_base_tsconfig_extends",
       "relation": "contains",
@@ -62637,7 +62625,7 @@
     },
     {
       "source": "packages_svforge_templates_base_tsconfig",
-      "target": "ref_svelte_kit_tsconfig_json",
+      "target": "ref_app_tsconfig",
       "relation": "extends",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/tsconfig.json",
@@ -62658,7 +62646,7 @@
     },
     {
       "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_rewriterelativeimportextensions",
+      "target": "packages_svforge_templates_base_tsconfig_compileroptions_strict",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/tsconfig.json",
@@ -62667,18 +62655,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_allowjs",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L5",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_checkjs",
+      "source": "packages_svforge_templates_base_tsconfig",
+      "target": "packages_svforge_templates_base_tsconfig_include",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/tsconfig.json",
@@ -62687,78 +62665,8 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_esmoduleinterop",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L7",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_forceconsistentcasinginfilenames",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L8",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_resolvejsonmodule",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L9",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_skiplibcheck",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L10",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_sourcemap",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L11",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_strict",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L12",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_base_tsconfig_compileroptions",
-      "target": "packages_svforge_templates_base_tsconfig_compileroptions_moduleresolution",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/base/tsconfig.json",
-      "source_location": "L13",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
       "source": "packages_svforge_templates_base_vite_config",
-      "target": "ref_tailwindcss_vite",
+      "target": "ref_sveltejs_adapter_auto",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -63899,6 +63807,26 @@
       "source_location": "L68",
       "weight": 1,
       "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_package",
+      "target": "packages_svforge_templates_dashboard_package_engines",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/package.json",
+      "source_location": "L70",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_dashboard_package_engines",
+      "target": "packages_svforge_templates_dashboard_package_engines_node",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/dashboard/package.json",
+      "source_location": "L71",
+      "weight": 1,
       "_origin": "ast"
     },
     {
@@ -67500,35 +67428,6 @@
       "source_file": "packages/svforge/templates/dashboard/src/vitest.config.ts",
       "source_location": "L3",
       "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_svelte_config",
-      "target": "ref_sveltejs_adapter_auto",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/svelte.config.js",
-      "source_location": "L1",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_svelte_config",
-      "target": "packages_svforge_templates_dashboard_svelte_config_config",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/svelte.config.js",
-      "source_location": "L4",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_templates_dashboard_svelte_config",
-      "target": "kit",
-      "relation": "dynamic_import",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/svforge/templates/dashboard/svelte.config.js",
       "_origin": "ast"
     },
     {
@@ -92680,6 +92579,122 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_sveltekit_3_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "tests_sveltekit_3_test_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "tests_sveltekit_3_test_templates",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "tests_sveltekit_3_test_manifest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "tests_sveltekit_3_test_minimum",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L21",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "tests_sveltekit_3_test_atleast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L26",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test_atleast",
+      "target": "tests_sveltekit_3_test_minimum",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L27",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "tests_sveltekit_3_test_manifest",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L33",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_sveltekit_3_test",
+      "target": "tests_sveltekit_3_test_atleast",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/sveltekit-3.test.ts",
+      "source_location": "L35",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_svforge_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -101662,7 +101677,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1,
       "_origin": "ast"
     },
@@ -101672,7 +101687,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L39",
+      "source_location": "L43",
       "weight": 1,
       "_origin": "ast"
     },
@@ -101682,7 +101697,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L91",
+      "source_location": "L95",
       "weight": 1,
       "_origin": "ast"
     },
@@ -101692,7 +101707,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L97",
+      "source_location": "L101",
       "weight": 1,
       "_origin": "ast"
     },
@@ -101702,7 +101717,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L101",
+      "source_location": "L105",
       "weight": 1,
       "_origin": "ast"
     },
@@ -101712,7 +101727,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
-      "source_location": "L145",
+      "source_location": "L149",
       "weight": 1,
       "_origin": "ast"
     },
