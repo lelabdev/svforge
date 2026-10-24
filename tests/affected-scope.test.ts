@@ -4,6 +4,7 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
+	buildOrderFor,
 	changedFiles,
 	classifyPath,
 	computeAffectedScope,
@@ -91,6 +92,48 @@ describe('path classification (#570)', () => {
 		['packages/not-a-workspace/file.ts', 'unknown']
 	])('classifies %s as %s', (path, kind) => {
 		expect(classifyPath(path, workspaces).kind).toBe(kind);
+	});
+});
+
+describe('build order and mode (#570 phase B)', () => {
+	it('includes forward dependencies, topologically ordered, for a scoped build', () => {
+		expect(buildOrderFor(['@svforge/dnd', 'svforge'], workspaces)).toEqual([
+			{ name: '@svforge/addon-kit', dir: 'addon-kit' },
+			{ name: '@svforge/dnd', dir: 'dnd' },
+			{ name: 'svforge', dir: 'svforge' }
+		]);
+		// svforge's recipe extraction depends on the add-on, not the reverse.
+		const svforgeOnly = buildOrderFor(['svforge'], workspaces).map((entry: { name: string }) => entry.name);
+		expect(svforgeOnly).toEqual(['@svforge/addon-kit', 'svforge']);
+	});
+
+	it('classifies the plan mode for every scope family', () => {
+		expect(scope(['packages/dnd/src/index.ts']).mode).toBe('targeted');
+		expect(scope(['docs/RELEASE.md']).mode).toBe('none');
+		expect(scope(['graphify-out/graph.json']).mode).toBe('none');
+		expect(scope(['tests/cli-create.test.ts']).mode).toBe('tests');
+		expect(scope(['bun.lock']).mode).toBe('full');
+		expect(scope(['packages/dnd/src/index.ts']).buildOrder.map((entry: { dir: string }) => entry.dir)).toEqual([
+			'addon-kit',
+			'dnd',
+			'svforge'
+		]);
+	});
+
+	it('derives ownership from package-name imports too, and leaves unrelated tests global', () => {
+		const dir = mkdtempSync(join(tmpdir(), 'sf-owners-'));
+		try {
+			mkdirSync(join(dir, 'packages', 'foo'), { recursive: true });
+			writeFileSync(join(dir, 'packages', 'foo', 'package.json'), JSON.stringify({ name: '@x/foo', version: '1.0.0' }));
+			mkdirSync(join(dir, 'tests'), { recursive: true });
+			writeFileSync(join(dir, 'tests', 'named.test.ts'), "import('@x/foo');\n");
+			writeFileSync(join(dir, 'tests', 'global.test.ts'), "import './helpers';\n");
+			const owners = deriveTestOwners(dir, loadWorkspaces(dir));
+			expect([...(owners.get('tests/named.test.ts') ?? [])]).toEqual(['@x/foo']);
+			expect([...(owners.get('tests/global.test.ts') ?? [])]).toEqual([]);
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
 	});
 });
 

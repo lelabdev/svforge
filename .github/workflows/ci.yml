@@ -37,19 +37,28 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile --ignore-scripts
 
-      # #570 phase A — REPORT ONLY: classify the PR's affected workspaces/tests
-      # while the full pipeline below still runs unchanged. A detector failure
-      # exits 2 (fail closed) instead of silently reporting a narrow scope, and
-      # this step never skips a check in this phase.
+      # #570 — affected scope. Documentation/artifact-only PRs skip build+tests
+      # (mandatory guards below still run); tests-only PRs build all and run the
+      # changed tests; workspace changes stay on FULL validation unless the PR
+      # carries the `ci:targeted` label. `ci:full` forces full scope. A detector
+      # failure exits 2 (fail closed) instead of narrowing the run, and on
+      # non-PR events (push/dispatch) every step defaults to the full pipeline.
       - name: Report affected scope (PR only)
+        id: scope
         if: github.event_name == 'pull_request'
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          FORCE_FULL: ${{ contains(github.event.pull_request.labels.*.name, 'ci:full') && '1' || '0' }}
+          TARGETED: ${{ contains(github.event.pull_request.labels.*.name, 'ci:targeted') && '1' || '0' }}
         run: |
           node scripts/affected-scope.mjs \
             --base "$BASE_SHA" \
             --summary "$GITHUB_STEP_SUMMARY" \
             --json-out "$RUNNER_TEMP/affected-scope.json"
+          node scripts/ci/affected-step.mjs \
+            --scope "$RUNNER_TEMP/affected-scope.json" \
+            --github-output "$GITHUB_OUTPUT" \
+            --targeted "${TARGETED:-0}" | tee -a "$GITHUB_STEP_SUMMARY"
 
       # Repository quality gates (#351) — ALL BLOCK MERGING:
       #   lint       (eslint)  repository source, tests, scripts
@@ -85,11 +94,43 @@ jobs:
       - name: Check generated manifests freshness
         run: node scripts/check-generated.mjs
 
-      - name: Build all packages
-        run: bun run --filter '*' build
+      # Full build by default. Scoped builds run the affected workspaces in
+      # dependency order (dependencies first) and are opt-in via `ci:targeted`.
+      - name: Build packages
+        env:
+          SCOPE_BUILD: ${{ steps.scope.outputs.build || 'all' }}
+          SCOPE_BUILD_DIRS: ${{ steps.scope.outputs.build_dirs }}
+          SCOPE_REASON: ${{ steps.scope.outputs.reason }}
+        run: |
+          if [ "$SCOPE_BUILD" = "none" ]; then
+            echo "Skipping package build — ${SCOPE_REASON:-no workspace selected}" | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if [ "$SCOPE_BUILD" = "selected" ]; then
+            echo "Building affected workspaces (dependency order): $SCOPE_BUILD_DIRS" | tee -a "$GITHUB_STEP_SUMMARY"
+            for dir in $SCOPE_BUILD_DIRS; do
+              ( cd "packages/$dir" && bun run build ) || { echo "❌ build failed for packages/$dir"; exit 1; }
+            done
+            exit 0
+          fi
+          bun run --filter '*' build
 
       - name: Run tests
-        run: bun x vitest run --no-file-parallelism
+        env:
+          SCOPE_TESTS: ${{ steps.scope.outputs.tests || 'all' }}
+          SCOPE_TEST_FILES: ${{ steps.scope.outputs.test_files }}
+          SCOPE_REASON: ${{ steps.scope.outputs.reason }}
+        run: |
+          if [ "$SCOPE_TESTS" = "none" ]; then
+            echo "Skipping tests — ${SCOPE_REASON:-no test suite selected}" | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if [ "$SCOPE_TESTS" = "selected" ]; then
+            echo "Running affected test files: $(echo "$SCOPE_TEST_FILES" | wc -w)" | tee -a "$GITHUB_STEP_SUMMARY"
+            bun x vitest run --no-file-parallelism $SCOPE_TEST_FILES
+            exit $?
+          fi
+          bun x vitest run --no-file-parallelism
 
   # Optional reusable Docker builder (#606). Its only inputs are the pinned
   # lockfile, the dashboard manifest it is generated from, and the Dockerfile,

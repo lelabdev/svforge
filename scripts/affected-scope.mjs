@@ -171,9 +171,13 @@ export function deriveTestOwners(root, workspaces) {
 				const owned = new Set();
 				for (const workspace of workspaces) {
 					const prefix = workspace.prefix;
-					if (source.includes(`/${prefix}`) || source.includes(`'${prefix}`) || source.includes(`"${prefix}`)) {
-						owned.add(workspace.name);
-					}
+					const bySourcePath =
+						source.includes(`/${prefix}`) || source.includes(`'${prefix}`) || source.includes(`"${prefix}`);
+					// Tests may also consume the built package by name (`import('svforge')`).
+					const namePattern = new RegExp(
+						`(?:from\\s+|import\\(|require\\()\\s*['"]${workspace.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"]`
+					);
+					if (bySourcePath || namePattern.test(source)) owned.add(workspace.name);
 				}
 				owners.set(relative, owned);
 			}
@@ -200,12 +204,47 @@ export function changedFiles({ root = process.cwd(), base, head = 'HEAD', git = 
 }
 
 /**
+ * Build order for a set of packages: affected workspaces PLUS their forward
+ * workspace dependencies, topologically sorted (dependencies first). Building a
+ * package without its prerequisites would fail even though the package itself
+ * did not change.
+ */
+export function buildOrderFor(affectedNames, workspaces) {
+	const byName = new Map(workspaces.map((workspace) => [workspace.name, workspace]));
+	const needed = new Set();
+	const visit = (name) => {
+		if (needed.has(name)) return;
+		const workspace = byName.get(name);
+		if (!workspace) return;
+		needed.add(name);
+		for (const dependency of workspace.dependencies) visit(dependency);
+	};
+	for (const name of affectedNames) visit(name);
+	// Kahn-style topological sort restricted to `needed`; dependency edges only.
+	const order = [];
+	const placed = new Set();
+	while (order.length < needed.size) {
+		const ready = [...needed]
+			.filter((name) => !placed.has(name))
+			.filter((name) => (byName.get(name)?.dependencies ?? []).every((dep) => !needed.has(dep) || placed.has(dep)));
+		if (ready.length === 0) throw new Error('Workspace dependency cycle detected.');
+		for (const name of ready.sort()) {
+			placed.add(name);
+			order.push(name);
+		}
+	}
+	return order.map((name) => ({ name, dir: byName.get(name)?.dir ?? '' }));
+}
+
+/**
  * Compute the affected scope. Pure apart from the injected test owners/workspaces.
  *
  * @returns {{
  *  global: boolean,
+ *  mode: 'full'|'targeted'|'tests'|'none',
  *  reasons: Array<{path: string, kind: string, reason: string}>,
  *  packages: Array<{name: string, dir: string, reason: string}>,
+ *  buildOrder: Array<{name: string, dir: string}>,
  *  tests: {mode: 'all'|'selected'|'none', files: string[]},
  *  docsOnly: boolean,
  *  releaseSensitive: boolean,
@@ -276,10 +315,21 @@ export function computeAffectedScope({ changes, workspaces, testOwners, forceFul
 		tests = { mode: 'none', files: [] };
 	}
 
+	const affectedNames = global ? workspaces.map((workspace) => workspace.name) : [...included.keys()];
+	const buildOrder = global ? [] : buildOrderFor(affectedNames, workspaces);
+	const mode = global
+		? 'full'
+		: included.size > 0
+			? 'targeted'
+			: tests.mode === 'selected'
+				? 'tests'
+				: 'none';
 	return {
 		global,
+		mode,
 		reasons,
 		packages,
+		buildOrder,
 		tests,
 		docsOnly,
 		releaseSensitive
@@ -292,7 +342,9 @@ export function detectorFailureScope(error, workspaces) {
 		global: true,
 		fallback: error instanceof Error ? error.message : String(error),
 		reasons: [{ path: '*', kind: 'detector-failure', reason: 'detector failure → full scope' }],
+		mode: 'full',
 		packages: workspaces.map((workspace) => ({ name: workspace.name, dir: workspace.dir, reason: 'full scope' })),
+		buildOrder: [],
 		tests: { mode: 'all', files: [] },
 		docsOnly: false,
 		releaseSensitive: false
@@ -346,7 +398,7 @@ export function runCli(argv = process.argv.slice(2)) {
 	const workspaces = loadWorkspaces(options.root);
 	let scope;
 	try {
-		const forceFull = options.forceFull || !options.base;
+		const forceFull = options.forceFull || !options.base || process.env.FORCE_FULL === '1';
 		const changes = forceFull ? [] : changedFiles({ root: options.root, base: options.base, head: options.head });
 		const testOwners = deriveTestOwners(resolve(options.root), workspaces);
 		scope = computeAffectedScope({ changes, workspaces, testOwners, forceFull });

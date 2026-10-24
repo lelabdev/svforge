@@ -37,29 +37,30 @@ active test directories when cleaning up.
 - Explain the change and validations in the pull request, and link its issue with `Closes #<number>`.
 - Wait for CI; changes land through squash-merged pull requests.
 
-## PR CI affected-scope report (#570)
+## PR CI affected scope (#570)
 
-PR CI runs the full quality pipeline today, and additionally reports which
-workspaces and test suites the PR actually affects:
+Every PR computes a deterministic affected scope from the **merge-base** diff
+and applies it conservatively:
 
-```bash
-node scripts/affected-scope.mjs --base origin/main
-node scripts/affected-scope.mjs --base origin/main --json     # machine-readable
-```
+| Change family | Build | Tests | Mandatory guards |
+| --- | --- | --- | --- |
+| Docs / committed `graphify-out/**` artifacts | skipped | skipped | lint, typecheck, audits, generated-manifest check |
+| Tests only | all workspaces | only the changed test files | always run |
+| Workspace change | **all by default** | **all by default** | always run |
+| Workspace change + `ci:targeted` label | affected workspaces in dependency order | affected suites (ownership derived from test imports) | always run |
+| Lockfile, root config, workflows, `scripts/`, `docker/`, release metadata (`.changeset/`, package `package.json`/`CHANGELOG.md`), unknown path, detector failure | all | all | always run |
 
-- The report is computed from the PR **merge-base** diff (not `HEAD^`), maps
-  changed paths to workspaces, follows transitive reverse dependents and the
-  add-on → `svforge` recipe edge, and derives test ownership from the imports
-  each test file makes.
-- Cross-cutting paths (`bun.lock`, root configuration, workflows, `scripts/`),
-  release metadata (`.changeset/`, package `package.json`/`CHANGELOG.md`) and
-  unknown paths select **full scope**; documentation-only changes select no
-  build/test.
-- Phase A is report-only: every check still runs. `--force-full` reports a full
-  scope explicitly. A resolver/detector failure exits non-zero and reports full
-  scope instead of silently narrowing it.
+- Run the report locally: `node scripts/affected-scope.mjs --base origin/main`
+  (`--json` for machines, `--force-full` to force full scope).
+- Workspace-scoped execution is opt-in with the **`ci:targeted`** label until
+  the report has been confronted with real PRs; the **`ci:full`** label (or a
+  push / manual dispatch) forces the complete pipeline.
+- A detector failure exits non-zero and reports FULL scope: it can never make a
+  job green by narrowing the run. Skipped optional work is stated in the job
+  summary; the required `quality` job still runs every mandatory guard.
 - Release assurance is unchanged: `publish.yml` keeps the full pre-publication
-  and post-publication gates, the scaffold matrix and the golden paths.
+  gates, the scaffold matrix, packed consumers and the golden paths; the
+  release workflow is not scoped by this resolver.
 
 ## Templates and generated files
 
