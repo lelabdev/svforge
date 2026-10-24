@@ -18,6 +18,17 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+/**
+ * These suites dynamically inspect EVERY built add-on distribution, not just
+ * packages inferred from static imports. A partial build would produce missing
+ * dist/index.js files and false negatives (main CI run #40115932613).
+ * Keep this explicit guard until dependency ownership can model dynamic reads.
+ */
+const ALL_DIST_TESTS = new Set([
+	'tests/cli-create.test.ts',
+	'tests/structure.test.ts'
+]);
+
 /** @param {object} scope affected-scope JSON */
 export function planCiSteps(scope, { targeted = false } = {}) {
 	if (scope?.global) {
@@ -43,13 +54,16 @@ export function planCiSteps(scope, { targeted = false } = {}) {
 			reason: 'workspace change: full validation until ci:targeted opt-in'
 		};
 	}
+	const requiresAllDistributions = tests.mode === 'all' || tests.files.some((file) => ALL_DIST_TESTS.has(file));
 	return {
 		mode: 'targeted',
-		build: 'selected',
+		build: requiresAllDistributions ? 'all' : 'selected',
 		buildDirs: (scope.buildOrder ?? []).map((entry) => entry.dir),
 		tests: tests.files.length > 0 ? 'selected' : 'all',
 		testFiles: tests.files,
-		reason: 'workspace change: ci:targeted opt-in'
+		reason: requiresAllDistributions
+			? 'selected suites require all built addon distributions'
+			: 'workspace change: ci:targeted opt-in'
 	};
 }
 
