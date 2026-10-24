@@ -45,3 +45,5 @@ export default defineAddon({
 		'  </SortableList>'
 	]
 });
+
+// #570 phase C measurement probe (comment-only).
