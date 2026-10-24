@@ -1404,6 +1404,14 @@
       "_origin": "ast"
     },
     {
+      "id": "package_overrides_undici",
+      "label": "undici",
+      "file_type": "code",
+      "source_file": "package.json",
+      "source_location": "L60",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_addon_kit_package",
       "label": "addon-kit/package.json",
       "file_type": "code",
@@ -25373,6 +25381,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_primitives_cursor_affordance_test",
+      "label": "primitives-cursor-affordance.test.ts",
+      "file_type": "code",
+      "source_file": "tests/primitives-cursor-affordance.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_primitives_fields_test",
       "label": "primitives-fields.test.ts",
       "file_type": "code",
@@ -27641,6 +27657,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/547-phase-c-direct-add.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_594_base_control_affordance",
+      "label": "594-base-control-affordance.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/594-base-control-affordance.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -36323,6 +36348,16 @@
       "_origin": "ast"
     },
     {
+      "source": "package_overrides",
+      "target": "package_overrides_undici",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "package.json",
+      "source_location": "L60",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_addon_kit_package",
       "target": "packages_addon_kit_package_name",
       "relation": "contains",
@@ -43196,7 +43231,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_547_phase_c_packages_jobs_templates_src_lib_server_test_db",
+      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -87745,6 +87780,61 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/primitives-checkbox-toggle.test.ts",
       "source_location": "L12",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_primitives_cursor_affordance_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/primitives-cursor-affordance.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_primitives_cursor_affordance_test",
+      "target": "ref_testing_library_svelte",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/primitives-cursor-affordance.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_primitives_cursor_affordance_test",
+      "target": "ref_testing_library_jest_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/primitives-cursor-affordance.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_primitives_cursor_affordance_test",
+      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_checkbox",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/primitives-cursor-affordance.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_primitives_cursor_affordance_test",
+      "target": "packages_svforge_templates_base_src_lib_components_svforge_primitives_toggle",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/primitives-cursor-affordance.test.ts",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },

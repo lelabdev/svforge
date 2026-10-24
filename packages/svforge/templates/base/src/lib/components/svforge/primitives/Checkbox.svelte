@@ -9,11 +9,33 @@
 		class?: string;
 	}
 
-	let { label, class: className, checked = $bindable(false), ...rest }: Props = $props();
+	let {
+		label,
+		class: className,
+		checked = $bindable(false),
+		disabled = false,
+		...rest
+	}: Props = $props();
 </script>
 
-<label class="flex cursor-pointer items-center gap-2">
-	<input type="checkbox" {...rest} class={cn('checkbox border border-surface-600-400 focus-within:ring-primary-700-300! focus-visible:ring-2 focus-visible:ring-primary-700-300', className)} bind:checked />
+<label
+	class={cn(
+		'flex items-center gap-2',
+		// #594: an enabled control advertises its click affordance; a disabled
+		// one must not look actionable.
+		disabled ? 'cursor-not-allowed' : 'cursor-pointer'
+	)}
+>
+	<input
+		type="checkbox"
+		{...rest}
+		{disabled}
+		class={cn(
+			'checkbox border border-surface-600-400 focus-within:ring-primary-700-300! focus-visible:ring-2 focus-visible:ring-primary-700-300',
+			className
+		)}
+		bind:checked
+	/>
 	{#if label}
 		<span>{label}</span>
 	{/if}

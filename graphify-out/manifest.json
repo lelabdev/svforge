@@ -12,7 +12,7 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "ast_hash": "b001f29b1460e5e4b34363c044366483",
+    "ast_hash": "dbc4228d98f0ab516bb62cf683fce033",
     "semantic_hash": ""
   },
   "packages/addon-kit/package.json": {
@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "3b84b6a66f457e6485549ac2aaff8ddb",
+    "ast_hash": "7a88610d3f6514d92f5f2d559425033e",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -568,7 +568,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/primitives/Checkbox.svelte": {
-    "ast_hash": "d0eb443bb614a57749eabe7960a7439f",
+    "ast_hash": "7f9ca2bebd3c8ae8121b2ddc38888b75",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/primitives/Input.svelte": {
@@ -584,7 +584,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/primitives/Toggle.svelte": {
-    "ast_hash": "c636c0e9cb6ec40424133f5f43202c8a",
+    "ast_hash": "e894fe252dff108ee3cc164e7b8e86ee",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/primitives/index.ts": {
@@ -596,7 +596,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/ui/Alert.svelte": {
-    "ast_hash": "f76f5ea141808a7bbdbdf68026e0cd69",
+    "ast_hash": "b07fb0e0646b55950f4ff7e2a326a2e3",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/components/svforge/ui/Card.svelte": {
@@ -2169,6 +2169,14 @@
   },
   ".changeset/547-phase-c-direct-add.md": {
     "ast_hash": "a3936d26fe026ac5bedbe58e43e8a7e7",
+    "semantic_hash": ""
+  },
+  "tests/primitives-cursor-affordance.test.ts": {
+    "ast_hash": "c5980a0bc2e108c5cc25a7f7c67e19fb",
+    "semantic_hash": ""
+  },
+  ".changeset/594-base-control-affordance.md": {
+    "ast_hash": "f0e5647799063f9adf1d9791e6d63cff",
     "semantic_hash": ""
   }
 }
