@@ -23,7 +23,11 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
+      # #570 phase A: the affected-scope report needs the PR base commit, so the
+      # quality job fetches history (still a single, full pipeline otherwise).
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -32,6 +36,20 @@ jobs:
 
       - name: Install dependencies
         run: bun install --frozen-lockfile --ignore-scripts
+
+      # #570 phase A — REPORT ONLY: classify the PR's affected workspaces/tests
+      # while the full pipeline below still runs unchanged. A detector failure
+      # exits 2 (fail closed) instead of silently reporting a narrow scope, and
+      # this step never skips a check in this phase.
+      - name: Report affected scope (PR only)
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          node scripts/affected-scope.mjs \
+            --base "$BASE_SHA" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --json-out "$RUNNER_TEMP/affected-scope.json"
 
       # Repository quality gates (#351) — ALL BLOCK MERGING:
       #   lint       (eslint)  repository source, tests, scripts

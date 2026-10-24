@@ -37,6 +37,30 @@ active test directories when cleaning up.
 - Explain the change and validations in the pull request, and link its issue with `Closes #<number>`.
 - Wait for CI; changes land through squash-merged pull requests.
 
+## PR CI affected-scope report (#570)
+
+PR CI runs the full quality pipeline today, and additionally reports which
+workspaces and test suites the PR actually affects:
+
+```bash
+node scripts/affected-scope.mjs --base origin/main
+node scripts/affected-scope.mjs --base origin/main --json     # machine-readable
+```
+
+- The report is computed from the PR **merge-base** diff (not `HEAD^`), maps
+  changed paths to workspaces, follows transitive reverse dependents and the
+  add-on → `svforge` recipe edge, and derives test ownership from the imports
+  each test file makes.
+- Cross-cutting paths (`bun.lock`, root configuration, workflows, `scripts/`),
+  release metadata (`.changeset/`, package `package.json`/`CHANGELOG.md`) and
+  unknown paths select **full scope**; documentation-only changes select no
+  build/test.
+- Phase A is report-only: every check still runs. `--force-full` reports a full
+  scope explicitly. A resolver/detector failure exits non-zero and reports full
+  scope instead of silently narrowing it.
+- Release assurance is unchanged: `publish.yml` keeps the full pre-publication
+  and post-publication gates, the scaffold matrix and the golden paths.
+
 ## Templates and generated files
 
 Edit source templates under `packages/*/templates/`, never generated `src/templates.ts` files. Template files must be under `templates/*/src/` or `templates/*/root/`; rebuild the package after edits and commit regenerated output. See the repository [`AGENTS.md`](AGENTS.md) and package-specific agent guidance for executable conventions.

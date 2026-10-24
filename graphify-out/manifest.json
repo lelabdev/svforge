@@ -1416,7 +1416,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "fb0cf79ffb6baab03eb2a1d87a4bdf3e",
+    "ast_hash": "c6ebac43582a0458dbbc9b841c66c6f4",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
@@ -1432,7 +1432,7 @@
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
-    "ast_hash": "0904e5e12a64d866e6b79b36626473d6",
+    "ast_hash": "884dc7d6a89e50417a07b83c521fec0f",
     "semantic_hash": ""
   },
   "README.md": {
@@ -2185,6 +2185,14 @@
   },
   ".changeset/594-addon-affordances.md": {
     "ast_hash": "cb8ba7c8fa6167d4ff559e9fcdf254cb",
+    "semantic_hash": ""
+  },
+  "scripts/affected-scope.mjs": {
+    "ast_hash": "b0769fab2b1750dbceb1b9cba2f40ab1",
+    "semantic_hash": ""
+  },
+  "tests/affected-scope.test.ts": {
+    "ast_hash": "707b3aae035dab7b9e7c61295c51ab0e",
     "semantic_hash": ""
   }
 }
