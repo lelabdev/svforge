@@ -19482,6 +19482,153 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_affected_scope",
+      "label": "affected-scope.mjs",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_global_prefixes",
+      "label": "GLOBAL_PREFIXES",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L36",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_global_files",
+      "label": "GLOBAL_FILES",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L42",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_release_metadata_prefixes",
+      "label": "RELEASE_METADATA_PREFIXES",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L56",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_docs_prefixes",
+      "label": "DOCS_PREFIXES",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L59",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_docs_files",
+      "label": "DOCS_FILES",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L60",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_toposix",
+      "label": "toPosix()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L62",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_loadworkspaces",
+      "label": "loadWorkspaces()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L67",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_reversedependencies",
+      "label": "reverseDependencies()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L90",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_classifypath",
+      "label": "classifyPath()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L110",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_derivetestowners",
+      "label": "deriveTestOwners()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L154",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_changedfiles",
+      "label": "changedFiles()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L181",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_computeaffectedscope",
+      "label": "computeAffectedScope()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L209",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_detectorfailurescope",
+      "label": "detectorFailureScope()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L284",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_formatscope",
+      "label": "formatScope()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L297",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_parseargs",
+      "label": "parseArgs()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L321",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_affected_scope_runcli",
+      "label": "runCli()",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L338",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_audit",
       "label": "audit.mjs",
       "file_type": "code",
@@ -22421,6 +22568,55 @@
       "file_type": "code",
       "source_file": "tests/admin-feedback.test.ts",
       "source_location": "L22",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_affected_scope_test",
+      "label": "affected-scope.test.ts",
+      "file_type": "code",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_affected_scope_test_root",
+      "label": "ROOT",
+      "file_type": "code",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L28",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_affected_scope_test_workspaces",
+      "label": "workspaces",
+      "file_type": "code",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L29",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_affected_scope_test_byname",
+      "label": "byName",
+      "file_type": "code",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L30",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_affected_scope_test_testowners",
+      "label": "testOwners",
+      "file_type": "code",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L31",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_affected_scope_test_scope",
+      "label": "scope()",
+      "file_type": "code",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L33",
+      "_callable": true,
       "_origin": "ast"
     },
     {
@@ -29038,12 +29234,21 @@
       "_origin": "ast"
     },
     {
+      "id": "contributing_pr_ci_affected_scope_report_570",
+      "label": "PR CI affected-scope report (#570)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L40",
+      "_origin": "ast"
+    },
+    {
       "id": "contributing_templates_and_generated_files",
       "label": "Templates and generated files",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L40",
+      "source_location": "L64",
       "_origin": "ast"
     },
     {
@@ -29052,7 +29257,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L46",
+      "source_location": "L70",
       "_origin": "ast"
     },
     {
@@ -29061,7 +29266,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L52",
+      "source_location": "L76",
       "_origin": "ast"
     },
     {
@@ -69656,6 +69861,342 @@
       "_origin": "ast"
     },
     {
+      "source": "scripts_affected_scope",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L32",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L33",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_global_prefixes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L36",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_global_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_release_metadata_prefixes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L56",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_docs_prefixes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L59",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_docs_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L60",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_toposix",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_loadworkspaces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L67",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_reversedependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L90",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_classifypath",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L110",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_derivetestowners",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L154",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_changedfiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L181",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_computeaffectedscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L209",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_detectorfailurescope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L284",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_formatscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L297",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_parseargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L321",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_runcli",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L338",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_classifypath",
+      "target": "scripts_affected_scope_toposix",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L111",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_derivetestowners",
+      "target": "scripts_affected_scope_toposix",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L163",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_computeaffectedscope",
+      "target": "scripts_affected_scope_classifypath",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L219",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_computeaffectedscope",
+      "target": "scripts_affected_scope_toposix",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L227",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_computeaffectedscope",
+      "target": "scripts_affected_scope_reversedependencies",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L233",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_runcli",
+      "target": "scripts_affected_scope_parseargs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L339",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_runcli",
+      "target": "scripts_affected_scope_loadworkspaces",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L340",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_runcli",
+      "target": "scripts_affected_scope_changedfiles",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L344",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_runcli",
+      "target": "scripts_affected_scope_derivetestowners",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L345",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_runcli",
+      "target": "scripts_affected_scope_computeaffectedscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L346",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_runcli",
+      "target": "scripts_affected_scope_detectorfailurescope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L348",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope_runcli",
+      "target": "scripts_affected_scope_formatscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L351",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "scripts_audit",
       "target": "ref_node_fs",
       "relation": "imports_from",
@@ -76701,6 +77242,232 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/admin-feedback.test.ts",
       "source_location": "L22",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_changedfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_classifypath",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_computeaffectedscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_derivetestowners",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_detectorfailurescope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_formatscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_loadworkspaces",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_reversedependencies",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "scripts_affected_scope_runcli",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "tests_affected_scope_test_root",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L28",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "tests_affected_scope_test_workspaces",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L29",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "tests_affected_scope_test_byname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "tests_affected_scope_test_testowners",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "tests_affected_scope_test_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L33",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test",
+      "target": "tests_affected_scope_test_scope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L98",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96093,11 +96860,21 @@
     },
     {
       "source": "contributing_contributing_to_svforge",
-      "target": "contributing_templates_and_generated_files",
+      "target": "contributing_pr_ci_affected_scope_report_570",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
       "source_location": "L40",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "contributing_contributing_to_svforge",
+      "target": "contributing_templates_and_generated_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CONTRIBUTING.md",
+      "source_location": "L64",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96107,7 +96884,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L42",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96117,7 +96894,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L44",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96127,7 +96904,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L46",
+      "source_location": "L70",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96137,7 +96914,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L50",
+      "source_location": "L74",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96147,7 +96924,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L50",
+      "source_location": "L74",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96157,7 +96934,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L52",
+      "source_location": "L76",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96167,7 +96944,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L54",
+      "source_location": "L78",
       "weight": 1,
       "_origin": "ast"
     },
@@ -101449,6 +102226,18 @@
       "confidence_score": 1,
       "source_file": "tests/addon-json-guard.test.ts",
       "source_location": "L382",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_affected_scope_test_scope",
+      "target": "scripts_affected_scope_computeaffectedscope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/affected-scope.test.ts",
+      "source_location": "L34",
       "weight": 1,
       "_origin": "ast"
     },
