@@ -320,11 +320,11 @@
     "semantic_hash": ""
   },
   "packages/notifications/src/templates.ts": {
-    "ast_hash": "b2d4e9cf4c6a735ffad556c68be56c2f",
+    "ast_hash": "76046dea59a996879c15f7aaaa2e02c1",
     "semantic_hash": ""
   },
   "packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte": {
-    "ast_hash": "b1288be371acfd468ba224b3ac1730b3",
+    "ast_hash": "abd6fa472e3739f0a753b9c2fcbc36f0",
     "semantic_hash": ""
   },
   "packages/notifications/templates/src/lib/server/notifications/index.ts": {
@@ -468,7 +468,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "944e4a29ae1b48cbc823e8de932ab468",
+    "ast_hash": "fd3a9b407839c7a79a918816dc0a480e",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -880,7 +880,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/src/templates.ts": {
-    "ast_hash": "babd3739fb4571e2eb5da6221555e4a0",
+    "ast_hash": "3dd83e0f2bcb8d329ac6f00f16528095",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte": {
@@ -892,7 +892,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte": {
-    "ast_hash": "77dd5ef83757727601e6a765b2778180",
+    "ast_hash": "62d123a3ae01f84d68478fe8f72e06fb",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/index.ts": {
@@ -1024,7 +1024,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "186b2fd27a1ba677d29de66a3b137f43",
+    "ast_hash": "5bb742a270bce53e6958552b737c51ce",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1640,7 +1640,7 @@
     "semantic_hash": ""
   },
   "tests/tiptap-toolbar.test.ts": {
-    "ast_hash": "4f10ca057827f2bbe5751ced44eee944",
+    "ast_hash": "f0305d77d604c584cbd72f6fa455f11c",
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
@@ -2181,6 +2181,10 @@
   },
   ".changeset/594-dashboard-password-toggle.md": {
     "ast_hash": "9ad7a71aa113d58cdcd31e98038eb330",
+    "semantic_hash": ""
+  },
+  ".changeset/594-addon-affordances.md": {
+    "ast_hash": "cb8ba7c8fa6167d4ff559e9fcdf254cb",
     "semantic_hash": ""
   }
 }

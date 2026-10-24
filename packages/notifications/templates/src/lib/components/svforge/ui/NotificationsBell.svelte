@@ -41,7 +41,7 @@
 	</Popover.Trigger>
 	<Portal>
 		<Popover.Positioner>
-			<Popover.Content class="z-50 max-h-96 w-80 max-w-[calc(100vw-2rem)] overflow-auto rounded-container border border-surface-200-800 bg-surface-50-950 shadow-lg">
+			<Popover.Content class="card z-50 max-h-96 w-80 max-w-[calc(100vw-2rem)] overflow-auto border border-surface-200-800 bg-surface-50-950 shadow-lg">
 				<div class="flex items-center justify-between px-4 py-3 border-b border-surface-200-800">
 					<Popover.Title class="text-base font-semibold">{m.notif_title()}</Popover.Title>
 					<Button
