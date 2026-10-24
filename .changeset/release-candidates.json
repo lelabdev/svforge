@@ -2,8 +2,18 @@
   "schemaVersion": 1,
   "packages": [
     {
+      "name": "@svforge/notifications",
+      "version": "2.2.2",
+      "directory": "packages/notifications"
+    },
+    {
+      "name": "@svforge/tiptap",
+      "version": "2.2.2",
+      "directory": "packages/tiptap"
+    },
+    {
       "name": "svforge",
-      "version": "2.2.6",
+      "version": "2.3.0",
       "directory": "packages/svforge"
     }
   ]
