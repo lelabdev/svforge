@@ -51,13 +51,26 @@ describe('SvelteKit 3 scaffold target (#608)', () => {
 		expect(existsSync(join(root, 'svelte.config.ts')), 'svelte.config.ts').toBe(false);
 	});
 
-	it('reference vite.config.ts uses the Kit 3 sveltekit({ compilerOptions, adapter }) shape', () => {
+	it('reference vite.config.ts keeps Tailwind and uses the Kit 3 sveltekit({ compilerOptions, adapter }) shape', () => {
 		const config = readFileSync(join(ROOT, 'packages/svforge/templates/base/vite.config.ts'), 'utf8');
 		expect(config).toContain("from '@sveltejs/adapter-auto'");
 		expect(config).toMatch(/sveltekit\(\{/);
 		expect(config).toContain('compilerOptions');
 		expect(config).toContain('adapter: adapter()');
 		expect(config).not.toContain('svelte.config');
+		// B-01 (PR #657 review): the Kit 3 rewrite must not drop Tailwind CSS
+		// processing from the reference configuration.
+		expect(config).toContain("import tailwindcss from '@tailwindcss/vite'");
+		expect(config).toMatch(/tailwindcss\(\)/);
+		expect(config.indexOf('tailwindcss()')).toBeLessThan(config.indexOf('sveltekit({'));
+	});
+
+	it('reference CSS still consumes Tailwind through that plugin', () => {
+		const css = readFileSync(join(ROOT, 'packages/svforge/templates/base/src/routes/layout.css'), 'utf8');
+		expect(css).toMatch(/@import\s+['"]tailwindcss['"]/);
+		const dev = manifest('base').devDependencies;
+		expect(dev['@tailwindcss/vite'], '@tailwindcss/vite dependency').toBeDefined();
+		expect(dev['tailwindcss'], 'tailwindcss dependency').toBeDefined();
 	});
 
 	it('reference tsconfig extends the Kit 3 generated config', () => {
