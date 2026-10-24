@@ -1432,7 +1432,7 @@
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
-    "ast_hash": "b8fff3247f4866a7c157bec71f272bf1",
+    "ast_hash": "0fd01646c7719dfeb9be6cea21869842",
     "semantic_hash": ""
   },
   "README.md": {
@@ -2168,11 +2168,19 @@
     "semantic_hash": ""
   },
   "scripts/ci/affected-step.mjs": {
-    "ast_hash": "d795cdcf6ac3abf36208648675b4b7fa",
+    "ast_hash": "7df58d6a7f386656e7c1559bfd3e0931",
     "semantic_hash": ""
   },
   "tests/ci-affected-step.test.ts": {
-    "ast_hash": "294c45df7aa6316fda055e128c8d4c5c",
+    "ast_hash": "b23a981fbf2baae90823fa02b444bd22",
+    "semantic_hash": ""
+  },
+  "scripts/ci/measure-ci.mjs": {
+    "ast_hash": "8bde7480fb21c05b0285e3ebc7882662",
+    "semantic_hash": ""
+  },
+  "tests/measure-ci.test.ts": {
+    "ast_hash": "a41df078121468aae151542537f3a00b",
     "semantic_hash": ""
   }
 }

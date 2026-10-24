@@ -20638,7 +20638,7 @@
       "label": "renderGithubOutputs()",
       "file_type": "code",
       "source_file": "scripts/ci/affected-step.mjs",
-      "source_location": "L57",
+      "source_location": "L61",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20647,7 +20647,123 @@
       "label": "parseArgs()",
       "file_type": "code",
       "source_file": "scripts/ci/affected-step.mjs",
+      "source_location": "L73",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci",
+      "label": "measure-ci.mjs",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_parsescope",
+      "label": "parseScope()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L22",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_seconds",
+      "label": "seconds()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L28",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_stepseconds",
+      "label": "stepSeconds()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L35",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_summarizerun",
+      "label": "summarizeRun()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L47",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_formatmarkdown",
+      "label": "formatMarkdown()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
       "source_location": "L69",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_gh",
+      "label": "gh()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L83",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_reposlug",
+      "label": "repoSlug()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L87",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_fetchjobs",
+      "label": "fetchJobs()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L91",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_fetchlog",
+      "label": "fetchLog()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L96",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_runsforpr",
+      "label": "runsForPr()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L104",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_parseargs",
+      "label": "parseArgs()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L112",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "scripts_ci_measure_ci_collect",
+      "label": "collect()",
+      "file_type": "code",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L126",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25129,6 +25245,22 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_measure_ci_test",
+      "label": "measure-ci.test.ts",
+      "file_type": "code",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_measure_ci_test_jobs",
+      "label": "jobs",
+      "file_type": "code",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_module_composition_test",
       "label": "module-composition.test.ts",
       "file_type": "code",
@@ -29285,7 +29417,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L65",
+      "source_location": "L71",
       "_origin": "ast"
     },
     {
@@ -29294,7 +29426,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L71",
+      "source_location": "L77",
       "_origin": "ast"
     },
     {
@@ -29303,7 +29435,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L77",
+      "source_location": "L83",
       "_origin": "ast"
     },
     {
@@ -34891,6 +35023,14 @@
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_570_c_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_570_c_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
     }
   ],
   "links": [
@@ -43581,7 +43721,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_570_b_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_570_c_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -72641,7 +72781,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ci/affected-step.mjs",
-      "source_location": "L57",
+      "source_location": "L61",
       "weight": 1,
       "_origin": "ast"
     },
@@ -72651,7 +72791,303 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ci/affected-step.mjs",
+      "source_location": "L73",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "ref_node_child_process",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "ref_node_url",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L19",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_parsescope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L22",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_seconds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L28",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_stepseconds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L35",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_summarizerun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L47",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_formatmarkdown",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
       "source_location": "L69",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_gh",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_reposlug",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L87",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_fetchjobs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L91",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_fetchlog",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L96",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_runsforpr",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L104",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_parseargs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L112",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci",
+      "target": "scripts_ci_measure_ci_collect",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L126",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_stepseconds",
+      "target": "scripts_ci_measure_ci_seconds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L39",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_summarizerun",
+      "target": "scripts_ci_measure_ci_parsescope",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L48",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_summarizerun",
+      "target": "scripts_ci_measure_ci_seconds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_summarizerun",
+      "target": "scripts_ci_measure_ci_stepseconds",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_reposlug",
+      "target": "scripts_ci_measure_ci_gh",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L88",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_fetchjobs",
+      "target": "scripts_ci_measure_ci_gh",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L92",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_fetchjobs",
+      "target": "scripts_ci_measure_ci_reposlug",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L92",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_fetchlog",
+      "target": "scripts_ci_measure_ci_gh",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L98",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_runsforpr",
+      "target": "scripts_ci_measure_ci_gh",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L105",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_collect",
+      "target": "scripts_ci_measure_ci_runsforpr",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L128",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_collect",
+      "target": "scripts_ci_measure_ci_summarizerun",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L132",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_collect",
+      "target": "scripts_ci_measure_ci_fetchjobs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L132",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_ci_measure_ci_collect",
+      "target": "scripts_ci_measure_ci_fetchlog",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/ci/measure-ci.mjs",
+      "source_location": "L132",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86417,6 +86853,82 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_measure_ci_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_measure_ci_test",
+      "target": "scripts_ci_measure_ci",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_measure_ci_test",
+      "target": "scripts_ci_measure_ci_formatmarkdown",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_measure_ci_test",
+      "target": "scripts_ci_measure_ci_parsescope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_measure_ci_test",
+      "target": "scripts_ci_measure_ci_stepseconds",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_measure_ci_test",
+      "target": "scripts_ci_measure_ci_summarizerun",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_measure_ci_test",
+      "target": "tests_measure_ci_test_jobs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/measure-ci.test.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_module_composition_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -97180,7 +97692,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L65",
+      "source_location": "L71",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97190,7 +97702,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L67",
+      "source_location": "L73",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97200,7 +97712,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L69",
+      "source_location": "L75",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97210,7 +97722,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L71",
+      "source_location": "L77",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97220,7 +97732,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L75",
+      "source_location": "L81",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97230,7 +97742,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L75",
+      "source_location": "L81",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97240,7 +97752,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L77",
+      "source_location": "L83",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97250,7 +97762,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "CONTRIBUTING.md",
-      "source_location": "L79",
+      "source_location": "L85",
       "weight": 1,
       "_origin": "ast"
     },

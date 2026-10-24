@@ -63,10 +63,13 @@ describe('CI scope plan (#570 phase B)', () => {
 		expect(plan.reason).toContain('ci:targeted');
 	});
 
-	it('scopes the build to the dependency-ordered closure under ci:targeted', () => {
+	it('scopes only the tests under ci:targeted and keeps the full build', () => {
+		// Measured failure on a real PR: a scoped build broke tests that inspect
+		// every workspace dist (structure, cli-create inventory). The build stays
+		// complete; test selection is the proven-safe part.
 		const plan = planCiSteps(targetedScope, { targeted: true });
-		expect(plan.build).toBe('selected');
-		expect(plan.buildDirs).toEqual(['addon-kit', 'dnd', 'svforge']);
+		expect(plan.build).toBe('all');
+		expect(plan.buildDirs).toEqual([]);
 		expect(plan.tests).toBe('selected');
 		expect(plan.testFiles).toEqual(targetedScope.tests.files);
 	});
@@ -81,11 +84,11 @@ describe('CI scope plan (#570 phase B)', () => {
 		const plan = planCiSteps(targetedScope, { targeted: true });
 		expect(renderGithubOutputs(plan).trim().split('\n')).toEqual([
 			'mode=targeted',
-			'build=selected',
-			'build_dirs=addon-kit dnd svforge',
+			'build=all',
+			'build_dirs=',
 			'tests=selected',
 			'test_files=tests/scaffold-paths.test.ts tests/affected-scope.test.ts',
-			'reason=workspace change: ci:targeted opt-in'
+			'reason=workspace change: ci:targeted opt-in (tests only; full build)'
 		]);
 	});
 });
