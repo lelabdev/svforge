@@ -308,7 +308,7 @@
     "semantic_hash": ""
   },
   "packages/notifications/package.json": {
-    "ast_hash": "127a629d672c32be244b6d43138820a5",
+    "ast_hash": "6e9076e8bf753a5fde3c4b5a4ef91cfd",
     "semantic_hash": ""
   },
   "packages/notifications/scripts/prebuild.ts": {
@@ -404,7 +404,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
-    "ast_hash": "9d878a79441ef912964ee57357360e2f",
+    "ast_hash": "4296d48ac1da0acd852ebb623c97db8d",
     "semantic_hash": ""
   },
   "packages/svforge/scripts/fetch-llms-docs.sh": {
@@ -432,7 +432,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/changelog.ts": {
-    "ast_hash": "964fe61d2d7a7d690459c7d37a18f951",
+    "ast_hash": "84b8327caf35c42c21a597f888636377",
     "semantic_hash": ""
   },
   "packages/svforge/src/design-system.ts": {
@@ -468,11 +468,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "fd3a9b407839c7a79a918816dc0a480e",
+    "ast_hash": "e2997bc505119941a9a163cf25e25cb4",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
-    "ast_hash": "ceef48acbd2caee04776edde6245a182",
+    "ast_hash": "d91520f2067950a66f05a5bfbc90e022",
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
@@ -868,7 +868,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/package.json": {
-    "ast_hash": "6d6bdb781ed9b3393f080c4aba3b8961",
+    "ast_hash": "9abce7de929b509272f575c74aa71374",
     "semantic_hash": ""
   },
   "packages/tiptap/scripts/prebuild.ts": {
@@ -1416,7 +1416,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "c6ebac43582a0458dbbc9b841c66c6f4",
+    "ast_hash": "e936023f71020498e397e8e7ccddf305",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
@@ -1432,7 +1432,7 @@
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
-    "ast_hash": "884dc7d6a89e50417a07b83c521fec0f",
+    "ast_hash": "b8fff3247f4866a7c157bec71f272bf1",
     "semantic_hash": ""
   },
   "README.md": {
@@ -1588,7 +1588,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {
-    "ast_hash": "23d78750536b8c6bd610d7179bdfd9c3",
+    "ast_hash": "db907a0421a69b290e01bdf031c35f90",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat.ts": {
@@ -1828,7 +1828,7 @@
     "semantic_hash": ""
   },
   "packages/notifications/CHANGELOG.md": {
-    "ast_hash": "4b01b5f6335faf1d404d9b09c065a9f2",
+    "ast_hash": "c507ff9495eb5b7a405184ca39512c47",
     "semantic_hash": ""
   },
   "packages/oauth/CHANGELOG.md": {
@@ -1840,11 +1840,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/CHANGELOG.md": {
-    "ast_hash": "95a92b615d1484a5ac796c37c4e3465f",
+    "ast_hash": "b4e6e9f2b9f18fd056245b09bb3417f8",
     "semantic_hash": ""
   },
   "packages/tiptap/CHANGELOG.md": {
-    "ast_hash": "9c174a8521e49c1529b98dc84460195e",
+    "ast_hash": "4f18faeca93a99fff19bd505267e3389",
     "semantic_hash": ""
   },
   "packages/ui_toast/CHANGELOG.md": {
@@ -1916,7 +1916,7 @@
     "semantic_hash": ""
   },
   ".changeset/release-candidates.json": {
-    "ast_hash": "1d01e30627fa6831f4d539fb886b54a4",
+    "ast_hash": "8c2cebb70106d039e025026dcd2dd6c0",
     "semantic_hash": ""
   },
   "packages/svforge/bin/prompts.mjs": {
@@ -2099,10 +2099,6 @@
     "ast_hash": "4f312c8e9e308f930283f1088edd1eee",
     "semantic_hash": ""
   },
-  ".changeset/dashboard-admin-polish.md": {
-    "ast_hash": "ccc98c32b734ec1bc5b4f6e4c75310d0",
-    "semantic_hash": ""
-  },
   "scripts/spike-547.mjs": {
     "ast_hash": "5e24612e54296323158015e27698f5af",
     "semantic_hash": ""
@@ -2143,20 +2139,12 @@
     "ast_hash": "f077dc9393a9112568bbca4658347d33",
     "semantic_hash": ""
   },
-  ".changeset/547-official-auth-db-foundation.md": {
-    "ast_hash": "0c2cb49e00d17b7e50791ece8f08267a",
-    "semantic_hash": ""
-  },
   "tests/fixtures/official-auth-schema.txt": {
     "ast_hash": "ea9438c7fe02c7ee91bd17f4e4a19e65",
     "semantic_hash": ""
   },
   "packages/svforge/src/i18n.ts": {
     "ast_hash": "2079627fb2b31566160e3ad3f7815ed5",
-    "semantic_hash": ""
-  },
-  ".changeset/547-phase-b-official-paraglide.md": {
-    "ast_hash": "a35cda2e5901a91c8004d157bba4640a",
     "semantic_hash": ""
   },
   "packages/svforge/src/official-integrations.ts": {
@@ -2167,32 +2155,24 @@
     "ast_hash": "5efc03d77dfe90585a168b8e5bb09815",
     "semantic_hash": ""
   },
-  ".changeset/547-phase-c-direct-add.md": {
-    "ast_hash": "a3936d26fe026ac5bedbe58e43e8a7e7",
-    "semantic_hash": ""
-  },
   "tests/primitives-cursor-affordance.test.ts": {
     "ast_hash": "c5980a0bc2e108c5cc25a7f7c67e19fb",
     "semantic_hash": ""
   },
-  ".changeset/594-base-control-affordance.md": {
-    "ast_hash": "f0e5647799063f9adf1d9791e6d63cff",
-    "semantic_hash": ""
-  },
-  ".changeset/594-dashboard-password-toggle.md": {
-    "ast_hash": "9ad7a71aa113d58cdcd31e98038eb330",
-    "semantic_hash": ""
-  },
-  ".changeset/594-addon-affordances.md": {
-    "ast_hash": "cb8ba7c8fa6167d4ff559e9fcdf254cb",
-    "semantic_hash": ""
-  },
   "scripts/affected-scope.mjs": {
-    "ast_hash": "b0769fab2b1750dbceb1b9cba2f40ab1",
+    "ast_hash": "9881bb80508f5e9511893f7a6ed5f343",
     "semantic_hash": ""
   },
   "tests/affected-scope.test.ts": {
-    "ast_hash": "707b3aae035dab7b9e7c61295c51ab0e",
+    "ast_hash": "e56c4b790bbe674c7cf818c7409f3b07",
+    "semantic_hash": ""
+  },
+  "scripts/ci/affected-step.mjs": {
+    "ast_hash": "d795cdcf6ac3abf36208648675b4b7fa",
+    "semantic_hash": ""
+  },
+  "tests/ci-affected-step.test.ts": {
+    "ast_hash": "294c45df7aa6316fda055e128c8d4c5c",
     "semantic_hash": ""
   }
 }
