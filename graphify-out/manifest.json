@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "7a88610d3f6514d92f5f2d559425033e",
+    "ast_hash": "dcc81e0123eafd006b4dc219585155f4",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -1996,7 +1996,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/src/lib/components/svforge/ui/PasswordInput.svelte": {
-    "ast_hash": "207ff69bc628ee0ff444d21ddd2ec43b",
+    "ast_hash": "18df06c0251186ada749a0f57324365d",
     "semantic_hash": ""
   },
   "scripts/docker-builder-changed.mjs": {
@@ -2177,6 +2177,10 @@
   },
   ".changeset/594-base-control-affordance.md": {
     "ast_hash": "f0e5647799063f9adf1d9791e6d63cff",
+    "semantic_hash": ""
+  },
+  ".changeset/594-dashboard-password-toggle.md": {
+    "ast_hash": "9ad7a71aa113d58cdcd31e98038eb330",
     "semantic_hash": ""
   }
 }

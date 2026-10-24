@@ -44,7 +44,6 @@
 	}: Props = $props();
 
 	let visible = $state(false);
-	const toggleLabel = $derived(visible ? m.common_hide_password() : m.common_show_password());
 </script>
 
 <Input
@@ -65,7 +64,7 @@
 			variant="ghost"
 			color="surface"
 			class="size-11 shrink-0 p-0"
-			aria-label={toggleLabel}
+			aria-label={visible ? m.common_hide_password() : m.common_show_password()}
 			aria-pressed={visible}
 			{disabled}
 			onclick={() => (visible = !visible)}

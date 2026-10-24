@@ -27670,6 +27670,15 @@
       "_origin": "ast"
     },
     {
+      "id": "changeset_594_dashboard_password_toggle",
+      "label": "594-dashboard-password-toggle.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/594-dashboard-password-toggle.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "changeset_dashboard_admin_polish",
       "label": "dashboard-admin-polish.md",
       "file_type": "document",
@@ -34541,6 +34550,14 @@
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_svforge_hub_svforge_worktrees_594_dashboard_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_svforge_hub_svforge_worktrees_594_dashboard_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
     }
   ],
   "links": [
@@ -43231,7 +43248,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_594_dashboard_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
