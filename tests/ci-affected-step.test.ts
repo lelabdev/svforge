@@ -71,6 +71,20 @@ describe('CI scope plan (#570 phase B)', () => {
 		expect(plan.testFiles).toEqual(targetedScope.tests.files);
 	});
 
+	it('builds all addon distributions when dynamically inspecting them (post-merge regression #651)', () => {
+		for (const testFile of ['tests/cli-create.test.ts', 'tests/structure.test.ts']) {
+			const plan = planCiSteps({ ...targetedScope, tests: { mode: 'selected', files: [testFile] } }, { targeted: true });
+			expect(plan).toMatchObject({ build: 'all', tests: 'selected', testFiles: [testFile] });
+			expect(plan.reason).toContain('all built addon distributions');
+		}
+	});
+
+	it('builds everything when the test selection must run all tests', () => {
+		const plan = planCiSteps({ ...targetedScope, tests: { mode: 'selected', files: [] } }, { targeted: true });
+		expect(plan.build).toBe('all');
+		expect(plan.tests).toBe('all');
+	});
+
 	it('never selects an empty test run: an empty selection falls back to all tests', () => {
 		const plan = planCiSteps({ ...targetedScope, tests: { mode: 'selected', files: [] } }, { targeted: true });
 		expect(plan.tests).toBe('all');
