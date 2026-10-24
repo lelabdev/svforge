@@ -36,8 +36,8 @@ import { pathToFileURL } from 'node:url';
 const GLOBAL_PREFIXES = [
 	'scripts/',
 	'tests/helpers/',
-	'.github/workflows/',
-	'.github/actions/'
+	'.github/',
+	'docker/'
 ];
 const GLOBAL_FILES = new Set([
 	'bun.lock',
@@ -57,6 +57,9 @@ const RELEASE_METADATA_PREFIXES = ['.changeset/'];
 
 /** Documentation-only paths: no workspace build or test is selected. */
 const DOCS_PREFIXES = ['docs/'];
+
+/** Generated artifacts with no build/test consumer (committed graph outputs). */
+const ARTIFACT_PREFIXES = ['graphify-out/'];
 const DOCS_FILES = new Set(['README.md', 'SECURITY.md', 'LICENSE', 'CONTRIBUTING.md']);
 
 function toPosix(value) {
@@ -127,6 +130,9 @@ export function classifyPath(path, workspaces) {
 	}
 	for (const prefix of DOCS_PREFIXES) {
 		if (normalized.startsWith(prefix)) return { kind: 'docs', reason: `documentation (${prefix})` };
+	}
+	for (const prefix of ARTIFACT_PREFIXES) {
+		if (normalized.startsWith(prefix)) return { kind: 'artifact', reason: `generated artifact (${prefix})` };
 	}
 	if (DOCS_FILES.has(normalized)) return { kind: 'docs', reason: 'documentation (root file)' };
 	if (/^packages\/[^/]+\/(?:CHANGELOG\.md|package\.json)$/.test(normalized)) {
@@ -225,7 +231,7 @@ export function computeAffectedScope({ changes, workspaces, testOwners, forceFul
 			}
 			if (classification.kind === 'workspace') direct.add(classification.workspace);
 			if (classification.kind === 'tests') changedTests.add(toPosix(path));
-			if (classification.kind !== 'docs') docsOnly = false;
+			if (classification.kind !== 'docs' && classification.kind !== 'artifact') docsOnly = false;
 		}
 	}
 
@@ -307,7 +313,7 @@ export function formatScope(scope, { packageCount = scope.packages.length } = {}
 		return `${lines.join('\n')}\n`;
 	}
 	if (scope.docsOnly) {
-		lines.push('**Documentation only** — no workspace build, no test suite selected.');
+		lines.push('**No build/test scope** — documentation/generated-artifact only.');
 		return `${lines.join('\n')}\n`;
 	}
 	lines.push(`**Workspaces (${scope.packages.length}/${packageCount})**`);

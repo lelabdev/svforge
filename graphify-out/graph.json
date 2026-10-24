@@ -19522,11 +19522,19 @@
       "_origin": "ast"
     },
     {
+      "id": "scripts_affected_scope_artifact_prefixes",
+      "label": "ARTIFACT_PREFIXES",
+      "file_type": "code",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L62",
+      "_origin": "ast"
+    },
+    {
       "id": "scripts_affected_scope_docs_files",
       "label": "DOCS_FILES",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L60",
+      "source_location": "L63",
       "_origin": "ast"
     },
     {
@@ -19534,7 +19542,7 @@
       "label": "toPosix()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L62",
+      "source_location": "L65",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19543,7 +19551,7 @@
       "label": "loadWorkspaces()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L67",
+      "source_location": "L70",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19552,7 +19560,7 @@
       "label": "reverseDependencies()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L90",
+      "source_location": "L93",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19561,7 +19569,7 @@
       "label": "classifyPath()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L110",
+      "source_location": "L113",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19570,7 +19578,7 @@
       "label": "deriveTestOwners()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L154",
+      "source_location": "L160",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19579,7 +19587,7 @@
       "label": "changedFiles()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L181",
+      "source_location": "L187",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19588,7 +19596,7 @@
       "label": "computeAffectedScope()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L209",
+      "source_location": "L215",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19597,7 +19605,7 @@
       "label": "detectorFailureScope()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L284",
+      "source_location": "L290",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19606,7 +19614,7 @@
       "label": "formatScope()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L297",
+      "source_location": "L303",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19615,7 +19623,7 @@
       "label": "parseArgs()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L321",
+      "source_location": "L327",
       "_callable": true,
       "_origin": "ast"
     },
@@ -19624,7 +19632,7 @@
       "label": "runCli()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L338",
+      "source_location": "L344",
       "_callable": true,
       "_origin": "ast"
     },
@@ -69946,17 +69954,7 @@
     },
     {
       "source": "scripts_affected_scope",
-      "target": "scripts_affected_scope_docs_files",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L60",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "scripts_affected_scope",
-      "target": "scripts_affected_scope_toposix",
+      "target": "scripts_affected_scope_artifact_prefixes",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
@@ -69966,11 +69964,31 @@
     },
     {
       "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_docs_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L63",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
+      "target": "scripts_affected_scope_toposix",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/affected-scope.mjs",
+      "source_location": "L65",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_affected_scope",
       "target": "scripts_affected_scope_loadworkspaces",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L67",
+      "source_location": "L70",
       "weight": 1,
       "_origin": "ast"
     },
@@ -69980,7 +69998,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L90",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -69990,7 +70008,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L110",
+      "source_location": "L113",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70000,7 +70018,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L154",
+      "source_location": "L160",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70010,7 +70028,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L181",
+      "source_location": "L187",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70020,7 +70038,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L209",
+      "source_location": "L215",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70030,7 +70048,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L284",
+      "source_location": "L290",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70040,7 +70058,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L297",
+      "source_location": "L303",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70050,7 +70068,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L321",
+      "source_location": "L327",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70060,7 +70078,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L338",
+      "source_location": "L344",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70071,7 +70089,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L111",
+      "source_location": "L114",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70082,7 +70100,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L163",
+      "source_location": "L169",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70093,7 +70111,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L219",
+      "source_location": "L225",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70104,7 +70122,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L227",
+      "source_location": "L233",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70115,7 +70133,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L233",
+      "source_location": "L239",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70126,7 +70144,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L339",
+      "source_location": "L345",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70137,7 +70155,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L340",
+      "source_location": "L346",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70148,7 +70166,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L344",
+      "source_location": "L350",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70159,7 +70177,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L345",
+      "source_location": "L351",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70170,7 +70188,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L346",
+      "source_location": "L352",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70181,7 +70199,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L348",
+      "source_location": "L354",
       "weight": 1,
       "_origin": "ast"
     },
@@ -70192,7 +70210,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L351",
+      "source_location": "L357",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77467,7 +77485,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/affected-scope.test.ts",
-      "source_location": "L98",
+      "source_location": "L99",
       "weight": 1,
       "_origin": "ast"
     },

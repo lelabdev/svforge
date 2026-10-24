@@ -76,6 +76,7 @@ describe('path classification (#570)', () => {
 		['packages/svforge/src/cli/create.ts', 'workspace'],
 		['tests/cli-create.test.ts', 'tests'],
 		['docs/RELEASE.md', 'docs'],
+		['graphify-out/graph.json', 'artifact'],
 		['README.md', 'docs'],
 		['packages/svforge/docs/structural-duplication.md', 'docs'],
 		['packages/svforge/CHANGELOG.md', 'release-metadata'],
@@ -150,6 +151,14 @@ describe('affected scope computation (#570)', () => {
 		expect(result.tests).toEqual({ mode: 'none', files: [] });
 	});
 
+	it('treats committed graphify outputs as artifacts, not full-scope triggers', () => {
+		const result = scope(['graphify-out/graph.json', 'graphify-out/manifest.json']);
+		expect(result.global).toBe(false);
+		expect(result.packages).toEqual([]);
+		expect(result.tests).toEqual({ mode: 'none', files: [] });
+		expect(formatScope(result)).toContain('No build/test scope');
+	});
+
 	it('runs exactly the changed test file for tests-only changes', () => {
 		const result = scope(['tests/cli-create.test.ts']);
 		expect(result.packages).toEqual([]);
@@ -176,7 +185,7 @@ describe('human report (#570)', () => {
 
 	it('states full-scope triggers and documentation-only scope', () => {
 		expect(formatScope(scope(['bun.lock']))).toContain('**Full scope**');
-		expect(formatScope(scope(['docs/RELEASE.md']))).toContain('Documentation only');
+		expect(formatScope(scope(['docs/RELEASE.md']))).toContain('No build/test scope');
 	});
 });
 

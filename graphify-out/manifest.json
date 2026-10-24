@@ -2188,11 +2188,11 @@
     "semantic_hash": ""
   },
   "scripts/affected-scope.mjs": {
-    "ast_hash": "c0bb8d52340b7f2e58caaf957d8c1499",
+    "ast_hash": "b0769fab2b1750dbceb1b9cba2f40ab1",
     "semantic_hash": ""
   },
   "tests/affected-scope.test.ts": {
-    "ast_hash": "d436501fe22b42d3176877ca2aa6b73e",
+    "ast_hash": "707b3aae035dab7b9e7c61295c51ab0e",
     "semantic_hash": ""
   }
 }
