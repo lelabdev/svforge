@@ -12,7 +12,7 @@ export const COMPAT_MANIFEST: CompatManifest = {
   "schema": 1,
   "template": {
     "name": "svforge",
-    "version": "2.2.6"
+    "version": "2.3.0"
   },
   "packages": {
     "@svforge/addon-kit": "2.2.1",
@@ -23,12 +23,12 @@ export const COMPAT_MANIFEST: CompatManifest = {
     "@svforge/email": "2.2.1",
     "@svforge/graph": "2.2.1",
     "@svforge/jobs": "2.2.1",
-    "@svforge/notifications": "2.2.1",
+    "@svforge/notifications": "2.2.2",
     "@svforge/oauth": "2.2.1",
     "@svforge/realtime": "2.2.1",
-    "@svforge/tiptap": "2.2.1",
+    "@svforge/tiptap": "2.2.2",
     "@svforge/ui_toast": "2.2.1",
     "@svforge/uploads": "2.2.1",
-    "svforge": "2.2.6"
+    "svforge": "2.3.0"
   }
 };

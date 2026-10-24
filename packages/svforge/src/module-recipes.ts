@@ -131,7 +131,7 @@ export const MODULE_RECIPE_DATA: Record<string, ModuleRecipeData> = {
   "notifications": {
     "id": "notifications",
     "package": "@svforge/notifications",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "dependencies": [],
     "files": {
       "/lib/components/svforge/ui/NotificationsBell.svelte": "<script lang=\"ts\">\n\timport * as m from '#lib/paraglide/messages.js';\n\timport { Badge, Button } from '#lib/components/svforge/primitives/index.js';\n\timport { Bell } from '#lib/icons/index.js';\n\timport { Popover, Portal } from '@skeletonlabs/skeleton-svelte';\n\n\tinterface NotificationItem {\n\t\tid: string;\n\t\ttype: string;\n\t\ttitle: string;\n\t\tmessage: string;\n\t\tactionUrl: string | null;\n\t\treadAt: string | null;\n\t\tcreatedAt: string;\n\t}\n\n\tlet { items, unreadCount }: { items: NotificationItem[]; unreadCount: number } = $props();\n\tlet open = $state(false);\n\n\tasync function markAll() {\n\t\topen = false;\n\t\tawait fetch('/api/notifications/read-all', { method: 'POST' });\n\t\twindow.location.reload();\n\t}\n</script>\n\n<Popover\n\t{open}\n\tonOpenChange={(details) => (open = details.open)}\n\tcloseOnInteractOutside={true}\n\trestoreFocus={true}\n>\n\t<Popover.Trigger\n\t\tclass=\"btn-icon relative size-11 cursor-pointer preset-tonal-surface focus-visible:ring-2 focus-visible:ring-primary-700-300\"\n\t\taria-label={m.notif_bell()}\n\t>\n\t\t<Bell size={20} />\n\t\t{#if unreadCount > 0}\n\t\t\t<Badge class=\"absolute -top-1 -right-1\">{unreadCount}</Badge>\n\t\t{/if}\n\t</Popover.Trigger>\n\t<Portal>\n\t\t<Popover.Positioner>\n\t\t\t<Popover.Content class=\"card z-50 max-h-96 w-80 max-w-[calc(100vw-2rem)] overflow-auto border border-surface-200-800 bg-surface-50-950 shadow-lg\">\n\t\t\t\t<div class=\"flex items-center justify-between px-4 py-3 border-b border-surface-200-800\">\n\t\t\t\t\t<Popover.Title class=\"text-base font-semibold\">{m.notif_title()}</Popover.Title>\n\t\t\t\t\t<Button\n\t\t\t\t\t\ttype=\"button\"\n\t\t\t\t\t\tvariant=\"ghost\"\n\t\t\t\t\t\tcolor=\"primary\"\n\t\t\t\t\t\tsize=\"sm\"\n\t\t\t\t\t\tclass=\"min-h-11 px-3\"\n\t\t\t\t\t\tonclick={markAll}\n\t\t\t\t\t>{m.notif_mark_all()}</Button>\n\t\t\t\t</div>\n\n\t\t\t\t{#if items.length === 0}\n\t\t\t\t\t<p class=\"px-4 py-8 text-sm text-surface-700-300\">{m.notif_empty()}</p>\n\t\t\t\t{:else}\n\t\t\t\t\t<ul class=\"divide-y divide-surface-200-800\">\n\t\t\t\t\t\t{#each items as item (item.id)}\n\t\t\t\t\t\t\t<li class=\"px-4 py-3 {item.readAt ? '' : 'bg-surface-100-900/50'}\">\n\t\t\t\t\t\t\t\t{#if item.actionUrl}\n\t\t\t\t\t\t\t\t\t<a href={item.actionUrl} class=\"block hover:text-primary-900-100\">\n\t\t\t\t\t\t\t\t\t\t<span class=\"font-semibold text-sm\">{item.title}</span>\n\t\t\t\t\t\t\t\t\t\t<span class=\"block text-xs text-surface-700-300 mt-0.5\">{item.message}</span>\n\t\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t{:else}\n\t\t\t\t\t\t\t\t\t<span class=\"font-semibold text-sm\">{item.title}</span>\n\t\t\t\t\t\t\t\t\t<span class=\"block text-xs text-surface-700-300 mt-0.5\">{item.message}</span>\n\t\t\t\t\t\t\t\t{/if}\n\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t{/each}\n\t\t\t\t\t</ul>\n\t\t\t\t{/if}\n\t\t\t</Popover.Content>\n\t\t</Popover.Positioner>\n\t</Portal>\n</Popover>\n",
@@ -175,7 +175,7 @@ export const MODULE_RECIPE_DATA: Record<string, ModuleRecipeData> = {
   "tiptap": {
     "id": "tiptap",
     "package": "@svforge/tiptap",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "dependencies": [
       {
         "name": "@tiptap/core",
