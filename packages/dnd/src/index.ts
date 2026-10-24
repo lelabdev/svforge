@@ -45,3 +45,5 @@ export default defineAddon({
 		'  </SortableList>'
 	]
 });
+
+// #570 verification probe (comment-only; same SHA for all configurations).
