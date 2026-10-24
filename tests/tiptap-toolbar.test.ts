@@ -51,6 +51,17 @@ function setup(overrides: Record<string, unknown> = {}) {
 }
 
 describe('Tiptap toolbar controls (#484)', () => {
+	it('gives every toolbar control a pointer affordance (#594)', () => {
+		// Skeleton's `btn`/`btn-sm` (used by the ToggleGroup items and the link
+		// trigger) sets no cursor; each button-like control declares it.
+		const { container } = setup();
+		const buttons = [...container.querySelectorAll('button')];
+		expect(buttons.length).toBeGreaterThan(0);
+		for (const button of buttons) {
+			expect(button.className).toContain('cursor-pointer');
+		}
+	});
+
 	it('maps the current editor selection to controlled toolbar values', () => {
 		const active = new Set(['bold', 'underline', 'heading', 'orderedList', 'blockquote', 'link']);
 		const state = getToolbarState({

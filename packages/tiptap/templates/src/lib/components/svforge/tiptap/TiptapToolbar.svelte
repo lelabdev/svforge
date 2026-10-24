@@ -101,7 +101,9 @@
 
 	const itemClass = (selected: boolean) =>
 		cn(
-			'btn btn-sm min-h-11 min-w-11 justify-center',
+			// #594: Skeleton's btn utility sets no cursor and the ToggleGroup item
+			// is button-like — declare the affordance explicitly.
+			'btn btn-sm min-h-11 min-w-11 justify-center cursor-pointer',
 			selected ? 'preset-filled-primary-500' : 'preset-tonal-surface'
 		);
 	const formatLabelClass = (value: string) => {

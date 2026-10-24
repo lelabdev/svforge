@@ -123,6 +123,18 @@ NODE
 $SV_CMD add "paraglide=languageTags:fr,en+demo:no" --no-install --no-download-check --no-git-check \
 	|| { echo "❌ official paraglide add-on failed (#547)"; exit 1; }
 
+# #547: the dashboard's auth/DB foundation is owned by the OFFICIAL add-ons.
+# They run first (no install) so the SVForge add-on only extends their output;
+# the final SVForge add installs everything once.
+case "$TEMPLATE" in
+	dashboard|dashboard-playwright|dashboard-integrations|dashboard-foundations)
+		$SV_CMD add "drizzle=database:postgresql+client:postgres.js+docker:no" --no-install --no-download-check --no-git-check \
+			|| { echo "❌ official drizzle add-on failed (#547)"; exit 1; }
+		$SV_CMD add "better-auth=demo:" --no-install --no-download-check --no-git-check \
+			|| { echo "❌ official better-auth add-on failed (#547)"; exit 1; }
+		test -f src/lib/server/auth.ts || { echo "❌ official auth.ts missing (#547)"; exit 1; }
+		;;
+esac
 # 2. Add the LOCAL svforge addon with all options set (no prompts in CI)
 #    Profile variants: base, dashboard (vitest), dashboard-playwright, base-blog
 #    base-modules adds svforge itself at the right point (#190 bare-project refusal).
@@ -146,18 +158,6 @@ elif [ "$TEMPLATE" = "base-ui-modules" ]; then
 elif [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	ADD_SPEC="file:$REPO_ROOT/packages/svforge=template:dashboard+testing:vitest+hooks:none"
 fi
-# #547: the dashboard's auth/DB foundation is owned by the OFFICIAL add-ons.
-# They run first (no install) so the SVForge add-on only extends their output;
-# the final SVForge add installs everything once.
-case "$TEMPLATE" in
-	dashboard|dashboard-playwright|dashboard-integrations|dashboard-foundations)
-		$SV_CMD add "drizzle=database:postgresql+client:postgres.js+docker:no" --no-install --no-download-check --no-git-check \
-			|| { echo "❌ official drizzle add-on failed (#547)"; exit 1; }
-		$SV_CMD add "better-auth=demo:" --no-install --no-download-check --no-git-check \
-			|| { echo "❌ official better-auth add-on failed (#547)"; exit 1; }
-		test -f src/lib/server/auth.ts || { echo "❌ official auth.ts missing (#547)"; exit 1; }
-		;;
-esac
 if [ "$TEMPLATE" != "base-modules" ] && [ "$TEMPLATE" != "dashboard-foundations" ]; then
 	ADD_SPEC="${ADD_SPEC:-file:$REPO_ROOT/packages/svforge=template:base+testing:vitest+hooks:none}"
 	$SV_CMD add "$ADD_SPEC" --install "$SF_PM" --no-download-check
