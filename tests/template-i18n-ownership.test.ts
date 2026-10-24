@@ -48,8 +48,9 @@ function assertReferencesResolve(removedPrefix: string, route: string) {
 }
 
 describe('base template Paraglide message ownership', () => {
-	it('keeps every configured locale in key parity and resolves all template route references', () => {
-		expect(Object.keys(catalogs.fr).sort()).toEqual(Object.keys(catalogs.en).sort());
+	it('resolves every template route message reference in every locale', () => {
+		// Key parity itself is asserted by tests/paraglide.test.ts against the
+		// scaffold contract; this test keeps the unique route-reference check.
 		for (const file of files) {
 			for (const [locale, catalog] of Object.entries(catalogs)) {
 				for (const key of file.references) {

@@ -108,6 +108,32 @@ describe('npm consumer smoke test (#330)', () => {
 		expect(waits).toBe(2);
 	});
 
+	it('never retries an unavailable registry or network failure', async () => {
+		// The registry being DOWN (DNS refusal, connection refused, timeout) is
+		// not propagation in flight: fail immediately with the real cause instead
+		// of burning the bounded wait and reporting a misleading ETARGET.
+		for (const failure of ['ENOTFOUND registry.npmjs.org', 'ECONNREFUSED 104.16.0.35:443', 'ETIMEDOUT']) {
+			let attempts = 0;
+			await expect(
+				waitForRegistryAvailability(
+					{ packages: [{ name: '@svforge/audit', version: '2.2.0' }] },
+					{
+						maxAttempts: 8,
+						probe: () => {
+							attempts++;
+							throw new Error(`network request failed: ${failure}`);
+						},
+						pause: async () => {
+							throw new Error('unexpected wait');
+						}
+					}
+				),
+				failure
+			).rejects.toThrow(failure);
+			expect(attempts, failure).toBe(1);
+		}
+	});
+
 	it('never retries an unexpected authentication or registry failure', async () => {
 		let attempts = 0;
 		await expect(waitForRegistryAvailability({

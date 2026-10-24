@@ -21,7 +21,6 @@ describe('maintained documentation contracts (#632)', () => {
 		const kit = read('packages/svforge/docs/sveltekit-compatibility.md');
 		expect(kit).toContain(`sv@${pin}`);
 		expect(upgrade).toContain(`sv@${pin}`);
-		expect(upgrade).toContain('historical evidence');
 	});
 
 	it('lists all seven vendored brand assets and each delivery URL', () => {

@@ -1244,7 +1244,7 @@
     "semantic_hash": ""
   },
   "tests/npm-consumer-smoke.test.ts": {
-    "ast_hash": "c543db824775d34a247c50233da3969c",
+    "ast_hash": "6309c543b6d17d6c1afe39c42b250afa",
     "semantic_hash": ""
   },
   "tests/oauth-declarations.test.ts": {
@@ -1736,7 +1736,7 @@
     "semantic_hash": ""
   },
   "tests/template-i18n-ownership.test.ts": {
-    "ast_hash": "9dbed24dac886b760645c547aba03bc8",
+    "ast_hash": "00a82cfa66c9cc300950bed9ed519bc8",
     "semantic_hash": ""
   },
   "scripts/ui-browser-contrast.test.mjs": {
@@ -2076,7 +2076,7 @@
     "semantic_hash": ""
   },
   "tests/docs-current-contract.test.ts": {
-    "ast_hash": "d9ff2871ac03dd7f2f7dbd27d92e521c",
+    "ast_hash": "b850dd480eff79f99c0ab4d3dd3db0fe",
     "semantic_hash": ""
   },
   "packages/svforge/docs/llms-snapshots.json": {

@@ -34575,7 +34575,8 @@
       "file_type": "concept",
       "type": "external",
       "external": true,
-      "source_file": ""
+      "source_file": "",
+      "_origin": "semantic"
     }
   ],
   "links": [
@@ -43266,7 +43267,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_svforge_hub_svforge_worktrees_594_addons_packages_jobs_templates_src_lib_server_test_db",
+      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -91568,7 +91569,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/template-i18n-ownership.test.ts",
-      "source_location": "L63",
+      "source_location": "L64",
       "weight": 1,
       "_origin": "ast"
     },
