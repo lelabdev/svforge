@@ -27,6 +27,21 @@ const POSTGRES_USER = 'svforge';
 const POSTGRES_DB = 'svforge';
 const LOCAL_DB_MARKER = 'SVFORGE_LOCAL_DB';
 const COMPOSE_MARKER = '# svforge-managed-compose:1';
+const COMPOSE_OVERRIDE_FILES = [
+	'compose.yaml', 'compose.yml', 'docker-compose.yaml',
+	'compose.override.yml', 'compose.override.yaml',
+	'docker-compose.override.yml', 'docker-compose.override.yaml'
+];
+const COMPOSE_CONTROL_ENV = [
+	'COMPOSE_FILE', 'COMPOSE_PROFILES', 'COMPOSE_PROJECT_NAME',
+	'COMPOSE_ENV_FILES', 'COMPOSE_PATH_SEPARATOR', 'COMPOSE_DISABLE_ENV_FILE'
+];
+// Ambient variables that could redirect Drizzle/Better Auth away from the
+// verified .env connection (#589 review B-02).
+const DATABASE_ENV_KEYS = [
+	'DATABASE_URL', 'TEST_DATABASE_URL', 'DRIZZLE_DATABASE_URL',
+	'PGHOST', 'PGPORT', 'PGUSER', 'PGPASSWORD', 'PGDATABASE', 'PGSERVICE'
+];
 const PLACEHOLDER_URL = /^(?:|postgres(?:ql)?:\/\/user:password@host:port\/db-name)$/;
 
 function readOptional(name) {
@@ -98,9 +113,21 @@ function composeCommand() {
 function compose(args, options = {}) {
 	const command = composeCommand();
 	if (!command) throw new Error('Docker Compose is not available. Install Docker with the Compose plugin, or configure an existing PostgreSQL with --database-url.');
-	const result = spawnSync(command[0], [...command.slice(1), ...args], { cwd: root, stdio: 'inherit', ...options });
+	const result = spawnSync(command[0], [...command.slice(1), ...args], { cwd: root, stdio: 'inherit', env: sanitizedEnv(options.env), ...options });
 	if (result.error) throw result.error;
 	return result.status ?? 1;
+}
+
+/** Drop ambient DB/Compose controls from any child environment. */
+function sanitizedEnv(extra = {}) {
+	const env = { ...process.env };
+	for (const key of [...DATABASE_ENV_KEYS, ...COMPOSE_CONTROL_ENV, 'COMPOSE_PROJECT_NAME']) delete env[key];
+	return { ...env, ...extra };
+}
+
+/** Explicit project file + env, so ambient COMPOSE_* cannot alter the target. */
+function composeProjectArgs(args) {
+	return ['-f', 'docker-compose.yml', '--env-file', '.env', ...args];
 }
 
 function portIsFree(port) {
@@ -122,7 +149,7 @@ async function firstFreePort() {
 function composeDatabaseReady() {
 	const command = composeCommand();
 	if (!command) return false;
-	const ready = spawnSync(command[0], [...command.slice(1), 'exec', '-T', 'postgres', 'pg_isready', '-U', POSTGRES_USER, '-d', POSTGRES_DB], { cwd: root, stdio: 'ignore' });
+	const ready = spawnSync(command[0], [...command.slice(1), ...composeProjectArgs(['exec', '-T', 'postgres', 'pg_isready', '-U', POSTGRES_USER, '-d', POSTGRES_DB])], { cwd: root, stdio: 'ignore', env: sanitizedEnv() });
 	return ready.status === 0;
 }
 
@@ -188,38 +215,86 @@ volumes:
 }
 
 /**
- * Positive ownership + shape check for a project-managed Compose file.
- * Anything else is user-owned and must never be started or trusted as local
- * database (#589 review B-01): a marker alone is not enough.
+ * Provenance check (#589 review B-01): a managed file must be byte-identical
+ * to the canonical generated document, no override file may exist, and no
+ * ambient Compose control may change which project/files are used. Anything
+ * else is user-owned and must never be started or trusted as local database.
  */
 function managedComposeProblems(content) {
-	const normalized = content.replace(/\r\n/g, '\n');
-	const problems = [];
-	if (!normalized.includes(COMPOSE_MARKER)) {
-		return ['missing the SVForge ownership marker'];
+	const normalized = content.replace(/\r\n/g, '\n').trimEnd();
+	if (!normalized.includes(COMPOSE_MARKER)) return ['missing the SVForge ownership marker'];
+	if (normalized !== composeFile().replace(/\r\n/g, '\n').trimEnd()) {
+		return ['differs from the canonical SVForge-managed Compose document'];
 	}
-	const required = [
-		[/^services:\s*$/m, 'services: block'],
-		[/^ {2}postgres:\s*$/m, 'postgres service'],
-		[`    image: ${POSTGRES_IMAGE}`, 'pinned PostgreSQL image'],
-		[`      POSTGRES_USER: ${POSTGRES_USER}`, 'POSTGRES_USER mapping'],
-		[`      POSTGRES_DB: ${POSTGRES_DB}`, 'POSTGRES_DB mapping'],
-		['      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:', 'POSTGRES_PASSWORD mapping'],
-		['      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"', 'loopback port binding'],
-		['      - postgres-data:/var/lib/postgresql/data', 'persistent named volume'],
-		[`      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]`, 'health check'],
-		[/^volumes:\s*\n {2}postgres-data:\s*$/m, 'postgres-data volume declaration']
-	];
-	for (const [pattern, label] of required) {
-		const found = pattern instanceof RegExp ? pattern.test(normalized) : normalized.includes(pattern);
-		if (!found) problems.push(`incompatible ${label}`);
+	const overrides = COMPOSE_OVERRIDE_FILES.filter((file) => existsSync(path(file)));
+	if (overrides.length > 0) return [`unexpected Compose override files (${overrides.join(', ')})`];
+	const controls = COMPOSE_CONTROL_ENV.filter((key) => process.env[key] !== undefined);
+	if (controls.length > 0) return [`unexpected Compose environment controls (${controls.join(', ')})`];
+	return [];
+}
+
+/**
+ * Validate the EFFECTIVE Compose model (parsed by Compose itself, including
+ * interpolation) for the expected service/port/volume/environment
+ * (#589 review B-01). The candidate .env values are passed explicitly so this
+ * runs before .env is written.
+ */
+function effectiveComposeProblems(values) {
+	const command = composeCommand();
+	if (!command) return ['Docker Compose is not available'];
+	const port = String(values.POSTGRES_PORT ?? '');
+	const password = values.POSTGRES_PASSWORD ?? '';
+	if (!/^\d+$/.test(port) || !password) return ['incomplete Compose interpolation values'];
+	const temporary = path(`.env.compose-${randomBytes(12).toString('hex')}.tmp`);
+	try {
+		writeFileSync(temporary, `POSTGRES_PORT=${port}\nPOSTGRES_PASSWORD=${password}\n`, { mode: 0o600, flag: 'wx' });
+		const result = spawnSync(command[0], [
+			...command.slice(1), '-f', 'docker-compose.yml', '--env-file', temporary,
+			'config', '--format', 'json'
+		], { cwd: root, encoding: 'utf8', env: sanitizedEnv() });
+		if (result.status !== 0) return ['cannot validate the effective Compose configuration'];
+		let model;
+		try {
+			model = JSON.parse(result.stdout);
+		} catch {
+			return ['cannot parse the effective Compose configuration'];
+		}
+		const problems = [];
+		const services = model.services && typeof model.services === 'object' ? Object.keys(model.services) : [];
+		if (JSON.stringify(services) !== JSON.stringify(['postgres'])) {
+			problems.push(`unexpected effective services (${services.join(', ') || 'none'})`);
+		}
+		const service = model.services?.postgres;
+		if (!service) return problems;
+		if (service.image !== POSTGRES_IMAGE) problems.push('unexpected effective image');
+		const ports = Array.isArray(service.ports) ? service.ports : [];
+		if (ports.length !== 1) problems.push('unexpected effective port mappings');
+		else {
+			const [mapping] = ports;
+			if (mapping.host_ip !== '127.0.0.1') problems.push('effective port is not loopback-bound');
+			if (String(mapping.published) !== port) problems.push('effective published port does not match POSTGRES_PORT');
+			if (Number(mapping.target) !== 5432 || (mapping.protocol ?? 'tcp') !== 'tcp') problems.push('effective container port is not tcp/5432');
+		}
+		const volumes = Array.isArray(service.volumes) ? service.volumes : [];
+		if (volumes.length !== 1) problems.push('unexpected effective volume mappings');
+		else {
+			const [mount] = volumes;
+			if (mount.type !== 'volume' || mount.source !== 'postgres-data' || mount.target !== '/var/lib/postgresql/data') {
+				problems.push('effective volume is not the managed named data volume');
+			}
+		}
+		if (!model.volumes || !('postgres-data' in model.volumes)) problems.push('effective named volume is missing');
+		const environment = service.environment ?? {};
+		if (environment.POSTGRES_USER !== POSTGRES_USER) problems.push('effective POSTGRES_USER mismatch');
+		if (environment.POSTGRES_DB !== POSTGRES_DB) problems.push('effective POSTGRES_DB mismatch');
+		if (environment.POSTGRES_PASSWORD !== password) problems.push('effective POSTGRES_PASSWORD mismatch');
+		if (service.network_mode) problems.push('unexpected network_mode');
+		const healthcheck = Array.isArray(service.healthcheck?.test) ? service.healthcheck.test.join(' ') : '';
+		if (!healthcheck.includes(`pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}`)) problems.push('unexpected effective health check');
+		return problems;
+	} finally {
+		if (existsSync(temporary)) unlinkSync(temporary);
 	}
-	const servicesBlock = normalized.split(/^volumes:/m)[0];
-	const services = [...servicesBlock.matchAll(/^ {2}([A-Za-z0-9_-]+):\s*$/gm)].map((match) => match[1]);
-	if (JSON.stringify(services) !== JSON.stringify(['postgres'])) {
-		problems.push(`unexpected managed services (${services.join(', ') || 'none'})`);
-	}
-	return problems;
 }
 
 /**
@@ -233,6 +308,7 @@ function verifyManagedDatabase(env) {
 	const composePath = path('docker-compose.yml');
 	if (!existsSync(composePath)) problems.push('missing docker-compose.yml');
 	else problems.push(...managedComposeProblems(readFileSync(composePath, 'utf8')));
+	if (problems.length === 0) problems.push(...effectiveComposeProblems(env));
 
 	let url;
 	try {
@@ -256,11 +332,11 @@ function verifyManagedDatabase(env) {
 	if (!command) problems.push('Docker Compose is not available');
 	else {
 		const prefix = [...command.slice(1)];
-		const running = spawnSync(command[0], [...prefix, 'ps', '--status', 'running', '--services'], { cwd: root, encoding: 'utf8' });
+		const running = spawnSync(command[0], [...prefix, ...composeProjectArgs(['ps', '--status', 'running', '--services'])], { cwd: root, encoding: 'utf8', env: sanitizedEnv() });
 		if (running.status !== 0 || !running.stdout.split(/\s+/).includes('postgres')) {
 			problems.push('the managed postgres service is not running');
 		}
-		const published = spawnSync(command[0], [...prefix, 'port', 'postgres', '5432'], { cwd: root, encoding: 'utf8' });
+		const published = spawnSync(command[0], [...prefix, ...composeProjectArgs(['port', 'postgres', '5432'])], { cwd: root, encoding: 'utf8', env: sanitizedEnv() });
 		const match = /^127\.0\.0\.1:(\d+)\s*$/.exec(published.stdout ?? '');
 		if (published.status !== 0 || !match) problems.push('cannot determine the managed published port');
 		else if (match[1] !== port) problems.push('published port does not match POSTGRES_PORT');
@@ -269,7 +345,7 @@ function verifyManagedDatabase(env) {
 		// retry the identity probe instead of rejecting a healthy cold start.
 		let identityOutput = '';
 		for (let attempt = 0; attempt < 30; attempt++) {
-			const identity = spawnSync(command[0], [...prefix, 'exec', '-T', 'postgres', 'psql', '-U', POSTGRES_USER, '-d', POSTGRES_DB, '-tAc', "select current_database() || '/' || current_user"], { cwd: root, encoding: 'utf8' });
+			const identity = spawnSync(command[0], [...prefix, ...composeProjectArgs(['exec', '-T', 'postgres', 'psql', '-U', POSTGRES_USER, '-d', POSTGRES_DB, '-tAc', "select current_database() || '/' || current_user"])], { cwd: root, encoding: 'utf8', env: sanitizedEnv() });
 			if (identity.status === 0) {
 				identityOutput = identity.stdout.trim();
 				break;
@@ -289,6 +365,13 @@ function isPlaceholderSecret(secret) {
 
 function isPlaceholderUrl(value) {
 	return PLACEHOLDER_URL.test((value ?? '').trim().replace(/^["']|["']$/g, ''));
+}
+
+/** Explicit DB environment: ambient connection variables never win. */
+function databaseChildEnv(url, extra = {}) {
+	const env = { ...process.env };
+	for (const key of DATABASE_ENV_KEYS) delete env[key];
+	return { ...env, DATABASE_URL: url, ...extra };
 }
 
 function runScript(pm, script, options = {}) {
@@ -334,6 +417,12 @@ Default: prepare the private .env only. Never starts services or changes a datab
 	if (values.defer) {
 		console.log('Local configuration deferred. No files changed. Later: bash scripts/setup.sh');
 		return;
+	}
+	// Refuse ambient Compose controls up front: they could select another
+	// project, file, profile or env file than the verified one.
+	const controls = COMPOSE_CONTROL_ENV.filter((key) => process.env[key] !== undefined);
+	if (controls.length > 0) {
+		throw new Error(`Refusing to run with ambient Compose controls (${controls.join(', ')}). Unset them and rely on docker-compose.yml + .env, or manage that stack yourself.`);
 	}
 
 	// Checked before anything is written, so a refused run leaves no partial
@@ -402,6 +491,12 @@ Default: prepare the private .env only. Never starts services or changes a datab
 			writeFileSync(composePath, composeFile(), { mode: 0o644 });
 			composeFileCreated = true;
 		}
+		// Validate the EFFECTIVE model Compose will run (interpolation included)
+		// before writing credentials or starting anything.
+		const composeProblems = effectiveComposeProblems({ POSTGRES_PASSWORD: password, POSTGRES_PORT: port });
+		if (composeProblems.length > 0) {
+			throw new Error(`Refusing to use this Compose configuration: ${composeProblems.join('; ')}. Nothing was started and no credentials were written.`);
+		}
 	} else if (externalUrl) {
 		parseDatabaseUrl(externalUrl);
 		changes.DATABASE_URL = externalUrl;
@@ -469,9 +564,13 @@ Default: prepare the private .env only. Never starts services or changes a datab
 		const authSchemaPath = path('src/lib/server/db/auth.schema.ts');
 		const authSchemaPending = !existsSync(authSchemaPath)
 			|| /have not run the auth:schema script/i.test(readFileSync(authSchemaPath, 'utf8'));
+		const verifiedUrl = preparedEnv.DATABASE_URL;
+		if (process.env.DATABASE_URL && process.env.DATABASE_URL !== verifiedUrl) {
+			console.log('==> Ignoring ambient DATABASE_URL/TEST_DATABASE_URL and using the verified local Compose URL from .env');
+		}
 		if (authSchemaPending && hasAuthSchemaScript) {
 			console.log(`==> Generating the Better Auth schema with \`${pm} run auth:schema\``);
-			const authSchema = spawnSync(pm, ['run', 'auth:schema'], { cwd: root, stdio: 'inherit' });
+			const authSchema = spawnSync(pm, ['run', 'auth:schema'], { cwd: root, stdio: 'inherit', env: databaseChildEnv(verifiedUrl) });
 			if ((authSchema.status ?? 1) !== 0) {
 				console.error('Better Auth schema generation failed; no database schema change was attempted. Fix the error above and rerun.');
 				process.exitCode = 1;
@@ -482,7 +581,7 @@ Default: prepare the private .env only. Never starts services or changes a datab
 		// database: Drizzle requires it to skip the confirmation prompt in
 		// non-interactive shells. It is never used for a remote/external URL.
 		console.log(`==> Initializing the local schema with \`${pm} run db:push -- --force\` (verified local Compose database only)`);
-		const push = spawnSync(pm, ['run', 'db:push', '--', '--force'], { cwd: root, stdio: 'inherit' });
+		const push = spawnSync(pm, ['run', 'db:push', '--', '--force'], { cwd: root, stdio: 'inherit', env: databaseChildEnv(verifiedUrl) });
 		if ((push.status ?? 1) !== 0) {
 			console.error('Schema initialization failed. The database is reachable but the schema was not confirmed; fix the error above and rerun. No migrations were run automatically.');
 			process.exitCode = 1;
@@ -509,7 +608,9 @@ Default: prepare the private .env only. Never starts services or changes a datab
 				console.log('==> Generated a first-admin password and saved it in .env (not printed).');
 			}
 			const result = runScript(pm, 'admin:create', {
-				env: { ...process.env, ADMIN_NAME: name, ADMIN_EMAIL: email, ADMIN_PASSWORD: adminPassword }
+				env: databaseChildEnv(preparedEnv.DATABASE_URL ?? '', {
+					ADMIN_NAME: name, ADMIN_EMAIL: email, ADMIN_PASSWORD: adminPassword
+				})
 			});
 			// Dedicated contract from scripts/create-admin.ts: exit code 3 means the
 			// administrator already exists (non-destructive no-op). Any other

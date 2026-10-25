@@ -42,8 +42,10 @@ if [ -f .env ]; then
 	! grep -q '^POSTGRES_PASSWORD=' .env || { echo "❌ scaffolding must not generate database credentials"; exit 1; }
 fi
 
-echo "==> Provisioning the local Compose database and schema"
-bash scripts/setup.sh --compose --init-schema || { echo "❌ setup --compose --init-schema failed"; exit 1; }
+echo "==> Provisioning the local Compose database and schema (ambient DB vars must be ignored)"
+DATABASE_URL='postgres://evil:evil@remote.example.com:5432/production' \
+TEST_DATABASE_URL='postgres://evil:evil@remote.example.com:5432/production_test' \
+	bash scripts/setup.sh --compose --init-schema || { echo "❌ setup --compose --init-schema failed"; exit 1; }
 
 test -f docker-compose.yml || { echo "❌ docker-compose.yml missing"; exit 1; }
 test -f .env || { echo "❌ .env missing"; exit 1; }
@@ -93,8 +95,20 @@ sed -i.bak 's/image: postgres:17.2/image: postgres:16/' docker-compose.yml
 if bash scripts/setup.sh --init-schema >/tmp/sf-local-tampered.log 2>&1; then
 	echo "❌ setup accepted an altered Compose file"; exit 1
 fi
-grep -q 'incompatible pinned PostgreSQL image' /tmp/sf-local-tampered.log || { echo "❌ Compose tampering was not detected"; exit 1; }
+grep -q 'differs from the canonical SVForge-managed Compose document' /tmp/sf-local-tampered.log || { echo "❌ Compose tampering was not detected"; exit 1; }
 mv docker-compose.yml.saved docker-compose.yml
+
+echo "==> Refusing Compose overrides and ambient Compose controls"
+echo 'services: {}' > docker-compose.override.yml
+if bash scripts/setup.sh --init-schema >/tmp/sf-local-override.log 2>&1; then
+	echo "❌ setup accepted docker-compose.override.yml"; exit 1
+fi
+grep -q 'unexpected Compose override files' /tmp/sf-local-override.log || { echo "❌ override refusal was not actionable"; exit 1; }
+rm docker-compose.override.yml
+if COMPOSE_PROJECT_NAME=hostile bash scripts/setup.sh --init-schema >/tmp/sf-local-control.log 2>&1; then
+	echo "❌ setup accepted an ambient COMPOSE_PROJECT_NAME"; exit 1
+fi
+grep -q 'ambient Compose controls' /tmp/sf-local-control.log || { echo "❌ Compose control refusal was not actionable"; exit 1; }
 
 echo "==> Stopping and restarting keeps the named volume"
 docker compose down >/dev/null

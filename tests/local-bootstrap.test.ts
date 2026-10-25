@@ -215,23 +215,33 @@ function provisionedProject() {
 	}));
 	writeFileSync(join(dir, 'node_modules/.bin/docker'), `#!/bin/sh
 echo "docker $*" >> invoked
+envfile=$(printf '%s\\n' "$*" | sed -n 's/.*--env-file \\([^ ]*\\).*/\\1/p')
 case "$*" in
-  "compose version") exit 0 ;;
-  "compose up -d postgres") exit 0 ;;
-  "compose ps --status running --services") echo postgres; exit 0 ;;
-  "compose port postgres 5432")
+  *"version"*) exit 0 ;;
+  *" config "*)
+    p=$(sed -n 's/^POSTGRES_PORT=//p' "$envfile")
+    pw=$(sed -n 's/^POSTGRES_PASSWORD=//p' "$envfile")
+    extra=""
+    [ "\${STUB_COMPOSE_EXTRA_PORT:-}" = "1" ] && extra=',{"host_ip":"0.0.0.0","published":"9999","target":9999,"protocol":"tcp"}'
+    printf '{"services":{"postgres":{"image":"postgres:17.2","ports":[{"host_ip":"127.0.0.1","published":"%s","target":5432,"protocol":"tcp"}%s],"volumes":[{"type":"volume","source":"postgres-data","target":"/var/lib/postgresql/data"}],"environment":{"POSTGRES_USER":"svforge","POSTGRES_DB":"svforge","POSTGRES_PASSWORD":"%s"},"restart":"unless-stopped","healthcheck":{"test":["CMD-SHELL","pg_isready -U svforge -d svforge"]}}},"volumes":{"postgres-data":{}}}\\n' "$p" "$extra" "$pw"
+    exit 0 ;;
+  *" up -d postgres") exit 0 ;;
+  *"ps --status running --services"*) echo postgres; exit 0 ;;
+  *"port postgres 5432"*)
     p=$(sed -n 's/^POSTGRES_PORT=//p' .env)
     echo "127.0.0.1:\${STUB_PORT:-$p}"; exit 0 ;;
-  "compose exec"*"current_database"*) echo "svforge/svforge"; exit 0 ;;
-  "compose exec"*) exit 0 ;;
+  *"current_database"*) echo "svforge/svforge"; exit 0 ;;
   *) exit 0 ;;
 esac
 `, { mode: 0o755 });
 	writeFileSync(join(dir, 'node_modules/.bin/bun'), `#!/bin/sh
 echo "bun $*" >> invoked
 case "$*" in
-  "run db:push"*) exit "\${STUB_PUSH_EXIT:-0}" ;;
+  "run db:push"*)
+    echo "env:$DATABASE_URL" >> invoked
+    exit "\${STUB_PUSH_EXIT:-0}" ;;
   "run admin:create"*)
+    echo "env:$DATABASE_URL" >> invoked
     echo "\${STUB_ADMIN_OUTPUT:-Administrator created}"
     exit "\${STUB_ADMIN_EXIT:-0}" ;;
   *) exit 0 ;;
@@ -426,7 +436,7 @@ describe('Dashboard local database provisioning (#589)', () => {
 		writeFileSync(join(dir, 'docker-compose.yml'), compose);
 		const result = runEnv(dir, {}, '--init-schema');
 		expect(result.status).not.toBe(0);
-		expect(result.stderr).toContain('incompatible pinned PostgreSQL image');
+		expect(result.stderr).toContain('differs from the canonical SVForge-managed Compose document');
 		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
 	});
 
@@ -454,6 +464,54 @@ describe('Dashboard local database provisioning (#589)', () => {
 		expect(result.status).not.toBe(0);
 		expect(result.stderr).toContain('First-admin creation failed');
 		expect(result.stdout).not.toContain('already exists (unchanged)');
+	});
+
+
+	it('refuses Compose override files and ambient Compose controls', () => {
+		const overridden = managedProject();
+		writeFileSync(join(overridden, 'docker-compose.override.yml'), 'services:\n  postgres:\n    ports:\n      - "0.0.0.0:5432:5432"\n');
+		const overrideResult = runEnv(overridden, {}, '--init-schema');
+		expect(overrideResult.status).not.toBe(0);
+		expect(overrideResult.stderr).toContain('unexpected Compose override files');
+		expect(readFileSync(join(overridden, 'invoked'), 'utf8')).not.toContain('run db:push');
+
+		const controlled = provisionedProject();
+		const controlResult = runEnv(controlled, { COMPOSE_FILE: 'other-compose.yml' }, '--compose');
+		expect(controlResult.status).not.toBe(0);
+		expect(controlResult.stderr).toContain('ambient Compose controls');
+		expect(existsSync(join(controlled, '.env'))).toBe(false);
+		expect(existsSync(join(controlled, 'invoked'))).toBe(false);
+	});
+
+	it('rejects an effective Compose model with unexpected ports or services', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, { STUB_COMPOSE_EXTRA_PORT: '1' }, '--compose');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('unexpected effective port mappings');
+		expect(existsSync(join(dir, '.env'))).toBe(false);
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('up -d');
+	});
+
+	it('runs db:push and admin with the verified local URL, ignoring ambient database variables', () => {
+		const dir = managedProject();
+		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		const localUrl = `postgres://svforge:${env.POSTGRES_PASSWORD}@127.0.0.1:${env.POSTGRES_PORT}/svforge`;
+		const hostile = {
+			DATABASE_URL: 'postgres://evil:evil@remote.example.com:5432/production',
+			TEST_DATABASE_URL: 'postgres://evil:evil@remote.example.com:5432/production_test'
+		};
+
+		const schema = runEnv(dir, hostile, '--init-schema');
+		expect(schema.status, schema.stderr).toBe(0);
+		const afterSchema = readFileSync(join(dir, 'invoked'), 'utf8');
+		expect(afterSchema).toContain(`env:${localUrl}`);
+		expect(afterSchema).not.toContain('evil');
+
+		const admin = runEnv(dir, { ...hostile, ADMIN_NAME: 'Admin', ADMIN_EMAIL: 'admin@example.com' }, '--admin');
+		expect(admin.status, admin.stderr).toBe(0);
+		const afterAdmin = readFileSync(join(dir, 'invoked'), 'utf8');
+		expect(afterAdmin).toContain(`env:${localUrl}`);
+		expect(afterAdmin).not.toContain('evil');
 	});
 
 });
