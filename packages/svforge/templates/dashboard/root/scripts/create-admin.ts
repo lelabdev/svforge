@@ -12,8 +12,9 @@
  *   <package manager> run admin:create -- --name "Admin" --email admin@example.com --password '…' (npm/bun/pnpm/…)
  *   (or ADMIN_NAME / ADMIN_EMAIL / ADMIN_PASSWORD environment variables)
  *
- * Exits non-zero when an administrator already exists or the arguments are
- * invalid — safe to retry.
+ * Exit codes: 0 = created, 3 = an administrator already exists (dedicated,
+ * non-destructive no-op for setup automation), 1 = invalid input or failure.
+ * Safe to retry.
  */
 import { parseArgs } from 'node:util';
 import { readFileSync, existsSync } from 'node:fs';
@@ -84,10 +85,11 @@ try {
 } catch (error) {
 	if (error instanceof AdminExistsError) {
 		console.error('✗ An administrator already exists — bootstrap refused (atomic, fail-closed).');
+		process.exitCode = 3;
 	} else {
 		console.error('✗ Bootstrap failed:', error instanceof Error ? error.message : error);
+		process.exitCode = 1;
 	}
-	process.exitCode = 1;
 } finally {
 	await client.end();
 }

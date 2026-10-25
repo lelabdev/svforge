@@ -195,6 +195,11 @@ export function applyDashboardMode(
 			// the official integrations (#547). Only SVForge-specific commands
 			// are added here.
 			'admin:create': `${runTs} scripts/create-admin.ts`,
+			// Explicit local development entry points (#589): compose PostgreSQL,
+			// verified local schema push and (when ADMIN_NAME/ADMIN_EMAIL are set)
+			// the first administrator. Never triggered by scaffolding or `dev`.
+			'dev:setup': 'bash scripts/setup.sh --compose --init-schema --admin',
+			'dev:local': 'bash scripts/setup.sh --compose --init-schema --admin && vite dev',
 			...(testing === 'playwright' ? { 'test:e2e': 'playwright test' } : {})
 		};
 		return `${JSON.stringify(pkg, null, '\t')}\n`;

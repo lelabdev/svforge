@@ -14,6 +14,7 @@
  *   npx svforge create <dir> [--template t] [--pm pm] [--testing x]
  *                            [--hooks h] [--modules a,b|all]
  *                            [--runtime long-lived-node] [--graphify] [--yes]
+ *                            [--setup compose|existing|later] [--init-schema]
  *                            [--plan [--json]]
  *   npx svforge upgrade <module> [--to <version>] [--force]
  */
@@ -54,7 +55,7 @@ async function realSpawn() {
 	const { spawn } = await import('node:child_process');
 	return (command, args, options) =>
 		new Promise((resolvePromise, rejectPromise) => {
-			const child = spawn(command, args, { cwd: options.cwd, stdio: 'inherit', shell: false });
+			const child = spawn(command, args, { cwd: options.cwd, stdio: 'inherit', shell: false, env: options.env ?? process.env });
 			child.on('exit', (code) => resolvePromise(code ?? 1));
 			child.on('error', rejectPromise);
 		});
@@ -271,7 +272,9 @@ async function main() {
 						allModules: createPlan?.allModules ?? parsed.modules === 'all',
 						runtime: createPlan?.runtime ?? parsed.runtime ?? null,
 						gitInit: createPlan?.gitInit ?? parsed.gitInit ?? true,
-						graphify: createPlan?.graphify ?? parsed.graphify ?? false
+						graphify: createPlan?.graphify ?? parsed.graphify ?? false,
+						setup: createPlan?.setup ?? parsed.setup ?? null,
+						initSchema: createPlan?.initSchema ?? parsed.initSchema ?? false
 					},
 					workingDirectory: projectRoot,
 					directory: createPlan?.dir ?? (parsed.dir ? path.resolve(projectRoot, parsed.dir) : undefined),

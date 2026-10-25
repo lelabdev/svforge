@@ -380,4 +380,12 @@ describe('on-demand PM runners (#325 review) — exact commands, supported manag
 		const pkgBun = JSON.parse(svBun.files.get('package.json') ?? '{}') as Record<string, Record<string, string>>;
 		expect(pkgBun.scripts['admin:create']).toContain('bun');
 	});
+
+	it('ships explicit local-development entry points (#589)', () => {
+		const sv = fakeSv();
+		applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', {}, 'npm');
+		const scripts = JSON.parse(sv.files.get('package.json') ?? '{}').scripts as Record<string, string>;
+		expect(scripts['dev:setup']).toBe('bash scripts/setup.sh --compose --init-schema --admin');
+		expect(scripts['dev:local']).toBe('bash scripts/setup.sh --compose --init-schema --admin && vite dev');
+	});
 });

@@ -200,3 +200,318 @@ describe('Dashboard local preparation (#589)', () => {
 		expect(existsSync(join(dir, '.env'))).toBe(false);
 	});
 });
+
+/**
+ * #589 — explicit local provisioning. Docker, Compose and the package manager
+ * are stubbed: these tests never start a real container, and a real-Compose
+ * smoke lives in `scripts/test-local-setup.sh`.
+ */
+function provisionedProject() {
+	const dir = project();
+	writeFileSync(join(dir, 'bun.lock'), '');
+	writeFileSync(join(dir, 'package.json'), JSON.stringify({
+		name: 'fixture', private: true,
+		scripts: { 'db:push': 'drizzle-kit push', 'admin:create': 'tsx scripts/create-admin.ts' }
+	}));
+	writeFileSync(join(dir, 'node_modules/.bin/docker'), `#!/bin/sh
+echo "docker $*" >> invoked
+envfile=$(printf '%s\\n' "$*" | sed -n 's/.*--env-file \\([^ ]*\\).*/\\1/p')
+case "$*" in
+  *"version"*) exit 0 ;;
+  *" config "*)
+    p=$(sed -n 's/^POSTGRES_PORT=//p' "$envfile")
+    pw=$(sed -n 's/^POSTGRES_PASSWORD=//p' "$envfile")
+    extra=""
+    [ "\${STUB_COMPOSE_EXTRA_PORT:-}" = "1" ] && extra=',{"host_ip":"0.0.0.0","published":"9999","target":9999,"protocol":"tcp"}'
+    printf '{"services":{"postgres":{"image":"postgres:17.2","ports":[{"host_ip":"127.0.0.1","published":"%s","target":5432,"protocol":"tcp"}%s],"volumes":[{"type":"volume","source":"postgres-data","target":"/var/lib/postgresql/data"}],"environment":{"POSTGRES_USER":"svforge","POSTGRES_DB":"svforge","POSTGRES_PASSWORD":"%s"},"restart":"unless-stopped","healthcheck":{"test":["CMD-SHELL","pg_isready -U svforge -d svforge"]}}},"volumes":{"postgres-data":{}}}\\n' "$p" "$extra" "$pw"
+    exit 0 ;;
+  *" up -d postgres") exit 0 ;;
+  *"ps --status running --services"*) echo postgres; exit 0 ;;
+  *"port postgres 5432"*)
+    p=$(sed -n 's/^POSTGRES_PORT=//p' .env)
+    echo "127.0.0.1:\${STUB_PORT:-$p}"; exit 0 ;;
+  *"current_database"*) echo "svforge/svforge"; exit 0 ;;
+  *) exit 0 ;;
+esac
+`, { mode: 0o755 });
+	writeFileSync(join(dir, 'node_modules/.bin/bun'), `#!/bin/sh
+echo "bun $*" >> invoked
+case "$*" in
+  "run db:push"*)
+    echo "env:$DATABASE_URL" >> invoked
+    exit "\${STUB_PUSH_EXIT:-0}" ;;
+  "run admin:create"*)
+    echo "env:$DATABASE_URL" >> invoked
+    echo "\${STUB_ADMIN_OUTPUT:-Administrator created}"
+    exit "\${STUB_ADMIN_EXIT:-0}" ;;
+  *) exit 0 ;;
+esac
+`, { mode: 0o755 });
+	return dir;
+}
+function runEnv(dir: string, env: Record<string, string>, ...args: string[]) {
+	return spawnSync('bash', ['scripts/setup.sh', ...args], {
+		cwd: dir, encoding: 'utf8',
+		env: { ...process.env, PATH: `${join(dir, 'node_modules/.bin')}:${process.env.PATH}`, ...env }
+	});
+}
+
+describe('Dashboard local database provisioning (#589)', () => {
+	it('generates a loopback-only Compose database, starts it once, and preserves it on rerun', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status, result.stderr).toBe(0);
+		const compose = readFileSync(join(dir, 'docker-compose.yml'), 'utf8');
+		expect(compose).toContain('# svforge-managed-compose:1');
+		expect(compose).toContain('image: postgres:17.2');
+		expect(compose).toContain('127.0.0.1:${POSTGRES_PORT:-5432}:5432');
+		expect(compose).toContain('postgres-data:/var/lib/postgresql/data');
+		expect(compose).toContain('pg_isready');
+		expect(compose).not.toContain('postgres/postgres');
+
+		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		expect(env.POSTGRES_PASSWORD).toMatch(/^[A-Za-z0-9_-]{32}$/);
+		expect(env.SVFORGE_LOCAL_DB).toBe('compose');
+		expect(env.DATABASE_URL).toBe(`postgres://svforge:${env.POSTGRES_PASSWORD}@127.0.0.1:${env.POSTGRES_PORT}/svforge`);
+		expect(result.stdout + result.stderr).not.toContain(env.POSTGRES_PASSWORD);
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).toContain('docker compose up -d postgres');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+
+		const content = readFileSync(join(dir, '.env'), 'utf8');
+		const rerun = runEnv(dir, {}, '--compose');
+		expect(rerun.status, rerun.stderr).toBe(0);
+		expect(readFileSync(join(dir, '.env'), 'utf8')).toBe(content);
+		expect(readFileSync(join(dir, 'docker-compose.yml'), 'utf8')).toBe(compose);
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('refuses to replace an existing external DATABASE_URL with a Compose database', () => {
+		const dir = provisionedProject();
+		const content = 'DATABASE_URL="postgres://private:password@remote.example.com:5432/app"\nBETTER_AUTH_SECRET=""\n';
+		writeFileSync(join(dir, '.env'), content);
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('DATABASE_URL');
+		expect(readFileSync(join(dir, '.env'), 'utf8')).toBe(content);
+		expect(existsSync(join(dir, 'docker-compose.yml'))).toBe(false);
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('up -d');
+	});
+
+	it('stores an existing PostgreSQL URL without starting Docker or printing the value', () => {
+		const dir = provisionedProject();
+		const url = 'postgres://app:super-secret@db.internal:5432/appdb';
+		const result = runEnv(dir, { SVFORGE_DATABASE_URL: url }, '--defer');
+		// --defer wins: no side effect, as documented.
+		expect(result.status).toBe(0);
+		expect(existsSync(join(dir, '.env'))).toBe(false);
+
+		const second = provisionedProject();
+		const stored = runEnv(second, { SVFORGE_DATABASE_URL: url });
+		expect(stored.status, stored.stderr).toBe(0);
+		expect(parseEnv(readFileSync(join(second, '.env'), 'utf8')).DATABASE_URL).toBe(url);
+		expect(stored.stdout + stored.stderr).not.toContain('super-secret');
+		expect(existsSync(join(second, 'docker-compose.yml'))).toBe(false);
+		expect(existsSync(join(second, 'invoked'))).toBe(false);
+	});
+
+	it('rejects an invalid PostgreSQL URL before writing anything', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, { SVFORGE_DATABASE_URL: 'mysql://user:pass@host/db' });
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('postgres');
+		expect(existsSync(join(dir, '.env'))).toBe(false);
+	});
+
+	it('never initializes a schema outside the verified local Compose database', () => {
+		const dir = provisionedProject();
+		writeFileSync(join(dir, '.env'), 'DATABASE_URL="postgres://svforge:pw@127.0.0.1:5432/svforge"\nBETTER_AUTH_SECRET=""\n');
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('Refusing to initialize a schema');
+		const invoked = existsSync(join(dir, 'invoked')) ? readFileSync(join(dir, 'invoked'), 'utf8') : '';
+		expect(invoked).not.toContain('run db:push');
+	});
+
+	it('initializes the schema of the local Compose database with db:push (never --force)', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {}, '--compose', '--init-schema');
+		expect(result.status, result.stderr).toBe(0);
+		const invoked = readFileSync(join(dir, 'invoked'), 'utf8');
+		// Non-interactive Drizzle requires --force; this path is restricted to the
+		// verified local Compose database (see the refusal test above).
+		expect(invoked).toContain('bun run db:push -- --force');
+		expect(result.stdout).toContain('Schema: initialized with db:push');
+	});
+
+	it('reports a failed schema initialization instead of claiming success', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, { STUB_PUSH_EXIT: '1' }, '--compose', '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('Schema initialization failed');
+		expect(result.stdout).not.toContain('Schema: initialized');
+	});
+
+	it('treats an existing administrator as a non-destructive no-op', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {
+			ADMIN_NAME: 'Admin', ADMIN_EMAIL: 'admin@example.com',
+			STUB_ADMIN_OUTPUT: '✗ An administrator already exists — bootstrap refused', STUB_ADMIN_EXIT: '3'
+		}, '--compose', '--admin');
+		expect(result.status, result.stderr).toBe(0);
+		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		expect(env.ADMIN_PASSWORD).toMatch(/^[A-Za-z0-9_-]{32}$/);
+		expect(result.stdout + result.stderr).not.toContain(env.ADMIN_PASSWORD);
+		expect(result.stdout).toContain('already exists (unchanged)');
+	});
+
+	it('skips admin creation without ADMIN_NAME/ADMIN_EMAIL and explains how to enable it', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {}, '--compose', '--admin');
+		expect(result.status, result.stderr).toBe(0);
+		expect(result.stdout).toContain('set ADMIN_NAME and ADMIN_EMAIL');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run admin:create');
+	});
+
+	it('fails clearly when Docker Compose is unavailable, before writing configuration', () => {
+		const dir = provisionedProject();
+		writeFileSync(join(dir, 'node_modules/.bin/docker'), '#!/bin/sh\nexit 1\n', { mode: 0o755 });
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('Docker Compose is not available');
+		expect(existsSync(join(dir, '.env'))).toBe(false);
+		expect(existsSync(join(dir, 'docker-compose.yml'))).toBe(false);
+	});
+
+	it('refuses an existing user-owned docker-compose.yml without starting or rewriting it', () => {
+		const dir = provisionedProject();
+		const userCompose = 'services:\n  postgres:\n    image: postgres:17.2\n    ports:\n      - "127.0.0.1:5432:5432"\n';
+		writeFileSync(join(dir, 'docker-compose.yml'), userCompose);
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('not SVForge-managed');
+		expect(readFileSync(join(dir, 'docker-compose.yml'), 'utf8')).toBe(userCompose);
+		expect(existsSync(join(dir, '.env'))).toBe(false);
+		const invoked = existsSync(join(dir, 'invoked')) ? readFileSync(join(dir, 'invoked'), 'utf8') : '';
+		expect(invoked).not.toContain('up -d');
+	});
+
+	function managedProject() {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status, result.stderr).toBe(0);
+		return dir;
+	}
+
+	it('initializes the schema of an already-provisioned project without --compose', () => {
+		const dir = managedProject();
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status, result.stderr).toBe(0);
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).toContain('bun run db:push -- --force');
+	});
+
+	it('rejects a DATABASE_URL password that does not match POSTGRES_PASSWORD', () => {
+		const dir = managedProject();
+		const env = readFileSync(join(dir, '.env'), 'utf8').replace(/^POSTGRES_PASSWORD=.*$/m, 'POSTGRES_PASSWORD=rotated-during-test-0000000000000000');
+		writeFileSync(join(dir, '.env'), env);
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('password does not match');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('rejects a DATABASE_URL port that does not match POSTGRES_PORT', () => {
+		const dir = managedProject();
+		const env = readFileSync(join(dir, '.env'), 'utf8').replace(/^POSTGRES_PORT=.*$/m, 'POSTGRES_PORT=5555');
+		writeFileSync(join(dir, '.env'), env);
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('port does not match');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('rejects an altered managed Compose file', () => {
+		const dir = managedProject();
+		const compose = readFileSync(join(dir, 'docker-compose.yml'), 'utf8')
+			.replace('image: postgres:17.2', 'image: postgres:16');
+		writeFileSync(join(dir, 'docker-compose.yml'), compose);
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('differs from the canonical SVForge-managed Compose document');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('rejects a stale Compose marker or an unexpected published port', () => {
+		const stale = managedProject();
+		const env = readFileSync(join(stale, '.env'), 'utf8').replace(/^SVFORGE_LOCAL_DB=.*$/m, '');
+		writeFileSync(join(stale, '.env'), env);
+		const staleResult = runEnv(stale, {}, '--init-schema');
+		expect(staleResult.status).not.toBe(0);
+		expect(staleResult.stderr).toContain('missing SVFORGE_LOCAL_DB=compose marker');
+
+		const wrongPort = managedProject();
+		const wrongPortResult = runEnv(wrongPort, { STUB_PORT: '5999' }, '--init-schema');
+		expect(wrongPortResult.status).not.toBe(0);
+		expect(wrongPortResult.stderr).toContain('published port does not match');
+		expect(readFileSync(join(wrongPort, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('does not treat an unrelated "already exists" failure as an existing admin', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {
+			ADMIN_NAME: 'Admin', ADMIN_EMAIL: 'admin@example.com',
+			STUB_ADMIN_OUTPUT: '✗ Bootstrap failed: relation "user" already exists', STUB_ADMIN_EXIT: '1'
+		}, '--compose', '--admin');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('First-admin creation failed');
+		expect(result.stdout).not.toContain('already exists (unchanged)');
+	});
+
+
+	it('refuses Compose override files and ambient Compose controls', () => {
+		const overridden = managedProject();
+		writeFileSync(join(overridden, 'docker-compose.override.yml'), 'services:\n  postgres:\n    ports:\n      - "0.0.0.0:5432:5432"\n');
+		const overrideResult = runEnv(overridden, {}, '--init-schema');
+		expect(overrideResult.status).not.toBe(0);
+		expect(overrideResult.stderr).toContain('unexpected Compose override files');
+		expect(readFileSync(join(overridden, 'invoked'), 'utf8')).not.toContain('run db:push');
+
+		const controlled = provisionedProject();
+		const controlResult = runEnv(controlled, { COMPOSE_FILE: 'other-compose.yml' }, '--compose');
+		expect(controlResult.status).not.toBe(0);
+		expect(controlResult.stderr).toContain('ambient Compose controls');
+		expect(existsSync(join(controlled, '.env'))).toBe(false);
+		expect(existsSync(join(controlled, 'invoked'))).toBe(false);
+	});
+
+	it('rejects an effective Compose model with unexpected ports or services', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, { STUB_COMPOSE_EXTRA_PORT: '1' }, '--compose');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('unexpected effective port mappings');
+		expect(existsSync(join(dir, '.env'))).toBe(false);
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('up -d');
+	});
+
+	it('runs db:push and admin with the verified local URL, ignoring ambient database variables', () => {
+		const dir = managedProject();
+		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		const localUrl = `postgres://svforge:${env.POSTGRES_PASSWORD}@127.0.0.1:${env.POSTGRES_PORT}/svforge`;
+		const hostile = {
+			DATABASE_URL: 'postgres://evil:evil@remote.example.com:5432/production',
+			TEST_DATABASE_URL: 'postgres://evil:evil@remote.example.com:5432/production_test'
+		};
+
+		const schema = runEnv(dir, hostile, '--init-schema');
+		expect(schema.status, schema.stderr).toBe(0);
+		const afterSchema = readFileSync(join(dir, 'invoked'), 'utf8');
+		expect(afterSchema).toContain(`env:${localUrl}`);
+		expect(afterSchema).not.toContain('evil');
+
+		const admin = runEnv(dir, { ...hostile, ADMIN_NAME: 'Admin', ADMIN_EMAIL: 'admin@example.com' }, '--admin');
+		expect(admin.status, admin.stderr).toBe(0);
+		const afterAdmin = readFileSync(join(dir, 'invoked'), 'utf8');
+		expect(afterAdmin).toContain(`env:${localUrl}`);
+		expect(afterAdmin).not.toContain('evil');
+	});
+
+});
