@@ -218,6 +218,11 @@ echo "docker $*" >> invoked
 case "$*" in
   "compose version") exit 0 ;;
   "compose up -d postgres") exit 0 ;;
+  "compose ps --status running --services") echo postgres; exit 0 ;;
+  "compose port postgres 5432")
+    p=$(sed -n 's/^POSTGRES_PORT=//p' .env)
+    echo "127.0.0.1:\${STUB_PORT:-$p}"; exit 0 ;;
+  "compose exec"*"current_database"*) echo "svforge/svforge"; exit 0 ;;
   "compose exec"*) exit 0 ;;
   *) exit 0 ;;
 esac
@@ -247,6 +252,7 @@ describe('Dashboard local database provisioning (#589)', () => {
 		const result = runEnv(dir, {}, '--compose');
 		expect(result.status, result.stderr).toBe(0);
 		const compose = readFileSync(join(dir, 'docker-compose.yml'), 'utf8');
+		expect(compose).toContain('# svforge-managed-compose:1');
 		expect(compose).toContain('image: postgres:17.2');
 		expect(compose).toContain('127.0.0.1:${POSTGRES_PORT:-5432}:5432');
 		expect(compose).toContain('postgres-data:/var/lib/postgresql/data');
@@ -311,7 +317,7 @@ describe('Dashboard local database provisioning (#589)', () => {
 		writeFileSync(join(dir, '.env'), 'DATABASE_URL="postgres://svforge:pw@127.0.0.1:5432/svforge"\nBETTER_AUTH_SECRET=""\n');
 		const result = runEnv(dir, {}, '--init-schema');
 		expect(result.status).not.toBe(0);
-		expect(result.stderr).toContain('verified local Compose database');
+		expect(result.stderr).toContain('Refusing to initialize a schema');
 		const invoked = existsSync(join(dir, 'invoked')) ? readFileSync(join(dir, 'invoked'), 'utf8') : '';
 		expect(invoked).not.toContain('run db:push');
 	});
@@ -339,7 +345,7 @@ describe('Dashboard local database provisioning (#589)', () => {
 		const dir = provisionedProject();
 		const result = runEnv(dir, {
 			ADMIN_NAME: 'Admin', ADMIN_EMAIL: 'admin@example.com',
-			STUB_ADMIN_OUTPUT: '✗ An administrator already exists — bootstrap refused', STUB_ADMIN_EXIT: '1'
+			STUB_ADMIN_OUTPUT: '✗ An administrator already exists — bootstrap refused', STUB_ADMIN_EXIT: '3'
 		}, '--compose', '--admin');
 		expect(result.status, result.stderr).toBe(0);
 		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
@@ -365,4 +371,89 @@ describe('Dashboard local database provisioning (#589)', () => {
 		expect(existsSync(join(dir, '.env'))).toBe(false);
 		expect(existsSync(join(dir, 'docker-compose.yml'))).toBe(false);
 	});
+
+	it('refuses an existing user-owned docker-compose.yml without starting or rewriting it', () => {
+		const dir = provisionedProject();
+		const userCompose = 'services:\n  postgres:\n    image: postgres:17.2\n    ports:\n      - "127.0.0.1:5432:5432"\n';
+		writeFileSync(join(dir, 'docker-compose.yml'), userCompose);
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('not SVForge-managed');
+		expect(readFileSync(join(dir, 'docker-compose.yml'), 'utf8')).toBe(userCompose);
+		expect(existsSync(join(dir, '.env'))).toBe(false);
+		const invoked = existsSync(join(dir, 'invoked')) ? readFileSync(join(dir, 'invoked'), 'utf8') : '';
+		expect(invoked).not.toContain('up -d');
+	});
+
+	function managedProject() {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status, result.stderr).toBe(0);
+		return dir;
+	}
+
+	it('initializes the schema of an already-provisioned project without --compose', () => {
+		const dir = managedProject();
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status, result.stderr).toBe(0);
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).toContain('bun run db:push -- --force');
+	});
+
+	it('rejects a DATABASE_URL password that does not match POSTGRES_PASSWORD', () => {
+		const dir = managedProject();
+		const env = readFileSync(join(dir, '.env'), 'utf8').replace(/^POSTGRES_PASSWORD=.*$/m, 'POSTGRES_PASSWORD=rotated-during-test-0000000000000000');
+		writeFileSync(join(dir, '.env'), env);
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('password does not match');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('rejects a DATABASE_URL port that does not match POSTGRES_PORT', () => {
+		const dir = managedProject();
+		const env = readFileSync(join(dir, '.env'), 'utf8').replace(/^POSTGRES_PORT=.*$/m, 'POSTGRES_PORT=5555');
+		writeFileSync(join(dir, '.env'), env);
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('port does not match');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('rejects an altered managed Compose file', () => {
+		const dir = managedProject();
+		const compose = readFileSync(join(dir, 'docker-compose.yml'), 'utf8')
+			.replace('image: postgres:17.2', 'image: postgres:16');
+		writeFileSync(join(dir, 'docker-compose.yml'), compose);
+		const result = runEnv(dir, {}, '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('incompatible pinned PostgreSQL image');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('rejects a stale Compose marker or an unexpected published port', () => {
+		const stale = managedProject();
+		const env = readFileSync(join(stale, '.env'), 'utf8').replace(/^SVFORGE_LOCAL_DB=.*$/m, '');
+		writeFileSync(join(stale, '.env'), env);
+		const staleResult = runEnv(stale, {}, '--init-schema');
+		expect(staleResult.status).not.toBe(0);
+		expect(staleResult.stderr).toContain('missing SVFORGE_LOCAL_DB=compose marker');
+
+		const wrongPort = managedProject();
+		const wrongPortResult = runEnv(wrongPort, { STUB_PORT: '5999' }, '--init-schema');
+		expect(wrongPortResult.status).not.toBe(0);
+		expect(wrongPortResult.stderr).toContain('published port does not match');
+		expect(readFileSync(join(wrongPort, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+	it('does not treat an unrelated "already exists" failure as an existing admin', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {
+			ADMIN_NAME: 'Admin', ADMIN_EMAIL: 'admin@example.com',
+			STUB_ADMIN_OUTPUT: '✗ Bootstrap failed: relation "user" already exists', STUB_ADMIN_EXIT: '1'
+		}, '--compose', '--admin');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('First-admin creation failed');
+		expect(result.stdout).not.toContain('already exists (unchanged)');
+	});
+
 });

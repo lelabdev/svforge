@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "db809983404ab51960708864b9110c97",
+    "ast_hash": "17ff1dd4607d6175a12b9228fa402db2",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -680,7 +680,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/root/scripts/create-admin.ts": {
-    "ast_hash": "edd8f29e18732d66d4b8c4c62eee8e8f",
+    "ast_hash": "cc2f6fa5e33249d9590aa28a16b5427f",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/root/scripts/setup.sh": {
@@ -1976,11 +1976,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/root/scripts/setup.mjs": {
-    "ast_hash": "52cf3cc20edfee9c839fe79171aca12d",
+    "ast_hash": "d74a72e4b68615aa4152805b73a25cd9",
     "semantic_hash": ""
   },
   "tests/local-bootstrap.test.ts": {
-    "ast_hash": "e8d67002f6d9e5c2bb0cda6aa25d7bcf",
+    "ast_hash": "c52d9fd95833e8db2dc1de77a9166ea5",
     "semantic_hash": ""
   },
   "docker/builder-smoke.sh": {
@@ -2208,11 +2208,11 @@
     "semantic_hash": ""
   },
   "scripts/test-local-setup.sh": {
-    "ast_hash": "31fdeb3a3c382644003d5b11ade9e3b7",
+    "ast_hash": "9bd35acb169323dc6f75600fd1e9070c",
     "semantic_hash": ""
   },
   ".changeset/589-local-dashboard-setup.md": {
-    "ast_hash": "209f8f6402ff6aecc5f7b6653cc432fb",
+    "ast_hash": "d991b2bab5eadf4fa518d8b19dad7ea7",
     "semantic_hash": ""
   }
 }

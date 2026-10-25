@@ -78,6 +78,24 @@ bash scripts/setup.sh --compose >/dev/null || { echo "❌ rerun failed"; exit 1;
 [ "$(cat .env)" = "$env_before" ] || { echo "❌ rerun changed .env credentials"; exit 1; }
 [ "$(docker compose ps -q postgres)" = "$container_before" ] || { echo "❌ rerun recreated the PostgreSQL container"; exit 1; }
 
+echo "==> Refusing a DATABASE_URL that no longer matches the managed database"
+cp .env .env.saved
+sed -i.bak 's/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=rotated-outside-setup-0000000000000000/' .env
+if bash scripts/setup.sh --init-schema >/tmp/sf-local-mismatch.log 2>&1; then
+	echo "❌ setup accepted a mismatched DATABASE_URL password"; exit 1
+fi
+grep -q 'password does not match' /tmp/sf-local-mismatch.log || { echo "❌ mismatch refusal was not actionable"; exit 1; }
+mv .env.saved .env
+
+echo "==> Refusing an altered Compose definition"
+cp docker-compose.yml docker-compose.yml.saved
+sed -i.bak 's/image: postgres:17.2/image: postgres:16/' docker-compose.yml
+if bash scripts/setup.sh --init-schema >/tmp/sf-local-tampered.log 2>&1; then
+	echo "❌ setup accepted an altered Compose file"; exit 1
+fi
+grep -q 'incompatible pinned PostgreSQL image' /tmp/sf-local-tampered.log || { echo "❌ Compose tampering was not detected"; exit 1; }
+mv docker-compose.yml.saved docker-compose.yml
+
 echo "==> Stopping and restarting keeps the named volume"
 docker compose down >/dev/null
 docker compose up -d postgres >/dev/null
