@@ -286,6 +286,27 @@ function managedComposeProblems(content, includeS3) {
 	return [];
 }
 
+/** Canonical variant of the on-disk file: true = with S3, false = PostgreSQL only, null = not managed. */
+function currentComposeVariant() {
+	const composePath = path('docker-compose.yml');
+	if (!existsSync(composePath)) return undefined;
+	const content = readFileSync(composePath, 'utf8');
+	if (managedComposeProblems(content, false).length === 0) return false;
+	if (managedComposeProblems(content, true).length === 0) return true;
+	return null;
+}
+
+/** Atomic replacement: a failed write never leaves a truncated Compose file. */
+function writeComposeFile(content) {
+	const temporary = path(`docker-compose.yml.${randomBytes(8).toString('hex')}.tmp`);
+	try {
+		writeFileSync(temporary, content, { mode: 0o644, flag: 'wx' });
+		renameSync(temporary, path('docker-compose.yml'));
+	} finally {
+		if (existsSync(temporary)) unlinkSync(temporary);
+	}
+}
+
 /**
  * Validate the EFFECTIVE Compose model (parsed by Compose itself, including
  * interpolation) for the expected service/port/volume/environment
@@ -309,7 +330,6 @@ function effectiveComposeProblems(values, includeS3) {
 			...command.slice(1), '-f', 'docker-compose.yml', '--env-file', temporary,
 			'config', '--format', 'json'
 		], { cwd: root, encoding: 'utf8', env: sanitizedEnv() });
-		if (process.env.DEBUG_COMPOSE) console.log('DEBUG_COMPOSE', result.status, result.stdout, result.stderr);
 		if (result.status !== 0) return ['cannot validate the effective Compose configuration'];
 		let model;
 		try {
@@ -390,12 +410,15 @@ function effectiveComposeProblems(values, includeS3) {
  */
 function verifyManagedDatabase(env) {
 	const problems = [];
-	const includeS3 = s3ProvisioningEnabled(env);
+	const variant = currentComposeVariant();
+	const includeS3 = variant === true;
 	if (env[LOCAL_DB_MARKER] !== 'compose') problems.push('missing SVFORGE_LOCAL_DB=compose marker');
 	const composePath = path('docker-compose.yml');
 	if (!existsSync(composePath)) problems.push('missing docker-compose.yml');
-	else problems.push(...managedComposeProblems(readFileSync(composePath, 'utf8'), includeS3));
-	if (problems.length === 0) problems.push(...effectiveComposeProblems(env, includeS3));
+	else if (variant === null) {
+		problems.push(...managedComposeProblems(readFileSync(composePath, 'utf8'), s3ProvisioningEnabled(env)));
+	}
+	if (variant !== null && variant !== undefined) problems.push(...effectiveComposeProblems(env, variant));
 
 	let url;
 	try {
@@ -616,17 +639,40 @@ Default: prepare the private .env only. Never starts services or changes a datab
 		s3Provisioned = includeS3;
 
 		const composePath = path('docker-compose.yml');
+		let transitionFrom = undefined;
 		if (existsSync(composePath)) {
 			// Fail closed BEFORE writing credentials or starting anything: only an
 			// intact SVForge-managed Compose may be adopted as the local database.
-			const problems = managedComposeProblems(readFileSync(composePath, 'utf8'), includeS3);
-			if (problems.length > 0) {
+			const currentContent = readFileSync(composePath, 'utf8');
+			const postgresOnlyProblems = managedComposeProblems(currentContent, false);
+			const withS3Problems = managedComposeProblems(currentContent, true);
+			const currentVariant = postgresOnlyProblems.length === 0 ? false : withS3Problems.length === 0 ? true : null;
+			if (currentVariant === null) {
+				const problems = includeS3 ? withS3Problems : postgresOnlyProblems;
 				throw new Error(`Existing docker-compose.yml is not SVForge-managed (${problems.join('; ')}). Refusing to modify or start it. Move it away, or use an existing PostgreSQL with SVFORGE_DATABASE_URL.`);
 			}
+			if (currentVariant && !includeS3) {
+				throw new Error('A managed local S3 service already exists, but this project now uses an external S3/R2 configuration (or no longer selects uploads). Refusing to remove or alter it silently. Keep the local service by unsetting the external S3 variables, or deliberately remove the s3 service from docker-compose.yml — the s3-data volume and its objects are preserved either way. Nothing was changed.');
+			}
+			if (!currentVariant && includeS3) {
+				// Supported evolution: PostgreSQL-only -> PostgreSQL + local S3.
+				// Validate the CURRENT effective model before replacing the file,
+				// and preserve the existing project identity/volume/credentials.
+				if (!env.POSTGRES_PASSWORD || !/^\d+$/.test(env.POSTGRES_PORT ?? '')) {
+					throw new Error('Cannot safely add local S3: the existing managed PostgreSQL configuration is incomplete (.env must keep POSTGRES_PASSWORD and POSTGRES_PORT). Nothing was changed.');
+				}
+				const currentProblems = effectiveComposeProblems({ POSTGRES_PASSWORD: env.POSTGRES_PASSWORD, POSTGRES_PORT: env.POSTGRES_PORT }, false);
+				if (currentProblems.length > 0) {
+					throw new Error(`Refusing to evolve this Compose configuration: ${currentProblems.join('; ')}. Nothing was changed.`);
+				}
+				transitionFrom = 'postgres-only';
+			}
+			if (transitionFrom === 'postgres-only') writeComposeFile(composeFile(true));
 		} else {
-			writeFileSync(composePath, composeFile(includeS3), { mode: 0o644 });
+			writeComposeFile(composeFile(includeS3));
 			composeFileCreated = true;
 		}
+		status.composeTransition = transitionFrom;
 		// Validate the EFFECTIVE model Compose will run (interpolation included)
 		// before writing credentials or starting anything.
 		const composeProblems = effectiveComposeProblems({
@@ -786,7 +832,7 @@ Default: prepare the private .env only. Never starts services or changes a datab
 	console.log(`  .env: ${status.envCreated ? 'created from .env.example' : 'preserved existing settings'} (mode 600, Git-ignored)`);
 	console.log(`  Better Auth secret: ${status.secretGenerated ? 'generated' : 'kept existing'}`);
 	if (values.compose) {
-		console.log(`  docker-compose.yml: ${composeFileCreated ? 'generated' : 'left untouched'}`);
+		console.log(`  docker-compose.yml: ${composeFileCreated ? 'generated' : status.composeTransition === 'postgres-only' ? 'updated with local S3 (PostgreSQL service, volume and credentials preserved)' : 'left untouched'}`);
 		console.log(`  PostgreSQL: ${composeStarted ? `healthy on 127.0.0.1:${preparedEnv.POSTGRES_PORT}` : 'not started'} (local Compose only)`);
 		if (s3Provisioned) {
 			console.log(`  Local S3: healthy on http://127.0.0.1:${preparedEnv.S3_PORT} (bucket ${preparedEnv.S3_BUCKET}, persistent volume; S3Mock is a development backend, not production S3/R2)`);

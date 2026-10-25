@@ -10,3 +10,4 @@ Dashboard projects that select the **uploads** module can now opt into local S3-
 - an existing external S3/R2 configuration is preserved and no local S3 service starts;
 - the generated S3 client now honours `S3_FORCE_PATH_STYLE=true` (required by S3Mock and other path-style backends) while keeping the virtual-host default for R2/production S3;
 - generated docs explain host vs container endpoints, S3Mock's development-only scope, and that `docker compose down -v` deletes local objects.
+- adding `uploads` to an existing PostgreSQL-only Dashboard evolves the managed Compose in place: the PostgreSQL service, named volume, port, password and project identity are preserved while the S3 service is appended and started; switching to an external S3/R2 provider (or dropping uploads) is refused with a non-destructive path instead of silently removing the managed S3 service or its data.
