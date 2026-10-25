@@ -1,0 +1,20 @@
+{
+	"name": "svforge-builder-consumer-fixture",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"build": "vite build"
+	},
+	"dependencies": {
+		"nanoid": "^5.1.6",
+		"zod": "^3.25.76"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-node": "^6.0.0",
+		"@sveltejs/kit": "^3.0.0",
+		"@sveltejs/vite-plugin-svelte": "^7.2.0",
+		"svelte": "^5.57.1",
+		"vite": "^8.3.0"
+	}
+}

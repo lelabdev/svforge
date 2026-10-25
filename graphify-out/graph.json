@@ -124,6 +124,283 @@
       "_origin": "ast"
     },
     {
+      "id": "docker_consumer_smoke",
+      "label": "consumer-smoke.sh",
+      "file_type": "code",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_consumer_smoke_sh__entry",
+      "label": "consumer-smoke.sh script",
+      "file_type": "code",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_consumer_smoke_build_image",
+      "label": "build_image()",
+      "file_type": "code",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L30",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_consumer_smoke_cleanup",
+      "label": "cleanup()",
+      "file_type": "code",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L64",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_consumer_smoke_fail",
+      "label": "fail()",
+      "file_type": "code",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L74",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_function"
+      },
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package",
+      "label": "app/package.json",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_name",
+      "label": "name",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L2",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_private",
+      "label": "private",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L3",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_version",
+      "label": "version",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L4",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_type",
+      "label": "type",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_scripts",
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L6",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_scripts_build",
+      "label": "build",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_dependencies",
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L9",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_dependencies_nanoid",
+      "label": "nanoid",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "ref_nanoid",
+      "label": "nanoid",
+      "file_type": "concept",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_dependencies_zod",
+      "label": "zod",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_json_ref_zod",
+      "label": "zod",
+      "file_type": "concept",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L11",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_devdependencies",
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_devdependencies_sveltejs_adapter_node",
+      "label": "@sveltejs/adapter-node",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "ref_sveltejs_adapter_node",
+      "label": "@sveltejs/adapter-node",
+      "file_type": "concept",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_devdependencies_sveltejs_kit",
+      "label": "@sveltejs/kit",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_json_ref_sveltejs_kit",
+      "label": "@sveltejs/kit",
+      "file_type": "concept",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_devdependencies_sveltejs_vite_plugin_svelte",
+      "label": "@sveltejs/vite-plugin-svelte",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_json_ref_sveltejs_vite_plugin_svelte",
+      "label": "@sveltejs/vite-plugin-svelte",
+      "file_type": "concept",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_devdependencies_svelte",
+      "label": "svelte",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_json_ref_svelte",
+      "label": "svelte",
+      "file_type": "concept",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_devdependencies_vite",
+      "label": "vite",
+      "file_type": "code",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_package_json_ref_vite",
+      "label": "vite",
+      "file_type": "concept",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L18",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_src_routes_page_server",
+      "label": "app/src/routes/+page.server.ts",
+      "file_type": "code",
+      "source_file": "docker/examples/app/src/routes/+page.server.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_src_routes_page_server_load",
+      "label": "load()",
+      "file_type": "code",
+      "source_file": "docker/examples/app/src/routes/+page.server.ts",
+      "source_location": "L4",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_src_routes_page",
+      "label": "app/src/routes/+page.svelte",
+      "file_type": "code",
+      "source_file": "docker/examples/app/src/routes/+page.svelte",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_examples_app_vite_config",
+      "label": "app/vite.config.ts",
+      "file_type": "code",
+      "source_file": "docker/examples/app/vite.config.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "docs_release_plan_schema",
       "label": "release-plan.schema.json",
       "file_type": "code",
@@ -15221,7 +15498,7 @@
     },
     {
       "id": "packages_svforge_templates_base_src_routes_page",
-      "label": "routes/+page.svelte",
+      "label": "base/src/routes/+page.svelte",
       "file_type": "code",
       "source_file": "packages/svforge/templates/base/src/routes/+page.svelte",
       "source_location": "L1",
@@ -15850,7 +16127,7 @@
       "_origin": "ast"
     },
     {
-      "id": "ref_zod",
+      "id": "packages_svforge_templates_dashboard_package_json_ref_zod",
       "label": "zod",
       "file_type": "concept",
       "source_file": "packages/svforge/templates/dashboard/package.json",
@@ -17745,7 +18022,7 @@
     },
     {
       "id": "packages_svforge_templates_dashboard_src_routes_page_server",
-      "label": "routes/+page.server.ts",
+      "label": "dashboard/src/routes/+page.server.ts",
       "file_type": "code",
       "source_file": "packages/svforge/templates/dashboard/src/routes/+page.server.ts",
       "source_location": "L1",
@@ -29633,8 +29910,8 @@
       "_origin": "ast"
     },
     {
-      "id": "docker_readme_build",
-      "label": "Build",
+      "id": "docker_readme_build_and_tag_a_version",
+      "label": "Build and tag a version",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docker/README.md",
@@ -29642,21 +29919,30 @@
       "_origin": "ast"
     },
     {
-      "id": "docker_readme_validate_the_builder",
-      "label": "Validate the builder",
+      "id": "docker_readme_validate_the_builder_and_a_real_consumer",
+      "label": "Validate the builder and a real consumer",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docker/README.md",
-      "source_location": "L22",
+      "source_location": "L36",
       "_origin": "ast"
     },
     {
-      "id": "docker_readme_from_an_independent_application",
-      "label": "From an independent application",
+      "id": "docker_readme_use_it_from_an_independent_application",
+      "label": "Use it from an independent application",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docker/README.md",
-      "source_location": "L55",
+      "source_location": "L83",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_readme_reusing_the_bun_cache_in_consumer_builds",
+      "label": "Reusing the Bun cache in consumer builds",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docker/README.md",
+      "source_location": "L123",
       "_origin": "ast"
     },
     {
@@ -29665,7 +29951,25 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docker/README.md",
-      "source_location": "L82",
+      "source_location": "L139",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_readme_rollback",
+      "label": "Rollback",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docker/README.md",
+      "source_location": "L166",
+      "_origin": "ast"
+    },
+    {
+      "id": "docker_readme_adoption_and_scope",
+      "label": "Adoption and scope",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docker/README.md",
+      "source_location": "L176",
       "_origin": "ast"
     },
     {
@@ -35028,6 +35332,14 @@
       "external": true,
       "source_file": "",
       "_origin": "semantic"
+    },
+    {
+      "id": "ref_zod",
+      "label": "ref_zod",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": ""
     }
   ],
   "links": [
@@ -35128,6 +35440,360 @@
       "confidence": "EXTRACTED",
       "source_file": "docker/builder-smoke.sh",
       "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_consumer_smoke",
+      "target": "docker_consumer_smoke_sh__entry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_consumer_smoke",
+      "target": "docker_consumer_smoke_build_image",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L30",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_consumer_smoke",
+      "target": "docker_consumer_smoke_cleanup",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L64",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_consumer_smoke",
+      "target": "docker_consumer_smoke_fail",
+      "relation": "defines",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L74",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_consumer_smoke_sh__entry",
+      "target": "docker_consumer_smoke_build_image",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L43",
+      "weight": 1,
+      "context": "call",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_consumer_smoke_sh__entry",
+      "target": "docker_consumer_smoke_fail",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/consumer-smoke.sh",
+      "source_location": "L75",
+      "weight": 1,
+      "context": "call",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_name",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_private",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_version",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_type",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_scripts",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package_scripts",
+      "target": "docker_examples_app_package_scripts_build",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_dependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package_dependencies",
+      "target": "docker_examples_app_package_dependencies_nanoid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "ref_nanoid",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L10",
+      "weight": 1,
+      "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package_dependencies",
+      "target": "docker_examples_app_package_dependencies_zod",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L11",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_json_ref_zod",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L11",
+      "weight": 1,
+      "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_devdependencies",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package_devdependencies",
+      "target": "docker_examples_app_package_devdependencies_sveltejs_adapter_node",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "ref_sveltejs_adapter_node",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L14",
+      "weight": 1,
+      "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package_devdependencies",
+      "target": "docker_examples_app_package_devdependencies_sveltejs_kit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_json_ref_sveltejs_kit",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L15",
+      "weight": 1,
+      "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package_devdependencies",
+      "target": "docker_examples_app_package_devdependencies_sveltejs_vite_plugin_svelte",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_json_ref_sveltejs_vite_plugin_svelte",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L16",
+      "weight": 1,
+      "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package_devdependencies",
+      "target": "docker_examples_app_package_devdependencies_svelte",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_json_ref_svelte",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L17",
+      "weight": 1,
+      "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package_devdependencies",
+      "target": "docker_examples_app_package_devdependencies_vite",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_package",
+      "target": "docker_examples_app_package_json_ref_vite",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/package.json",
+      "source_location": "L18",
+      "weight": 1,
+      "context": "import",
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_src_routes_page_server",
+      "target": "ref_nanoid",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/src/routes/+page.server.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_src_routes_page_server",
+      "target": "ref_zod",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/src/routes/+page.server.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_src_routes_page_server",
+      "target": "docker_examples_app_src_routes_page_server_load",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/src/routes/+page.server.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_vite_config",
+      "target": "ref_sveltejs_adapter_node",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/vite.config.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_vite_config",
+      "target": "ref_sveltejs_kit",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/vite.config.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_examples_app_vite_config",
+      "target": "ref_vite",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/examples/app/vite.config.ts",
+      "source_location": "L3",
       "weight": 1,
       "_origin": "ast"
     },
@@ -62666,7 +63332,7 @@
     },
     {
       "source": "packages_svforge_templates_base_vite_config",
-      "target": "ref_sveltejs_adapter_auto",
+      "target": "ref_tailwindcss_vite",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -62677,7 +63343,7 @@
     },
     {
       "source": "packages_svforge_templates_base_vite_config",
-      "target": "ref_sveltejs_kit",
+      "target": "ref_sveltejs_adapter_auto",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -62688,12 +63354,23 @@
     },
     {
       "source": "packages_svforge_templates_base_vite_config",
-      "target": "ref_vite",
+      "target": "ref_sveltejs_kit",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/base/vite.config.ts",
       "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_templates_base_vite_config",
+      "target": "ref_vite",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/templates/base/vite.config.ts",
+      "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
@@ -63139,7 +63816,7 @@
     },
     {
       "source": "packages_svforge_templates_dashboard_package",
-      "target": "ref_zod",
+      "target": "packages_svforge_templates_dashboard_package_json_ref_zod",
       "relation": "imports",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/templates/dashboard/package.json",
@@ -98033,7 +98710,7 @@
     },
     {
       "source": "docker_readme_svforge_reusable_docker_builder",
-      "target": "docker_readme_build",
+      "target": "docker_readme_build_and_tag_a_version",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docker/README.md",
@@ -98043,21 +98720,31 @@
     },
     {
       "source": "docker_readme_svforge_reusable_docker_builder",
-      "target": "docker_readme_validate_the_builder",
+      "target": "docker_readme_validate_the_builder_and_a_real_consumer",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docker/README.md",
-      "source_location": "L22",
+      "source_location": "L36",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "docker_readme_svforge_reusable_docker_builder",
-      "target": "docker_readme_from_an_independent_application",
+      "target": "docker_readme_use_it_from_an_independent_application",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docker/README.md",
-      "source_location": "L55",
+      "source_location": "L83",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_readme_use_it_from_an_independent_application",
+      "target": "docker_readme_reusing_the_bun_cache_in_consumer_builds",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/README.md",
+      "source_location": "L123",
       "weight": 1,
       "_origin": "ast"
     },
@@ -98067,7 +98754,27 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docker/README.md",
-      "source_location": "L82",
+      "source_location": "L139",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_readme_svforge_reusable_docker_builder",
+      "target": "docker_readme_rollback",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/README.md",
+      "source_location": "L166",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docker_readme_svforge_reusable_docker_builder",
+      "target": "docker_readme_adoption_and_scope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docker/README.md",
+      "source_location": "L176",
       "weight": 1,
       "_origin": "ast"
     },

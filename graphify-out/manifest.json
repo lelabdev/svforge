@@ -672,7 +672,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/vite.config.ts": {
-    "ast_hash": "77dd2f93e3388a029a7dc7e0ab058ef9",
+    "ast_hash": "867fa9eceb8e5afc81ac5f0b7f0c9c75",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/package.json": {
@@ -1408,7 +1408,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "e936023f71020498e397e8e7ccddf305",
+    "ast_hash": "8b3dc00e8d04d68de6051c16f2e25cee",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
@@ -2012,7 +2012,7 @@
     "semantic_hash": ""
   },
   "docker/README.md": {
-    "ast_hash": "9e3ccfd0d2538423ff00186e9b69c9be",
+    "ast_hash": "1ad8227077cf1feaee50a1c174c053e6",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/assets/brand-favicons.ts": {
@@ -2176,11 +2176,35 @@
     "semantic_hash": ""
   },
   "tests/sveltekit-3.test.ts": {
-    "ast_hash": "1d530b4ab18e495c168655415232de0b",
+    "ast_hash": "f61beb71d5d676ea236a4dbb376049a5",
     "semantic_hash": ""
   },
   ".changeset/608-sveltekit-3.md": {
     "ast_hash": "b938de2f3c368e4c0bdfd14857188b23",
+    "semantic_hash": ""
+  },
+  "docker/consumer-smoke.sh": {
+    "ast_hash": "0b4a5810ade433095053ab7298c35bf0",
+    "semantic_hash": ""
+  },
+  "docker/examples/app/package.json": {
+    "ast_hash": "173807d33cfda8b106242add7b535170",
+    "semantic_hash": ""
+  },
+  "docker/examples/app/src/routes/+page.server.ts": {
+    "ast_hash": "0a8bddd403ec09a8f5c5ff449ccbc5dc",
+    "semantic_hash": ""
+  },
+  "docker/examples/app/src/routes/+page.svelte": {
+    "ast_hash": "16dff3da569dbc5aaea5863e91bc94f9",
+    "semantic_hash": ""
+  },
+  "docker/examples/app/vite.config.ts": {
+    "ast_hash": "9e605c812b2a1adc9349ea83c9d53895",
+    "semantic_hash": ""
+  },
+  "docker/examples/app/src/app.html": {
+    "ast_hash": "e8f20d9bbdd6b5d1b19d651a703e0d1a",
     "semantic_hash": ""
   }
 }
