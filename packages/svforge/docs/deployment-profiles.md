@@ -4,7 +4,7 @@ Set `deployment.profile` in `.svforge.json` before selecting an adapter or addin
 
 | Profile | Use it for | Do not assume |
 | --- | --- | --- |
-| `long-lived-node` | `@sveltejs/adapter-node`, containers, a persistent Node process | horizontal WebSocket fan-out without a shared broker |
+| `long-lived-node` | `@sveltejs/adapter-node` 6.x (SvelteKit 3), containers, a persistent Node process | horizontal WebSocket fan-out without a shared broker |
 | `serverless` | request-scoped Node functions | process-local pools, polling workers, or a WebSocket server |
 | `edge` | Cloudflare Workers or edge functions | Node APIs, TCP PostgreSQL drivers, or `ws` |
 | `separate-worker` | a dedicated Node process for jobs or WebSockets | that it replaces the web adapter; it complements it |
@@ -13,7 +13,7 @@ Set `deployment.profile` in `.svforge.json` before selecting an adapter or addin
 
 ### Node application with attached realtime
 
-Use `@sveltejs/adapter-node`, declare `long-lived-node`, attach `realtime` to the Node HTTP server, and keep one PostgreSQL client per process. This is the only profile where the bundled `ws` hub can attach to the application server.
+Use `@sveltejs/adapter-node` 6.x (the SvelteKit 3 line), declare `long-lived-node`, attach `realtime` to the Node HTTP server, and keep one PostgreSQL client per process. This is the only profile where the bundled `ws` hub can attach to the application server.
 
 ```ts
 const hub = createRealtimeHub({

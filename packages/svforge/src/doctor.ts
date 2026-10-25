@@ -150,7 +150,7 @@ function checkSvforgeComponents(root: string): DiagnosticResult {
 /** Check that the project is a SvelteKit project. */
 function checkSvelteKit(root: string): DiagnosticResult {
 	try {
-		// Modern sv create (Kit 2.63 / vite-plugin-svelte 7) has no svelte.config.js
+		// Modern sv create (SvelteKit 3 / vite-plugin-svelte 7) has no svelte.config.js
 		// — the config lives in vite.config.ts (#185).
 		const hasViteConfig = existsSync(join(root, 'vite.config.ts')) || existsSync(join(root, 'vite.config.js'));
 		const hasSvelteConfig = existsSync(join(root, 'svelte.config.js')) || existsSync(join(root, 'svelte.config.ts'));

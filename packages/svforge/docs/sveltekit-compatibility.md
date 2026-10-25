@@ -1,10 +1,11 @@
 # SvelteKit compatibility and migration policy
 
-**Verified 2026-10-10.** SVForge follows the current stable Svelte ecosystem; it does not silently retarget every dependency to `latest`. This report records real projects created with the published `sv` CLI, SVForge npm-packed artifacts, and the resolved framework versions used for the checks.
+**Verified 2026-10-24 (SvelteKit 3 migration, #608).** SVForge follows the current stable Svelte ecosystem; it does not silently retarget every dependency to `latest`. This report records real projects created with the published `sv` CLI, SVForge npm-packed artifacts, and the resolved framework versions used for the checks.
 
 ## Support policy
 
-- **Scaffold target:** the current stable SvelteKit major, currently Kit 3, created by the exact `sv` version pinned in the repository root (`sv@1.1.1`). The release workflow's existing scaffold and packed-consumer jobs are the blocking certification gates.
+- **Scaffold target:** the current stable SvelteKit major, **Kit 3**, created by the exact `sv` version pinned in the repository root (`sv@1.1.1`). `sv create` emits Kit 3 and keeps the framework configuration in `vite.config.ts` (there is no generated `svelte.config.js`); fresh scaffolds therefore need **no** `sv migrate` step. The release workflow's scaffold and packed-consumer jobs are the blocking certification gates.
+- **Template metadata:** the reference manifests under `templates/{base,dashboard}/package.json` mirror the official minimums — `@sveltejs/kit ^3.0.0`, `@sveltejs/adapter-auto ^8.0.0`, `@sveltejs/vite-plugin-svelte ^7.2.0`, `svelte ^5.57.1`, `vite ^8.3.0`, `typescript ^6.0.3`, Skeleton `^5.0.1` — and declare `engines.node >=22.17` (SvelteKit 3's own requirement). The reference `vite.config.ts` carries the Kit 3 `sveltekit({ compilerOptions, adapter })` shape; `adapter-node` 6.x is the Kit 3 counterpart for the `long-lived-node` profile.
 - **Previous Kit major:** Kit 2 is not a fresh-scaffold target. Existing Kit 2 projects must use Svelte's official `sv migrate sveltekit-3`; `svforge upgrade` only updates SVForge recipes and is not a framework migrator. As of this report, Kit 2 → Kit 3 migration of a project containing the current SVForge overlay is **not certified** because the official migration has reproducible unresolved issues (see below). Do not advertise a successful migration until the resolution criteria are met.
 - **Stable versus drift:** the root `package.json` and `bun.lock` pin the exact `sv` CLI used by deterministic CI/release jobs. Generated SvelteKit dependencies use the ranges emitted by `sv create`; package managers resolve them normally and projects should commit their own lockfile. The weekly `.github/workflows/ecosystem-drift.yml` runs the floating ecosystem-drift checks (`sv@latest` and latest ecosystem dependencies). This is distinct from the optional manually dispatched npm `canary` release channel in `publish.yml`. Do not add another scheduled drift workflow.
 - **Promotion is human-controlled:** after a canary or manual compatibility run passes, a reviewed PR updates the exact root `sv` pin and lockfile, this report's tested-version row, and any CLI-specific regression tests. Never make a successful `latest` run rewrite stable pins automatically. A release is not compatible merely because an upstream version was announced.
@@ -16,14 +17,17 @@ The checks used Node.js `24.21.0`, Bun `1.3.13`, the published `sv@1.1.1`, and f
 | Package                        | Resolved version |
 | ------------------------------ | ---------------: |
 | `sv`                           |          `1.1.1` |
-| `@sveltejs/kit`                |          `3.0.1` |
+| `@sveltejs/kit`                |          `3.1.0` |
 | `svelte`                       |         `5.57.2` |
-| `vite`                         |          `8.3.4` |
+| `vite`                         |          `8.3.5` |
 | `@sveltejs/vite-plugin-svelte` |          `7.3.1` |
 | `@tailwindcss/vite`            |          `4.3.3` |
 | `@sveltejs/adapter-auto`       |          `8.0.0` |
-| `svelte-check`                 |          `4.7.6` |
+| `@sveltejs/adapter-node`       |          `6.0.0` |
+| `svelte-check`                 |          `4.6.0` |
 | `typescript`                   |          `6.0.3` |
+| `@skeletonlabs/skeleton`       |          `5.0.1` |
+| `@skeletonlabs/skeleton-svelte`|          `5.0.1` |
 
 No package-manager `--force` or `--legacy-peer-deps` peer-resolution flags were used. The database profiles use `drizzle-kit push --force` only against disposable PostgreSQL 17 test databases.
 
