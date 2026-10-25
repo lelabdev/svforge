@@ -9,6 +9,7 @@ import {
 	parseCreateArgs,
 } from '../packages/svforge/src/cli/create';
 import type { SpawnPort } from '../packages/svforge/src/cli/add';
+import type { CreatePromptPort } from '../packages/svforge/src/cli/create';
 import { COMPAT_MANIFEST } from '../packages/svforge/src/compat';
 
 /**
@@ -742,5 +743,126 @@ describe('flag parsing (#417)', () => {
 
 		const all = parseCreateArgs(['app', '--modules', 'all', '--pm', 'npm']);
 		expect(all.modules).toBe('all');
+	});
+});
+
+
+describe('optional local environment preparation (#589)', () => {
+	function dashboardSpawn() {
+		const calls: { command: string; args: string[]; options: { cwd: string; env?: NodeJS.ProcessEnv } }[] = [];
+		const spawn: SpawnPort = async (command, args, options) => {
+			calls.push({ command, args, options });
+			if (args[1] === 'add') {
+				mkdirSync(options.cwd, { recursive: true });
+				writeFileSync(join(options.cwd, '.svforge.json'), JSON.stringify({ schema: 1, template: 'dashboard', modules: [] }));
+			}
+			if (command === 'bash' && options.env?.STUB_SETUP_FAIL === '1') return 1;
+			return 0;
+		};
+		return { spawn, calls };
+	}
+	function prompt(selectChoice: string, confirmAnswers: boolean[]): CreatePromptPort {
+		const answers = [...confirmAnswers];
+		return {
+			text: async () => '',
+			select: async () => selectChoice,
+			multiselect: async () => [],
+			// First confirmation approves the create plan; later ones answer setup questions.
+			confirm: async () => answers.shift() ?? false
+		};
+	}
+	async function run(cwd: string, extra: Record<string, unknown>) {
+		const { spawn, calls } = dashboardSpawn();
+		const result = await runCreateCommand(cwd, {
+			dir: 'app', template: 'dashboard', pm: 'bun', testing: 'vitest', hooks: 'none',
+			gitInit: false, yes: false, interactive: true, validate: async () => 0,
+			spawn, ...extra
+		} as never);
+		return { result, calls };
+	}
+
+	it('never prompts or starts services in non-interactive mode without explicit flags', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-setup-'));
+		try {
+			const { spawn, calls } = dashboardSpawn();
+			const result = await runCreateCommand(cwd, {
+				dir: 'app', template: 'dashboard', pm: 'bun', testing: 'vitest', hooks: 'none',
+				gitInit: false, modules: [], yes: true, interactive: false, validate: async () => 0, spawn
+			});
+			expect(result.code).toBe(0);
+			expect(calls.some((call) => call.command === 'bash')).toBe(false);
+			expect(result.notice).toContain('scripts/setup.sh');
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('offers Compose and asks separately before initializing the schema', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-setup-'));
+		try {
+			const { result, calls } = await run(cwd, { prompt: prompt('compose', [true, false]) });
+			expect(result.code, result.message).toBe(0);
+			const setupCalls = calls.filter((call) => call.command === 'bash').map((call) => call.args);
+			expect(setupCalls).toEqual([['scripts/setup.sh', '--compose']]);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('runs schema initialization only after explicit consent', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-setup-'));
+		try {
+			const { result, calls } = await run(cwd, { prompt: prompt('compose', [true, true]) });
+			expect(result.code, result.message).toBe(0);
+			const setupCalls = calls.filter((call) => call.command === 'bash').map((call) => call.args);
+			expect(setupCalls).toEqual([
+				['scripts/setup.sh', '--compose'],
+				['scripts/setup.sh', '--compose', '--init-schema']
+			]);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('accepts explicit headless setup flags and passes the URL through the environment', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-setup-'));
+		const previous = process.env.SVFORGE_DATABASE_URL;
+		process.env.SVFORGE_DATABASE_URL = 'postgres://app:pw@db.internal:5432/app';
+		try {
+			const { result, calls } = await run(cwd, { modules: [], setup: 'existing', initSchema: true, interactive: false, yes: true });
+			expect(result.code, result.message).toBe(0);
+			const setupCall = calls.find((call) => call.command === 'bash');
+			expect(setupCall?.args).toEqual(['scripts/setup.sh']);
+			expect(setupCall?.options.env?.SVFORGE_DATABASE_URL).toBe(process.env.SVFORGE_DATABASE_URL);
+			expect(JSON.stringify(result)).not.toContain('db.internal');
+		} finally {
+			if (previous === undefined) delete process.env.SVFORGE_DATABASE_URL;
+			else process.env.SVFORGE_DATABASE_URL = previous;
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('keeps the project successful when local setup fails, with an actionable notice', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-setup-'));
+		try {
+			process.env.STUB_SETUP_FAIL = '1';
+			const { result } = await run(cwd, { modules: [], setup: 'compose', interactive: false, yes: true });
+			expect(result.code).toBe(0);
+			expect(result.notice).toContain('local environment setup failed');
+		} finally {
+			delete process.env.STUB_SETUP_FAIL;
+			rmSync(cwd, { recursive: true, force: true });
+		}
+	});
+
+	it('respects an explicit "configure later" choice without side effects', async () => {
+		const cwd = mkdtempSync(join(tmpdir(), 'sf-setup-'));
+		try {
+			const { result, calls } = await run(cwd, { prompt: prompt('later', [true]) });
+			expect(result.code).toBe(0);
+			expect(calls.some((call) => call.command === 'bash')).toBe(false);
+		} finally {
+			rmSync(cwd, { recursive: true, force: true });
+		}
 	});
 });

@@ -28,7 +28,7 @@ export interface PromptPort {
 }
 
 export interface SpawnPort {
-	(command: string, args: string[], options: { cwd: string; stdio: 'inherit' }): Promise<number>;
+	(command: string, args: string[], options: { cwd: string; stdio: 'inherit'; env?: NodeJS.ProcessEnv }): Promise<number>;
 }
 
 export interface AddCommandOptions {

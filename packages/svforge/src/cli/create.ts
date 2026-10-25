@@ -36,6 +36,10 @@ export interface CreateCommandOptions {
 	gitInit?: boolean;
 	/** Initialize an already-installed Graphify binary for this project. Opt-in. */
 	graphify?: boolean;
+	/** Explicit local environment preparation for Dashboard projects (#589). */
+	setup?: 'compose' | 'existing' | 'later';
+	/** Explicit consent to initialize the local schema (Dashboard, #589). */
+	initSchema?: boolean;
 	yes?: boolean;
 	interactive?: boolean;
 	devRoot?: string;
@@ -85,6 +89,10 @@ export interface CreatePlan {
 	gitInit: boolean;
 	/** Whether project-scoped Graphify initialization was explicitly requested. */
 	graphify: boolean;
+	/** Local environment choice recorded in the plan (#589). */
+	setup?: 'compose' | 'existing' | 'later';
+	/** Whether the plan carries explicit schema-initialization consent (#589). */
+	initSchema: boolean;
 	plan: ResolutionPlan;
 	/** Exact commands passed to the official `sv` CLI during apply. */
 	commands: PlannedCommand[];
@@ -163,7 +171,8 @@ export function parseCreateArgs(args: string[]): CreateCommandOptions & { dir?: 
 		'--addon-root': (v) => (parsed.addonRoot = v),
 		'--addon-version': (v) => (parsed.addonVersion = v),
 		'--compat-manifest': (v) => (parsed.compatManifestPath = v),
-		'--modules': (v) => (parsed.modules = v === 'all' ? 'all' : v.split(',').map((m) => m.trim()))
+		'--modules': (v) => (parsed.modules = v === 'all' ? 'all' : v.split(',').map((m) => m.trim())),
+		'--setup': (v) => (parsed.setup = v as 'compose' | 'existing' | 'later')
 	};
 	for (let i = 0; i < args.length; i++) {
 		const arg = args[i];
@@ -185,6 +194,10 @@ export function parseCreateArgs(args: string[]): CreateCommandOptions & { dir?: 
 		}
 		if (arg === '--yes') {
 			parsed.yes = true;
+			continue;
+		}
+		if (arg === '--init-schema') {
+			parsed.initSchema = true;
 			continue;
 		}
 		if (!arg.startsWith('-') && !parsed.dir) parsed.dir = arg;
@@ -489,6 +502,8 @@ export async function runCreateCommand(
 		runtime,
 		gitInit,
 		graphify,
+		setup: options.setup,
+		initSchema: options.initSchema === true,
 		plan: resolution,
 		...executionPlan
 	};
@@ -503,6 +518,9 @@ export async function runCreateCommand(
 		`Modules (${resolution.order.length}): ${resolution.order.join(', ')}`,
 		runtime ? `Runtime:          ${runtime} (the selected modules require it)` : undefined,
 		`Git:              ${gitInit ? 'initialize' : 'skip'}`,
+		effectiveTemplate === 'dashboard'
+			? `Local setup:      ${options.setup ?? (interactive && prompt && !options.yes ? 'ask after creation' : 'not requested (run bash scripts/setup.sh)')}`
+			: undefined,
 		`Graphify:         ${graphify ? 'initialize if installed' : 'skip (opt-in)'}`
 	].filter(Boolean) as string[];
 	if (interactive && prompt && !options.yes) {
@@ -666,13 +684,59 @@ export async function runCreateCommand(
 		};
 	}
 
+	// ── 10b. Optional local environment preparation (#589) ──
+	// Strictly post-create and opt-in: `--plan`/`--json` return before this
+	// point, `--yes` never prompts, and a failed setup never deletes or
+	// invalidates the generated project.
+	let setupNotice: string | undefined;
+	if (effectiveTemplate === 'dashboard') {
+		let choice = options.setup;
+		if (!choice && interactive && prompt && !options.yes) {
+			const picked = await prompt.select('Prepare local development environment?', [
+				{ value: 'compose', label: 'Docker Compose PostgreSQL (recommended, local only)' },
+				{ value: 'existing', label: 'Use an existing PostgreSQL database' },
+				{ value: 'later', label: 'Configure later' }
+			]);
+			choice = picked as 'compose' | 'existing' | 'later';
+		}
+		if (choice && choice !== 'later') {
+			let databaseUrl: string | undefined;
+			if (choice === 'existing') {
+				databaseUrl = process.env.SVFORGE_DATABASE_URL?.trim();
+				if (!databaseUrl && interactive && prompt) {
+					databaseUrl = (await prompt.text('PostgreSQL connection URL (stored in the ignored .env, never logged)')).trim() || undefined;
+				}
+				if (!databaseUrl) {
+					setupNotice = 'Local setup skipped: set SVFORGE_DATABASE_URL or rerun `bash scripts/setup.sh` in the project.';
+				}
+			}
+			if (choice === 'compose' || databaseUrl) {
+				const baseArgs = ['scripts/setup.sh', ...(choice === 'compose' ? ['--compose'] : [])];
+				const setupEnv = databaseUrl ? { ...process.env, SVFORGE_DATABASE_URL: databaseUrl } : process.env;
+				let setupCode = await spawn('bash', baseArgs, { cwd: target, stdio: 'inherit', env: setupEnv });
+				let initSchema = options.initSchema === true;
+				if (setupCode === 0 && !initSchema && interactive && prompt) {
+					initSchema = await prompt.confirm('Initialize local database schema now? (db:push against the verified local database only)');
+				}
+				if (setupCode === 0 && initSchema) {
+					setupCode = await spawn('bash', [...baseArgs, '--init-schema'], { cwd: target, stdio: 'inherit', env: setupEnv });
+				}
+				if (setupCode !== 0) {
+					setupNotice = 'Project created, but local environment setup failed — inspect the output above; the generated files are intact. Rerun `bash scripts/setup.sh --compose` (or --database-url) when ready.';
+				}
+			}
+		} else if (!choice) {
+			setupNotice = 'Local environment not prepared. Later: `bash scripts/setup.sh --compose` (Docker PostgreSQL) or configure DATABASE_URL yourself.';
+		}
+	}
+
 	if (createPlan.graphify) {
 		const graphifyBinary = findGraphifyBinary();
 		if (!graphifyBinary) {
 			return {
 				code: 0,
 				plan: createPlan,
-				notice: 'Graphify not found on PATH; continuing without it. Install Graphify separately to initialize this project.'
+				notice: ['Graphify not found on PATH; continuing without it. Install Graphify separately to initialize this project.', setupNotice].filter(Boolean).join(' ')
 			};
 		}
 
@@ -699,8 +763,8 @@ export async function runCreateCommand(
 				};
 			}
 		}
-		return { code: 0, plan: createPlan, notice: 'Graphify initialized this project and generated its code-only graph.' };
+		return { code: 0, plan: createPlan, notice: ['Graphify initialized this project and generated its code-only graph.', setupNotice].filter(Boolean).join(' ') };
 	}
 
-	return { code: 0, plan: createPlan };
+	return { code: 0, plan: createPlan, notice: setupNotice };
 }
