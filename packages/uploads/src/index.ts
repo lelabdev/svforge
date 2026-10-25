@@ -14,6 +14,10 @@ const ENV_EXAMPLE = {
 	S3_BUCKET: { description: 'S3-compatible storage bucket', placeholder: 'your_bucket_name' },
 	S3_ACCESS_KEY_ID: { description: 'S3 access key ID', placeholder: 'your_access_key_id' },
 	S3_SECRET_ACCESS_KEY: { description: 'S3 secret access key', placeholder: 'replace_with_s3_secret_access_key' },
+	S3_FORCE_PATH_STYLE: {
+		description: 'Set to true for path-style local backends (S3Mock); leave blank for R2/production S3',
+		placeholder: ''
+	},
 	S3_UPLOAD_SIZE_POLICY: {
 		description: 'Optional: leave blank for storage-enforced POST; use presigned-put only for best-effort fallback',
 		placeholder: ''
@@ -127,6 +131,7 @@ export default defineAddon({
 			'@svforge/uploads installed!',
 			'Copy the S3/R2 placeholders from .env.example into .env and replace them with your provider values',
 			'Upload size policy: POST is storage-enforced by default (requires provider POST policies). Set S3_UPLOAD_SIZE_POLICY=presigned-put only as an explicitly best-effort fallback.',
+			'Dashboard local development: `bash scripts/setup.sh --compose` provisions a local S3Mock and the matching S3_* values when no external S3/R2 endpoint is configured (S3Mock is not a production S3/R2 emulation).',
 			'Usage: <FileUpload onUpload={(key) => console.log(key)} /> — key is the persistent object key, not the expiring presigned URL',
 			...(options.testpack
 				? ['Test pack installed: bun run test (upload endpoint security)']

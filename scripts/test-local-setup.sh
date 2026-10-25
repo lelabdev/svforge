@@ -32,7 +32,7 @@ echo "==> Generating a real Dashboard project"
 cd "$TMP_DIR"
 SVFORGE_BIN="$REPO_ROOT/packages/svforge/bin/svforge.mjs"
 export SVFORGE_SV_CMD="${SV_CMD:-$REPO_ROOT/node_modules/.bin/sv}"
-"$SVFORGE_BIN" create app --template dashboard --pm "$SF_PM" --modules dnd --yes --dev-root "$REPO_ROOT" \
+"$SVFORGE_BIN" create app --template dashboard --pm "$SF_PM" --modules uploads --yes --dev-root "$REPO_ROOT" \
 	|| { echo "❌ svforge create failed"; exit 1; }
 cd "$APP_DIR"
 
@@ -73,6 +73,54 @@ ADMIN_NAME='Smoke Admin' ADMIN_EMAIL='smoke@example.com' ADMIN_PASSWORD='smoke-p
 admins_after="$(docker compose exec -T postgres psql -U svforge -d svforge -tAc "select count(*) from \"user\" where role = 'admin'")"
 [ "$admins_after" = "1" ] || { echo "❌ admin rerun changed the administrator"; exit 1; }
 
+echo "==> Verifying the local S3 service from the generated app"
+grep -q 's3mock:5.2.3@sha256:' docker-compose.yml || { echo "❌ S3Mock is missing from docker-compose.yml"; exit 1; }
+s3_port="$(sed -n 's/^S3_PORT=//p' .env)"
+s3_bucket="$(sed -n 's/^S3_BUCKET=//p' .env)"
+grep -q "^S3_ENDPOINT=\"\?http://127.0.0.1:${s3_port}\"\?$" .env || { echo "❌ S3_ENDPOINT does not match S3_PORT"; exit 1; }
+grep -q "^S3_BUCKET=${s3_bucket}$" .env || { echo "❌ S3_BUCKET missing"; exit 1; }
+grep -q '^S3_FORCE_PATH_STYLE=true$' .env || { echo "❌ local S3 must use path-style addressing"; exit 1; }
+
+cat > s3-smoke.mjs <<'JS'
+import { readFileSync } from 'node:fs';
+import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+const env = Object.fromEntries(readFileSync('.env', 'utf8').split('\n').map((line) => /^([A-Z0-9_]+)=(.*)$/.exec(line)).filter(Boolean).map((m) => [m[1], m[2]]));
+const s3 = new S3Client({
+	endpoint: env.S3_ENDPOINT,
+	region: env.S3_REGION || 'us-east-1',
+	forcePathStyle: env.S3_FORCE_PATH_STYLE === 'true',
+	credentials: { accessKeyId: env.S3_ACCESS_KEY_ID, secretAccessKey: env.S3_SECRET_ACCESS_KEY }
+});
+const [action] = process.argv.slice(2);
+const Bucket = env.S3_BUCKET;
+const Key = 'smoke/object.txt';
+if (action === 'put') {
+	await s3.send(new PutObjectCommand({ Bucket, Key, Body: 'hello-svforge', ContentType: 'text/plain' }));
+	console.log('s3-put-ok');
+} else if (action === 'range') {
+	const res = await s3.send(new GetObjectCommand({ Bucket, Key, Range: 'bytes=0-4' }));
+	const body = await res.Body.transformToString();
+	if (body !== 'hello') throw new Error(`unexpected ranged body: ${body}`);
+	console.log('s3-range-ok');
+} else if (action === 'get') {
+	const res = await s3.send(new GetObjectCommand({ Bucket, Key }));
+	const body = await res.Body.transformToString();
+	if (body !== 'hello-svforge') throw new Error(`object did not survive restart: ${body}`);
+	console.log('s3-get-ok');
+} else if (action === 'delete') {
+	await s3.send(new DeleteObjectCommand({ Bucket, Key }));
+	try {
+		await s3.send(new GetObjectCommand({ Bucket, Key }));
+		throw new Error('object still readable after delete');
+	} catch (error) {
+		if (error?.name !== 'NoSuchKey' && error?.$metadata?.httpStatusCode !== 404) throw error;
+	}
+	console.log('s3-delete-ok');
+}
+JS
+bun s3-smoke.mjs put || { echo "❌ local S3 PUT failed"; exit 1; }
+bun s3-smoke.mjs range || { echo "❌ local S3 Range GET failed"; exit 1; }
+
 echo "==> Rerunning setup preserves credentials and does not reinitialize data"
 env_before="$(cat .env)"
 container_before="$(docker compose ps -q postgres)"
@@ -112,12 +160,18 @@ grep -q 'ambient Compose controls' /tmp/sf-local-control.log || { echo "❌ Comp
 
 echo "==> Stopping and restarting keeps the named volume"
 docker compose down >/dev/null
-docker compose up -d postgres >/dev/null
+docker compose up -d postgres s3 >/dev/null
 for _ in $(seq 1 60); do
 	docker compose exec -T postgres pg_isready -U svforge -d svforge >/dev/null 2>&1 && break
 	sleep 1
 done
+for _ in $(seq 1 60); do
+	docker compose exec -T s3 wget -q -O /dev/null http://127.0.0.1:9090/ >/dev/null 2>&1 && break
+	sleep 1
+done
 rows="$(docker compose exec -T postgres psql -U svforge -d svforge -tAc 'select count(*) from "user"')"
 [ "$rows" = "1" ] || { echo "❌ expected the administrator row to survive, got $rows rows"; exit 1; }
+bun s3-smoke.mjs get || { echo "❌ S3 object did not survive docker compose down/up"; exit 1; }
+bun s3-smoke.mjs delete || { echo "❌ local S3 DELETE failed"; exit 1; }
 
 echo "✅ Local Dashboard setup validated with real Docker Compose/PostgreSQL."

@@ -19,6 +19,9 @@ export function getS3(): S3Client {
 	return (cached ??= new S3Client({
 		region: env.S3_REGION ?? 'auto',
 		endpoint: env.S3_ENDPOINT,
+		// Local path-style backends (for example S3Mock) need explicit path
+		// addressing; R2 and production S3 keep the virtual-host default.
+		forcePathStyle: env.S3_FORCE_PATH_STYLE === 'true',
 		// All three credentials are checked above, so secretAccessKey is a
 		// string here — the guard also satisfies the AWS SDK types (#284).
 		credentials: { accessKeyId: env.S3_ACCESS_KEY_ID, secretAccessKey: env.S3_SECRET_ACCESS_KEY }
