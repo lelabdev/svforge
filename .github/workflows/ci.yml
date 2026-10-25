@@ -178,6 +178,12 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         run: bash docker/builder-smoke.sh
 
+      # The builder only matters if a real app can build on top of it: prove
+      # inherited layers, the app's own lockfile and an independent runtime.
+      - name: Validate a consumer build on the builder image
+        if: steps.changes.outputs.changed == 'true'
+        run: bash docker/consumer-smoke.sh
+
   # One representative scaffold after a merge to `main` (#413): catches a
   # fundamental composition break between releases without replaying the full
   # matrix on every merge. `base` does not need PostgreSQL.
