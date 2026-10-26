@@ -17,7 +17,7 @@ const LEFTHOOK_CONFIG = `pre-commit:
       run: node svforge-check.mjs --strict
 `;
 
-type HookMode = 'none' | 'lefthook';
+export type HookMode = 'none' | 'lefthook';
 
 const SVFORGE_LIB_IMPORT_MAPPING = './src/lib/*';
 

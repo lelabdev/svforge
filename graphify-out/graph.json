@@ -24925,11 +24925,20 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_dashboard_base_composition_test_rendermode",
+      "label": "renderMode()",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L163",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_dashboard_base_composition_test_rendered",
       "label": "rendered",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L162",
+      "source_location": "L184",
       "_origin": "ast"
     },
     {
@@ -55206,6 +55215,17 @@
     },
     {
       "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_modes_base_hookmode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
       "target": "packages_svforge_src_recipe_version",
       "relation": "imports_from",
       "context": "import",
@@ -55325,7 +55345,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L165",
+      "source_location": "L169",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55336,7 +55356,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L254",
+      "source_location": "L259",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55347,7 +55367,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L255",
+      "source_location": "L260",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55358,7 +55378,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L256",
+      "source_location": "L261",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55369,7 +55389,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L258",
+      "source_location": "L263",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87061,11 +87081,21 @@
     },
     {
       "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_rendermode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L163",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
       "target": "tests_dashboard_base_composition_test_rendered",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L162",
+      "source_location": "L184",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87099,6 +87129,50 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
       "source_location": "L110",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "tests_dashboard_base_composition_test_svwithdeclarations",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L167",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "tests_dashboard_base_composition_test_walk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L174",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_rendermode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L271",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_renderbothmodes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L291",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108759,7 +108833,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L178",
+      "source_location": "L182",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108771,7 +108845,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L243",
+      "source_location": "L248",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108783,7 +108857,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L276",
+      "source_location": "L281",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108795,7 +108869,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L279",
+      "source_location": "L284",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108807,7 +108881,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L281",
+      "source_location": "L286",
       "weight": 1,
       "_origin": "ast"
     },
@@ -109252,6 +109326,42 @@
       "confidence_score": 1,
       "source_file": "tests/dashboard-base-composition.test.ts",
       "source_location": "L108",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "tests_helpers_official_foundation_seedofficialfoundationondisk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L166",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "packages_svforge_src_modes_base_applybasemode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L168",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L169",
       "weight": 1,
       "_origin": "ast"
     },

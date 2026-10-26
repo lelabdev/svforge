@@ -4,7 +4,7 @@ import { scaffoldedAgents } from '../scaffolded-agents';
 import { buildManifest, renderLlmstxt } from '../ai-context';
 import { DASHBOARD_CI_WORKFLOW_PATH, renderDashboardCiWorkflow } from '../dashboard-ci';
 import { DASHBOARD_ROOT_PATHS } from '../destinations';
-import { deliverBaseScaffold } from './base';
+import { deliverBaseScaffold, type HookMode } from './base';
 import { SDFORGE_RECIPE_VERSION } from '../recipe-version';
 import { baseRootFiles } from '../templates';
 
@@ -158,7 +158,11 @@ export function applyDashboardMode(
 	dashboardFiles: Record<string, string>,
 	testing: 'vitest' | 'playwright' = 'vitest',
 	rootFiles: Record<string, string> = {},
-	packageManager = 'npm'
+	packageManager = 'npm',
+	// #674 review B-01: the selected Git-hook option travels through the
+	// canonical Base delivery (final, optional argument so existing callers keep
+	// working without a positional shift).
+	hooks: HookMode = 'none'
 ): void {
 	// PM-specific runners (#325): the advertised auth/admin commands must work
 	// with the package manager the user actually selected in `sv`.
@@ -178,6 +182,7 @@ export function applyDashboardMode(
 	const baseDelivery = deliverBaseScaffold(sv, {
 		files: baseFiles,
 		rootFiles: baseRootFiles,
+		hooks,
 		exclude: MODE_OWNED_FILES
 	});
 	// create-admin.ts is TypeScript: bun runs it natively, every other PM

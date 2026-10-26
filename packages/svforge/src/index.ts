@@ -208,7 +208,7 @@ export default defineAddon({
 			// (Dashboard-specific files overlay the shared delivery, #239.)
 			// Preserve any selected version (e.g. yarn@4) so the generated CI
 			// workflow can choose the matching major and frozen-install flag.
-			applyDashboardMode(sv, baseFiles, dashboardFiles, testing, dashboardRootFiles, packageManager);
+			applyDashboardMode(sv, baseFiles, dashboardFiles, testing, dashboardRootFiles, packageManager, hooks);
 		} else {
 			applyBaseMode(sv, baseFiles, baseRootFiles, hooks, pm);
 		}

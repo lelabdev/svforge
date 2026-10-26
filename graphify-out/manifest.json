@@ -448,7 +448,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "1af7d406f3b0e14e0864075a513d3eb0",
+    "ast_hash": "73113032d5fa2494cb7e09df1b4df34a",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -456,11 +456,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/base.ts": {
-    "ast_hash": "714b2fbf1064b3a7ecec770d7d838ad3",
+    "ast_hash": "67aa49260a442a03d3ecdf21a891a3e6",
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/dashboard.ts": {
-    "ast_hash": "5e052b6163d253cf7a5af455da6838b5",
+    "ast_hash": "37b1729686f10adaf06341932a9f0bf8",
     "semantic_hash": ""
   },
   "packages/svforge/src/module-composition.ts": {
@@ -2344,7 +2344,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-base-composition.test.ts": {
-    "ast_hash": "e6c19ba7ebeb5dda132028db29e8c208",
+    "ast_hash": "99c66d15b523ca9806115ad07ab4849e",
     "semantic_hash": ""
   },
   ".changeset/restore-skeleton-placeholder.md": {

@@ -90,12 +90,12 @@ function walk(dir: string, base = dir): string[] {
 	return out;
 }
 
-function renderBothModes() {
+function renderBothModes(hooks: 'none' | 'lefthook' = 'none') {
 	const baseDir = mkdtempSync(join(tmpdir(), 'sf-674-base-'));
 	const dashDir = mkdtempSync(join(tmpdir(), 'sf-674-dash-'));
 	try {
 		const base = svWithDeclarations(baseDir);
-		applyBaseMode(base.sv, baseFiles, baseRootFiles);
+		applyBaseMode(base.sv, baseFiles, baseRootFiles, hooks);
 
 		seedOfficialFoundationOnDisk(dashDir);
 		const officialOwned = {
@@ -105,7 +105,7 @@ function renderBothModes() {
 		const dash = svWithDeclarations(dashDir);
 		// Exactly the production path since #674 phase 2: the Dashboard mode
 		// performs the canonical Base delivery itself, then its own overlay.
-		applyDashboardMode(dash.sv, baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
+		applyDashboardMode(dash.sv, baseFiles, dashboardFiles, 'vitest', dashboardRootFiles, 'npm', hooks);
 
 		const basePaths = walk(baseDir);
 		const dashPaths = new Set(walk(dashDir));
@@ -156,6 +156,28 @@ function renderBothModes() {
 	} finally {
 		rmSync(baseDir, { recursive: true, force: true });
 		rmSync(dashDir, { recursive: true, force: true });
+	}
+}
+
+/** Render one mode and expose the Git-hook artifacts the option controls. */
+function renderMode(mode: 'base' | 'dashboard', hooks: 'none' | 'lefthook') {
+	const dir = mkdtempSync(join(tmpdir(), `sf-674-${mode}-${hooks}-`));
+	try {
+		if (mode === 'dashboard') seedOfficialFoundationOnDisk(dir);
+		const recorder = svWithDeclarations(dir);
+		if (mode === 'base') applyBaseMode(recorder.sv, baseFiles, baseRootFiles, hooks);
+		else applyDashboardMode(recorder.sv, baseFiles, dashboardFiles, 'vitest', dashboardRootFiles, 'npm', hooks);
+		const pkg = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
+			scripts?: Record<string, string>;
+		};
+		return {
+			paths: walk(dir),
+			hasLefthookConfig: existsSync(join(dir, '.lefthook.yml')),
+			prepare: pkg.scripts?.prepare ?? '',
+			devDeps: recorder.declared.devDeps
+		};
+	} finally {
+		rmSync(dir, { recursive: true, force: true });
 	}
 }
 
@@ -242,6 +264,37 @@ describe('Dashboard is the Base scaffold plus additive capabilities (#674)', () 
 		// Official-owned files are delivered by the add-ons, never tracked as ours.
 		expect(rendered.tracked['src/app.d.ts']).toBeUndefined();
 		expect(rendered.tracked['src/hooks.server.ts']).toBeUndefined();
+	});
+
+	it('forwards the Lefthook selection to BOTH modes (#674 review B-01)', () => {
+		for (const mode of ['base', 'dashboard'] as const) {
+			const on = renderMode(mode, 'lefthook');
+			expect(on.hasLefthookConfig, `${mode}: .lefthook.yml`).toBe(true);
+			expect(on.prepare, `${mode}: prepare script`).toContain('lefthook install');
+			expect(on.devDeps.lefthook, `${mode}: lefthook dependency`).toBe('^2.0.13');
+
+			const off = renderMode(mode, 'none');
+			expect(off.hasLefthookConfig, `${mode}: no .lefthook.yml by default`).toBe(false);
+			expect(off.prepare, `${mode}: no prepare script by default`).toBe('');
+			expect(off.devDeps.lefthook, `${mode}: no lefthook dependency by default`).toBeUndefined();
+
+			// Enabling the option may only ADD the hook artifacts — the rest of the
+			// generated project must stay identical (no unrelated drift).
+			const added = on.paths.filter((path) => !off.paths.includes(path)).sort();
+			expect(added, `${mode}: files added by the Lefthook option`).toEqual(['.lefthook.yml']);
+			const addedDeps = Object.keys(on.devDeps).filter((name) => off.devDeps[name] === undefined);
+			expect(addedDeps, `${mode}: dependencies added by the Lefthook option`).toEqual(['lefthook']);
+		}
+	});
+
+	it('keeps the shared Base→Dashboard contract identical for both hook modes', () => {
+		const withoutHooks = renderBothModes('none');
+		const withHooks = renderBothModes('lefthook');
+
+		expect(withHooks.missing).toEqual([]);
+		expect(withHooks.differing.sort()).toEqual(withoutHooks.differing.sort());
+		expect(withHooks.sharedVersions).toEqual(withoutHooks.sharedVersions);
+		expect(withHooks.trackingViolations).toEqual([]);
 	});
 
 	it('extends the official-owned wiring instead of overwriting it', () => {
