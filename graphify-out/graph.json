@@ -9907,7 +9907,7 @@
       "label": "DASHBOARD()",
       "file_type": "code",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L318",
+      "source_location": "L317",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9916,7 +9916,7 @@
       "label": "scaffoldedAgents()",
       "file_type": "code",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L347",
+      "source_location": "L346",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24827,6 +24827,83 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_dashboard_base_composition_test",
+      "label": "dashboard-base-composition.test.ts",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_doc",
+      "label": "DOC",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L21",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_shared_overrides",
+      "label": "SHARED_OVERRIDES",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L24",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_known_version_divergences",
+      "label": "KNOWN_VERSION_DIVERGENCES",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L43",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_declared",
+      "label": "Declared",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L51",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_svwithdeclarations",
+      "label": "svWithDeclarations()",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L54",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_walk",
+      "label": "walk()",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L81",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_renderbothmodes",
+      "label": "renderBothModes()",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L92",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_rendered",
+      "label": "rendered",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L145",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_dashboard_composition_test",
       "label": "dashboard-composition.test.ts",
       "file_type": "code",
@@ -26748,96 +26825,18 @@
     },
     {
       "id": "tests_placeholder_contrast_test_theme",
-      "label": "THEME",
+      "label": "theme",
       "file_type": "code",
       "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L19",
+      "source_location": "L6",
       "_origin": "ast"
     },
     {
-      "id": "tests_placeholder_contrast_test_skeleton_src",
-      "label": "SKELETON_SRC",
+      "id": "tests_placeholder_contrast_test_skeletonroot",
+      "label": "skeletonRoot",
       "file_type": "code",
       "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L20",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_templates",
-      "label": "TEMPLATES",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L21",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_relativeluminance",
-      "label": "relativeLuminance()",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L26",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_contrast",
-      "label": "contrast()",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L41",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_surfacestops",
-      "label": "surfaceStops()",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L46",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_placeholderstops",
-      "label": "placeholderStops()",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L55",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_scaffoldedtemplates",
-      "label": "scaffoldedTemplates()",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L65",
-      "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_stops",
-      "label": "stops",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L76",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_hint",
-      "label": "hint",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L77",
-      "_origin": "ast"
-    },
-    {
-      "id": "tests_placeholder_contrast_test_stop",
-      "label": "stop()",
-      "file_type": "code",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L78",
-      "_callable": true,
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
@@ -29586,6 +29585,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/placeholder-hint-token.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_restore_skeleton_placeholder",
+      "label": "restore-skeleton-placeholder.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/restore-skeleton-placeholder.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -34609,6 +34617,78 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_docs_dashboard_composition",
+      "label": "dashboard-composition.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_dashboard_composition_dashboard_base_additive_capabilities_674",
+      "label": "Dashboard = Base + additive capabilities (#674)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_dashboard_composition_ownership_matrix",
+      "label": "Ownership matrix",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_dashboard_composition_shared_files_the_dashboard_delivers_differently",
+      "label": "Shared files the Dashboard delivers differently",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L20",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_dashboard_composition_dependency_authority",
+      "label": "Dependency authority",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L40",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_dashboard_composition_known_divergence_to_remove_phase_3",
+      "label": "Known divergence to remove (phase 3)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L44",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_dashboard_composition_audit",
+      "label": "Audit",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L52",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_dashboard_composition_phases_of_674",
+      "label": "Phases of #674",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L63",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_docs_deployment_profiles",
       "label": "deployment-profiles.md",
       "file_type": "document",
@@ -34713,7 +34793,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L21",
+      "source_location": "L17",
       "_origin": "ast"
     },
     {
@@ -34722,7 +34802,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L25",
+      "source_location": "L21",
       "_origin": "ast"
     },
     {
@@ -34731,7 +34811,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L36",
+      "source_location": "L32",
       "_origin": "ast"
     },
     {
@@ -34740,7 +34820,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L62",
+      "source_location": "L58",
       "_origin": "ast"
     },
     {
@@ -34749,7 +34829,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L79",
+      "source_location": "L75",
       "_origin": "ast"
     },
     {
@@ -34758,7 +34838,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L103",
+      "source_location": "L99",
       "_origin": "ast"
     },
     {
@@ -34767,7 +34847,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L112",
+      "source_location": "L108",
       "_origin": "ast"
     },
     {
@@ -46085,7 +46165,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_uploads_packages_jobs_templates_src_lib_server_test_db",
+      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -55667,7 +55747,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L318",
+      "source_location": "L317",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55677,7 +55757,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L347",
+      "source_location": "L346",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55699,7 +55779,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L277",
+      "source_location": "L276",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55710,7 +55790,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L356",
+      "source_location": "L355",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55721,7 +55801,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L357",
+      "source_location": "L356",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86602,6 +86682,306 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "ref_node_os",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_modes_base",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_modes_base_applybasemode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_modes_dashboard",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_templates",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_templates_basefiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_templates_baserootfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_templates_dashboardfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_templates_dashboardrootfiles",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_helpers_official_foundation",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_helpers_official_foundation_seedofficialfoundationondisk",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_helpers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_helpers_root",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_doc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L21",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_shared_overrides",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L24",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_known_version_divergences",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L43",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_declared",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_svwithdeclarations",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L54",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_walk",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L81",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_renderbothmodes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L92",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_rendered",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L145",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_walk",
+      "target": "tests_dashboard_base_composition_test_walk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L86",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_renderbothmodes",
+      "target": "tests_dashboard_base_composition_test_svwithdeclarations",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L96",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_renderbothmodes",
+      "target": "tests_dashboard_base_composition_test_walk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L110",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_dashboard_composition_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -93458,162 +93838,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L19",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
     {
       "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_skeleton_src",
+      "target": "tests_placeholder_contrast_test_skeletonroot",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L20",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_templates",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L21",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_relativeluminance",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L26",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_contrast",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L41",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_surfacestops",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L46",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_placeholderstops",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L55",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_scaffoldedtemplates",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L65",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_stops",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L76",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_hint",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L77",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_stop",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L78",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test_contrast",
-      "target": "tests_placeholder_contrast_test_relativeluminance",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L42",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test_scaffoldedtemplates",
-      "target": "tests_placeholder_contrast_test_scaffoldedtemplates",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L70",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_stop",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L88",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_contrast",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L115",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_placeholder_contrast_test",
-      "target": "tests_placeholder_contrast_test_scaffoldedtemplates",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/placeholder-contrast.test.ts",
-      "source_location": "L128",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106859,6 +107094,76 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_docs_dashboard_composition",
+      "target": "packages_svforge_docs_dashboard_composition_dashboard_base_additive_capabilities_674",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_dashboard_composition_dashboard_base_additive_capabilities_674",
+      "target": "packages_svforge_docs_dashboard_composition_ownership_matrix",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_dashboard_composition_dashboard_base_additive_capabilities_674",
+      "target": "packages_svforge_docs_dashboard_composition_shared_files_the_dashboard_delivers_differently",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_dashboard_composition_dashboard_base_additive_capabilities_674",
+      "target": "packages_svforge_docs_dashboard_composition_dependency_authority",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L40",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_dashboard_composition_dependency_authority",
+      "target": "packages_svforge_docs_dashboard_composition_known_divergence_to_remove_phase_3",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L44",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_dashboard_composition_dashboard_base_additive_capabilities_674",
+      "target": "packages_svforge_docs_dashboard_composition_audit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L52",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_dashboard_composition_dashboard_base_additive_capabilities_674",
+      "target": "packages_svforge_docs_dashboard_composition_phases_of_674",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L63",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_docs_deployment_profiles",
       "target": "packages_svforge_docs_deployment_profiles_deployment_profiles",
       "relation": "contains",
@@ -106954,7 +107259,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L21",
+      "source_location": "L17",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106964,7 +107269,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L25",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106974,7 +107279,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L36",
+      "source_location": "L32",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106984,7 +107289,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L62",
+      "source_location": "L58",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106994,7 +107299,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L79",
+      "source_location": "L75",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107004,7 +107309,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L103",
+      "source_location": "L99",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107014,7 +107319,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L112",
+      "source_location": "L108",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108414,7 +108719,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L356",
+      "source_location": "L355",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108811,6 +109116,42 @@
       "confidence_score": 1,
       "source_file": "tests/css-drift.test.ts",
       "source_location": "L54",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_renderbothmodes",
+      "target": "packages_svforge_src_modes_base_applybasemode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L97",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_renderbothmodes",
+      "target": "tests_helpers_official_foundation_seedofficialfoundationondisk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L99",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_renderbothmodes",
+      "target": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L108",
       "weight": 1,
       "_origin": "ast"
     },
@@ -109722,7 +110063,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L96",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },
