@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { execFileSync, spawnSync } from 'node:child_process';
-import { delimiter, join } from 'node:path';
+import { delimiter, dirname, join } from 'node:path';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { ROOT } from './helpers';
@@ -331,9 +331,16 @@ describe('real bin — svforge add (#426 review)', () => {
 			{ schema: 1, template: 'dashboard', modules: ['dnd'] },
 			{ '@svforge/dnd': COMPAT_MANIFEST.packages['@svforge/dnd'] }
 		);
-		const dndFile = join(cwd, 'src/lib/components/svforge/dnd/SortableList.svelte');
-		mkdirSync(join(cwd, 'src/lib/components/svforge/dnd'), { recursive: true });
-		writeFileSync(dndFile, '<!-- installed DnD component -->');
+		// Every file the add-on delivers exists (component + showcase demo route
+		// with its discovery metadata): that is what makes the plan a no-op.
+		for (const path of [
+			'src/lib/components/svforge/dnd/SortableList.svelte',
+			'src/routes/showcase/dnd/+page.svelte',
+			'src/routes/showcase/dnd/meta.ts'
+		]) {
+			mkdirSync(dirname(join(cwd, path)), { recursive: true });
+			writeFileSync(join(cwd, path), '<!-- installed by @svforge/dnd -->');
+		}
 		const stub = join(cwd, 'stub-sv.sh');
 		writeFileSync(stub, STUB_SV, { mode: 0o755 });
 		const run = runBin(['add', 'dnd', '--sv-cmd', stub, '--plan', '--json'], cwd);

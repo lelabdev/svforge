@@ -62,7 +62,7 @@ The goal is to **reuse upstream tools, not duplicate them**. Your generated app 
 
 | Starting point | What you get |
 | --- | --- |
-| **`base`** | Svelte 5, Skeleton UI, Tailwind CSS, theme and dark mode, layouts, SEO, Paraglide EN/FR (English default), and Vitest |
+| **`base`** | Svelte 5, Skeleton UI, Tailwind CSS, theme and dark mode, layouts, SEO, Paraglide EN/FR (English default), a `/showcase` gallery with per-module demos, and Vitest |
 | **`dashboard`** | Everything in base, plus Better Auth, Drizzle/PostgreSQL, guarded admin routes, user management, and setup scripts |
 
 Both are starting points rather than fixed application architectures. The dashboard does not enable public sign-up by default; see the [template and authentication details](packages/svforge/README.md#templates).

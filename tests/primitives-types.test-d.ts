@@ -54,7 +54,7 @@ describe('Button union contract (#321)', () => {
 	});
 
 	it('a link-styled control assigns to the anchor branch', () => {
-		const props: AnchorProps = { href: '/demo-ui', children: snippet };
+		const props: AnchorProps = { href: '/showcase', children: snippet };
 		expectTypeOf(props.rel).toEqualTypeOf<HTMLAnchorAttributes['rel']>();
 		expectTypeOf(props.target).toEqualTypeOf<HTMLAnchorAttributes['target']>();
 	});

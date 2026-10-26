@@ -1,320 +1,324 @@
 {
-  "$comment": "SvelteForge module metadata contract (#236, capabilities #323). Each module declares its identity, capability contract (requires/provides/optional) and files. Capabilities are validated structurally at install time by @svforge/addon-kit — a project satisfies them with the SVForge template or its own implementation.",
-  "capabilities": {
-    "ui.skeleton": {
-      "title": "Skeleton v5 design system",
-      "description": "Skeleton theme wiring (design tokens, presets) so Skeleton-styled components render correctly"
-    },
-    "ui.svforge": {
-      "title": "SVForge base UI kit",
-      "description": "the canonical component structure (src/lib/components/svforge: primitives/, ui/) and shared utils such as cn()"
-    },
-    "i18n.messages": {
-      "title": "Paraglide message catalogs (FR/EN)",
-      "description": "Paraglide i18n with messages/{locale}.json catalogs so modules can merge their UI copy without inventing keys"
-    },
-    "auth.currentUser": {
-      "title": "Authenticated user (locals.user)",
-      "description": "an authenticated user is available in server locals (Better Auth in SVForge) so endpoints can enforce identity"
-    },
-    "auth.admin": {
-      "title": "Admin role helpers (#lib/server/admin.js)",
-      "description": "role helpers such as isAdmin() guarding admin-only routes"
-    },
-    "database.drizzle.postgres": {
-      "title": "PostgreSQL via Drizzle ORM",
-      "description": "a Drizzle client on PostgreSQL (src/lib/server/db) so modules can register their schemas in the barrel"
-    },
-    "storage.object": {
-      "title": "S3-compatible object storage",
-      "description": "an S3 client wiring (endpoint, bucket, credentials) for persistent object storage"
-    },
-    "runtime.longLivedWorker": {
-      "title": "Long-lived worker runtime",
-      "description": "a runtime that keeps a background process alive (in-process runner) — serverless platforms terminate it"
-    },
-    "runtime.websocket": {
-      "title": "WebSocket-capable runtime",
-      "description": "a runtime that allows keeping WebSocket server connections open — serverless platforms terminate them"
-    }
-  },
-  "templates": {
-    "base": {
-      "description": "UI kit, layouts, theme, SEO, Paraglide FR/EN, Vitest baseline",
-      "provides": [
-        "ui.skeleton",
-        "ui.svforge",
-        "i18n.messages"
-      ]
-    },
-    "dashboard": {
-      "description": "base + Better Auth + Drizzle + admin (users/settings)",
-      "provides": [
-        "ui.skeleton",
-        "ui.svforge",
-        "i18n.messages",
-        "auth.currentUser",
-        "auth.admin",
-        "database.drizzle.postgres"
-      ]
-    }
-  },
-  "modules": {
-    "ui_toast": {
-      "id": "ui_toast",
-      "description": "Toast notifications (Skeleton Toast)",
-      "template": "base",
-      "requires": [
-        "ui.skeleton"
-      ],
-      "provides": [],
-      "optional": [],
-      "optionalModules": [],
-      "files": [
-        "src/lib/components/svforge/ui/Toaster.svelte",
-        "src/lib/components/svforge/ui/toaster.ts"
-      ]
-    },
-    "dnd": {
-      "id": "dnd",
-      "description": "Drag & drop sortable lists",
-      "template": "base",
-      "requires": [],
-      "provides": [],
-      "optional": [],
-      "optionalModules": [],
-      "files": [
-        "src/lib/components/svforge/dnd/SortableList.svelte"
-      ]
-    },
-    "tiptap": {
-      "id": "tiptap",
-      "description": "Rich text editor (Tiptap, toolbar + preview)",
-      "template": "base",
-      "requires": [
-        "ui.skeleton",
-        "i18n.messages"
-      ],
-      "provides": [],
-      "optional": [],
-      "optionalModules": [],
-      "files": [
-        "src/lib/components/svforge/tiptap/"
-      ]
-    },
-    "graph": {
-      "id": "graph",
-      "description": "Knowledge graph visualization (force-graph)",
-      "template": "base",
-      "requires": [
-        "ui.svforge"
-      ],
-      "provides": [],
-      "optional": [],
-      "optionalModules": [],
-      "files": [
-        "src/lib/components/svforge/graph/"
-      ]
-    },
-    "email": {
-      "id": "email",
-      "description": "Transactional emails (Resend)",
-      "template": "base",
-      "requires": [],
-      "provides": [],
-      "optional": [],
-      "optionalModules": [],
-      "files": [
-        "src/lib/server/email.ts",
-        "src/lib/server/templates/"
-      ]
-    },
-    "oauth": {
-      "id": "oauth",
-      "description": "Social auth buttons (Google, GitHub)",
-      "template": "dashboard",
-      "requires": [
-        "auth.currentUser"
-      ],
-      "provides": [],
-      "optional": [
-        "ui.skeleton"
-      ],
-      "optionalModules": [],
-      "files": [
-        "src/lib/components/svforge/ui/OAuthButtons.svelte"
-      ]
-    },
-    "uploads": {
-      "id": "uploads",
-      "description": "File uploads (S3-compatible POST hard limit, PUT best-effort fallback)",
-      "template": "base",
-      "requires": [
-        "auth.currentUser",
-        "i18n.messages"
-      ],
-      "provides": [
-        "storage.object"
-      ],
-      "optional": [
-        "ui.skeleton"
-      ],
-      "optionalModules": [],
-      "files": [
-        "src/lib/components/svforge/uploads/",
-        "src/lib/server/s3.ts",
-        "src/routes/api/upload/"
-      ]
-    },
-    "blog": {
-      "id": "blog",
-      "description": "MDsveX blog (posts + list + detail)",
-      "template": "base",
-      "requires": [
-        "ui.svforge",
-        "i18n.messages"
-      ],
-      "provides": [],
-      "optional": [],
-      "optionalModules": [],
-      "files": [
-        "src/posts/",
-        "src/lib/utils/posts.ts",
-        "src/routes/blog/"
-      ]
-    },
-    "realtime": {
-      "id": "realtime",
-      "description": "WebSocket transport (publish/subscribe, channels isolés)",
-      "template": "base",
-      "requires": [
-        "runtime.websocket"
-      ],
-      "provides": [],
-      "optional": [],
-      "optionalModules": [],
-      "files": [
-        "src/lib/server/realtime/",
-        "src/lib/realtime/client.ts"
-      ]
-    },
-    "audit": {
-      "id": "audit",
-      "description": "Business action audit trail (append-only)",
-      "template": "dashboard",
-      "requires": [
-        "database.drizzle.postgres",
-        "auth.currentUser",
-        "auth.admin",
-        "i18n.messages",
-        "ui.svforge"
-      ],
-      "provides": [],
-      "optional": [],
-      "optionalModules": [],
-      "files": [
-        "src/lib/server/audit/",
-        "src/routes/(app)/admin/audit/"
-      ]
-    },
-    "notifications": {
-      "id": "notifications",
-      "description": "Persistent business notifications (read/unread)",
-      "template": "dashboard",
-      "requires": [
-        "database.drizzle.postgres",
-        "i18n.messages"
-      ],
-      "provides": [],
-      "optional": [
-        "runtime.websocket"
-      ],
-      "optionalModules": [
-        "realtime",
-        "email"
-      ],
-      "files": [
-        "src/lib/server/notifications/",
-        "src/lib/components/svforge/ui/NotificationsBell.svelte",
-        "src/routes/api/notifications/"
-      ]
-    },
-    "jobs": {
-      "id": "jobs",
-      "description": "Background job foundation (retry, progress, backend encapsulé)",
-      "template": "dashboard",
-      "requires": [
-        "database.drizzle.postgres",
-        "runtime.longLivedWorker"
-      ],
-      "provides": [],
-      "optional": [
-        "runtime.websocket"
-      ],
-      "optionalModules": [
-        "realtime",
-        "notifications",
-        "email"
-      ],
-      "files": [
-        "src/lib/server/jobs/"
-      ]
-    },
-    "chat": {
-      "id": "chat",
-      "description": "Composable app chat (conversations, messages, read-state)",
-      "template": "dashboard",
-      "requires": [
-        "database.drizzle.postgres",
-        "auth.currentUser",
-        "i18n.messages",
-        "ui.svforge"
-      ],
-      "provides": [],
-      "optional": [
-        "runtime.websocket",
-        "storage.object"
-      ],
-      "optionalModules": [
-        "realtime",
-        "uploads",
-        "notifications"
-      ],
-      "files": [
-        "src/lib/server/chat/",
-        "src/routes/chat/"
-      ]
-    }
-  },
-  "presets": {
-    "saas": {
-      "description": "Dashboard SaaS de départ : auth + admin + email + uploads",
-      "requires": [
-        "dashboard"
-      ],
-      "modules": [
-        "email",
-        "uploads"
-      ],
-      "optional": [
-        "tiptap",
-        "oauth",
-        "dnd"
-      ]
-    },
-    "community": {
-      "description": "Site communautaire : base + blog + toast",
-      "requires": [
-        "base"
-      ],
-      "modules": [
-        "blog",
-        "ui_toast"
-      ],
-      "optional": [
-        "tiptap",
-        "graph"
-      ]
-    }
-  }
+	"$comment": "SvelteForge module metadata contract (#236, capabilities #323). Each module declares its identity, capability contract (requires/provides/optional) and files. Capabilities are validated structurally at install time by @svforge/addon-kit — a project satisfies them with the SVForge template or its own implementation.",
+	"capabilities": {
+		"ui.skeleton": {
+			"title": "Skeleton v5 design system",
+			"description": "Skeleton theme wiring (design tokens, presets) so Skeleton-styled components render correctly"
+		},
+		"ui.svforge": {
+			"title": "SVForge base UI kit",
+			"description": "the canonical component structure (src/lib/components/svforge: primitives/, ui/) and shared utils such as cn()"
+		},
+		"i18n.messages": {
+			"title": "Paraglide message catalogs (FR/EN)",
+			"description": "Paraglide i18n with messages/{locale}.json catalogs so modules can merge their UI copy without inventing keys"
+		},
+		"auth.currentUser": {
+			"title": "Authenticated user (locals.user)",
+			"description": "an authenticated user is available in server locals (Better Auth in SVForge) so endpoints can enforce identity"
+		},
+		"auth.admin": {
+			"title": "Admin role helpers (#lib/server/admin.js)",
+			"description": "role helpers such as isAdmin() guarding admin-only routes"
+		},
+		"database.drizzle.postgres": {
+			"title": "PostgreSQL via Drizzle ORM",
+			"description": "a Drizzle client on PostgreSQL (src/lib/server/db) so modules can register their schemas in the barrel"
+		},
+		"storage.object": {
+			"title": "S3-compatible object storage",
+			"description": "an S3 client wiring (endpoint, bucket, credentials) for persistent object storage"
+		},
+		"runtime.longLivedWorker": {
+			"title": "Long-lived worker runtime",
+			"description": "a runtime that keeps a background process alive (in-process runner) — serverless platforms terminate it"
+		},
+		"runtime.websocket": {
+			"title": "WebSocket-capable runtime",
+			"description": "a runtime that allows keeping WebSocket server connections open — serverless platforms terminate them"
+		}
+	},
+	"templates": {
+		"base": {
+			"description": "UI kit, layouts, theme, SEO, Paraglide FR/EN, Vitest baseline",
+			"provides": [
+				"ui.skeleton",
+				"ui.svforge",
+				"i18n.messages"
+			]
+		},
+		"dashboard": {
+			"description": "base + Better Auth + Drizzle + admin (users/settings)",
+			"provides": [
+				"ui.skeleton",
+				"ui.svforge",
+				"i18n.messages",
+				"auth.currentUser",
+				"auth.admin",
+				"database.drizzle.postgres"
+			]
+		}
+	},
+	"modules": {
+		"ui_toast": {
+			"id": "ui_toast",
+			"description": "Toast notifications (Skeleton Toast)",
+			"template": "base",
+			"requires": [
+				"ui.skeleton"
+			],
+			"provides": [],
+			"optional": [],
+			"optionalModules": [],
+			"files": [
+				"src/lib/components/svforge/ui/Toaster.svelte",
+				"src/lib/components/svforge/ui/toaster.ts"
+			]
+		},
+		"dnd": {
+			"id": "dnd",
+			"description": "Drag & drop sortable lists",
+			"template": "base",
+			"requires": [
+				"ui.svforge",
+				"i18n.messages"
+			],
+			"provides": [],
+			"optional": [],
+			"optionalModules": [],
+			"files": [
+				"src/lib/components/svforge/dnd/SortableList.svelte",
+				"src/routes/showcase/dnd/"
+			]
+		},
+		"tiptap": {
+			"id": "tiptap",
+			"description": "Rich text editor (Tiptap, toolbar + preview)",
+			"template": "base",
+			"requires": [
+				"ui.skeleton",
+				"i18n.messages"
+			],
+			"provides": [],
+			"optional": [],
+			"optionalModules": [],
+			"files": [
+				"src/lib/components/svforge/tiptap/"
+			]
+		},
+		"graph": {
+			"id": "graph",
+			"description": "Knowledge graph visualization (force-graph)",
+			"template": "base",
+			"requires": [
+				"ui.svforge"
+			],
+			"provides": [],
+			"optional": [],
+			"optionalModules": [],
+			"files": [
+				"src/lib/components/svforge/graph/"
+			]
+		},
+		"email": {
+			"id": "email",
+			"description": "Transactional emails (Resend)",
+			"template": "base",
+			"requires": [],
+			"provides": [],
+			"optional": [],
+			"optionalModules": [],
+			"files": [
+				"src/lib/server/email.ts",
+				"src/lib/server/templates/"
+			]
+		},
+		"oauth": {
+			"id": "oauth",
+			"description": "Social auth buttons (Google, GitHub)",
+			"template": "dashboard",
+			"requires": [
+				"auth.currentUser"
+			],
+			"provides": [],
+			"optional": [
+				"ui.skeleton"
+			],
+			"optionalModules": [],
+			"files": [
+				"src/lib/components/svforge/ui/OAuthButtons.svelte"
+			]
+		},
+		"uploads": {
+			"id": "uploads",
+			"description": "File uploads (S3-compatible POST hard limit, PUT best-effort fallback)",
+			"template": "base",
+			"requires": [
+				"auth.currentUser",
+				"i18n.messages"
+			],
+			"provides": [
+				"storage.object"
+			],
+			"optional": [
+				"ui.skeleton"
+			],
+			"optionalModules": [],
+			"files": [
+				"src/lib/components/svforge/uploads/",
+				"src/lib/server/s3.ts",
+				"src/routes/api/upload/"
+			]
+		},
+		"blog": {
+			"id": "blog",
+			"description": "MDsveX blog (posts + list + detail)",
+			"template": "base",
+			"requires": [
+				"ui.svforge",
+				"i18n.messages"
+			],
+			"provides": [],
+			"optional": [],
+			"optionalModules": [],
+			"files": [
+				"src/posts/",
+				"src/lib/utils/posts.ts",
+				"src/routes/blog/"
+			]
+		},
+		"realtime": {
+			"id": "realtime",
+			"description": "WebSocket transport (publish/subscribe, channels isolés)",
+			"template": "base",
+			"requires": [
+				"runtime.websocket"
+			],
+			"provides": [],
+			"optional": [],
+			"optionalModules": [],
+			"files": [
+				"src/lib/server/realtime/",
+				"src/lib/realtime/client.ts"
+			]
+		},
+		"audit": {
+			"id": "audit",
+			"description": "Business action audit trail (append-only)",
+			"template": "dashboard",
+			"requires": [
+				"database.drizzle.postgres",
+				"auth.currentUser",
+				"auth.admin",
+				"i18n.messages",
+				"ui.svforge"
+			],
+			"provides": [],
+			"optional": [],
+			"optionalModules": [],
+			"files": [
+				"src/lib/server/audit/",
+				"src/routes/(app)/admin/audit/"
+			]
+		},
+		"notifications": {
+			"id": "notifications",
+			"description": "Persistent business notifications (read/unread)",
+			"template": "dashboard",
+			"requires": [
+				"database.drizzle.postgres",
+				"i18n.messages"
+			],
+			"provides": [],
+			"optional": [
+				"runtime.websocket"
+			],
+			"optionalModules": [
+				"realtime",
+				"email"
+			],
+			"files": [
+				"src/lib/server/notifications/",
+				"src/lib/components/svforge/ui/NotificationsBell.svelte",
+				"src/routes/api/notifications/"
+			]
+		},
+		"jobs": {
+			"id": "jobs",
+			"description": "Background job foundation (retry, progress, backend encapsulé)",
+			"template": "dashboard",
+			"requires": [
+				"database.drizzle.postgres",
+				"runtime.longLivedWorker"
+			],
+			"provides": [],
+			"optional": [
+				"runtime.websocket"
+			],
+			"optionalModules": [
+				"realtime",
+				"notifications",
+				"email"
+			],
+			"files": [
+				"src/lib/server/jobs/"
+			]
+		},
+		"chat": {
+			"id": "chat",
+			"description": "Composable app chat (conversations, messages, read-state)",
+			"template": "dashboard",
+			"requires": [
+				"database.drizzle.postgres",
+				"auth.currentUser",
+				"i18n.messages",
+				"ui.svforge"
+			],
+			"provides": [],
+			"optional": [
+				"runtime.websocket",
+				"storage.object"
+			],
+			"optionalModules": [
+				"realtime",
+				"uploads",
+				"notifications"
+			],
+			"files": [
+				"src/lib/server/chat/",
+				"src/routes/chat/"
+			]
+		}
+	},
+	"presets": {
+		"saas": {
+			"description": "Dashboard SaaS de départ : auth + admin + email + uploads",
+			"requires": [
+				"dashboard"
+			],
+			"modules": [
+				"email",
+				"uploads"
+			],
+			"optional": [
+				"tiptap",
+				"oauth",
+				"dnd"
+			]
+		},
+		"community": {
+			"description": "Site communautaire : base + blog + toast",
+			"requires": [
+				"base"
+			],
+			"modules": [
+				"blog",
+				"ui_toast"
+			],
+			"optional": [
+				"tiptap",
+				"graph"
+			]
+		}
+	}
 }

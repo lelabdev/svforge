@@ -161,7 +161,7 @@ keep it in its feature area (e.g. \`src/lib/features/...\` or the route folder).
 - On small screens preserve hierarchy, reading order, readable targets, and no overflow — do not preserve arbitrary desktop dimensions. The page-header action row already wraps and stretches full width below \`sm\`.
 - Do not add \`Page*\`/\`Section*\` components just to freeze dimensions; \`PageHeader\` is the ONE canonical page convention — extend it through props instead of forking it per page.
 
-Use the existing screens as concrete references, not a gallery to copy: \`/demo-ui\` shows the available building blocks, \`/admin\` is a dashboard with one primary route action in a canonical \`PageHeader\`, \`/admin/users\` keeps a CRUD list/table direct behind the same header composition, and \`/admin/settings\` uses focused form units with its deliberate \`max-w-2xl\` column.
+Use the existing screens as concrete references, not a gallery to copy: \`/showcase\` shows the available building blocks, \`/admin\` is a dashboard with one primary route action in a canonical \`PageHeader\`, \`/admin/users\` keeps a CRUD list/table direct behind the same header composition, and \`/admin/settings\` uses focused form units with its deliberate \`max-w-2xl\` column.
 
 ## Design-system contract (#240, #313)
 
@@ -269,6 +269,7 @@ MUST:
 - use domain-oriented message names (\`users_create\`, not \`blue_button_text\`)
 - localize EVERY internal \`href\`/navigation target with \`localizeHref()\` from \`#lib/paraglide/runtime.js\` — a raw \`/path\` drops the active locale and silently sends the user back to the base locale. The \`Navbar\`, \`Footer\` and \`AdminLayout\` already do this for the links you pass them
 - keep the compiled Paraglide strategy URL-based (\`url\`, \`cookie\`, \`baseLocale\` in \`vite.config.ts\` and in the \`paraglide-js compile\` step of \`package.json\`): without \`url\`, \`/fr/...\` silently renders the base locale even though the URL and links say French
+- put a module's interactive demo under \`src/routes/showcase/<module>/\` with a sibling \`meta.ts\` (\`title\`, optional \`description\`, optional \`order\`, all locale functions): \`/showcase\` lists the demos that are actually installed and never imports an uninstalled module. Demos use local fixture data, expose no credentials and cause no production side effects
 - keep locale switching in the one shared \`ui/LocaleSwitcher.svelte\`: it renders the project's configured \`locales\`, marks the active one and preserves the current route, query string and fragment. Place it wherever the design needs it (the scaffold wires it into the shared shells), and never build a second switcher or a parallel locale state
 
 MUST NOT:

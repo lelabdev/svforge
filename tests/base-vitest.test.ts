@@ -102,9 +102,9 @@ describe('base Vitest baseline (#235)', () => {
 			expect(en.home_title).toBeTruthy();
 		});
 
-		it('demo-ui code sample is a string constant, not a Svelte expression', () => {
+		it('showcase code sample is a string constant, not a Svelte expression', () => {
 			const demo = readFileSync(
-				join(baseRoot, 'src/routes/demo-ui/+page.svelte'),
+				join(baseRoot, 'src/routes/showcase/+page.svelte'),
 				'utf-8'
 			);
 			expect(demo).toMatch(/skeletonImportExample/);

@@ -59,6 +59,10 @@ Every scaffolded component follows the [Skeleton v5-first baseline](docs/skeleto
 - **`base`** — Skeleton UI and Tailwind, reusable foundations (`Button`, `Input`, `Select`, `Card`, `Badge`, `Table`), theme and dark mode, SEO, Paraglide EN/FR (English default), and Vitest.
 - **`dashboard`** — base plus Better Auth, PostgreSQL/Drizzle, protected admin routes, user management, and setup scripts.
 
+### Showcase
+
+`/showcase` is the design-system gallery (colors, variants, every shared component, theme switching). Installed modules can contribute their own child demo — `dnd` ships `/showcase/dnd`, a working sortable list with local fixture data — by adding a route plus a `meta.ts` next to it: the showcase index discovers demos with a build-time glob and lists only what is installed, so a plain Base project imports nothing and shows no empty section. Demos use local fixtures and no credentials by default; they are ordinary routes, so excluding them from a production deployment is a build-time decision (remove/omit the route, or do not install that module's demo files).
+
 Dashboard sign-up is closed by default; `SIGNUP_MODE` can be set to `invite-only` or `self-service`. The admin role is granted through `<pm> run admin:create`, not public sign-up. Integration tests use `TEST_DATABASE_URL` and refuse database names without a `test` segment; see the generated `.env.example` before running them.
 
 Skeleton is the visual and primitive source of truth. The theme is in `src/lib/styles/svelteforge-theme.css`; global CSS wiring is in `src/routes/layout.css`. Static UI text uses Paraglide message catalogs. These are editable defaults, not restrictions on a consumer project.

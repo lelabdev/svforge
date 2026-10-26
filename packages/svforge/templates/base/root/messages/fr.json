@@ -195,5 +195,7 @@
   "users_invite_desc": "Pré-autorise un e-mail à créer son compte (mode inscription sur invitation).",
   "users_invited": "Invitation créée",
   "users_already_invited": "Cet e-mail a déjà été invité",
-  "users_invite_failed": "Échec de la création de l'invitation"
+  "users_invite_failed": "Échec de la création de l'invitation",
+  "demo_modules": "Démos des modules",
+  "demo_modules_desc": "Chaque module installé ajoute sa propre page de démonstration ici."
 }

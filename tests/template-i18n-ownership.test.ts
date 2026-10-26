@@ -60,8 +60,8 @@ describe('base template Paraglide message ownership', () => {
 		}
 	});
 
-	it('lets demo-ui work without homepage messages and the homepage work without demo messages', () => {
-		assertReferencesResolve('home_', 'demo-ui/+page.svelte');
+	it('lets the showcase work without homepage messages and the homepage work without demo messages', () => {
+		assertReferencesResolve('home_', 'showcase/+page.svelte');
 		assertReferencesResolve('demo_', '+page.svelte');
 	});
 });

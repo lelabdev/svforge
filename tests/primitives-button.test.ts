@@ -30,7 +30,7 @@ describe('Button — button|anchor union (#321)', () => {
 	it('renders an <a> when href is present, forwarding anchor attributes', () => {
 		const onclick = vi.fn();
 		const { getByRole } = button({
-			href: '/demo-ui',
+			href: '/showcase',
 			id: 'cta',
 			target: '_blank',
 			rel: 'noopener',
@@ -39,7 +39,7 @@ describe('Button — button|anchor union (#321)', () => {
 		});
 		const anchor = getByRole('link', { name: 'Go to demo' });
 		expect(anchor.tagName).toBe('A');
-		expect(anchor).toHaveAttribute('href', '/demo-ui');
+		expect(anchor).toHaveAttribute('href', '/showcase');
 		expect(anchor).toHaveAttribute('id', 'cta');
 		expect(anchor).toHaveAttribute('target', '_blank');
 		expect(anchor).toHaveAttribute('rel', 'noopener');
@@ -86,7 +86,7 @@ describe('Button — button|anchor union (#321)', () => {
 		// Untyped (JS) consumers can smuggle button props in — the <a> must
 		// still never receive them (#321).
 		const { getByRole } = button({
-			href: '/demo-ui',
+			href: '/showcase',
 			type: 'submit',
 			name: 'action',
 			form: 'settings-form',
@@ -120,7 +120,7 @@ describe('Button — button|anchor union (#321)', () => {
 			expect(anchor).not.toHaveAttribute(attr);
 		}
 		// Legitimate anchor rest props still flow through on the same element.
-		expect(anchor).toHaveAttribute('href', '/demo-ui');
+		expect(anchor).toHaveAttribute('href', '/showcase');
 	});
 
 	it('component state is authoritative: consumer aria-* cannot override it', () => {
@@ -128,7 +128,7 @@ describe('Button — button|anchor union (#321)', () => {
 		// land LAST — a lying `aria-disabled="false"` cannot mask the loading
 		// state from assistive technology (#321).
 		const { getByRole } = button({
-			href: '/demo-ui',
+			href: '/showcase',
 			loading: true,
 			'aria-disabled': 'false',
 			'aria-busy': 'false'
@@ -140,7 +140,7 @@ describe('Button — button|anchor union (#321)', () => {
 
 	it('disabled anchor keeps link semantics: aria-disabled + reduced styling, never a <button>', () => {
 		const { getByRole, queryByRole } = button({
-			href: '/demo-ui',
+			href: '/showcase',
 			disabled: true,
 			target: '_blank',
 			rel: 'noopener'
@@ -166,7 +166,7 @@ describe('Button — button|anchor union (#321)', () => {
 	});
 
 	it('loading anchor stays an anchor and announces busy state', () => {
-		const { getByRole, getByText, queryByRole } = button({ href: '/demo-ui', loading: true });
+		const { getByRole, getByText, queryByRole } = button({ href: '/showcase', loading: true });
 		const anchor = getByRole('link', { name: /Loading… Save/ });
 		expect(queryByRole('button')).toBeNull();
 		expect(anchor).toHaveAttribute('aria-busy', 'true');
@@ -218,7 +218,7 @@ describe('Button — button|anchor union (#321)', () => {
 	});
 
 	it('idle anchors do not render disabled signaling', () => {
-		const { getByRole } = button({ href: '/demo-ui' });
+		const { getByRole } = button({ href: '/showcase' });
 		const anchor = getByRole('link', { name: 'Save' });
 		expect(anchor).not.toHaveAttribute('aria-disabled');
 		expect(anchor).not.toHaveAttribute('aria-busy');
@@ -241,7 +241,7 @@ describe('Button — inactive anchor activation gate + button state authority (#
 
 	it('disabled anchor blocks activation: click (mouse or Enter) is prevented, consumer onClick skipped', () => {
 		const onclick = vi.fn();
-		const { getByRole } = button({ href: '/demo-ui', disabled: true, onclick });
+		const { getByRole } = button({ href: '/showcase', disabled: true, onclick });
 		const anchor = getByRole('link', { name: 'Save' });
 		// Anchor stays focusable (aria-disabled pattern)…
 		expect(anchor).toHaveAttribute('aria-disabled', 'true');
@@ -253,7 +253,7 @@ describe('Button — inactive anchor activation gate + button state authority (#
 
 	it('loading anchor blocks activation too: click is prevented, consumer onClick skipped', () => {
 		const onclick = vi.fn();
-		const { getByRole } = button({ href: '/demo-ui', loading: true, onclick });
+		const { getByRole } = button({ href: '/showcase', loading: true, onclick });
 		const anchor = getByRole('link', { name: /Loading… Save/ });
 		const { preventDefault } = activate(anchor);
 		expect(preventDefault).toHaveBeenCalled();
@@ -262,7 +262,7 @@ describe('Button — inactive anchor activation gate + button state authority (#
 
 	it('active anchor is untouched: click is not prevented and consumer onClick fires', () => {
 		const onclick = vi.fn();
-		const { getByRole } = button({ href: '/demo-ui', onclick });
+		const { getByRole } = button({ href: '/showcase', onclick });
 		const anchor = getByRole('link', { name: 'Save' });
 		expect(anchor).toHaveClass('cursor-pointer');
 		const { preventDefault } = activate(anchor);
