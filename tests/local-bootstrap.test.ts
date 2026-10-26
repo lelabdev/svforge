@@ -213,26 +213,70 @@ function provisionedProject() {
 		name: 'fixture', private: true,
 		scripts: { 'db:push': 'drizzle-kit push', 'admin:create': 'tsx scripts/create-admin.ts' }
 	}));
-	writeFileSync(join(dir, 'node_modules/.bin/docker'), `#!/bin/sh
-echo "docker $*" >> invoked
-envfile=$(printf '%s\\n' "$*" | sed -n 's/.*--env-file \\([^ ]*\\).*/\\1/p')
-case "$*" in
-  *"version"*) exit 0 ;;
-  *" config "*)
-    p=$(sed -n 's/^POSTGRES_PORT=//p' "$envfile")
-    pw=$(sed -n 's/^POSTGRES_PASSWORD=//p' "$envfile")
-    extra=""
-    [ "\${STUB_COMPOSE_EXTRA_PORT:-}" = "1" ] && extra=',{"host_ip":"0.0.0.0","published":"9999","target":9999,"protocol":"tcp"}'
-    printf '{"services":{"postgres":{"image":"postgres:17.2","ports":[{"host_ip":"127.0.0.1","published":"%s","target":5432,"protocol":"tcp"}%s],"volumes":[{"type":"volume","source":"postgres-data","target":"/var/lib/postgresql/data"}],"environment":{"POSTGRES_USER":"svforge","POSTGRES_DB":"svforge","POSTGRES_PASSWORD":"%s"},"restart":"unless-stopped","healthcheck":{"test":["CMD-SHELL","pg_isready -U svforge -d svforge"]}}},"volumes":{"postgres-data":{}}}\\n' "$p" "$extra" "$pw"
-    exit 0 ;;
-  *" up -d postgres") exit 0 ;;
-  *"ps --status running --services"*) echo postgres; exit 0 ;;
-  *"port postgres 5432"*)
-    p=$(sed -n 's/^POSTGRES_PORT=//p' .env)
-    echo "127.0.0.1:\${STUB_PORT:-$p}"; exit 0 ;;
-  *"current_database"*) echo "svforge/svforge"; exit 0 ;;
-  *) exit 0 ;;
-esac
+	writeFileSync(join(dir, 'node_modules/.bin/docker'), `#!/usr/bin/env node
+const { readFileSync, appendFileSync, existsSync } = require('node:fs');
+const args = process.argv.slice(2);
+appendFileSync('invoked', 'docker ' + args.join(' ') + '\\n');
+const envFileIndex = args.indexOf('--env-file');
+const envFile = envFileIndex >= 0 ? args[envFileIndex + 1] : '.env';
+function readEnv(file) {
+	const values = {};
+	if (!existsSync(file)) return values;
+	for (const line of readFileSync(file, 'utf8').split('\\n')) {
+		const match = /^([A-Z0-9_]+)=(.*)$/.exec(line);
+		if (match) values[match[1]] = match[2];
+	}
+	return values;
+}
+const values = readEnv(envFile);
+const usesS3 = (() => {
+	try { return readFileSync('docker-compose.yml', 'utf8').includes('adobe/s3mock'); } catch { return false; }
+})();
+if (args.includes('version')) process.exit(0);
+if (args.includes('config')) {
+	const postgres = {
+		image: 'postgres:17.2',
+		ports: [{ host_ip: '127.0.0.1', published: values.POSTGRES_PORT, target: 5432, protocol: 'tcp' }],
+		volumes: [{ type: 'volume', source: 'postgres-data', target: '/var/lib/postgresql/data' }],
+		environment: { POSTGRES_USER: 'svforge', POSTGRES_DB: 'svforge', POSTGRES_PASSWORD: values.POSTGRES_PASSWORD },
+		restart: 'unless-stopped',
+		healthcheck: { test: ['CMD-SHELL', 'pg_isready -U svforge -d svforge'] }
+	};
+	if (process.env.STUB_COMPOSE_EXTRA_PORT === '1') postgres.ports.push({ host_ip: '0.0.0.0', published: '9999', target: 9999, protocol: 'tcp' });
+	const model = { services: { postgres }, volumes: { 'postgres-data': {} } };
+	if (usesS3) {
+		model.services.s3 = {
+			image: 'adobe/s3mock:5.2.3@sha256:ab01a6946750f451ca215a47e91030695b260e4003b8a5a6201d25029b8fca92',
+			ports: [{ host_ip: '127.0.0.1', published: values.S3_PORT, target: 9090, protocol: 'tcp' }],
+			volumes: [{ type: 'volume', source: 's3-data', target: '/s3mockroot' }],
+			environment: {
+				COM_ADOBE_TESTING_S3MOCK_STORE_INITIAL_BUCKETS: values.S3_BUCKET,
+				COM_ADOBE_TESTING_S3MOCK_STORE_ROOT: '/s3mockroot',
+				COM_ADOBE_TESTING_S3MOCK_STORE_RETAIN_FILES_ON_EXIT: 'true'
+			},
+			restart: 'unless-stopped',
+			healthcheck: { test: ['CMD-SHELL', 'wget -q -O /dev/null http://127.0.0.1:9090/ || exit 1'] }
+		};
+		model.volumes['s3-data'] = {};
+	}
+	process.stdout.write(JSON.stringify(model));
+	process.exit(0);
+}
+if (args.includes('ps')) {
+	console.log('postgres');
+	if (usesS3) console.log('s3');
+	process.exit(0);
+}
+if (args.includes('port')) {
+	const service = args[args.indexOf('port') + 1];
+	const file = readEnv('.env');
+	if (service === 's3') console.log('127.0.0.1:' + (process.env.STUB_PORT || file.S3_PORT));
+	else console.log('127.0.0.1:' + (process.env.STUB_PORT || file.POSTGRES_PORT));
+	process.exit(0);
+}
+if (args.includes('s3') && args.includes('wget')) process.exit(Number(process.env.STUB_S3_UNHEALTHY || 0));
+if (args.some((arg) => String(arg).includes('current_database'))) { console.log('svforge/svforge'); process.exit(0); }
+process.exit(0);
 `, { mode: 0o755 });
 	writeFileSync(join(dir, 'node_modules/.bin/bun'), `#!/bin/sh
 echo "bun $*" >> invoked
@@ -512,6 +556,134 @@ describe('Dashboard local database provisioning (#589)', () => {
 		const afterAdmin = readFileSync(join(dir, 'invoked'), 'utf8');
 		expect(afterAdmin).toContain(`env:${localUrl}`);
 		expect(afterAdmin).not.toContain('evil');
+	});
+
+
+	function managedS3Project() {
+		const dir = uploadsProject();
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status, result.stderr).toBe(0);
+		return dir;
+	}
+
+	function uploadsProject() {
+		const dir = provisionedProject();
+		writeFileSync(join(dir, '.svforge.json'), JSON.stringify({ schema: 1, template: 'dashboard', modules: ['uploads'] }));
+		return dir;
+	}
+
+	it('provisions a persistent local S3Mock only for uploads projects (#610)', () => {
+		const dir = uploadsProject();
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status, result.stderr).toBe(0);
+		const compose = readFileSync(join(dir, 'docker-compose.yml'), 'utf8');
+		expect(compose).toContain('adobe/s3mock:5.2.3@sha256:');
+		expect(compose).toContain('127.0.0.1:${S3_PORT:-9090}:9090');
+		expect(compose).toContain('s3-data:/s3mockroot');
+		expect(compose).toContain('COM_ADOBE_TESTING_S3MOCK_STORE_RETAIN_FILES_ON_EXIT');
+
+		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		expect(env.SVFORGE_LOCAL_S3).toBe('compose');
+		expect(env.S3_ENDPOINT).toBe(`http://127.0.0.1:${env.S3_PORT}`);
+		expect(env.S3_FORCE_PATH_STYLE).toBe('true');
+		expect(env.S3_ACCESS_KEY_ID?.length ?? 0).toBeGreaterThan(8);
+		expect(env.S3_SECRET_ACCESS_KEY?.length ?? 0).toBeGreaterThan(20);
+		expect(env.S3_BUCKET).toMatch(/^svforge-[a-z0-9-]+$/);
+		expect(result.stdout + result.stderr).not.toContain(env.S3_SECRET_ACCESS_KEY);
+
+		const content = readFileSync(join(dir, '.env'), 'utf8');
+		const rerun = runEnv(dir, {}, '--compose');
+		expect(rerun.status, rerun.stderr).toBe(0);
+		expect(readFileSync(join(dir, '.env'), 'utf8')).toBe(content);
+		expect(readFileSync(join(dir, 'docker-compose.yml'), 'utf8')).toBe(compose);
+	});
+
+	it('never provisions S3 for a project without the uploads module', () => {
+		const dir = provisionedProject();
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status, result.stderr).toBe(0);
+		expect(readFileSync(join(dir, 'docker-compose.yml'), 'utf8')).not.toContain('s3mock');
+		expect(parseEnv(readFileSync(join(dir, '.env'), 'utf8')).SVFORGE_LOCAL_S3).toBeUndefined();
+	});
+
+	it('preserves an external S3/R2 configuration and starts no local S3', () => {
+		const dir = uploadsProject();
+		const external = 'S3_ENDPOINT="https://account.r2.cloudflarestorage.com"\nS3_BUCKET="production-bucket"\nS3_ACCESS_KEY_ID="real-key"\nS3_SECRET_ACCESS_KEY="real-secret"\nBETTER_AUTH_SECRET=""\n';
+		writeFileSync(join(dir, '.env'), external);
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status, result.stderr).toBe(0);
+		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		expect(env.S3_ENDPOINT).toBe('https://account.r2.cloudflarestorage.com');
+		expect(env.S3_BUCKET).toBe('production-bucket');
+		expect(env.SVFORGE_LOCAL_S3).toBeUndefined();
+		expect(readFileSync(join(dir, 'docker-compose.yml'), 'utf8')).not.toContain('s3mock');
+	});
+
+	it('fails without schema changes when the local S3 service is unhealthy', () => {
+		const dir = uploadsProject();
+		const result = runEnv(dir, { STUB_S3_UNHEALTHY: '1', SVFORGE_SETUP_HEALTH_ATTEMPTS: '2' }, '--compose', '--init-schema');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('S3 service did not become healthy');
+		expect(readFileSync(join(dir, 'invoked'), 'utf8')).not.toContain('run db:push');
+	});
+
+
+	it('evolves a managed PostgreSQL-only Compose to local S3 without changing the database identity', () => {
+		const dir = provisionedProject();
+		const first = runEnv(dir, {}, '--compose');
+		expect(first.status, first.stderr).toBe(0);
+		const composeBefore = readFileSync(join(dir, 'docker-compose.yml'), 'utf8');
+		const envBefore = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+
+		// The project now selects the uploads module (e.g. `svforge add uploads`).
+		writeFileSync(join(dir, '.svforge.json'), JSON.stringify({ schema: 1, template: 'dashboard', modules: ['uploads'] }));
+		const second = runEnv(dir, {}, '--compose');
+		expect(second.status, second.stderr).toBe(0);
+
+		const composeAfter = readFileSync(join(dir, 'docker-compose.yml'), 'utf8');
+		// The PostgreSQL service definition is byte-identical; only the S3 service
+		// and volume were appended.
+		const postgresBlock = (content: string, end: string) =>
+			content.slice(content.indexOf('  postgres:'), content.indexOf(end)).trimEnd();
+		expect(postgresBlock(composeAfter, '\n  s3:')).toBe(postgresBlock(composeBefore, '\nvolumes:'));
+		expect(composeAfter).toContain('adobe/s3mock:5.2.3@sha256:');
+		expect(composeAfter).toContain('postgres-data:/var/lib/postgresql/data');
+		expect(composeAfter).toContain('s3-data:/s3mockroot');
+
+		const envAfter = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		for (const key of ['POSTGRES_PASSWORD', 'POSTGRES_PORT', 'DATABASE_URL', 'SVFORGE_LOCAL_DB']) {
+			expect(envAfter[key], key).toBe(envBefore[key]);
+		}
+		expect(envAfter.SVFORGE_LOCAL_S3).toBe('compose');
+		expect(envAfter.S3_ENDPOINT).toBe(`http://127.0.0.1:${envAfter.S3_PORT}`);
+		const invoked = readFileSync(join(dir, 'invoked'), 'utf8');
+		expect(invoked).toContain('up -d postgres s3');
+		expect(second.stdout).toContain('PostgreSQL service, volume and credentials preserved');
+	});
+
+	it('refuses to silently remove a managed local S3 when an external provider is configured', () => {
+		const dir = managedS3Project();
+		const composeBefore = readFileSync(join(dir, 'docker-compose.yml'), 'utf8');
+		const env = parseEnv(readFileSync(join(dir, '.env'), 'utf8'));
+		const external = `\nS3_ENDPOINT="https://account.r2.cloudflarestorage.com"\nS3_BUCKET="production-bucket"\nS3_ACCESS_KEY_ID="real-key"\nS3_SECRET_ACCESS_KEY="real-secret"\n`;
+		writeFileSync(join(dir, '.env'), readFileSync(join(dir, '.env'), 'utf8').replace(/^SVFORGE_LOCAL_S3=.*$/m, '').replace(/^S3_ENDPOINT=.*$/m, 'S3_ENDPOINT="https://account.r2.cloudflarestorage.com"') + external);
+		const envBefore = readFileSync(join(dir, '.env'), 'utf8');
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('Refusing to remove or alter it silently');
+		expect(readFileSync(join(dir, 'docker-compose.yml'), 'utf8')).toBe(composeBefore);
+		expect(readFileSync(join(dir, '.env'), 'utf8')).toBe(envBefore);
+		void env;
+	});
+
+	it('refuses to drop the managed S3 service after the uploads module is removed', () => {
+		const dir = managedS3Project();
+		writeFileSync(join(dir, '.svforge.json'), JSON.stringify({ schema: 1, template: 'dashboard', modules: [] }));
+		const composeBefore = readFileSync(join(dir, 'docker-compose.yml'), 'utf8');
+		const result = runEnv(dir, {}, '--compose');
+		expect(result.status).not.toBe(0);
+		expect(result.stderr).toContain('Refusing to remove or alter it silently');
+		expect(readFileSync(join(dir, 'docker-compose.yml'), 'utf8')).toBe(composeBefore);
 	});
 
 });

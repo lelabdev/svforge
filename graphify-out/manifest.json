@@ -468,7 +468,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "e2997bc505119941a9a163cf25e25cb4",
+    "ast_hash": "9e9974c2c4f79e56d9742a48c6c514e7",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -476,7 +476,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
-    "ast_hash": "ab4734059b9f8b3b7c92aa34fb90489d",
+    "ast_hash": "e6d8bcaf52e97b434edf42b7d2872650",
     "semantic_hash": ""
   },
   "packages/svforge/src/skeleton-inventory.ts": {
@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "4ea1c4daacdfbe6a2b43f3440098fb0f",
+    "ast_hash": "da1c97d365a526585a5dddf31223d314",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -940,11 +940,11 @@
     "semantic_hash": ""
   },
   "packages/uploads/src/index.ts": {
-    "ast_hash": "845df0652c504c70dddee9d07a18faf7",
+    "ast_hash": "3831e2bc8afc55d016301da1d5e48c6d",
     "semantic_hash": ""
   },
   "packages/uploads/src/templates.ts": {
-    "ast_hash": "92808886721e025d93d4ccef76104a3d",
+    "ast_hash": "2862a572e0f5fde8f5c7d47199182aa5",
     "semantic_hash": ""
   },
   "packages/uploads/templates/src/lib/components/svforge/uploads/FileUpload.svelte": {
@@ -952,7 +952,7 @@
     "semantic_hash": ""
   },
   "packages/uploads/templates/src/lib/server/s3.ts": {
-    "ast_hash": "6d417b2d6b376eb921c119c77ac07fd0",
+    "ast_hash": "fda0837acea9d65443d6203d34ea4614",
     "semantic_hash": ""
   },
   "packages/uploads/templates/src/lib/uploads/post-form.ts": {
@@ -1976,11 +1976,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/root/scripts/setup.mjs": {
-    "ast_hash": "a6ce3268e080b87bf11f8384b0a09537",
+    "ast_hash": "61eb469696ecf6c2edab533c07df67fe",
     "semantic_hash": ""
   },
   "tests/local-bootstrap.test.ts": {
-    "ast_hash": "8368bb868e3828e2e43090f7bd8afbfd",
+    "ast_hash": "5095d9ace1407a99c6001fe930e3ad6d",
     "semantic_hash": ""
   },
   "docker/builder-smoke.sh": {
@@ -2208,11 +2208,15 @@
     "semantic_hash": ""
   },
   "scripts/test-local-setup.sh": {
-    "ast_hash": "dd0f9caef0720bf86df0f3974fb57a25",
+    "ast_hash": "f7b706ef2662bf94271bc920640f9507",
     "semantic_hash": ""
   },
   ".changeset/589-local-dashboard-setup.md": {
     "ast_hash": "8645c46b9a7a5e0b6177f65742ac0dfc",
+    "semantic_hash": ""
+  },
+  ".changeset/610-local-s3.md": {
+    "ast_hash": "ec9490d1a499276be794f3f186b6fd52",
     "semantic_hash": ""
   }
 }
