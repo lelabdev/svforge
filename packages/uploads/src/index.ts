@@ -73,6 +73,16 @@ export default defineAddon({
 					uploads_failed: 'Échec du téléversement',
 					uploads_error_invalid_file_type: 'Type de fichier non autorisé',
 					uploads_error_file_too_large: 'Fichier trop volumineux',
+					showcase_uploads_title: 'Téléversements de fichiers',
+					showcase_uploads_description: 'Essayez localement la politique de téléversement installée et ses états de progression — sans identifiants ni stockage.',
+					showcase_uploads_hint: 'Choisissez un fichier ou déposez-le dans la zone ci-dessous. La sélection est validée par la même politique que celle utilisée par le point de terminaison.',
+					showcase_uploads_choose: 'Choisissez un fichier ou déposez-le ici',
+					showcase_uploads_limits: 'Autorisés : JPEG, PNG, GIF, WebP, PDF, texte brut, JSON — jusqu’à {size}.',
+					showcase_uploads_success: 'Sélection acceptée',
+					showcase_uploads_simulated: 'Clé simulée (rien n’a été téléversé) :',
+					showcase_uploads_reset: 'Recommencer',
+					showcase_uploads_real_component: 'Dans un projet Dashboard, le composant FileUpload.svelte envoie le fichier au point de terminaison authentifié /api/upload et stocke l’objet dans S3/R2 — cette page ne le fait jamais.',
+					showcase_uploads_fixture: 'Simulation locale uniquement : aucune requête, aucune persistance.',
 					uploads_error_invalid_request: 'Requête de téléversement invalide'
 				}
 			},
@@ -83,6 +93,16 @@ export default defineAddon({
 					uploads_failed: 'Upload failed',
 					uploads_error_invalid_file_type: 'File type not allowed',
 					uploads_error_file_too_large: 'File too large',
+					showcase_uploads_title: 'File uploads',
+					showcase_uploads_description: 'Try the installed upload policy and its progress states locally — no credentials, no storage.',
+					showcase_uploads_hint: 'Pick a file or drop it in the area below. The selection is validated by the same policy the endpoint uses.',
+					showcase_uploads_choose: 'Choose a file or drop it here',
+					showcase_uploads_limits: 'Allowed: JPEG, PNG, GIF, WebP, PDF, plain text, JSON — up to {size}.',
+					showcase_uploads_success: 'Selection accepted',
+					showcase_uploads_simulated: 'Simulated key (nothing was uploaded):',
+					showcase_uploads_reset: 'Start over',
+					showcase_uploads_real_component: 'In a Dashboard project, FileUpload.svelte posts to the authenticated /api/upload endpoint and stores the object in S3/R2 — this page never does.',
+					showcase_uploads_fixture: 'Local simulation only: no request, no persistence.',
 					uploads_error_invalid_request: 'Invalid upload request'
 				}
 			}

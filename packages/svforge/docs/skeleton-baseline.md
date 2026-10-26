@@ -98,6 +98,7 @@ The audit originally counted 43 files. The scan is now **46**: `layout/PageHeade
 | `packages/ui_toast/templates/src/lib/components/svforge/ui/Toaster.svelte` | Already native — Skeleton `Toast`; the close trigger declares `cursor-pointer`. |
 | `packages/ui_toast/templates/src/routes/showcase/ui-toast/+page.svelte` | Already native — the module demo composes `Card`/`Button`/`Toaster` with layout utilities and localized copy; no custom CSS, local toasts only. |
 | `packages/uploads/templates/src/lib/components/svforge/uploads/FileUpload.svelte` | Already native — native file input with `cursor-pointer disabled:cursor-not-allowed`; the presign/POST/PUT contract is untouched. |
+| `packages/uploads/templates/src/routes/showcase/uploads/+page.svelte` | Already native — the module demo composes `Card`/`Button`/Skeleton `Progress` with layout utilities and localized copy; the shared upload policy stays in `#lib/uploads/policy.js`, no custom CSS. |
 
 ## Reviewed exceptions
 

@@ -247,6 +247,11 @@ if [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	test -f src/lib/components/svforge/uploads/FileUpload.svelte || { echo "❌ FileUpload.svelte missing (#284)"; exit 1; }
 	test -f src/routes/api/upload/upload-security.test.ts || { echo "❌ upload test pack missing (#284)"; exit 1; }
 	test -f src/lib/components/svforge/ui/OAuthButtons.svelte || { echo "❌ OAuthButtons.svelte missing (#284)"; exit 1; }
+	# #586: the uploads module ships its safe, simulated showcase demo.
+	test -f src/routes/showcase/uploads/+page.svelte || { echo "❌ uploads showcase route missing (#586)"; exit 1; }
+	test -f src/routes/showcase/uploads/meta.ts || { echo "❌ uploads showcase metadata missing (#586)"; exit 1; }
+	grep -q '"showcase_uploads_title"' messages/en.json || { echo "❌ uploads showcase copy missing from en catalog (#586)"; exit 1; }
+	grep -q '"showcase_uploads_title"' messages/fr.json || { echo "❌ uploads showcase copy missing from fr catalog (#586)"; exit 1; }
 	test -f src/lib/server/email.ts || { echo "❌ email server lib missing (#284)"; exit 1; }
 fi
 

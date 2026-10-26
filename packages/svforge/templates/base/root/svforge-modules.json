@@ -162,7 +162,8 @@
 			"template": "base",
 			"requires": [
 				"auth.currentUser",
-				"i18n.messages"
+				"i18n.messages",
+				"ui.svforge"
 			],
 			"provides": [
 				"storage.object"
@@ -174,7 +175,8 @@
 			"files": [
 				"src/lib/components/svforge/uploads/",
 				"src/lib/server/s3.ts",
-				"src/routes/api/upload/"
+				"src/routes/api/upload/",
+				"src/routes/showcase/uploads/"
 			]
 		},
 		"blog": {

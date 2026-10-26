@@ -1959,7 +1959,7 @@
       "label": "ProjectSnapshot",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L280",
+      "source_location": "L281",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1969,7 +1969,7 @@
       "label": ".hasDir()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L291",
+      "source_location": "L292",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1978,7 +1978,7 @@
       "label": ".hasFile()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L292",
+      "source_location": "L293",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1987,7 +1987,7 @@
       "label": "snapshotProject()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L296",
+      "source_location": "L297",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1996,7 +1996,7 @@
       "label": "Detection",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L341",
+      "source_location": "L342",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -2006,7 +2006,7 @@
       "label": "AUTH_HOOKS_SIGNALS",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L344",
+      "source_location": "L345",
       "_origin": "ast"
     },
     {
@@ -2014,7 +2014,7 @@
       "label": "detectCapability()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L366",
+      "source_location": "L367",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2023,7 +2023,7 @@
       "label": "CapabilityEvaluation",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L417",
+      "source_location": "L418",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -2033,7 +2033,7 @@
       "label": "evaluateRequirements()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L431",
+      "source_location": "L432",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2042,7 +2042,7 @@
       "label": "describeCapability()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L446",
+      "source_location": "L447",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2051,7 +2051,7 @@
       "label": "formatCapabilityFailure()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L456",
+      "source_location": "L457",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2060,7 +2060,7 @@
       "label": "formatCapabilityWarnings()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L469",
+      "source_location": "L470",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2069,7 +2069,7 @@
       "label": "CapabilityGate",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L489",
+      "source_location": "L490",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -2079,7 +2079,7 @@
       "label": "checkModuleCapabilities()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L504",
+      "source_location": "L505",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2088,7 +2088,7 @@
       "label": "templateCapabilities()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L545",
+      "source_location": "L546",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2097,7 +2097,7 @@
       "label": "compositionGaps()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L558",
+      "source_location": "L559",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20030,6 +20030,51 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_uploads_templates_src_lib_uploads_policy",
+      "label": "policy.ts",
+      "file_type": "code",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_uploads_templates_src_lib_uploads_policy_allowed_mime_types",
+      "label": "ALLOWED_MIME_TYPES",
+      "file_type": "code",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_uploads_templates_src_lib_uploads_policy_uploadrejectioncode",
+      "label": "UploadRejectionCode",
+      "file_type": "code",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L29",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_uploads_templates_src_lib_uploads_policy_uploadcandidate",
+      "label": "UploadCandidate",
+      "file_type": "code",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L31",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_uploads_templates_src_lib_uploads_policy_validateuploadfile",
+      "label": "validateUploadFile()",
+      "file_type": "code",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L42",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_uploads_templates_src_lib_uploads_post_form",
       "label": "post-form.ts",
       "file_type": "code",
@@ -20091,16 +20136,8 @@
       "label": "getSizePolicy()",
       "file_type": "code",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L25",
+      "source_location": "L26",
       "_callable": true,
-      "_origin": "ast"
-    },
-    {
-      "id": "packages_uploads_templates_src_routes_api_upload_server_allowed_mime_types",
-      "label": "ALLOWED_MIME_TYPES",
-      "file_type": "code",
-      "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L33",
       "_origin": "ast"
     },
     {
@@ -20108,7 +20145,7 @@
       "label": "sanitizeFilename()",
       "file_type": "code",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L43",
+      "source_location": "L30",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20117,7 +20154,7 @@
       "label": "POST()",
       "file_type": "code",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L49",
+      "source_location": "L36",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20178,6 +20215,38 @@
       "source_file": "packages/uploads/templates/src/routes/api/upload/upload-security.test.ts",
       "source_location": "L43",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_uploads_templates_src_routes_showcase_uploads_page",
+      "label": "uploads/+page.svelte",
+      "file_type": "code",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/+page.svelte",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "policy_js",
+      "label": "#lib/uploads/policy.js",
+      "file_type": "code",
+      "source_file": "#lib/uploads/policy.js",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_uploads_templates_src_routes_showcase_uploads_meta",
+      "label": "uploads/meta.ts",
+      "file_type": "code",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/meta.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_uploads_templates_src_routes_showcase_uploads_meta_meta",
+      "label": "meta",
+      "file_type": "code",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/meta.ts",
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
@@ -22706,7 +22775,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L948",
+      "source_location": "L953",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -27272,7 +27341,7 @@
       "label": "BASE",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L15",
+      "source_location": "L16",
       "_origin": "ast"
     },
     {
@@ -27280,7 +27349,7 @@
       "label": "INDEX",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L16",
+      "source_location": "L17",
       "_origin": "ast"
     },
     {
@@ -27288,7 +27357,7 @@
       "label": "DND_TEMPLATE",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L17",
+      "source_location": "L18",
       "_origin": "ast"
     },
     {
@@ -27296,7 +27365,7 @@
       "label": "sourceFiles()",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L20",
+      "source_location": "L21",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27305,7 +27374,7 @@
       "label": "installModule()",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L88",
+      "source_location": "L89",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27314,7 +27383,7 @@
       "label": "writeJson()",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L364",
+      "source_location": "L458",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27740,6 +27809,14 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_stubs_lib_components_svforge_ui_index",
+      "label": "stubs/lib/components/svforge/ui/index.ts",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/components/svforge/ui/index.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_stubs_lib_icons",
       "label": "icons.ts",
       "file_type": "code",
@@ -28115,6 +28192,96 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_title",
+      "label": "showcase_uploads_title()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L43",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_description",
+      "label": "showcase_uploads_description()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L44",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_hint",
+      "label": "showcase_uploads_hint()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L45",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_choose",
+      "label": "showcase_uploads_choose()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L46",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_limits",
+      "label": "showcase_uploads_limits()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L47",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_success",
+      "label": "showcase_uploads_success()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L48",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_simulated",
+      "label": "showcase_uploads_simulated()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L49",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_reset",
+      "label": "showcase_uploads_reset()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L50",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_real_component",
+      "label": "showcase_uploads_real_component()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L51",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_paraglide_messages_showcase_uploads_fixture",
+      "label": "showcase_uploads_fixture()",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L52",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_stubs_lib_paraglide_runtime",
       "label": "lib/paraglide/runtime.js",
       "file_type": "code",
@@ -28190,6 +28357,14 @@
       "source_file": "tests/stubs/lib/paraglide/runtime.js",
       "source_location": "L42",
       "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_stubs_lib_uploads_policy",
+      "label": "lib/uploads/policy.js",
+      "file_type": "code",
+      "source_file": "tests/stubs/lib/uploads/policy.js",
+      "source_location": "L1",
       "_origin": "ast"
     },
     {
@@ -28826,6 +29001,39 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_upload_security_test_shared_policy",
+      "label": "SHARED_POLICY",
+      "file_type": "code",
+      "source_file": "tests/upload-security.test.ts",
+      "source_location": "L10",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_uploads_demo_test",
+      "label": "uploads-demo.test.ts",
+      "file_type": "code",
+      "source_file": "tests/uploads-demo.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_uploads_demo_test_selectfile",
+      "label": "selectFile()",
+      "file_type": "code",
+      "source_file": "tests/uploads-demo.test.ts",
+      "source_location": "L17",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_uploads_policy_test",
+      "label": "uploads-policy.test.ts",
+      "file_type": "code",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_user_journey_test",
       "label": "user-journey.test.ts",
       "file_type": "code",
@@ -29414,6 +29622,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/showcase-ui-toast-demo.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_showcase_uploads_demo",
+      "label": "showcase-uploads-demo.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/showcase-uploads-demo.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -34541,7 +34758,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L102",
+      "source_location": "L103",
       "_origin": "ast"
     },
     {
@@ -34550,7 +34767,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L111",
+      "source_location": "L112",
       "_origin": "ast"
     },
     {
@@ -36653,6 +36870,24 @@
     {
       "id": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_graph_packages_jobs_templates_src_lib_server_test_db",
       "label": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_graph_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": "",
+      "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_uploads_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_uploads_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": "",
+      "_origin": "semantic"
+    },
+    {
+      "id": "packages_uploads_templates_src_lib_uploads_policy_max_file_size",
+      "label": "packages_uploads_templates_src_lib_uploads_policy_max_file_size",
       "file_type": "concept",
       "type": "external",
       "external": true,
@@ -39191,7 +39426,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L280",
+      "source_location": "L281",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39201,7 +39436,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L291",
+      "source_location": "L292",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39211,7 +39446,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L292",
+      "source_location": "L293",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39221,7 +39456,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L296",
+      "source_location": "L297",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39231,7 +39466,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L341",
+      "source_location": "L342",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39241,7 +39476,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L344",
+      "source_location": "L345",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39251,7 +39486,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L366",
+      "source_location": "L367",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39261,7 +39496,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L417",
+      "source_location": "L418",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39271,7 +39506,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L431",
+      "source_location": "L432",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39281,7 +39516,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L446",
+      "source_location": "L447",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39291,7 +39526,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L456",
+      "source_location": "L457",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39301,7 +39536,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L469",
+      "source_location": "L470",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39311,7 +39546,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L489",
+      "source_location": "L490",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39321,7 +39556,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L504",
+      "source_location": "L505",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39331,7 +39566,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L545",
+      "source_location": "L546",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39341,7 +39576,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L558",
+      "source_location": "L559",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39352,7 +39587,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L371",
+      "source_location": "L372",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39363,7 +39598,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L386",
+      "source_location": "L387",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39374,7 +39609,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L437",
+      "source_location": "L438",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39385,7 +39620,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L461",
+      "source_location": "L462",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39396,7 +39631,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L516",
+      "source_location": "L517",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39407,7 +39642,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L517",
+      "source_location": "L518",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39418,7 +39653,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L518",
+      "source_location": "L519",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39429,7 +39664,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L538",
+      "source_location": "L539",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45850,7 +46085,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_graph_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_uploads_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -73057,6 +73292,68 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_uploads_templates_src_lib_uploads_policy",
+      "target": "packages_uploads_templates_src_lib_uploads_post_form",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_lib_uploads_policy",
+      "target": "packages_uploads_templates_src_lib_uploads_post_form_max_file_size",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_lib_uploads_policy",
+      "target": "packages_uploads_templates_src_lib_uploads_policy_allowed_mime_types",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_lib_uploads_policy",
+      "target": "packages_uploads_templates_src_lib_uploads_policy_uploadrejectioncode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L29",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_lib_uploads_policy",
+      "target": "packages_uploads_templates_src_lib_uploads_policy_uploadcandidate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_lib_uploads_policy",
+      "target": "packages_uploads_templates_src_lib_uploads_policy_validateuploadfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/lib/uploads/policy.ts",
+      "source_location": "L42",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_uploads_templates_src_lib_uploads_post_form",
       "target": "packages_uploads_templates_src_lib_uploads_post_form_max_post_body_size",
       "relation": "contains",
@@ -73157,7 +73454,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73168,7 +73465,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73179,7 +73476,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1,
       "type_only": true,
       "_origin": "ast"
@@ -73190,17 +73487,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L25",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_uploads_templates_src_routes_api_upload_server",
-      "target": "packages_uploads_templates_src_routes_api_upload_server_allowed_mime_types",
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L33",
+      "source_location": "L26",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73210,7 +73497,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L43",
+      "source_location": "L30",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73220,7 +73507,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L49",
+      "source_location": "L36",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73231,7 +73518,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L79",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73242,7 +73529,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/+server.ts",
-      "source_location": "L80",
+      "source_location": "L67",
       "weight": 1,
       "_origin": "ast"
     },
@@ -73367,6 +73654,59 @@
       "relation": "dynamic_import",
       "confidence": "EXTRACTED",
       "source_file": "packages/uploads/templates/src/routes/api/upload/upload-security.test.ts",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_routes_showcase_uploads_page",
+      "target": "messages_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_routes_showcase_uploads_page",
+      "target": "skeleton_svelte",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_routes_showcase_uploads_page",
+      "target": "index_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_routes_showcase_uploads_page",
+      "target": "policy_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_routes_showcase_uploads_meta",
+      "target": "ref_lib",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/meta.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_uploads_templates_src_routes_showcase_uploads_meta",
+      "target": "packages_uploads_templates_src_routes_showcase_uploads_meta_meta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/uploads/templates/src/routes/showcase/uploads/meta.ts",
+      "source_location": "L7",
+      "weight": 1,
       "_origin": "ast"
     },
     {
@@ -79106,7 +79446,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L948",
+      "source_location": "L953",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79116,7 +79456,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L956",
+      "source_location": "L961",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -94975,7 +95315,7 @@
     },
     {
       "source": "tests_showcase_test",
-      "target": "ref_node_fs",
+      "target": "ref_svelte",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -94986,7 +95326,7 @@
     },
     {
       "source": "tests_showcase_test",
-      "target": "ref_node_path",
+      "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -94997,12 +95337,23 @@
     },
     {
       "source": "tests_showcase_test",
-      "target": "packages_addon_kit_src_index",
+      "target": "ref_node_path",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
       "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_showcase_test",
+      "target": "packages_addon_kit_src_index",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/showcase.test.ts",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95013,7 +95364,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95024,7 +95375,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95035,7 +95386,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95046,7 +95397,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95057,7 +95408,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95068,7 +95419,18 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L6",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_showcase_test",
+      "target": "tests_helpers_fixtures_createdashboardproject",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/showcase.test.ts",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95079,7 +95441,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95089,7 +95451,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95099,7 +95461,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95109,7 +95471,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95119,7 +95481,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95129,7 +95491,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L88",
+      "source_location": "L89",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95139,7 +95501,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L364",
+      "source_location": "L458",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95150,7 +95512,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95161,7 +95523,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95172,7 +95534,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L127",
+      "source_location": "L128",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95183,7 +95545,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L350",
+      "source_location": "L444",
       "weight": 1,
       "_origin": "ast"
     },
@@ -96578,6 +96940,17 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_stubs_lib_components_svforge_ui_index",
+      "target": "packages_svforge_templates_base_src_lib_components_svforge_ui_card",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/components/svforge/ui/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_stubs_lib_icons",
       "target": "tests_stubs_phosphor_svelte_lib_bell",
       "relation": "imports_from",
@@ -97023,6 +97396,106 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_title",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L43",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_description",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L44",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_hint",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L45",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_choose",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L46",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_limits",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L47",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_success",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L48",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_simulated",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L49",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_reset",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L50",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_real_component",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L51",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_paraglide_messages",
+      "target": "tests_stubs_lib_paraglide_messages_showcase_uploads_fixture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/paraglide/messages.js",
+      "source_location": "L52",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_stubs_lib_paraglide_runtime",
       "target": "tests_stubs_lib_paraglide_runtime_locales",
       "relation": "contains",
@@ -97110,6 +97583,17 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/stubs/lib/paraglide/runtime.js",
       "source_location": "L45",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_stubs_lib_uploads_policy",
+      "target": "packages_uploads_templates_src_lib_uploads_policy",
+      "relation": "imports_from",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/uploads/policy.js",
+      "source_location": "L4",
       "weight": 1,
       "_origin": "ast"
     },
@@ -99502,6 +99986,180 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/upload-security.test.ts",
       "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_upload_security_test",
+      "target": "tests_upload_security_test_shared_policy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/upload-security.test.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_demo_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-demo.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_demo_test",
+      "target": "ref_testing_library_svelte",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-demo.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_demo_test",
+      "target": "ref_testing_library_jest_dom",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-demo.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_demo_test",
+      "target": "packages_uploads_templates_src_routes_showcase_uploads_page",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-demo.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_demo_test",
+      "target": "tests_uploads_demo_test_selectfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-demo.test.ts",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_demo_test",
+      "target": "tests_uploads_demo_test_selectfile",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-demo.test.ts",
+      "source_location": "L38",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "packages_uploads_templates_src_lib_uploads_policy",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "packages_uploads_templates_src_lib_uploads_policy_allowed_mime_types",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "packages_uploads_templates_src_lib_uploads_policy_max_file_size",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "packages_uploads_templates_src_lib_uploads_policy_validateuploadfile",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "tests_helpers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_uploads_policy_test",
+      "target": "tests_helpers_root",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/uploads-policy.test.ts",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106346,7 +107004,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L102",
+      "source_location": "L103",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106356,7 +107014,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L111",
+      "source_location": "L112",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107263,6 +107921,17 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_stubs_lib_uploads_policy",
+      "target": "packages_uploads_templates_src_lib_uploads_policy",
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/stubs/lib/uploads/policy.js",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_stubs_lib_utils_cn_js_tests_stubs_lib_utils_cn",
       "target": "tests_stubs_lib_utils_cn_ts_tests_stubs_lib_utils_cn",
       "relation": "re_exports",
@@ -107457,7 +108126,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L513",
+      "source_location": "L514",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107469,7 +108138,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L532",
+      "source_location": "L533",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108345,7 +109014,19 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L89",
+      "source_location": "L90",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_showcase_test",
+      "target": "tests_eslint_design_system_test_file",
+      "relation": "indirect_call",
+      "context": "argument",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "tests/showcase.test.ts",
+      "source_location": "L167",
       "weight": 1,
       "_origin": "ast"
     },

@@ -222,7 +222,8 @@ export const MODULE_CONTRACTS: Record<string, ModuleCapabilityContract> = {
 	},
 	uploads: {
 		template: 'base',
-		requires: ['auth.currentUser', 'i18n.messages'],
+		// #586: the module ships a localized showcase route (safe simulated mode).
+		requires: ['auth.currentUser', 'i18n.messages', 'ui.svforge'],
 		provides: ['storage.object'],
 		optional: ['ui.skeleton'],
 		optionalModules: []
