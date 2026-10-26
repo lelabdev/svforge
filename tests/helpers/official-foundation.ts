@@ -38,8 +38,8 @@ export const variables = defineEnvVars({
 `,
 	'project.inlang/settings.json': `{
 	"$schema": "https://inlang.com/schema/project-settings",
-	"baseLocale": "fr",
-	"locales": ["fr", "en"]
+	"baseLocale": "en",
+	"locales": ["en", "fr"]
 }
 `,
 	'src/hooks.ts': `import type { Reroute } from '@sveltejs/kit/hooks';

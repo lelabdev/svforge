@@ -41,7 +41,7 @@ export interface ParaglideLocaleSettings {
 }
 
 /** Paraglide values written by a new scaffold; projects override them in settings.json. */
-export const DEFAULT_PARAGLIDE_LOCALE_SETTINGS: ParaglideLocaleSettings = { baseLocale: 'fr', locales: ['fr', 'en'] };
+export const DEFAULT_PARAGLIDE_LOCALE_SETTINGS: ParaglideLocaleSettings = { baseLocale: 'en', locales: ['en', 'fr'] };
 
 export interface SvforgeManifest {
 	schema: 1;
@@ -111,6 +111,7 @@ const BASE_PATTERNS: Record<string, string> = {
 };
 
 const DASHBOARD_PATTERNS: Record<string, string> = {
+	'Language switcher': 'src/lib/components/svforge/ui/LocaleSwitcher.svelte',
 	'Application modal': 'src/lib/components/svforge/ui/AppDialog.svelte',
 	'Password field': 'src/lib/components/svforge/ui/PasswordInput.svelte',
 	'Auth guard': 'src/routes/(app)/admin/*/+page.server.ts',

@@ -46,6 +46,7 @@ The audit originally counted 43 files. The scan is now **46**: `layout/PageHeade
 | `packages/svforge/templates/base/src/lib/components/svforge/primitives/Toggle.svelte` | Corrected — thin composition over the official Skeleton `Switch`; control and label declare pointer/not-allowed and the hidden input keeps native form participation. |
 | `packages/svforge/templates/base/src/lib/components/svforge/ui/Alert.svelte` | Already native — `card` plus a tonal preset computed inline; no info tonal preset is invented. |
 | `packages/svforge/templates/base/src/lib/components/svforge/ui/Card.svelte` | Already native — the `card` utility owns the radius, `p-4` stays because `card` applies no padding; one variant lookup map. |
+| `packages/svforge/templates/base/src/lib/components/svforge/ui/LocaleSwitcher.svelte` | Already native — render-free Paraglide switcher: Skeleton `btn`/`btn-sm` plus the active/tonal presets on plain anchors, `min-h-11` touch targets and `cursor-pointer` on every enabled link; no wrapper CSS. |
 | `packages/svforge/templates/base/src/lib/components/svforge/ui/Logo.svelte` | Already native — `rounded-container` and a tonal preset around the Phosphor icon. |
 | `packages/svforge/templates/base/src/lib/components/svforge/ui/Seo.svelte` | Already native — no styling layer; the derived URL/image/card values are reused head metadata. |
 | `packages/svforge/templates/base/src/lib/components/svforge/ui/Table.svelte` | Already native — `table-wrap`/`table` utilities; the row-key contract and its dev warning are behaviour, not styling. |

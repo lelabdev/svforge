@@ -2,6 +2,7 @@
 	import { Alert, Card, Table, ThemeToggle } from '#lib/components/svforge/ui/index.js';
 	import { Badge, Button, Checkbox, Input, Select, Textarea, Toggle } from '#lib/components/svforge/primitives/index.js';
 	import * as m from '#lib/paraglide/messages.js';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 
 	// Literal example shown in a <code> block — a string constant so Svelte
 	// never parses the braces as an expression (#271).
@@ -55,7 +56,7 @@
 			<Button loading={loading} onclick={simulateLoading}>
 				{loading ? m.common_loading() : m.demo_click_to_load()}
 			</Button>
-			<Button href="/">{m.demo_link_btn()}</Button>
+			<Button href={localizeHref('/')}>{m.demo_link_btn()}</Button>
 			<Button disabled>{m.demo_disabled()}</Button>
 		</div>
 		<h3 class="h3">{m.demo_brand()}</h3>

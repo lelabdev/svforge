@@ -2,6 +2,7 @@
 	import { cn } from '#lib/utils/cn.js';
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 
 	interface Props extends HTMLAttributes<HTMLElement> {
 		links?: { href: string; label: string }[];
@@ -10,6 +11,9 @@
 	}
 
 	let { links = [], class: className, children, ...rest }: Props = $props();
+
+	// Same contract as the Navbar: internal paths are localized here (#588).
+	const hrefFor = (href: string) => (href.startsWith("/") ? localizeHref(href) : href);
 </script>
 
 <footer class={cn('border-t border-surface-200-800 bg-surface-100-900', className)} {...rest}>
@@ -22,7 +26,7 @@
 			{#if links.length}
 				<div class="flex flex-col gap-2">
 					{#each links as link (link.href)}
-						<a href={link.href} class="anchor text-sm">
+						<a href={hrefFor(link.href)} class="anchor text-sm">
 							{link.label}
 						</a>
 					{/each}

@@ -4,8 +4,10 @@
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { Button } from '#lib/components/svforge/primitives/index.js';
 	import ThemeToggle from '#lib/components/svforge/ui/ThemeToggle.svelte';
+	import LocaleSwitcher from '#lib/components/svforge/ui/LocaleSwitcher.svelte';
 	import Logo from '#lib/components/svforge/ui/Logo.svelte';
 	import * as m from '#lib/paraglide/messages.js';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 	import { Menu, X } from '#lib/icons/index.js';
 
 	interface Props extends HTMLAttributes<HTMLElement> {
@@ -16,12 +18,16 @@
 
 	let { brand, links = [], class: className, ...rest }: Props = $props();
 	let mobileOpen = $state(false);
+
+	// Consumers pass plain internal paths; the shell owns the locale prefix so a
+	// page cannot forget it (#588). External URLs pass through untouched.
+	const hrefFor = (href: string) => (href.startsWith("/") ? localizeHref(href) : href);
 </script>
 
 <nav class={cn('sticky top-0 z-50 border-b border-surface-200-800 bg-surface-50-950/80 text-surface-950-50 backdrop-blur-md', className)} {...rest}>
 	<div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
 		<!-- Brand -->
-		<a href="/" class="text-xl font-bold">
+		<a href={localizeHref('/')} class="text-xl font-bold">
 			{#if brand}
 				{@render brand()}
 			{:else}
@@ -32,10 +38,11 @@
 		<!-- Desktop links -->
 		<div class="hidden items-center gap-4 md:flex">
 			{#each links as link (link.href)}
-				<a href={link.href} class="anchor">
+				<a href={hrefFor(link.href)} class="anchor">
 					{link.label}
 				</a>
 			{/each}
+			<LocaleSwitcher />
 			<ThemeToggle />
 		</div>
 
@@ -61,10 +68,11 @@
 	{#if mobileOpen}
 		<div class="flex flex-col gap-3 border-t border-surface-200-800 px-4 py-3 md:hidden">
 			{#each links as link (link.href)}
-				<a href={link.href} class="anchor flex min-h-11 items-center" onclick={() => (mobileOpen = false)}>
+				<a href={hrefFor(link.href)} class="anchor flex min-h-11 items-center" onclick={() => (mobileOpen = false)}>
 					{link.label}
 				</a>
 			{/each}
+			<LocaleSwitcher />
 			<ThemeToggle />
 		</div>
 	{/if}

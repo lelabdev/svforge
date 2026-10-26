@@ -7,6 +7,7 @@
 	import { Feedback, PasswordInput } from '#lib/components/svforge/ui/index.js';
 	import { Button, Input } from '#lib/components/svforge/primitives/index.js';
 	import { normalizeInternalCallback } from '#lib/utils/web.js';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -48,7 +49,7 @@
 						const callbackURL = normalizeInternalCallback(
 							new URLSearchParams(window.location.search).get('callbackURL')
 						);
-						goto(callbackURL || '/admin');
+						goto(callbackURL || localizeHref('/admin'));
 					}
 				} finally {
 					loading = false;

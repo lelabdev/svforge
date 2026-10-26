@@ -120,7 +120,7 @@ NODE
 # #547 phase B: the OFFICIAL Paraglide integration runs first for every
 # profile — it owns the inlang project, vite plugin, hooks and html
 # placeholders; SVForge only extends them and keeps the FR/EN catalogs.
-$SV_CMD add "paraglide=languageTags:fr,en+demo:no" --no-install --no-download-check --no-git-check \
+$SV_CMD add "paraglide=languageTags:en,fr+demo:no" --no-install --no-download-check --no-git-check \
 	|| { echo "❌ official paraglide add-on failed (#547)"; exit 1; }
 
 # #547: the dashboard's auth/DB foundation is owned by the OFFICIAL add-ons.
@@ -401,6 +401,57 @@ NODE
 		echo "❌ /demo-ui shell composition is incorrect (#477)"; exit 1;
 	fi
 	echo "✓ /demo-ui has one layout shell around visible demo content (#477)"
+fi
+
+# #588: English is the base locale (unprefixed) and /fr renders the French
+# copy with <html lang="fr"> and fully localized navigation. The language
+# switcher must be the only locale UI: a raw internal href under /fr would
+# silently drop users back to English.
+if [ "$TEMPLATE" = "base" ]; then
+	LOCALE_PORT=4198
+	bun run preview -- --host 127.0.0.1 --port "$LOCALE_PORT" >"$TMP_DIR/locale-preview.log" 2>&1 &
+	DEMO_PREVIEW_PID=$!
+	for _ in $(seq 1 30); do
+		curl -sf "http://127.0.0.1:$LOCALE_PORT/" >/dev/null 2>&1 && break
+		sleep 1
+	done
+	EN_HTML=$(curl -sf "http://127.0.0.1:$LOCALE_PORT/") || {
+		cat "$TMP_DIR/locale-preview.log"
+		kill "$DEMO_PREVIEW_PID" 2>/dev/null || true
+		echo "❌ / not served by base scaffold preview (#588)"; exit 1;
+	}
+	FR_HTML=$(curl -sf "http://127.0.0.1:$LOCALE_PORT/fr") || {
+		cat "$TMP_DIR/locale-preview.log"
+		kill "$DEMO_PREVIEW_PID" 2>/dev/null || true
+		echo "❌ /fr not served by base scaffold preview (#588)"; exit 1;
+	}
+	kill "$DEMO_PREVIEW_PID" 2>/dev/null || true
+	DEMO_PREVIEW_PID=""
+	if node - "$EN_HTML" "$FR_HTML" <<'NODE'
+const [en, fr] = process.argv.slice(2);
+const checks = [
+	['english base locale on /', /<html[^>]*lang="en"/.test(en)],
+	['english copy on /', /Components/.test(en)],
+	['french html lang on /fr', /<html[^>]*lang="fr"/.test(fr)],
+	['french copy on /fr', /Composants/.test(fr)],
+	['english navigation stays unprefixed', /href="\/demo-ui"/.test(en)],
+	['french navigation is localized', /href="\/fr\/demo-ui"/.test(fr)],
+	['no unlocalized internal href under /fr', !/href="\/demo-ui"/.test(fr)],
+	['switcher marks the active locale', /aria-current="true"/.test(en) && /aria-current="true"/.test(fr)],
+	['switcher links the other locale', /href="\/fr\/?"/.test(en) && /hreflang="en"/.test(fr)],
+	['no hidden locale-link farm', !/<div class="hidden">[\s\S]{0,400}hreflang=/.test(en)]
+];
+const failed = checks.filter(([, ok]) => !ok).map(([name]) => name);
+if (failed.length) {
+	console.error(`locale checks failed: ${failed.join(', ')}`);
+	process.exit(1);
+}
+NODE
+	then
+		echo "✓ English default + localized /fr navigation (#588)"
+	else
+		echo "❌ locale routing or localized navigation is incorrect (#588)"; exit 1;
+	fi
 fi
 
 # 4-320. Compiled CSS canonical-class gate (#320): every canonical class the

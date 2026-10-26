@@ -383,7 +383,7 @@ describe('two-stage orchestration (#417)', () => {
 			// Stage 2-4 (#547): the OFFICIAL paraglide + auth/DB add-ons, no
 			// install — their files are the foundation SVForge extends next.
 			expect(calls[1]!.args).toEqual([
-				'sv', 'add', 'paraglide=languageTags:fr,en+demo:no',
+				'sv', 'add', 'paraglide=languageTags:en,fr+demo:no',
 				'--no-install', '--no-download-check', '--no-git-check'
 			]);
 			expect(calls[2]!.args).toEqual([

@@ -65,6 +65,15 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 			.join('\n')
 	);
 	writeFileSync(join(renderDir, 'cn.js'), 'export const cn = (...classes) => classes.filter(Boolean).join(" ");');
+	// #588: the shells localize their navigation; the harness renders English,
+	// where the base locale is unprefixed.
+	writeFileSync(
+		join(renderDir, 'runtime.js'),
+		`export const getLocale = () => 'en';
+export const deLocalizeUrl = (url) => new URL(url);
+export const localizeHref = (href) => href;
+export const locales = ['en', 'fr'];`
+	);
 	writeFileSync(
 		join(renderDir, 'Empty.js'),
 		compileComponent('<script>let { children } = $props();</script>{@render children?.()}', 'Empty.svelte')
@@ -81,7 +90,8 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 	import * as m from './messages.js';
 	import { cn } from './cn.js';
 	import Empty from './Empty.js';
-	const Users = Empty, Gear = Empty, ChartBar = Empty, SignOut = Empty, Menu = Empty, X = Empty, SquaresFour = Empty, CaretDoubleLeft = Empty, CaretDoubleRight = Empty, ThemeToggle = Empty, AvatarInitial = Empty, Button = Empty, Portal = Empty;
+	const Users = Empty, Gear = Empty, ChartBar = Empty, SignOut = Empty, Menu = Empty, X = Empty, SquaresFour = Empty, CaretDoubleLeft = Empty, CaretDoubleRight = Empty, ThemeToggle = Empty, LocaleSwitcher = Empty, AvatarInitial = Empty, Button = Empty, Portal = Empty;
+	import { deLocalizeUrl, localizeHref } from './runtime.js';
 	const Dialog = Object.assign(Empty, { Trigger: Empty, Backdrop: Empty, Positioner: Empty, Content: Empty, Title: Empty, CloseTrigger: Empty });`
 		);
 	const page = readFileSync(join(project, 'src/routes/(app)/admin/+page.svelte'), 'utf8')
@@ -93,7 +103,8 @@ async function renderAdminDashboard(project: string, locale: 'fr' | 'en'): Promi
 	import { cn } from './cn.js';
 	import Empty from './Empty.js';
 	import PageHeader from './PageHeader.js';
-	const Card = Empty, AvatarInitial = Empty, Badge = Empty, Button = Empty, Users = Empty, ChartBar = Empty, Clock = Empty;`
+	const Card = Empty, AvatarInitial = Empty, Badge = Empty, Button = Empty, Users = Empty, ChartBar = Empty, Clock = Empty;
+	import { localizeHref } from './runtime.js';`
 		);
 	// The canonical page header (#601) is rendered for REAL — the page title and
 	// its description are owned by that component, not by the route markup.

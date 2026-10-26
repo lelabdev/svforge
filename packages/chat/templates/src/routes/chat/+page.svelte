@@ -2,6 +2,7 @@
 	import * as m from '#lib/paraglide/messages.js';
 	import { Card } from '#lib/components/svforge/ui/index.js';
 	import { Badge } from '#lib/components/svforge/primitives/index.js';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 
 	let { data }: { data: import('./$types').PageData } = $props();
 	const conversations = $derived(data.conversations);
@@ -19,7 +20,7 @@
 		<ul class="divide-y divide-surface-200-800">
 			{#each conversations as conv (conv.id)}
 				<li>
-					<a href={`/chat/${conv.id}`} class="flex min-h-11 min-w-0 items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-surface-100-900">
+					<a href={localizeHref(`/chat/${conv.id}`)} class="flex min-h-11 min-w-0 items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-surface-100-900">
 						<div class="min-w-0">
 							<span class="block truncate text-sm font-semibold">{m.chat_conversation()} #{conv.id}</span>
 							{#if conv.lastMessage}

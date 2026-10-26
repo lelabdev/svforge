@@ -84,6 +84,20 @@ function matchBracket(input: string, open: number): number {
 }
 
 /**
+ * #588: the locale strategy the scaffold compiles into the Paraglide runtime.
+ * `url` first so `/fr/...` resolves to French, then the cookie, then the base
+ * locale for unprefixed (English) routes. Paraglide's own default omits `url`.
+ */
+const PARAGLIDE_STRATEGY = "strategy: ['url', 'cookie', 'baseLocale']";
+
+/** The plugin call SVForge writes when the official add-on did not create one. */
+const PARAGLIDE_PLUGIN_CALL = `paraglideVitePlugin({
+			project: './project.inlang',
+			outdir: './src/lib/paraglide',
+			${PARAGLIDE_STRATEGY}
+		})`;
+
+/**
  * Wire the SVForge Vite plugins (Paraglide + the production design-system
  * gate) into the generated `vite.config.ts`, keeping the `plugins:` array
  * prettier-stable (#325). Bracket matching is BALANCED (#415) so a plugin
@@ -99,10 +113,25 @@ export function patchViteConfig(content: string): string {
 		updated = `import { svforgeDesignSystemPlugin } from './svforge-design-system-vite-plugin.mjs';\n${updated}`;
 	}
 	if (!updated.includes('paraglideVitePlugin({')) {
-		updated = updated.replace(
-			/plugins:\s*\[/,
-			'plugins: [paraglideVitePlugin({ project: \'./project.inlang\', outdir: \'./src/lib/paraglide\' }), '
-		);
+		updated = updated.replace(/plugins:\s*\[/, `plugins: [${PARAGLIDE_PLUGIN_CALL}, `);
+	}
+	// #588: Paraglide's default strategy is `['cookie', 'globalVariable',
+	// 'baseLocale']` — it never reads the URL, so `/fr/...` would silently render
+	// the base locale. The scaffold owns URL-based i18n: declare the strategy
+	// explicitly, on the plugin call the official add-on already created too.
+	if (!updated.includes(PARAGLIDE_STRATEGY)) {
+		const multiline = /paraglideVitePlugin\(\{\r?\n(\s*)/;
+		if (multiline.test(updated)) {
+			updated = updated.replace(
+				multiline,
+				(_match, indent: string) => `paraglideVitePlugin({\n${indent}${PARAGLIDE_STRATEGY},\n${indent}`
+			);
+		} else if (updated.includes('paraglideVitePlugin({')) {
+			updated = updated.replace(
+				/paraglideVitePlugin\(\{\s*/,
+				`paraglideVitePlugin({ ${PARAGLIDE_STRATEGY}, `
+			);
+		}
 	}
 	if (!updated.includes('svforgeDesignSystemPlugin()')) {
 		updated = updated.replace(/plugins:\s*\[/, 'plugins: [svforgeDesignSystemPlugin(), ');
@@ -248,9 +277,9 @@ export function applyBaseMode(
 			// exits non-zero on ERROR and zero on WARN-only, so plain && keeps
 			// "ERROR fails the command, WARN stays informational".
 			check:
-				'svelte-kit sync && paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide && svelte-check --tsconfig ./tsconfig.json && node svforge-check.mjs',
+				'svelte-kit sync && paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide --strategy url cookie baseLocale && svelte-check --tsconfig ./tsconfig.json && node svforge-check.mjs',
 			'check:watch':
-				'svelte-kit sync && paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide && svelte-check --tsconfig ./tsconfig.json --watch'
+				'svelte-kit sync && paraglide-js compile --project ./project.inlang --outdir ./src/lib/paraglide --strategy url cookie baseLocale && svelte-check --tsconfig ./tsconfig.json --watch'
 		};
 		return `${JSON.stringify(pkg, null, '\t')}\n`;
 	});
