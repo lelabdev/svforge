@@ -1496,7 +1496,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "6d37f6e786338811456758047d85a7fb",
+    "ast_hash": "1d668fa53f32ccf6923f43e040d809f9",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1968,7 +1968,7 @@
     "semantic_hash": ""
   },
   "tests/app-dialog.test.ts": {
-    "ast_hash": "94ae055a44b9172af6c2a3c9d0a22229",
+    "ast_hash": "7026e3089ac84fc37f9ca61221392f64",
     "semantic_hash": ""
   },
   "tests/stubs/phosphor-svelte/lib/X.svelte": {
@@ -2225,6 +2225,10 @@
   },
   "packages/svforge/docs/skeleton-baseline.md": {
     "ast_hash": "c4078ae19406c9db3917b8b501560363",
+    "semantic_hash": ""
+  },
+  "packages/svforge/docs/ui-composition.md": {
+    "ast_hash": "ab2554b45ec1118fb6edb418913f2f5a",
     "semantic_hash": ""
   }
 }
