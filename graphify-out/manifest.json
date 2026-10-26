@@ -476,7 +476,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
-    "ast_hash": "1447b1c03b8b4130e16d6889ffa0f9d4",
+    "ast_hash": "24f356d6d875fdf18324ca9c5b3c0d54",
     "semantic_hash": ""
   },
   "packages/svforge/src/skeleton-inventory.ts": {
@@ -1012,7 +1012,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "f8b27bd05f6faabc75a6d95c6890052f",
+    "ast_hash": "ab5b6eff76d9baf3f7c4a3fc7effb497",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1040,7 +1040,7 @@
     "semantic_hash": ""
   },
   "tests/agents-md.test.ts": {
-    "ast_hash": "7cec09116fe3ed761c7e421797e2a68e",
+    "ast_hash": "3d79fa0c73f3bd2beea45c7504e6b270",
     "semantic_hash": ""
   },
   "tests/ai-context.test.ts": {
@@ -1492,7 +1492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "3cd913051e10a2df70ed71731b732860",
+    "ast_hash": "a1bb5e120f9e5f833dc238bb95402747",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -2268,7 +2268,7 @@
     "semantic_hash": ""
   },
   "tests/showcase.test.ts": {
-    "ast_hash": "d0f7e6f56e181fe61185f05ee4d52839",
+    "ast_hash": "e1b384c064496096bb79d585128af8bc",
     "semantic_hash": ""
   },
   ".changeset/showcase-module-demos.md": {

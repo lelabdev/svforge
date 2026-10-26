@@ -163,6 +163,22 @@ keep it in its feature area (e.g. \`src/lib/features/...\` or the route folder).
 
 Use the existing screens as concrete references, not a gallery to copy: \`/showcase\` shows the available building blocks, \`/admin\` is a dashboard with one primary route action in a canonical \`PageHeader\`, \`/admin/users\` keeps a CRUD list/table direct behind the same header composition, and \`/admin/settings\` uses focused form units with its deliberate \`max-w-2xl\` column.
 
+## Showcase is optional (#586)
+
+\`/showcase\` is a design-system gallery plus whatever module demos are installed.
+It is a **visual/manual testing aid**: not a second product implementation, not an
+acceptance requirement for a feature, and not something to grow in parallel with
+the application. Add or extend a demo only when it genuinely helps a person see a
+visual capability, and never re-implement a real screen, its data or its
+business logic there. Existing demos must keep building and prerendering, even
+when you change the application around them.
+
+If a production deployment must not serve them, follow the documented exclusion
+steps in the SVForge README (\`packages/svforge/README.md\` → Showcase →
+"Removing showcase pages from production"): remove the routes and every link to
+them before the production build, and verify the built output. There is no
+runtime switch — a statically prerendered page is already part of the build.
+
 ## Design-system contract (#240, #313)
 
 **Reuse first**: prefer reuse over invention. A visually less custom interface
@@ -269,13 +285,14 @@ MUST:
 - use domain-oriented message names (\`users_create\`, not \`blue_button_text\`)
 - localize EVERY internal \`href\`/navigation target with \`localizeHref()\` from \`#lib/paraglide/runtime.js\` — a raw \`/path\` drops the active locale and silently sends the user back to the base locale. The \`Navbar\`, \`Footer\` and \`AdminLayout\` already do this for the links you pass them
 - keep the compiled Paraglide strategy URL-based (\`url\`, \`cookie\`, \`baseLocale\` in \`vite.config.ts\` and in the \`paraglide-js compile\` step of \`package.json\`): without \`url\`, \`/fr/...\` silently renders the base locale even though the URL and links say French
-- put a module's interactive demo under \`src/routes/showcase/<module>/\` with a sibling \`meta.ts\` (\`title\`, optional \`description\`, optional \`order\`, all locale functions): \`/showcase\` lists the demos that are actually installed and never imports an uninstalled module. Demos use local fixture data, expose no credentials and cause no production side effects
+- add a showcase demo ONLY when it genuinely helps someone explore a visual capability — the showcase is optional, never a deliverable. When it is warranted, put it under \`src/routes/showcase/<module>/\` with a sibling \`meta.ts\` (\`title\`, optional \`description\`, optional \`order\`, all locale functions): \`/showcase\` lists only the demos that are actually installed and never imports an uninstalled module. Demos use local fixture data, expose no credentials and cause no production side effects
 - keep locale switching in the one shared \`ui/LocaleSwitcher.svelte\`: it renders the project's configured \`locales\`, marks the active one and preserves the current route, query string and fragment. Place it wherever the design needs it (the scaffold wires it into the shared shells), and never build a second switcher or a parallel locale state
 
 MUST NOT:
 - hardcode static user-facing copy in Svelte components without a justified exception
 - create another i18n/message abstraction
 - update only some locales — a feature is not done until every configured locale has the key
+- treat a showcase demo as an obligation: changing application behaviour NEVER requires creating or updating one, and a demo must never duplicate a real application screen or its business logic. A demo that already exists must keep building and prerendering
 - hard-code a language list (\`en\`/\`fr\`) in a component, or navigate with an unlocalized internal \`href\`
 
 Extending locales (a default change, not an architecture change):

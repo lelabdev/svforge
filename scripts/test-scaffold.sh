@@ -744,6 +744,54 @@ if [ "$TEMPLATE" = "dashboard-integrations" ]; then
 		|| { echo "❌ upload test pack lacks the POST hard-limit test (#338)"; exit 1; }
 fi
 
+# 4d. Production exclusion (#586 review B-03): the documented procedure must
+#     actually drop the prerendered showcase while installed module code stays
+#     usable. No runtime switch can hide a page that is already in the build.
+if [ "$TEMPLATE" = "base-ui-modules" ]; then
+	grep -q "href: '/showcase'" src/routes/+layout.svelte \
+		|| { echo "❌ showcase nav link missing before the exclusion check (#586)"; exit 1; }
+	grep -q "localizeHref('/showcase')" src/routes/+page.svelte \
+		|| { echo "❌ showcase landing link missing before the exclusion check (#586)"; exit 1; }
+
+	rm -rf src/routes/showcase
+	node - <<'NODE'
+	const { readFileSync, writeFileSync } = require('node:fs');
+	const edits = [
+		['src/routes/+layout.svelte', /<Navbar links=\{\[\{ href: '\/showcase',[^\n]*\n/, '<Navbar />\n'],
+		['src/routes/+layout.svelte', /<Footer links=\{\[\{ href: '\/showcase',[^\n]*\n/, '<Footer />\n'],
+		['src/routes/+page.svelte', /^\t*<Button href=\{localizeHref\('\/showcase'\)\}[^\n]*\n/m, ''],
+		['src/routes/+page.svelte', /^\t*import \{ localizeHref \} from '#lib\/paraglide\/runtime\.js';\n/m, '']
+	];
+	for (const [file, pattern, replacement] of edits) {
+		const source = readFileSync(file, 'utf8');
+		const next = source.replace(pattern, replacement);
+		if (next === source) {
+			console.error(`showcase exclusion did not match in ${file} (#586)`);
+			process.exit(1);
+		}
+		writeFileSync(file, next);
+	}
+NODE
+
+	# Generated Paraglide message modules are build output (regenerated at build):
+	# only hand-written sources need to be clean.
+	if grep -rn "/showcase" src/ --exclude-dir=paraglide >/dev/null 2>&1; then
+		grep -rn "/showcase" src/ --exclude-dir=paraglide
+		echo "❌ showcase references remain after the documented exclusion (#586)"; exit 1
+	fi
+	bun run build >/dev/null 2>&1 \
+		|| { echo "❌ production build failed after showcase exclusion (#586)"; exit 1; }
+	if ls .svelte-kit/output/prerendered/pages | grep -q showcase; then
+		echo "❌ /showcase is still prerendered after the documented exclusion (#586)"; exit 1
+	fi
+	if grep -rq "/showcase" .svelte-kit/output/prerendered 2>/dev/null; then
+		echo "❌ the prerendered output still links /showcase (#586)"; exit 1
+	fi
+	test -f src/lib/components/svforge/dnd/SortableList.svelte \
+		|| { echo "❌ the installed module component was removed with its demo (#586)"; exit 1; }
+	echo "✓ showcase routes can be excluded from a production build (#586)"
+fi
+
 # 5. Assert testing-profile files land at the project ROOT, not src/ (#186)
 if [ "$TEMPLATE" = "dashboard" ] || [ "$TEMPLATE" = "dashboard-playwright" ] || [ "$TEMPLATE" = "dashboard-foundations" ] || [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	test -f vitest.config.ts || { echo "❌ vitest.config.ts missing at project root"; exit 1; }

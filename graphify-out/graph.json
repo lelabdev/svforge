@@ -9875,7 +9875,7 @@
       "label": "DASHBOARD()",
       "file_type": "code",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L301",
+      "source_location": "L318",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9884,7 +9884,7 @@
       "label": "scaffoldedAgents()",
       "file_type": "code",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L330",
+      "source_location": "L347",
       "_callable": true,
       "_origin": "ast"
     },
@@ -22602,7 +22602,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L876",
+      "source_location": "L924",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -23459,7 +23459,7 @@
       "label": "FakeSv",
       "file_type": "code",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L159",
+      "source_location": "L179",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -23469,7 +23469,7 @@
       "label": "asSvApi()",
       "file_type": "code",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L189",
+      "source_location": "L209",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27201,7 +27201,7 @@
       "label": "installDnd()",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L71",
+      "source_location": "L91",
       "_callable": true,
       "_origin": "ast"
     },
@@ -27210,7 +27210,7 @@
       "label": "writeJson()",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L161",
+      "source_location": "L181",
       "_callable": true,
       "_origin": "ast"
     },
@@ -34162,12 +34162,21 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_readme_removing_showcase_pages_from_production",
+      "label": "Removing showcase pages from production",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L68",
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_readme_optional_modules",
       "label": "Optional modules",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L70",
+      "source_location": "L96",
       "_origin": "ast"
     },
     {
@@ -34176,7 +34185,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L114",
+      "source_location": "L140",
       "_origin": "ast"
     },
     {
@@ -34185,7 +34194,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L130",
+      "source_location": "L156",
       "_origin": "ast"
     },
     {
@@ -34194,7 +34203,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L144",
+      "source_location": "L170",
       "_origin": "ast"
     },
     {
@@ -34203,7 +34212,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L148",
+      "source_location": "L174",
       "_origin": "ast"
     },
     {
@@ -34212,7 +34221,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L152",
+      "source_location": "L178",
       "_origin": "ast"
     },
     {
@@ -55209,7 +55218,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L301",
+      "source_location": "L318",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55219,7 +55228,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L330",
+      "source_location": "L347",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55241,7 +55250,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L261",
+      "source_location": "L277",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55252,7 +55261,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L339",
+      "source_location": "L356",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55263,7 +55272,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L340",
+      "source_location": "L357",
       "weight": 1,
       "_origin": "ast"
     },
@@ -78774,7 +78783,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L876",
+      "source_location": "L924",
       "weight": 1,
       "_origin": "ast"
     },
@@ -78784,7 +78793,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L884",
+      "source_location": "L932",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -81303,7 +81312,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L159",
+      "source_location": "L179",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81313,7 +81322,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L189",
+      "source_location": "L209",
       "weight": 1,
       "_origin": "ast"
     },
@@ -81324,7 +81333,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/agents-md.test.ts",
-      "source_location": "L142",
+      "source_location": "L162",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94797,7 +94806,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L71",
+      "source_location": "L91",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94807,7 +94816,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L161",
+      "source_location": "L181",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94841,7 +94850,7 @@
       "deferred": true,
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L74",
+      "source_location": "L94",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94852,7 +94861,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L110",
+      "source_location": "L130",
       "weight": 1,
       "_origin": "ast"
     },
@@ -94863,7 +94872,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L147",
+      "source_location": "L167",
       "weight": 1,
       "_origin": "ast"
     },
@@ -105779,12 +105788,22 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_readme_showcase",
+      "target": "packages_svforge_readme_removing_showcase_pages_from_production",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L68",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_readme_svforge",
       "target": "packages_svforge_readme_optional_modules",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L70",
+      "source_location": "L96",
       "weight": 1,
       "_origin": "ast"
     },
@@ -105794,7 +105813,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L114",
+      "source_location": "L140",
       "weight": 1,
       "_origin": "ast"
     },
@@ -105804,7 +105823,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L128",
+      "source_location": "L154",
       "weight": 1,
       "_origin": "ast"
     },
@@ -105814,7 +105833,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L130",
+      "source_location": "L156",
       "weight": 1,
       "_origin": "ast"
     },
@@ -105824,7 +105843,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L144",
+      "source_location": "L170",
       "weight": 1,
       "_origin": "ast"
     },
@@ -105834,7 +105853,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L148",
+      "source_location": "L174",
       "weight": 1,
       "_origin": "ast"
     },
@@ -105844,7 +105863,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L152",
+      "source_location": "L178",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107423,7 +107442,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/scaffolded-agents.ts",
-      "source_location": "L339",
+      "source_location": "L356",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108023,7 +108042,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L72",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108676,14 +108695,38 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_readme_showcase",
+      "source": "packages_svforge_readme_removing_showcase_pages_from_production",
+      "target": "tests_locale_switcher_test_links",
+      "relation": "references",
+      "context": "links",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L76",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_readme_removing_showcase_pages_from_production",
+      "target": "tests_stubs_lib_paraglide_runtime_localizehref",
+      "relation": "references",
+      "context": "localizeHref",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L76",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_readme_removing_showcase_pages_from_production",
       "target": "packages_svforge_templates_dashboard_src_lib_server_signup_mode_test_signup_mode",
       "relation": "references",
       "context": "SIGNUP_MODE",
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/README.md",
-      "source_location": "L66",
+      "source_location": "L92",
       "weight": 1,
       "_origin": "ast"
     },

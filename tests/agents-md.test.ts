@@ -111,6 +111,26 @@ describe('AGENTS.md as the sole agent convention (#347)', () => {
 		expect(refreshed.content).toContain('User notes survive.');
 	});
 
+	it('presents the showcase as an optional testing aid, never a second product (#586)', () => {
+		for (const template of ['base', 'dashboard'] as const) {
+			const doc = scaffoldedAgents(template);
+
+			// Optionality is explicit and scoped: visual/manual testing only.
+			expect(doc).toMatch(/Showcase is optional/i);
+			expect(doc).toMatch(/visual\/manual testing aid/i);
+			expect(doc).toMatch(/not a second product implementation/i);
+			expect(doc).toMatch(/never re-implement a real screen/i);
+			// A behaviour change alone never obliges a demo, but demos must keep building.
+			expect(doc).toMatch(/NEVER requires creating or updating one/i);
+			expect(doc).toMatch(/must keep building and prerendering/i);
+			// The unconditional instruction that made demos mandatory is gone.
+			expect(doc).not.toMatch(/^- put a module's interactive demo under/m);
+			// Production exclusion is documented, with no runtime-switch claim.
+			expect(doc).toMatch(/Removing showcase pages from production/i);
+			expect(doc).toMatch(/There is no\s+runtime switch/i);
+		}
+	});
+
 	it('carries the i18n contract: catalogs are the source of truth, generated code is off-limits (#322)', () => {
 		const canonical = scaffoldedAgents('base');
 		expect(canonical).toMatch(/## i18n \(Paraglide/);

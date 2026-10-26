@@ -55,6 +55,26 @@ describe('showcase route convention (#586)', () => {
 		expect(index).toContain("href: `/showcase/${");
 	});
 
+	it('documents demos as optional and how to exclude them from production (#586)', () => {
+		const readme = readFileSync(join(ROOT, 'packages/svforge/README.md'), 'utf-8');
+		const guidance = readFileSync(join(ROOT, 'packages/svforge/src/scaffolded-agents.ts'), 'utf-8');
+
+		expect(readme).toMatch(/Demos are optional/i);
+		expect(readme).toMatch(/Removing showcase pages from production/i);
+		// The procedure must remove the routes AND the links, then verify the build.
+		expect(readme).toMatch(/rm -rf src\/routes\/showcase/);
+		expect(readme).toMatch(/grep -rn "\/showcase" src --exclude-dir=paraglide/);
+		expect(readme).toMatch(/prerendered\/pages/);
+		// No runtime-only claim: a prerendered page is part of the build.
+		expect(readme).toMatch(/no runtime flag can hide a page that is already in the output/i);
+		// The scaffolded guidance points at that procedure instead of demanding demos.
+		expect(guidance).toMatch(/Showcase is optional/);
+		// The exclusion is verified on a real scaffold (base-ui-modules profile).
+		const harness = readFileSync(join(ROOT, 'scripts/test-scaffold.sh'), 'utf-8');
+		expect(harness).toMatch(/showcase routes can be excluded from a production build/);
+		expect(harness).toMatch(/still prerendered after the documented exclusion/);
+	});
+
 	it('a plain Base project ships no module demo and imports no module code', () => {
 		const baseFiles = sourceFiles(join(BASE, 'src/routes'));
 		expect(baseFiles.some((file) => file.includes('/showcase/dnd'))).toBe(false);
