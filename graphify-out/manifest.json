@@ -20,7 +20,7 @@
     "semantic_hash": ""
   },
   "packages/addon-kit/src/capabilities.ts": {
-    "ast_hash": "67c05b0e301a4259b3d30178671515d4",
+    "ast_hash": "fe11225f3665bdc116761920043087df",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/index.ts": {
@@ -468,7 +468,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "9b26ed1f40a322fd492454854231d7ec",
+    "ast_hash": "47daa0a97f9c7785417014d865e54952",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "6d3e338626ed21d68f9bf78b438fabb0",
+    "ast_hash": "117a0d8eee16c921529699af4a4b6224",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -540,7 +540,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/svforge-modules.json": {
-    "ast_hash": "045bd9471d52400515413f449a4a0344",
+    "ast_hash": "7cd1187a7b5fe9ce3c00474ea4f7d6b0",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/app.d.ts": {
@@ -908,11 +908,11 @@
     "semantic_hash": ""
   },
   "packages/ui_toast/src/index.ts": {
-    "ast_hash": "8aebee76289ae272238217fb04a41be6",
+    "ast_hash": "6c5687ea35563555e4206135e7bbe0a1",
     "semantic_hash": ""
   },
   "packages/ui_toast/src/templates.ts": {
-    "ast_hash": "3a60935cd45a99558e0b25002fd3d536",
+    "ast_hash": "667589cdec53f3bd2a647d33591c9883",
     "semantic_hash": ""
   },
   "packages/ui_toast/templates/src/lib/components/svforge/ui/Toaster.svelte": {
@@ -1012,7 +1012,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "ab5b6eff76d9baf3f7c4a3fc7effb497",
+    "ast_hash": "5a14a114ac44152824184d40b96c4919",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1492,7 +1492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "a1bb5e120f9e5f833dc238bb95402747",
+    "ast_hash": "382a60ea13e44b1457457f9ac327ffaf",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -2220,7 +2220,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/skeleton-baseline.md": {
-    "ast_hash": "699a01ddecdc4263b741b6c28ab0a59d",
+    "ast_hash": "e17199bbbeb4eb5d2b1cbeff28993501",
     "semantic_hash": ""
   },
   "packages/svforge/docs/ui-composition.md": {
@@ -2268,11 +2268,23 @@
     "semantic_hash": ""
   },
   "tests/showcase.test.ts": {
-    "ast_hash": "e1b384c064496096bb79d585128af8bc",
+    "ast_hash": "a911a56cb4aeb35e390b5967fa06d692",
     "semantic_hash": ""
   },
   ".changeset/showcase-module-demos.md": {
     "ast_hash": "f9394d1b2942ef658005bb5bfb7df00b",
+    "semantic_hash": ""
+  },
+  "packages/ui_toast/templates/src/routes/showcase/ui-toast/+page.svelte": {
+    "ast_hash": "2d88cf1ef523af19784a3ca87ff3d067",
+    "semantic_hash": ""
+  },
+  "packages/ui_toast/templates/src/routes/showcase/ui-toast/meta.ts": {
+    "ast_hash": "887cf998f8392f1e78d5a40946ceace1",
+    "semantic_hash": ""
+  },
+  ".changeset/showcase-ui-toast-demo.md": {
+    "ast_hash": "d63eb8bc4307ca914f68126cf1e8cf40",
     "semantic_hash": ""
   }
 }

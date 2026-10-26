@@ -65,14 +65,17 @@
 			"description": "Toast notifications (Skeleton Toast)",
 			"template": "base",
 			"requires": [
-				"ui.skeleton"
+				"ui.skeleton",
+				"ui.svforge",
+				"i18n.messages"
 			],
 			"provides": [],
 			"optional": [],
 			"optionalModules": [],
 			"files": [
 				"src/lib/components/svforge/ui/Toaster.svelte",
-				"src/lib/components/svforge/ui/toaster.ts"
+				"src/lib/components/svforge/ui/toaster.ts",
+				"src/routes/showcase/ui-toast/"
 			]
 		},
 		"dnd": {

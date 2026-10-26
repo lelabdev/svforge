@@ -61,7 +61,7 @@ Every scaffolded component follows the [Skeleton v5-first baseline](docs/skeleto
 
 ### Showcase
 
-`/showcase` is the design-system gallery (colors, variants, every shared component, theme switching). Installed modules can contribute their own child demo — `dnd` ships `/showcase/dnd`, a working sortable list with local fixture data — by adding a route plus a `meta.ts` next to it: the showcase index discovers demos with a build-time glob and lists only what is installed, so a plain Base project imports nothing and shows no empty section.
+`/showcase` is the design-system gallery (colors, variants, every shared component, theme switching). Installed modules can contribute their own child demo by adding a route plus a `meta.ts` next to it — `dnd` ships `/showcase/dnd` (a working sortable list) and `ui_toast` ships `/showcase/ui-toast` (every toast variant fired through the module's own store), both with local fixture data: the showcase index discovers demos with a build-time glob and lists only what is installed, so a plain Base project imports nothing and shows no empty section.
 
 **Demos are optional.** They are a visual/manual testing aid for capabilities that are genuinely worth exploring — not a second product implementation, and never a duplicate of a real application screen. Changing application behaviour does not require creating or updating a demo; an existing demo only has to keep building.
 

@@ -175,7 +175,9 @@ export interface ModuleCapabilityContract {
 export const MODULE_CONTRACTS: Record<string, ModuleCapabilityContract> = {
 	ui_toast: {
 		template: 'base',
-		requires: ['ui.skeleton'],
+		// #586: the module ships a localized showcase route that composes the
+		// SVForge kit (Card/Button) as well as Skeleton.
+		requires: ['ui.skeleton', 'ui.svforge', 'i18n.messages'],
 		provides: [],
 		optional: [],
 		optionalModules: []
