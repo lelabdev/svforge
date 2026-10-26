@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, waitFor } from '@testing-library/svelte';
 import { createRawSnippet } from 'svelte';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, sep } from 'node:path';
 import AppDialog from '../packages/svforge/templates/dashboard/src/lib/components/svforge/ui/AppDialog.svelte';
 import { SKELETON_UTILITIES } from '../packages/svforge/src/skeleton-inventory';
 
@@ -11,6 +11,24 @@ const ROOT = process.cwd();
 const DASHBOARD = join(ROOT, 'packages/svforge/templates/dashboard');
 const UI_INDEX = join(DASHBOARD, 'src/lib/components/svforge/ui/index.ts');
 const USERS_PAGE = join(DASHBOARD, 'src/routes/(app)/admin/users/+page.svelte');
+const PACKAGES = join(ROOT, 'packages');
+
+/** Every scaffolded route file across base, dashboard and the addons. */
+function scaffoldedRouteFiles(dir: string): string[] {
+	const out: string[] = [];
+	for (const entry of readdirSync(dir)) {
+		if (entry === 'node_modules') continue;
+		const full = join(dir, entry);
+		if (statSync(full).isDirectory()) out.push(...scaffoldedRouteFiles(full));
+		else if (
+			entry.endsWith('.svelte') &&
+			full.includes(`${sep}templates${sep}`) &&
+			full.includes(`${sep}src${sep}routes${sep}`)
+		)
+			out.push(full);
+	}
+	return out;
+}
 
 const body = createRawSnippet(() => ({
 	render: () => '<p data-testid="dialog-body">Form body</p>'
@@ -113,6 +131,19 @@ describe('modal composition contract (#603)', () => {
 		expect(source).not.toContain("from '@skeletonlabs/skeleton-svelte'");
 		expect(source).not.toMatch(/<Dialog[.\s]/);
 		expect(source).not.toContain('<Portal>');
+	});
+
+	it('keeps the Skeleton Dialog composition out of every scaffolded route', () => {
+		// The shell lives in ui/AppDialog.svelte; the mobile drawer lives in
+		// layout/AdminLayout.svelte. A route that re-composes Dialog/Portal is a
+		// second, drifting shell (#603).
+		const routes = scaffoldedRouteFiles(PACKAGES);
+		expect(routes.length).toBeGreaterThanOrEqual(15);
+
+		const offenders = routes
+			.filter((file) => /<Dialog[.\s]|<Portal[\s>]/.test(readFileSync(file, 'utf-8')))
+			.map((file) => file.slice(ROOT.length + 1));
+		expect(offenders, `routes composing Skeleton Dialog/Portal: ${offenders.join(', ')}`).toEqual([]);
 	});
 
 	it('no scaffolded template applies the native-dialog animation to a framework dialog', () => {

@@ -23409,11 +23409,28 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_app_dialog_test_packages",
+      "label": "PACKAGES",
+      "file_type": "code",
+      "source_file": "tests/app-dialog.test.ts",
+      "source_location": "L14",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_app_dialog_test_scaffoldedroutefiles",
+      "label": "scaffoldedRouteFiles()",
+      "file_type": "code",
+      "source_file": "tests/app-dialog.test.ts",
+      "source_location": "L17",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_app_dialog_test_body",
       "label": "body",
       "file_type": "code",
       "source_file": "tests/app-dialog.test.ts",
-      "source_location": "L15",
+      "source_location": "L33",
       "_origin": "ast"
     },
     {
@@ -23421,7 +23438,7 @@
       "label": "mountDialog()",
       "file_type": "code",
       "source_file": "tests/app-dialog.test.ts",
-      "source_location": "L21",
+      "source_location": "L39",
       "_callable": true,
       "_origin": "ast"
     },
@@ -34040,6 +34057,78 @@
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
       "source_location": "L149",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_ui_composition",
+      "label": "ui-composition.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_ui_composition_atomic_reusable_ui_composition",
+      "label": "Atomic, reusable UI composition",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_ui_composition_contract",
+      "label": "Contract",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L7",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_ui_composition_consolidated_compositions",
+      "label": "Consolidated compositions",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L15",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_ui_composition_modal_shell_rules",
+      "label": "Modal shell rules",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L25",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_ui_composition_audited_and_deliberately_not_extracted",
+      "label": "Audited and deliberately not extracted",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L31",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_ui_composition_guards_and_verification",
+      "label": "Guards and verification",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L43",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_ui_composition_adding_a_repeated_composition",
+      "label": "Adding a repeated composition",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L50",
       "_origin": "ast"
     },
     {
@@ -80871,11 +80960,31 @@
     },
     {
       "source": "tests_app_dialog_test",
+      "target": "tests_app_dialog_test_packages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/app-dialog.test.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_app_dialog_test",
+      "target": "tests_app_dialog_test_scaffoldedroutefiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/app-dialog.test.ts",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_app_dialog_test",
       "target": "tests_app_dialog_test_body",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/app-dialog.test.ts",
-      "source_location": "L15",
+      "source_location": "L33",
       "weight": 1,
       "_origin": "ast"
     },
@@ -80885,7 +80994,18 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/app-dialog.test.ts",
-      "source_location": "L21",
+      "source_location": "L39",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_app_dialog_test_scaffoldedroutefiles",
+      "target": "tests_app_dialog_test_scaffoldedroutefiles",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/app-dialog.test.ts",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -80896,7 +81016,18 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/app-dialog.test.ts",
-      "source_location": "L29",
+      "source_location": "L47",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_app_dialog_test",
+      "target": "tests_app_dialog_test_scaffoldedroutefiles",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/app-dialog.test.ts",
+      "source_location": "L140",
       "weight": 1,
       "_origin": "ast"
     },
@@ -104053,6 +104184,16 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_readme",
+      "target": "packages_svforge_docs_ui_composition",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_readme_svforge",
       "target": "packages_svforge_readme_optional_modules",
       "relation": "contains",
@@ -104449,6 +104590,96 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/sveltekit-compatibility.md",
       "source_location": "L149",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition",
+      "target": "packages_svforge_docs_ui_composition_atomic_reusable_ui_composition",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition",
+      "target": "packages_svforge_docs_skeleton_baseline",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition",
+      "target": "packages_svforge_docs_structural_duplication",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition_atomic_reusable_ui_composition",
+      "target": "packages_svforge_docs_ui_composition_contract",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition_atomic_reusable_ui_composition",
+      "target": "packages_svforge_docs_ui_composition_consolidated_compositions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L15",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition_consolidated_compositions",
+      "target": "packages_svforge_docs_ui_composition_modal_shell_rules",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L25",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition_atomic_reusable_ui_composition",
+      "target": "packages_svforge_docs_ui_composition_audited_and_deliberately_not_extracted",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L31",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition_atomic_reusable_ui_composition",
+      "target": "packages_svforge_docs_ui_composition_guards_and_verification",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L43",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_ui_composition_atomic_reusable_ui_composition",
+      "target": "packages_svforge_docs_ui_composition_adding_a_repeated_composition",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/ui-composition.md",
+      "source_location": "L50",
       "weight": 1,
       "_origin": "ast"
     },
