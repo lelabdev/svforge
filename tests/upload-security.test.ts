@@ -5,6 +5,9 @@ import { join } from 'node:path';
 const ROOT = process.cwd();
 const UPLOAD_ENDPOINT = join(ROOT, 'packages/uploads/templates/src/routes/api/upload/+server.ts');
 const S3_CLIENT = join(ROOT, 'packages/uploads/templates/src/lib/server/s3.ts');
+// #586: the allowlist + size policy moved to one shared module so the endpoint
+// and any client-side pre-check cannot drift.
+const SHARED_POLICY = join(ROOT, 'packages/uploads/templates/src/lib/uploads/policy.ts');
 
 /**
  * Regression tests for #170 — the presigned upload endpoint must be secured.
@@ -17,6 +20,7 @@ const S3_CLIENT = join(ROOT, 'packages/uploads/templates/src/lib/server/s3.ts');
 describe('presigned upload endpoint security (#170)', () => {
 	const source = readFileSync(UPLOAD_ENDPOINT, 'utf-8');
 	const s3Source = readFileSync(S3_CLIENT, 'utf-8');
+	const policySource = readFileSync(SHARED_POLICY, 'utf-8');
 
 	it('lazy-inits the S3 client (no top-level env throw) (#237)', () => {
 		// A top-level throw in s3.ts breaks `vite build` on any fresh scaffold
@@ -73,10 +77,14 @@ describe('presigned upload endpoint security (#170)', () => {
 
 	it('excludes SVG from the allowlist (stored XSS) (#193)', () => {
 		// image/svg+xml is a stored-XSS vector when served same-origin.
-		// The ALLOWED_MIME_TYPES array (not the comments) must not list it.
-		const code = source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+		// The ALLOWED_MIME_TYPES array (not the comments) must not list it, and
+		// the endpoint must delegate to that one shared policy (#586).
+		const code = policySource.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
 		expect(code).not.toMatch(/svg[+/]xml/);
-		expect(source).toMatch(/deliberately EXCLUDED/);
+		expect(policySource).toMatch(/deliberately EXCLUDED/);
+		expect(source).not.toMatch(/svg[+/]xml/);
+		expect(source).toContain("from '#lib/uploads/policy.js'");
+		expect(source).toContain('validateUploadFile(');
 	});
 
 	it('documents that the size limit is best-effort on presigned PUT (#193)', () => {

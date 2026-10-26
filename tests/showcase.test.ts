@@ -1,9 +1,10 @@
 import { describe, expect, it, afterEach } from 'vitest';
+import { compile } from 'svelte/compiler';
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { MODULE_CONTRACTS } from '../packages/addon-kit/src/index';
 import { ROOT, tempProject } from './helpers';
-import { createBaseProject, diskSv } from './helpers/fixtures';
+import { createBaseProject, createDashboardProject, diskSv } from './helpers/fixtures';
 
 /**
  * #586 — the showcase is the design-system gallery at `/showcase`, and installed
@@ -85,7 +86,7 @@ describe('showcase route convention (#586)', () => {
 });
 
 /** Run a module add-on against a temp project with the fake write surface. */
-async function installModule(dir: string, pkg: 'dnd' | 'ui_toast' | 'tiptap' | 'graph') {
+async function installModule(dir: string, pkg: 'dnd' | 'ui_toast' | 'tiptap' | 'graph' | 'uploads') {
 	const sv = diskSv(dir);
 	const cancelled: string[] = [];
 	const addon = (await import(`../packages/${pkg}/src/index`)).default;
@@ -150,6 +151,99 @@ describe('module demo delivered by @svforge/ui_toast (#586, phase 2)', () => {
 	it('declares the capabilities its localized demo route needs', () => {
 		expect(MODULE_CONTRACTS.ui_toast.requires).toEqual(
 			expect.arrayContaining(['ui.skeleton', 'ui.svforge', 'i18n.messages'])
+		);
+	});
+});
+
+describe('every showcase demo page compiles (#586)', () => {
+	it('compiles the installed demo pages with the Svelte compiler', () => {
+		const demoPages = sourceFiles(join(ROOT, 'packages'))
+			.filter((file) => file.includes('/templates/src/routes/showcase/'))
+			.filter((file) => file.endsWith('/+page.svelte'));
+
+		expect(demoPages.length).toBeGreaterThanOrEqual(5);
+		for (const file of demoPages) {
+			expect(
+				() => compile(readFileSync(file, 'utf-8'), { filename: file, generate: 'server' }),
+				`${file.slice(ROOT.length + 1)} must compile`
+			).not.toThrow();
+		}
+	});
+});
+
+describe('module demo delivered by @svforge/uploads (#586, phase 5)', () => {
+	let cleanup: (() => void) | undefined;
+	afterEach(() => cleanup?.());
+
+	const TEMPLATE = join(ROOT, 'packages/uploads/templates/src/routes/showcase/uploads');
+	const SERVER = join(ROOT, 'packages/uploads/templates/src/routes/api/upload/+server.ts');
+
+	it('simulates the flow with the shared policy and never calls the network', () => {
+		const page = readFileSync(join(TEMPLATE, '+page.svelte'), 'utf-8');
+		const meta = readFileSync(join(TEMPLATE, 'meta.ts'), 'utf-8');
+
+		// Validation comes from the module's own policy — not a demo-local copy.
+		expect(page).toContain("from '#lib/uploads/policy.js'");
+		expect(page).toContain('validateUploadFile(');
+		expect(page).toContain('MAX_FILE_SIZE');
+		expect(page).toContain('ALLOWED_MIME_TYPES');
+		// The REAL component is referenced in a comment only, never imported or
+		// mounted: it would POST the file to the endpoint and then to S3/R2.
+		expect(page).not.toMatch(/import[^;]*FileUpload/);
+		expect(page).not.toContain('<FileUpload');
+		expect(page).not.toMatch(/fetch\(|XMLHttpRequest|localStorage|process\.env/);
+		// Skeleton owns the progress affordance; localized copy is Paraglide-only.
+		expect(page).toContain('<Progress value={progress}');
+		expect(page).toContain('aria-live="polite"');
+		expect(page).not.toMatch(/style[:=]/);
+		expect(page).toMatch(/m\.(showcase_uploads|uploads_)/);
+		expect(meta).toMatch(/order: \d+/);
+		expect(meta).toMatch(/title: \(\) => m\.showcase_uploads_title\(\)/);
+	});
+
+	it('keeps the endpoint and the demo on the same policy (single source)', () => {
+		const server = readFileSync(SERVER, 'utf-8');
+
+		expect(server).toContain("from '#lib/uploads/policy.js'");
+		expect(server).toContain('validateUploadFile(');
+		// The MIME allowlist lives in the shared policy only.
+		expect(server).not.toContain("'image/jpeg'");
+		expect(server).toContain("rejection === 'file_too_large'");
+	});
+
+	it('delivers the route, the metadata and both catalogs on a dashboard project', async () => {
+		const { dir, cleanup: done } = tempProject('sf-showcase-uploads-');
+		cleanup = done;
+		createDashboardProject(dir);
+
+		const { cancelled, written } = await installModule(dir, 'uploads');
+		expect(cancelled).toEqual([]);
+		expect(written).toEqual(
+			expect.arrayContaining([
+				'src/routes/showcase/uploads/+page.svelte',
+				'src/routes/showcase/uploads/meta.ts',
+				'messages/en.json',
+				'messages/fr.json'
+			])
+		);
+
+		const keys = (locale: string) =>
+			Object.keys(JSON.parse(readFileSync(join(dir, `messages/${locale}.json`), 'utf-8')))
+				.filter((key) => !key.startsWith('$'))
+				.sort();
+		expect(keys('en')).toEqual(keys('fr'));
+		for (const locale of ['en', 'fr']) {
+			const catalog = JSON.parse(readFileSync(join(dir, `messages/${locale}.json`), 'utf-8'));
+			expect(catalog.showcase_uploads_title, `${locale} title`).toBeTruthy();
+			expect(catalog.showcase_uploads_limits, `${locale} limits copy`).toBeTruthy();
+			// The module's own error codes stay available to the demo.
+			expect(catalog.uploads_error_file_too_large, `${locale} error copy`).toBeTruthy();
+		}
+	});
+
+	it('declares the capabilities its localized demo route needs', () => {
+		expect(MODULE_CONTRACTS.uploads.requires).toEqual(
+			expect.arrayContaining(['auth.currentUser', 'i18n.messages', 'ui.svforge'])
 		);
 	});
 });

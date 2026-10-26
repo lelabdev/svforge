@@ -2,7 +2,8 @@ import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { getS3 } from '#lib/server/s3.js';
-import { MAX_FILE_SIZE, MAX_POST_BODY_SIZE } from '#lib/uploads/post-form.js';
+import { MAX_POST_BODY_SIZE } from '#lib/uploads/post-form.js';
+import { validateUploadFile } from '#lib/uploads/policy.js';
 import * as env from '$app/env/private';
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
@@ -25,20 +26,6 @@ import type { RequestHandler } from './$types';
 function getSizePolicy(): 'best-effort' | 'storage-enforced' {
 	return env.S3_UPLOAD_SIZE_POLICY === 'presigned-put' ? 'best-effort' : 'storage-enforced';
 }
-
-/**
- * Allowed MIME types for uploads. SVG is deliberately EXCLUDED: serving an
- * untrusted SVG from the app origin can result in stored XSS.
- */
-const ALLOWED_MIME_TYPES = [
-	'image/jpeg',
-	'image/png',
-	'image/gif',
-	'image/webp',
-	'application/pdf',
-	'text/plain',
-	'application/json'
-] as const;
 
 function sanitizeFilename(name: string): string {
 	const cleaned = name.replace(/[/\\]/g, '').replace(/\.\.+/g, '.');
@@ -66,14 +53,14 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 	if (!filename || typeof filename !== 'string') return json({ error: { code: 'filename_required' } }, { status: 400 });
 	if (!contentType || typeof contentType !== 'string') return json({ error: { code: 'content_type_required' } }, { status: 400 });
-	if (!ALLOWED_MIME_TYPES.includes(contentType as (typeof ALLOWED_MIME_TYPES)[number])) {
-		return json({ error: { code: 'file_type_not_allowed' } }, { status: 400 });
+	// Type + size are validated by the SHARED policy (#586): the client-side
+	// pre-check used by the showcase demo answers with these exact codes.
+	const rejection = validateUploadFile({ name: filename, type: contentType, size });
+	if (rejection === 'file_type_not_allowed' || rejection === 'invalid_size') {
+		return json({ error: { code: rejection } }, { status: 400 });
 	}
-	if (typeof size !== 'number' || !Number.isFinite(size) || size <= 0) {
-		return json({ error: { code: 'invalid_size' } }, { status: 400 });
-	}
-	if (size > MAX_FILE_SIZE) {
-		return json({ error: { code: 'file_too_large' } }, { status: 413 });
+	if (rejection === 'file_too_large') {
+		return json({ error: { code: rejection } }, { status: 413 });
 	}
 
 	const key = `uploads/${crypto.randomUUID()}-${sanitizeFilename(filename)}`;
