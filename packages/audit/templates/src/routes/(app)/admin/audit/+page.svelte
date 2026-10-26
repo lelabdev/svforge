@@ -3,6 +3,7 @@
 	import { Card, Table } from '#lib/components/svforge/ui/index.js';
 	import { Button, Input } from '#lib/components/svforge/primitives/index.js';
 	import { page } from '$app/state';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 
 	let { data }: { data: import('./$types').PageData } = $props();
 	const entries = $derived(data.entries);
@@ -57,12 +58,12 @@
 
 		<div class="flex flex-wrap gap-2">
 			{#if offset > 0}
-				<Button class="min-h-11" href={`/admin/audit?offset=${Math.max(0, offset - limit)}&limit=${limit}`} variant="outlined">
+				<Button class="min-h-11" href={`${localizeHref('/admin/audit')}?offset=${Math.max(0, offset - limit)}&limit=${limit}`} variant="outlined">
 					{m.common_previous()}
 				</Button>
 			{/if}
 			{#if rows.length === limit}
-				<Button class="min-h-11" href={`/admin/audit?offset=${offset + limit}&limit=${limit}`}>
+				<Button class="min-h-11" href={`${localizeHref('/admin/audit')}?offset=${offset + limit}&limit=${limit}`}>
 					{m.common_next()}
 				</Button>
 			{/if}

@@ -22,7 +22,7 @@ The dashboard add-on runs **after** the official add-ons (see `svforge create`) 
 
 A missing anchor fails the scaffold loudly instead of shipping a dashboard without the security policy.
 
-**Direct `sv add` (no `svforge create`)**: the official Paraglide, Drizzle and Better Auth add-ons must run first — the published `sv` cannot install them conditionally (upstream sveltejs/cli#1419). SVForge checks this before any write and cancels with the exact commands (`sv add "paraglide=languageTags:fr,en+demo:no"`, then `drizzle=…`, `better-auth=demo:` for the dashboard, then re-run the SVForge add).
+**Direct `sv add` (no `svforge create`)**: the official Paraglide, Drizzle and Better Auth add-ons must run first — the published `sv` cannot install them conditionally (upstream sveltejs/cli#1419). SVForge checks this before any write and cancels with the exact commands (`sv add "paraglide=languageTags:en,fr+demo:no"`, then `drizzle=…`, `better-auth=demo:` for the dashboard, then re-run the SVForge add).
 
 ## Security behavior (must stay identical)
 

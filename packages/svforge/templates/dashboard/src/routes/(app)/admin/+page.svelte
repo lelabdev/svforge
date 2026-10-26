@@ -6,6 +6,7 @@
 	import { Button } from '#lib/components/svforge/primitives/index.js';
 	import PageHeader from '#lib/components/svforge/layout/PageHeader.svelte';
 	import { Users, ChartBar, Clock } from '#lib/icons/index.js';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 
 	let { data } = $props();
 
@@ -46,7 +47,7 @@
 	     (#601). -->
 	<PageHeader title={m.admin_welcome_back({ name: data.user.name })}>
 		{#snippet actions()}
-			<Button href="/admin/users">
+			<Button href={localizeHref('/admin/users')}>
 				<Users size={16} class="mr-1" />
 				{m.admin_manage_users()}
 			</Button>

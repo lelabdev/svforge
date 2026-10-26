@@ -52,8 +52,8 @@ describe('Paraglide baseline (#239, #322)', () => {
 		});
 
 		it('scaffold ships fr (baseLocale) + en as INITIAL locales — a default, not a constraint', () => {
-			expect(settings.baseLocale).toBe('fr');
-			expect(settings.locales).toEqual(['fr', 'en']);
+			expect(settings.baseLocale).toBe('en');
+			expect(settings.locales).toEqual(['en', 'fr']);
 		});
 	});
 
@@ -69,7 +69,7 @@ describe('Paraglide baseline (#239, #322)', () => {
 		it('requests the same locales from the official Paraglide add-on', () => {
 			const create = readFileSync(join(ROOT, 'packages/svforge/src/cli/create.ts'), 'utf-8');
 			expect(create).toContain('PARAGLIDE_ADD_SPEC');
-			expect(PARAGLIDE_ADD_SPEC).toBe('paraglide=languageTags:fr,en+demo:no');
+			expect(PARAGLIDE_ADD_SPEC).toBe('paraglide=languageTags:en,fr+demo:no');
 			// Scaffold matrix drift guard: the shell harness uses the same spec.
 			const scaffold = readFileSync(join(ROOT, 'scripts/test-scaffold.sh'), 'utf-8');
 			expect(scaffold).toContain(PARAGLIDE_ADD_SPEC);
@@ -85,11 +85,47 @@ describe('Paraglide baseline (#239, #322)', () => {
 		it('layout is wired for Paraglide (official add-on owns the hooks)', () => {
 			const hooks = patchHooksServer(OFFICIAL_FOUNDATION_FILES['src/hooks.server.ts']);
 			expect(hooks).toMatch(/paraglideMiddleware/);
+			// #588: the shell localizes its own navigation and renders the shared
+			// switcher — the layout no longer needs a hidden locale-link farm.
+			const navbar = readFileSync(
+				join(ROOT, 'packages/svforge/templates/base/src/lib/components/svforge/layout/Navbar.svelte'),
+				'utf-8'
+			);
+			expect(navbar).toMatch(/localizeHref/);
+			expect(navbar).toMatch(/LocaleSwitcher/);
 			const layout = readFileSync(
 				join(ROOT, 'packages/svforge/templates/base/src/routes/+layout.svelte'),
 				'utf-8'
 			);
-			expect(layout).toMatch(/localizeHref/);
+			expect(layout).not.toMatch(/#each locales/);
+			expect(layout).not.toMatch(/class="hidden"/);
+		});
+
+		it('compiles the URL locale strategy so /fr resolves to French (#588)', async () => {
+			const { patchViteConfig } = await import('../packages/svforge/src/modes/base');
+			// The official add-on's call, verbatim: no strategy means every request
+			// resolves to the base locale, whatever the URL prefix says.
+			const official = `import { paraglideVitePlugin } from '@inlang/paraglide-js';
+export default {
+	plugins: [
+		paraglideVitePlugin({
+			project: './project.inlang',
+			outdir: './src/lib/paraglide',
+			emitTsDeclarations: true
+		})
+	]
+};
+`;
+			const patched = patchViteConfig(official);
+			expect(patched).toContain("strategy: ['url', 'cookie', 'baseLocale']");
+			expect(patched).toContain("project: './project.inlang'");
+			// Idempotent: re-patching never duplicates the option or the plugin.
+			expect(patchViteConfig(patched)).toBe(patched);
+			expect(patched.match(/paraglideVitePlugin\(/g)?.length).toBe(1);
+
+			// A project without the Paraglide plugin gets the full call.
+			const bare = patchViteConfig('export default { plugins: [] };\n');
+			expect(bare).toContain("strategy: ['url', 'cookie', 'baseLocale']");
 		});
 
 		it('app.html uses paraglide lang placeholders', () => {

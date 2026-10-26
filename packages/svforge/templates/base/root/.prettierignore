@@ -71,6 +71,7 @@ src/lib/components/svforge/ui/AppDialog.svelte
 src/lib/components/svforge/ui/AvatarInitial.svelte
 src/lib/components/svforge/ui/Card.svelte
 src/lib/components/svforge/ui/Feedback.svelte
+src/lib/components/svforge/ui/LocaleSwitcher.svelte
 src/lib/components/svforge/ui/Logo.svelte
 src/lib/components/svforge/ui/PasswordInput.svelte
 src/lib/components/svforge/ui/Seo.svelte

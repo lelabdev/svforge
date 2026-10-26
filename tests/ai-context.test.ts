@@ -121,8 +121,8 @@ describe('AI context generation (#234)', () => {
 		const m = buildManifest('base', []);
 		expect(m.i18n).toEqual({
 			adapter: 'paraglide',
-			baseLocale: 'fr',
-			locales: ['fr', 'en'],
+			baseLocale: 'en',
+			locales: ['en', 'fr'],
 			catalogs: 'messages/',
 			settings: 'project.inlang/settings.json'
 		});
@@ -168,8 +168,8 @@ describe('AI context generation (#234)', () => {
 	it('llms.txt documents the defaults-vs-constraints i18n contract (#322)', () => {
 		const txt = renderLlmstxt(buildManifest('base', []));
 		expect(txt).toContain('## i18n (Paraglide)');
-		expect(txt).toContain('- baseLocale: fr');
-		expect(txt).toContain('- configured locales: fr, en');
+		expect(txt).toContain('- baseLocale: en');
+		expect(txt).toContain('- configured locales: en, fr');
 		expect(txt).toContain('never generated src/lib/paraglide');
 		expect(txt).toContain('key parity across every configured locale');
 		expect(txt).toContain('add a locale: create messages/<locale>.json with the full key set');

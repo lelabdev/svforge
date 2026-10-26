@@ -267,11 +267,15 @@ MUST:
 - add/update EVERY catalog in \`messages/\` — every locale configured in \`project.inlang/settings.json\` — for each UI copy change; key parity across all configured locales is required
 - reuse existing message keys when semantics are identical (\`common_save\`, \`common_cancel…\`)
 - use domain-oriented message names (\`users_create\`, not \`blue_button_text\`)
+- localize EVERY internal \`href\`/navigation target with \`localizeHref()\` from \`#lib/paraglide/runtime.js\` — a raw \`/path\` drops the active locale and silently sends the user back to the base locale. The \`Navbar\`, \`Footer\` and \`AdminLayout\` already do this for the links you pass them
+- keep the compiled Paraglide strategy URL-based (\`url\`, \`cookie\`, \`baseLocale\` in \`vite.config.ts\` and in the \`paraglide-js compile\` step of \`package.json\`): without \`url\`, \`/fr/...\` silently renders the base locale even though the URL and links say French
+- keep locale switching in the one shared \`ui/LocaleSwitcher.svelte\`: it renders the project's configured \`locales\`, marks the active one and preserves the current route, query string and fragment. Place it wherever the design needs it (the scaffold wires it into the shared shells), and never build a second switcher or a parallel locale state
 
 MUST NOT:
 - hardcode static user-facing copy in Svelte components without a justified exception
 - create another i18n/message abstraction
 - update only some locales — a feature is not done until every configured locale has the key
+- hard-code a language list (\`en\`/\`fr\`) in a component, or navigate with an unlocalized internal \`href\`
 
 Extending locales (a default change, not an architecture change):
 - **Adding a locale**: create \`messages/<locale>.json\` with the full key set, then add the locale to \`locales\` in \`project.inlang/settings.json\`.

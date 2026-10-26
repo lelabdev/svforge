@@ -512,7 +512,7 @@ printf '%s|%s\\n' "$PWD" "$*" >> "$GRAPHIFY_STUB_LOG"
 			{
 				executable: stub,
 				args: [
-					'add', 'paraglide=languageTags:fr,en+demo:no',
+					'add', 'paraglide=languageTags:en,fr+demo:no',
 					'--no-install', '--no-download-check', '--no-git-check'
 				],
 				cwd: join(cwd, 'app')

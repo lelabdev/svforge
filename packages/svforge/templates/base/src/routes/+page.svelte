@@ -2,6 +2,7 @@
 	import * as m from '#lib/paraglide/messages.js';
 	import { Card } from '#lib/components/svforge/ui/index.js';
 	import { Button } from '#lib/components/svforge/primitives/index.js';
+	import { localizeHref } from '#lib/paraglide/runtime.js';
 </script>
 
 <svelte:head>
@@ -17,7 +18,7 @@
 			{m.home_subtitle()}
 		</p>
 		<div class="flex justify-center gap-4">
-			<Button href="/demo-ui" size="lg">{m.home_view_components()}</Button>
+			<Button href={localizeHref('/demo-ui')} size="lg">{m.home_view_components()}</Button>
 			<Button variant="outlined" size="lg" href="https://github.com/lelabdev/svforge">{m.home_github()}</Button>
 		</div>
 	</section>

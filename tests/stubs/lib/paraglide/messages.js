@@ -39,3 +39,4 @@ export const tiptap_toolbar_formatting = () => 'Inline formatting';
 export const tiptap_toolbar_headings = () => 'Headings';
 export const tiptap_toolbar_lists = () => 'Lists';
 export const tiptap_toolbar_blocks = () => 'Blocks';
+export const common_language = () => 'Language';

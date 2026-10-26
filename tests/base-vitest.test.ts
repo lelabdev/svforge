@@ -87,6 +87,8 @@ describe('base Vitest baseline (#235)', () => {
 			const base = readFileSync(join(ROOT, 'packages/svforge/src/modes/base.ts'), 'utf-8');
 			expect(base).toMatch(/paraglide-js compile --project \.\/project\.inlang --outdir \.\/src\/lib\/paraglide/);
 			expect(base).toMatch(/svelte-check --tsconfig \.\/tsconfig\.json/);
+			// #588: svelte-check must see the same URL-based locale strategy as the app.
+			expect(base).toContain('--strategy url cookie baseLocale');
 		});
 
 		it('FR and EN catalogs declare home_title (used by +page.svelte)', () => {

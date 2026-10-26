@@ -16,13 +16,16 @@
 	} from '#lib/icons/index.js';
 	import { Button } from '#lib/components/svforge/primitives/index.js';
 	import AvatarInitial from '#lib/components/svforge/ui/AvatarInitial.svelte';
+	import LocaleSwitcher from '#lib/components/svforge/ui/LocaleSwitcher.svelte';
 	import ThemeToggle from '#lib/components/svforge/ui/ThemeToggle.svelte';
+	import { deLocalizeUrl, localizeHref } from '#lib/paraglide/runtime.js';
 	import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
 	type NavItem = { href: string; label: string; icon: typeof ChartBar };
 
 	interface Props extends HTMLAttributes<HTMLElement> {
 		items?: NavItem[];
+		/** Current path; a locale-prefixed path is accepted and de-localized (#588). */
 		currentPath?: string;
 		user?: { name: string; email: string } | null;
 		onSignOut?: () => void;
@@ -46,6 +49,15 @@
 	let collapsed = $state(false);
 	let mobileOpen = $state(false);
 
+	/** Navigation hrefs stay canonical; rendering and active state handle the locale. */
+	const canonicalPath = $derived.by(() => {
+		try {
+			return deLocalizeUrl(new URL(currentPath, 'http://svforge.local')).pathname;
+		} catch {
+			return currentPath;
+		}
+	});
+
 	/**
 	 * One navigation item style for both surfaces (#636). The selected state is
 	 * a Skeleton tonal preset (the preset owns bg+fg) plus a filled icon, so the
@@ -57,7 +69,7 @@
 			'flex min-h-11 items-center gap-3 rounded-container px-3 text-sm transition-colors',
 			'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700-300',
 			compact && 'justify-center px-0',
-			currentPath === href
+			canonicalPath === href
 				? 'preset-tonal-primary font-semibold'
 				: 'text-surface-700-300 hover:preset-tonal-surface'
 		);
@@ -92,7 +104,7 @@
 			>
 				<h1 class="min-w-0">
 					<a
-						href="/admin"
+						href={localizeHref('/admin')}
 						class="flex items-center gap-3 rounded-container focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700-300"
 					>
 						<span
@@ -113,7 +125,7 @@
 					{@const Icon = item.icon}
 					{@const active = currentPath === item.href}
 					<a
-						href={item.href}
+						href={localizeHref(item.href)}
 						class={navClass(item.href, collapsed)}
 						aria-current={active ? 'page' : undefined}
 						aria-label={collapsed ? item.label : undefined}
@@ -126,7 +138,8 @@
 			</nav>
 
 			<div class="shrink-0 border-t border-surface-200-800 p-2">
-				<div class={cn('flex', collapsed ? 'justify-center' : 'justify-end')}>
+				<div class={cn('flex items-center gap-1', collapsed ? 'flex-col' : 'justify-end')}>
+					<LocaleSwitcher />
 					<ThemeToggle />
 				</div>
 			</div>
@@ -170,6 +183,7 @@
 				</div>
 
 				<div class="flex shrink-0 items-center gap-2 sm:gap-3">
+					<LocaleSwitcher class="lg:hidden" />
 					<ThemeToggle class="lg:hidden" />
 					{#if user}
 						<div class="flex min-w-0 items-center gap-2 sm:gap-3">
@@ -235,7 +249,7 @@
 						{@const Icon = item.icon}
 						{@const active = currentPath === item.href}
 						<a
-							href={item.href}
+							href={localizeHref(item.href)}
 							class={navClass(item.href)}
 							aria-current={active ? 'page' : undefined}
 							onclick={() => (mobileOpen = false)}
@@ -257,6 +271,7 @@
 						</div>
 					{/if}
 					<div class="flex items-center justify-between gap-2">
+						<LocaleSwitcher />
 						<ThemeToggle />
 						{#if onSignOut}
 							<Button type="button" variant="tonal" color="surface" onclick={signOut}>

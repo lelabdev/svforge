@@ -11,7 +11,9 @@ export default defineConfig({
 			'#lib': fileURLToPath(new URL('./tests/stubs/lib', import.meta.url)),
 			// Keep the legacy alias for tests covering Kit 2 compatibility.
 			$lib: fileURLToPath(new URL('./tests/stubs/lib', import.meta.url)),
-			// Same for `$app/env` (Table's dev-only rowKey warning).
+			// Same for `$app/env` (Table's dev-only rowKey warning) and `$app/state`
+			// (the LocaleSwitcher reads the current URL).
+			'$app/state': fileURLToPath(new URL('./tests/stubs/app/state.ts', import.meta.url)),
 			'$app/env': fileURLToPath(new URL('./tests/stubs/app/environment.ts', import.meta.url)),
 			'phosphor-svelte/lib/Bell': fileURLToPath(new URL('./tests/stubs/phosphor-svelte/lib/Bell.svelte', import.meta.url))
 		}

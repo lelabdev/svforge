@@ -6,7 +6,7 @@
  * and the FR/EN copy. These constants are the single source for the locales
  * the scaffold requests and for the catalog parity checks.
  */
-export const SCAFFOLD_LOCALES = ['fr', 'en'] as const;
+export const SCAFFOLD_LOCALES = ['en', 'fr'] as const;
 export const SCAFFOLD_BASE_LOCALE = SCAFFOLD_LOCALES[0];
 
 /** Non-interactive official Paraglide add-on spec (no demo pages). */
