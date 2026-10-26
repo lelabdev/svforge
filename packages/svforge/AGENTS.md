@@ -11,7 +11,7 @@ templates/base/
 │   └── svelteforge-theme.css         ← thème Skeleton v5 complet
 └── src/routes/
     ├── layout.css                    ← unique point d'entrée CSS global
-    └── landing + demo-ui
+    └── landing + showcase
 
 templates/dashboard/                 ← overlay : base + auth + admin + DB
 ├── src/lib/server/                  ← auth (better-auth), db (drizzle/postgres), schemas (zod), admin.ts

@@ -7,7 +7,7 @@ test.describe('scaffold UI browser smoke', () => {
 	test('demo page has one shell and opaque, legible cards in light and dark modes', async ({ page }) => {
 		await page.setViewportSize({ width: 1280, height: 800 });
 		await page.addInitScript(() => localStorage.setItem('theme-mode', 'light'));
-		await page.goto('/demo-ui');
+		await page.goto('/showcase');
 
 		await expect(page.locator('nav')).toHaveCount(1);
 		await expect(page.locator('footer')).toHaveCount(1);
@@ -91,8 +91,8 @@ test.describe('scaffold UI browser smoke', () => {
 			expect(triggerBox?.height).toBeGreaterThanOrEqual(44);
 			await menuToggle.click();
 			await expect(menuToggle).toHaveAttribute('aria-expanded', 'true');
-			await expect(page.locator('nav a[href="/demo-ui"]')).toHaveCount(2);
-			const menuLink = page.locator('nav a[href="/demo-ui"]').last();
+			await expect(page.locator('nav a[href="/showcase"]')).toHaveCount(2);
+			const menuLink = page.locator('nav a[href="/showcase"]').last();
 			await expect(menuLink).toBeVisible();
 			if (process.env.SF_UI_SCREENSHOT_DIR) {
 				mkdirSync(process.env.SF_UI_SCREENSHOT_DIR, { recursive: true });
@@ -105,7 +105,7 @@ test.describe('scaffold UI browser smoke', () => {
 			expect(linkBox?.height).toBeGreaterThanOrEqual(44);
 			await menuToggle.click();
 			await expect(menuToggle).toHaveAttribute('aria-expanded', 'false');
-			await expect(page.locator('nav a[href="/demo-ui"]')).toHaveCount(1);
+			await expect(page.locator('nav a[href="/showcase"]')).toHaveCount(1);
 			await expect(page.locator('main > section h1')).toBeVisible();
 			expect(await fitsViewport()).toBe(true);
 		}

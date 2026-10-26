@@ -118,7 +118,6 @@ src/routes/+layout.svelte
 src/routes/+layout.ts
 src/routes/+page.server.ts
 src/routes/+page.svelte
-src/routes/demo-ui/+page.svelte
 src/routes/favicon.ico/+server.ts
 src/routes/favicon/android-chrome-192x192.png/+server.ts
 src/routes/favicon/android-chrome-512x512.png/+server.ts
@@ -132,6 +131,7 @@ src/routes/login/page.server.test.ts
 src/routes/setup/+page.server.ts
 src/routes/setup/+page.svelte
 src/routes/setup/page.server.test.ts
+src/routes/showcase/+page.svelte
 static/robots.txt
 static/site.webmanifest
 static/theme-init.js

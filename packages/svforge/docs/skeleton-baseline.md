@@ -57,7 +57,7 @@ The audit originally counted 43 files. The scan is now **46**: `layout/PageHeade
 | `packages/svforge/templates/base/src/lib/components/svforge/layout/PageHeader.svelte` | Already native — shell composition without a control of its own; the action snippet takes shared `Button` children. |
 | `packages/svforge/templates/base/src/routes/+layout.svelte` | Already native — the hidden locale helper links use the `hidden` utility instead of an inline `display:none`. |
 | `packages/svforge/templates/base/src/routes/+page.svelte` | Already native — shared `Button`/`Card` with layout utilities. |
-| `packages/svforge/templates/base/src/routes/demo-ui/+page.svelte` | Corrected — the three native brand-preset buttons declare `cursor-pointer`; every other control is a shared primitive, and typography uses `h1`–`h6`/`anchor`/`kbd`. |
+| `packages/svforge/templates/base/src/routes/showcase/+page.svelte` | Corrected — the three native brand-preset buttons declare `cursor-pointer`; every other control is a shared primitive, and typography uses `h1`–`h6`/`anchor`/`kbd`. |
 
 ### Dashboard template (12)
 
@@ -86,6 +86,7 @@ The audit originally counted 43 files. The scan is now **46**: `layout/PageHeade
 | `packages/chat/templates/src/routes/chat/+page.svelte` | Already native — `Card`/`Badge` with anchor list rows. |
 | `packages/chat/templates/src/routes/chat/[id]/+page.svelte` | Already native — `Card`/`Textarea`/shared `Button`, real form action. |
 | `packages/dnd/templates/src/lib/components/svforge/dnd/SortableList.svelte` | Specialised — `cursor-grab`/`active:cursor-grabbing` express the drag affordance; the drag/drop behaviour belongs to the library. |
+| `packages/dnd/templates/src/routes/showcase/dnd/+page.svelte` | Already native — the module demo composes `Card`/`Button`/`SortableList` with layout utilities and localized copy; no custom CSS, fixture data only. |
 | `packages/graph/templates/src/lib/components/svforge/graph/KnowledgeGraph.svelte` | Specialised — reviewed inline-style exception: the canvas container needs runtime `width`/`height`, which utilities cannot express. |
 | `packages/notifications/templates/src/lib/components/svforge/ui/NotificationsBell.svelte` | Already native — Skeleton `Popover` with a `btn-icon` trigger that declares `cursor-pointer`, `card` radius on the surface, and a shared `Button` for "mark all". |
 | `packages/oauth/templates/src/lib/components/svforge/ui/OAuthButtons.svelte` | Already native — native `<button class="btn …">` controls declare `cursor-pointer`/`cursor-not-allowed` conditionally; the addon contract does not guarantee the shared primitive. |

@@ -218,7 +218,7 @@ async function expectFormFocusContrast(page, route, mode) {
 test('scaffold text and form focus meet WCAG AA in both theme modes', async ({ page }) => {
 	await page.setViewportSize({ width: 1280, height: 900 });
 	for (const mode of modes) {
-		for (const route of ['/login', '/demo-ui']) {
+		for (const route of ['/login', '/showcase']) {
 			await page.goto(route);
 			await setMode(page, mode);
 			await expect(page.locator('main')).toBeVisible();

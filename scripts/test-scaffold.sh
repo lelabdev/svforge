@@ -197,6 +197,11 @@ if [ "$TEMPLATE" = "base-ui-modules" ]; then
 	test -f src/lib/components/svforge/graph/KnowledgeGraph.svelte || { echo "❌ graph KnowledgeGraph.svelte missing (#284)"; exit 1; }
 	test -f src/lib/components/svforge/ui/Toaster.svelte || { echo "❌ ui_toast Toaster.svelte missing (#284)"; exit 1; }
 	grep -q "skeleton-svelte" package.json || { echo "❌ skeleton-svelte not declared (#284)"; exit 1; }
+	# #586: the module's showcase demo route ships with localized copy.
+	test -f src/routes/showcase/dnd/+page.svelte || { echo "❌ dnd showcase route missing (#586)"; exit 1; }
+	test -f src/routes/showcase/dnd/meta.ts || { echo "❌ dnd showcase metadata missing (#586)"; exit 1; }
+	grep -q '"showcase_dnd_title"' messages/en.json || { echo "❌ dnd showcase copy missing from en catalog (#586)"; exit 1; }
+	grep -q '"showcase_dnd_title"' messages/fr.json || { echo "❌ dnd showcase copy missing from fr catalog (#586)"; exit 1; }
 fi
 
 # dashboard-integrations (#284): oauth + email + uploads on a real dashboard.
@@ -351,20 +356,20 @@ fi
 # 4. Build the scaffolded project — the actual assertion
 bun run build
 
-# #477: render the built base scaffold's /demo-ui route and verify that the
+# #477: render the built base scaffold's /showcase route and verify that the
 # layout owns one shell around visible page content.
 if [ "$TEMPLATE" = "base" ]; then
 	DEMO_PORT=4197
-	bun run preview -- --host 127.0.0.1 --port "$DEMO_PORT" >"$TMP_DIR/demo-ui-preview.log" 2>&1 &
+	bun run preview -- --host 127.0.0.1 --port "$DEMO_PORT" >"$TMP_DIR/showcase-preview.log" 2>&1 &
 	DEMO_PREVIEW_PID=$!
 	for _ in $(seq 1 30); do
-		curl -sf "http://127.0.0.1:$DEMO_PORT/demo-ui" >/dev/null 2>&1 && break
+		curl -sf "http://127.0.0.1:$DEMO_PORT/showcase" >/dev/null 2>&1 && break
 		sleep 1
 	done
-	DEMO_HTML=$(curl -sf "http://127.0.0.1:$DEMO_PORT/demo-ui") || {
-		cat "$TMP_DIR/demo-ui-preview.log"
+	DEMO_HTML=$(curl -sf "http://127.0.0.1:$DEMO_PORT/showcase") || {
+		cat "$TMP_DIR/showcase-preview.log"
 		kill "$DEMO_PREVIEW_PID" 2>/dev/null || true
-		echo "❌ /demo-ui not served by base scaffold preview (#477)"; exit 1;
+		echo "❌ /showcase not served by base scaffold preview (#477)"; exit 1;
 	}
 	if node - "$DEMO_HTML" <<'NODE'
 const html = process.argv[2];
@@ -381,8 +386,12 @@ if (count('nav') !== 1 || count('footer') !== 1) {
 	console.error(`expected one nav and footer, got nav=${count('nav')} footer=${count('footer')}`);
 	process.exit(1);
 }
+if (html.includes('href="/showcase/dnd"')) {
+	console.error('a plain Base scaffold must not advertise an uninstalled module demo (#586)');
+	process.exit(1);
+}
 if (
-	!navMarkup.includes('href="/demo-ui"') ||
+	!navMarkup.includes('href="/showcase"') ||
 	!/(?:Démo des composants|Component Demo)/.test(headingText) ||
 	!(navIndex < mainIndex && mainIndex < headingIndex && headingIndex < footerIndex)
 ) {
@@ -398,9 +407,9 @@ NODE
 	kill "$DEMO_PREVIEW_PID" 2>/dev/null || true
 	DEMO_PREVIEW_PID=""
 	if [ "$DEMO_STATUS" -ne 0 ]; then
-		echo "❌ /demo-ui shell composition is incorrect (#477)"; exit 1;
+		echo "❌ /showcase shell composition is incorrect (#477)"; exit 1;
 	fi
-	echo "✓ /demo-ui has one layout shell around visible demo content (#477)"
+	echo "✓ /showcase has one layout shell around visible demo content (#477)"
 fi
 
 # #588: English is the base locale (unprefixed) and /fr renders the French
@@ -434,9 +443,9 @@ const checks = [
 	['english copy on /', /Components/.test(en)],
 	['french html lang on /fr', /<html[^>]*lang="fr"/.test(fr)],
 	['french copy on /fr', /Composants/.test(fr)],
-	['english navigation stays unprefixed', /href="\/demo-ui"/.test(en)],
-	['french navigation is localized', /href="\/fr\/demo-ui"/.test(fr)],
-	['no unlocalized internal href under /fr', !/href="\/demo-ui"/.test(fr)],
+	['english navigation stays unprefixed', /href="\/showcase"/.test(en)],
+	['french navigation is localized', /href="\/fr\/showcase"/.test(fr)],
+	['no unlocalized internal href under /fr', !/href="\/showcase"/.test(fr)],
 	['switcher marks the active locale', /aria-current="true"/.test(en) && /aria-current="true"/.test(fr)],
 	['switcher links the other locale', /href="\/fr\/?"/.test(en) && /hreflang="en"/.test(fr)],
 	['no hidden locale-link farm', !/<div class="hidden">[\s\S]{0,400}hreflang=/.test(en)]
@@ -694,6 +703,9 @@ if [ "$TEMPLATE" = "base-ui-modules" ]; then
 		grep -q "$cap" llms.txt || { echo "❌ capability '$cap' missing in llms.txt (#284)"; exit 1; }
 		grep -q "$cap" .svforge.json || { echo "❌ capability '$cap' missing in .svforge.json (#296)"; exit 1; }
 	done
+	# #586: the installed demo is prerendered AND listed by the showcase index.
+	test -f .svelte-kit/output/prerendered/pages/showcase/dnd.html 		|| { echo "❌ /showcase/dnd was not prerendered (#586)"; exit 1; }
+	grep -q 'href="/showcase/dnd"' .svelte-kit/output/prerendered/pages/showcase.html 		|| { echo "❌ the showcase index does not link the installed demo (#586)"; exit 1; }
 fi
 if [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	for mod in oauth email; do
@@ -730,6 +742,54 @@ if [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	# Upload security test pack proves the storage-enforced POST hard limit (#338).
 	grep -q "rejects a lying declared size with an oversized multipart payload without retaining an object" src/routes/api/upload/upload-security.test.ts \
 		|| { echo "❌ upload test pack lacks the POST hard-limit test (#338)"; exit 1; }
+fi
+
+# 4d. Production exclusion (#586 review B-03): the documented procedure must
+#     actually drop the prerendered showcase while installed module code stays
+#     usable. No runtime switch can hide a page that is already in the build.
+if [ "$TEMPLATE" = "base-ui-modules" ]; then
+	grep -q "href: '/showcase'" src/routes/+layout.svelte \
+		|| { echo "❌ showcase nav link missing before the exclusion check (#586)"; exit 1; }
+	grep -q "localizeHref('/showcase')" src/routes/+page.svelte \
+		|| { echo "❌ showcase landing link missing before the exclusion check (#586)"; exit 1; }
+
+	rm -rf src/routes/showcase
+	node - <<'NODE'
+	const { readFileSync, writeFileSync } = require('node:fs');
+	const edits = [
+		['src/routes/+layout.svelte', /<Navbar links=\{\[\{ href: '\/showcase',[^\n]*\n/, '<Navbar />\n'],
+		['src/routes/+layout.svelte', /<Footer links=\{\[\{ href: '\/showcase',[^\n]*\n/, '<Footer />\n'],
+		['src/routes/+page.svelte', /^\t*<Button href=\{localizeHref\('\/showcase'\)\}[^\n]*\n/m, ''],
+		['src/routes/+page.svelte', /^\t*import \{ localizeHref \} from '#lib\/paraglide\/runtime\.js';\n/m, '']
+	];
+	for (const [file, pattern, replacement] of edits) {
+		const source = readFileSync(file, 'utf8');
+		const next = source.replace(pattern, replacement);
+		if (next === source) {
+			console.error(`showcase exclusion did not match in ${file} (#586)`);
+			process.exit(1);
+		}
+		writeFileSync(file, next);
+	}
+NODE
+
+	# Generated Paraglide message modules are build output (regenerated at build):
+	# only hand-written sources need to be clean.
+	if grep -rn "/showcase" src/ --exclude-dir=paraglide >/dev/null 2>&1; then
+		grep -rn "/showcase" src/ --exclude-dir=paraglide
+		echo "❌ showcase references remain after the documented exclusion (#586)"; exit 1
+	fi
+	bun run build >/dev/null 2>&1 \
+		|| { echo "❌ production build failed after showcase exclusion (#586)"; exit 1; }
+	if ls .svelte-kit/output/prerendered/pages | grep -q showcase; then
+		echo "❌ /showcase is still prerendered after the documented exclusion (#586)"; exit 1
+	fi
+	if grep -rq "/showcase" .svelte-kit/output/prerendered 2>/dev/null; then
+		echo "❌ the prerendered output still links /showcase (#586)"; exit 1
+	fi
+	test -f src/lib/components/svforge/dnd/SortableList.svelte \
+		|| { echo "❌ the installed module component was removed with its demo (#586)"; exit 1; }
+	echo "✓ showcase routes can be excluded from a production build (#586)"
 fi
 
 # 5. Assert testing-profile files land at the project ROOT, not src/ (#186)

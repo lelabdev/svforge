@@ -5,7 +5,7 @@ describe('base theme reuse contract (#354)', () => {
 	it('delivers the catalogued ThemeToggle through the canonical Navbar and demo', () => {
 		const catalog = JSON.parse(baseRootFiles['/svforge-catalog.json']);
 		const navbar = baseFiles['/lib/components/svforge/layout/Navbar.svelte'];
-		const demo = baseFiles['/routes/demo-ui/+page.svelte'];
+		const demo = baseFiles['/routes/showcase/+page.svelte'];
 
 		expect(catalog.designSystem.ui.ThemeToggle).toMatchObject({
 			path: 'ui/ThemeToggle.svelte',

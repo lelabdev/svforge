@@ -34,7 +34,7 @@ afterEach(cleanup);
 describe('LocaleSwitcher (#588)', () => {
 	it('offers one anchor per configured locale and marks the active one', () => {
 		__setLocaleState({ locale: 'fr' });
-		__setPageUrl('http://localhost/fr/demo-ui');
+		__setPageUrl('http://localhost/fr/showcase');
 		const { container } = render(LocaleSwitcher);
 
 		const anchors = links(container);

@@ -182,7 +182,8 @@ export const MODULE_CONTRACTS: Record<string, ModuleCapabilityContract> = {
 	},
 	dnd: {
 		template: 'base',
-		requires: [],
+		// #586: the module ships a localized showcase route.
+		requires: ['ui.svforge', 'i18n.messages'],
 		provides: [],
 		optional: [],
 		optionalModules: []

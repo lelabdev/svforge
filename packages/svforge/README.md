@@ -59,6 +59,36 @@ Every scaffolded component follows the [Skeleton v5-first baseline](docs/skeleto
 - **`base`** — Skeleton UI and Tailwind, reusable foundations (`Button`, `Input`, `Select`, `Card`, `Badge`, `Table`), theme and dark mode, SEO, Paraglide EN/FR (English default), and Vitest.
 - **`dashboard`** — base plus Better Auth, PostgreSQL/Drizzle, protected admin routes, user management, and setup scripts.
 
+### Showcase
+
+`/showcase` is the design-system gallery (colors, variants, every shared component, theme switching). Installed modules can contribute their own child demo — `dnd` ships `/showcase/dnd`, a working sortable list with local fixture data — by adding a route plus a `meta.ts` next to it: the showcase index discovers demos with a build-time glob and lists only what is installed, so a plain Base project imports nothing and shows no empty section.
+
+**Demos are optional.** They are a visual/manual testing aid for capabilities that are genuinely worth exploring — not a second product implementation, and never a duplicate of a real application screen. Changing application behaviour does not require creating or updating a demo; an existing demo only has to keep building.
+
+#### Removing showcase pages from production
+
+The showcase is prerendered with the rest of the site, so it has to be excluded **before the production build** — no runtime flag can hide a page that is already in the output.
+
+1. Delete the gallery and every installed demo route:
+   ```bash
+   rm -rf src/routes/showcase
+   ```
+2. Remove every link pointing at it. In the Base template that is the `links` array passed to `Navbar`/`Footer` in `src/routes/+layout.svelte` (drop the `href: '/showcase'` entries) and the showcase `<Button>` in `src/routes/+page.svelte` (remove its now-unused `localizeHref` import too). Confirm nothing is left:
+   ```bash
+   grep -rn "/showcase" src --exclude-dir=paraglide || echo "no showcase references left"
+   ```
+   (`src/lib/paraglide` is generated at build time, so it is excluded from the check; a module's now-unused `showcase_*` message keys may stay in `messages/*.json`.)
+3. Build and verify the output, while the installed components stay usable:
+   ```bash
+   bun run build
+   ls .svelte-kit/output/prerendered/pages | grep showcase   # must print nothing
+   grep -rq "/showcase" .svelte-kit/output/prerendered || echo "no showcase in the build"
+   test -f src/lib/components/svforge/dnd/SortableList.svelte  # module code is untouched
+   ```
+   (With `@sveltejs/adapter-static` the same files land in your `build/` output directory.)
+
+The `dnd` module (or any other installed module) keeps working: only the demo routes go away, never `src/lib/components/svforge/**`. SVForge tracks the files it delivered, so after running `svforge upgrade` re-check step 2/3 — an upgrade plan may list the showcase files again, and you should keep them deleted (or re-apply the removal) if production must stay clean.
+
 Dashboard sign-up is closed by default; `SIGNUP_MODE` can be set to `invite-only` or `self-service`. The admin role is granted through `<pm> run admin:create`, not public sign-up. Integration tests use `TEST_DATABASE_URL` and refuse database names without a `test` segment; see the generated `.env.example` before running them.
 
 Skeleton is the visual and primitive source of truth. The theme is in `src/lib/styles/svelteforge-theme.css`; global CSS wiring is in `src/routes/layout.css`. Static UI text uses Paraglide message catalogs. These are editable defaults, not restrictions on a consumer project.

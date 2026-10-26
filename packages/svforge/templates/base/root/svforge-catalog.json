@@ -40,7 +40,7 @@
 		]
 	},
 	"goldenPages": {
-		"demo-ui": { "template": "base", "useAs": "canonical composition of all svforge components with variants" },
+		"showcase": { "template": "base", "useAs": "canonical composition of all svforge components with variants" },
 		"admin/users": { "template": "dashboard", "useAs": "CRUD list + form patterns" },
 		"admin/settings": { "template": "dashboard", "useAs": "settings form + Save/Cancel actions" },
 		"login": { "template": "dashboard", "useAs": "auth form pattern" }

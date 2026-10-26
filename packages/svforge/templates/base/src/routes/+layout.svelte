@@ -7,8 +7,8 @@
 	let { children } = $props();
 </script>
 
-<Navbar links={[{ href: '/demo-ui', label: m.nav_components() }]} />
+<Navbar links={[{ href: '/showcase', label: m.nav_components() }]} />
 
 {@render children()}
 
-<Footer links={[{ href: '/demo-ui', label: m.nav_components() }]} />
+<Footer links={[{ href: '/showcase', label: m.nav_components() }]} />

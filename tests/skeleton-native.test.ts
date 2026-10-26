@@ -174,8 +174,8 @@ describe('generated AGENTS.md teaches the real Skeleton model (#317)', () => {
 });
 
 describe('demo and reference screens consume Skeleton typography utilities (#317)', () => {
-	it('/demo-ui has a typography section driven by the native utilities', () => {
-		const demo = readFileSync(baseTemplateFile('routes', 'demo-ui', '+page.svelte'), 'utf-8');
+	it('/showcase has a typography section driven by the native utilities', () => {
+		const demo = readFileSync(baseTemplateFile('routes', 'showcase', '+page.svelte'), 'utf-8');
 		expect(demo).toMatch(/class="h1"/);
 		expect(demo).toMatch(/class="h2/);
 		expect(demo).toMatch(/class="h3"/);
@@ -184,8 +184,8 @@ describe('demo and reference screens consume Skeleton typography utilities (#317
 		expect(demo).toMatch(/<pre/);
 	});
 
-	it('/demo-ui no longer hand-rolls heading sizes', () => {
-		const demo = readFileSync(baseTemplateFile('routes', 'demo-ui', '+page.svelte'), 'utf-8');
+	it('/showcase no longer hand-rolls heading sizes', () => {
+		const demo = readFileSync(baseTemplateFile('routes', 'showcase', '+page.svelte'), 'utf-8');
 		expect(demo).not.toMatch(/<h[1-6][^>]*class="[^"]*text-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl)\b/);
 		expect(demo).not.toMatch(/<h[1-6][^>]*class="[^"]*font-bold/);
 	});

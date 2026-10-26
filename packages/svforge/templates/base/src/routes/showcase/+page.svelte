@@ -9,6 +9,27 @@
 	const skeletonImportExample =
 		"import { Accordion, Tabs, Avatar } from '@skeletonlabs/skeleton-svelte';";
 
+	/**
+	 * Installed modules contribute `<module>/meta.ts` next to their demo route
+	 * (#586). Vite resolves this glob at build time, so an uninstalled module is
+	 * never imported and a plain Base project renders no empty section.
+	 */
+	type ModuleDemoMeta = {
+		title: () => string;
+		description?: () => string;
+		/** Lower sorts first; ties break on the href. */
+		order?: number;
+	};
+
+	const moduleDemos = Object.entries(
+		import.meta.glob<ModuleDemoMeta>('./*/meta.ts', { eager: true, import: 'default' })
+	)
+		.map(([path, meta]) => ({
+			href: `/showcase/${path.replace(/^\.\//, '').replace(/\/meta\.ts$/, '')}`,
+			...meta
+		}))
+		.sort((a, b) => (a.order ?? 100) - (b.order ?? 100) || a.href.localeCompare(b.href));
+
 	let loading = $state(false);
 
 	function simulateLoading() {
@@ -24,6 +45,30 @@
 <main class="mx-auto max-w-7xl space-y-8 px-4 py-8">
 	<h1 class="h1">{m.demo_title()}</h1>
 	<p class="text-surface-700-300">{m.demo_subtitle()}</p>
+
+	<!-- Module demos (#586): a self-contained page per installed module. The
+	     index is the discovery surface — the landing page stays untouched. -->
+	{#if moduleDemos.length > 0}
+		<section class="space-y-4">
+			<h2 class="h2 border-b border-surface-200-800 pb-2">{m.demo_modules()}</h2>
+			<p class="text-surface-700-300">{m.demo_modules_desc()}</p>
+			<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+				{#each moduleDemos as demo (demo.href)}
+					<a
+						href={localizeHref(demo.href)}
+						class="block rounded-container focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-700-300"
+					>
+						<Card variant="outlined" class="h-full">
+							<h3 class="h4">{demo.title()}</h3>
+							{#if demo.description}
+								<p class="mt-1 text-surface-700-300">{demo.description()}</p>
+							{/if}
+						</Card>
+					</a>
+				{/each}
+			</div>
+		</section>
+	{/if}
 
 	<!-- Buttons -->
 	<section class="space-y-4">
