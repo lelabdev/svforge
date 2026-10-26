@@ -1959,7 +1959,7 @@
       "label": "ProjectSnapshot",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L279",
+      "source_location": "L280",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -1969,7 +1969,7 @@
       "label": ".hasDir()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L290",
+      "source_location": "L291",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1978,7 +1978,7 @@
       "label": ".hasFile()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L291",
+      "source_location": "L292",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1987,7 +1987,7 @@
       "label": "snapshotProject()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L295",
+      "source_location": "L296",
       "_callable": true,
       "_origin": "ast"
     },
@@ -1996,7 +1996,7 @@
       "label": "Detection",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L340",
+      "source_location": "L341",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -2006,7 +2006,7 @@
       "label": "AUTH_HOOKS_SIGNALS",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L343",
+      "source_location": "L344",
       "_origin": "ast"
     },
     {
@@ -2014,7 +2014,7 @@
       "label": "detectCapability()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L365",
+      "source_location": "L366",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2023,7 +2023,7 @@
       "label": "CapabilityEvaluation",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L416",
+      "source_location": "L417",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -2033,7 +2033,7 @@
       "label": "evaluateRequirements()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L430",
+      "source_location": "L431",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2042,7 +2042,7 @@
       "label": "describeCapability()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L445",
+      "source_location": "L446",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2051,7 +2051,7 @@
       "label": "formatCapabilityFailure()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L455",
+      "source_location": "L456",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2060,7 +2060,7 @@
       "label": "formatCapabilityWarnings()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L468",
+      "source_location": "L469",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2069,7 +2069,7 @@
       "label": "CapabilityGate",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L488",
+      "source_location": "L489",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -2079,7 +2079,7 @@
       "label": "checkModuleCapabilities()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L503",
+      "source_location": "L504",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2088,7 +2088,7 @@
       "label": "templateCapabilities()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L544",
+      "source_location": "L545",
       "_callable": true,
       "_origin": "ast"
     },
@@ -2097,7 +2097,7 @@
       "label": "compositionGaps()",
       "file_type": "code",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L557",
+      "source_location": "L558",
       "_callable": true,
       "_origin": "ast"
     },
@@ -5337,7 +5337,7 @@
     },
     {
       "id": "packages_graph_templates_src_lib_components_svforge_graph_knowledgegraph",
-      "label": "KnowledgeGraph.svelte",
+      "label": "lib/components/svforge/graph/KnowledgeGraph.svelte",
       "file_type": "code",
       "source_file": "packages/graph/templates/src/lib/components/svforge/graph/KnowledgeGraph.svelte",
       "source_location": "L1",
@@ -5365,6 +5365,38 @@
       "file_type": "code",
       "source_file": "packages/graph/templates/src/lib/components/svforge/graph/index.ts",
       "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_graph_templates_src_routes_showcase_graph_page",
+      "label": "graph/+page.svelte",
+      "file_type": "code",
+      "source_file": "packages/graph/templates/src/routes/showcase/graph/+page.svelte",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "knowledgegraph_svelte",
+      "label": "#lib/components/svforge/graph/KnowledgeGraph.svelte",
+      "file_type": "code",
+      "source_file": "#lib/components/svforge/graph/KnowledgeGraph.svelte",
+      "confidence": "EXTRACTED",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_graph_templates_src_routes_showcase_graph_meta",
+      "label": "graph/meta.ts",
+      "file_type": "code",
+      "source_file": "packages/graph/templates/src/routes/showcase/graph/meta.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_graph_templates_src_routes_showcase_graph_meta_meta",
+      "label": "meta",
+      "file_type": "code",
+      "source_file": "packages/graph/templates/src/routes/showcase/graph/meta.ts",
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
@@ -22674,7 +22706,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L940",
+      "source_location": "L948",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -27282,7 +27314,7 @@
       "label": "writeJson()",
       "file_type": "code",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L302",
+      "source_location": "L364",
       "_callable": true,
       "_origin": "ast"
     },
@@ -29346,6 +29378,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/placeholder-hint-token.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_showcase_graph_demo",
+      "label": "showcase-graph-demo.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/showcase-graph-demo.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -34500,7 +34541,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L101",
+      "source_location": "L102",
       "_origin": "ast"
     },
     {
@@ -34509,7 +34550,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L110",
+      "source_location": "L111",
       "_origin": "ast"
     },
     {
@@ -36603,6 +36644,15 @@
     {
       "id": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_tiptap_packages_jobs_templates_src_lib_server_test_db",
       "label": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_tiptap_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": "",
+      "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_graph_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_graph_packages_jobs_templates_src_lib_server_test_db",
       "file_type": "concept",
       "type": "external",
       "external": true,
@@ -39141,7 +39191,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L279",
+      "source_location": "L280",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39151,7 +39201,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L290",
+      "source_location": "L291",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39161,7 +39211,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L291",
+      "source_location": "L292",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39171,7 +39221,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L295",
+      "source_location": "L296",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39181,7 +39231,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L340",
+      "source_location": "L341",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39191,7 +39241,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L343",
+      "source_location": "L344",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39201,7 +39251,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L365",
+      "source_location": "L366",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39211,7 +39261,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L416",
+      "source_location": "L417",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39221,7 +39271,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L430",
+      "source_location": "L431",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39231,7 +39281,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L445",
+      "source_location": "L446",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39241,7 +39291,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L455",
+      "source_location": "L456",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39251,7 +39301,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L468",
+      "source_location": "L469",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39261,7 +39311,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L488",
+      "source_location": "L489",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39271,7 +39321,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L503",
+      "source_location": "L504",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39281,7 +39331,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L544",
+      "source_location": "L545",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39291,7 +39341,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L557",
+      "source_location": "L558",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39302,7 +39352,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L370",
+      "source_location": "L371",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39313,7 +39363,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L385",
+      "source_location": "L386",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39324,7 +39374,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L436",
+      "source_location": "L437",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39335,7 +39385,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L460",
+      "source_location": "L461",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39346,7 +39396,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L515",
+      "source_location": "L516",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39357,7 +39407,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L516",
+      "source_location": "L517",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39368,7 +39418,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L517",
+      "source_location": "L518",
       "weight": 1,
       "_origin": "ast"
     },
@@ -39379,7 +39429,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L537",
+      "source_location": "L538",
       "weight": 1,
       "_origin": "ast"
     },
@@ -44931,6 +44981,17 @@
     },
     {
       "source": "packages_graph_src_index",
+      "target": "packages_addon_kit_src_index_plancatalogmerges",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph/src/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_graph_src_index",
       "target": "packages_graph_src_templates",
       "relation": "imports_from",
       "context": "import",
@@ -44993,6 +45054,51 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/graph/templates/src/lib/components/svforge/graph/index.ts",
       "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_graph_templates_src_routes_showcase_graph_page",
+      "target": "messages_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph/templates/src/routes/showcase/graph/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_graph_templates_src_routes_showcase_graph_page",
+      "target": "knowledgegraph_svelte",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph/templates/src/routes/showcase/graph/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_graph_templates_src_routes_showcase_graph_page",
+      "target": "index_js",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph/templates/src/routes/showcase/graph/+page.svelte",
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_graph_templates_src_routes_showcase_graph_meta",
+      "target": "ref_lib",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph/templates/src/routes/showcase/graph/meta.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_graph_templates_src_routes_showcase_graph_meta",
+      "target": "packages_graph_templates_src_routes_showcase_graph_meta_meta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/graph/templates/src/routes/showcase/graph/meta.ts",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -45744,7 +45850,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_tiptap_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_586_graph_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -79000,7 +79106,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L940",
+      "source_location": "L948",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79010,7 +79116,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L948",
+      "source_location": "L956",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -95033,7 +95139,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L302",
+      "source_location": "L364",
       "weight": 1,
       "_origin": "ast"
     },
@@ -95077,7 +95183,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/showcase.test.ts",
-      "source_location": "L288",
+      "source_location": "L350",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106240,7 +106346,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L101",
+      "source_location": "L102",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106250,7 +106356,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L110",
+      "source_location": "L111",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107351,7 +107457,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L512",
+      "source_location": "L513",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107363,7 +107469,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/addon-kit/src/capabilities.ts",
-      "source_location": "L531",
+      "source_location": "L532",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108935,7 +109041,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/docs/skeleton-baseline.md",
-      "source_location": "L95",
+      "source_location": "L96",
       "weight": 1,
       "_origin": "ast"
     },

@@ -85,7 +85,7 @@ describe('showcase route convention (#586)', () => {
 });
 
 /** Run a module add-on against a temp project with the fake write surface. */
-async function installModule(dir: string, pkg: 'dnd' | 'ui_toast' | 'tiptap') {
+async function installModule(dir: string, pkg: 'dnd' | 'ui_toast' | 'tiptap' | 'graph') {
 	const sv = diskSv(dir);
 	const cancelled: string[] = [];
 	const addon = (await import(`../packages/${pkg}/src/index`)).default;
@@ -150,6 +150,68 @@ describe('module demo delivered by @svforge/ui_toast (#586, phase 2)', () => {
 	it('declares the capabilities its localized demo route needs', () => {
 		expect(MODULE_CONTRACTS.ui_toast.requires).toEqual(
 			expect.arrayContaining(['ui.skeleton', 'ui.svforge', 'i18n.messages'])
+		);
+	});
+});
+
+describe('module demo delivered by @svforge/graph (#586, phase 4)', () => {
+	let cleanup: (() => void) | undefined;
+	afterEach(() => cleanup?.());
+
+	const TEMPLATE = join(ROOT, 'packages/graph/templates/src/routes/showcase/graph');
+
+	it('drives the real graph over a local fixture with an accessible selection', () => {
+		const page = readFileSync(join(TEMPLATE, '+page.svelte'), 'utf-8');
+		const meta = readFileSync(join(TEMPLATE, 'meta.ts'), 'utf-8');
+
+		expect(page).toContain("from '#lib/components/svforge/graph/KnowledgeGraph.svelte'");
+		expect(page).toContain('<KnowledgeGraph');
+		expect(page).toMatch(/onNodeClick=\{\(node\) => select\(node\)\}/);
+		// Canvas interaction is mirrored by keyboard-reachable node buttons.
+		expect(page).toContain('aria-live="polite"');
+		expect(page).toContain('aria-pressed={selected?.id === node.id}');
+		// Height comes from the component prop, never an inline style.
+		expect(page).toContain('height="320px"');
+		expect(page).not.toMatch(/style=/);
+		// Local fixture only: no request, no storage, all copy localized.
+		expect(page).not.toMatch(/fetch\(|process\.env|localStorage/);
+		expect(page).toMatch(/m\.showcase_graph_/);
+		expect(meta).toMatch(/order: \d+/);
+		expect(meta).toMatch(/title: \(\) => m\.showcase_graph_title\(\)/);
+		expect(meta).toMatch(/export default meta/);
+	});
+
+	it('delivers the route, the metadata and both catalogs on install', async () => {
+		const { dir, cleanup: done } = tempProject('sf-showcase-graph-');
+		cleanup = done;
+		createBaseProject(dir);
+
+		const { cancelled, written } = await installModule(dir, 'graph');
+		expect(cancelled).toEqual([]);
+		expect(written).toEqual(
+			expect.arrayContaining([
+				'src/routes/showcase/graph/+page.svelte',
+				'src/routes/showcase/graph/meta.ts',
+				'messages/en.json',
+				'messages/fr.json'
+			])
+		);
+
+		const keys = (locale: string) =>
+			Object.keys(JSON.parse(readFileSync(join(dir, `messages/${locale}.json`), 'utf-8')))
+				.filter((key) => !key.startsWith('$'))
+				.sort();
+		expect(keys('en')).toEqual(keys('fr'));
+		for (const locale of ['en', 'fr']) {
+			const catalog = JSON.parse(readFileSync(join(dir, `messages/${locale}.json`), 'utf-8'));
+			expect(catalog.showcase_graph_title, `${locale} title`).toBeTruthy();
+			expect(catalog.showcase_graph_node_home, `${locale} fixture copy`).toBeTruthy();
+		}
+	});
+
+	it('declares the capabilities its localized demo route needs', () => {
+		expect(MODULE_CONTRACTS.graph.requires).toEqual(
+			expect.arrayContaining(['ui.svforge', 'i18n.messages'])
 		);
 	});
 });

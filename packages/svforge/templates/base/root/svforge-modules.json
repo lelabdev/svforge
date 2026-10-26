@@ -116,13 +116,15 @@
 			"description": "Knowledge graph visualization (force-graph)",
 			"template": "base",
 			"requires": [
-				"ui.svforge"
+				"ui.svforge",
+				"i18n.messages"
 			],
 			"provides": [],
 			"optional": [],
 			"optionalModules": [],
 			"files": [
-				"src/lib/components/svforge/graph/"
+				"src/lib/components/svforge/graph/",
+				"src/routes/showcase/graph/"
 			]
 		},
 		"email": {
