@@ -94,6 +94,7 @@ The audit originally counted 43 files. The scan is now **46**: `layout/PageHeade
 | `packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapToolbar.svelte` | Corrected — Skeleton `ToggleGroup`/`Popover`: every formatting control declares `cursor-pointer`, lists/blocks use the shared `Button`, and the native link/cancel triggers declare their affordance. |
 | `packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapPreview.svelte` | Specialised — sanitized `{@html}` output inside the `prose` utilities; sanitization lives in `renderTiptap`. |
 | `packages/ui_toast/templates/src/lib/components/svforge/ui/Toaster.svelte` | Already native — Skeleton `Toast`; the close trigger declares `cursor-pointer`. |
+| `packages/ui_toast/templates/src/routes/showcase/ui-toast/+page.svelte` | Already native — the module demo composes `Card`/`Button`/`Toaster` with layout utilities and localized copy; no custom CSS, local toasts only. |
 | `packages/uploads/templates/src/lib/components/svforge/uploads/FileUpload.svelte` | Already native — native file input with `cursor-pointer disabled:cursor-not-allowed`; the presign/POST/PUT contract is untouched. |
 
 ## Reviewed exceptions

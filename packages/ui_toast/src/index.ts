@@ -1,5 +1,5 @@
 import { defineAddon, defineAddonOptions } from 'sv';
-import { checkModuleCapabilities, planAddonContext } from '@svforge/addon-kit';
+import { checkModuleCapabilities, planAddonContext, planCatalogMerges } from '@svforge/addon-kit';
 import { files } from './templates';
 
 
@@ -36,6 +36,47 @@ export default defineAddon({
 			cancel(context.error);
 			return;
 		}
+		// Showcase copy (#586): the demo route is localized, so both catalogs get
+		// its keys. Planned in memory first (#324): one invalid catalog cancels
+		// the install and every file stays byte-for-byte identical.
+		const catalogs = planCatalogMerges(cwd, [
+			{
+				path: 'messages/en.json',
+				additions: {
+					showcase_toast_title: 'Toasts',
+					showcase_toast_description: 'Trigger the installed Toast component and watch how each variant behaves.',
+					showcase_toast_hint: 'Every button fires the module’s real toaster store. Toasts close themselves or via their close control.',
+					showcase_toast_success: 'Success',
+					showcase_toast_error: 'Error',
+					showcase_toast_info: 'Information',
+					showcase_toast_warning: 'Warning',
+					showcase_toast_body: 'Triggered from this page — nothing is sent or persisted.',
+					showcase_toast_mount_note: 'This page mounts its own Toaster. In your app, mount it once in'
+				}
+			},
+			{
+				path: 'messages/fr.json',
+				additions: {
+					showcase_toast_title: 'Notifications toast',
+					showcase_toast_description: 'Déclenchez le composant Toast installé et observez le comportement de chaque variante.',
+					showcase_toast_hint: 'Chaque bouton appelle le vrai store de toasts du module. Les toasts se ferment seuls ou via leur bouton de fermeture.',
+					showcase_toast_success: 'Succès',
+					showcase_toast_error: 'Erreur',
+					showcase_toast_info: 'Information',
+					showcase_toast_warning: 'Avertissement',
+					showcase_toast_body: 'Déclenché depuis cette page — rien n’est envoyé ni persisté.',
+					showcase_toast_mount_note: 'Cette page monte son propre Toaster. Dans votre application, montez-le une fois dans'
+				}
+			}
+		]);
+		if (!catalogs.ok) {
+			cancel(catalogs.error);
+			return;
+		}
+		for (const write of catalogs.writes) {
+			sv.file(write.path, () => write.content);
+		}
+
 		for (const [path, content] of Object.entries(files)) {
 			sv.file(`src${path}`, () => content);
 		}

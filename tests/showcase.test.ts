@@ -84,25 +84,83 @@ describe('showcase route convention (#586)', () => {
 	});
 });
 
+/** Run a module add-on against a temp project with the fake write surface. */
+async function installModule(dir: string, pkg: 'dnd' | 'ui_toast') {
+	const sv = diskSv(dir);
+	const cancelled: string[] = [];
+	const addon = (await import(`../packages/${pkg}/src/index`)).default;
+	const workspace = { sv, cancel: (reason: string) => cancelled.push(reason), cwd: dir, options: {} };
+	await addon.run(workspace as unknown as Parameters<typeof addon.run>[0]);
+	return { cancelled, written: sv.written };
+}
+
+describe('module demo delivered by @svforge/ui_toast (#586, phase 2)', () => {
+	let cleanup: (() => void) | undefined;
+	afterEach(() => cleanup?.());
+
+	const TEMPLATE = join(ROOT, 'packages/ui_toast/templates/src/routes/showcase/ui-toast');
+
+	it('fires the real toaster for every variant and mounts its own group', () => {
+		const page = readFileSync(join(TEMPLATE, '+page.svelte'), 'utf-8');
+		const meta = readFileSync(join(TEMPLATE, 'meta.ts'), 'utf-8');
+
+		expect(page).toContain("from '#lib/components/svforge/ui/toaster.js'");
+		expect(page).toContain("from '#lib/components/svforge/ui/Toaster.svelte'");
+		expect(page).toContain('toaster.create({ type');
+		for (const variant of ['success', 'error', 'info', 'warning']) {
+			expect(page).toContain(`type: '${variant}'`);
+		}
+		// Self-contained: the page mounts a Toaster and talks to no backend.
+		expect(page).toContain('<Toaster />');
+		expect(page).not.toMatch(/fetch\(|process\.env/);
+		expect(page).toMatch(/m\.showcase_toast_/);
+		expect(meta).toMatch(/order: \d+/);
+		expect(meta).toMatch(/title: \(\) => m\.showcase_toast_title\(\)/);
+		expect(meta).toMatch(/export default meta/);
+	});
+
+	it('delivers the route, the metadata and both catalogs on install', async () => {
+		const { dir, cleanup: done } = tempProject('sf-showcase-toast-');
+		cleanup = done;
+		createBaseProject(dir);
+
+		const { cancelled, written } = await installModule(dir, 'ui_toast');
+		expect(cancelled).toEqual([]);
+		expect(written).toEqual(
+			expect.arrayContaining([
+				'src/routes/showcase/ui-toast/+page.svelte',
+				'src/routes/showcase/ui-toast/meta.ts',
+				'messages/en.json',
+				'messages/fr.json'
+			])
+		);
+
+		const keys = (locale: string) =>
+			Object.keys(JSON.parse(readFileSync(join(dir, `messages/${locale}.json`), 'utf-8')))
+				.filter((key) => !key.startsWith('$'))
+				.sort();
+		expect(keys('en')).toEqual(keys('fr'));
+		for (const locale of ['en', 'fr']) {
+			const catalog = JSON.parse(readFileSync(join(dir, `messages/${locale}.json`), 'utf-8'));
+			expect(catalog.showcase_toast_title, `${locale} title`).toBeTruthy();
+			expect(catalog.showcase_toast_body, `${locale} body`).toBeTruthy();
+		}
+	});
+
+	it('declares the capabilities its localized demo route needs', () => {
+		expect(MODULE_CONTRACTS.ui_toast.requires).toEqual(
+			expect.arrayContaining(['ui.skeleton', 'ui.svforge', 'i18n.messages'])
+		);
+	});
+});
+
 describe('pilot module demo delivered by @svforge/dnd (#586)', () => {
 	let cleanup: (() => void) | undefined;
 	afterEach(() => cleanup?.());
 
-	async function installDnd(dir: string) {
-		const sv = diskSv(dir);
-		const cancelled: string[] = [];
-		const { default: addon } = await import('../packages/dnd/src/index');
-		// `diskSv` implements the write surface this add-on uses; the real `sv`
-		// workspace adds fields (`isKit`, `language`…) the module does not touch.
-		const workspace = {
-			sv,
-			cancel: (reason: string) => cancelled.push(reason),
-			cwd: dir,
-			options: {}
-		};
-		await addon.run(workspace as unknown as Parameters<typeof addon.run>[0]);
-		return { cancelled, written: sv.written };
-	}
+	// `diskSv` implements the write surface the add-ons use; the real `sv`
+	// workspace adds fields (`isKit`, `language`…) they do not touch.
+	const installDnd = (dir: string) => installModule(dir, 'dnd');
 
 	it('ships a self-contained demo route plus its discovery metadata', () => {
 		const page = readFileSync(join(DND_TEMPLATE, '+page.svelte'), 'utf-8');
