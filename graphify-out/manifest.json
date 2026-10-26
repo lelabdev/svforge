@@ -476,7 +476,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
-    "ast_hash": "24f356d6d875fdf18324ca9c5b3c0d54",
+    "ast_hash": "2b96f266f164a1af392a0b6daf3cd687",
     "semantic_hash": ""
   },
   "packages/svforge/src/skeleton-inventory.ts": {
@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "756840914ab3e5bb00aa164fdf2aa199",
+    "ast_hash": "9832dc425d9e5cd16fbb7ceb23dc5740",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -2220,7 +2220,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/skeleton-baseline.md": {
-    "ast_hash": "3e4a3f44d677ea9ef567457cdcc9ac1b",
+    "ast_hash": "6abc35cc148bb91ae4e751958c6a00ac",
     "semantic_hash": ""
   },
   "packages/svforge/docs/ui-composition.md": {
@@ -2228,7 +2228,7 @@
     "semantic_hash": ""
   },
   "tests/placeholder-contrast.test.ts": {
-    "ast_hash": "bb28d70d5ad8c48c696844a5d1847157",
+    "ast_hash": "e510f30ee4fe86082fcf2f70d5169eeb",
     "semantic_hash": ""
   },
   ".changeset/placeholder-hint-token.md": {
@@ -2341,6 +2341,18 @@
   },
   ".changeset/showcase-uploads-demo.md": {
     "ast_hash": "b875faf8c12aa6590ba8bb1152bc2bd4",
+    "semantic_hash": ""
+  },
+  "tests/dashboard-base-composition.test.ts": {
+    "ast_hash": "024934ba5feb80d0c739c6c463f0e8fc",
+    "semantic_hash": ""
+  },
+  ".changeset/restore-skeleton-placeholder.md": {
+    "ast_hash": "e71931f2ff8d978e034da5ba690ab28d",
+    "semantic_hash": ""
+  },
+  "packages/svforge/docs/dashboard-composition.md": {
+    "ast_hash": "45719ccda2e8bb9bdd6023533136b49d",
     "semantic_hash": ""
   }
 }
