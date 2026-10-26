@@ -5,10 +5,9 @@ import { render } from 'svelte/server';
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { applyBaseMode } from '../packages/svforge/src/modes/base';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
 import { seedOfficialFoundationOnDisk } from './helpers/official-foundation';
-import { baseFiles, baseRootFiles, dashboardFiles, dashboardRootFiles } from '../packages/svforge/src/templates';
+import { baseFiles, dashboardFiles, dashboardRootFiles } from '../packages/svforge/src/templates';
 
 type FilesystemSv = {
 	root: string;
@@ -140,7 +139,6 @@ describe('dashboard admin composition', () => {
 		try {
 			const sv = filesystemSv(project);
 			seedOfficialFoundationOnDisk(project);
-			applyBaseMode(asSvApi(sv), {}, baseRootFiles);
 			applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
 
 			const routeConfig = readFileSync(join(project, 'src/routes/+layout.ts'), 'utf8');
@@ -155,7 +153,6 @@ describe('dashboard admin composition', () => {
 		try {
 			const sv = filesystemSv(project);
 			seedOfficialFoundationOnDisk(project);
-			applyBaseMode(asSvApi(sv), {}, baseRootFiles);
 			applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
 
 			for (const [locale, shellTitle, navLabel, welcome, totalLabel] of [
@@ -184,7 +181,6 @@ describe('dashboard admin composition', () => {
 		try {
 			const sv = filesystemSv(project);
 			seedOfficialFoundationOnDisk(project);
-			applyBaseMode(asSvApi(sv), {}, baseRootFiles);
 			applyDashboardMode(asSvApi(sv), baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
 
 			const html = await renderAdminDashboard(project, 'en');

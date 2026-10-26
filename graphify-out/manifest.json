@@ -448,7 +448,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/index.ts": {
-    "ast_hash": "c552eea5e930b998a4cf03c44e6adc13",
+    "ast_hash": "1af7d406f3b0e14e0864075a513d3eb0",
     "semantic_hash": ""
   },
   "packages/svforge/src/local-docs.ts": {
@@ -456,11 +456,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/base.ts": {
-    "ast_hash": "494b8a76c23ec7ba29f0a5aca8c96cdd",
+    "ast_hash": "714b2fbf1064b3a7ecec770d7d838ad3",
     "semantic_hash": ""
   },
   "packages/svforge/src/modes/dashboard.ts": {
-    "ast_hash": "4196a47c0f935cde059245bbce629d2e",
+    "ast_hash": "5e052b6163d253cf7a5af455da6838b5",
     "semantic_hash": ""
   },
   "packages/svforge/src/module-composition.ts": {
@@ -1120,7 +1120,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-composition.test.ts": {
-    "ast_hash": "fbbbc106dce84fd1186a3fbb588cc5ce",
+    "ast_hash": "7a75731a602507c21ad553d251e846c4",
     "semantic_hash": ""
   },
   "tests/dashboard-mode.test.ts": {
@@ -1368,7 +1368,7 @@
     "semantic_hash": ""
   },
   "tests/upgrade-behavioral.test.ts": {
-    "ast_hash": "d60b7ef2eb0b00a89166b1ac8b098316",
+    "ast_hash": "5e190770ffef06ecab2eb3de59d34b7b",
     "semantic_hash": ""
   },
   "tests/upgrade-engine.test.ts": {
@@ -2344,7 +2344,7 @@
     "semantic_hash": ""
   },
   "tests/dashboard-base-composition.test.ts": {
-    "ast_hash": "024934ba5feb80d0c739c6c463f0e8fc",
+    "ast_hash": "e6c19ba7ebeb5dda132028db29e8c208",
     "semantic_hash": ""
   },
   ".changeset/restore-skeleton-placeholder.md": {
@@ -2352,7 +2352,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/dashboard-composition.md": {
-    "ast_hash": "45719ccda2e8bb9bdd6023533136b49d",
+    "ast_hash": "493fa13baa0270f36744194eb662f244",
+    "semantic_hash": ""
+  },
+  ".changeset/dashboard-base-composition.md": {
+    "ast_hash": "e73f67685ca9e00f1f0c8cf2c7e67255",
     "semantic_hash": ""
   }
 }

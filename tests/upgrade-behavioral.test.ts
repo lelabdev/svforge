@@ -333,18 +333,29 @@ describe('install-time baseline initialization (#327 scaffold)', () => {
 		}
 	});
 
-	it('dashboard scaffold baselines the MERGED delivery; the empty base pass writes nothing', () => {
+	it('base mode with an empty file set writes no upgrade baseline', () => {
+		const dir = scaffoldDir('sf-scaffold-empty-base-');
+		try {
+			applyBaseMode(diskSv(dir) as never, {}, {});
+			expect(existsSync(join(dir, TRACKING_FILE))).toBe(false);
+		} finally {
+			rmSync(dir, { recursive: true, force: true });
+		}
+	});
+
+	it('dashboard scaffold baselines the MERGED delivery in one pass (#674)', () => {
 		const dir = scaffoldDir('sf-scaffold-dash-');
 		try {
-			const sv = diskSv(dir);
-			// Real scaffold order: base mode with an EMPTY file set, then the dashboard overlay.
-			applyBaseMode(sv as never, {}, {});
-			expect(existsSync(join(dir, TRACKING_FILE))).toBe(false);
 			seedOfficialFoundationOnDisk(dir);
+			const sv = diskSv(dir);
+			// #674 phase 2: the Dashboard mode performs the canonical Base delivery
+			// itself — there is no separate empty Base pass before it.
+			// #674 phase 2: `/vitest.config.ts` is mode-owned — the Dashboard
+			// overlay ships it, the canonical Base delivery deliberately skips it.
 			applyDashboardMode(
 				sv as never,
-				{ '/lib/base.ts': 'B\n', '/vitest.config.ts': 'V\n' },
-				{ '/routes/admin/x.ts': 'D\n' },
+				{ '/lib/base.ts': 'B\n' },
+				{ '/routes/admin/x.ts': 'D\n', '/vitest.config.ts': 'V\n' },
 				'vitest',
 				{}
 			);

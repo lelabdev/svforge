@@ -227,13 +227,40 @@ const LEFTHOOK_PREPARE = 'if git rev-parse --is-inside-work-tree >/dev/null 2>&1
  * Apply Base mode files via sv.file()
  * Base = all UI components, layouts, styles, utils, schemas
  */
-export function applyBaseMode(
-	sv: SvApi,
-	files: Record<string, string>,
-	rootFiles: Record<string, string> = {},
-	hooks: HookMode = 'none',
-	packageManager = 'npm'
-): void {
+/**
+ * Canonical Base delivery (#674).
+ *
+ * This is the ONE operation both modes use to obtain Base's shared substance:
+ * the central dependency declarations, the project wiring (`package.json`,
+ * `vite.config.ts`, optional hooks), the shared template files, the root files
+ * and the vendored LLM references. It deliberately writes NO mode metadata
+ * (`AGENTS.md`, `.svforge.json`, `.svforge-versions.json`, `llms.txt`): the
+ * caller owns those, so the Dashboard mode never runs Base's tracking or
+ * manifest pass.
+ *
+ * `exclude` lists template paths the caller delivers itself — the files the
+ * official `sv` add-ons own (`hooks.server.ts`, `app.d.ts`) and files the mode
+ * overrides on purpose (e.g. the Dashboard Vitest config).
+ */
+export interface BaseDelivery {
+	/** Source-file map that was actually delivered (template path → content). */
+	files: Record<string, string>;
+	/** Root files that were actually delivered (root path → content). */
+	rootFiles: Record<string, string>;
+}
+
+export interface BaseDeliveryOptions {
+	files: Record<string, string>;
+	rootFiles?: Record<string, string>;
+	hooks?: HookMode;
+	/** Template paths the caller delivers itself. */
+	exclude?: ReadonlySet<string>;
+}
+
+export function deliverBaseScaffold(sv: SvApi, options: BaseDeliveryOptions): BaseDelivery {
+	const { files, rootFiles = {}, hooks = 'none', exclude } = options;
+	const deliveredFiles = Object.fromEntries(Object.entries(files).filter(([path]) => !exclude?.has(path)));
+	const deliveredRootFiles = Object.fromEntries(Object.entries(rootFiles).filter(([path]) => !exclude?.has(path)));
 	// Baseline Vitest (#235): deliver the runnable test baseline. The
 	// devDependency + script mirror the template package.json (vitest ^5.0.0).
 	sv.devDependency('vitest', '^5.0.0');
@@ -307,42 +334,62 @@ export function applyBaseMode(
 	sv.file('vite.config.ts', (content) => patchViteConfig(content));
 	// Write all base template files — destinations come from the ONE canonical
 	// resolver shared with the upgrade engine (#327): no install/upgrade drift.
-	for (const [path, content] of Object.entries(files)) {
+	for (const [path, content] of Object.entries(deliveredFiles)) {
 		sv.file(resolveDestination(path, BASE_ROOT_PATHS), () => content);
 	}
 
 	// Vitest resolves package imports independently from SvelteKit; add the
 	// #lib path alias and retain $lib only as a compatibility fallback for
-	// test files in existing Kit 2 projects.
-	sv.file('vitest.config.ts', (content) => patchVitestConfig(content));
+	// test files in existing Kit 2 projects. Only meaningful when THIS delivery
+	// owns the Vitest config: a mode that ships its own config excludes it.
+	if (deliveredFiles['/vitest.config.ts'] !== undefined) {
+		sv.file('vitest.config.ts', (content) => patchVitestConfig(content));
+	}
 
 	// Write root-level project files (messages/, project.inlang/) at the
 	// project root (#239) — same delivery model as the dashboard root files.
-	for (const [path, content] of Object.entries(rootFiles)) {
+	for (const [path, content] of Object.entries(deliveredRootFiles)) {
 		sv.file(path.slice(1), () => content);
 	}
+
+	// #317: ship the cached Skeleton/Svelte LLM references so agents search
+	// local, version-matched docs before changing Skeleton UI/theme. These are
+	// shared Base artifacts, not mode metadata.
+	for (const [doc, content] of Object.entries(scaffoldedLocalDocs())) {
+		sv.file(doc, () => content);
+	}
+
+	return { files: deliveredFiles, rootFiles: deliveredRootFiles };
+}
+
+export function applyBaseMode(
+	sv: SvApi,
+	files: Record<string, string>,
+	rootFiles: Record<string, string> = {},
+	hooks: HookMode = 'none',
+	packageManager = 'npm'
+): void {
+	const delivered = deliverBaseScaffold(sv, { files, rootFiles, hooks });
 
 	// Upgrade baseline (#327): initialize .svforge-versions.json at INSTALL
 	// time — SHA-256 of every recipe-delivered file (src + root) — so the
 	// FIRST upgrade already has a real baseline instead of treating every
-	// divergence as a user modification (#283). Skipped when no recipe files
-	// are delivered (the dashboard flow reuses the base mode with an empty
-	// file set; the dashboard mode initializes its own merged baseline).
-	if (Object.keys(files).length > 0) {
+	// divergence as a user modification (#283). Skipped when no shared files
+	// are delivered (the Dashboard mode computes its own merged baseline).
+	if (Object.keys(delivered.files).length > 0) {
 		sv.file('.svforge-versions.json', () =>
-			initTrackingJson('base', SDFORGE_RECIPE_VERSION, { ...files, ...rootFiles }, BASE_ROOT_PATHS)
+			initTrackingJson(
+				'base',
+				SDFORGE_RECIPE_VERSION,
+				{ ...delivered.files, ...delivered.rootFiles },
+				BASE_ROOT_PATHS
+			)
 		);
 	}
 
 	// AI-ready: scaffold AGENTS.md at the project root (#203, #347) — the
 	// sole agent convention of a SvelteForge project (#325: PM-aware commands).
 	sv.file('AGENTS.md', () => scaffoldedAgents('base', packageManager));
-
-	// #317: ship the cached Skeleton/Svelte LLM references so agents search
-	// local, version-matched docs before changing Skeleton UI/theme.
-	for (const [doc, content] of Object.entries(scaffoldedLocalDocs())) {
-		sv.file(doc, () => content);
-	}
 
 	// AI context (#234): machine-readable manifest + llms.txt, derived from
 	// the real scaffold state. The dashboard mode overrides with its template.
