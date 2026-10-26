@@ -26987,6 +26987,47 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_skeleton_baseline_test",
+      "label": "skeleton-baseline.test.ts",
+      "file_type": "code",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_skeleton_baseline_test_baseline_doc",
+      "label": "BASELINE_DOC",
+      "file_type": "code",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L16",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_skeleton_baseline_test_inline_style_allowlist",
+      "label": "INLINE_STYLE_ALLOWLIST",
+      "file_type": "code",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L19",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_skeleton_baseline_test_scaffoldedsveltefiles",
+      "label": "scaffoldedSvelteFiles()",
+      "file_type": "code",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L23",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_skeleton_baseline_test_files",
+      "label": "FILES",
+      "file_type": "code",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L34",
+      "_origin": "ast"
+    },
+    {
       "id": "tests_skeleton_markup_test",
       "label": "skeleton-markup.test.ts",
       "file_type": "code",
@@ -33629,7 +33670,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L64",
+      "source_location": "L66",
       "_origin": "ast"
     },
     {
@@ -33638,7 +33679,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L108",
+      "source_location": "L110",
       "_origin": "ast"
     },
     {
@@ -33647,7 +33688,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L124",
+      "source_location": "L126",
       "_origin": "ast"
     },
     {
@@ -33656,7 +33697,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L138",
+      "source_location": "L140",
       "_origin": "ast"
     },
     {
@@ -33665,7 +33706,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L142",
+      "source_location": "L144",
       "_origin": "ast"
     },
     {
@@ -33674,7 +33715,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L146",
+      "source_location": "L148",
       "_origin": "ast"
     },
     {
@@ -33774,6 +33815,96 @@
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/deployment-profiles.md",
       "source_location": "L49",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline",
+      "label": "skeleton-baseline.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_skeleton_v5_first_scaffolded_ui_baseline",
+      "label": "Skeleton v5-first scaffolded UI baseline",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_styling_policy",
+      "label": "Styling policy",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L5",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_pointer_affordance_contract",
+      "label": "Pointer affordance contract",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L13",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_per_file_disposition",
+      "label": "Per-file disposition",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L17",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_base_template_20",
+      "label": "Base template (20)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L28",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_dashboard_template_12",
+      "label": "Dashboard template (12)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L53",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_optional_addons_14",
+      "label": "Optional addons (14)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L70",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_reviewed_exceptions",
+      "label": "Reviewed exceptions",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L89",
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_docs_skeleton_baseline_keeping_the_baseline_true",
+      "label": "Keeping the baseline true",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L98",
       "_origin": "ast"
     },
     {
@@ -93411,6 +93542,112 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_skeleton_baseline_test",
+      "target": "ref_vitest",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test",
+      "target": "ref_node_fs",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test",
+      "target": "ref_node_path",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test",
+      "target": "tests_helpers",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test",
+      "target": "tests_helpers_root",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test",
+      "target": "tests_skeleton_baseline_test_baseline_doc",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L16",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test",
+      "target": "tests_skeleton_baseline_test_inline_style_allowlist",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L19",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test",
+      "target": "tests_skeleton_baseline_test_scaffoldedsveltefiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L23",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test",
+      "target": "tests_skeleton_baseline_test_files",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L34",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_skeleton_baseline_test_scaffoldedsveltefiles",
+      "target": "tests_skeleton_baseline_test_scaffoldedsveltefiles",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/skeleton-baseline.test.ts",
+      "source_location": "L28",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_skeleton_markup_test",
       "target": "ref_vitest",
       "relation": "imports_from",
@@ -103806,12 +104043,22 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_readme",
+      "target": "packages_svforge_docs_skeleton_baseline",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/README.md",
+      "source_location": "L57",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_readme_svforge",
       "target": "packages_svforge_readme_optional_modules",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L64",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -103821,7 +104068,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L108",
+      "source_location": "L110",
       "weight": 1,
       "_origin": "ast"
     },
@@ -103831,7 +104078,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L122",
+      "source_location": "L124",
       "weight": 1,
       "_origin": "ast"
     },
@@ -103841,7 +104088,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L124",
+      "source_location": "L126",
       "weight": 1,
       "_origin": "ast"
     },
@@ -103851,7 +104098,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L138",
+      "source_location": "L140",
       "weight": 1,
       "_origin": "ast"
     },
@@ -103861,7 +104108,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L142",
+      "source_location": "L144",
       "weight": 1,
       "_origin": "ast"
     },
@@ -103871,7 +104118,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/README.md",
-      "source_location": "L146",
+      "source_location": "L148",
       "weight": 1,
       "_origin": "ast"
     },
@@ -103962,6 +104209,96 @@
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/deployment-profiles.md",
       "source_location": "L49",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline",
+      "target": "packages_svforge_docs_skeleton_baseline_skeleton_v5_first_scaffolded_ui_baseline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L1",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_skeleton_v5_first_scaffolded_ui_baseline",
+      "target": "packages_svforge_docs_skeleton_baseline_styling_policy",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_styling_policy",
+      "target": "packages_svforge_docs_skeleton_baseline_pointer_affordance_contract",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L13",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_skeleton_v5_first_scaffolded_ui_baseline",
+      "target": "packages_svforge_docs_skeleton_baseline_per_file_disposition",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L17",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_per_file_disposition",
+      "target": "packages_svforge_docs_skeleton_baseline_base_template_20",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L28",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_per_file_disposition",
+      "target": "packages_svforge_docs_skeleton_baseline_dashboard_template_12",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L53",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_per_file_disposition",
+      "target": "packages_svforge_docs_skeleton_baseline_optional_addons_14",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L70",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_skeleton_v5_first_scaffolded_ui_baseline",
+      "target": "packages_svforge_docs_skeleton_baseline_reviewed_exceptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L89",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_skeleton_v5_first_scaffolded_ui_baseline",
+      "target": "packages_svforge_docs_skeleton_baseline_keeping_the_baseline_true",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L98",
       "weight": 1,
       "_origin": "ast"
     },
@@ -106472,7 +106809,19 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "packages/svforge/README.md",
-      "source_location": "L60",
+      "source_location": "L62",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_skeleton_baseline_optional_addons_14",
+      "target": "packages_tiptap_templates_src_lib_components_svforge_tiptap_render_tiptap_rendertiptap",
+      "relation": "references",
+      "context": "renderTiptap",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "packages/svforge/docs/skeleton-baseline.md",
+      "source_location": "L85",
       "weight": 1,
       "_origin": "ast"
     },
