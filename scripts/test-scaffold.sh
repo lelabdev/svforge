@@ -210,6 +210,10 @@ if [ "$TEMPLATE" = "base-ui-modules" ]; then
 	test -f src/routes/showcase/tiptap/meta.ts || { echo "❌ tiptap showcase metadata missing (#586)"; exit 1; }
 	grep -q '"showcase_tiptap_title"' messages/en.json || { echo "❌ tiptap showcase copy missing from en catalog (#586)"; exit 1; }
 	grep -q '"showcase_tiptap_title"' messages/fr.json || { echo "❌ tiptap showcase copy missing from fr catalog (#586)"; exit 1; }
+	test -f src/routes/showcase/graph/+page.svelte || { echo "❌ graph showcase route missing (#586)"; exit 1; }
+	test -f src/routes/showcase/graph/meta.ts || { echo "❌ graph showcase metadata missing (#586)"; exit 1; }
+	grep -q '"showcase_graph_title"' messages/en.json || { echo "❌ graph showcase copy missing from en catalog (#586)"; exit 1; }
+	grep -q '"showcase_graph_title"' messages/fr.json || { echo "❌ graph showcase copy missing from fr catalog (#586)"; exit 1; }
 fi
 
 # dashboard-integrations (#284): oauth + email + uploads on a real dashboard.
@@ -722,6 +726,10 @@ if [ "$TEMPLATE" = "base-ui-modules" ]; then
 		|| { echo "❌ /showcase/tiptap was not prerendered (#586)"; exit 1; }
 	grep -q 'href="/showcase/tiptap"' .svelte-kit/output/prerendered/pages/showcase.html \
 		|| { echo "❌ the showcase index does not link the tiptap demo (#586)"; exit 1; }
+	test -f .svelte-kit/output/prerendered/pages/showcase/graph.html \
+		|| { echo "❌ /showcase/graph was not prerendered (#586)"; exit 1; }
+	grep -q 'href="/showcase/graph"' .svelte-kit/output/prerendered/pages/showcase.html \
+		|| { echo "❌ the showcase index does not link the graph demo (#586)"; exit 1; }
 fi
 if [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	for mod in oauth email; do
