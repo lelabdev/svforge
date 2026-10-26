@@ -192,7 +192,8 @@ export const MODULE_CONTRACTS: Record<string, ModuleCapabilityContract> = {
 	},
 	tiptap: {
 		template: 'base',
-		requires: ['ui.skeleton', 'i18n.messages'],
+		// #586: the module ships a localized showcase route using the SVForge kit.
+		requires: ['ui.skeleton', 'ui.svforge', 'i18n.messages'],
 		provides: [],
 		optional: [],
 		optionalModules: []

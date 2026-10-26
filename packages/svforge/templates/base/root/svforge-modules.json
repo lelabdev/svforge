@@ -100,13 +100,15 @@
 			"template": "base",
 			"requires": [
 				"ui.skeleton",
+				"ui.svforge",
 				"i18n.messages"
 			],
 			"provides": [],
 			"optional": [],
 			"optionalModules": [],
 			"files": [
-				"src/lib/components/svforge/tiptap/"
+				"src/lib/components/svforge/tiptap/",
+				"src/routes/showcase/tiptap/"
 			]
 		},
 		"graph": {
