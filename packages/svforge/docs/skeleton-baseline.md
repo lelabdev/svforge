@@ -12,11 +12,7 @@ SVForge ships a **starting point**, not a component library: every scaffolded `.
 
 ### Form field hint text
 
-Skeleton's `input` and `textarea` utilities paint `::placeholder` with the single `--field-placeholder` theme token, so the hint/value distinction comes from the theme rather than from per-component classes:
-
-- `svelteforge-theme.css` sets `--field-placeholder: light-dark(var(--color-surface-600), var(--color-surface-300))`. On the field surface that measures ~7.5:1 (light) and ~6.6:1 (dark) for the hint against ~16.6:1 for an entered value: AA-legible and still visibly secondary. Skeleton's stock default (`surface-700-300`) reads almost as strongly as typed text in light mode.
-- The token is consumed only inside `::placeholder`, so a typed or prefilled `value` keeps the normal field foreground, and focus, validation and disabled states never repaint the hint (`@tailwindcss/forms` may set a literal gray for bare `<input>` elements, but the `input`/`textarea` utilities win for the scaffolded primitives).
-- Do not add `placeholder:text-*` utilities or per-page hint colors; change the theme token once. `tests/placeholder-contrast.test.ts` computes the contrast from the shipped `oklch()` stops and fails when hints become indistinguishable from input text, fall below 4.5:1, or are overridden per page.
+The scaffold uses Skeleton UI v5's native `input` and `textarea` utilities without overriding their `--field-placeholder` default (`--color-surface-700-300`). An example shown in an empty field is `placeholder`; an existing actual value is `value` and uses the normal text foreground. Form labels stay explicit; use individual field help text where appropriate instead of changing the global hint color. Do not add per-page placeholder colors merely to distinguish examples from real values.
 
 ### Pointer affordance contract
 
