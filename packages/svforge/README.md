@@ -54,6 +54,8 @@ The supported `sv` pin, tested framework versions, real scaffold profiles and of
 
 ## Templates
 
+Every scaffolded component follows the [Skeleton v5-first baseline](docs/skeleton-baseline.md): Tailwind utilities plus verified Skeleton primitives, no component CSS layer, a pointer affordance on every enabled control, and a recorded audit disposition per file.
+
 - **`base`** — Skeleton UI and Tailwind, reusable foundations (`Button`, `Input`, `Select`, `Card`, `Badge`, `Table`), theme and dark mode, SEO, Paraglide FR/EN, and Vitest.
 - **`dashboard`** — base plus Better Auth, PostgreSQL/Drizzle, protected admin routes, user management, and setup scripts.
 
