@@ -10,6 +10,14 @@ SVForge ships a **starting point**, not a component library: every scaffolded `.
 - **Reactive plumbing is not churn.** A `$derived` stays when it is reused, when it is the readable form of a shared computation, or when it feeds real reactive behaviour (`inactive` in `Button`, the SSR-stable ids and `aria-describedby` joins in `Input`/`Select`/`Textarea`). Only single-use intermediates that are provably shorter inlined were removed.
 - **Specialised behaviour keeps its owner.** Tiptap, DnD, force-graph rendering, uploads, auth, notifications and other business logic were not rewritten to swap DOM for Skeleton components.
 
+### Form field hint text
+
+Skeleton's `input` and `textarea` utilities paint `::placeholder` with the single `--field-placeholder` theme token, so the hint/value distinction comes from the theme rather than from per-component classes:
+
+- `svelteforge-theme.css` sets `--field-placeholder: light-dark(var(--color-surface-600), var(--color-surface-300))`. On the field surface that measures ~7.5:1 (light) and ~6.6:1 (dark) for the hint against ~16.6:1 for an entered value: AA-legible and still visibly secondary. Skeleton's stock default (`surface-700-300`) reads almost as strongly as typed text in light mode.
+- The token is consumed only inside `::placeholder`, so a typed or prefilled `value` keeps the normal field foreground, and focus, validation and disabled states never repaint the hint (`@tailwindcss/forms` may set a literal gray for bare `<input>` elements, but the `input`/`textarea` utilities win for the scaffolded primitives).
+- Do not add `placeholder:text-*` utilities or per-page hint colors; change the theme token once. `tests/placeholder-contrast.test.ts` computes the contrast from the shipped `oklch()` stops and fails when hints become indistinguishable from input text, fall below 4.5:1, or are overridden per page.
+
 ### Pointer affordance contract
 
 Every **enabled** actionable control advertises `cursor-pointer`; a **disabled/loading** control advertises `cursor-not-allowed` (or the appropriate default) and never looks clickable. Skeleton v5's `btn`/`btn-icon` set no `cursor` for the enabled state (only the global `:disabled` rule), so the affordance must be declared by whoever owns the control: the shared `Button` primitive for consumers of it, the component itself for native/library triggers. Static text and non-actions receive no pointer.

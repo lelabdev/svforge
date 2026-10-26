@@ -174,6 +174,7 @@ SvelteForge deliberately scaffolds a very small CSS architecture:
 - \`src/routes/layout.css\` is the **single global CSS entrypoint**. Keep it as wiring only: Tailwind, Skeleton, Skeleton Svelte, fonts, plugins, the dark variant, and the import of the SvelteForge theme.
 - \`src/lib/styles/svelteforge-theme.css\` is the **complete Skeleton v5 theme** and the visual source of truth for palettes, surfaces, brand, root backgrounds, typography, radius/shapes, borders, rings and outlines.
 - There is intentionally **no generic \`tokens.css\` or \`index.css\` layer** in the scaffold. Use normal Tailwind utilities for local layout and spacing (for example \`p-4\`, \`gap-6\`, \`max-w-7xl\`).
+- \`--field-placeholder\` is the **one shared hint-text token**: Skeleton's \`input\`/\`textarea\` utilities paint \`::placeholder\` from it, so an empty field reads as a hint while a typed or prefilled value keeps the normal foreground, in both modes. Adjust it in the theme; never add per-page \`placeholder:\` colors.
 
 Before adding global CSS or a custom visual token, ask: **can Skeleton express this through the theme, a preset, or an existing utility?** If yes, use Skeleton. Only introduce a project-specific abstraction after a concrete, repeated product need exists and Skeleton/Tailwind do not already cover it.
 
