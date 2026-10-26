@@ -85,7 +85,7 @@ describe('showcase route convention (#586)', () => {
 });
 
 /** Run a module add-on against a temp project with the fake write surface. */
-async function installModule(dir: string, pkg: 'dnd' | 'ui_toast') {
+async function installModule(dir: string, pkg: 'dnd' | 'ui_toast' | 'tiptap') {
 	const sv = diskSv(dir);
 	const cancelled: string[] = [];
 	const addon = (await import(`../packages/${pkg}/src/index`)).default;
@@ -149,6 +149,69 @@ describe('module demo delivered by @svforge/ui_toast (#586, phase 2)', () => {
 
 	it('declares the capabilities its localized demo route needs', () => {
 		expect(MODULE_CONTRACTS.ui_toast.requires).toEqual(
+			expect.arrayContaining(['ui.skeleton', 'ui.svforge', 'i18n.messages'])
+		);
+	});
+});
+
+describe('module demo delivered by @svforge/tiptap (#586, phase 3)', () => {
+	let cleanup: (() => void) | undefined;
+	afterEach(() => cleanup?.());
+
+	const TEMPLATE = join(ROOT, 'packages/tiptap/templates/src/routes/showcase/tiptap');
+
+	it('drives the real editor, toolbar and preview over a local document', () => {
+		const page = readFileSync(join(TEMPLATE, '+page.svelte'), 'utf-8');
+		const meta = readFileSync(join(TEMPLATE, 'meta.ts'), 'utf-8');
+
+		expect(page).toContain("from '#lib/components/svforge/tiptap/index.js'");
+		expect(page).toContain('<TiptapEditor');
+		expect(page).toContain('<TiptapPreview');
+		// The consumer contract: the editor emits JSON, the page keeps it locally.
+		expect(page).toMatch(/onUpdate=\{\(next\) => \(content = next\)\}/);
+		expect(page).toMatch(/let content = \$state<JSONContent>/);
+		// Reset re-initialises the editor from the sample through a keyed block.
+		expect(page).toMatch(/\{#key revision\}/);
+		// Local fixture only: no request, no persistence, all copy localized.
+		expect(page).not.toMatch(/fetch\(|process\.env|localStorage/);
+		expect(page).toMatch(/m\.showcase_tiptap_/);
+		expect(meta).toMatch(/order: \d+/);
+		expect(meta).toMatch(/title: \(\) => m\.showcase_tiptap_title\(\)/);
+		expect(meta).toMatch(/export default meta/);
+	});
+
+	it('delivers the route, the metadata and both catalogs on install', async () => {
+		const { dir, cleanup: done } = tempProject('sf-showcase-tiptap-');
+		cleanup = done;
+		createBaseProject(dir);
+
+		const { cancelled, written } = await installModule(dir, 'tiptap');
+		expect(cancelled).toEqual([]);
+		expect(written).toEqual(
+			expect.arrayContaining([
+				'src/routes/showcase/tiptap/+page.svelte',
+				'src/routes/showcase/tiptap/meta.ts',
+				'messages/en.json',
+				'messages/fr.json'
+			])
+		);
+
+		const keys = (locale: string) =>
+			Object.keys(JSON.parse(readFileSync(join(dir, `messages/${locale}.json`), 'utf-8')))
+				.filter((key) => !key.startsWith('$'))
+				.sort();
+		expect(keys('en')).toEqual(keys('fr'));
+		for (const locale of ['en', 'fr']) {
+			const catalog = JSON.parse(readFileSync(join(dir, `messages/${locale}.json`), 'utf-8'));
+			expect(catalog.showcase_tiptap_title, `${locale} title`).toBeTruthy();
+			expect(catalog.showcase_tiptap_sample_heading, `${locale} fixture copy`).toBeTruthy();
+			// The module's own toolbar copy is still merged by the same plan.
+			expect(catalog.tiptap_bold, `${locale} toolbar copy`).toBeTruthy();
+		}
+	});
+
+	it('declares the capabilities its localized demo route needs', () => {
+		expect(MODULE_CONTRACTS.tiptap.requires).toEqual(
 			expect.arrayContaining(['ui.skeleton', 'ui.svforge', 'i18n.messages'])
 		);
 	});

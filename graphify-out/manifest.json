@@ -20,7 +20,7 @@
     "semantic_hash": ""
   },
   "packages/addon-kit/src/capabilities.ts": {
-    "ast_hash": "fe11225f3665bdc116761920043087df",
+    "ast_hash": "de7086c7796766146f97ff0f10a2ecbb",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/index.ts": {
@@ -468,7 +468,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "47daa0a97f9c7785417014d865e54952",
+    "ast_hash": "8d95a26e72340da6c15495fce8e87b31",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
@@ -488,7 +488,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/templates.ts": {
-    "ast_hash": "117a0d8eee16c921529699af4a4b6224",
+    "ast_hash": "0beb8c31b1ffa2f320e8db7f1b4a0517",
     "semantic_hash": ""
   },
   "packages/svforge/src/upgrade.ts": {
@@ -540,7 +540,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/svforge-modules.json": {
-    "ast_hash": "7cd1187a7b5fe9ce3c00474ea4f7d6b0",
+    "ast_hash": "c02ec0b3c31666e6c06588fea6391670",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/app.d.ts": {
@@ -864,11 +864,11 @@
     "semantic_hash": ""
   },
   "packages/tiptap/src/index.ts": {
-    "ast_hash": "367d2d248b8f3b1abaeb675f8221e246",
+    "ast_hash": "b61ff0d762b80b05558e115075530bab",
     "semantic_hash": ""
   },
   "packages/tiptap/src/templates.ts": {
-    "ast_hash": "3dd83e0f2bcb8d329ac6f00f16528095",
+    "ast_hash": "9c154d8f29bc6b1f774a1a18b04d2a0f",
     "semantic_hash": ""
   },
   "packages/tiptap/templates/src/lib/components/svforge/tiptap/TiptapEditor.svelte": {
@@ -1012,7 +1012,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "5a14a114ac44152824184d40b96c4919",
+    "ast_hash": "7b80648ecf04344035c466b1d2fbdca3",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1492,7 +1492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "382a60ea13e44b1457457f9ac327ffaf",
+    "ast_hash": "482156ba9459efa225eb3128b2e07970",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -2220,7 +2220,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/skeleton-baseline.md": {
-    "ast_hash": "e17199bbbeb4eb5d2b1cbeff28993501",
+    "ast_hash": "39de2492ff953299a88ccea356ca2845",
     "semantic_hash": ""
   },
   "packages/svforge/docs/ui-composition.md": {
@@ -2268,7 +2268,7 @@
     "semantic_hash": ""
   },
   "tests/showcase.test.ts": {
-    "ast_hash": "a911a56cb4aeb35e390b5967fa06d692",
+    "ast_hash": "64dd73926d92494e1727fd184a4c10ea",
     "semantic_hash": ""
   },
   ".changeset/showcase-module-demos.md": {
@@ -2285,6 +2285,18 @@
   },
   ".changeset/showcase-ui-toast-demo.md": {
     "ast_hash": "d63eb8bc4307ca914f68126cf1e8cf40",
+    "semantic_hash": ""
+  },
+  "packages/tiptap/templates/src/routes/showcase/tiptap/+page.svelte": {
+    "ast_hash": "dc27a0cfa6b7a85dce1b7815fc8f65e2",
+    "semantic_hash": ""
+  },
+  "packages/tiptap/templates/src/routes/showcase/tiptap/meta.ts": {
+    "ast_hash": "30ad6067972414a46e15f81059443f4e",
+    "semantic_hash": ""
+  },
+  ".changeset/showcase-tiptap-demo.md": {
+    "ast_hash": "9e45c7040850bcd30e0cf132a9a4328c",
     "semantic_hash": ""
   }
 }

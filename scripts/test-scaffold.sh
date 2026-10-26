@@ -206,6 +206,10 @@ if [ "$TEMPLATE" = "base-ui-modules" ]; then
 	test -f src/routes/showcase/ui-toast/meta.ts || { echo "❌ ui_toast showcase metadata missing (#586)"; exit 1; }
 	grep -q '"showcase_toast_title"' messages/en.json || { echo "❌ ui_toast showcase copy missing from en catalog (#586)"; exit 1; }
 	grep -q '"showcase_toast_title"' messages/fr.json || { echo "❌ ui_toast showcase copy missing from fr catalog (#586)"; exit 1; }
+	test -f src/routes/showcase/tiptap/+page.svelte || { echo "❌ tiptap showcase route missing (#586)"; exit 1; }
+	test -f src/routes/showcase/tiptap/meta.ts || { echo "❌ tiptap showcase metadata missing (#586)"; exit 1; }
+	grep -q '"showcase_tiptap_title"' messages/en.json || { echo "❌ tiptap showcase copy missing from en catalog (#586)"; exit 1; }
+	grep -q '"showcase_tiptap_title"' messages/fr.json || { echo "❌ tiptap showcase copy missing from fr catalog (#586)"; exit 1; }
 fi
 
 # dashboard-integrations (#284): oauth + email + uploads on a real dashboard.
@@ -714,6 +718,10 @@ if [ "$TEMPLATE" = "base-ui-modules" ]; then
 		|| { echo "❌ /showcase/ui-toast was not prerendered (#586)"; exit 1; }
 	grep -q 'href="/showcase/ui-toast"' .svelte-kit/output/prerendered/pages/showcase.html \
 		|| { echo "❌ the showcase index does not link the ui_toast demo (#586)"; exit 1; }
+	test -f .svelte-kit/output/prerendered/pages/showcase/tiptap.html \
+		|| { echo "❌ /showcase/tiptap was not prerendered (#586)"; exit 1; }
+	grep -q 'href="/showcase/tiptap"' .svelte-kit/output/prerendered/pages/showcase.html \
+		|| { echo "❌ the showcase index does not link the tiptap demo (#586)"; exit 1; }
 fi
 if [ "$TEMPLATE" = "dashboard-integrations" ]; then
 	for mod in oauth email; do

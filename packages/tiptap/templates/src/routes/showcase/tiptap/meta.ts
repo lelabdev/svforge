@@ -1,0 +1,13 @@
+import * as m from '#lib/paraglide/messages.js';
+
+/**
+ * Showcase metadata (#586): the index discovers installed demos through
+ * `import.meta.glob('./*\/meta.ts')`. Copy functions keep it locale-aware.
+ */
+const meta = {
+	order: 30,
+	title: () => m.showcase_tiptap_title(),
+	description: () => m.showcase_tiptap_description()
+};
+
+export default meta;
