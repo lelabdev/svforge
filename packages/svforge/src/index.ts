@@ -202,13 +202,13 @@ export default defineAddon({
 
 		// ── Apply mode-specific files ──
 		if (template === 'dashboard') {
-			// Dashboard inherits base: root files (Paraglide messages/),
-			// vite.config plugin wiring, deps and test script come from the
-			// base mode first, then dashboard-specific files overlay (#239).
-			applyBaseMode(sv, {}, baseRootFiles, hooks, pm);
+			// Dashboard performs the canonical Base delivery itself and then adds
+			// its own capabilities (#674): running Base mode here too would mean
+			// two composition/tracking passes for one project.
+			// (Dashboard-specific files overlay the shared delivery, #239.)
 			// Preserve any selected version (e.g. yarn@4) so the generated CI
 			// workflow can choose the matching major and frozen-install flag.
-			applyDashboardMode(sv, baseFiles, dashboardFiles, testing, dashboardRootFiles, packageManager);
+			applyDashboardMode(sv, baseFiles, dashboardFiles, testing, dashboardRootFiles, packageManager, hooks);
 		} else {
 			applyBaseMode(sv, baseFiles, baseRootFiles, hooks, pm);
 		}

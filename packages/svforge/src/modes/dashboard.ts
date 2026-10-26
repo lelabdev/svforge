@@ -4,6 +4,7 @@ import { scaffoldedAgents } from '../scaffolded-agents';
 import { buildManifest, renderLlmstxt } from '../ai-context';
 import { DASHBOARD_CI_WORKFLOW_PATH, renderDashboardCiWorkflow } from '../dashboard-ci';
 import { DASHBOARD_ROOT_PATHS } from '../destinations';
+import { deliverBaseScaffold, type HookMode } from './base';
 import { SDFORGE_RECIPE_VERSION } from '../recipe-version';
 import { baseRootFiles } from '../templates';
 
@@ -157,11 +158,33 @@ export function applyDashboardMode(
 	dashboardFiles: Record<string, string>,
 	testing: 'vitest' | 'playwright' = 'vitest',
 	rootFiles: Record<string, string> = {},
-	packageManager = 'npm'
+	packageManager = 'npm',
+	// #674 review B-01: the selected Git-hook option travels through the
+	// canonical Base delivery (final, optional argument so existing callers keep
+	// working without a positional shift).
+	hooks: HookMode = 'none'
 ): void {
 	// PM-specific runners (#325): the advertised auth/admin commands must work
 	// with the package manager the user actually selected in `sv`.
 	const dlx = resolveDlxRunner(packageManager);
+
+	// #674: ONE canonical Base delivery. Dashboard obtains Base's shared
+	// substance (central dependency declarations, project wiring, shared
+	// template/root files, vendored LLM docs) through the exact same operation
+	// Base uses — it no longer replays a filtered copy of `baseFiles` itself.
+	//
+	// Excluded paths are delivered by someone else:
+	// - #547: the official Drizzle/Better Auth integrations own `app.d.ts` and
+	//   `hooks.server.ts`; SVForge only extends them below.
+	// - the Dashboard overlay ships its own `vitest.config.ts` (sequential DB
+	//   execution), so Base's config/patching must not be emitted.
+	const MODE_OWNED_FILES = new Set(['/hooks.server.ts', '/app.d.ts', '/vitest.config.ts']);
+	const baseDelivery = deliverBaseScaffold(sv, {
+		files: baseFiles,
+		rootFiles: baseRootFiles,
+		hooks,
+		exclude: MODE_OWNED_FILES
+	});
 	// create-admin.ts is TypeScript: bun runs it natively, every other PM
 	// gets tsx through its own on-demand runner (same download policy as the
 	// better-auth CLI — never a scaffold dependency).
@@ -204,20 +227,6 @@ export function applyDashboardMode(
 		};
 		return `${JSON.stringify(pkg, null, '\t')}\n`;
 	});
-
-	// Write all base files first — same canonical resolver as the overlay
-	// (#327): base '/vitest.config.ts' lands at the root where the dashboard
-	// overlay then overwrites it with the dashboard version (no stray copy).
-	//
-	// #547: the official Drizzle/Better Auth integrations own `app.d.ts` and
-	// `hooks.server.ts` for the dashboard; SVForge only extends them below.
-	const OFFICIAL_DASHBOARD_FILES = new Set(['/hooks.server.ts', '/app.d.ts']);
-	const dashboardBaseFiles = Object.fromEntries(
-		Object.entries(baseFiles).filter(([path]) => !OFFICIAL_DASHBOARD_FILES.has(path))
-	);
-	for (const [path, content] of Object.entries(dashboardBaseFiles)) {
-		sv.file(resolveDestination(path, DASHBOARD_ROOT_PATHS), () => content);
-	}
 
 	// Then overlay dashboard-specific files (routes, admin components).
 	// Destinations come from the ONE canonical resolver shared with the
@@ -262,7 +271,7 @@ export function applyDashboardMode(
 		initTrackingJson(
 			'dashboard',
 			SDFORGE_RECIPE_VERSION,
-			{ ...dashboardBaseFiles, ...baseRootFiles, ...deliveredFiles, ...renderedRootFiles },
+			{ ...baseDelivery.files, ...baseDelivery.rootFiles, ...deliveredFiles, ...renderedRootFiles },
 			DASHBOARD_ROOT_PATHS
 		)
 	);

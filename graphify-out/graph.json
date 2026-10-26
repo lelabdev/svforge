@@ -9555,11 +9555,40 @@
       "_origin": "ast"
     },
     {
+      "id": "packages_svforge_src_modes_base_basedelivery",
+      "label": "BaseDelivery",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L245",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_modes_base_basedeliveryoptions",
+      "label": "BaseDeliveryOptions",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L252",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "label": "deliverBaseScaffold()",
+      "file_type": "code",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L260",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "packages_svforge_src_modes_base_applybasemode",
       "label": "applyBaseMode()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L230",
+      "source_location": "L365",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9576,7 +9605,7 @@
       "label": "DLX_RUNNERS",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L30",
+      "source_location": "L31",
       "_origin": "ast"
     },
     {
@@ -9584,7 +9613,7 @@
       "label": "resolveDlxRunner()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L37",
+      "source_location": "L38",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9593,7 +9622,7 @@
       "label": "patchAuthConfig()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L51",
+      "source_location": "L52",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9602,7 +9631,7 @@
       "label": "patchHooksServer()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L81",
+      "source_location": "L82",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9611,7 +9640,7 @@
       "label": "patchEnvConfig()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L129",
+      "source_location": "L130",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9620,7 +9649,7 @@
       "label": "patchDotEnv()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L144",
+      "source_location": "L145",
       "_callable": true,
       "_origin": "ast"
     },
@@ -9629,7 +9658,7 @@
       "label": "applyDashboardMode()",
       "file_type": "code",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L154",
+      "source_location": "L155",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24839,7 +24868,7 @@
       "label": "DOC",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "_origin": "ast"
     },
     {
@@ -24847,7 +24876,7 @@
       "label": "SHARED_OVERRIDES",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L24",
+      "source_location": "L25",
       "_origin": "ast"
     },
     {
@@ -24855,7 +24884,7 @@
       "label": "KNOWN_VERSION_DIVERGENCES",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L43",
+      "source_location": "L44",
       "_origin": "ast"
     },
     {
@@ -24863,7 +24892,7 @@
       "label": "Declared",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L51",
+      "source_location": "L52",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -24873,7 +24902,7 @@
       "label": "svWithDeclarations()",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L54",
+      "source_location": "L55",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24882,7 +24911,7 @@
       "label": "walk()",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L81",
+      "source_location": "L82",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24891,7 +24920,16 @@
       "label": "renderBothModes()",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L92",
+      "source_location": "L93",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_dashboard_base_composition_test_rendermode",
+      "label": "renderMode()",
+      "file_type": "code",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L163",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24900,7 +24938,7 @@
       "label": "rendered",
       "file_type": "code",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L145",
+      "source_location": "L184",
       "_origin": "ast"
     },
     {
@@ -24916,7 +24954,7 @@
       "label": "FilesystemSv",
       "file_type": "code",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L13",
+      "source_location": "L12",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast"
@@ -24926,7 +24964,7 @@
       "label": "asSvApi()",
       "file_type": "code",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L40",
+      "source_location": "L39",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24935,7 +24973,7 @@
       "label": "compileComponent()",
       "file_type": "code",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L42",
+      "source_location": "L41",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24944,7 +24982,7 @@
       "label": "renderAdminDashboard()",
       "file_type": "code",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L46",
+      "source_location": "L45",
       "_callable": true,
       "_origin": "ast"
     },
@@ -28937,7 +28975,7 @@
       "label": "readdirRecursive()",
       "file_type": "code",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L411",
+      "source_location": "L422",
       "_callable": true,
       "_origin": "ast"
     },
@@ -29567,6 +29605,15 @@
       "file_type": "document",
       "node_kind": "page",
       "source_file": ".changeset/610-local-s3.md",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "changeset_dashboard_base_composition",
+      "label": "dashboard-base-composition.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "source_file": ".changeset/dashboard-base-composition.md",
       "source_location": "L1",
       "_origin": "ast"
     },
@@ -34640,7 +34687,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L7",
+      "source_location": "L9",
       "_origin": "ast"
     },
     {
@@ -34649,7 +34696,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L20",
+      "source_location": "L22",
       "_origin": "ast"
     },
     {
@@ -34658,7 +34705,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L40",
+      "source_location": "L42",
       "_origin": "ast"
     },
     {
@@ -34667,7 +34714,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L44",
+      "source_location": "L46",
       "_origin": "ast"
     },
     {
@@ -34676,7 +34723,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L52",
+      "source_location": "L54",
       "_origin": "ast"
     },
     {
@@ -34685,7 +34732,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L63",
+      "source_location": "L67",
       "_origin": "ast"
     },
     {
@@ -36968,6 +37015,15 @@
     {
       "id": "packages_uploads_templates_src_lib_uploads_policy_max_file_size",
       "label": "packages_uploads_templates_src_lib_uploads_policy_max_file_size",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": "",
+      "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_674_phase2_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_674_phase2_packages_jobs_templates_src_lib_server_test_db",
       "file_type": "concept",
       "type": "external",
       "external": true,
@@ -46165,7 +46221,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_674_phase2_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -54865,11 +54921,41 @@
     },
     {
       "source": "packages_svforge_src_modes_base",
+      "target": "packages_svforge_src_modes_base_basedelivery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L245",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_base",
+      "target": "packages_svforge_src_modes_base_basedeliveryoptions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L252",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_base",
+      "target": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L260",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_base",
       "target": "packages_svforge_src_modes_base_applybasemode",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L230",
+      "source_location": "L365",
       "weight": 1,
       "_origin": "ast"
     },
@@ -54907,35 +54993,46 @@
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_src_modes_base_applybasemode",
+      "source": "packages_svforge_src_modes_base_deliverbasescaffold",
       "target": "packages_svforge_src_modes_base_libimportmappingconflict",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L262",
+      "source_location": "L289",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_src_modes_base_applybasemode",
+      "source": "packages_svforge_src_modes_base_deliverbasescaffold",
       "target": "packages_svforge_src_modes_base_patchviteconfig",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L307",
+      "source_location": "L334",
       "weight": 1,
       "_origin": "ast"
     },
     {
-      "source": "packages_svforge_src_modes_base_applybasemode",
+      "source": "packages_svforge_src_modes_base_deliverbasescaffold",
       "target": "packages_svforge_src_modes_base_patchvitestconfig",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L317",
+      "source_location": "L346",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_base_applybasemode",
+      "target": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L372",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55096,12 +55193,45 @@
     },
     {
       "source": "packages_svforge_src_modes_dashboard",
-      "target": "packages_svforge_src_recipe_version",
+      "target": "packages_svforge_src_modes_base",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
       "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_modes_base_hookmode",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard",
+      "target": "packages_svforge_src_recipe_version",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55112,7 +55242,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55123,7 +55253,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55134,7 +55264,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55144,7 +55274,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55154,7 +55284,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55164,7 +55294,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55174,7 +55304,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55184,7 +55314,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L129",
+      "source_location": "L130",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55194,7 +55324,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L144",
+      "source_location": "L145",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55204,7 +55334,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L154",
+      "source_location": "L155",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55215,7 +55345,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L164",
+      "source_location": "L169",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55226,7 +55356,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L250",
+      "source_location": "L259",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55237,7 +55367,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L251",
+      "source_location": "L260",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55248,7 +55378,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L252",
+      "source_location": "L261",
       "weight": 1,
       "_origin": "ast"
     },
@@ -55259,7 +55389,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L254",
+      "source_location": "L263",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86694,7 +86824,7 @@
     },
     {
       "source": "tests_dashboard_base_composition_test",
-      "target": "ref_node_fs",
+      "target": "ref_node_crypto",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -86705,7 +86835,7 @@
     },
     {
       "source": "tests_dashboard_base_composition_test",
-      "target": "ref_node_path",
+      "target": "ref_node_fs",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -86716,7 +86846,7 @@
     },
     {
       "source": "tests_dashboard_base_composition_test",
-      "target": "ref_node_os",
+      "target": "ref_node_path",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -86727,12 +86857,23 @@
     },
     {
       "source": "tests_dashboard_base_composition_test",
-      "target": "packages_svforge_src_modes_base",
+      "target": "ref_node_os",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
       "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "packages_svforge_src_modes_base",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86743,7 +86884,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86754,7 +86895,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86765,7 +86906,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86776,7 +86917,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86787,7 +86928,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86798,7 +86939,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86809,7 +86950,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86820,7 +86961,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86831,7 +86972,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86842,7 +86983,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86853,7 +86994,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86864,7 +87005,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86874,7 +87015,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86884,7 +87025,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86894,7 +87035,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L43",
+      "source_location": "L44",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86904,7 +87045,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86914,7 +87055,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L54",
+      "source_location": "L55",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86924,7 +87065,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L81",
+      "source_location": "L82",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86934,7 +87075,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L92",
+      "source_location": "L93",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_rendermode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L163",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86944,7 +87095,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L145",
+      "source_location": "L184",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86955,7 +87106,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L86",
+      "source_location": "L87",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86966,7 +87117,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L96",
+      "source_location": "L97",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86978,6 +87129,50 @@
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-base-composition.test.ts",
       "source_location": "L110",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "tests_dashboard_base_composition_test_svwithdeclarations",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L167",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "tests_dashboard_base_composition_test_walk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L174",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_rendermode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L271",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test",
+      "target": "tests_dashboard_base_composition_test_renderbothmodes",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L291",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87050,34 +87245,12 @@
     },
     {
       "source": "tests_dashboard_composition_test",
-      "target": "packages_svforge_src_modes_base",
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L8",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_dashboard_composition_test",
-      "target": "packages_svforge_src_modes_base_applybasemode",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L8",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_dashboard_composition_test",
       "target": "packages_svforge_src_modes_dashboard",
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87088,7 +87261,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87099,7 +87272,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L10",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87110,7 +87283,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L10",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87121,7 +87294,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87132,18 +87305,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L11",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "tests_dashboard_composition_test",
-      "target": "packages_svforge_src_templates_baserootfiles",
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87154,7 +87316,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87165,7 +87327,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87175,7 +87337,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L13",
+      "source_location": "L12",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87185,7 +87347,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L40",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87195,7 +87357,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L42",
+      "source_location": "L41",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87205,7 +87367,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L46",
+      "source_location": "L45",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87216,7 +87378,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L79",
+      "source_location": "L78",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87227,7 +87389,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L143",
+      "source_location": "L142",
       "weight": 1,
       "_origin": "ast"
     },
@@ -87238,7 +87400,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/dashboard-composition.test.ts",
-      "source_location": "L165",
+      "source_location": "L162",
       "weight": 1,
       "_origin": "ast"
     },
@@ -99884,7 +100046,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L411",
+      "source_location": "L422",
       "weight": 1,
       "_origin": "ast"
     },
@@ -99906,7 +100068,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L402",
+      "source_location": "L413",
       "weight": 1,
       "_origin": "ast"
     },
@@ -99917,7 +100079,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/upgrade-behavioral.test.ts",
-      "source_location": "L415",
+      "source_location": "L426",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107109,7 +107271,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L7",
+      "source_location": "L9",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107119,7 +107281,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L20",
+      "source_location": "L22",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107129,7 +107291,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L40",
+      "source_location": "L42",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107139,7 +107301,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L44",
+      "source_location": "L46",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107149,7 +107311,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L52",
+      "source_location": "L54",
       "weight": 1,
       "_origin": "ast"
     },
@@ -107159,7 +107321,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/svforge/docs/dashboard-composition.md",
-      "source_location": "L63",
+      "source_location": "L67",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108616,6 +108778,18 @@
       "_origin": "ast"
     },
     {
+      "source": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "target": "packages_svforge_src_local_docs_scaffoldedlocaldocs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/modes/base.ts",
+      "source_location": "L358",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "packages_svforge_src_modes_base_applybasemode",
       "target": "packages_svforge_src_scaffolded_agents_scaffoldedagents",
       "relation": "calls",
@@ -108623,19 +108797,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L339",
-      "weight": 1,
-      "_origin": "ast"
-    },
-    {
-      "source": "packages_svforge_src_modes_base_applybasemode",
-      "target": "packages_svforge_src_local_docs_scaffoldedlocaldocs",
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1,
-      "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L343",
+      "source_location": "L392",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108647,7 +108809,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L349",
+      "source_location": "L396",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108659,7 +108821,19 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/base.ts",
-      "source_location": "L351",
+      "source_location": "L398",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "target": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "packages/svforge/src/modes/dashboard.ts",
+      "source_location": "L182",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108671,7 +108845,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L239",
+      "source_location": "L248",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108683,7 +108857,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L272",
+      "source_location": "L281",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108695,7 +108869,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L275",
+      "source_location": "L284",
       "weight": 1,
       "_origin": "ast"
     },
@@ -108707,7 +108881,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "packages/svforge/src/modes/dashboard.ts",
-      "source_location": "L277",
+      "source_location": "L286",
       "weight": 1,
       "_origin": "ast"
     },
@@ -109127,7 +109301,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L97",
+      "source_location": "L98",
       "weight": 1,
       "_origin": "ast"
     },
@@ -109139,7 +109313,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/dashboard-base-composition.test.ts",
-      "source_location": "L99",
+      "source_location": "L100",
       "weight": 1,
       "_origin": "ast"
     },
@@ -109152,6 +109326,42 @@
       "confidence_score": 1,
       "source_file": "tests/dashboard-base-composition.test.ts",
       "source_location": "L108",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "tests_helpers_official_foundation_seedofficialfoundationondisk",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L166",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "packages_svforge_src_modes_base_applybasemode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L168",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_dashboard_base_composition_test_rendermode",
+      "target": "packages_svforge_src_modes_dashboard_applydashboardmode",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/dashboard-base-composition.test.ts",
+      "source_location": "L169",
       "weight": 1,
       "_origin": "ast"
     },
@@ -109464,6 +109674,18 @@
       "confidence_score": 0.95,
       "source_file": ".changeset/589-local-dashboard-setup.md",
       "source_location": "L9",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "changeset_dashboard_base_composition",
+      "target": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "relation": "references",
+      "context": "deliverBaseScaffold()",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": ".changeset/dashboard-base-composition.md",
+      "source_location": "L5",
       "weight": 1,
       "_origin": "ast"
     },
@@ -110052,6 +110274,30 @@
       "confidence_score": 0.95,
       "source_file": "packages/svforge/README.md",
       "source_location": "L92",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_dashboard_composition_dashboard_base_additive_capabilities_674",
+      "target": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "relation": "references",
+      "context": "deliverBaseScaffold()",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L7",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "packages_svforge_docs_dashboard_composition_phases_of_674",
+      "target": "packages_svforge_src_modes_base_deliverbasescaffold",
+      "relation": "references",
+      "context": "deliverBaseScaffold()",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "packages/svforge/docs/dashboard-composition.md",
+      "source_location": "L70",
       "weight": 1,
       "_origin": "ast"
     },

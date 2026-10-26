@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { applyBaseMode } from '../packages/svforge/src/modes/base';
@@ -89,12 +90,12 @@ function walk(dir: string, base = dir): string[] {
 	return out;
 }
 
-function renderBothModes() {
+function renderBothModes(hooks: 'none' | 'lefthook' = 'none') {
 	const baseDir = mkdtempSync(join(tmpdir(), 'sf-674-base-'));
 	const dashDir = mkdtempSync(join(tmpdir(), 'sf-674-dash-'));
 	try {
 		const base = svWithDeclarations(baseDir);
-		applyBaseMode(base.sv, baseFiles, baseRootFiles);
+		applyBaseMode(base.sv, baseFiles, baseRootFiles, hooks);
 
 		seedOfficialFoundationOnDisk(dashDir);
 		const officialOwned = {
@@ -102,10 +103,9 @@ function renderBothModes() {
 			hooks: readFileSync(join(dashDir, 'src/hooks.server.ts'), 'utf8')
 		};
 		const dash = svWithDeclarations(dashDir);
-		// Exactly the production path: Base root delivery, then the Dashboard
-		// overlay (which replays the shared Base sources itself).
-		applyBaseMode(dash.sv, {}, baseRootFiles);
-		applyDashboardMode(dash.sv, baseFiles, dashboardFiles, 'vitest', dashboardRootFiles);
+		// Exactly the production path since #674 phase 2: the Dashboard mode
+		// performs the canonical Base delivery itself, then its own overlay.
+		applyDashboardMode(dash.sv, baseFiles, dashboardFiles, 'vitest', dashboardRootFiles, 'npm', hooks);
 
 		const basePaths = walk(baseDir);
 		const dashPaths = new Set(walk(dashDir));
@@ -125,6 +125,21 @@ function renderBothModes() {
 			return out;
 		};
 
+		const tracked = (
+			JSON.parse(readFileSync(join(dashDir, '.svforge-versions.json'), 'utf8')) as {
+				dashboard: { fileChecksums: Record<string, string> };
+			}
+		).dashboard.fileChecksums;
+		// #674: the upgrade baseline is computed once, from the delivered files.
+		// Verify it here — the temp project is removed when this helper returns.
+		const trackingViolations = Object.entries(tracked)
+			.filter(([path, checksum]) => {
+				const absolute = join(dashDir, path);
+				if (!existsSync(absolute)) return true;
+				return createHash('sha256').update(readFileSync(absolute)).digest('hex') !== checksum;
+			})
+			.map(([path]) => path);
+
 		return {
 			basePaths,
 			dashPaths: [...dashPaths],
@@ -134,11 +149,35 @@ function renderBothModes() {
 			sharedVersions: sharedVersions(),
 			officialOwned,
 			deliveredHooks: readFileSync(join(dashDir, 'src/hooks.server.ts'), 'utf8'),
-			deliveredAppTypes: readFileSync(join(dashDir, 'src/app.d.ts'), 'utf8')
+			deliveredAppTypes: readFileSync(join(dashDir, 'src/app.d.ts'), 'utf8'),
+			tracked,
+			trackingViolations
 		};
 	} finally {
 		rmSync(baseDir, { recursive: true, force: true });
 		rmSync(dashDir, { recursive: true, force: true });
+	}
+}
+
+/** Render one mode and expose the Git-hook artifacts the option controls. */
+function renderMode(mode: 'base' | 'dashboard', hooks: 'none' | 'lefthook') {
+	const dir = mkdtempSync(join(tmpdir(), `sf-674-${mode}-${hooks}-`));
+	try {
+		if (mode === 'dashboard') seedOfficialFoundationOnDisk(dir);
+		const recorder = svWithDeclarations(dir);
+		if (mode === 'base') applyBaseMode(recorder.sv, baseFiles, baseRootFiles, hooks);
+		else applyDashboardMode(recorder.sv, baseFiles, dashboardFiles, 'vitest', dashboardRootFiles, 'npm', hooks);
+		const pkg = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')) as {
+			scripts?: Record<string, string>;
+		};
+		return {
+			paths: walk(dir),
+			hasLefthookConfig: existsSync(join(dir, '.lefthook.yml')),
+			prepare: pkg.scripts?.prepare ?? '',
+			devDeps: recorder.declared.devDeps
+		};
+	} finally {
+		rmSync(dir, { recursive: true, force: true });
 	}
 }
 
@@ -152,6 +191,15 @@ describe('Dashboard is the Base scaffold plus additive capabilities (#674)', () 
 
 	it('differs from Base only in the documented overrides', () => {
 		expect(rendered.differing.sort()).toEqual(Object.keys(SHARED_OVERRIDES).sort());
+	});
+
+	it('delivers every Base dependency to Dashboard', () => {
+		// The reviewer follow-up on #675: version parity alone would not notice a
+		// Base dependency that Dashboard silently stops declaring.
+		const baseDeps = { ...rendered.declared.base.deps, ...rendered.declared.base.devDeps };
+		const dashDeps = { ...rendered.declared.dashboard.deps, ...rendered.declared.dashboard.devDeps };
+		const dropped = Object.keys(baseDeps).filter((name) => dashDeps[name] === undefined);
+		expect(dropped, `Base dependencies missing from Dashboard: ${dropped.join(', ')}`).toEqual([]);
 	});
 
 	it('keeps one dependency authority for shared packages', () => {
@@ -204,6 +252,49 @@ describe('Dashboard is the Base scaffold plus additive capabilities (#674)', () 
 		const match = uploads.match(/devDependency\('vitest',\s*'([^']+)'\)/);
 		expect(match, 'uploads testpack declares a Vitest version').not.toBeNull();
 		expect(match![1]).toBe(rendered.declared.dashboard.devDeps.vitest);
+	});
+
+	it('computes the upgrade baseline once, from the delivered files', () => {
+		// The canonical delivery + the Dashboard overlay are recorded in ONE
+		// baseline: every tracked path exists and matches its SHA-256.
+		expect(Object.keys(rendered.tracked).length).toBeGreaterThan(50);
+		expect(rendered.trackingViolations, `stale or missing tracked files: ${rendered.trackingViolations.join(', ')}`).toEqual(
+			[]
+		);
+		// Official-owned files are delivered by the add-ons, never tracked as ours.
+		expect(rendered.tracked['src/app.d.ts']).toBeUndefined();
+		expect(rendered.tracked['src/hooks.server.ts']).toBeUndefined();
+	});
+
+	it('forwards the Lefthook selection to BOTH modes (#674 review B-01)', () => {
+		for (const mode of ['base', 'dashboard'] as const) {
+			const on = renderMode(mode, 'lefthook');
+			expect(on.hasLefthookConfig, `${mode}: .lefthook.yml`).toBe(true);
+			expect(on.prepare, `${mode}: prepare script`).toContain('lefthook install');
+			expect(on.devDeps.lefthook, `${mode}: lefthook dependency`).toBe('^2.0.13');
+
+			const off = renderMode(mode, 'none');
+			expect(off.hasLefthookConfig, `${mode}: no .lefthook.yml by default`).toBe(false);
+			expect(off.prepare, `${mode}: no prepare script by default`).toBe('');
+			expect(off.devDeps.lefthook, `${mode}: no lefthook dependency by default`).toBeUndefined();
+
+			// Enabling the option may only ADD the hook artifacts — the rest of the
+			// generated project must stay identical (no unrelated drift).
+			const added = on.paths.filter((path) => !off.paths.includes(path)).sort();
+			expect(added, `${mode}: files added by the Lefthook option`).toEqual(['.lefthook.yml']);
+			const addedDeps = Object.keys(on.devDeps).filter((name) => off.devDeps[name] === undefined);
+			expect(addedDeps, `${mode}: dependencies added by the Lefthook option`).toEqual(['lefthook']);
+		}
+	});
+
+	it('keeps the shared Base→Dashboard contract identical for both hook modes', () => {
+		const withoutHooks = renderBothModes('none');
+		const withHooks = renderBothModes('lefthook');
+
+		expect(withHooks.missing).toEqual([]);
+		expect(withHooks.differing.sort()).toEqual(withoutHooks.differing.sort());
+		expect(withHooks.sharedVersions).toEqual(withoutHooks.sharedVersions);
+		expect(withHooks.trackingViolations).toEqual([]);
 	});
 
 	it('extends the official-owned wiring instead of overwriting it', () => {

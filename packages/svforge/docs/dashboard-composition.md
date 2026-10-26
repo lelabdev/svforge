@@ -4,6 +4,8 @@ Dashboard is meant to be **the canonical Base scaffold plus Dashboard-only capab
 
 Scope note: this documents the **composition and ownership** work of #674. The reference templates still exist as the delivery sources; what matters here is that the generated Dashboard cannot silently diverge from Base on shared artifacts or shared dependency versions.
 
+Since phase 2 the composition itself is canonical: `deliverBaseScaffold()` in `modes/base.ts` is the single Base delivery operation (shared dependency declarations, project wiring, shared template/root files, vendored LLM docs). Base mode calls it and adds Base's metadata; Dashboard mode calls it with the mode-owned exclusions below and then only adds its own capabilities. Neither mode replays the other's file map, and the upgrade baseline is computed **once** from the final delivered map.
+
 ## Ownership matrix
 
 | Artifact | Owner | Notes |
@@ -15,7 +17,7 @@ Scope note: this documents the **composition and ownership** work of #674. The r
 | `src/app.d.ts`, `src/hooks.server.ts`, `project.inlang/settings.json` | **Official `sv` add-ons** (#547) | Owned by the Better Auth/Drizzle/Paraglide integrations; SVForge only *extends* `hooks.server.ts` (policy) and never re-emits the Base copies. |
 | Better Auth, Drizzle/PostgreSQL, admin routes, guards/permissions, local setup, DB test profile | **Dashboard** | Additive capabilities only. |
 | `AGENTS.md`, `llms.txt`, `.svforge.json`, `.svforge-versions.json`, `package.json` | **Mode** | Intentionally mode-specific (guidance, manifest, upgrade baseline, scripts/deps). |
-| `vitest.config.ts` | **Dashboard** | Sequential DB test execution, root destination (#186); Base keeps its default config. |
+| `vitest.config.ts` | **Dashboard** | Sequential DB test execution, root destination (#186). Mode-owned: the canonical Base delivery skips it, so Base's config/patching is never emitted into a Dashboard project. |
 
 ## Shared files the Dashboard delivers differently
 
@@ -58,12 +60,14 @@ Everything else — Skeleton (`@skeletonlabs/skeleton`, `-svelte`), Svelte, Svel
 3. the dependency-declaration divergence map equals the single known exception;
 4. this document explains every override and records the known divergence;
 5. the reference manifests and the uploads testpack agree with their mode's declarations;
-6. the official-owned `src/app.d.ts` is untouched and `hooks.server.ts` is *extended* (official handler + SVForge policy).
+6. the official-owned `src/app.d.ts` is untouched and `hooks.server.ts` is *extended* (official handler + SVForge policy);
+7. every Base dependency declaration reaches Dashboard (a dropped dependency fails, not just a changed version);
+8. the upgrade baseline is computed from the delivered files: every tracked path exists and its recorded SHA-256 matches, and the official-owned files are not tracked as ours.
 
 ## Phases of #674
 
-1. **This change — map ownership and audit the generated output.** Documentation + deterministic audit; no behavioural change to the composer.
-2. **Refactor the composition.** One canonical Base delivery operation invoked by the Dashboard mode (single tracking/manifest computation, explicit official-owned exclusions), replacing the current replay in `modes/dashboard.ts`.
-3. **Harmonise and validate.** Remove the `vitest` divergence (DB tests on the shared version, templates/testpack aligned, lockfile/Docker builder refreshed) and run the real generated Base + Dashboard scaffolds, including the PostgreSQL integration profile.
+1. **Done — map ownership and audit the generated output.** Documentation + deterministic audit (PR #675).
+2. **Done — refactor the composition (PR #676).** `deliverBaseScaffold()` is the one canonical Base delivery: central dependency declarations, project wiring (`package.json`, `vite.config.ts`, optional hooks), shared template/root files and the vendored LLM docs. Dashboard invokes it with the official-owned exclusions plus its own `vitest.config.ts`, then overlays its capabilities and computes the manifest/baseline once. The generated Dashboard was verified byte-equivalent to the pre-refactor output (same 120 files, same dependency declarations; only the key order inside the upgrade baseline JSON differs, with identical path→SHA-256 pairs).
+3. **Next — harmonise and validate.** Remove the `vitest` divergence (DB tests on the shared version, templates/testpack aligned, lockfile/Docker builder refreshed) and run the real generated Base + Dashboard scaffolds, including the PostgreSQL integration profile.
 
 The issue stays open until all three phases are done; this page is updated with each phase.
