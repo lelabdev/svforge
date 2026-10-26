@@ -82,6 +82,17 @@
 	--color-root-bg-light: var(--color-surface-50);
 	--color-root-bg-dark: var(--color-surface-950);
 
+	/* Form field hint text (#602): Skeleton's `input`/`textarea` utilities paint
+	   ::placeholder with this one token, so hints stay one step quieter than the
+	   entered value without any per-component `placeholder:` color.
+	   Only the ::placeholder rule consumes it — typed/prefilled values keep the
+	   normal field foreground, and focus/validation/disabled states never
+	   repaint the hint. Measured on the field surface (light: surface-50,
+	   dark: surface-950): hint 7.5:1 / 6.6:1 vs value 16.6:1, i.e. AA-legible
+	   and still visibly secondary. Skeleton's own default (surface-700-300)
+	   reads almost as strong as typed text in light mode. */
+	--field-placeholder: light-dark(var(--color-surface-600), var(--color-surface-300));
+
 	/* Brand uses paired primary shades with enough contrast for Skeleton focus indicators. */
 	--color-brand-light: var(--color-primary-700);
 	--color-brand-contrast-light: var(--color-primary-contrast-700);
