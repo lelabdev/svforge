@@ -265,6 +265,13 @@ dashboard_database_setup() {
 	sed -i.bak "s|^DATABASE_URL=.*|DATABASE_URL=\"$TEST_DATABASE_URL\"|" .env && rm -f .env.bak
 	# Better Auth trusts ORIGIN only — align it with the journey port.
 	sed -i.bak "s|^ORIGIN=.*|ORIGIN=http://localhost:$port|" .env && rm -f .env.bak
+	# The official Better Auth add-on ships a schema STUB: generate the real
+	# tables (including the SVForge role/disabled columns) BEFORE the push, or
+	# the build fails on missing `user`/`session` exports (#669).
+	"${SF_PM%%@*}" run auth:schema >"$WORK_DIR/auth-schema.log" 2>&1 \
+		|| { cat "$WORK_DIR/auth-schema.log" >&2; fail "dashboard: official auth:schema generation failed"; }
+	grep -q 'role: text' src/lib/server/db/auth.schema.ts \
+		|| fail "dashboard: auth:schema did not generate the SVForge role column"
 	bunx drizzle-kit push --force >"$WORK_DIR/drizzle-push.log" 2>&1 \
 		|| { cat "$WORK_DIR/drizzle-push.log" >&2; fail "dashboard: drizzle-kit push failed (is PostgreSQL reachable?)"; }
 }
@@ -303,8 +310,29 @@ run_base() {
 	git add .
 	git commit -qm 'fresh sv create project'
 
+	# #547 phase C / #669: the documented manual install requires the OFFICIAL
+	# foundation first. Prove the guard before using the supported sequence, so
+	# the canary validates the contract instead of failing on it.
+	step "base: direct add fails closed without the official foundation (#669)"
+	set +e
+	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check >"$WORK_DIR/base-fail-closed.log" 2>&1
+	fail_closed_status=$?
+	set -e
+	[ "$fail_closed_status" -ne 0 ] \
+		|| fail "base: a direct svforge add must fail closed before the official Paraglide add-on"
+	grep -q 'Nothing was written' "$WORK_DIR/base-fail-closed.log" \
+		|| { cat "$WORK_DIR/base-fail-closed.log" >&2; fail "base: fail-closed add did not state that nothing was written"; }
+	grep -q 'paraglide=languageTags' "$WORK_DIR/base-fail-closed.log" \
+		|| { cat "$WORK_DIR/base-fail-closed.log" >&2; fail "base: fail-closed add did not print the official sequence"; }
+	[ ! -f .svforge.json ] || fail "base: the failed-closed add wrote .svforge.json"
+
+	step "base: official Paraglide add-on (#547)"
+	$SV_CMD add "paraglide=languageTags:en,fr+demo:no" --no-install --no-download-check
+
 	step "base: sv add (documented install)"
-	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check
+	# The official add-ons just wrote files, so the tree is legitimately dirty;
+	# a non-TTY `sv add` would otherwise answer "No" to its git verification.
+	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check --no-git-check
 
 	step "base: switch to adapter-static (#439)"
 	set +e
@@ -441,8 +469,26 @@ run_dashboard() {
 	$SV_CMD create app --template minimal --types ts --no-install --no-add-ons --no-download-check
 	cd app
 
+	# #547 phase C / #669: same contract for the dashboard — official Paraglide,
+	# Drizzle and Better Auth first, then SVForge.
+	step "dashboard: direct add fails closed without the official foundation (#669)"
+	set +e
+	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check >"$WORK_DIR/dashboard-fail-closed.log" 2>&1
+	dashboard_fail_closed_status=$?
+	set -e
+	[ "$dashboard_fail_closed_status" -ne 0 ] \
+		|| fail "dashboard: a direct svforge add must fail closed before the official foundation"
+	grep -q 'Nothing was written' "$WORK_DIR/dashboard-fail-closed.log" \
+		|| { cat "$WORK_DIR/dashboard-fail-closed.log" >&2; fail "dashboard: fail-closed add did not state that nothing was written"; }
+	[ ! -f .svforge.json ] || fail "dashboard: the failed-closed add wrote .svforge.json"
+
+	step "dashboard: official Paraglide + Drizzle + Better Auth (#547)"
+	$SV_CMD add "paraglide=languageTags:en,fr+demo:no" --no-install --no-download-check
+	$SV_CMD add "drizzle=database:postgresql+client:postgres.js+docker:no" --no-install --no-download-check
+	$SV_CMD add "better-auth=demo:" --no-install --no-download-check --no-git-check
+
 	step "dashboard: sv add (documented install)"
-	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check
+	$SV_CMD add "$addon" --install "$SF_PM" --no-download-check --no-git-check
 
 	test -f .svforge.json || fail "dashboard: .svforge.json missing from the package"
 	test -f drizzle.config.ts || fail "dashboard: drizzle.config.ts missing at the project root"
