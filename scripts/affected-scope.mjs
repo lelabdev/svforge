@@ -580,7 +580,7 @@ function readFileSafe(root, relativePath) {
  */
 export function declaresNoBuiltArtifacts(source) {
 	const header = String(source ?? '').split(/\r?\n/).slice(0, 20).join('\n');
-	return /@no-built-artifacts:\s*\S/.test(header);
+	return /@no-built-artifacts:[ \t]*\S/.test(header);
 }
 
 export function distRequirementsForFile(root, file, workspaces) {

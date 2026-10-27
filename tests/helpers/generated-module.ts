@@ -27,7 +27,6 @@ export interface ImportGeneratedOptions {
 
 // The loaded module is produced by the test itself, so its shape is only known
 // at the call site; callers narrow the result they expect.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function importGenerated<T = any>(
 	file: string,
 	options: ImportGeneratedOptions = {}

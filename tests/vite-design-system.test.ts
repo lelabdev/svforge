@@ -2,7 +2,6 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { pathToFileURL } from 'node:url';
 import { baseRootFiles } from '../packages/svforge/src/templates';
 import { importGenerated } from './helpers/generated-module';
 

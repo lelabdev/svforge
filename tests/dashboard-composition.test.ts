@@ -4,7 +4,6 @@ import { compile } from 'svelte/compiler';
 import { render } from 'svelte/server';
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
 import { seedOfficialFoundationOnDisk } from './helpers/official-foundation';
 import { baseFiles, dashboardFiles, dashboardRootFiles } from '../packages/svforge/src/templates';

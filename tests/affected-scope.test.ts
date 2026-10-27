@@ -3,25 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
-import {
-	buildOrderFor,
-	changedFiles,
-	classifyPath,
-	computeAffectedScope,
-	deriveTestOwners,
-	detectorFailureScope,
-	distInventory,
-	distRequirementsForFile,
-	distRequirementsForSource,
-	resolveLocalImport,
-	formatScope,
-	loadWorkspaces,
-	localImportSpecifiers,
-	partitionBuildSet,
-	planBuildSet,
-	reverseDependencies,
-	runCli
-} from '../scripts/affected-scope.mjs';
+import { buildOrderFor, changedFiles, classifyPath, computeAffectedScope, deriveTestOwners, detectorFailureScope, distInventory, distRequirementsForFile, distRequirementsForSource, resolveLocalImport, formatScope, loadWorkspaces, localImportSpecifiers, partitionBuildSet, planBuildSet, reverseDependencies, runCli, stripEmbeddedLiteralContent, declaresNoBuiltArtifacts } from '../scripts/affected-scope.mjs';
 
 /**
  * #570 Phase A — affected-scope resolver.
@@ -380,6 +362,22 @@ describe('test-to-dist dependency model (#656)', () => {
 		expect(escalated.reason).toContain('tests/addon-packaging.test.ts');
 	});
 
+	it('ignores generated-file text embedded in a workspace source module', () => {
+		// Manifests embed scaffold sources as STRINGS. `import(x.href)` inside
+		// such a string is data, not a load: it must not demand every dist.
+		const embedded =
+			"export const files = { 'vite.config.ts': `const cfg = await import(svelteConfigPath.href);` };";
+		expect(stripEmbeddedLiteralContent(embedded)).not.toContain('svelteConfigPath');
+		// A real dynamic load still signals.
+		expect(distRequirementsForSource('const m = await import(modulePath);', workspaces).kind).toBe('all');
+	});
+
+	it('honours an artifact-free declaration only with a rationale', () => {
+		expect(declaresNoBuiltArtifacts('/**\n * @no-built-artifacts: loads a caller path\n */\nexport {};')).toBe(true);
+		expect(declaresNoBuiltArtifacts('/**\n * @no-built-artifacts:\n */\nexport {};')).toBe(false);
+		expect(declaresNoBuiltArtifacts('export const x = 1;')).toBe(false);
+	});
+
 	it('escalates when a bounded consumer needs a workspace outside the scoped order', () => {
 		const plan = planBuildSet({
 			root: ROOT,
@@ -389,17 +387,16 @@ describe('test-to-dist dependency model (#656)', () => {
 		});
 		// package-entry is a guarded inventory consumer: it escalates regardless.
 		expect(plan.build).toBe('all');
-		// `addon-env` is a BOUNDED consumer (its helper chain reaches
-		// `@svforge/addon-kit` dist); an order without that workspace must
-		// escalate instead of omitting it.
+		// `structure` is a BOUNDED consumer (it verifies the `svforge` dist entry);
+		// an order without that workspace must escalate instead of omitting it.
 		const bounded = planBuildSet({
 			root: ROOT,
 			workspaces,
 			buildOrder: [{ name: '@svforge/dnd', dir: 'dnd' }],
-			testFiles: ['tests/addon-env.test.ts']
+			testFiles: ['tests/structure.test.ts']
 		});
 		expect(bounded.build, 'a bounded consumer outside the order must escalate').toBe('all');
-		expect(bounded.reason).toContain('@svforge/addon-kit');
+		expect(bounded.reason).toContain('svforge');
 	});
 });
 

@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { MODULE_CONTRACTS } from '../packages/addon-kit/src/index';
 import { buildManifest, enrichManifest } from '../packages/svforge/src';
 import { ROOT } from './helpers';
