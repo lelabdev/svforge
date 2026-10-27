@@ -1,4 +1,5 @@
 /**
+ * @no-built-artifacts: loads a temporary module path handed to it by the calling test.
  * Load a module from a GENERATED or TEMPORARY project (#656).
  *
  * Several suites materialise a scaffold, a render harness or a compiled plugin
@@ -24,7 +25,10 @@ export interface ImportGeneratedOptions {
 	bust?: boolean;
 }
 
-export async function importGenerated<T = unknown>(
+// The loaded module is produced by the test itself, so its shape is only known
+// at the call site; callers narrow the result they expect.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function importGenerated<T = any>(
 	file: string,
 	options: ImportGeneratedOptions = {}
 ): Promise<T> {

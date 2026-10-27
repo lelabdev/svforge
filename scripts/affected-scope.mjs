@@ -514,6 +514,75 @@ export function resolveLocalImport(root, fromFile, specifier) {
  * (workspace sources imported by a test) are inspected once but not followed:
  * their internal imports are implementation of a source import, not built output.
  */
+/**
+ * Remove the CONTENT of every string and template literal, keeping delimiters.
+ * Import specifiers (`import('…')`, `require("…")`) are preserved so a real
+ * import stays visible.
+ */
+export function stripEmbeddedLiteralContent(source) {
+	let out = '';
+	let i = 0;
+	const text = String(source ?? '');
+	while (i < text.length) {
+		const ch = text[i];
+		if (ch === "'" || ch === '"' || ch === '`') {
+			const quote = ch;
+			let j = i + 1;
+			let body = '';
+			while (j < text.length) {
+				if (text[j] === '\\') {
+					body += text.slice(j, j + 2);
+					j += 2;
+					continue;
+				}
+				if (text[j] === quote) break;
+				body += text[j];
+				j += 1;
+			}
+			const isImportSpecifier = /(?:\bimport|\brequire)\(\s*$/.test(out);
+			out += quote + (isImportSpecifier ? body : ' ') + quote;
+			i = j + 1;
+			continue;
+		}
+		out += ch;
+		i += 1;
+	}
+	return out;
+}
+
+/**
+ * A workspace SOURCE module never consumes another workspace's built output,
+ * and it embeds generated file contents as string literals: a `import(` inside
+ * such a literal is data, not code. Signalling it would demand every `dist`.
+ */
+function sourceModuleRequirement(relativePath, source, workspaces) {
+	if (!/^packages\/[^/]+\/src\//.test(relativePath)) return null;
+	// Literals were already blanked, so comment markers can no longer appear
+	// inside a string: comments are documentation, never executed code.
+	const code = stripEmbeddedLiteralContent(source)
+		.replace(/\/\*[\s\S]*?\*\//g, ' ')
+		.replace(/(^|[^:])\/\/[^\n]*/g, '$1');
+	return distRequirementsForSource(code, workspaces);
+}
+
+function readFileSafe(root, relativePath) {
+	try {
+		return readFileSync(join(root, relativePath), 'utf8');
+	} catch {
+		return '';
+	}
+}
+
+/**
+ * True when a module declares, in its own header, that it consumes no built
+ * artifact: `@no-built-artifacts: <rationale>`. The rationale is mandatory so a
+ * silent opt-out cannot appear; the marker is validated by tests.
+ */
+export function declaresNoBuiltArtifacts(source) {
+	const header = String(source ?? '').split(/\r?\n/).slice(0, 20).join('\n');
+	return /@no-built-artifacts:\s*\S/.test(header);
+}
+
 export function distRequirementsForFile(root, file, workspaces) {
 	const fullScope = (reason) => ({
 		kind: 'all',
@@ -533,7 +602,10 @@ export function distRequirementsForFile(root, file, workspaces) {
 			visited.set(relativePath, failure);
 			return failure;
 		}
-		const own = distRequirementsForSource(source, workspaces);
+		const own = declaresNoBuiltArtifacts(source)
+			? { kind: 'selected', workspaces: [], reason: 'declared artifact-free' }
+			: (sourceModuleRequirement(relativePath, source, workspaces) ??
+				distRequirementsForSource(source, workspaces));
 		if (own.kind === 'all') {
 			visited.set(relativePath, own);
 			return own;
@@ -547,11 +619,12 @@ export function distRequirementsForFile(root, file, workspaces) {
 					visited.set(relativePath, failure);
 					return failure;
 				}
-				// Bounded, specific dependencies: `build-scope` only reads the plan and
-				// `generated-module` only loads a path handed to it by the test. Skipping
-				// THEIR internals avoids reading tooling as if it were the test's code;
-				// the calling file's own statements and imports are still analysed.
-				if (resolved === 'tests/helpers/build-scope.ts' || resolved === 'tests/helpers/generated-module.ts') continue;
+				// A module that DECLARES itself artifact-free (`@no-built-artifacts` in
+				// its header, with a rationale) contributes no requirement of its own.
+				// This is a contract carried by the file, not a name list here: any
+				// other helper is analysed like ordinary test code, and the calling
+				// file's own statements and imports are always analysed.
+				if (declaresNoBuiltArtifacts(readFileSafe(root, resolved))) continue;
 				const repositoryOwned = /^(tests|scripts)\//.test(resolved);
 				const nested = analyse(resolved, repositoryOwned);
 				if (nested.kind === 'all') {
