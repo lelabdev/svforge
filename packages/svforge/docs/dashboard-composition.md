@@ -41,15 +41,16 @@ Two behaviours are asserted separately because they are the risky ones: the offi
 
 ## Dependency authority
 
-Shared runtime packages are declared by Base once; Dashboard must not re-declare them with a different range. The audit compares the declarations each mode makes and fails on any divergence that is not listed here.
+Shared runtime packages are declared by Base **once**; Dashboard has no independent declaration and cannot override a shared range. The audit compares the declarations each mode makes and fails on any divergence.
 
-### Known divergence to remove (phase 3)
+**There is no remaining exception (phase 3, #674).** Vitest is harmonised on the Base version (`^5.0.0`):
 
-| Package | Base | Dashboard | Why it still diverges |
-| --- | --- | --- | --- |
-| `vitest` | `^5.0.0` | `^4.1.5` | Dashboard's DB test profile (and the optional uploads testpack, which mirrors it) still pins Vitest 4. Harmonisation is not a JSON edit: the sequential PostgreSQL suites must be validated on the Base version first. |
+- `modes/dashboard.ts` no longer declares Vitest — it inherits the canonical Base declaration and only adds its Dashboard-specific testing libraries (`@testing-library/*`, `jsdom`);
+- `packages/svforge/templates/dashboard/package.json` mirrors the composer (`^5.0.0`);
+- the optional uploads testpack declares the same `^5.0.0` instead of downgrading the runner;
+- `docker/builder.bun.lock` was regenerated with the documented Bun 1.3.14 procedure and validated by `docker/builder-smoke.sh` (build, frozen reinstall no-op, runtime imports).
 
-Everything else — Skeleton (`@skeletonlabs/skeleton`, `-svelte`), Svelte, SvelteKit, Vite, Paraglide, Tailwind, TypeScript — is declared by Base and consumed unchanged by Dashboard. The audit also checks that the hand-maintained reference manifests (`packages/svforge/templates/{base,dashboard}/package.json`) agree with what the composer declares for that mode, so they cannot become a silent second source of truth.
+The Dashboard sequential DB test config (`vitest.config.ts`, `pool: forks`/`singleFork`-style isolation) is unchanged and was validated on Vitest 5 against a real PostgreSQL 17.2: the generated Dashboard suite runs **10 files / 46 tests** green, and the `dashboard-integrations` composition (oauth + email + uploads testpack) runs **11 files / 53 tests** green, including the uploads security pack.
 
 ## Audit
 
@@ -68,6 +69,6 @@ Everything else — Skeleton (`@skeletonlabs/skeleton`, `-svelte`), Svelte, Svel
 
 1. **Done — map ownership and audit the generated output.** Documentation + deterministic audit (PR #675).
 2. **Done — refactor the composition (PR #676).** `deliverBaseScaffold()` is the one canonical Base delivery: central dependency declarations, project wiring (`package.json`, `vite.config.ts`, optional hooks), shared template/root files and the vendored LLM docs. Dashboard invokes it with the official-owned exclusions plus its own `vitest.config.ts`, then overlays its capabilities and computes the manifest/baseline once. The generated Dashboard was verified byte-equivalent to the pre-refactor output (same 120 files, same dependency declarations; only the key order inside the upgrade baseline JSON differs, with identical path→SHA-256 pairs).
-3. **Next — harmonise and validate.** Remove the `vitest` divergence (DB tests on the shared version, templates/testpack aligned, lockfile/Docker builder refreshed) and run the real generated Base + Dashboard scaffolds, including the PostgreSQL integration profile.
+3. **Done — harmonise and validate (PR #677).** The `vitest` divergence is gone (single Base authority, Dashboard and the uploads testpack aligned, `docker/builder.bun.lock` regenerated and smoke-validated), and the real generated scaffolds were exercised on the shared version: Base smoke, Dashboard + PostgreSQL 17.2 (`dashboard` profile: 10 files / 46 tests), and the `dashboard-integrations` composition with the uploads testpack (11 files / 53 tests). The Dashboard PostgreSQL run also surfaced an a11y warning in the uploads showcase page, which is fixed and now guarded by the demo compile check.
 
 The issue stays open until all three phases are done; this page is updated with each phase.

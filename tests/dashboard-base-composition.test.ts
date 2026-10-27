@@ -42,11 +42,8 @@ const SHARED_OVERRIDES: Record<string, string> = {
  * real divergence map disagree, so a fix cannot land without updating it.
  */
 const KNOWN_VERSION_DIVERGENCES: Record<string, { base: string; dashboard: string; reason: string }> = {
-	vitest: {
-		base: '^5.0.0',
-		dashboard: '^4.1.5',
-		reason: 'Dashboard (and the uploads testpack) still pin Vitest 4; harmonisation needs its DB tests validated on the Base version (#674 phase 3).'
-	}
+	// #674 phase 3 harmonised the last one (Vitest): there is no remaining
+	// exception. New drift fails the audit and must be justified here.
 };
 
 type Declared = { deps: Record<string, string>; devDeps: Record<string, string> };

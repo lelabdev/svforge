@@ -119,7 +119,8 @@ export default defineAddon({
 
 		// Test pack needs vitest + a test script in the target project (#182)
 		if (options.testpack) {
-			sv.devDependency('vitest', '^4.1.5');
+			// #674: the testpack uses the SAME runner as the scaffold (Base authority).
+			sv.devDependency('vitest', '^5.0.0');
 			sv.devDependency('jsdom', '^29.1.1');
 			sv.file('package.json', (content) => {
 				if (!content) return content;
