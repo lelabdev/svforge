@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { MODULE_CONTRACTS } from '../packages/addon-kit/src/index';
 import { buildManifest, enrichManifest } from '../packages/svforge/src';
 import { ROOT } from './helpers';
+import { importGenerated } from './helpers/generated-module';
 
 /** Minimal shape of the package entry used here (source AND built dist). */
 interface EntryExports {
@@ -69,7 +70,7 @@ describe('package entry surface: deprecated enrichManifest alias (#324)', () => 
 	it('the BUILT dist entry exports the same working alias (what npm consumers actually load)', async () => {
 		const distPath = join(ROOT, 'packages/svforge/dist/index.js');
 		if (!existsSync(distPath)) return; // CI builds before tests; local skip mirrors tests/addon-packaging.test.ts
-		const dist = (await import(pathToFileURL(distPath).href)) as EntryExports;
+		const dist = (await importGenerated(distPath)) as EntryExports;
 		expect(typeof dist.enrichManifest).toBe('function');
 		const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 		try {
@@ -94,7 +95,7 @@ describe('package entry surface: deprecated enrichManifest alias (#324)', () => 
 	it('the addon-kit dist entry exports the planning API the alias delegates to', async () => {
 		const distPath = join(ROOT, 'packages/addon-kit/dist/index.js');
 		if (!existsSync(distPath)) return; // CI builds all packages before tests
-		const dist = (await import(pathToFileURL(distPath).href)) as Record<string, unknown>;
+		const dist = (await importGenerated(distPath)) as Record<string, unknown>;
 		for (const name of [
 			'planManifestEnrich',
 			'planManifestEnrichContent',

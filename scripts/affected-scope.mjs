@@ -547,10 +547,11 @@ export function distRequirementsForFile(root, file, workspaces) {
 					visited.set(relativePath, failure);
 					return failure;
 				}
-				// The build-scope helper is a bounded, specific dependency: it reads
-				// the plan, never built output. Skipping ITS tooling import avoids
-				// reading the whole resolver as if it were the test's own code.
-				if (resolved === 'tests/helpers/build-scope.ts') continue;
+				// Bounded, specific dependencies: `build-scope` only reads the plan and
+				// `generated-module` only loads a path handed to it by the test. Skipping
+				// THEIR internals avoids reading tooling as if it were the test's code;
+				// the calling file's own statements and imports are still analysed.
+				if (resolved === 'tests/helpers/build-scope.ts' || resolved === 'tests/helpers/generated-module.ts') continue;
 				const repositoryOwned = /^(tests|scripts)\//.test(resolved);
 				const nested = analyse(resolved, repositoryOwned);
 				if (nested.kind === 'all') {

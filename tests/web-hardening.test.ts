@@ -10,6 +10,7 @@ import { execFileSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { baseFiles, baseRootFiles } from '../packages/svforge/src/templates';
+import { importGenerated } from './helpers/generated-module';
 
 const generatedDir = join(process.cwd(), 'tests/__gen__');
 const compiledSeo = join(generatedDir, 'Seo.web-hardening.compiled.js');
@@ -46,7 +47,7 @@ beforeAll(async () => {
 		.replace("import { page } from '$app/state';", "const page = { url: new URL('https://example.test/docs/page') };")
 		.replace("from '#lib/utils/web.js'", "from './web-hardening-utils.ts'");
 	writeFileSync(compiledSeo, compile(seoSource, { generate: 'server', filename: 'Seo.svelte' }).js.code);
-	Seo = (await import(/* @vite-ignore */ compiledSeo)).default;
+	Seo = (await importGenerated(compiledSeo)).default;
 
 	const buttonSource = `<script lang="ts">let { children, ...rest } = $props();</script><button {...rest}>{@render children?.()}</button>`;
 	writeFileSync(compiledButton, compile(buttonSource, { generate: 'client', filename: 'Button.svelte' }).js.code);
@@ -59,7 +60,7 @@ beforeAll(async () => {
 		.replace(/\{#if isDark\}[\s\S]*?\{\/if\}/, '<span>{isDark ? \'dark\' : \'light\'}</span>');
 	writeFileSync(join(generatedDir, 'theme.web-hardening.ts'), scaffoldFile('/lib/utils/theme.ts'));
 	writeFileSync(compiledThemeToggle, compile(themeToggleSource, { generate: 'client', filename: 'ThemeToggle.svelte' }).js.code);
-	ThemeToggle = (await import(/* @vite-ignore */ compiledThemeToggle)).default;
+	ThemeToggle = (await importGenerated(compiledThemeToggle)).default;
 
 	harnessDir = mkdtempSync(join(tmpdir(), 'svforge-web-hardening-'));
 	writeFileSync(join(harnessDir, 'Sitemap.ts'), scaffoldFile('/lib/components/svforge/ui/Sitemap.ts'));

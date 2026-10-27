@@ -8,6 +8,7 @@ import { pathToFileURL } from 'node:url';
 import { applyDashboardMode } from '../packages/svforge/src/modes/dashboard';
 import { seedOfficialFoundationOnDisk } from './helpers/official-foundation';
 import { baseFiles, dashboardFiles, dashboardRootFiles } from '../packages/svforge/src/templates';
+import { importGenerated } from './helpers/generated-module';
 
 type FilesystemSv = {
 	root: string;
@@ -129,7 +130,7 @@ export const locales = ['en', 'fr'];`
 </AdminLayout>`;
 	writeFileSync(join(renderDir, 'App.js'), compileComponent(app, 'App.svelte'));
 
-	const { default: App } = await import(pathToFileURL(join(renderDir, 'App.js')).href);
+	const { default: App } = await importGenerated(join(renderDir, 'App.js'));
 	return render(App).body;
 }
 

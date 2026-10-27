@@ -19,6 +19,7 @@ import { mount, unmount } from 'svelte';
 import type { Component } from 'svelte';
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { importGenerated } from './helpers/generated-module';
 
 const ROOT = process.cwd();
 const LOGIN_PAGE = join(
@@ -128,11 +129,11 @@ export function goto(url) {
 		compile(source, { generate: 'client', filename: 'LoginPage.svelte' }).js.code
 	);
 
-	const forms = await import(/* @vite-ignore */ join(GEN, 'login-harness-forms.js'));
-	const nav = await import(/* @vite-ignore */ join(GEN, 'login-harness-nav.js'));
+	const forms = await importGenerated(join(GEN, 'login-harness-forms.js'));
+	const nav = await importGenerated(join(GEN, 'login-harness-nav.js'));
 	formsState = forms.state as FormsState;
 	navCalls = nav.calls as string[];
-	LoginPage = (await import(/* @vite-ignore */ join(GEN, 'login-harness-page.js'))).default;
+	LoginPage = (await importGenerated(join(GEN, 'login-harness-page.js'))).default;
 });
 
 afterAll(() => {
