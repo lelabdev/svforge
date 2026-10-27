@@ -357,12 +357,14 @@ export function computeAffectedScope({ changes, workspaces, testOwners, forceFul
  */
 /** Artifact signals that are unbounded on their own (no dist context needed). */
 const ARTIFACT_PATTERNS = [
-	/packages\/\$\{/,
-	/import\(`[^`]*\$\{/,
+	// Packaging every workspace by variable, or a workspace-agnostic filter.
 	/--filter\s+'?\*'?/,
-	/npm\s+pack|bun\s+pack|pnpm\s+pack/,
-	/bin\/svforge\.mjs/
+	/npm\s+pack|bun\s+pack|pnpm\s+pack/
 ];
+/** Packaging a workspace tree THROUGH a variable only matters with built output. */
+const VARIABLE_TREE_PATTERN = /packages\/\$\{|import\(`[^`]*\$\{/;
+/** The committed CLI entry point: running it needs `svforge` built, nothing more. */
+const CLI_BIN_PATTERN = /bin\/svforge\.mjs/;
 /** Enumeration of the packages tree: unbounded only with dist context. */
 const ENUMERATION_PATTERNS = [/readdirSync\(/, /['"]packages['"]/, /\bPACKAGES\b/];
 
@@ -375,7 +377,9 @@ export function distRequirementsForSource(source, workspaces) {
 	const all = (reason) => ({ kind: 'all', workspaces: workspaces.map((workspace) => workspace.name), reason });
 	// `dist/`, `dist/index.js`, `distPath`, `'dist'`… count. A plain identifier
 	// such as `readDist` does not: it names a helper, not built output.
-	const mentionsDist = /dist(?:[/'"`.,)\s(]|Path|File|Dir|Entry|Output|Build)/.test(normalized);
+	const withoutDependencies = normalized.replace(/node_modules\/[^\s'"`]*/g, ' ');
+	const withoutBareDirName = withoutDependencies.replace(/(['"`])dist\1/g, ' ');
+	const mentionsDist = /dist(?:[/'"`.,)\s(]|Path|File|Dir|Entry|Output|Build)/.test(withoutBareDirName);
 	const importsBuiltName = workspaces.filter((workspace) => {
 		const escaped = workspace.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		return new RegExp(`(?:from\\s+|import\\(|require\\()\\s*['"]${escaped}['"]`).test(normalized);
@@ -395,7 +399,17 @@ export function distRequirementsForSource(source, workspaces) {
 		/\bimport\(\s*`[^`]*\$\{[^`]*\/src\/[^`]*`\s*\)/g,
 		'/* source import */'
 	);
+	// A dist import is bounded when the SAME file gates it on the declared build
+	// set and builds its path from the packages tree: `if (!built.includes(id))
+	// continue; const distPath = join(ROOT, 'packages', id, 'dist', 'index.js');
+	// await import(distPath)`. Both halves are required; a bare `import(variable)`
+	// never qualifies.
+	const scopeGatedImport =
+		inventoryScoped &&
+		/(?:built|dirs)\.includes\(|isBuiltWorkspace\(|builtWorkspaceDirs\(/.test(normalized) &&
+		/join\(\s*ROOT\s*,\s*['"]packages['"]/.test(normalized);
 	const dynamicImport =
+		!scopeGatedImport &&
 		/\bimport\(\s*[^'"`)\s]/.test(withoutSourceTemplates) ||
 		/\bimport\(\s*`[^`]*\$\{/.test(withoutSourceTemplates) ||
 		/\brequire\(\s*[^'"`)\s]/.test(withoutSourceTemplates);
@@ -406,7 +420,15 @@ export function distRequirementsForSource(source, workspaces) {
 	}
 	// A subprocess that can install, build or invoke the CLI may require
 	// artifacts the static text never names.
-	if (/(?:execFileSync|execSync|spawnSync|spawn|exec)\([\s\S]{0,300}(?:\bnpm\b|\bpnpm\b|\byarn\b|\bbun(?:x)?\b|svforge\.mjs|bin\/|--filter)/.test(normalized)) {
+	// Running the committed CLI entry point needs exactly `svforge` built; it only
+	// becomes unbounded when the same subprocess can install, scaffold or package.
+	const runsCliOnly =
+		CLI_BIN_PATTERN.test(normalized) &&
+		!/\b(?:install|create|--filter)\b|npm\s+pack|bun\s+pack|pnpm\s+pack/.test(normalized);
+	if (
+		!runsCliOnly &&
+		/(?:execFileSync|execSync|spawnSync|spawn|exec)\([\s\S]{0,300}(?:\bnpm\b|\bpnpm\b|\byarn\b|\bbun(?:x)?\b|svforge\.mjs|bin\/|--filter)/.test(normalized)
+	) {
 		return all('subprocess invocation (unbounded)');
 	}
 	// A test that REFUSES to assert when a dist artifact is missing proves
@@ -423,6 +445,12 @@ export function distRequirementsForSource(source, workspaces) {
 		}
 	}
 	for (const workspace of importsBuiltName) required.add(workspace.name);
+	if (CLI_BIN_PATTERN.test(normalized)) {
+		// `packages/svforge/bin/svforge.mjs` is committed source, but running it
+		// needs that one workspace built: a bounded, provable requirement.
+		const cli = workspaces.find((workspace) => workspace.dir === 'svforge');
+		if (cli) required.add(cli.name);
+	}
 
 	// ── 3. Inventory/enumeration patterns ──
 	// A guard that verifies the run's DECLARED build set through
@@ -431,15 +459,25 @@ export function distRequirementsForSource(source, workspaces) {
 	// the file's other statements were already checked above and its imports are
 	// still followed by distRequirementsForFile().
 	if (!inventoryScoped) {
+		// Evaluated on the text WITHOUT the source-only template imports stripped
+		// above: `import(\`../packages/${pkg}/src/index\`)` loads workspace SOURCE,
+		// which rule 1 already accepted, so it must not look like packaging here.
 		for (const pattern of ARTIFACT_PATTERNS) {
-			if (pattern.test(normalized)) return all('unbounded dist consumer (dynamic enumeration / packaging)');
+			if (pattern.test(withoutSourceTemplates)) {
+				return all('unbounded dist consumer (dynamic enumeration / packaging)');
+			}
+		}
+		if (mentionsDist && VARIABLE_TREE_PATTERN.test(withoutSourceTemplates)) {
+			return all('unbounded dist consumer (dynamic enumeration / packaging)');
 		}
 		// Enumerating the packages tree is only unbounded when the same file also
 		// works with built artifacts; a helper that merely locates template
 		// directories does not constrain the build.
 		if (mentionsDist) {
 			for (const pattern of ENUMERATION_PATTERNS) {
-				if (pattern.test(normalized)) return all('unbounded dist consumer (dynamic enumeration / packaging)');
+				if (pattern.test(withoutSourceTemplates)) {
+					return all('unbounded dist consumer (dynamic enumeration / packaging)');
+				}
 			}
 		}
 	}

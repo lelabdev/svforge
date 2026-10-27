@@ -298,15 +298,28 @@ describe('test-to-dist dependency model (#656)', () => {
 		expect(requirement.workspaces).toEqual(['@svforge/addon-kit']);
 	});
 
-	it('forces a full build for dynamic enumeration, packaging and the CLI binary', () => {
+	it('forces a full build for dynamic enumeration and packaging', () => {
 		for (const source of [
 			"for (const pkg of readdirSync(join(ROOT, 'packages'))) { existsSync(join('packages', pkg, 'dist/index.js')); }",
 			'const distPath = `../packages/${pkg}/dist/index.js`;',
-			"execFileSync('npm', ['pack', '--json']); // dist payload",
-			'expect(existsSync(distPath)).toBe(true); // bin/svforge.mjs'
+			"execFileSync('npm', ['pack', '--json']); // dist payload"
 		]) {
 			expect(distRequirementsForSource(source, workspaces).kind, source).toBe('all');
 		}
+	});
+
+	it('bounds the CLI entry point to the workspace that owns it', () => {
+		// `packages/svforge/bin/svforge.mjs` is committed source: running it needs
+		// that one workspace built, not every workspace.
+		const requirement = distRequirementsForSource(
+			"execFileSync('node', [join(ROOT, 'packages/svforge/bin/svforge.mjs')]); // dist/index.js",
+			workspaces
+		);
+		expect(requirement).toMatchObject({ kind: 'selected', workspaces: ['svforge'] });
+		// Without a resolvable owner it must stay unbounded.
+		expect(
+			distRequirementsForSource("execFileSync('node', ['bin/svforge.mjs']); // dist/index.js", []).kind
+		).toBe('all');
 	});
 
 	it('fails closed when a dist reference names no workspace, or is guarded by a skip', () => {
@@ -327,9 +340,10 @@ describe('test-to-dist dependency model (#656)', () => {
 			expect(inventory.get(file)?.kind, `${file} must stay bounded`).toBe('selected');
 			expect(inventory.get(file)?.reason).toContain('scope-aware');
 		}
-		// Guards that still load every add-on dynamically are deferred to full
-		// validation instead of being trusted.
-		expect(inventory.get('tests/cli-create.test.ts')?.kind, 'cli-create must be deferred').toBe('all');
+		// cli-create imports each workspace's `dist/index.js` only after gating on
+		// the declared build set, and builds that path from the packages tree: a
+		// bounded, provable requirement.
+		expect(inventory.get('tests/cli-create.test.ts')?.kind, 'cli-create is scope-gated').toBe('selected');
 		expect(inventory.get('tests/build.test.ts')?.kind, 'build must stay bounded').toBe('selected');
 		// Guards that genuinely need built artifacts of every workspace (or spawn
 		// packaging/CLI subprocesses) keep escalating to a full build.
