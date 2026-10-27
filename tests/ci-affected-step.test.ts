@@ -76,16 +76,16 @@ describe('CI scope plan (#570 phase B)', () => {
 		expect(plan.reason).toContain('scoped build');
 	});
 
-	it('defers cross-cutting tests instead of skipping them (#656)', () => {
+	it('escalates to a full build when ANY selected test needs every workspace (#656 B-01)', () => {
+		// A scoped build must never become a green required check with tests left
+		// out: one unbounded selection escalates the whole run.
 		const plan = planCiSteps(
 			{ ...targetedScope, tests: { mode: 'selected', files: ['tests/blog-date.test.ts', 'tests/structure.test.ts', 'tests/addon-packaging.test.ts'] } },
 			{ targeted: true }
 		);
-		// structure is scope-aware (runnable), addon-packaging needs every dist.
-		expect(plan.build).toBe('selected');
-		expect(plan.testFiles).toEqual(['tests/blog-date.test.ts', 'tests/structure.test.ts']);
-		expect(plan.deferredTestFiles).toEqual(['tests/addon-packaging.test.ts']);
-		expect(plan.reason).toContain('deferred to full validation');
+		expect(plan).toMatchObject({ build: 'all', buildDirs: [], tests: 'all', testFiles: [], deferredTestFiles: [] });
+		expect(plan.reason).toContain('full build');
+		expect(plan.reason).toContain('tests/addon-packaging.test.ts');
 	});
 
 	it('falls back to a full build when no selected test is runnable under a scoped build', () => {
@@ -96,10 +96,10 @@ describe('CI scope plan (#570 phase B)', () => {
 		expect(plan).toMatchObject({ build: 'all', tests: 'all', buildDirs: [], deferredTestFiles: [] });
 	});
 
-	it('defers an unbounded test rather than running it against a scoped build', () => {
+	it('never runs a selected test against a build set it cannot use', () => {
 		// The #570 phase-C failure mode: structure/cli-create/package-entry and the
-		// packaging/journey guards inspect every workspace dist. They are deferred
-		// to full validation (reported, never silently skipped).
+		// packaging/journey guards inspect every workspace dist. Selecting one of
+		// them together with a bounded test must run BOTH under a full build.
 		for (const file of [
 			'tests/addon-packaging.test.ts',
 			'tests/user-journey.test.ts',
@@ -111,9 +111,9 @@ describe('CI scope plan (#570 phase B)', () => {
 				{ ...targetedScope, tests: { mode: 'selected', files: ['tests/blog-date.test.ts', file] } },
 				{ targeted: true }
 			);
-			expect(plan.build, `${file} must not run under a scoped build`).toBe('selected');
-			expect(plan.testFiles).toEqual(['tests/blog-date.test.ts']);
-			expect(plan.deferredTestFiles).toEqual([file]);
+			expect(plan.build, `${file} must force a full build`).toBe('all');
+			expect(plan.tests).toBe('all');
+			expect(plan.deferredTestFiles).toEqual([]);
 		}
 	});
 

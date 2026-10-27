@@ -21530,7 +21530,7 @@
       "label": "renderGithubOutputs()",
       "file_type": "code",
       "source_file": "scripts/ci/affected-step.mjs",
-      "source_location": "L96",
+      "source_location": "L104",
       "_callable": true,
       "_origin": "ast"
     },
@@ -21539,7 +21539,7 @@
       "label": "parseArgs()",
       "file_type": "code",
       "source_file": "scripts/ci/affected-step.mjs",
-      "source_location": "L109",
+      "source_location": "L117",
       "_callable": true,
       "_origin": "ast"
     },
@@ -31755,8 +31755,8 @@
       "_origin": "ast"
     },
     {
-      "id": "docs_ci_affected_scope_deferring_cross_cutting_tests_to_full_validation_656",
-      "label": "Deferring cross-cutting tests to full validation (#656)",
+      "id": "docs_ci_affected_scope_fail_closed_gating_656_review_b_01",
+      "label": "Fail-closed gating (#656 review B-01)",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/ci-affected-scope.md",
@@ -77088,7 +77088,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ci/affected-step.mjs",
-      "source_location": "L96",
+      "source_location": "L104",
       "weight": 1,
       "_origin": "ast"
     },
@@ -77098,7 +77098,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ci/affected-step.mjs",
-      "source_location": "L109",
+      "source_location": "L117",
       "weight": 1,
       "_origin": "ast"
     },
@@ -104817,7 +104817,7 @@
     },
     {
       "source": "docs_ci_affected_scope_scoping_ci_builds_with_a_complete_dist_dependency_model_656",
-      "target": "docs_ci_affected_scope_deferring_cross_cutting_tests_to_full_validation_656",
+      "target": "docs_ci_affected_scope_fail_closed_gating_656_review_b_01",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ci-affected-scope.md",
@@ -109377,7 +109377,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ci/affected-step.mjs",
-      "source_location": "L63",
+      "source_location": "L67",
       "weight": 1,
       "_origin": "ast"
     },
@@ -109388,7 +109388,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/ci/affected-step.mjs",
-      "source_location": "L65",
+      "source_location": "L69",
       "weight": 1,
       "_origin": "ast"
     },
@@ -110744,14 +110744,26 @@
       "_origin": "ast"
     },
     {
-      "source": "docs_ci_affected_scope_deferring_cross_cutting_tests_to_full_validation_656",
+      "source": "docs_ci_affected_scope_fail_closed_gating_656_review_b_01",
       "target": "scripts_affected_scope_partitionbuildset",
       "relation": "references",
       "context": "partitionBuildSet()",
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "docs/ci-affected-scope.md",
-      "source_location": "L93",
+      "source_location": "L90",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_ci_affected_scope_fail_closed_gating_656_review_b_01",
+      "target": "scripts_ci_affected_step_plancisteps",
+      "relation": "references",
+      "context": "planCiSteps()",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/ci-affected-scope.md",
+      "source_location": "L91",
       "weight": 1,
       "_origin": "ast"
     },

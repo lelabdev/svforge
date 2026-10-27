@@ -83,23 +83,23 @@ verify the run's **declared build set**:
   or spawn packaging/CLI processes (`addon-packaging`, `user-journey`, `real-bin`,
   `changesets`, `package-entry`, the canaries) keep escalating to a full build.
 
-## Deferring cross-cutting tests to full validation (#656)
+## Fail-closed gating (#656 review B-01)
 
-A scoped build is only useful if the tests that need every workspace's `dist`
-do not run against it. Those tests are **not skipped**: they are **deferred** and
-must run in full validation — every push to the default branch, every `ci:full`
-run and the release/publish matrix run the complete suite with a complete build.
+A reduced build is allowed **only when every selected test can run against it**.
 
-- `partitionBuildSet()` splits the selected tests into **runnable** (their
-  built-artifact requirement is provably inside the scoped order) and
-  **deferred** (unbounded consumer, uncertain signal, or a bounded requirement
-  outside the scoped build).
-- The CI test step prints every deferred file in the job summary, and the
-  `deferred_test_files` output records it, so the trade-off is auditable on each
-  run instead of being invisible.
-- If nothing is runnable, the plan falls back to a full build + full tests.
-- The default policy is unchanged: without the `ci:targeted` label a workspace
-  change still runs full validation.
+- `partitionBuildSet()` reports what is *runnable* under the scoped order and
+  what is not; `planCiSteps()` uses that only as a gate. Any selected test with
+  an unbounded/uncertain requirement, or one outside the scoped order, escalates
+  the **whole run** back to a full build + full tests.
+- The `deferred_test_files` output therefore stays empty on a passing required
+  check: no scoped build may be green while selected tests have not run. The
+  earlier "defer to full validation" behaviour was removed — running missing
+  tests after merge or at release cannot catch a regression before merge.
+- Consequence, measured and documented below: with the repository's current test
+  shape (almost every test is owned by `svforge`, and ~37 meta-tests need every
+  workspace's `dist`), an isolated add-on change is **always** escalated to a
+  full build. The 3-workspace experiment from the previous revision remains a
+  performance upper bound, not a gated validation.
 
 ## Scenarios that still require a full build
 

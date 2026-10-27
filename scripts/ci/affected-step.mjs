@@ -60,13 +60,21 @@ export function planCiSteps(scope, { targeted = false, root = process.cwd() } = 
 			reason: 'workspace change: ci:targeted opt-in (all tests, full build)'
 		};
 	}
+	// #656 review B-01: a reduced build is only allowed when EVERY selected test
+	// can run against it. Any unbounded/uncertain requirement (or one outside the
+	// order) escalates the WHOLE run back to a full build + full tests — a
+	// scoped build never becomes a green required check with tests left out.
 	const partition = partitionBuildSet({
 		root,
 		workspaces: loadWorkspaces(root),
 		buildOrder: scope?.buildOrder ?? [],
 		testFiles: tests.files
 	});
-	if (partition.build !== 'selected') {
+	if (partition.build !== 'selected' || partition.deferred.length > 0) {
+		const blocking = partition.deferred
+			.slice(0, 3)
+			.map((entry) => entry.file)
+			.join(', ');
 		return {
 			mode: 'targeted',
 			build: 'all',
@@ -74,21 +82,21 @@ export function planCiSteps(scope, { targeted = false, root = process.cwd() } = 
 			tests: 'all',
 			testFiles: [],
 			deferredTestFiles: [],
-			reason: 'workspace change: ci:targeted opt-in (no selected test is runnable under a scoped build)'
+			reason: `workspace change: ci:targeted opt-in (full build: ${
+				partition.deferred.length > 0
+					? `${partition.deferred.length} selected test file(s) need every workspace (${blocking}…)`
+					: 'no selected test is runnable under a scoped build'
+			})`
 		};
 	}
-	const deferredNote =
-		partition.deferred.length > 0
-			? `; ${partition.deferred.length} cross-cutting test file(s) deferred to full validation`
-			: '';
 	return {
 		mode: 'targeted',
 		build: 'selected',
 		buildDirs: partition.buildDirs,
 		tests: 'selected',
 		testFiles: partition.runnable,
-		deferredTestFiles: partition.deferred.map((entry) => entry.file),
-		reason: `workspace change: ci:targeted opt-in (scoped build: ${partition.buildDirs.join(', ')}${deferredNote})`
+		deferredTestFiles: [],
+		reason: `workspace change: ci:targeted opt-in (scoped build: ${partition.buildDirs.join(', ')}; every selected test runs)`
 	};
 }
 

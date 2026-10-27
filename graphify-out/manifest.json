@@ -2156,11 +2156,11 @@
     "semantic_hash": ""
   },
   "scripts/ci/affected-step.mjs": {
-    "ast_hash": "88e90e19541e8bcd6dc93e19ac58dbc5",
+    "ast_hash": "e9418807d87149321083924c2a53cc83",
     "semantic_hash": ""
   },
   "tests/ci-affected-step.test.ts": {
-    "ast_hash": "879dbab255f84598e85842aa16b88c46",
+    "ast_hash": "7e0ec82c4fb37459e753fc9937cf9c01",
     "semantic_hash": ""
   },
   "scripts/ci/measure-ci.mjs": {
@@ -2364,7 +2364,7 @@
     "semantic_hash": ""
   },
   "docs/ci-affected-scope.md": {
-    "ast_hash": "46f078e2bd5da7edb40e8abfd115a935",
+    "ast_hash": "1db14c8c1db0b84d2c6ccb066ee48835",
     "semantic_hash": ""
   },
   "tests/helpers/build-scope.ts": {
