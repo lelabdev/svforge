@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { existsSync, readdirSync, readFileSync } from 'fs';
 import { join } from 'path';
+import { buildScope } from './helpers/build-scope';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -11,8 +12,16 @@ describe('monorepo structure', () => {
 		expect(existsSync(join(ROOT, 'packages', pkg, 'package.json'))).toBe(true);
 	});
 
-	it.each(packages.filter((p) => p !== 'svforge'))('packages/%s has defineAddon in dist', (pkg) => {
-		expect(existsSync(join(ROOT, 'packages', pkg, 'dist/index.js'))).toBe(true);
+	it('every workspace built in this run has a dist entry (#656)', () => {
+		// #656: a scoped CI build compiles only the affected closure, so this
+		// guard verifies the run's DECLARED build set instead of demanding every
+		// workspace (a missing artifact still fails loudly). Unscoped runs
+		// (local, full CI, release) keep covering every workspace.
+		const { mode, dirs } = buildScope();
+		expect(dirs.length, `build scope (${mode}) must not be empty`).toBeGreaterThan(0);
+		for (const dir of dirs) {
+			expect(existsSync(join(ROOT, 'packages', dir, 'dist/index.js')), `${dir} (build scope: ${mode})`).toBe(true);
+		}
 	});
 
 	it('base template has the canonical primitives/ui/layout structure (#242)', () => {

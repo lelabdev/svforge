@@ -17,6 +17,7 @@ import {
 	formatScope,
 	loadWorkspaces,
 	localImportSpecifiers,
+	partitionBuildSet,
 	planBuildSet,
 	reverseDependencies,
 	runCli
@@ -336,15 +337,21 @@ describe('test-to-dist dependency model (#656)', () => {
 		).toBe('all');
 	});
 
-	it('keeps the repository inventory consumers on a full build (regression fixtures)', () => {
+	it('classifies the repository inventory guards as scope-aware (#656)', () => {
+		// The inventory guards verify the run's DECLARED build set through
+		// tests/helpers/build-scope.ts, so they no longer force a full build.
 		const inventory = distInventory(ROOT, workspaces);
-		for (const file of [
-			'tests/structure.test.ts',
-			'tests/cli-create.test.ts',
-			'tests/package-entry.test.ts',
-			'tests/modules.test.ts',
-			'tests/build.test.ts'
-		]) {
+		for (const file of ['tests/structure.test.ts', 'tests/modules.test.ts']) {
+			expect(inventory.get(file)?.kind, `${file} must stay bounded`).toBe('selected');
+			expect(inventory.get(file)?.reason).toContain('scope-aware');
+		}
+		// Guards that still load every add-on dynamically are deferred to full
+		// validation instead of being trusted.
+		expect(inventory.get('tests/cli-create.test.ts')?.kind, 'cli-create must be deferred').toBe('all');
+		expect(inventory.get('tests/build.test.ts')?.kind, 'build must stay bounded').toBe('selected');
+		// Guards that genuinely need built artifacts of every workspace (or spawn
+		// packaging/CLI subprocesses) keep escalating to a full build.
+		for (const file of ['tests/addon-packaging.test.ts', 'tests/user-journey.test.ts', 'tests/real-bin.test.ts']) {
 			expect(inventory.get(file)?.kind, `${file} must require a full build`).toBe('all');
 		}
 		// Source-only tests do not appear in the inventory at all.
@@ -366,11 +373,11 @@ describe('test-to-dist dependency model (#656)', () => {
 			root: ROOT,
 			workspaces,
 			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
-			testFiles: ['tests/blog-date.test.ts', 'tests/structure.test.ts']
+			testFiles: ['tests/blog-date.test.ts', 'tests/addon-packaging.test.ts']
 		});
 		expect(escalated.build).toBe('all');
 		expect(escalated.buildDirs).toEqual([]);
-		expect(escalated.reason).toContain('tests/structure.test.ts');
+		expect(escalated.reason).toContain('tests/addon-packaging.test.ts');
 	});
 
 	it('escalates when a bounded consumer needs a workspace outside the scoped order', () => {
@@ -382,14 +389,14 @@ describe('test-to-dist dependency model (#656)', () => {
 		});
 		// package-entry is a guarded inventory consumer: it escalates regardless.
 		expect(plan.build).toBe('all');
-		// `skeleton-native` is a BOUNDED consumer (its helper chain reaches
+		// `addon-env` is a BOUNDED consumer (its helper chain reaches
 		// `@svforge/addon-kit` dist); an order without that workspace must
 		// escalate instead of omitting it.
 		const bounded = planBuildSet({
 			root: ROOT,
 			workspaces,
 			buildOrder: [{ name: '@svforge/dnd', dir: 'dnd' }],
-			testFiles: ['tests/skeleton-native.test.ts']
+			testFiles: ['tests/addon-env.test.ts']
 		});
 		expect(bounded.build, 'a bounded consumer outside the order must escalate').toBe('all');
 		expect(bounded.reason).toContain('@svforge/addon-kit');
@@ -515,5 +522,103 @@ describe('transitive local imports (#656 B-01)', () => {
 		expect(plan.build).toBe('all');
 		expect(plan.reason).toContain('@svforge/blog');
 		rmSync(root, { recursive: true, force: true });
+	});
+});
+
+/** #656 review B-01/B-02 — combined signals and the deferral partition. */
+describe('scoped partition and combined signals (#656)', () => {
+	const workspacesFixture = [
+		{ dir: 'addon-kit', name: '@svforge/addon-kit', prefix: 'packages/addon-kit/', dependencies: [] },
+		{ dir: 'dnd', name: '@svforge/dnd', prefix: 'packages/dnd/', dependencies: ['@svforge/addon-kit'] },
+		{ dir: 'blog', name: '@svforge/blog', prefix: 'packages/blog/', dependencies: [] }
+	];
+
+	function project(files: Record<string, string>) {
+		const root = mkdtempSync(join(tmpdir(), 'sf-656-partition-'));
+		for (const [path, content] of Object.entries(files)) {
+			const full = join(root, path);
+			mkdirSync(dirname(full), { recursive: true });
+			writeFileSync(full, content);
+		}
+		return root;
+	}
+
+	it('does not let build-scope hide another dist dependency in the same test (B-01)', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import { buildScope } from './helpers/build-scope';\nimport { readDist } from './helpers/other';\nvoid readDist;\n",
+			// The helper exists (a scope-aware guard imports it); it must not hide
+			// the OTHER helper's dist requirement.
+			'tests/helpers/build-scope.ts': 'export const buildScope = () => ({ mode: "all", dirs: [] });\n',
+			'tests/helpers/other.ts': "const p = join(root, 'packages/blog/dist/index.js');\n"
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture).workspaces).toEqual([
+			'@svforge/blog'
+		]);
+		// An order without blog must defer the test, not silently include it.
+		const partition = partitionBuildSet({
+			root,
+			workspaces: workspacesFixture,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspacesFixture),
+			testFiles: ['tests/consumer.test.ts']
+		});
+		expect(partition.build).toBe('all');
+		expect(partition.deferred[0]?.reason).toContain('@svforge/blog');
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('still treats runtime loading and subprocesses in a scope-aware file as unbounded (B-01)', () => {
+		for (const source of [
+			"import { buildScope } from './helpers/build-scope';\nconst m = await import(name);\n",
+			"import { buildScope } from './helpers/build-scope';\nexecFileSync('npm', ['pack']);\n"
+		]) {
+			expect(distRequirementsForSource(source, workspacesFixture).kind).toBe('all');
+		}
+	});
+
+	it('partitions runnable tests from deferred cross-cutting tests', () => {
+		const root = project({
+			'tests/plain.test.ts': "import { value } from './helpers/plain';\nvoid value;\n",
+			'tests/helpers/plain.ts': 'export const value = 1;\n',
+			'tests/packaging.test.ts': "execFileSync('npm', ['pack']);\n"
+		});
+		const partition = partitionBuildSet({
+			root,
+			workspaces: workspacesFixture,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspacesFixture),
+			testFiles: ['tests/plain.test.ts', 'tests/packaging.test.ts']
+		});
+		expect(partition.build).toBe('selected');
+		expect(partition.runnable).toEqual(['tests/plain.test.ts']);
+		expect(partition.deferred.map((entry) => entry.file)).toEqual(['tests/packaging.test.ts']);
+		rmSync(root, { recursive: true, force: true });
+	});
+});
+
+/** The build scope declared to the repository guards (#656). */
+describe('build scope declaration (#656)', () => {
+	const scope = async () => import('./helpers/build-scope');
+
+	it('defaults to every workspace when CI did not scope the build', async () => {
+		const { buildScope } = await scope();
+		expect(buildScope(undefined).mode).toBe('all');
+		expect(buildScope('all').mode).toBe('all');
+		expect(buildScope('all').dirs.length).toBeGreaterThan(10);
+	});
+
+	it('parses a narrow declared set and rejects separator-only values (B-02)', async () => {
+		const { buildScope } = await scope();
+		expect(buildScope('notifications addon-kit svforge')).toEqual({
+			mode: 'selected',
+			dirs: ['addon-kit', 'notifications', 'svforge']
+		});
+		expect(buildScope('addon-kit,notifications')).toEqual({ mode: 'selected', dirs: ['addon-kit', 'notifications'] });
+		for (const value of [',', ' , ', ',,,']) {
+			expect(() => buildScope(value), value).toThrow(/names no workspace/);
+		}
+	});
+
+	it('rejects a workspace that does not exist instead of shrinking the guard', async () => {
+		const { buildScope } = await scope();
+		expect(() => buildScope('addon-kit does-not-exist')).toThrow(/unknown workspace/);
 	});
 });

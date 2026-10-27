@@ -17,7 +17,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWorkspaces, planBuildSet } from '../affected-scope.mjs';
+import { loadWorkspaces, partitionBuildSet } from '../affected-scope.mjs';
 
 /** @param {object} scope affected-scope JSON */
 export function planCiSteps(scope, { targeted = false, root = process.cwd() } = {}) {
@@ -60,19 +60,43 @@ export function planCiSteps(scope, { targeted = false, root = process.cwd() } = 
 			reason: 'workspace change: ci:targeted opt-in (all tests, full build)'
 		};
 	}
-	const buildSet = planBuildSet({
+	// #656 review B-01: a reduced build is only allowed when EVERY selected test
+	// can run against it. Any unbounded/uncertain requirement (or one outside the
+	// order) escalates the WHOLE run back to a full build + full tests — a
+	// scoped build never becomes a green required check with tests left out.
+	const partition = partitionBuildSet({
 		root,
 		workspaces: loadWorkspaces(root),
 		buildOrder: scope?.buildOrder ?? [],
 		testFiles: tests.files
 	});
+	if (partition.build !== 'selected' || partition.deferred.length > 0) {
+		const blocking = partition.deferred
+			.slice(0, 3)
+			.map((entry) => entry.file)
+			.join(', ');
+		return {
+			mode: 'targeted',
+			build: 'all',
+			buildDirs: [],
+			tests: 'all',
+			testFiles: [],
+			deferredTestFiles: [],
+			reason: `workspace change: ci:targeted opt-in (full build: ${
+				partition.deferred.length > 0
+					? `${partition.deferred.length} selected test file(s) need every workspace (${blocking}…)`
+					: 'no selected test is runnable under a scoped build'
+			})`
+		};
+	}
 	return {
 		mode: 'targeted',
-		build: buildSet.build,
-		buildDirs: buildSet.buildDirs,
+		build: 'selected',
+		buildDirs: partition.buildDirs,
 		tests: 'selected',
-		testFiles: tests.files,
-		reason: `workspace change: ci:targeted opt-in (${buildSet.reason})`
+		testFiles: partition.runnable,
+		deferredTestFiles: [],
+		reason: `workspace change: ci:targeted opt-in (scoped build: ${partition.buildDirs.join(', ')}; every selected test runs)`
 	};
 }
 
@@ -84,6 +108,7 @@ export function renderGithubOutputs(plan) {
 		`build_dirs=${plan.buildDirs.join(' ')}`,
 		`tests=${plan.tests}`,
 		`test_files=${plan.testFiles.join(' ')}`,
+		`deferred_test_files=${(plan.deferredTestFiles ?? []).join(' ')}`,
 		`reason=${plan.reason.replace(/\n/g, ' ')}`,
 		''
 	].join('\n');

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { existsSync } from 'fs';
 import { join } from 'path';
+import { buildScope } from './helpers/build-scope';
 
 const ROOT = join(import.meta.dirname, '..');
 
@@ -15,9 +16,6 @@ describe('ui_toast module', () => {
 		expect(existsSync(join(dir, 'templates/src/lib/components/svforge/ui/toaster.ts'))).toBe(true);
 	});
 
-	it('has dist built', () => {
-		expect(existsSync(join(dir, 'dist/index.js'))).toBe(true);
-	});
 });
 
 describe('dnd module', () => {
@@ -27,9 +25,6 @@ describe('dnd module', () => {
 		expect(existsSync(join(dir, 'templates/src/lib/components/svforge/dnd/SortableList.svelte'))).toBe(true);
 	});
 
-	it('has dist built', () => {
-		expect(existsSync(join(dir, 'dist/index.js'))).toBe(true);
-	});
 });
 
 describe('tiptap module', () => {
@@ -51,9 +46,6 @@ describe('tiptap module', () => {
 		expect(existsSync(join(dir, 'templates/src/lib/components/svforge/tiptap/tiptap-extensions.ts'))).toBe(true);
 	});
 
-	it('has dist built', () => {
-		expect(existsSync(join(dir, 'dist/index.js'))).toBe(true);
-	});
 });
 
 describe('graph module', () => {
@@ -63,9 +55,6 @@ describe('graph module', () => {
 		expect(existsSync(join(dir, 'templates/src/lib/components/svforge/graph/KnowledgeGraph.svelte'))).toBe(true);
 	});
 
-	it('has dist built', () => {
-		expect(existsSync(join(dir, 'dist/index.js'))).toBe(true);
-	});
 });
 
 describe('blog module', () => {
@@ -87,7 +76,17 @@ it('has blog article page', () => {
 expect(existsSync(join(dir, 'templates/src/routes/blog/[slug]/+page.svelte'))).toBe(true);
 });
 
-it('has dist built', () => {
-expect(existsSync(join(dir, 'dist/index.js'))).toBe(true);
 });
+
+describe('module dist artifacts (#656)', () => {
+	it('every module built in this run emitted its add-on entry', () => {
+		// #656: verify the run's declared build set (all workspaces when CI does
+		// not scope the build), so targeted PR runs stay meaningful without
+		// demanding artifacts they intentionally did not compile.
+		const { mode, dirs } = buildScope();
+		expect(dirs.length, `build scope (${mode}) must not be empty`).toBeGreaterThan(0);
+		for (const dir of dirs) {
+			expect(existsSync(join(ROOT, 'packages', dir, 'dist/index.js')), `${dir} (build scope: ${mode})`).toBe(true);
+		}
+	});
 });

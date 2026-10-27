@@ -128,16 +128,29 @@ jobs:
             for dir in $SCOPE_BUILD_DIRS; do
               ( cd "packages/$dir" && bun run build ) || { echo "❌ build failed for packages/$dir"; exit 1; }
             done
+            # #656: the inventory guards verify THIS declared build set instead
+            # of demanding every workspace (tests/helpers/build-scope.ts).
+            echo "SVFORGE_BUILD_WORKSPACES=$SCOPE_BUILD_DIRS" >> "$GITHUB_ENV"
             exit 0
           fi
           bun run --filter '*' build
+          echo "SVFORGE_BUILD_WORKSPACES=all" >> "$GITHUB_ENV"
 
       - name: Run tests
         env:
           SCOPE_TESTS: ${{ steps.scope.outputs.tests || 'all' }}
           SCOPE_TEST_FILES: ${{ steps.scope.outputs.test_files }}
+          SCOPE_DEFERRED: ${{ steps.scope.outputs.deferred_test_files }}
           SCOPE_REASON: ${{ steps.scope.outputs.reason }}
         run: |
+          if [ -n "$SCOPE_DEFERRED" ]; then
+            # #656: cross-cutting guards that cannot be proven safe under a scoped
+            # build are NOT skipped — they are deferred to full validation (push
+            # to the default branch, ci:full, release), and listed here so the
+            # trade-off is auditable on every targeted run.
+            echo "Deferring $(echo "$SCOPE_DEFERRED" | wc -w) cross-cutting test file(s) to full validation:" | tee -a "$GITHUB_STEP_SUMMARY"
+            for file in $SCOPE_DEFERRED; do echo "  - $file" | tee -a "$GITHUB_STEP_SUMMARY"; done
+          fi
           if [ "$SCOPE_TESTS" = "none" ]; then
             echo "Skipping tests — ${SCOPE_REASON:-no test suite selected}" | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
