@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
 	buildOrderFor,
@@ -11,9 +11,12 @@ import {
 	deriveTestOwners,
 	detectorFailureScope,
 	distInventory,
+	distRequirementsForFile,
 	distRequirementsForSource,
+	resolveLocalImport,
 	formatScope,
 	loadWorkspaces,
+	localImportSpecifiers,
 	planBuildSet,
 	reverseDependencies,
 	runCli
@@ -379,13 +382,131 @@ describe('test-to-dist dependency model (#656)', () => {
 		});
 		// package-entry is a guarded inventory consumer: it escalates regardless.
 		expect(plan.build).toBe('all');
+		// `capability-contracts` is a BOUNDED consumer (it imports helpers that
+		// touch `@svforge/addon-kit` dist); an order without that workspace must
+		// escalate instead of omitting it.
 		const bounded = planBuildSet({
 			root: ROOT,
 			workspaces,
-			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
-			testFiles: ['tests/notifications.test.ts']
+			buildOrder: [{ name: '@svforge/dnd', dir: 'dnd' }],
+			testFiles: ['tests/capability-contracts.test.ts']
 		});
 		expect(bounded.build, 'a bounded consumer outside the order must escalate').toBe('all');
-		expect(bounded.reason).toContain('@svforge/notifications');
+		expect(bounded.reason).toContain('@svforge/addon-kit');
+	});
+});
+
+/**
+ * #656 B-01 — a selected test's LOCAL imports are part of its requirement.
+ *
+ * A test can look dist-free while a helper it imports reads built output, so
+ * the analysis walks relative imports transitively. Anything it cannot prove
+ * bounded (unresolvable import, dynamic traversal, guard) must fail closed.
+ */
+describe('transitive local imports (#656 B-01)', () => {
+	const workspacesFixture = [
+		{ dir: 'addon-kit', name: '@svforge/addon-kit', prefix: 'packages/addon-kit/', dependencies: [] },
+		{ dir: 'dnd', name: '@svforge/dnd', prefix: 'packages/dnd/', dependencies: ['@svforge/addon-kit'] },
+		{ dir: 'blog', name: '@svforge/blog', prefix: 'packages/blog/', dependencies: [] }
+	];
+
+	function project(files: Record<string, string>) {
+		const root = mkdtempSync(join(tmpdir(), 'sf-656-transitive-'));
+		for (const [path, content] of Object.entries(files)) {
+			const full = join(root, path);
+			mkdirSync(dirname(full), { recursive: true });
+			writeFileSync(full, content);
+		}
+		return root;
+	}
+
+	const distHelper = "const p = join(root, 'packages/blog/dist/index.js');\n";
+
+	it('detects a dist read in an imported helper', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import { readDist } from './helpers/indirect';\nreadDist();\n",
+			'tests/helpers/indirect.ts': `import { dirname, join } from 'node:path';\n${distHelper}`
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture)).toMatchObject({
+			kind: 'selected',
+			workspaces: ['@svforge/blog']
+		});
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('follows helper chains and re-exports', () => {
+		const root = project({
+			'tests/consumer.test.ts': "export * from './helpers/a';\n",
+			'tests/helpers/a.ts': "export { readDist } from './b';\n",
+			'tests/helpers/b.ts': distHelper
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture).workspaces).toEqual([
+			'@svforge/blog'
+		]);
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('treats a guarded dist assertion in a helper as uncertainty', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import './helpers/guarded';\n",
+			'tests/helpers/guarded.ts': `const distPath = join(root, 'packages/blog/dist/index.js');\nif (!existsSync(distPath)) return;\n`
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture).kind).toBe('all');
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('fails closed for dynamic imports, subprocesses and unresolvable helpers', () => {
+		const cases = [
+			{
+				'helpers/dynamic.ts': "export const load = (p: string) => import(p);\n// packages/blog/dist\n"
+			},
+			{
+				'helpers/subprocess.ts': "execFileSync('bun', ['run', 'build']);\n// packages/blog/dist\n"
+			},
+			{ 'helpers/missing.ts': "import './does-not-exist';\n" }
+		];
+		for (const [index, helper] of cases.entries()) {
+			const [helperPath, helperSource] = Object.entries(helper)[0];
+			const root = project({
+				'tests/consumer.test.ts': `import './helpers/${helperPath.split('/').pop()!.replace('.ts', '')}';\n`,
+				[`tests/${helperPath}`]: helperSource
+			});
+			expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture).kind, `case ${index}`).toBe('all');
+			rmSync(root, { recursive: true, force: true });
+		}
+	});
+
+	it('keeps a source-only helper chain bounded, and lists its relative imports', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import { helper } from './helpers/plain';\n",
+			'tests/helpers/plain.ts': "export const helper = () => 1;\n"
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture)).toMatchObject({
+			kind: 'selected',
+			workspaces: []
+		});
+		expect(localImportSpecifiers("import x from './a'; export * from './b'; void import('./c');")).toEqual([
+			'./a',
+			'./b',
+			'./c'
+		]);
+		expect(resolveLocalImport(root, 'tests/consumer.test.ts', './helpers/plain')).toBe('tests/helpers/plain.ts');
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('escalates a scoped plan when a helper needs an outside workspace', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import { readDist } from './helpers/indirect';\n",
+			'tests/helpers/indirect.ts': distHelper
+		});
+		const plan = planBuildSet({
+			root,
+			workspaces: workspacesFixture,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspacesFixture),
+			testFiles: ['tests/consumer.test.ts']
+		});
+		expect(plan.build).toBe('all');
+		expect(plan.reason).toContain('@svforge/blog');
+		rmSync(root, { recursive: true, force: true });
 	});
 });

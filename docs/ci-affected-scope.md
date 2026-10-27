@@ -18,15 +18,41 @@ A scoped build that omits one of those workspaces turns such a test into a **sil
 
 ## Inventory (current tree)
 
-`distInventory()` walks `tests/**/*.test.ts` and classifies each consumer:
+`distInventory()` walks `tests/**/*.test.ts`, follows their **local imports**
+(helpers, fixtures, re-exports) and classifies each consumer:
 
 | Requirement | Count | Meaning |
 | --- | --- | --- |
-| Unbounded (`kind: all`) | 28 | Dynamic enumeration, `npm pack`, CLI binary, guarded dist assertions, or a dist reference that names no workspace → **full build** |
-| Bounded (`kind: selected`) | 4 | A literal `packages/<dir>/dist/...` path or a package-name import that maps to one workspace (e.g. `compat-manifest`, `docs-current-contract`, `notifications`, `structural-duplication` → `svforge` / `@svforge/notifications`) |
+| Unbounded (`kind: all`) | 55 | Dynamic enumeration, `npm pack`, CLI binary, guarded dist assertions, dynamic imports, subprocesses, or a dist reference that names no workspace → **full build** |
+| Bounded (`kind: selected`) | 7 | A literal `packages/<dir>/dist/...` path or a package-name import reachable from the test (directly or through a helper) that maps to specific workspaces |
 | No dist consumer | rest | Source-only imports and repository scripts do not constrain the build |
 
-The inventory is computed, not hand-maintained: `tests/affected-scope.test.ts` asserts that `structure`, `cli-create`, `package-entry`, `modules` and `build` stay **unbounded** (regression fixtures), so a narrowing change fails there first.
+62 test files consume built artifacts today. The inventory is computed, not hand-maintained: `tests/affected-scope.test.ts` asserts that `structure`, `cli-create`, `package-entry`, `modules` and `build` stay **unbounded** (regression fixtures), so a narrowing change fails there first.
+
+The analysis is deliberately conservative: fixture source embedded in a template
+literal can look like an import (for example `tests/helpers/official-foundation.ts`
+contains generated-file text), and such an unresolved import escalates to a full
+build. A false positive costs build time; a false negative would skip a test's
+artifact.
+
+## Local imports are part of the requirement (#656 B-01)
+
+A test that looks dist-free can import a helper that reads built output, so the
+analysis walks **relative imports transitively**:
+
+- `import`/`export … from`, side-effect `import '…'`, literal `import('…')` and
+  `require('…')` are followed when they are relative;
+- files under `tests/` and `scripts/` are walked recursively (cycle-safe); a file
+  reached outside them (a workspace source imported by a test) is inspected once
+  but not followed — its internals are implementation of a source import;
+- **fail closed** for: an unresolvable relative import, an unreadable file, a
+  dynamic import expression (`import(variable)`, template literals), a subprocess
+  combined with a dist reference, a guarded `existsSync(dist) → return`, or a
+  dist reference with no identifiable workspace.
+
+Fixtures in `tests/affected-scope.test.ts` cover a dist read in a helper, a helper
+chain with re-exports, a guarded assertion, dynamic imports, subprocesses,
+unresolvable helpers, and a bounded source-only chain that stays scoped.
 
 ## Rules
 

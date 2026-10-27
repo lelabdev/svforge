@@ -89,7 +89,7 @@ describe('CI scope plan (#570 phase B)', () => {
 			expect(plan.build, `${file} must force a full build`).toBe('all');
 			expect(plan.buildDirs).toEqual([]);
 			expect(plan.reason).toMatch(
-				/unbounded dist consumer|uncertain build requirement|dist reference without an identifiable workspace/
+				/unbounded dist consumer|uncertain build requirement|dist reference without an identifiable workspace|dynamic import expression/
 			);
 		}
 	});

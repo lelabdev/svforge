@@ -1404,7 +1404,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "638f3160d81fd97b5c01635b41204f9b",
+    "ast_hash": "f21acbb3b72f54495b5d4f1bc62bb98e",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
@@ -2148,11 +2148,11 @@
     "semantic_hash": ""
   },
   "scripts/affected-scope.mjs": {
-    "ast_hash": "ed424c777948d51b46b94070eb4e7f03",
+    "ast_hash": "272cfdf7f1168c46f37b218f65358bbd",
     "semantic_hash": ""
   },
   "tests/affected-scope.test.ts": {
-    "ast_hash": "f0fe100d50ba162cf2cb6d5e3fbac9de",
+    "ast_hash": "227b8a2fa5bd69419f78b6ab6094a652",
     "semantic_hash": ""
   },
   "scripts/ci/affected-step.mjs": {
@@ -2160,7 +2160,7 @@
     "semantic_hash": ""
   },
   "tests/ci-affected-step.test.ts": {
-    "ast_hash": "516fe2414b1795b9ec3716ff01667098",
+    "ast_hash": "f2559e7b6accf950cd12ca0c1d57f46c",
     "semantic_hash": ""
   },
   "scripts/ci/measure-ci.mjs": {
@@ -2364,7 +2364,7 @@
     "semantic_hash": ""
   },
   "docs/ci-affected-scope.md": {
-    "ast_hash": "255ba1679aa8f106e39059b638129744",
+    "ast_hash": "8aaa1a29bb0fa72bb78aec85bc20b899",
     "semantic_hash": ""
   }
 }

@@ -28,7 +28,7 @@
  *                                   [--force-full] [--root <dir>]
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -360,7 +360,10 @@ const UNBOUNDED_DIST_PATTERNS = [
 	/npm\s+pack|bun\s+pack|pnpm\s+pack/,
 	/bin\/svforge\.mjs/,
 	/['"]packages['"]/,
-	/\bPACKAGES\b/
+	/\bPACKAGES\b/,
+	// A subprocess combined with a dist reference: the invoked command may
+	// inspect or rebuild artifacts the static text does not name.
+	/execFileSync\(|execSync\(|spawnSync\(|spawn\(|exec\(/
 ];
 
 /**
@@ -369,15 +372,24 @@ const UNBOUNDED_DIST_PATTERNS = [
  */
 export function distRequirementsForSource(source, workspaces) {
 	const normalized = String(source ?? '');
-	// `distPath`, `dist/`, `dist/index.js`… all count: a missed mention would
-	// narrow the build, so the detection is deliberately broad.
-	const mentionsDist = /dist/i.test(normalized);
+	// `dist/`, `dist/index.js`, `distPath`, `'dist'`… count. A plain identifier
+	// such as `readDist` does not: it names a helper, not built output.
+	const mentionsDist = /dist(?:[/'"`.,)\s(]|Path|File|Dir|Entry|Output|Build)/.test(normalized);
 	const importsBuiltName = workspaces.filter((workspace) => {
 		const escaped = workspace.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		return new RegExp(`(?:from\\s+|import\\(|require\\()\\s*['"]${escaped}['"]`).test(normalized);
 	});
 	if (!mentionsDist && importsBuiltName.length === 0) {
 		return { kind: 'selected', workspaces: [], reason: 'no built-artifact consumer' };
+	}
+	// `import(variable)` / `import(`template ${…}`)` can load any workspace:
+	// static analysis cannot bound it.
+	if (/\bimport\(\s*[^'"`)\s]/.test(normalized) || /\bimport\(\s*`[^`]*\$\{/.test(normalized)) {
+		return {
+			kind: 'all',
+			workspaces: workspaces.map((workspace) => workspace.name),
+			reason: 'dynamic import expression (unbounded)'
+		};
 	}
 	for (const pattern of UNBOUNDED_DIST_PATTERNS) {
 		if (pattern.test(normalized)) {
@@ -416,20 +428,99 @@ export function distRequirementsForSource(source, workspaces) {
 	return { kind: 'selected', workspaces: [...required].sort(), reason: 'bounded dist consumer' };
 }
 
-/** Requirements of one repository file (missing file → full scope). */
-export function distRequirementsForFile(root, file, workspaces) {
-	const full = join(root, file);
-	let source;
-	try {
-		source = readFileSync(full, 'utf8');
-	} catch {
-		return {
-			kind: 'all',
-			workspaces: workspaces.map((workspace) => workspace.name),
-			reason: `unreadable dist consumer (${file})`
-		};
+/** Extensions tried when a relative import omits one. */
+const IMPORT_EXTENSIONS = ['', '.ts', '.js', '.mjs', '.cjs', '/index.ts', '/index.js', '/index.mjs'];
+
+/** Relative import/require/re-export specifiers of one source text. */
+export function localImportSpecifiers(source) {
+	const specifiers = new Set();
+	const patterns = [
+		// Statements may share a line (`import …; export … from …;`).
+		/(?:^|[;\n])\s*(?:import|export)\s[^'"`;]*?from\s*['"]([^'"]+)['"]/g,
+		/(?:^|[;\n])\s*import\s*['"]([^'"]+)['"]/g,
+		/\bimport\(\s*['"]([^'"]+)['"]\s*\)/g,
+		/\brequire\(\s*['"]([^'"]+)['"]\s*\)/g
+	];
+	for (const pattern of patterns) {
+		for (const match of String(source ?? '').matchAll(pattern)) {
+			if (match[1].startsWith('.')) specifiers.add(match[1]);
+		}
 	}
-	return distRequirementsForSource(source, workspaces);
+	return [...specifiers];
+}
+
+/** Resolve a relative import to a repository-relative file, or null. */
+export function resolveLocalImport(root, fromFile, specifier) {
+	const base = join(root, fromFile, '..', specifier);
+	for (const extension of IMPORT_EXTENSIONS) {
+		const candidate = `${base}${extension}`;
+		if (existsSync(candidate) && statSync(candidate).isFile()) {
+			const relative = toPosix(candidate.slice(root.length + 1));
+			if (relative.startsWith('..')) return null;
+			return relative;
+		}
+	}
+	return null;
+}
+
+/**
+ * Requirements of one repository file, including its LOCAL imports (#656 B-01).
+ *
+ * A test can look dist-free while a helper it imports reads built output, so the
+ * analysis walks relative imports transitively for repository-owned helper code
+ * (`tests/`, `scripts/`). Anything that cannot be proven bounded fails closed:
+ * an unresolvable import, an unreadable file, a dynamic traversal, or a cycle
+ * we cannot bound → full build. Files reached outside `tests/`+`scripts/`
+ * (workspace sources imported by a test) are inspected once but not followed:
+ * their internal imports are implementation of a source import, not built output.
+ */
+export function distRequirementsForFile(root, file, workspaces) {
+	const fullScope = (reason) => ({
+		kind: 'all',
+		workspaces: workspaces.map((workspace) => workspace.name),
+		reason
+	});
+	const visited = new Map();
+	const analyse = (relativePath, follow) => {
+		if (visited.has(relativePath)) return visited.get(relativePath);
+		const result = { kind: 'selected', workspaces: [] };
+		visited.set(relativePath, result);
+		let source;
+		try {
+			source = readFileSync(join(root, relativePath), 'utf8');
+		} catch {
+			const failure = fullScope(`unreadable dist consumer (${relativePath})`);
+			visited.set(relativePath, failure);
+			return failure;
+		}
+		const own = distRequirementsForSource(source, workspaces);
+		if (own.kind === 'all') {
+			visited.set(relativePath, own);
+			return own;
+		}
+		const required = new Set(own.workspaces);
+		if (follow) {
+			for (const specifier of localImportSpecifiers(source)) {
+				const resolved = resolveLocalImport(root, relativePath, specifier);
+				if (!resolved) {
+					const failure = fullScope(`unresolvable local import '${specifier}' in ${relativePath}`);
+					visited.set(relativePath, failure);
+					return failure;
+				}
+				const repositoryOwned = /^(tests|scripts)\//.test(resolved);
+				const nested = analyse(resolved, repositoryOwned);
+				if (nested.kind === 'all') {
+					visited.set(relativePath, nested);
+					return nested;
+				}
+				for (const name of nested.workspaces) required.add(name);
+			}
+		}
+		const bounded = { kind: 'selected', workspaces: [...required].sort(), reason: own.reason };
+		visited.set(relativePath, bounded);
+		return bounded;
+	};
+	return analyse(file, true);
 }
 
 /**
