@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
 	buildOrderFor,
@@ -10,8 +10,14 @@ import {
 	computeAffectedScope,
 	deriveTestOwners,
 	detectorFailureScope,
+	distInventory,
+	distRequirementsForFile,
+	distRequirementsForSource,
+	resolveLocalImport,
 	formatScope,
 	loadWorkspaces,
+	localImportSpecifiers,
+	planBuildSet,
 	reverseDependencies,
 	runCli
 } from '../scripts/affected-scope.mjs';
@@ -272,5 +278,242 @@ describe('git integration (#570)', () => {
 		} finally {
 			process.exitCode = previous;
 		}
+	});
+});
+
+/**
+ * #656 — the test-to-dist dependency model that makes a scoped build safe.
+ *
+ * Built artifacts are consumed both explicitly (`packages/x/dist/index.js`) and
+ * implicitly (package-name imports resolving to dist, add-on registries loaded
+ * from dist, `npm pack`, the CLI binary). Inventory consumers enumerate every
+ * workspace, so they must force a full build — never a skipped test.
+ */
+describe('test-to-dist dependency model (#656)', () => {
+	const byPrefix = (name: string) => workspaces.find((workspace) => workspace.name === name)!;
+
+	it('bounds a test that only imports workspace sources', () => {
+		const requirement = distRequirementsForSource(
+			"import { formatPostDate } from '../packages/blog/templates/src/lib/utils/post-date';",
+			workspaces
+		);
+		expect(requirement).toEqual({ kind: 'selected', workspaces: [], reason: 'no built-artifact consumer' });
+	});
+
+	it('maps an explicit dist path to that workspace only', () => {
+		const requirement = distRequirementsForSource(
+			"const distPath = join(ROOT, 'packages/svforge/dist/index.js');",
+			workspaces
+		);
+		expect(requirement.kind).toBe('selected');
+		expect(requirement.workspaces).toEqual(['svforge']);
+	});
+
+	it('treats a package-name import as a built-artifact consumer', () => {
+		const requirement = distRequirementsForSource("const mod = await import('@svforge/addon-kit');", workspaces);
+		expect(requirement.kind).toBe('selected');
+		expect(requirement.workspaces).toEqual(['@svforge/addon-kit']);
+	});
+
+	it('forces a full build for dynamic enumeration, packaging and the CLI binary', () => {
+		for (const source of [
+			"for (const pkg of readdirSync(join(ROOT, 'packages'))) { existsSync(join('packages', pkg, 'dist/index.js')); }",
+			'const distPath = `../packages/${pkg}/dist/index.js`;',
+			"execFileSync('npm', ['pack', '--json']); // dist payload",
+			'expect(existsSync(distPath)).toBe(true); // bin/svforge.mjs'
+		]) {
+			expect(distRequirementsForSource(source, workspaces).kind, source).toBe('all');
+		}
+	});
+
+	it('fails closed when a dist reference names no workspace, or is guarded by a skip', () => {
+		expect(distRequirementsForSource("const distPath = join(pkg, 'dist/index.js');", workspaces).kind).toBe('all');
+		expect(
+			distRequirementsForSource(
+				"const distPath = join(ROOT, 'packages/svforge/dist/index.js'); if (!existsSync(distPath)) return;",
+				workspaces
+			).kind
+		).toBe('all');
+	});
+
+	it('keeps the repository inventory consumers on a full build (regression fixtures)', () => {
+		const inventory = distInventory(ROOT, workspaces);
+		for (const file of [
+			'tests/structure.test.ts',
+			'tests/cli-create.test.ts',
+			'tests/package-entry.test.ts',
+			'tests/modules.test.ts',
+			'tests/build.test.ts'
+		]) {
+			expect(inventory.get(file)?.kind, `${file} must require a full build`).toBe('all');
+		}
+		// Source-only tests do not appear in the inventory at all.
+		expect(inventory.has('tests/blog-date.test.ts')).toBe(false);
+	});
+
+	it('selects the scoped build only when every selected test is covered', () => {
+		const order = buildOrderFor(['@svforge/dnd'], workspaces).map((entry) => entry.name);
+		const covered = planBuildSet({
+			root: ROOT,
+			workspaces,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
+			testFiles: ['tests/blog-date.test.ts']
+		});
+		expect(covered.build).toBe('selected');
+		expect(covered.buildDirs).toEqual(order.map((name) => byPrefix(name).dir));
+
+		const escalated = planBuildSet({
+			root: ROOT,
+			workspaces,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
+			testFiles: ['tests/blog-date.test.ts', 'tests/structure.test.ts']
+		});
+		expect(escalated.build).toBe('all');
+		expect(escalated.buildDirs).toEqual([]);
+		expect(escalated.reason).toContain('tests/structure.test.ts');
+	});
+
+	it('escalates when a bounded consumer needs a workspace outside the scoped order', () => {
+		const plan = planBuildSet({
+			root: ROOT,
+			workspaces,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
+			testFiles: ['tests/package-entry.test.ts']
+		});
+		// package-entry is a guarded inventory consumer: it escalates regardless.
+		expect(plan.build).toBe('all');
+		// `skeleton-native` is a BOUNDED consumer (its helper chain reaches
+		// `@svforge/addon-kit` dist); an order without that workspace must
+		// escalate instead of omitting it.
+		const bounded = planBuildSet({
+			root: ROOT,
+			workspaces,
+			buildOrder: [{ name: '@svforge/dnd', dir: 'dnd' }],
+			testFiles: ['tests/skeleton-native.test.ts']
+		});
+		expect(bounded.build, 'a bounded consumer outside the order must escalate').toBe('all');
+		expect(bounded.reason).toContain('@svforge/addon-kit');
+	});
+});
+
+/**
+ * #656 B-01 — a selected test's LOCAL imports are part of its requirement.
+ *
+ * A test can look dist-free while a helper it imports reads built output, so
+ * the analysis walks relative imports transitively. Anything it cannot prove
+ * bounded (unresolvable import, dynamic traversal, guard) must fail closed.
+ */
+describe('transitive local imports (#656 B-01)', () => {
+	const workspacesFixture = [
+		{ dir: 'addon-kit', name: '@svforge/addon-kit', prefix: 'packages/addon-kit/', dependencies: [] },
+		{ dir: 'dnd', name: '@svforge/dnd', prefix: 'packages/dnd/', dependencies: ['@svforge/addon-kit'] },
+		{ dir: 'blog', name: '@svforge/blog', prefix: 'packages/blog/', dependencies: [] }
+	];
+
+	function project(files: Record<string, string>) {
+		const root = mkdtempSync(join(tmpdir(), 'sf-656-transitive-'));
+		for (const [path, content] of Object.entries(files)) {
+			const full = join(root, path);
+			mkdirSync(dirname(full), { recursive: true });
+			writeFileSync(full, content);
+		}
+		return root;
+	}
+
+	const distHelper = "const p = join(root, 'packages/blog/dist/index.js');\n";
+
+	it('detects a dist read in an imported helper', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import { readDist } from './helpers/indirect';\nreadDist();\n",
+			'tests/helpers/indirect.ts': `import { dirname, join } from 'node:path';\n${distHelper}`
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture)).toMatchObject({
+			kind: 'selected',
+			workspaces: ['@svforge/blog']
+		});
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('follows helper chains and re-exports', () => {
+		const root = project({
+			'tests/consumer.test.ts': "export * from './helpers/a';\n",
+			'tests/helpers/a.ts': "export { readDist } from './b';\n",
+			'tests/helpers/b.ts': distHelper
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture).workspaces).toEqual([
+			'@svforge/blog'
+		]);
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('treats a guarded dist assertion in a helper as uncertainty', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import './helpers/guarded';\n",
+			'tests/helpers/guarded.ts': `const distPath = join(root, 'packages/blog/dist/index.js');\nif (!existsSync(distPath)) return;\n`
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture).kind).toBe('all');
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('fails closed for dynamic imports, subprocesses and unresolvable helpers', () => {
+		// #656 B-02: the dynamic/subprocess signals must NOT depend on a literal
+		// `dist` mention in the same file — a non-literal import can load any
+		// compiled package at runtime.
+		const cases = [
+			{ 'helpers/dynamic.ts': 'export const load = (p: string) => import(p);\n' },
+			{ 'helpers/template.ts': 'export const load = (n: string) => import(`./${n}`);\n' },
+			{ 'helpers/require-variable.ts': 'export const load = (n: string) => require(n);\n' },
+			{ 'helpers/subprocess.ts': "execFileSync('bun', ['run', 'build']);\n" },
+			{ 'helpers/missing.ts': "import './does-not-exist';\n" }
+		];
+		for (const [index, helper] of cases.entries()) {
+			const [helperPath, helperSource] = Object.entries(helper)[0];
+			const root = project({
+				'tests/consumer.test.ts': `import './helpers/${helperPath.split('/').pop()!.replace('.ts', '')}';\n`,
+				[`tests/${helperPath}`]: helperSource
+			});
+			expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture).kind, `case ${index}`).toBe('all');
+			rmSync(root, { recursive: true, force: true });
+		}
+	});
+
+	it('keeps a source-only helper chain bounded, and lists its relative imports', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import { helper } from './helpers/plain';\n",
+			'tests/helpers/plain.ts': "export const helper = () => 1;\n"
+		});
+		expect(distRequirementsForFile(root, 'tests/consumer.test.ts', workspacesFixture)).toMatchObject({
+			kind: 'selected',
+			workspaces: []
+		});
+		expect(localImportSpecifiers("import x from './a'; export * from './b'; void import('./c');")).toEqual([
+			'./a',
+			'./b',
+			'./c'
+		]);
+		expect(resolveLocalImport(root, 'tests/consumer.test.ts', './helpers/plain')).toBe('tests/helpers/plain.ts');
+		// Control: a LITERAL dynamic import is not a dynamic traversal.
+		expect(distRequirementsForSource("const m = await import('./helpers/plain');", workspacesFixture)).toMatchObject({
+			kind: 'selected',
+			workspaces: []
+		});
+		expect(distRequirementsForSource('const m = await import(packageName);', workspacesFixture).kind).toBe('all');
+		rmSync(root, { recursive: true, force: true });
+	});
+
+	it('escalates a scoped plan when a helper needs an outside workspace', () => {
+		const root = project({
+			'tests/consumer.test.ts': "import { readDist } from './helpers/indirect';\n",
+			'tests/helpers/indirect.ts': distHelper
+		});
+		const plan = planBuildSet({
+			root,
+			workspaces: workspacesFixture,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspacesFixture),
+			testFiles: ['tests/consumer.test.ts']
+		});
+		expect(plan.build).toBe('all');
+		expect(plan.reason).toContain('@svforge/blog');
+		rmSync(root, { recursive: true, force: true });
 	});
 });

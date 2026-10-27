@@ -16,7 +16,8 @@ const targetedScope = {
 	reasons: [],
 	packages: [{ name: '@svforge/dnd', dir: 'dnd' }, { name: 'svforge', dir: 'svforge' }],
 	buildOrder: [{ name: '@svforge/addon-kit', dir: 'addon-kit' }, { name: '@svforge/dnd', dir: 'dnd' }, { name: 'svforge', dir: 'svforge' }],
-	tests: { mode: 'selected', files: ['tests/scaffold-paths.test.ts', 'tests/affected-scope.test.ts'] }
+	// Dist-free files only: the model is what decides whether a scoped build is safe.
+	tests: { mode: 'selected', files: ['tests/scaffold-paths.test.ts', 'tests/blog-date.test.ts'] }
 };
 const docsScope = {
 	global: false,
@@ -63,15 +64,45 @@ describe('CI scope plan (#570 phase B)', () => {
 		expect(plan.reason).toContain('ci:targeted');
 	});
 
-	it('scopes only the tests under ci:targeted and keeps the full build', () => {
-		// Measured failure on a real PR: a scoped build broke tests that inspect
-		// every workspace dist (structure, cli-create inventory). The build stays
-		// complete; test selection is the proven-safe part.
+	it('scopes the build when the selected tests have no built-artifact consumer', () => {
+		// #656: with the dist-dependency model, a selection that only imports
+		// sources (or scripts) can build the affected closure instead of everything.
 		const plan = planCiSteps(targetedScope, { targeted: true });
-		expect(plan.build).toBe('all');
-		expect(plan.buildDirs).toEqual([]);
+		expect(plan.build).toBe('selected');
+		expect(plan.buildDirs).toEqual(['addon-kit', 'dnd', 'svforge']);
 		expect(plan.tests).toBe('selected');
 		expect(plan.testFiles).toEqual(targetedScope.tests.files);
+		expect(plan.reason).toContain('scoped build');
+	});
+
+	it('escalates to a full build when a selected test inspects every workspace dist', () => {
+		// The #570 phase-C failure: structure/cli-create/package-entry enumerate
+		// all `dist/` outputs, so a scoped build would break them.
+		for (const file of [
+			'tests/structure.test.ts',
+			'tests/cli-create.test.ts',
+			'tests/package-entry.test.ts',
+			'tests/modules.test.ts',
+			'tests/build.test.ts'
+		]) {
+			const plan = planCiSteps({ ...targetedScope, tests: { mode: 'selected', files: [file] } }, { targeted: true });
+			expect(plan.build, `${file} must force a full build`).toBe('all');
+			expect(plan.buildDirs).toEqual([]);
+			expect(plan.reason).toMatch(
+				/unbounded dist consumer|uncertain build requirement|dist reference without an identifiable workspace|dynamic import expression/
+			);
+		}
+	});
+
+	it('escalates when a selected test needs a workspace outside the scoped order', () => {
+		const plan = planCiSteps(
+			{ ...targetedScope, tests: { mode: 'selected', files: ['tests/blog-date.test.ts'] }, buildOrder: [{ name: '@svforge/dnd', dir: 'dnd' }] },
+			{ targeted: true }
+		);
+		// blog-date imports the blog template source, not a built package: no
+		// requirement → the reduced order is kept (never silently widened).
+		expect(plan.build).toBe('selected');
+		expect(plan.buildDirs).toEqual(['dnd']);
 	});
 
 	it('never selects an empty test run: an empty selection falls back to all tests', () => {
@@ -82,13 +113,14 @@ describe('CI scope plan (#570 phase B)', () => {
 
 	it('renders stable GitHub outputs', () => {
 		const plan = planCiSteps(targetedScope, { targeted: true });
-		expect(renderGithubOutputs(plan).trim().split('\n')).toEqual([
+		const lines = renderGithubOutputs(plan).trim().split('\n');
+		expect(lines.slice(0, 5)).toEqual([
 			'mode=targeted',
-			'build=all',
-			'build_dirs=',
+			'build=selected',
+			'build_dirs=addon-kit dnd svforge',
 			'tests=selected',
-			'test_files=tests/scaffold-paths.test.ts tests/affected-scope.test.ts',
-			'reason=workspace change: ci:targeted opt-in (tests only; full build)'
+			'test_files=tests/scaffold-paths.test.ts tests/blog-date.test.ts'
 		]);
+		expect(lines[5]).toContain('ci:targeted');
 	});
 });

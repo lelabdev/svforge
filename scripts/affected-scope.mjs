@@ -28,7 +28,7 @@
  *                                   [--force-full] [--root <dir>]
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -333,6 +333,265 @@ export function computeAffectedScope({ changes, workspaces, testOwners, forceFul
 		tests,
 		docsOnly,
 		releaseSensitive
+	};
+}
+
+/**
+ * Conservative test-to-dist dependency model (#656).
+ *
+ * Repository tests do not only import sources: several of them inspect the
+ * BUILT output of every workspace (`dist/index.js`, package entry points,
+ * addon option registries loaded from `dist`, `npm pack` payloads, the CLI
+ * binary). Scoping a build therefore has to know which artifacts a selected
+ * test consumes; when that cannot be established, the only safe answer is a
+ * full build. This model never skips a test — it escalates the build instead.
+ */
+
+/**
+ * Patterns that reference built output in a way no static analysis can bound.
+ * Only applied to files that already mention `dist`: returning "all" for a
+ * bounded consumer costs a full build, never a skipped test.
+ */
+const UNBOUNDED_DIST_PATTERNS = [
+	/readdirSync\(/,
+	/packages\/\$\{/,
+	/import\(`[^`]*\$\{/,
+	/--filter\s+'?\*'?/,
+	/npm\s+pack|bun\s+pack|pnpm\s+pack/,
+	/bin\/svforge\.mjs/,
+	/['"]packages['"]/,
+	/\bPACKAGES\b/
+];
+
+/**
+ * Built-artifact requirements of one source text.
+ * @returns {{ kind: 'all'|'selected', workspaces: string[], reason: string }}
+ */
+export function distRequirementsForSource(source, workspaces) {
+	const normalized = String(source ?? '');
+	// `dist/`, `dist/index.js`, `distPath`, `'dist'`… count. A plain identifier
+	// such as `readDist` does not: it names a helper, not built output.
+	const mentionsDist = /dist(?:[/'"`.,)\s(]|Path|File|Dir|Entry|Output|Build)/.test(normalized);
+	const importsBuiltName = workspaces.filter((workspace) => {
+		const escaped = workspace.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		return new RegExp(`(?:from\\s+|import\\(|require\\()\\s*['"]${escaped}['"]`).test(normalized);
+	});
+	// #656 B-02: a NON-LITERAL dynamic import/require can load any compiled
+	// package at runtime (`await import(packageName)`), so it is unbounded
+	// BEFORE any "does this file mention dist?" shortcut. Detection must not
+	// depend on the file also containing a literal dist reference.
+	if (
+		/\bimport\(\s*[^'"`)\s]/.test(normalized) ||
+		/\bimport\(\s*`[^`]*\$\{/.test(normalized) ||
+		/\brequire\(\s*[^'"`)\s]/.test(normalized)
+	) {
+		return {
+			kind: 'all',
+			workspaces: workspaces.map((workspace) => workspace.name),
+			reason: 'dynamic import expression (unbounded)'
+		};
+	}
+	// A subprocess that can install, build or invoke the CLI is equally
+	// unbounded: it may require artifacts the static text never names.
+	if (/(?:execFileSync|execSync|spawnSync|spawn|exec)\([\s\S]{0,300}(?:\bnpm\b|\bpnpm\b|\byarn\b|\bbun(?:x)?\b|svforge\.mjs|bin\/|--filter)/.test(normalized)) {
+		return {
+			kind: 'all',
+			workspaces: workspaces.map((workspace) => workspace.name),
+			reason: 'subprocess invocation (unbounded)'
+		};
+	}
+	if (!mentionsDist && importsBuiltName.length === 0) {
+		return { kind: 'selected', workspaces: [], reason: 'no built-artifact consumer' };
+	}
+	for (const pattern of UNBOUNDED_DIST_PATTERNS) {
+		if (pattern.test(normalized)) {
+			return {
+				kind: 'all',
+				workspaces: workspaces.map((workspace) => workspace.name),
+				reason: 'unbounded dist consumer (dynamic enumeration / packaging)'
+			};
+		}
+	}
+	// A test that REFUSES to assert when a dist artifact is missing (a `return`
+	// guard around `existsSync(...dist...)`) proves nothing when the build set
+	// omitted that workspace: its requirement is uncertain → full build.
+	if (/existsSync\([^)]*dist[^)]*\)[\s\S]{0,120}\breturn\b/.test(normalized)) {
+		return {
+			kind: 'all',
+			workspaces: workspaces.map((workspace) => workspace.name),
+			reason: 'conditional dist assertion (uncertain build requirement)'
+		};
+	}
+	const required = new Set();
+	if (mentionsDist) {
+		for (const workspace of workspaces) {
+			if (normalized.includes(workspace.prefix)) required.add(workspace.name);
+		}
+		// A `dist` reference that names no workspace is unbounded: fail closed.
+		if (required.size === 0) {
+			return {
+				kind: 'all',
+				workspaces: workspaces.map((workspace) => workspace.name),
+				reason: 'dist reference without an identifiable workspace'
+			};
+		}
+	}
+	for (const workspace of importsBuiltName) required.add(workspace.name);
+	return { kind: 'selected', workspaces: [...required].sort(), reason: 'bounded dist consumer' };
+}
+
+/** Extensions tried when a relative import omits one. */
+// `.json` is data only (it cannot read built output) but resolving it avoids
+// escalating a helper that imports a fixture catalog.
+const IMPORT_EXTENSIONS = ['', '.ts', '.js', '.mjs', '.cjs', '.json', '/index.ts', '/index.js', '/index.mjs'];
+
+/** Relative import/require/re-export specifiers of one source text. */
+export function localImportSpecifiers(source) {
+	const specifiers = new Set();
+	const patterns = [
+		// Statements may share a line (`import …; export … from …;`).
+		/(?:^|[;\n])\s*(?:import|export)\s[^'"`;]*?from\s*['"]([^'"]+)['"]/g,
+		/(?:^|[;\n])\s*import\s*['"]([^'"]+)['"]/g,
+		/\bimport\(\s*['"]([^'"]+)['"]\s*\)/g,
+		/\brequire\(\s*['"]([^'"]+)['"]\s*\)/g
+	];
+	for (const pattern of patterns) {
+		for (const match of String(source ?? '').matchAll(pattern)) {
+			if (match[1].startsWith('.')) specifiers.add(match[1]);
+		}
+	}
+	return [...specifiers];
+}
+
+/** Resolve a relative import to a repository-relative file, or null. */
+export function resolveLocalImport(root, fromFile, specifier) {
+	const base = join(root, fromFile, '..', specifier);
+	for (const extension of IMPORT_EXTENSIONS) {
+		const candidate = `${base}${extension}`;
+		if (existsSync(candidate) && statSync(candidate).isFile()) {
+			const relative = toPosix(candidate.slice(root.length + 1));
+			if (relative.startsWith('..')) return null;
+			return relative;
+		}
+	}
+	return null;
+}
+
+/**
+ * Requirements of one repository file, including its LOCAL imports (#656 B-01).
+ *
+ * A test can look dist-free while a helper it imports reads built output, so the
+ * analysis walks relative imports transitively for repository-owned helper code
+ * (`tests/`, `scripts/`). Anything that cannot be proven bounded fails closed:
+ * an unresolvable import, an unreadable file, a dynamic traversal, or a cycle
+ * we cannot bound → full build. Files reached outside `tests/`+`scripts/`
+ * (workspace sources imported by a test) are inspected once but not followed:
+ * their internal imports are implementation of a source import, not built output.
+ */
+export function distRequirementsForFile(root, file, workspaces) {
+	const fullScope = (reason) => ({
+		kind: 'all',
+		workspaces: workspaces.map((workspace) => workspace.name),
+		reason
+	});
+	const visited = new Map();
+	const analyse = (relativePath, follow) => {
+		if (visited.has(relativePath)) return visited.get(relativePath);
+		const result = { kind: 'selected', workspaces: [] };
+		visited.set(relativePath, result);
+		let source;
+		try {
+			source = readFileSync(join(root, relativePath), 'utf8');
+		} catch {
+			const failure = fullScope(`unreadable dist consumer (${relativePath})`);
+			visited.set(relativePath, failure);
+			return failure;
+		}
+		const own = distRequirementsForSource(source, workspaces);
+		if (own.kind === 'all') {
+			visited.set(relativePath, own);
+			return own;
+		}
+		const required = new Set(own.workspaces);
+		if (follow) {
+			for (const specifier of localImportSpecifiers(source)) {
+				const resolved = resolveLocalImport(root, relativePath, specifier);
+				if (!resolved) {
+					const failure = fullScope(`unresolvable local import '${specifier}' in ${relativePath}`);
+					visited.set(relativePath, failure);
+					return failure;
+				}
+				const repositoryOwned = /^(tests|scripts)\//.test(resolved);
+				const nested = analyse(resolved, repositoryOwned);
+				if (nested.kind === 'all') {
+					visited.set(relativePath, nested);
+					return nested;
+				}
+				for (const name of nested.workspaces) required.add(name);
+			}
+		}
+		const bounded = { kind: 'selected', workspaces: [...required].sort(), reason: own.reason };
+		visited.set(relativePath, bounded);
+		return bounded;
+	};
+	return analyse(file, true);
+}
+
+/**
+ * Every test file that consumes built artifacts, with its requirement.
+ * Files with no built-artifact consumption are omitted.
+ */
+export function distInventory(root, workspaces) {
+	const inventory = new Map();
+	const walk = (dir) => {
+		for (const entry of readdirSync(dir, { withFileTypes: true })) {
+			const full = join(dir, entry.name);
+			if (entry.isDirectory()) walk(full);
+			else if (entry.name.endsWith('.test.ts')) {
+				const relative = toPosix(full.slice(root.length + 1));
+				const requirement = distRequirementsForFile(root, relative, workspaces);
+				if (requirement.kind === 'all' || requirement.workspaces.length > 0) {
+					inventory.set(relative, requirement);
+				}
+			}
+		}
+	};
+	const testsDir = join(root, 'tests');
+	if (existsSync(testsDir)) walk(testsDir);
+	return inventory;
+}
+
+/**
+ * Decide the build set for the selected tests.
+ *
+ * - every selected test's artifacts must be inside the scoped build order;
+ * - an unbounded consumer, an unreadable file or a requirement outside the
+ *   order escalates to a FULL build (tests are never skipped);
+ * - otherwise the build stays scoped to the order computed for the change.
+ */
+export function planBuildSet({ root = process.cwd(), workspaces, buildOrder, testFiles }) {
+	const orderDirs = buildOrder.map((entry) => entry.dir);
+	const orderNames = new Set(buildOrder.map((entry) => entry.name));
+	const escalate = (reason) => ({
+		build: 'all',
+		buildDirs: [],
+		reason,
+		requirements: [...orderNames]
+	});
+	const requirements = new Set();
+	for (const file of testFiles) {
+		const requirement = distRequirementsForFile(root, file, workspaces);
+		if (requirement.kind === 'all') return escalate(`${file}: ${requirement.reason}`);
+		for (const name of requirement.workspaces) requirements.add(name);
+	}
+	for (const name of requirements) {
+		if (!orderNames.has(name)) return escalate(`test needs ${name}, outside the scoped build`);
+	}
+	return {
+		build: orderDirs.length > 0 ? 'selected' : 'all',
+		buildDirs: orderDirs,
+		reason: requirements.size > 0 ? `scoped build covers ${[...requirements].sort().join(', ')}` : 'scoped build covers no dist consumer',
+		requirements: [...requirements].sort()
 	};
 }
 

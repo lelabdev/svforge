@@ -1404,7 +1404,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "8b3dc00e8d04d68de6051c16f2e25cee",
+    "ast_hash": "f21acbb3b72f54495b5d4f1bc62bb98e",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
@@ -2148,19 +2148,19 @@
     "semantic_hash": ""
   },
   "scripts/affected-scope.mjs": {
-    "ast_hash": "9881bb80508f5e9511893f7a6ed5f343",
+    "ast_hash": "12640794340f063dab44587765f5b1cd",
     "semantic_hash": ""
   },
   "tests/affected-scope.test.ts": {
-    "ast_hash": "e56c4b790bbe674c7cf818c7409f3b07",
+    "ast_hash": "47c13ffc80aabe26b9e81e6a555f14f0",
     "semantic_hash": ""
   },
   "scripts/ci/affected-step.mjs": {
-    "ast_hash": "7df58d6a7f386656e7c1559bfd3e0931",
+    "ast_hash": "a9edd4c2b6bf4875271f0867d78c3b08",
     "semantic_hash": ""
   },
   "tests/ci-affected-step.test.ts": {
-    "ast_hash": "b23a981fbf2baae90823fa02b444bd22",
+    "ast_hash": "f2559e7b6accf950cd12ca0c1d57f46c",
     "semantic_hash": ""
   },
   "scripts/ci/measure-ci.mjs": {
@@ -2361,6 +2361,10 @@
   },
   ".changeset/vitest-single-authority.md": {
     "ast_hash": "22ceacead1eab6bab053bf3f7b50a2d7",
+    "semantic_hash": ""
+  },
+  "docs/ci-affected-scope.md": {
+    "ast_hash": "8a5707ccb067d3e6aa4c41e8d3597844",
     "semantic_hash": ""
   }
 }
