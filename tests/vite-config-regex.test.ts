@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { importGenerated } from './helpers/generated-module';
 
 const { patchVitestConfig, patchViteConfig } = await import('../packages/svforge/src/modes/base');
 
@@ -99,7 +100,7 @@ export default defineConfig({ plugins: [] });`;
 			expect(patched).toContain("import { fileURLToPath } from 'node:url';");
 			expect(patchVitestConfig(patched)).toBe(patched);
 
-			const loaded = await import(`${pathToFileURL(configPath).href}?test=${Date.now()}`);
+			const loaded = await importGenerated(configPath, { bust: true });
 			expect(loaded.default.resolve.alias).toMatchObject({
 				'#lib': expect.any(String),
 				'$lib': expect.any(String)

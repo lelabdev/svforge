@@ -15,6 +15,20 @@
  */
 import { pathToFileURL } from 'node:url';
 
-export async function importGenerated<T = unknown>(file: string): Promise<T> {
-	return (await import(/* @vite-ignore */ pathToFileURL(file).href)) as T;
+export interface ImportGeneratedOptions {
+	/**
+	 * Append a unique query so a rewritten file is re-evaluated instead of served
+	 * from the ES module cache. Tests that previously appended `?test=<ts>` must
+	 * keep that behaviour.
+	 */
+	bust?: boolean;
+}
+
+export async function importGenerated<T = unknown>(
+	file: string,
+	options: ImportGeneratedOptions = {}
+): Promise<T> {
+	const url = pathToFileURL(file).href;
+	const specifier = options.bust ? `${url}?test=${Date.now()}-${Math.random()}` : url;
+	return (await import(/* @vite-ignore */ specifier)) as T;
 }
