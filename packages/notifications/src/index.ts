@@ -103,3 +103,5 @@ export default defineAddon({
 		return steps;
 	}
 });
+
+// #656 probe: isolated add-on change for the fail-closed measurement.
