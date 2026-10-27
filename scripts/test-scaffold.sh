@@ -656,17 +656,33 @@ if [ "$TEMPLATE" = "base-blog" ]; then
 		|| { echo "❌ /blog list lacks the post title (#293)"; kill $PREVIEW_PID; exit 1; }
 	echo "$BLOG_HTML" | grep -qE 'class="[^"]*h1[^"]*"' \
 		|| { echo "❌ /blog does not use Skeleton heading typography (#478)"; kill $PREVIEW_PID; exit 1; }
-	echo "$BLOG_HTML" | grep -q "1 janvier 2025" \
-		|| { echo "❌ /blog date was not formatted using the configured French locale (#478)"; kill $PREVIEW_PID; exit 1; }
+	# #668: the scaffold's base locale is English since #588 — assert the DEFAULT
+	# page in the default locale, and the French page under /fr.
+	EN_DATE=$(node -e "process.stdout.write(new Intl.DateTimeFormat('en',{dateStyle:'long',timeZone:'UTC'}).format(new Date('2025-01-01')))")
+	FR_DATE=$(node -e "process.stdout.write(new Intl.DateTimeFormat('fr',{dateStyle:'long',timeZone:'UTC'}).format(new Date('2025-01-01')))")
+	EN_BACK=$(node -e "const m=require('./messages/en.json');process.stdout.write(m.blog_back_to_blog)")
+	FR_BACK=$(node -e "const m=require('./messages/fr.json');process.stdout.write(m.blog_back_to_blog)")
+	echo "$BLOG_HTML" | grep -qF "$EN_DATE" \
+		|| { echo "❌ /blog date was not formatted with the default (en) locale (#668)"; kill $PREVIEW_PID; exit 1; }
+	FR_BLOG_HTML=$(curl -sf http://localhost:4188/fr/blog) || { echo "❌ /fr/blog not served by preview (#668)"; kill $PREVIEW_PID; exit 1; }
+	echo "$FR_BLOG_HTML" | grep -qF "$FR_DATE" \
+		|| { echo "❌ /fr/blog date was not formatted with the French locale (#668)"; kill $PREVIEW_PID; exit 1; }
+	echo "$FR_BLOG_HTML" | grep -q "Welcome to your blog" \
+		|| { echo "❌ /fr/blog list lacks the post title (#668)"; kill $PREVIEW_PID; exit 1; }
 	POST_HTML=$(curl -sf http://localhost:4188/blog/welcome) || { echo "❌ /blog/welcome not served by preview (#293)"; kill $PREVIEW_PID; exit 1; }
 	echo "$POST_HTML" | grep -q "Welcome!" \
 		|| { echo "❌ /blog/welcome lacks the markdown h1 (#293)"; kill $PREVIEW_PID; exit 1; }
-	echo "$POST_HTML" | grep -q "Retour au blog" \
-		|| { echo "❌ /blog/welcome lacks the localized French back link (#478)"; kill $PREVIEW_PID; exit 1; }
+	echo "$POST_HTML" | grep -qF "$EN_BACK" \
+		|| { echo "❌ /blog/welcome lacks the default (en) back link (#668)"; kill $PREVIEW_PID; exit 1; }
 	echo "$POST_HTML" | grep -qE 'class="[^"]*anchor[^"]*"' \
 		|| { echo "❌ blog back link does not use Skeleton anchor typography (#478)"; kill $PREVIEW_PID; exit 1; }
-	echo "$POST_HTML" | grep -q "1 janvier 2025" \
-		|| { echo "❌ article date was not formatted using the configured French locale (#478)"; kill $PREVIEW_PID; exit 1; }
+	echo "$POST_HTML" | grep -qF "$EN_DATE" \
+		|| { echo "❌ article date was not formatted with the default (en) locale (#668)"; kill $PREVIEW_PID; exit 1; }
+	FR_POST_HTML=$(curl -sf http://localhost:4188/fr/blog/welcome) || { echo "❌ /fr/blog/welcome not served by preview (#668)"; kill $PREVIEW_PID; exit 1; }
+	echo "$FR_POST_HTML" | grep -qF "$FR_BACK" \
+		|| { echo "❌ /fr/blog/welcome lacks the localized French back link (#668)"; kill $PREVIEW_PID; exit 1; }
+	echo "$FR_POST_HTML" | grep -qF "$FR_DATE" \
+		|| { echo "❌ /fr/blog/welcome date was not formatted with the French locale (#668)"; kill $PREVIEW_PID; exit 1; }
 	echo "$POST_HTML" | grep -q "MDsveX features" \
 		|| { echo "❌ /blog/welcome lacks the markdown body (#293)"; kill $PREVIEW_PID; exit 1; }
 	echo "$POST_HTML" | grep -q "Count:" \

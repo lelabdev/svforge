@@ -22804,7 +22804,7 @@
       "label": "fail()",
       "file_type": "code",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L953",
+      "source_location": "L969",
       "metadata": {
         "language": "bash",
         "kind": "bash_function"
@@ -79665,7 +79665,7 @@
       "relation": "defines",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L953",
+      "source_location": "L969",
       "weight": 1,
       "_origin": "ast"
     },
@@ -79675,7 +79675,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "scripts/test-scaffold.sh",
-      "source_location": "L961",
+      "source_location": "L977",
       "weight": 1,
       "context": "call",
       "_origin": "ast"
@@ -83788,6 +83788,17 @@
       "source": "tests_blog_i18n_test",
       "target": "tests_helpers",
       "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/blog-i18n.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_blog_i18n_test",
+      "target": "tests_helpers_root",
+      "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "tests/blog-i18n.test.ts",

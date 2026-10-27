@@ -1012,7 +1012,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "57152c79f5395fad902c71ca15255d40",
+    "ast_hash": "22c9ae8f744f73a8399fd8ed92e7a8d3",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1688,7 +1688,7 @@
     "semantic_hash": ""
   },
   "tests/blog-i18n.test.ts": {
-    "ast_hash": "a9152ad5be03830c4e8348f54c2553e6",
+    "ast_hash": "2d1382f9ba22c9a1259cb15115106946",
     "semantic_hash": ""
   },
   "packages/blog/templates/src/lib/utils/post-date.ts": {
