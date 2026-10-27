@@ -65,6 +65,24 @@ unresolvable helpers, and a bounded source-only chain that stays scoped.
 6. **Escalation never skips work**: the plan only ever moves from `selected` to `all` builds; the test selection is untouched.
 7. Resolution stays pure and testable: `distRequirementsForSource()`, `distRequirementsForFile()`, `distInventory()` and `planBuildSet()` are exported from `scripts/affected-scope.mjs`; `scripts/ci/affected-step.mjs` only translates the plan into CI outputs.
 
+## Scope-aware inventory guards (#656)
+
+The formerly global guards no longer demand every workspace's `dist`; they
+verify the run's **declared build set**:
+
+- `tests/helpers/build-scope.ts` reads `SVFORGE_BUILD_WORKSPACES` (exported by
+  the CI build step for a scoped build; absent or `all` → every workspace, which
+  is also the local/full behaviour). It throws on an unknown or empty set, so a
+  typo fails loudly instead of shrinking the guard.
+- `structure`, `modules`, `build` and `cli-create` verify each built workspace
+  (add-on entry, `dist/index.js`, option registry) and keep their source-level
+  contracts for every package. `cli-create` still asserts that EVERY module
+  declares its add-on options; only the dist comparison is scoped.
+- The resolver recognises these files (`helpers/build-scope`) as *scope-aware*
+  and stops treating them as unbounded; guards that genuinely need all artifacts
+  or spawn packaging/CLI processes (`addon-packaging`, `user-journey`, `real-bin`,
+  `changesets`, `package-entry`, the canaries) keep escalating to a full build.
+
 ## Scenarios that still require a full build
 
 - Any change to root config, workflows, `scripts/`, lockfile, release metadata or an unknown path (resolver-level full scope).

@@ -712,7 +712,16 @@ describe('addon options registry contract (#417)', () => {
 		const { MODULES } = await import('../packages/svforge/src/module-composition');
 		const { join } = await import('node:path');
 		const { ROOT } = await import('./helpers');
+		const { builtWorkspaceDirs, buildScope } = await import('./helpers/build-scope');
+		// #656: the source contract (every module declares its options) always
+		// applies; the DIST comparison covers the add-ons this run compiled.
 		for (const [id, meta] of Object.entries(MODULES)) {
+			expect(meta.addonOptions ?? {}, `${id} must declare its add-on options`).toBeDefined();
+		}
+		const built = builtWorkspaceDirs();
+		expect(built.length, `build scope (${buildScope().mode}) must not be empty`).toBeGreaterThan(0);
+		for (const [id, meta] of Object.entries(MODULES)) {
+			if (!built.includes(id)) continue;
 			const distPath = join(ROOT, 'packages', id, 'dist', 'index.js');
 			const addon = await import(distPath);
 			const defaults: Record<string, unknown> = {};

@@ -1088,7 +1088,7 @@
     "semantic_hash": ""
   },
   "tests/build.test.ts": {
-    "ast_hash": "1c825014fd96121da6ef1f60f41c7cad",
+    "ast_hash": "a1aecfa24d0813b69fb1b45b817c8a7a",
     "semantic_hash": ""
   },
   "tests/bun-run-check.test.ts": {
@@ -1220,7 +1220,7 @@
     "semantic_hash": ""
   },
   "tests/modules.test.ts": {
-    "ast_hash": "5869a248f2e756e265e39204eeba9e9f",
+    "ast_hash": "107b25cbd5849c62233118b5675930c4",
     "semantic_hash": ""
   },
   "tests/multi-addon-compose.test.ts": {
@@ -1320,7 +1320,7 @@
     "semantic_hash": ""
   },
   "tests/structure.test.ts": {
-    "ast_hash": "4eb56e928a8da85c510cac7d9e4b55f6",
+    "ast_hash": "40105fe79be9606bebdc9221db77abb5",
     "semantic_hash": ""
   },
   "tests/stubs/app/environment.ts": {
@@ -1404,7 +1404,7 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "f21acbb3b72f54495b5d4f1bc62bb98e",
+    "ast_hash": "ec1b7e7f4c0c9999e6667b457f382281",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
@@ -1564,7 +1564,7 @@
     "semantic_hash": ""
   },
   "tests/cli-create.test.ts": {
-    "ast_hash": "cdcb20ed953dc34815f55c298c929506",
+    "ast_hash": "3ac9a7d32fc4961f9e70f36a7b0362ae",
     "semantic_hash": ""
   },
   "tests/module-resolver.test.ts": {
@@ -2148,11 +2148,11 @@
     "semantic_hash": ""
   },
   "scripts/affected-scope.mjs": {
-    "ast_hash": "12640794340f063dab44587765f5b1cd",
+    "ast_hash": "25144d2862e7bd8f39168852db34bacb",
     "semantic_hash": ""
   },
   "tests/affected-scope.test.ts": {
-    "ast_hash": "47c13ffc80aabe26b9e81e6a555f14f0",
+    "ast_hash": "e05792b169d49b59beaa76574fa835e4",
     "semantic_hash": ""
   },
   "scripts/ci/affected-step.mjs": {
@@ -2160,7 +2160,7 @@
     "semantic_hash": ""
   },
   "tests/ci-affected-step.test.ts": {
-    "ast_hash": "f2559e7b6accf950cd12ca0c1d57f46c",
+    "ast_hash": "d87386346b9b67f403bd2501fdce30a2",
     "semantic_hash": ""
   },
   "scripts/ci/measure-ci.mjs": {
@@ -2364,7 +2364,11 @@
     "semantic_hash": ""
   },
   "docs/ci-affected-scope.md": {
-    "ast_hash": "8a5707ccb067d3e6aa4c41e8d3597844",
+    "ast_hash": "92a11a4468a8f9939d891dab5b4811e4",
+    "semantic_hash": ""
+  },
+  "tests/helpers/build-scope.ts": {
+    "ast_hash": "8e41ea5e8e1621cfc28b426ce746d9aa",
     "semantic_hash": ""
   }
 }

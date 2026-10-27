@@ -336,15 +336,22 @@ describe('test-to-dist dependency model (#656)', () => {
 		).toBe('all');
 	});
 
-	it('keeps the repository inventory consumers on a full build (regression fixtures)', () => {
+	it('classifies the repository inventory guards as scope-aware (#656)', () => {
+		// The inventory guards verify the run's DECLARED build set through
+		// tests/helpers/build-scope.ts, so they no longer force a full build.
 		const inventory = distInventory(ROOT, workspaces);
 		for (const file of [
 			'tests/structure.test.ts',
 			'tests/cli-create.test.ts',
-			'tests/package-entry.test.ts',
 			'tests/modules.test.ts',
 			'tests/build.test.ts'
 		]) {
+			expect(inventory.get(file)?.kind, `${file} must stay bounded`).toBe('selected');
+			expect(inventory.get(file)?.reason).toContain('scope-aware');
+		}
+		// Guards that genuinely need built artifacts of every workspace (or spawn
+		// packaging/CLI subprocesses) keep escalating to a full build.
+		for (const file of ['tests/addon-packaging.test.ts', 'tests/user-journey.test.ts', 'tests/real-bin.test.ts']) {
 			expect(inventory.get(file)?.kind, `${file} must require a full build`).toBe('all');
 		}
 		// Source-only tests do not appear in the inventory at all.
@@ -366,11 +373,11 @@ describe('test-to-dist dependency model (#656)', () => {
 			root: ROOT,
 			workspaces,
 			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
-			testFiles: ['tests/blog-date.test.ts', 'tests/structure.test.ts']
+			testFiles: ['tests/blog-date.test.ts', 'tests/addon-packaging.test.ts']
 		});
 		expect(escalated.build).toBe('all');
 		expect(escalated.buildDirs).toEqual([]);
-		expect(escalated.reason).toContain('tests/structure.test.ts');
+		expect(escalated.reason).toContain('tests/addon-packaging.test.ts');
 	});
 
 	it('escalates when a bounded consumer needs a workspace outside the scoped order', () => {

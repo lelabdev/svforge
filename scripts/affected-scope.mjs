@@ -18,6 +18,9 @@
  * - release metadata (`.changeset/**`, package `package.json`/`CHANGELOG.md`)
  *   is full scope: a `Version Packages` PR must never be treated as docs-only;
  * - documentation-only paths select no workspace/test;
+ * - a scoped BUILD is only proposed when every selected test's built-artifact
+ *   requirement is inside the computed order (#656); repository meta-tests that
+ *   dynamically load repository files remain unbounded on purpose;
  * - tests are owned by the workspaces their imports reference (derived, not
  *   guessed by a `packages/foo` glob over the whole file tree);
  * - an unknown path or a detector failure fails closed to full scope.
@@ -376,10 +379,23 @@ export function distRequirementsForSource(source, workspaces) {
 		const escaped = workspace.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		return new RegExp(`(?:from\\s+|import\\(|require\\()\\s*['"]${escaped}['"]`).test(normalized);
 	});
+	// #656: repository guards that inspect built output use the build-scope
+	// helper instead of demanding every workspace; they declare their
+	// requirement as "the run's declared build set" (CI derives it from this
+	// plan, and the helper throws on an unknown or empty scope).
+	if (/helpers\/build-scope/.test(normalized)) {
+		return { kind: 'selected', workspaces: [], reason: 'scope-aware inventory guard (verifies the declared build set)' };
+	}
 	// #656 B-02: a NON-LITERAL dynamic import/require can load any compiled
 	// package at runtime (`await import(packageName)`), so it is unbounded
 	// BEFORE any "does this file mention dist?" shortcut. Detection must not
 	// depend on the file also containing a literal dist reference.
+	//
+	// Exception: a template that provably targets a workspace SOURCE tree
+	// (`…/src/…`) never resolves to built output.
+	if (/\bimport\(\s*`[^`]*\$\{[^`]*\/src\//.test(normalized)) {
+		return { kind: 'selected', workspaces: [], reason: 'dynamic import of workspace source (no dist requirement)' };
+	}
 	if (
 		/\bimport\(\s*[^'"`)\s]/.test(normalized) ||
 		/\bimport\(\s*`[^`]*\$\{/.test(normalized) ||
@@ -448,6 +464,9 @@ const IMPORT_EXTENSIONS = ['', '.ts', '.js', '.mjs', '.cjs', '.json', '/index.ts
 /** Relative import/require/re-export specifiers of one source text. */
 export function localImportSpecifiers(source) {
 	const specifiers = new Set();
+	// Fixture helpers embed generated-file source in template literals; those
+	// strings are asserted data, not imports of this file.
+	const withoutTemplates = String(source ?? '').replace(/`(?:[^`\\]|\\.)*`/g, '""');
 	const patterns = [
 		// Statements may share a line (`import …; export … from …;`).
 		/(?:^|[;\n])\s*(?:import|export)\s[^'"`;]*?from\s*['"]([^'"]+)['"]/g,
@@ -456,7 +475,7 @@ export function localImportSpecifiers(source) {
 		/\brequire\(\s*['"]([^'"]+)['"]\s*\)/g
 	];
 	for (const pattern of patterns) {
-		for (const match of String(source ?? '').matchAll(pattern)) {
+		for (const match of withoutTemplates.matchAll(pattern)) {
 			if (match[1].startsWith('.')) specifiers.add(match[1]);
 		}
 	}
@@ -512,6 +531,12 @@ export function distRequirementsForFile(root, file, workspaces) {
 			visited.set(relativePath, own);
 			return own;
 		}
+		// A scope-aware guard verifies the run's declared build set: its own
+		// tooling (e.g. scripts/affected-scope.mjs) is not a dist consumer.
+		if (own.reason?.startsWith('scope-aware')) {
+			visited.set(relativePath, own);
+			return own;
+		}
 		const required = new Set(own.workspaces);
 		if (follow) {
 			for (const specifier of localImportSpecifiers(source)) {
@@ -550,9 +575,11 @@ export function distInventory(root, workspaces) {
 			else if (entry.name.endsWith('.test.ts')) {
 				const relative = toPosix(full.slice(root.length + 1));
 				const requirement = distRequirementsForFile(root, relative, workspaces);
-				if (requirement.kind === 'all' || requirement.workspaces.length > 0) {
-					inventory.set(relative, requirement);
-				}
+				const isConsumer =
+					requirement.kind === 'all' ||
+					requirement.workspaces.length > 0 ||
+					(requirement.reason ?? '').startsWith('scope-aware');
+				if (isConsumer) inventory.set(relative, requirement);
 			}
 		}
 	};

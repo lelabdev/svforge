@@ -20299,7 +20299,7 @@
       "label": "GLOBAL_PREFIXES",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L36",
+      "source_location": "L39",
       "_origin": "ast"
     },
     {
@@ -20307,7 +20307,7 @@
       "label": "GLOBAL_FILES",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L42",
+      "source_location": "L45",
       "_origin": "ast"
     },
     {
@@ -20315,7 +20315,7 @@
       "label": "RELEASE_METADATA_PREFIXES",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L56",
+      "source_location": "L59",
       "_origin": "ast"
     },
     {
@@ -20323,7 +20323,7 @@
       "label": "DOCS_PREFIXES",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L59",
+      "source_location": "L62",
       "_origin": "ast"
     },
     {
@@ -20331,7 +20331,7 @@
       "label": "ARTIFACT_PREFIXES",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L62",
+      "source_location": "L65",
       "_origin": "ast"
     },
     {
@@ -20339,7 +20339,7 @@
       "label": "DOCS_FILES",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L63",
+      "source_location": "L66",
       "_origin": "ast"
     },
     {
@@ -20347,7 +20347,7 @@
       "label": "toPosix()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L65",
+      "source_location": "L68",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20356,7 +20356,7 @@
       "label": "loadWorkspaces()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L70",
+      "source_location": "L73",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20365,7 +20365,7 @@
       "label": "reverseDependencies()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L93",
+      "source_location": "L96",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20374,7 +20374,7 @@
       "label": "classifyPath()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L113",
+      "source_location": "L116",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20383,7 +20383,7 @@
       "label": "deriveTestOwners()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L160",
+      "source_location": "L163",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20392,7 +20392,7 @@
       "label": "changedFiles()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L191",
+      "source_location": "L194",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20401,7 +20401,7 @@
       "label": "buildOrderFor()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L212",
+      "source_location": "L215",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20410,7 +20410,7 @@
       "label": "computeAffectedScope()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L254",
+      "source_location": "L257",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20419,7 +20419,7 @@
       "label": "UNBOUNDED_DIST_PATTERNS",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L355",
+      "source_location": "L358",
       "_origin": "ast"
     },
     {
@@ -20427,7 +20427,7 @@
       "label": "distRequirementsForSource()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L370",
+      "source_location": "L373",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20436,7 +20436,7 @@
       "label": "IMPORT_EXTENSIONS",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L446",
+      "source_location": "L462",
       "_origin": "ast"
     },
     {
@@ -20444,7 +20444,7 @@
       "label": "localImportSpecifiers()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L449",
+      "source_location": "L465",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20453,7 +20453,7 @@
       "label": "resolveLocalImport()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L467",
+      "source_location": "L486",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20462,7 +20462,7 @@
       "label": "distRequirementsForFile()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L491",
+      "source_location": "L510",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20471,7 +20471,7 @@
       "label": "distInventory()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L544",
+      "source_location": "L569",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20480,7 +20480,7 @@
       "label": "planBuildSet()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L572",
+      "source_location": "L599",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20489,7 +20489,7 @@
       "label": "detectorFailureScope()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L599",
+      "source_location": "L626",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20498,7 +20498,7 @@
       "label": "formatScope()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L614",
+      "source_location": "L641",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20507,7 +20507,7 @@
       "label": "parseArgs()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L638",
+      "source_location": "L665",
       "_callable": true,
       "_origin": "ast"
     },
@@ -20516,7 +20516,7 @@
       "label": "runCli()",
       "file_type": "code",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L655",
+      "source_location": "L682",
       "_callable": true,
       "_origin": "ast"
     },
@@ -23715,7 +23715,7 @@
       "label": "project()",
       "file_type": "code",
       "source_file": "tests/affected-scope.test.ts",
-      "source_location": "L413",
+      "source_location": "L420",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24327,7 +24327,7 @@
       "label": "root",
       "file_type": "code",
       "source_file": "tests/build.test.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "_origin": "ast"
     },
     {
@@ -24852,7 +24852,7 @@
       "label": "dashboardSpawn()",
       "file_type": "code",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L751",
+      "source_location": "L760",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24861,7 +24861,7 @@
       "label": "prompt()",
       "file_type": "code",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L764",
+      "source_location": "L773",
       "_callable": true,
       "_origin": "ast"
     },
@@ -24870,7 +24870,7 @@
       "label": "run()",
       "file_type": "code",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L774",
+      "source_location": "L783",
       "_callable": true,
       "_origin": "ast"
     },
@@ -25762,6 +25762,42 @@
       "_origin": "ast"
     },
     {
+      "id": "tests_helpers_build_scope",
+      "label": "build-scope.ts",
+      "file_type": "code",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L1",
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_helpers_build_scope_buildscope",
+      "label": "BuildScope",
+      "file_type": "code",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L20",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_helpers_build_scope_builtworkspacedirs",
+      "label": "builtWorkspaceDirs()",
+      "file_type": "code",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L49",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
+      "id": "tests_helpers_build_scope_isbuiltworkspace",
+      "label": "isBuiltWorkspace()",
+      "file_type": "code",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L54",
+      "_callable": true,
+      "_origin": "ast"
+    },
+    {
       "id": "tests_helpers_bun",
       "label": "bun.ts",
       "file_type": "code",
@@ -26495,7 +26531,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "tests/modules.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "_origin": "ast"
     },
     {
@@ -27832,7 +27868,7 @@
       "label": "ROOT",
       "file_type": "code",
       "source_file": "tests/structure.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "_origin": "ast"
     },
     {
@@ -31693,12 +31729,21 @@
       "_origin": "ast"
     },
     {
+      "id": "docs_ci_affected_scope_scope_aware_inventory_guards_656",
+      "label": "Scope-aware inventory guards (#656)",
+      "file_type": "document",
+      "node_kind": "heading",
+      "source_file": "docs/ci-affected-scope.md",
+      "source_location": "L68",
+      "_origin": "ast"
+    },
+    {
       "id": "docs_ci_affected_scope_scenarios_that_still_require_a_full_build",
       "label": "Scenarios that still require a full build",
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/ci-affected-scope.md",
-      "source_location": "L68",
+      "source_location": "L86",
       "_origin": "ast"
     },
     {
@@ -31707,7 +31752,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/ci-affected-scope.md",
-      "source_location": "L75",
+      "source_location": "L93",
       "_origin": "ast"
     },
     {
@@ -31716,7 +31761,7 @@
       "file_type": "document",
       "node_kind": "heading",
       "source_file": "docs/ci-affected-scope.md",
-      "source_location": "L87",
+      "source_location": "L105",
       "_origin": "ast"
     },
     {
@@ -37209,6 +37254,15 @@
     {
       "id": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_674_phase3_packages_jobs_templates_src_lib_server_test_db",
       "label": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_674_phase3_packages_jobs_templates_src_lib_server_test_db",
+      "file_type": "concept",
+      "type": "external",
+      "external": true,
+      "source_file": "",
+      "_origin": "semantic"
+    },
+    {
+      "id": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_656_targeted_packages_jobs_templates_src_lib_server_test_db",
+      "label": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_656_targeted_packages_jobs_templates_src_lib_server_test_db",
       "file_type": "concept",
       "type": "external",
       "external": true,
@@ -46406,7 +46460,7 @@
     },
     {
       "source": "packages_jobs_templates_src_lib_server_jobs_jobs_claim_test",
-      "target": "repo_packages_jobs_templates_src_lib_server_test_db",
+      "target": "home_loops_1dev_nvme_projects_svforge_hub_svforge_worktrees_656_targeted_packages_jobs_templates_src_lib_server_test_db",
       "relation": "imports_from",
       "context": "import",
       "deferred": true,
@@ -74122,7 +74176,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L30",
+      "source_location": "L33",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74133,7 +74187,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L31",
+      "source_location": "L34",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74144,7 +74198,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L32",
+      "source_location": "L35",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74155,7 +74209,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L33",
+      "source_location": "L36",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74165,7 +74219,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L36",
+      "source_location": "L39",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74175,7 +74229,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L42",
+      "source_location": "L45",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74185,7 +74239,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L56",
+      "source_location": "L59",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74195,7 +74249,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L59",
+      "source_location": "L62",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74205,7 +74259,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L62",
+      "source_location": "L65",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74215,7 +74269,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L63",
+      "source_location": "L66",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74225,7 +74279,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L65",
+      "source_location": "L68",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74235,7 +74289,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L70",
+      "source_location": "L73",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74245,7 +74299,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L93",
+      "source_location": "L96",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74255,7 +74309,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L113",
+      "source_location": "L116",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74265,7 +74319,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L160",
+      "source_location": "L163",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74275,7 +74329,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L191",
+      "source_location": "L194",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74285,7 +74339,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L212",
+      "source_location": "L215",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74295,7 +74349,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L254",
+      "source_location": "L257",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74305,7 +74359,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L355",
+      "source_location": "L358",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74315,7 +74369,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L370",
+      "source_location": "L373",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74325,7 +74379,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L446",
+      "source_location": "L462",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74335,7 +74389,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L449",
+      "source_location": "L465",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74345,7 +74399,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L467",
+      "source_location": "L486",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74355,7 +74409,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L491",
+      "source_location": "L510",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74365,7 +74419,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L544",
+      "source_location": "L569",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74375,7 +74429,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L572",
+      "source_location": "L599",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74385,7 +74439,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L599",
+      "source_location": "L626",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74395,7 +74449,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L614",
+      "source_location": "L641",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74405,7 +74459,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L638",
+      "source_location": "L665",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74415,7 +74469,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L655",
+      "source_location": "L682",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74426,7 +74480,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L114",
+      "source_location": "L117",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74437,7 +74491,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L169",
+      "source_location": "L172",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74448,7 +74502,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L264",
+      "source_location": "L267",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74459,7 +74513,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L272",
+      "source_location": "L275",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74470,7 +74524,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L278",
+      "source_location": "L281",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74481,7 +74535,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L319",
+      "source_location": "L322",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74492,7 +74546,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L472",
+      "source_location": "L491",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74503,7 +74557,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L510",
+      "source_location": "L529",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74514,7 +74568,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L517",
+      "source_location": "L542",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74525,7 +74579,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L518",
+      "source_location": "L543",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74536,7 +74590,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L551",
+      "source_location": "L576",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74547,7 +74601,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L552",
+      "source_location": "L577",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74558,7 +74612,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L583",
+      "source_location": "L610",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74569,7 +74623,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L656",
+      "source_location": "L683",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74580,7 +74634,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L657",
+      "source_location": "L684",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74591,7 +74645,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L661",
+      "source_location": "L688",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74602,7 +74656,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L662",
+      "source_location": "L689",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74613,7 +74667,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L663",
+      "source_location": "L690",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74624,7 +74678,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L665",
+      "source_location": "L692",
       "weight": 1,
       "_origin": "ast"
     },
@@ -74635,7 +74689,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "scripts/affected-scope.mjs",
-      "source_location": "L668",
+      "source_location": "L695",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82408,7 +82462,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/affected-scope.test.ts",
-      "source_location": "L413",
+      "source_location": "L420",
       "weight": 1,
       "_origin": "ast"
     },
@@ -82430,7 +82484,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/affected-scope.test.ts",
-      "source_location": "L426",
+      "source_location": "L433",
       "weight": 1,
       "_origin": "ast"
     },
@@ -84733,11 +84787,33 @@
     },
     {
       "source": "tests_build_test",
+      "target": "tests_helpers_build_scope",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/build.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_build_test",
+      "target": "tests_helpers_build_scope_builtworkspacedirs",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/build.test.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_build_test",
       "target": "tests_build_test_root",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/build.test.ts",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86712,7 +86788,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L751",
+      "source_location": "L760",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86722,7 +86798,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L764",
+      "source_location": "L773",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86732,7 +86808,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L774",
+      "source_location": "L783",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86805,13 +86881,25 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_cli_create_test",
+      "target": "tests_helpers_build_scope",
+      "relation": "imports_from",
+      "context": "import",
+      "deferred": true,
+      "confidence": "EXTRACTED",
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L715",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_cli_create_test_run",
       "target": "tests_cli_create_test_dashboardspawn",
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L775",
+      "source_location": "L784",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86822,7 +86910,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L787",
+      "source_location": "L796",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86833,7 +86921,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L803",
+      "source_location": "L812",
       "weight": 1,
       "_origin": "ast"
     },
@@ -86844,7 +86932,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L803",
+      "source_location": "L812",
       "weight": 1,
       "_origin": "ast"
     },
@@ -90183,6 +90271,69 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_helpers_build_scope",
+      "target": "scripts_affected_scope",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_build_scope",
+      "target": "scripts_affected_scope_loadworkspaces",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L18",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_build_scope",
+      "target": "tests_helpers_build_scope_buildscope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_build_scope",
+      "target": "tests_helpers_build_scope_builtworkspacedirs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L49",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_build_scope",
+      "target": "tests_helpers_build_scope_isbuiltworkspace",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L54",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_build_scope_isbuiltworkspace",
+      "target": "tests_helpers_build_scope_builtworkspacedirs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L55",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_helpers_bun",
       "target": "ref_node_child_process",
       "relation": "imports_from",
@@ -92497,11 +92648,33 @@
     },
     {
       "source": "tests_modules_test",
+      "target": "tests_helpers_build_scope",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/modules.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_modules_test",
+      "target": "tests_helpers_build_scope_buildscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/modules.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_modules_test",
       "target": "tests_modules_test_root",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/modules.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -97701,11 +97874,33 @@
     },
     {
       "source": "tests_structure_test",
+      "target": "tests_helpers_build_scope",
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/structure.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_structure_test",
+      "target": "tests_helpers_build_scope_buildscope",
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/structure.test.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_structure_test",
       "target": "tests_structure_test_root",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests/structure.test.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1,
       "_origin": "ast"
     },
@@ -104554,7 +104749,7 @@
     },
     {
       "source": "docs_ci_affected_scope_scoping_ci_builds_with_a_complete_dist_dependency_model_656",
-      "target": "docs_ci_affected_scope_scenarios_that_still_require_a_full_build",
+      "target": "docs_ci_affected_scope_scope_aware_inventory_guards_656",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ci-affected-scope.md",
@@ -104564,11 +104759,21 @@
     },
     {
       "source": "docs_ci_affected_scope_scoping_ci_builds_with_a_complete_dist_dependency_model_656",
+      "target": "docs_ci_affected_scope_scenarios_that_still_require_a_full_build",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/ci-affected-scope.md",
+      "source_location": "L86",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "docs_ci_affected_scope_scoping_ci_builds_with_a_complete_dist_dependency_model_656",
       "target": "docs_ci_affected_scope_measuring_on_github_actions_same_sha",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ci-affected-scope.md",
-      "source_location": "L75",
+      "source_location": "L93",
       "weight": 1,
       "_origin": "ast"
     },
@@ -104578,7 +104783,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "docs/ci-affected-scope.md",
-      "source_location": "L87",
+      "source_location": "L105",
       "weight": 1,
       "_origin": "ast"
     },
@@ -109847,6 +110052,18 @@
       "_origin": "ast"
     },
     {
+      "source": "tests_cli_create_test",
+      "target": "tests_helpers_build_scope_builtworkspacedirs",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/cli-create.test.ts",
+      "source_location": "L721",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
       "source": "tests_cli_create_test_run",
       "target": "packages_svforge_src_cli_create_runcreatecommand",
       "relation": "calls",
@@ -109854,7 +110071,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1,
       "source_file": "tests/cli-create.test.ts",
-      "source_location": "L776",
+      "source_location": "L785",
       "weight": 1,
       "_origin": "ast"
     },
@@ -110023,6 +110240,18 @@
       "confidence_score": 1,
       "source_file": "tests/favicon-delivery.test.ts",
       "source_location": "L138",
+      "weight": 1,
+      "_origin": "ast"
+    },
+    {
+      "source": "tests_helpers_build_scope_buildscope",
+      "target": "scripts_affected_scope_loadworkspaces",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1,
+      "source_file": "tests/helpers/build-scope.ts",
+      "source_location": "L31",
       "weight": 1,
       "_origin": "ast"
     },

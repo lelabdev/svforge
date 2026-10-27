@@ -79,17 +79,17 @@ describe('CI scope plan (#570 phase B)', () => {
 		// The #570 phase-C failure: structure/cli-create/package-entry enumerate
 		// all `dist/` outputs, so a scoped build would break them.
 		for (const file of [
-			'tests/structure.test.ts',
-			'tests/cli-create.test.ts',
-			'tests/package-entry.test.ts',
-			'tests/modules.test.ts',
-			'tests/build.test.ts'
+			'tests/addon-packaging.test.ts',
+			'tests/user-journey.test.ts',
+			'tests/real-bin.test.ts',
+			'tests/changesets.test.ts',
+			'tests/package-entry.test.ts'
 		]) {
 			const plan = planCiSteps({ ...targetedScope, tests: { mode: 'selected', files: [file] } }, { targeted: true });
 			expect(plan.build, `${file} must force a full build`).toBe('all');
 			expect(plan.buildDirs).toEqual([]);
 			expect(plan.reason).toMatch(
-				/unbounded dist consumer|uncertain build requirement|dist reference without an identifiable workspace|dynamic import expression/
+				/unbounded dist consumer|uncertain build requirement|dist reference without an identifiable workspace|dynamic import expression|subprocess invocation/
 			);
 		}
 	});
