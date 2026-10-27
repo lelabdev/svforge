@@ -194,11 +194,13 @@ export function applyDashboardMode(
 	// versions. SVForge only declares what its own domain code needs.
 	sv.dependency('zod', '^4.3.5'); // schemas.ts — explicit, not transitive via better-auth (#192)
 
-	// Dashboard-specific Vitest baseline (#180)
+	// Dashboard test baseline (#180). Vitest itself is NOT declared here: the
+	// canonical Base delivery already declares the shared version, and #674
+	// forbids a mode from overriding it. Only the Dashboard-specific testing
+	// libraries are added.
 	sv.devDependency('@testing-library/jest-dom', '^6.9.1');
 	sv.devDependency('@testing-library/svelte', '^5.3.1');
 	sv.devDependency('jsdom', '^29.1.1');
-	sv.devDependency('vitest', '^4.1.5');
 
 	if (testing === 'playwright') {
 		// Full browser profile is explicitly opt-in (#181)

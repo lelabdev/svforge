@@ -162,12 +162,16 @@ describe('every showcase demo page compiles (#586)', () => {
 			.filter((file) => file.endsWith('/+page.svelte'));
 
 		expect(demoPages.length).toBeGreaterThanOrEqual(5);
+		const withWarnings: string[] = [];
 		for (const file of demoPages) {
-			expect(
-				() => compile(readFileSync(file, 'utf-8'), { filename: file, generate: 'server' }),
-				`${file.slice(ROOT.length + 1)} must compile`
-			).not.toThrow();
+			const result = compile(readFileSync(file, 'utf-8'), { filename: file, generate: 'server' });
+			for (const warning of result.warnings) {
+				withWarnings.push(`${file.slice(ROOT.length + 1)}: ${warning.code} — ${warning.message.split('\n')[0]}`);
+			}
 		}
+		// A generated project must not ship compiler warnings: the a11y checks
+		// caught a drop zone without a role in the uploads demo (#674 validation).
+		expect(withWarnings, `showcase demo warnings: ${withWarnings.join('; ')}`).toEqual([]);
 	});
 });
 

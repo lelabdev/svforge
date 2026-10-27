@@ -110,7 +110,12 @@
 	<Card>
 		<p class="mb-4 text-sm text-surface-700-300">{m.showcase_uploads_hint()}</p>
 
+		<!-- The drop target is a supplementary surface: the file input below is the
+		     accessible control, so the zone is a labelled group rather than a
+		     keyboard-interactive element of its own. -->
 		<div
+			role="group"
+			aria-label={m.showcase_uploads_choose()}
 			class="rounded-container border border-dashed border-surface-300-700 p-6 text-center"
 			ondragover={(event) => event.preventDefault()}
 			ondrop={onDrop}
