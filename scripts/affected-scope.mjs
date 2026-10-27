@@ -355,16 +355,16 @@ export function computeAffectedScope({ changes, workspaces, testOwners, forceFul
  * Only applied to files that already mention `dist`: returning "all" for a
  * bounded consumer costs a full build, never a skipped test.
  */
-const UNBOUNDED_DIST_PATTERNS = [
-	/readdirSync\(/,
+/** Artifact signals that are unbounded on their own (no dist context needed). */
+const ARTIFACT_PATTERNS = [
 	/packages\/\$\{/,
 	/import\(`[^`]*\$\{/,
 	/--filter\s+'?\*'?/,
 	/npm\s+pack|bun\s+pack|pnpm\s+pack/,
-	/bin\/svforge\.mjs/,
-	/['"]packages['"]/,
-	/\bPACKAGES\b/
+	/bin\/svforge\.mjs/
 ];
+/** Enumeration of the packages tree: unbounded only with dist context. */
+const ENUMERATION_PATTERNS = [/readdirSync\(/, /['"]packages['"]/, /\bPACKAGES\b/];
 
 /**
  * Built-artifact requirements of one source text.
@@ -372,6 +372,7 @@ const UNBOUNDED_DIST_PATTERNS = [
  */
 export function distRequirementsForSource(source, workspaces) {
 	const normalized = String(source ?? '');
+	const all = (reason) => ({ kind: 'all', workspaces: workspaces.map((workspace) => workspace.name), reason });
 	// `dist/`, `dist/index.js`, `distPath`, `'dist'`… count. A plain identifier
 	// such as `readDist` does not: it names a helper, not built output.
 	const mentionsDist = /dist(?:[/'"`.,)\s(]|Path|File|Dir|Entry|Output|Build)/.test(normalized);
@@ -379,81 +380,87 @@ export function distRequirementsForSource(source, workspaces) {
 		const escaped = workspace.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		return new RegExp(`(?:from\\s+|import\\(|require\\()\\s*['"]${escaped}['"]`).test(normalized);
 	});
-	// #656: repository guards that inspect built output use the build-scope
-	// helper instead of demanding every workspace; they declare their
-	// requirement as "the run's declared build set" (CI derives it from this
-	// plan, and the helper throws on an unknown or empty scope).
-	if (/helpers\/build-scope/.test(normalized)) {
-		return { kind: 'selected', workspaces: [], reason: 'scope-aware inventory guard (verifies the declared build set)' };
+
+	// A guard that verifies the run's DECLARED build set (tests/helpers/
+	// build-scope.ts). This narrows ONLY the enumeration rule below: every other
+	// signal (dynamic imports, subprocesses, guarded assertions, explicit dist
+	// requirements) is still evaluated, and its imports are still followed.
+	const inventoryScoped = /helpers\/build-scope/.test(normalized);
+
+	// ── 1. Runtime-first uncertainty checks (never suppressed by any shortcut) ──
+	// A template dynamic import that PROVABLY targets a workspace `src/` tree is
+	// source-only: strip those occurrences, then anything dynamic that remains is
+	// unbounded (#656 B-01: an exception must not hide other statements).
+	const withoutSourceTemplates = normalized.replace(
+		/\bimport\(\s*`[^`]*\$\{[^`]*\/src\/[^`]*`\s*\)/g,
+		'/* source import */'
+	);
+	const dynamicImport =
+		/\bimport\(\s*[^'"`)\s]/.test(withoutSourceTemplates) ||
+		/\bimport\(\s*`[^`]*\$\{/.test(withoutSourceTemplates) ||
+		/\brequire\(\s*[^'"`)\s]/.test(withoutSourceTemplates);
+	if (dynamicImport) {
+		// Applies to scope-aware guards too (#656 B-01): a non-literal import can
+		// load any compiled package, whatever else the file verifies.
+		return all('dynamic import expression (unbounded)');
 	}
-	// #656 B-02: a NON-LITERAL dynamic import/require can load any compiled
-	// package at runtime (`await import(packageName)`), so it is unbounded
-	// BEFORE any "does this file mention dist?" shortcut. Detection must not
-	// depend on the file also containing a literal dist reference.
-	//
-	// Exception: a template that provably targets a workspace SOURCE tree
-	// (`…/src/…`) never resolves to built output.
-	if (/\bimport\(\s*`[^`]*\$\{[^`]*\/src\//.test(normalized)) {
-		return { kind: 'selected', workspaces: [], reason: 'dynamic import of workspace source (no dist requirement)' };
-	}
-	if (
-		/\bimport\(\s*[^'"`)\s]/.test(normalized) ||
-		/\bimport\(\s*`[^`]*\$\{/.test(normalized) ||
-		/\brequire\(\s*[^'"`)\s]/.test(normalized)
-	) {
-		return {
-			kind: 'all',
-			workspaces: workspaces.map((workspace) => workspace.name),
-			reason: 'dynamic import expression (unbounded)'
-		};
-	}
-	// A subprocess that can install, build or invoke the CLI is equally
-	// unbounded: it may require artifacts the static text never names.
+	// A subprocess that can install, build or invoke the CLI may require
+	// artifacts the static text never names.
 	if (/(?:execFileSync|execSync|spawnSync|spawn|exec)\([\s\S]{0,300}(?:\bnpm\b|\bpnpm\b|\byarn\b|\bbun(?:x)?\b|svforge\.mjs|bin\/|--filter)/.test(normalized)) {
-		return {
-			kind: 'all',
-			workspaces: workspaces.map((workspace) => workspace.name),
-			reason: 'subprocess invocation (unbounded)'
-		};
+		return all('subprocess invocation (unbounded)');
 	}
-	if (!mentionsDist && importsBuiltName.length === 0) {
-		return { kind: 'selected', workspaces: [], reason: 'no built-artifact consumer' };
-	}
-	for (const pattern of UNBOUNDED_DIST_PATTERNS) {
-		if (pattern.test(normalized)) {
-			return {
-				kind: 'all',
-				workspaces: workspaces.map((workspace) => workspace.name),
-				reason: 'unbounded dist consumer (dynamic enumeration / packaging)'
-			};
-		}
-	}
-	// A test that REFUSES to assert when a dist artifact is missing (a `return`
-	// guard around `existsSync(...dist...)`) proves nothing when the build set
-	// omitted that workspace: its requirement is uncertain → full build.
+	// A test that REFUSES to assert when a dist artifact is missing proves
+	// nothing when the build set omitted that workspace → uncertain.
 	if (/existsSync\([^)]*dist[^)]*\)[\s\S]{0,120}\breturn\b/.test(normalized)) {
-		return {
-			kind: 'all',
-			workspaces: workspaces.map((workspace) => workspace.name),
-			reason: 'conditional dist assertion (uncertain build requirement)'
-		};
+		return all('conditional dist assertion (uncertain build requirement)');
 	}
+
+	// ── 2. Explicit built-artifact requirements accumulated from THIS file ──
 	const required = new Set();
 	if (mentionsDist) {
 		for (const workspace of workspaces) {
 			if (normalized.includes(workspace.prefix)) required.add(workspace.name);
 		}
-		// A `dist` reference that names no workspace is unbounded: fail closed.
-		if (required.size === 0) {
-			return {
-				kind: 'all',
-				workspaces: workspaces.map((workspace) => workspace.name),
-				reason: 'dist reference without an identifiable workspace'
-			};
-		}
 	}
 	for (const workspace of importsBuiltName) required.add(workspace.name);
-	return { kind: 'selected', workspaces: [...required].sort(), reason: 'bounded dist consumer' };
+
+	// ── 3. Inventory/enumeration patterns ──
+	// A guard that verifies the run's DECLARED build set through
+	// tests/helpers/build-scope.ts is allowed to enumerate the build plan; every
+	// other enumeration is unbounded. This narrows only the enumeration rule —
+	// the file's other statements were already checked above and its imports are
+	// still followed by distRequirementsForFile().
+	if (!inventoryScoped) {
+		for (const pattern of ARTIFACT_PATTERNS) {
+			if (pattern.test(normalized)) return all('unbounded dist consumer (dynamic enumeration / packaging)');
+		}
+		// Enumerating the packages tree is only unbounded when the same file also
+		// works with built artifacts; a helper that merely locates template
+		// directories does not constrain the build.
+		if (mentionsDist) {
+			for (const pattern of ENUMERATION_PATTERNS) {
+				if (pattern.test(normalized)) return all('unbounded dist consumer (dynamic enumeration / packaging)');
+			}
+		}
+	}
+	// A `dist` reference that names no workspace is unbounded: fail closed.
+	if (mentionsDist && required.size === 0 && !inventoryScoped) {
+		return all('dist reference without an identifiable workspace');
+	}
+	if (required.size === 0 && !mentionsDist && importsBuiltName.length === 0) {
+		return {
+			kind: 'selected',
+			workspaces: [],
+			reason: inventoryScoped
+				? 'scope-aware inventory guard (verifies the declared build set)'
+				: 'no built-artifact consumer'
+		};
+	}
+	return {
+		kind: 'selected',
+		workspaces: [...required].sort(),
+		reason: inventoryScoped ? 'scope-aware inventory guard (verifies the declared build set)' : 'bounded dist consumer'
+	};
 }
 
 /** Extensions tried when a relative import omits one. */
@@ -531,12 +538,6 @@ export function distRequirementsForFile(root, file, workspaces) {
 			visited.set(relativePath, own);
 			return own;
 		}
-		// A scope-aware guard verifies the run's declared build set: its own
-		// tooling (e.g. scripts/affected-scope.mjs) is not a dist consumer.
-		if (own.reason?.startsWith('scope-aware')) {
-			visited.set(relativePath, own);
-			return own;
-		}
 		const required = new Set(own.workspaces);
 		if (follow) {
 			for (const specifier of localImportSpecifiers(source)) {
@@ -546,6 +547,10 @@ export function distRequirementsForFile(root, file, workspaces) {
 					visited.set(relativePath, failure);
 					return failure;
 				}
+				// The build-scope helper is a bounded, specific dependency: it reads
+				// the plan, never built output. Skipping ITS tooling import avoids
+				// reading the whole resolver as if it were the test's own code.
+				if (resolved === 'tests/helpers/build-scope.ts') continue;
 				const repositoryOwned = /^(tests|scripts)\//.test(resolved);
 				const nested = analyse(resolved, repositoryOwned);
 				if (nested.kind === 'all') {
@@ -618,6 +623,45 @@ export function planBuildSet({ root = process.cwd(), workspaces, buildOrder, tes
 		build: orderDirs.length > 0 ? 'selected' : 'all',
 		buildDirs: orderDirs,
 		reason: requirements.size > 0 ? `scoped build covers ${[...requirements].sort().join(', ')}` : 'scoped build covers no dist consumer',
+		requirements: [...requirements].sort()
+	};
+}
+
+/**
+ * Partition the selected tests for a SCOPED build (#656).
+ *
+ * A test is runnable under the scoped order when its built-artifact
+ * requirement is provably inside that order. Everything else — unbounded
+ * consumers, or a bounded requirement on a workspace the scoped build does not
+ * compile — is DEFERRED: it is reported explicitly and must run in full
+ * validation (push to the default branch, `ci:full`, release), never silently
+ * dropped. When nothing is runnable the plan falls back to a full build.
+ */
+export function partitionBuildSet({ root = process.cwd(), workspaces, buildOrder, testFiles }) {
+	const orderNames = new Set(buildOrder.map((entry) => entry.name));
+	const runnable = [];
+	const deferred = [];
+	const requirements = new Set();
+	for (const file of testFiles) {
+		const requirement = distRequirementsForFile(root, file, workspaces);
+		if (requirement.kind === 'all') {
+			deferred.push({ file, reason: requirement.reason });
+			continue;
+		}
+		const outside = requirement.workspaces.filter((name) => !orderNames.has(name));
+		if (outside.length > 0) {
+			deferred.push({ file, reason: `needs ${outside.join(', ')} outside the scoped build` });
+			continue;
+		}
+		runnable.push(file);
+		for (const name of requirement.workspaces) requirements.add(name);
+	}
+	const build = runnable.length > 0 ? 'selected' : 'all';
+	return {
+		runnable,
+		deferred,
+		build,
+		buildDirs: build === 'selected' ? buildOrder.map((entry) => entry.dir) : [],
 		requirements: [...requirements].sort()
 	};
 }

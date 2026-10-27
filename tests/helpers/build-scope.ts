@@ -35,6 +35,12 @@ export function buildScope(raw: string | undefined = process.env[ENV_VARIABLE]):
 		return { mode: 'all', dirs: workspaces.map((workspace) => workspace.dir).sort() };
 	}
 	const dirs = [...new Set(value.split(/[\s,]+/).filter(Boolean))].sort();
+	if (dirs.length === 0) {
+		// A separator-only value (',' / ' , ') must not silently disable guards.
+		throw new Error(
+			`${ENV_VARIABLE} is set to "${raw}" but names no workspace. Use a space/comma separated list of package directories or "all".`
+		);
+	}
 	const unknown = dirs.filter((dir) => !knownDirs.has(dir));
 	if (unknown.length > 0) {
 		throw new Error(

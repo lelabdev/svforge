@@ -83,6 +83,24 @@ verify the run's **declared build set**:
   or spawn packaging/CLI processes (`addon-packaging`, `user-journey`, `real-bin`,
   `changesets`, `package-entry`, the canaries) keep escalating to a full build.
 
+## Deferring cross-cutting tests to full validation (#656)
+
+A scoped build is only useful if the tests that need every workspace's `dist`
+do not run against it. Those tests are **not skipped**: they are **deferred** and
+must run in full validation — every push to the default branch, every `ci:full`
+run and the release/publish matrix run the complete suite with a complete build.
+
+- `partitionBuildSet()` splits the selected tests into **runnable** (their
+  built-artifact requirement is provably inside the scoped order) and
+  **deferred** (unbounded consumer, uncertain signal, or a bounded requirement
+  outside the scoped build).
+- The CI test step prints every deferred file in the job summary, and the
+  `deferred_test_files` output records it, so the trade-off is auditable on each
+  run instead of being invisible.
+- If nothing is runnable, the plan falls back to a full build + full tests.
+- The default policy is unchanged: without the `ci:targeted` label a workspace
+  change still runs full validation.
+
 ## Scenarios that still require a full build
 
 - Any change to root config, workflows, `scripts/`, lockfile, release metadata or an unknown path (resolver-level full scope).

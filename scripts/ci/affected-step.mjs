@@ -17,7 +17,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWorkspaces, planBuildSet } from '../affected-scope.mjs';
+import { loadWorkspaces, partitionBuildSet } from '../affected-scope.mjs';
 
 /** @param {object} scope affected-scope JSON */
 export function planCiSteps(scope, { targeted = false, root = process.cwd() } = {}) {
@@ -60,19 +60,35 @@ export function planCiSteps(scope, { targeted = false, root = process.cwd() } = 
 			reason: 'workspace change: ci:targeted opt-in (all tests, full build)'
 		};
 	}
-	const buildSet = planBuildSet({
+	const partition = partitionBuildSet({
 		root,
 		workspaces: loadWorkspaces(root),
 		buildOrder: scope?.buildOrder ?? [],
 		testFiles: tests.files
 	});
+	if (partition.build !== 'selected') {
+		return {
+			mode: 'targeted',
+			build: 'all',
+			buildDirs: [],
+			tests: 'all',
+			testFiles: [],
+			deferredTestFiles: [],
+			reason: 'workspace change: ci:targeted opt-in (no selected test is runnable under a scoped build)'
+		};
+	}
+	const deferredNote =
+		partition.deferred.length > 0
+			? `; ${partition.deferred.length} cross-cutting test file(s) deferred to full validation`
+			: '';
 	return {
 		mode: 'targeted',
-		build: buildSet.build,
-		buildDirs: buildSet.buildDirs,
+		build: 'selected',
+		buildDirs: partition.buildDirs,
 		tests: 'selected',
-		testFiles: tests.files,
-		reason: `workspace change: ci:targeted opt-in (${buildSet.reason})`
+		testFiles: partition.runnable,
+		deferredTestFiles: partition.deferred.map((entry) => entry.file),
+		reason: `workspace change: ci:targeted opt-in (scoped build: ${partition.buildDirs.join(', ')}${deferredNote})`
 	};
 }
 
@@ -84,6 +100,7 @@ export function renderGithubOutputs(plan) {
 		`build_dirs=${plan.buildDirs.join(' ')}`,
 		`tests=${plan.tests}`,
 		`test_files=${plan.testFiles.join(' ')}`,
+		`deferred_test_files=${(plan.deferredTestFiles ?? []).join(' ')}`,
 		`reason=${plan.reason.replace(/\n/g, ' ')}`,
 		''
 	].join('\n');
