@@ -10,8 +10,11 @@ import {
 	computeAffectedScope,
 	deriveTestOwners,
 	detectorFailureScope,
+	distInventory,
+	distRequirementsForSource,
 	formatScope,
 	loadWorkspaces,
+	planBuildSet,
 	reverseDependencies,
 	runCli
 } from '../scripts/affected-scope.mjs';
@@ -272,5 +275,117 @@ describe('git integration (#570)', () => {
 		} finally {
 			process.exitCode = previous;
 		}
+	});
+});
+
+/**
+ * #656 — the test-to-dist dependency model that makes a scoped build safe.
+ *
+ * Built artifacts are consumed both explicitly (`packages/x/dist/index.js`) and
+ * implicitly (package-name imports resolving to dist, add-on registries loaded
+ * from dist, `npm pack`, the CLI binary). Inventory consumers enumerate every
+ * workspace, so they must force a full build — never a skipped test.
+ */
+describe('test-to-dist dependency model (#656)', () => {
+	const byPrefix = (name: string) => workspaces.find((workspace) => workspace.name === name)!;
+
+	it('bounds a test that only imports workspace sources', () => {
+		const requirement = distRequirementsForSource(
+			"import { formatPostDate } from '../packages/blog/templates/src/lib/utils/post-date';",
+			workspaces
+		);
+		expect(requirement).toEqual({ kind: 'selected', workspaces: [], reason: 'no built-artifact consumer' });
+	});
+
+	it('maps an explicit dist path to that workspace only', () => {
+		const requirement = distRequirementsForSource(
+			"const distPath = join(ROOT, 'packages/svforge/dist/index.js');",
+			workspaces
+		);
+		expect(requirement.kind).toBe('selected');
+		expect(requirement.workspaces).toEqual(['svforge']);
+	});
+
+	it('treats a package-name import as a built-artifact consumer', () => {
+		const requirement = distRequirementsForSource("const mod = await import('@svforge/addon-kit');", workspaces);
+		expect(requirement.kind).toBe('selected');
+		expect(requirement.workspaces).toEqual(['@svforge/addon-kit']);
+	});
+
+	it('forces a full build for dynamic enumeration, packaging and the CLI binary', () => {
+		for (const source of [
+			"for (const pkg of readdirSync(join(ROOT, 'packages'))) { existsSync(join('packages', pkg, 'dist/index.js')); }",
+			'const distPath = `../packages/${pkg}/dist/index.js`;',
+			"execFileSync('npm', ['pack', '--json']); // dist payload",
+			'expect(existsSync(distPath)).toBe(true); // bin/svforge.mjs'
+		]) {
+			expect(distRequirementsForSource(source, workspaces).kind, source).toBe('all');
+		}
+	});
+
+	it('fails closed when a dist reference names no workspace, or is guarded by a skip', () => {
+		expect(distRequirementsForSource("const distPath = join(pkg, 'dist/index.js');", workspaces).kind).toBe('all');
+		expect(
+			distRequirementsForSource(
+				"const distPath = join(ROOT, 'packages/svforge/dist/index.js'); if (!existsSync(distPath)) return;",
+				workspaces
+			).kind
+		).toBe('all');
+	});
+
+	it('keeps the repository inventory consumers on a full build (regression fixtures)', () => {
+		const inventory = distInventory(ROOT, workspaces);
+		for (const file of [
+			'tests/structure.test.ts',
+			'tests/cli-create.test.ts',
+			'tests/package-entry.test.ts',
+			'tests/modules.test.ts',
+			'tests/build.test.ts'
+		]) {
+			expect(inventory.get(file)?.kind, `${file} must require a full build`).toBe('all');
+		}
+		// Source-only tests do not appear in the inventory at all.
+		expect(inventory.has('tests/blog-date.test.ts')).toBe(false);
+	});
+
+	it('selects the scoped build only when every selected test is covered', () => {
+		const order = buildOrderFor(['@svforge/dnd'], workspaces).map((entry) => entry.name);
+		const covered = planBuildSet({
+			root: ROOT,
+			workspaces,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
+			testFiles: ['tests/blog-date.test.ts']
+		});
+		expect(covered.build).toBe('selected');
+		expect(covered.buildDirs).toEqual(order.map((name) => byPrefix(name).dir));
+
+		const escalated = planBuildSet({
+			root: ROOT,
+			workspaces,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
+			testFiles: ['tests/blog-date.test.ts', 'tests/structure.test.ts']
+		});
+		expect(escalated.build).toBe('all');
+		expect(escalated.buildDirs).toEqual([]);
+		expect(escalated.reason).toContain('tests/structure.test.ts');
+	});
+
+	it('escalates when a bounded consumer needs a workspace outside the scoped order', () => {
+		const plan = planBuildSet({
+			root: ROOT,
+			workspaces,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
+			testFiles: ['tests/package-entry.test.ts']
+		});
+		// package-entry is a guarded inventory consumer: it escalates regardless.
+		expect(plan.build).toBe('all');
+		const bounded = planBuildSet({
+			root: ROOT,
+			workspaces,
+			buildOrder: buildOrderFor(['@svforge/dnd'], workspaces),
+			testFiles: ['tests/notifications.test.ts']
+		});
+		expect(bounded.build, 'a bounded consumer outside the order must escalate').toBe('all');
+		expect(bounded.reason).toContain('@svforge/notifications');
 	});
 });

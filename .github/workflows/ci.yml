@@ -5,7 +5,20 @@ on:
     branches: [main, dev]
   pull_request:
     branches: [main]
+  # #656: the scope measurement needs BOTH policies on the SAME commit, which a
+  # PR event cannot provide (labels are snapshotted when the run is created).
+  # Dispatch this workflow twice on one branch tip with scope=full and
+  # scope=targeted to compare complete vs scoped work on an identical SHA.
   workflow_dispatch:
+    inputs:
+      scope:
+        description: 'Measurement only: full validation, or affected scoping (targeted)'
+        type: choice
+        options: [full, targeted]
+        default: full
+      base:
+        description: 'Base commit for scope=targeted (leave empty for full validation)'
+        required: false
 
 permissions:
   contents: read
@@ -43,13 +56,15 @@ jobs:
       # carries the `ci:targeted` label. `ci:full` forces full scope. A detector
       # failure exits 2 (fail closed) instead of narrowing the run, and on
       # non-PR events (push/dispatch) every step defaults to the full pipeline.
-      - name: Report affected scope (PR only)
+      - name: Report affected scope
         id: scope
-        if: github.event_name == 'pull_request'
+        # PR runs always report; a dispatched measurement only when asked and
+        # only with an explicit base commit (otherwise the scope stays full).
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.scope == 'targeted' && inputs.base != '')
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || inputs.base }}
           FORCE_FULL: ${{ contains(github.event.pull_request.labels.*.name, 'ci:full') && '1' || '0' }}
-          TARGETED: ${{ contains(github.event.pull_request.labels.*.name, 'ci:targeted') && '1' || '0' }}
+          TARGETED: ${{ contains(github.event.pull_request.labels.*.name, 'ci:targeted') && '1' || (github.event_name == 'workflow_dispatch' && inputs.scope == 'targeted' && '1' || '0') }}
         run: |
           node scripts/affected-scope.mjs \
             --base "$BASE_SHA" \

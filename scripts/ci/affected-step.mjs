@@ -17,9 +17,10 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { loadWorkspaces, planBuildSet } from '../affected-scope.mjs';
 
 /** @param {object} scope affected-scope JSON */
-export function planCiSteps(scope, { targeted = false } = {}) {
+export function planCiSteps(scope, { targeted = false, root = process.cwd() } = {}) {
 	if (scope?.global) {
 		return { mode: 'full', build: 'all', buildDirs: [], tests: 'all', testFiles: [], reason: scope.fallback ? 'detector failure → full' : 'full-scope change' };
 	}
@@ -43,17 +44,35 @@ export function planCiSteps(scope, { targeted = false } = {}) {
 			reason: 'workspace change: full validation until ci:targeted opt-in'
 		};
 	}
-	// Measured on a real PR (#570 phase C): scoping the BUILD to the affected
-	// closure fails repository tests that inspect every workspace's `dist/`
-	// (structure/cli-create addon inventory, package-entry). Target only the
-	// tests; the build stays complete so those guards remain meaningful.
+	// #656: a scoped build is only allowed when the affected-scope model can
+	// prove that every selected test's built-artifact dependency is inside the
+	// scoped order. Inventory/packaging consumers (structure, cli-create,
+	// package-entry, modules, build…) are unbounded by design and force a full
+	// build; tests are never skipped to make a scope fit.
+	const selectedTests = tests.files.length > 0 ? 'selected' : 'all';
+	if (selectedTests === 'all') {
+		return {
+			mode: 'targeted',
+			build: 'all',
+			buildDirs: [],
+			tests: 'all',
+			testFiles: [],
+			reason: 'workspace change: ci:targeted opt-in (all tests, full build)'
+		};
+	}
+	const buildSet = planBuildSet({
+		root,
+		workspaces: loadWorkspaces(root),
+		buildOrder: scope?.buildOrder ?? [],
+		testFiles: tests.files
+	});
 	return {
 		mode: 'targeted',
-		build: 'all',
-		buildDirs: [],
-		tests: tests.files.length > 0 ? 'selected' : 'all',
+		build: buildSet.build,
+		buildDirs: buildSet.buildDirs,
+		tests: 'selected',
 		testFiles: tests.files,
-		reason: 'workspace change: ci:targeted opt-in (tests only; full build)'
+		reason: `workspace change: ci:targeted opt-in (${buildSet.reason})`
 	};
 }
 
