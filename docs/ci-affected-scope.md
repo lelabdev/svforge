@@ -23,11 +23,11 @@ A scoped build that omits one of those workspaces turns such a test into a **sil
 
 | Requirement | Count | Meaning |
 | --- | --- | --- |
-| Unbounded (`kind: all`) | 55 | Dynamic enumeration, `npm pack`, CLI binary, guarded dist assertions, dynamic imports, subprocesses, or a dist reference that names no workspace → **full build** |
-| Bounded (`kind: selected`) | 7 | A literal `packages/<dir>/dist/...` path or a package-name import reachable from the test (directly or through a helper) that maps to specific workspaces |
+| Unbounded (`kind: all`) | 76 | Dynamic enumeration, `npm pack`, CLI binary, guarded dist assertions, **non-literal dynamic imports**, **subprocess invocations**, or a dist reference that names no workspace → **full build** |
+| Bounded (`kind: selected`) | 3 | A literal `packages/<dir>/dist/...` path or a package-name import reachable from the test (directly or through a helper) that maps to specific workspaces |
 | No dist consumer | rest | Source-only imports and repository scripts do not constrain the build |
 
-62 test files consume built artifacts today. The inventory is computed, not hand-maintained: `tests/affected-scope.test.ts` asserts that `structure`, `cli-create`, `package-entry`, `modules` and `build` stay **unbounded** (regression fixtures), so a narrowing change fails there first.
+79 test files consume built artifacts today. The inventory is computed, not hand-maintained: `tests/affected-scope.test.ts` asserts that `structure`, `cli-create`, `package-entry`, `modules` and `build` stay **unbounded** (regression fixtures), so a narrowing change fails there first.
 
 The analysis is deliberately conservative: fixture source embedded in a template
 literal can look like an import (for example `tests/helpers/official-foundation.ts`
@@ -46,9 +46,10 @@ analysis walks **relative imports transitively**:
   reached outside them (a workspace source imported by a test) is inspected once
   but not followed — its internals are implementation of a source import;
 - **fail closed** for: an unresolvable relative import, an unreadable file, a
-  dynamic import expression (`import(variable)`, template literals), a subprocess
-  combined with a dist reference, a guarded `existsSync(dist) → return`, or a
-  dist reference with no identifiable workspace.
+  non-literal dynamic import (`import(variable)`, template literals) or
+  `require(variable)`, a subprocess invoking a package manager/CLI, a guarded
+  `existsSync(dist) → return`, or a dist reference with no identifiable
+  workspace. A relative `.json` import is resolved as data (no build impact).
 
 Fixtures in `tests/affected-scope.test.ts` cover a dist read in a helper, a helper
 chain with re-exports, a guarded assertion, dynamic imports, subprocesses,
@@ -56,12 +57,13 @@ unresolvable helpers, and a bounded source-only chain that stays scoped.
 
 ## Rules
 
-1. **Mentions of `dist` are detected broadly** (`distPath`, `dist/`, `dist/index.js`…). A missed mention would narrow the build, so detection error falls on the conservative side.
-2. **Unbounded signals force a full build**: `readdirSync`, `packages/${…}`, template-literal dynamic imports, `--filter '*'`, `npm|bun|pnpm pack`, `bin/svforge.mjs`, a `'packages'`/`PACKAGES` reference, or a `dist` reference with no identifiable workspace.
-3. **A guarded assertion is uncertainty, not a skip**: `if (!existsSync(distPath)) return;` proves nothing when the workspace was not built → full build.
-4. **Bounded consumers must be covered by the scoped order**; a requirement outside the order escalates to a full build.
-5. **Escalation never skips work**: the plan only ever moves from `selected` to `all` builds; the test selection is untouched.
-6. Resolution stays pure and testable: `distRequirementsForSource()`, `distRequirementsForFile()`, `distInventory()` and `planBuildSet()` are exported from `scripts/affected-scope.mjs`; `scripts/ci/affected-step.mjs` only translates the plan into CI outputs.
+1. **Unbounded runtime loading is detected first, without any `dist` hint** (#656 B-02): a non-literal `import(expression)` / `require(expression)` (including template literals) and a subprocess invoking a package manager or the CLI are unbounded *before* the "does this file mention dist?" shortcut — a test can load a compiled package at runtime without naming one.
+2. **Mentions of `dist` are detected broadly** (`distPath`, `dist/`, `dist/index.js`…). A missed mention would narrow the build, so detection error falls on the conservative side.
+3. **Unbounded signals force a full build**: `readdirSync`, `packages/${…}`, template-literal dynamic imports, `--filter '*'`, `npm|bun|pnpm pack`, `bin/svforge.mjs`, a `'packages'`/`PACKAGES` reference, or a `dist` reference with no identifiable workspace.
+4. **A guarded assertion is uncertainty, not a skip**: `if (!existsSync(distPath)) return;` proves nothing when the workspace was not built → full build.
+5. **Bounded consumers must be covered by the scoped order**; a requirement outside the order escalates to a full build.
+6. **Escalation never skips work**: the plan only ever moves from `selected` to `all` builds; the test selection is untouched.
+7. Resolution stays pure and testable: `distRequirementsForSource()`, `distRequirementsForFile()`, `distInventory()` and `planBuildSet()` are exported from `scripts/affected-scope.mjs`; `scripts/ci/affected-step.mjs` only translates the plan into CI outputs.
 
 ## Scenarios that still require a full build
 

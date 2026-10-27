@@ -360,10 +360,7 @@ const UNBOUNDED_DIST_PATTERNS = [
 	/npm\s+pack|bun\s+pack|pnpm\s+pack/,
 	/bin\/svforge\.mjs/,
 	/['"]packages['"]/,
-	/\bPACKAGES\b/,
-	// A subprocess combined with a dist reference: the invoked command may
-	// inspect or rebuild artifacts the static text does not name.
-	/execFileSync\(|execSync\(|spawnSync\(|spawn\(|exec\(/
+	/\bPACKAGES\b/
 ];
 
 /**
@@ -379,17 +376,32 @@ export function distRequirementsForSource(source, workspaces) {
 		const escaped = workspace.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 		return new RegExp(`(?:from\\s+|import\\(|require\\()\\s*['"]${escaped}['"]`).test(normalized);
 	});
-	if (!mentionsDist && importsBuiltName.length === 0) {
-		return { kind: 'selected', workspaces: [], reason: 'no built-artifact consumer' };
-	}
-	// `import(variable)` / `import(`template ${…}`)` can load any workspace:
-	// static analysis cannot bound it.
-	if (/\bimport\(\s*[^'"`)\s]/.test(normalized) || /\bimport\(\s*`[^`]*\$\{/.test(normalized)) {
+	// #656 B-02: a NON-LITERAL dynamic import/require can load any compiled
+	// package at runtime (`await import(packageName)`), so it is unbounded
+	// BEFORE any "does this file mention dist?" shortcut. Detection must not
+	// depend on the file also containing a literal dist reference.
+	if (
+		/\bimport\(\s*[^'"`)\s]/.test(normalized) ||
+		/\bimport\(\s*`[^`]*\$\{/.test(normalized) ||
+		/\brequire\(\s*[^'"`)\s]/.test(normalized)
+	) {
 		return {
 			kind: 'all',
 			workspaces: workspaces.map((workspace) => workspace.name),
 			reason: 'dynamic import expression (unbounded)'
 		};
+	}
+	// A subprocess that can install, build or invoke the CLI is equally
+	// unbounded: it may require artifacts the static text never names.
+	if (/(?:execFileSync|execSync|spawnSync|spawn|exec)\([\s\S]{0,300}(?:\bnpm\b|\bpnpm\b|\byarn\b|\bbun(?:x)?\b|svforge\.mjs|bin\/|--filter)/.test(normalized)) {
+		return {
+			kind: 'all',
+			workspaces: workspaces.map((workspace) => workspace.name),
+			reason: 'subprocess invocation (unbounded)'
+		};
+	}
+	if (!mentionsDist && importsBuiltName.length === 0) {
+		return { kind: 'selected', workspaces: [], reason: 'no built-artifact consumer' };
 	}
 	for (const pattern of UNBOUNDED_DIST_PATTERNS) {
 		if (pattern.test(normalized)) {
@@ -429,7 +441,9 @@ export function distRequirementsForSource(source, workspaces) {
 }
 
 /** Extensions tried when a relative import omits one. */
-const IMPORT_EXTENSIONS = ['', '.ts', '.js', '.mjs', '.cjs', '/index.ts', '/index.js', '/index.mjs'];
+// `.json` is data only (it cannot read built output) but resolving it avoids
+// escalating a helper that imports a fixture catalog.
+const IMPORT_EXTENSIONS = ['', '.ts', '.js', '.mjs', '.cjs', '.json', '/index.ts', '/index.js', '/index.mjs'];
 
 /** Relative import/require/re-export specifiers of one source text. */
 export function localImportSpecifiers(source) {

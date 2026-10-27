@@ -2148,11 +2148,11 @@
     "semantic_hash": ""
   },
   "scripts/affected-scope.mjs": {
-    "ast_hash": "272cfdf7f1168c46f37b218f65358bbd",
+    "ast_hash": "12640794340f063dab44587765f5b1cd",
     "semantic_hash": ""
   },
   "tests/affected-scope.test.ts": {
-    "ast_hash": "227b8a2fa5bd69419f78b6ab6094a652",
+    "ast_hash": "47c13ffc80aabe26b9e81e6a555f14f0",
     "semantic_hash": ""
   },
   "scripts/ci/affected-step.mjs": {
@@ -2364,7 +2364,7 @@
     "semantic_hash": ""
   },
   "docs/ci-affected-scope.md": {
-    "ast_hash": "8aaa1a29bb0fa72bb78aec85bc20b899",
+    "ast_hash": "8a5707ccb067d3e6aa4c41e8d3597844",
     "semantic_hash": ""
   }
 }

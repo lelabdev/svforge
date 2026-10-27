@@ -382,14 +382,14 @@ describe('test-to-dist dependency model (#656)', () => {
 		});
 		// package-entry is a guarded inventory consumer: it escalates regardless.
 		expect(plan.build).toBe('all');
-		// `capability-contracts` is a BOUNDED consumer (it imports helpers that
-		// touch `@svforge/addon-kit` dist); an order without that workspace must
+		// `skeleton-native` is a BOUNDED consumer (its helper chain reaches
+		// `@svforge/addon-kit` dist); an order without that workspace must
 		// escalate instead of omitting it.
 		const bounded = planBuildSet({
 			root: ROOT,
 			workspaces,
 			buildOrder: [{ name: '@svforge/dnd', dir: 'dnd' }],
-			testFiles: ['tests/capability-contracts.test.ts']
+			testFiles: ['tests/skeleton-native.test.ts']
 		});
 		expect(bounded.build, 'a bounded consumer outside the order must escalate').toBe('all');
 		expect(bounded.reason).toContain('@svforge/addon-kit');
@@ -456,13 +456,14 @@ describe('transitive local imports (#656 B-01)', () => {
 	});
 
 	it('fails closed for dynamic imports, subprocesses and unresolvable helpers', () => {
+		// #656 B-02: the dynamic/subprocess signals must NOT depend on a literal
+		// `dist` mention in the same file — a non-literal import can load any
+		// compiled package at runtime.
 		const cases = [
-			{
-				'helpers/dynamic.ts': "export const load = (p: string) => import(p);\n// packages/blog/dist\n"
-			},
-			{
-				'helpers/subprocess.ts': "execFileSync('bun', ['run', 'build']);\n// packages/blog/dist\n"
-			},
+			{ 'helpers/dynamic.ts': 'export const load = (p: string) => import(p);\n' },
+			{ 'helpers/template.ts': 'export const load = (n: string) => import(`./${n}`);\n' },
+			{ 'helpers/require-variable.ts': 'export const load = (n: string) => require(n);\n' },
+			{ 'helpers/subprocess.ts': "execFileSync('bun', ['run', 'build']);\n" },
 			{ 'helpers/missing.ts': "import './does-not-exist';\n" }
 		];
 		for (const [index, helper] of cases.entries()) {
@@ -491,6 +492,12 @@ describe('transitive local imports (#656 B-01)', () => {
 			'./c'
 		]);
 		expect(resolveLocalImport(root, 'tests/consumer.test.ts', './helpers/plain')).toBe('tests/helpers/plain.ts');
+		// Control: a LITERAL dynamic import is not a dynamic traversal.
+		expect(distRequirementsForSource("const m = await import('./helpers/plain');", workspacesFixture)).toMatchObject({
+			kind: 'selected',
+			workspaces: []
+		});
+		expect(distRequirementsForSource('const m = await import(packageName);', workspacesFixture).kind).toBe('all');
 		rmSync(root, { recursive: true, force: true });
 	});
 
