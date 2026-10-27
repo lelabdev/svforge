@@ -292,6 +292,88 @@ describe('external user journey smoke test (#462, #465)', () => {
 		expect(publish).toMatch(/--published "\$VERSION"/);
 	});
 
+	it('runs the official foundation before the SVForge add and proves the fail-closed guard (#669)', () => {
+		const journey = readFileSync(join(process.cwd(), 'scripts', 'test-user-journey.sh'), 'utf8');
+		const at = (marker: string) => {
+			const index = journey.indexOf(marker);
+			expect(index, `journey script must contain: ${marker}`).toBeGreaterThanOrEqual(0);
+			return index;
+		};
+
+		// Base: guard first, then the official Paraglide add-on, then SVForge.
+		// A non-TTY canary would answer "No" to sv's dirty-tree verification (the
+		// official add-ons just wrote files), so each documented SVForge add must
+		// bypass it explicitly.
+		for (const marker of ['base: sv add (documented install)', 'dashboard: sv add (documented install)']) {
+			const start = at(marker);
+			const nextStep = journey.indexOf('step "', start + marker.length);
+			const section = journey.slice(start, nextStep === -1 ? undefined : nextStep);
+			expect(section, `${marker} must pass --no-git-check`).toContain('--no-git-check');
+		}
+
+		const baseGuard = at('base: direct add fails closed without the official foundation (#669)');
+		const baseOfficial = at('base: official Paraglide add-on (#547)');
+		const baseInstall = at('base: sv add (documented install)');
+		expect(baseGuard).toBeLessThan(baseOfficial);
+		expect(baseOfficial).toBeLessThan(baseInstall);
+		expect(journey).toContain('base: fail-closed add did not state that nothing was written');
+		expect(journey).toContain("grep -q 'paraglide=languageTags'");
+
+		// Dashboard: official Paraglide → Drizzle → Better Auth → SVForge.
+		const dashboardGuard = at('dashboard: direct add fails closed without the official foundation (#669)');
+		const dashboardOfficial = at('dashboard: official Paraglide + Drizzle + Better Auth (#547)');
+		const dashboardInstall = at('dashboard: sv add (documented install)');
+		expect(dashboardGuard).toBeLessThan(dashboardOfficial);
+		expect(dashboardOfficial).toBeLessThan(dashboardInstall);
+		const paraglide = at('paraglide=languageTags:en,fr+demo:no');
+		const drizzle = at('drizzle=database:postgresql+client:postgres.js+docker:no');
+		const betterAuth = at('better-auth=demo:');
+		expect(paraglide).toBeLessThan(drizzle);
+		expect(drizzle).toBeLessThan(betterAuth);
+	});
+
+	it('generates the official auth schema before the dashboard push and build (#669)', () => {
+		const journey = readFileSync(join(process.cwd(), 'scripts', 'test-user-journey.sh'), 'utf8');
+		const at = (marker: string) => {
+			const index = journey.indexOf(marker);
+			expect(index, `journey script must contain: ${marker}`).toBeGreaterThanOrEqual(0);
+			return index;
+		};
+
+		// The official add-on ships a schema STUB; pushing or building before
+		// `auth:schema` fails on missing user/session exports.
+		const schema = at('run auth:schema');
+		const push = at('drizzle-kit push --force');
+		const build = at('step "dashboard: build + test"');
+		expect(schema).toBeLessThan(push);
+		expect(schema).toBeLessThan(build);
+		expect(journey).toContain('auth:schema did not generate the SVForge role column');
+	});
+
+	it('documents the supported official-first manual install (#669)', () => {
+		// The canary failed because the documented path skipped the official
+		// foundation. Both READMEs must show it first, or they advertise an
+		// install that correctly fails closed.
+		const root = readFileSync(join(process.cwd(), 'README.md'), 'utf8');
+		const pkg = readFileSync(join(process.cwd(), 'packages', 'svforge', 'README.md'), 'utf8');
+
+		const rootParaglide = root.indexOf('paraglide=languageTags');
+		const rootAdd = root.indexOf('sv add svforge=template:base');
+		expect(rootParaglide).toBeGreaterThanOrEqual(0);
+		expect(rootAdd).toBeGreaterThan(rootParaglide);
+
+		const pkgParaglide = pkg.indexOf('paraglide=languageTags');
+		const pkgDrizzle = pkg.indexOf('drizzle=database:postgresql');
+		const pkgAuth = pkg.indexOf('better-auth=demo:');
+		const pkgBaseAdd = pkg.indexOf('sv add svforge=template:base');
+		const pkgDashboardAdd = pkg.indexOf('sv add svforge=template:dashboard');
+		expect(pkgParaglide).toBeGreaterThanOrEqual(0);
+		expect(pkgBaseAdd).toBeGreaterThan(pkgParaglide);
+		expect(pkgDrizzle).toBeGreaterThan(pkgParaglide);
+		expect(pkgAuth).toBeGreaterThan(pkgDrizzle);
+		expect(pkgDashboardAdd).toBeGreaterThan(pkgAuth);
+	});
+
 	it('keeps the heavy journey out of PR CI and exercises Lefthook in the release journey (#413)', () => {
 		const ci = readFileSync(join(process.cwd(), '.github', 'workflows', 'ci.yml'), 'utf8');
 		const publish = readFileSync(join(process.cwd(), '.github', 'workflows', 'publish.yml'), 'utf8');

@@ -1424,7 +1424,7 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "ast_hash": "7b0b354a03e0e9dcd7c6b28ba81bfd61",
+    "ast_hash": "981f085b24eb31cc1b2c8c9e9bac5e74",
     "semantic_hash": ""
   },
   "SECURITY.md": {
@@ -1492,7 +1492,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/README.md": {
-    "ast_hash": "165fedbf28e79f672ce9d1daa78bf186",
+    "ast_hash": "2f484d9166a039139d01c2cc74593efe",
     "semantic_hash": ""
   },
   "packages/svforge/docs/deployment-profiles.md": {
@@ -1596,7 +1596,7 @@
     "semantic_hash": ""
   },
   "scripts/test-user-journey.sh": {
-    "ast_hash": "1485dbf883ba73636468f600ae604ff9",
+    "ast_hash": "958100377c1a94bedbaf44193962e03e",
     "semantic_hash": ""
   },
   "scripts/user-journey.mjs": {
@@ -1632,7 +1632,7 @@
     "semantic_hash": ""
   },
   "tests/user-journey.test.ts": {
-    "ast_hash": "aed13e04d688a4a196bb28587dd7b600",
+    "ast_hash": "8fdba9d25d39c38d242605573eaa761e",
     "semantic_hash": ""
   },
   "tests/vite-config-modern-scaffold.test.ts": {

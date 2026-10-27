@@ -25,14 +25,17 @@ npm run dev
 
 `svforge create` orchestrates the official `sv create` and `sv add` commands. It is **not** a separate SvelteKit generator.
 
-Prefer using the Svelte CLI directly? The same foundations are available as an `sv` community addon:
+Prefer using the Svelte CLI directly? The same foundations are available as an `sv` community addon. The **official** integrations run first — SVForge extends them and fails closed (writing nothing) if they are missing:
 
 ```bash
 npx sv create my-app
 cd my-app
-npx sv add svforge=template:base+testing:vitest
+npx sv add "paraglide=languageTags:en,fr+demo:no"   # official foundation first
+npx sv add svforge=template:base+testing:vitest --no-git-check
 npm run dev
 ```
+
+`--no-git-check` is expected here: the official add-on just wrote files, so the tree is legitimately dirty (interactive shells can also accept the prompt).
 
 For authentication, a database, and protected administration routes, start with the dashboard instead:
 

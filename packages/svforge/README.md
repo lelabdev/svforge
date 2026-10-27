@@ -6,19 +6,30 @@ SVForge supports `sv` 1.x (`^1.1.0`). Choose a deployment target before adding r
 
 ## Install
 
+The official integrations run **first**: SVForge extends their output and
+refuses to write anything when it is missing (the published `sv` cannot install
+them conditionally — upstream sveltejs/cli#1419). `svforge create` does this
+ordering for you; for a manual install, run the official add-ons yourself:
+
 ```bash
 # Base UI and application foundations
 npx sv create my-app
 cd my-app
-npx sv add svforge=template:base+testing:vitest
+npx sv add "paraglide=languageTags:en,fr+demo:no"   # official foundation first
+npx sv add svforge=template:base+testing:vitest --no-git-check
 npm run dev
 
 # Or use the dashboard with Better Auth, PostgreSQL, and Drizzle
 npx sv create my-dashboard
 cd my-dashboard
-npx sv add svforge=template:dashboard+testing:vitest
+npx sv add "paraglide=languageTags:en,fr+demo:no"                                   # official i18n
+npx sv add "drizzle=database:postgresql+client:postgres.js+docker:no"                # official ORM
+npx sv add "better-auth=demo:"                                                       # official auth
+npx sv add svforge=template:dashboard+testing:vitest --no-git-check
 bash scripts/setup.sh
-# Configure PostgreSQL and DATABASE_URL in .env, then review the target:
+# Configure PostgreSQL and DATABASE_URL in .env, generate the auth tables the
+# official Better Auth add-on only stubs, then review the target:
+npm run auth:schema
 npm run db:push
 # Create the first admin via /setup in development or npm run admin:create
 npm run dev
@@ -31,12 +42,13 @@ Create PostgreSQL yourself and set `DATABASE_URL` privately in `.env`; database 
 Playwright is an optional profile:
 
 ```bash
-npx sv add svforge=template:dashboard+testing:playwright
+# after the official Paraglide/Drizzle/Better Auth add-ons above
+npx sv add svforge=template:dashboard+testing:playwright --no-git-check
 npx playwright install
 npm run test:e2e
 ```
 
-You can also add SVForge during `sv create`, or run `npx sv add svforge` in an existing project to choose a template.
+You can also add SVForge during `sv create`, or run `npx sv add svforge` in an existing project to choose a template — after the official add-ons for that template are installed.
 
 ### Static deployment
 
