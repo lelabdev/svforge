@@ -57,6 +57,7 @@
 		"node": ">=22.17"
 	},
 	"overrides": {
+		"minimatch": "11.0.3",
 		"postcss-selector-parser": "7.1.7"
 	}
 }
