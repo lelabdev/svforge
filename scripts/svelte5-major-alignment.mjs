@@ -46,6 +46,9 @@ export function alignSvelte5ProspectiveReleases(releases, enabled) {
  * the reviewed Version Packages staging branch. Do not run on main directly.
  * All expected values are checked BEFORE writing either file.
  */
+/** @param {string} root
+ * @param {{ iteration?: number | null }} [options]
+ */
 export function alignSvelte5GeneratedVersion(root, { iteration = null } = {}) {
 	if (iteration !== null && (!Number.isSafeInteger(iteration) || iteration < 1)) {
 		throw new Error('Svelte 5 major alignment requires a positive canary iteration.');
