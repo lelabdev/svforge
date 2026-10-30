@@ -172,11 +172,12 @@ describe('better-auth runtime vulnerability audit (#319)', () => {
 				baselinePath,
 				JSON.stringify([
 					{
+						lockfile: 'better-auth-stack',
 						package: 'better-auth',
 						version: '1.7.3',
 						advisory: 'GHSA-g38m-r43w-p2q7',
 						path: 'better-auth',
-						reason: 'not reachable: oauth auto-link disabled in the dashboard config'
+						reason: '2026-10-30: not reachable, oauth auto-link disabled in the dashboard config'
 					}
 				])
 			);

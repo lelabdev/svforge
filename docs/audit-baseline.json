@@ -1,16 +1,34 @@
 [
 	{
-		"package": "postcss-selector-parser",
-		"version": "6.0.10",
-		"advisory": "GHSA-rj75-hqrm-r3gf",
-		"path": "postcss-selector-parser",
-		"reason": "Pinned exactly by the dev-only @tailwindcss/typography@0.5.20 dependency. It parses checked-in build-time CSS selectors, not selectors supplied to an application runtime request. No compatible patched v6 release can currently be selected through this dependency's exact pin; keep this exception scoped to this version and dependency path until Typography updates its pin."
-	},
-	{
+		"lockfile": "bun.lock",
 		"package": "deepmerge",
 		"version": "4.3.1",
 		"advisory": "GHSA-gcqx-w48m-w2h4",
 		"path": "deepmerge",
-		"reason": "Reviewed 2026-10-30: GitHub rates this prototype-poisoning advisory low and lists no patched deepmerge release. The locked deepmerge@4.3.1 is pulled by the root devDependency @sveltejs/vite-plugin-svelte@6.2.4 for Vite/Svelte build-time tooling, rather than a generated application's request-handling runtime. Untrusted data must not be passed into this build configuration. Exception is limited to the exact resolved package version and lockfile path, not the advisory globally; revisit and remove it once the upstream plugin adopts a non-vulnerable dependency or a fixed deepmerge release becomes available."
+		"reason": "2026-10-30: LOW severity (CVE-2026-93753) and not fixable today — 4.3.1 is both the latest release and the last affected version, so no patched floor can be selected. Exposure: build-time only, transitively through @sveltejs/vite-plugin-svelte, which merges the repository's own trusted Vite config objects; no request-controlled object ever reaches mergeObject(). Mitigation: keep this exception scoped to this exact version and path, re-check on every dependency refresh, and remove it as soon as upstream publishes a fix. Owner: deepmerge upstream (TehShrike/deepmerge#273)."
+	},
+	{
+		"lockfile": "docker/builder.bun.lock",
+		"package": "deepmerge",
+		"version": "4.3.1",
+		"advisory": "GHSA-gcqx-w48m-w2h4",
+		"path": "deepmerge",
+		"reason": "2026-10-30: Same unfixed LOW-severity prototype-poisoning advisory (CVE-2026-93753) as the root lockfile, resolved from the Dashboard template manifest into the builder image. The builder only merges its own checked-in Vite config during a build stage and never merges request data at runtime. Remove this exception together with the root one once upstream publishes a patched release; owner: deepmerge upstream (TehShrike/deepmerge#273)."
+	},
+	{
+		"lockfile": "docker/builder.bun.lock",
+		"package": "esbuild",
+		"version": "0.18.20",
+		"advisory": "GHSA-67mh-4wv8-2f99",
+		"path": "@esbuild-kit/core-utils/esbuild",
+		"reason": "2026-10-30: MODERATE advisory that only affects the esbuild dev server (any site can read responses from it), which this repository never runs: the copy is reached only through drizzle-kit -> @esbuild-kit/esm-loader -> @esbuild-kit/core-utils, used for its build-time transform API inside a throwaway build stage. drizzle-kit itself already resolves a patched esbuild (^0.25.4); only the legacy esm-loader chain still pins 0.18.20. Bun 1.3.x supports global overrides only, and forcing 0.25.x globally would downgrade the patched esbuild copies used by tsx/drizzle-kit, so the durable fix is upstream: drizzle-kit dropping @esbuild-kit/esm-loader. Follow-up: bump drizzle-kit in the Dashboard template once it does, regenerate docker/builder.bun.lock, then delete this exception. Owner: drizzle-kit upstream via packages/svforge/templates/dashboard/package.json."
+	},
+	{
+		"lockfile": "docker/examples/app/bun.lock",
+		"package": "deepmerge",
+		"version": "4.3.1",
+		"advisory": "GHSA-gcqx-w48m-w2h4",
+		"path": "deepmerge",
+		"reason": "2026-10-30: Same unfixed LOW-severity prototype-poisoning advisory (CVE-2026-93753) in the consumer fixture, reached transitively through @sveltejs/vite-plugin-svelte while merging the fixture's own checked-in Vite config during the build stage. No request data is merged and the runtime image does not ship this dependency. Remove this exception together with the root one once upstream publishes a patched release; owner: deepmerge upstream (TehShrike/deepmerge#273)."
 	}
 ]

@@ -8,7 +8,7 @@
 	},
 	"dependencies": {
 		"nanoid": "^5.1.6",
-		"zod": "^3.25.76"
+		"zod": "4.6.6"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^6.0.0",

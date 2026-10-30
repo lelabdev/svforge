@@ -52,8 +52,10 @@ the three things that can rot independently:
 1. the build stage inherits the builder's common `node_modules` and its
    `BUN_INSTALL_CACHE_DIR`, so immutable image layers are actually reused;
 2. the application's own `package.json`/`bun.lock` remain authoritative — the
-   fixture pins zod 3.x (the builder has 4.x) and adds an app-only dependency
-   (nanoid), both installed by the app's frozen install;
+   fixture pins a **patched** zod `4.6.6` while the builder resolves a different
+   4.x, and adds an app-only dependency (nanoid); the build stage records the
+   builder's zod version before the app install and fails if the app pin does not
+   win, is below the patched floor, or accidentally matches the builder's;
 3. the runtime image is independent from the builder: it contains only the
    compiled server output and the app's production dependencies, and serves the
    compiled app.

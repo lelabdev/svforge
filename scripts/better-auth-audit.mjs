@@ -33,8 +33,10 @@
  * (there is no dedicated Better Auth dependency bot since #460).
  *
  * Documented reachability exceptions use the SAME mechanism as the
- * repository audit: a scoped { package, version, advisory, path, reason }
- * entry in docs/audit-baseline.json (#351).
+ * repository audit: a scoped { lockfile, package, version, advisory, path,
+ * reason } entry in docs/audit-baseline.json (#351, #689). The scope is a
+ * scratch resolution of the scaffolded stack, not a checked-in path, so its
+ * entries carry the synthetic `lockfile` label BETTER_AUTH_STACK_LOCKFILE.
  *
  * Unknown severities FAIL CLOSED (treated as HIGH): an advisory we cannot
  * classify must block until a human classifies it.
@@ -48,6 +50,12 @@ import { formatFindings, isBaselined, loadBaseline, queryOsv, resolvedPackages, 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 export const SEVERITY_RANK = { CRITICAL: 4, HIGH: 3, MODERATE: 2, MEDIUM: 2, LOW: 1 };
+/**
+ * Synthetic lockfile label for this audit's scope. The better-auth stack is
+ * resolved in a scratch project, so baseline exceptions cannot name a checked-in
+ * lockfile; the label keeps them scoped to this audit and to no repository tree.
+ */
+export const BETTER_AUTH_STACK_LOCKFILE = 'better-auth-stack';
 const BLOCKING_THRESHOLD = 3;
 
 /**
@@ -161,7 +169,9 @@ export async function auditBetterAuth({ lockfile, lockfilePath, baseline, baseli
 	// Union of the resolved dependency closure and path-nested entries (#319
 	// review): the path filter alone misses hoisted transitive packages.
 	const closure = betterAuthClosurePaths(source);
-	const packages = resolvedPackages(source).filter((pkg) => closure.has(pkg.paths) || isBetterAuthScope(pkg));
+	const packages = resolvedPackages(source, BETTER_AUTH_STACK_LOCKFILE).filter(
+		(pkg) => closure.has(pkg.paths) || isBetterAuthScope(pkg)
+	);
 	const results = await queryOsv(packages, fetchImpl);
 
 	const entries = formatFindings(packages, results).map((finding) => {
@@ -192,8 +202,8 @@ function report({ blocking, baselined, findings }) {
 	if (blocking.length) {
 		console.error(
 			`\n${blocking.length} blocking better-auth advisory(ies). Upgrade the pin, or add a scoped\n` +
-			'{ package, version, advisory, path, reason } entry to docs/audit-baseline.json\n' +
-			'with a written reachability justification.'
+			`{ lockfile: "${BETTER_AUTH_STACK_LOCKFILE}", package, version, advisory, path, reason } entry to\n` +
+			'docs/audit-baseline.json with a written, dated reachability justification.'
 		);
 	}
 }

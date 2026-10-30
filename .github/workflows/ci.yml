@@ -80,9 +80,10 @@ jobs:
       # Repository quality gates (#351) — ALL BLOCK MERGING:
       #   lint       (eslint)  repository source, tests, scripts
       #   typecheck  (tsc)     strict, incl. test files
-      #   audit      (OSV.dev) bun.lock vulnerabilities; retries transient
-      #                        network errors 3x, then FAILS (never passes
-      #                        silently on an unverified dependency tree)
+      #   audit      (OSV.dev) every checked-in lockfile — root workspace plus
+      #                        the Docker builder and consumer trees (#689) —
+      #                        retries transient network errors 3x, then FAILS
+      #                        (never passes silently on an unverified tree)
       - name: Lint (eslint)
         run: bun run lint
 
