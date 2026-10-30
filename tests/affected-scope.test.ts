@@ -3,25 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
-import {
-	buildOrderFor,
-	changedFiles,
-	classifyPath,
-	computeAffectedScope,
-	deriveTestOwners,
-	detectorFailureScope,
-	distInventory,
-	distRequirementsForFile,
-	distRequirementsForSource,
-	resolveLocalImport,
-	formatScope,
-	loadWorkspaces,
-	localImportSpecifiers,
-	partitionBuildSet,
-	planBuildSet,
-	reverseDependencies,
-	runCli
-} from '../scripts/affected-scope.mjs';
+import { buildOrderFor, changedFiles, classifyPath, computeAffectedScope, deriveTestOwners, detectorFailureScope, distInventory, distRequirementsForFile, distRequirementsForSource, resolveLocalImport, formatScope, loadWorkspaces, localImportSpecifiers, partitionBuildSet, planBuildSet, reverseDependencies, runCli, stripEmbeddedLiteralContent, declaresNoBuiltArtifacts } from '../scripts/affected-scope.mjs';
 
 /**
  * #570 Phase A — affected-scope resolver.
@@ -316,15 +298,28 @@ describe('test-to-dist dependency model (#656)', () => {
 		expect(requirement.workspaces).toEqual(['@svforge/addon-kit']);
 	});
 
-	it('forces a full build for dynamic enumeration, packaging and the CLI binary', () => {
+	it('forces a full build for dynamic enumeration and packaging', () => {
 		for (const source of [
 			"for (const pkg of readdirSync(join(ROOT, 'packages'))) { existsSync(join('packages', pkg, 'dist/index.js')); }",
 			'const distPath = `../packages/${pkg}/dist/index.js`;',
-			"execFileSync('npm', ['pack', '--json']); // dist payload",
-			'expect(existsSync(distPath)).toBe(true); // bin/svforge.mjs'
+			"execFileSync('npm', ['pack', '--json']); // dist payload"
 		]) {
 			expect(distRequirementsForSource(source, workspaces).kind, source).toBe('all');
 		}
+	});
+
+	it('bounds the CLI entry point to the workspace that owns it', () => {
+		// `packages/svforge/bin/svforge.mjs` is committed source: running it needs
+		// that one workspace built, not every workspace.
+		const requirement = distRequirementsForSource(
+			"execFileSync('node', [join(ROOT, 'packages/svforge/bin/svforge.mjs')]); // dist/index.js",
+			workspaces
+		);
+		expect(requirement).toMatchObject({ kind: 'selected', workspaces: ['svforge'] });
+		// Without a resolvable owner it must stay unbounded.
+		expect(
+			distRequirementsForSource("execFileSync('node', ['bin/svforge.mjs']); // dist/index.js", []).kind
+		).toBe('all');
 	});
 
 	it('fails closed when a dist reference names no workspace, or is guarded by a skip', () => {
@@ -345,9 +340,10 @@ describe('test-to-dist dependency model (#656)', () => {
 			expect(inventory.get(file)?.kind, `${file} must stay bounded`).toBe('selected');
 			expect(inventory.get(file)?.reason).toContain('scope-aware');
 		}
-		// Guards that still load every add-on dynamically are deferred to full
-		// validation instead of being trusted.
-		expect(inventory.get('tests/cli-create.test.ts')?.kind, 'cli-create must be deferred').toBe('all');
+		// cli-create imports each workspace's `dist/index.js` only after gating on
+		// the declared build set, and builds that path from the packages tree: a
+		// bounded, provable requirement.
+		expect(inventory.get('tests/cli-create.test.ts')?.kind, 'cli-create is scope-gated').toBe('selected');
 		expect(inventory.get('tests/build.test.ts')?.kind, 'build must stay bounded').toBe('selected');
 		// Guards that genuinely need built artifacts of every workspace (or spawn
 		// packaging/CLI subprocesses) keep escalating to a full build.
@@ -380,6 +376,22 @@ describe('test-to-dist dependency model (#656)', () => {
 		expect(escalated.reason).toContain('tests/addon-packaging.test.ts');
 	});
 
+	it('ignores generated-file text embedded in a workspace source module', () => {
+		// Manifests embed scaffold sources as STRINGS. `import(x.href)` inside
+		// such a string is data, not a load: it must not demand every dist.
+		const embedded =
+			"export const files = { 'vite.config.ts': `const cfg = await import(svelteConfigPath.href);` };";
+		expect(stripEmbeddedLiteralContent(embedded)).not.toContain('svelteConfigPath');
+		// A real dynamic load still signals.
+		expect(distRequirementsForSource('const m = await import(modulePath);', workspaces).kind).toBe('all');
+	});
+
+	it('honours an artifact-free declaration only with a rationale', () => {
+		expect(declaresNoBuiltArtifacts('/**\n * @no-built-artifacts: loads a caller path\n */\nexport {};')).toBe(true);
+		expect(declaresNoBuiltArtifacts('/**\n * @no-built-artifacts:\n */\nexport {};')).toBe(false);
+		expect(declaresNoBuiltArtifacts('export const x = 1;')).toBe(false);
+	});
+
 	it('escalates when a bounded consumer needs a workspace outside the scoped order', () => {
 		const plan = planBuildSet({
 			root: ROOT,
@@ -389,17 +401,16 @@ describe('test-to-dist dependency model (#656)', () => {
 		});
 		// package-entry is a guarded inventory consumer: it escalates regardless.
 		expect(plan.build).toBe('all');
-		// `addon-env` is a BOUNDED consumer (its helper chain reaches
-		// `@svforge/addon-kit` dist); an order without that workspace must
-		// escalate instead of omitting it.
+		// `structure` is a BOUNDED consumer (it verifies the `svforge` dist entry);
+		// an order without that workspace must escalate instead of omitting it.
 		const bounded = planBuildSet({
 			root: ROOT,
 			workspaces,
 			buildOrder: [{ name: '@svforge/dnd', dir: 'dnd' }],
-			testFiles: ['tests/addon-env.test.ts']
+			testFiles: ['tests/structure.test.ts']
 		});
 		expect(bounded.build, 'a bounded consumer outside the order must escalate').toBe('all');
-		expect(bounded.reason).toContain('@svforge/addon-kit');
+		expect(bounded.reason).toContain('svforge');
 	});
 });
 

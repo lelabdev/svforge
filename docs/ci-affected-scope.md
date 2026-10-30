@@ -91,15 +91,43 @@ A reduced build is allowed **only when every selected test can run against it**.
   what is not; `planCiSteps()` uses that only as a gate. Any selected test with
   an unbounded/uncertain requirement, or one outside the scoped order, escalates
   the **whole run** back to a full build + full tests.
-- The `deferred_test_files` output therefore stays empty on a passing required
-  check: no scoped build may be green while selected tests have not run. The
-  earlier "defer to full validation" behaviour was removed — running missing
-  tests after merge or at release cannot catch a regression before merge.
-- Consequence, measured and documented below: with the repository's current test
-  shape (almost every test is owned by `svforge`, and ~37 meta-tests need every
-  workspace's `dist`), an isolated add-on change is **always** escalated to a
-  full build. The 3-workspace experiment from the previous revision remains a
-  performance upper bound, not a gated validation.
+- `deferred_test_files` therefore stays empty on a passing required check: no
+  scoped build may be green while selected tests have not run.
+
+## Why a reduced build is still refused (#656, current state)
+
+Measured on an isolated add-on change (`packages/notifications/src/index.ts`):
+87 tests selected, **20 still unbounded**, so the plan stays `build=all`.
+
+`node scripts/trace-dist-requirements.mjs <test>` prints the exact
+`test → helper(s) → file + instruction` chain. The 20 split into groups that
+must stay global:
+
+| Group | Files | Why a full build is required |
+| --- | --- | --- |
+| Multi-workspace inventory guards (10) | `addon-json-guard`, `ai-context`, `capability-contracts`, `manifest-freshness`, `multi-addon-compose`, `showcase`, `skeleton-markup`, `strict-check`, `upgrade-behavioral`, `user-journey` | They enumerate `packages/*/dist/**` on purpose: their contract IS "every delivered workspace exposes X". Narrowing them to the built set would weaken a repository-wide invariant, so they keep demanding every `dist`. |
+| Release / tooling subprocesses (6) | `changesets`, `compat-manifest`, `real-bin`, `version-packages`, `vite-config-modern-scaffold`, `web-hardening` | They spawn `bun`/`git`/`npm` tooling whose inputs are not statically knowable (`tests/helpers/bun.ts` is a generic runner). Not provable, so not narrowed. |
+| Real `dist` / fixture dynamic imports (3) | `cli-create` (`await import(distPath)`), `cli-prompts` (harness importing a built bin), `affected-scope` (resolver fixtures) | Genuine dynamic loads of compiled output. |
+| Guarded dist assertion (1) | `package-entry` (`existsSync(dist…) → return`) | A test that silently passes when the artifact is absent proves nothing under a reduced build. |
+
+Consequence: for an add-on change the selection is ~83 % of the suite and
+contains those twenty tests, so the scoped build is always refused. Closing
+#656 needs a **coverage-definition decision** (which cross-cutting guards a
+scoped PR must still run, the rest moving to the scheduled canary), not a
+further narrowing of the resolver. Until then the safe behaviour is what this
+document describes.
+
+### Precision work that shipped with this revision
+
+- Generated/temporary module loads go through `tests/helpers/generated-module.ts`
+  (`importGenerated(file, { bust })`), which keeps the previous cache-busting
+  semantics.
+- Modules may declare `@no-built-artifacts: <rationale>` in their header; the
+  resolver honours the declaration instead of a file-name list.
+- A workspace **source** module (`packages/<ws>/src/**`) is analysed with string
+  and comment content blanked: embedded generated-file text (`import(x.href)`
+  inside a manifest string) is data, not a load. Real statements keep their
+  signal. This alone removed 22 of the 42 unbounded selections.
 
 ## Scenarios that still require a full build
 

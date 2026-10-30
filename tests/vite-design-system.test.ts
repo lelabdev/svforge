@@ -2,8 +2,8 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { pathToFileURL } from 'node:url';
 import { baseRootFiles } from '../packages/svforge/src/templates';
+import { importGenerated } from './helpers/generated-module';
 
 const DESIGN_SYSTEM_ROOT_FILES = ['/svforge-check.mjs', '/svforge-design-system-vite-plugin.mjs'] as const;
 
@@ -19,12 +19,12 @@ function project(): string {
 }
 
 async function vitePlugin(root: string) {
-	const plugin = await import(`${pathToFileURL(join(root, 'svforge-design-system-vite-plugin.mjs')).href}?${Date.now()}`);
+	const plugin = await importGenerated(join(root, 'svforge-design-system-vite-plugin.mjs'), { bust: true });
 	return plugin.svforgeDesignSystemPlugin({ root });
 }
 
 async function checker(root: string) {
-	return import(`${pathToFileURL(join(root, 'svforge-check.mjs')).href}?${Date.now()}`);
+	return importGenerated(join(root, 'svforge-check.mjs'), { bust: true });
 }
 
 describe('Vite design-system build gate (#350)', () => {
@@ -67,7 +67,7 @@ describe('Vite design-system build gate (#350)', () => {
 
 		const plugin = await vitePlugin(root);
 		await expect(plugin.buildStart()).resolves.toBeUndefined();
-		const strictPlugin = (await import(`${pathToFileURL(join(root, 'svforge-design-system-vite-plugin.mjs')).href}?strict`))
+		const strictPlugin = (await importGenerated(join(root, 'svforge-design-system-vite-plugin.mjs'), { bust: true }))
 			.svforgeDesignSystemPlugin({ root, strict: true });
 		await expect(strictPlugin.buildStart()).rejects.toThrow(/Arbitrary radius\/spacing/);
 	});

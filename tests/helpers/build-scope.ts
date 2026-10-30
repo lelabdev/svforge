@@ -1,4 +1,5 @@
 /**
+ * @no-built-artifacts: reads only the build plan produced by the affected-scope resolver.
  * Build scope of the current run (#656).
  *
  * Repository guards that inspect BUILT output (`dist/index.js`, add-on option
