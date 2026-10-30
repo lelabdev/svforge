@@ -133,6 +133,24 @@ describe('dependency audit (#351)', () => {
 		}
 	});
 
+	it('rejects vulnerable minimatch versions across all audited lockfiles (GHSA-g3hv-75wg-m249)', () => {
+		const copies = collectPackages().filter((pkg) => pkg.name === 'minimatch');
+		expect(copies.length).toBeGreaterThan(0);
+		for (const pkg of copies) {
+			expect(versionAtLeast(pkg.version, '11.0.1'), `${pkg.lockfile}: ${pkg.name}@${pkg.version}`).toBe(true);
+		}
+	});
+
+	it('pins patched minimatch for the repository and generated Base/Dashboard manifests', () => {
+		for (const manifest of ['package.json', 'packages/svforge/templates/base/package.json', 'packages/svforge/templates/dashboard/package.json']) {
+			const overrides = JSON.parse(readFileSync(join(process.cwd(), manifest), 'utf8')).overrides;
+			const version = overrides?.minimatch;
+			expect(version, `${manifest}: minimatch must be explicitly pinned`).toBeDefined();
+			expect(version.startsWith('11.'), `${manifest}: minimatch must stay on patched v11`).toBe(true);
+			expect(versionAtLeast(version, '11.0.1'), `${manifest}: minimatch@${version}`).toBe(true);
+		}
+	});
+
 	it('keeps the Docker consumer fixture above the patched zod floor of Dependabot #26', () => {
 		const copies = collectPackages(['docker/examples/app/bun.lock']).filter((pkg) => pkg.name === 'zod');
 
