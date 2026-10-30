@@ -31,16 +31,36 @@ function sourceFiles(dir: string): string[] {
 	return out;
 }
 
+/**
+ * Historical release notes must keep describing the previous route accurately.
+ * Changesets generates changelog Markdown and the distributable TS mirror;
+ * neither is a live route or active developer guidance.
+ */
+function isReleaseHistory(file: string): boolean {
+	return file.endsWith('/CHANGELOG.md')
+		|| file === join(ROOT, 'packages/svforge/src/changelog.ts');
+}
+
 describe('showcase route convention (#586)', () => {
 	it('renamed the gallery to /showcase without leaving the old path behind', () => {
 		const offenders = sourceFiles(ROOT)
 			.filter((file) => !file.endsWith('tests/showcase.test.ts'))
+			.filter((file) => !isReleaseHistory(file))
 			.filter((file) => readFileSync(file, 'utf-8').includes('demo-ui'))
 			.map((file) => file.slice(ROOT.length + 1));
 
 		expect(offenders, `stale /demo-ui references: ${offenders.join(', ')}`).toEqual([]);
 		expect(existsSync(join(BASE, 'src/routes/showcase/+page.svelte'))).toBe(true);
 		expect(existsSync(join(BASE, 'src/routes/demo-ui'))).toBe(false);
+	});
+
+	it('preserves historical route names in changelogs while checking active sources', () => {
+		for (const packageName of ['addon-kit', 'dnd', 'svforge']) {
+			expect(isReleaseHistory(join(ROOT, `packages/${packageName}/CHANGELOG.md`))).toBe(true);
+		}
+		expect(isReleaseHistory(join(ROOT, 'packages/svforge/src/changelog.ts'))).toBe(true);
+		expect(isReleaseHistory(join(ROOT, 'packages/svforge/README.md'))).toBe(false);
+		expect(isReleaseHistory(INDEX)).toBe(false);
 	});
 
 	it('keeps the design-system gallery and adds a module-demo section only when demos exist', () => {
