@@ -4,6 +4,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFile
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildCompatManifest } from './compat-manifest.mjs';
+import { alignSvelte5GeneratedVersion, alignSvelte5ProspectiveReleases, assertSvelte5AlignmentBaseline, hasSvelte5AlignmentChangeset } from './svelte5-major-alignment.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const CANARY_VERSION = /^(\d+\.\d+\.\d+)-canary\.(\d+)$/;
@@ -242,6 +243,8 @@ export function prepareCanarySnapshot({
 }) {
 	const tag = canarySnapshotTag(commit, runId);
 	const before = readCanaryPackageVersions(root);
+	const alignSvelte5 = hasSvelte5AlignmentChangeset(root);
+	if (alignSvelte5) assertSvelte5AlignmentBaseline(before);
 	const statusPath = join(root, `.changeset-status-${runId}.json`);
 	runCommand('bun', ['x', 'changeset', 'status', '--output', statusPath], root);
 	const status = JSON.parse(readFileSync(statusPath, 'utf8'));
@@ -261,12 +264,16 @@ export function prepareCanarySnapshot({
 		runCommand('bun', ['x', 'changeset', 'status', '--output', statusPath], root);
 		selected = JSON.parse(readFileSync(statusPath, 'utf8')).releases ?? [];
 	}
+	// A Svelte 5 alignment canary must use 5.0.0-canary.N, not the
+	// intermediate 3.0.0 version Changesets calculates from 2.3.0.
+	selected = alignSvelte5ProspectiveReleases(selected, alignSvelte5);
 	const iteration = nextCanaryIteration(selected, listVersions, currentStaging, runId);
 
 	runCommand('bun', [
 		'x', 'changeset', 'version', '--snapshot', `canary.${iteration}`,
 		'--snapshot-prerelease-template', '{tag}'
 	], root);
+	if (alignSvelte5) alignSvelte5GeneratedVersion(root, { iteration });
 	writeFileSync(configPath, originalConfig);
 	runCommand('bun', ['install', '--ignore-scripts'], root);
 	runCommand('bun', ['run', '--filter', 'svforge', 'prebuild'], root);
