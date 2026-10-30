@@ -5,5 +5,12 @@
 		"advisory": "GHSA-rj75-hqrm-r3gf",
 		"path": "postcss-selector-parser",
 		"reason": "Pinned exactly by the dev-only @tailwindcss/typography@0.5.20 dependency. It parses checked-in build-time CSS selectors, not selectors supplied to an application runtime request. No compatible patched v6 release can currently be selected through this dependency's exact pin; keep this exception scoped to this version and dependency path until Typography updates its pin."
+	},
+	{
+		"package": "deepmerge",
+		"version": "4.3.1",
+		"advisory": "GHSA-gcqx-w48m-w2h4",
+		"path": "deepmerge",
+		"reason": "Reviewed 2026-10-30: GitHub rates this prototype-poisoning advisory low and lists no patched deepmerge release. The locked deepmerge@4.3.1 is pulled by the root devDependency @sveltejs/vite-plugin-svelte@6.2.4 for Vite/Svelte build-time tooling, rather than a generated application's request-handling runtime. Untrusted data must not be passed into this build configuration. Exception is limited to the exact resolved package version and lockfile path, not the advisory globally; revisit and remove it once the upstream plugin adopts a non-vulnerable dependency or a fixed deepmerge release becomes available."
 	}
 ]
