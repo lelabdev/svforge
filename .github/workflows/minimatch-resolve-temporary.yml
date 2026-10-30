@@ -1,0 +1,33 @@
+name: Temporary minimatch lockfile regeneration (remove before merge)
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    if: github.head_ref == 'fix/security-minimatch-11'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - name: Regenerate root and Docker builder lockfiles with pinned Bun
+        run: |
+          set -euo pipefail
+          bun install --lockfile-only --ignore-scripts
+          tmp="$(mktemp -d)"
+          cp packages/svforge/templates/dashboard/package.json "$tmp/package.json"
+          cp docker/builder.bun.lock "$tmp/bun.lock"
+          (cd "$tmp" && bun install --lockfile-only --ignore-scripts)
+          cp "$tmp/bun.lock" docker/builder.bun.lock
+          rm -rf "$tmp"
+          echo 'LOCKFILE_DIFF_START'
+          git diff --no-ext-diff --unified=0 -- bun.lock docker/builder.bun.lock
+          echo 'LOCKFILE_DIFF_END'
+          echo 'MINIMATCH_RESOLVED:'
+          grep '"minimatch": \[' bun.lock docker/builder.bun.lock || true
