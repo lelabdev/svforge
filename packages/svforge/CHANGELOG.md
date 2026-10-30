@@ -1,5 +1,13 @@
 # svforge
 
+## 5.0.1
+
+### Patch Changes
+
+- [#692](https://github.com/lelabdev/svforge/pull/692) [`2f712d8`](https://github.com/lelabdev/svforge/commit/2f712d80d90077d20496153f908d4667ac08ff09) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Refresh generated Base and Dashboard dependency safety by selecting a maintained minimatch release for development tooling.
+
+- [#690](https://github.com/lelabdev/svforge/pull/690) [`cc61d5d`](https://github.com/lelabdev/svforge/commit/cc61d5d39c3a9570969993564a2d4d61db34bde2) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Generated Base and Dashboard projects now pin `postcss-selector-parser` to the patched v7 line through a Bun `overrides` entry: `@tailwindcss/typography` pins the vulnerable `6.0.10` exactly, so generated lockfiles inherited CVE-2026-104844 / GHSA-rj75-hqrm-r3gf on every fresh install. Bun 1.3.x supports global overrides only, so a single version must satisfy every consumer; the patched v7 line keeps `svelte-eslint-parser` and `postcss-nested` (which require `^7.0.0`) inside their declared ranges instead of forcing the legacy v6 backport onto them. The Docker builder lockfile was regenerated from the Dashboard manifest with the documented Bun 1.3.14 procedure, and the reusable-builder consumer fixture moved from Zod 3 to the patched Zod 4.6.6 while keeping its tested builder/consumer version-ownership contract. The repository dependency audit now also covers the Docker builder and consumer lockfiles, rejects obsolete audit exceptions, and guards the resolved selector-parser copies against a future incompatible-major regression.
+
 ## 5.0.0
 
 ### Major Changes

@@ -48,7 +48,7 @@
     },
     {
       "name": "svforge",
-      "version": "5.0.0",
+      "version": "5.0.1",
       "directory": "packages/svforge"
     }
   ]
