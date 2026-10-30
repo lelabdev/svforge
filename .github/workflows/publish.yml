@@ -206,6 +206,29 @@ jobs:
       - name: Build all packages
         run: bun run --filter '*' build
 
+      # The immutable v5 release commit (#658) predates the fix for the
+      # Dashboard favicon magic probe. Piping curl into head -c 4 can produce
+      # curl exit 23 under pipefail even if the favicon is valid.
+      # Apply the exact one-line harness fix only to this release's Dashboard
+      # test, without changing any package sources, versions or tarballs.
+      - name: Repair reviewed v5 Dashboard scaffold smoke harness
+        if: >-
+          matrix.scaffold == 'dashboard' &&
+          needs.authorize-release.outputs.release_commit == '4d9d18dbb7afd4e9962bb067749f40307e2d8467'
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/test-scaffold.sh')
+          before = 'curl -s "$ORIGIN/favicon.ico" | head -c 4 |'
+          after = 'curl -s "$ORIGIN/favicon.ico" | { head -c 4; cat >/dev/null; } |'
+          source = path.read_text()
+          if source.count(before) != 1:
+              raise SystemExit('Expected exactly one original favicon probe in the immutable v5 harness')
+          path.write_text(source.replace(before, after))
+          PY
+          git diff --check
+          git diff -- scripts/test-scaffold.sh
+
       - name: Scaffold test (${{ matrix.scaffold }})
         run: bash scripts/test-scaffold.sh ${{ matrix.scaffold }}
         env:
