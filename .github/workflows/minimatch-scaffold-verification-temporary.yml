@@ -1,0 +1,45 @@
+name: Temporary minimatch scaffold verification (remove before merge)
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  scaffold:
+    if: github.head_ref == 'fix/security-minimatch-11'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [base, dashboard]
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: sf_dashboard_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun run --filter '*' build
+      - name: Verify generated scaffold (${{ matrix.profile }}) with pinned official Svelte CLI
+        env:
+          SV_CMD: bunx sv@1.1.1
+          CI: "true"
+        run: |
+          set -euo pipefail
+          bash scripts/test-scaffold.sh "${{ matrix.profile }}" > /tmp/scaffold.log 2>&1 || { tail -120 /tmp/scaffold.log; exit 1; }
+          tail -50 /tmp/scaffold.log
