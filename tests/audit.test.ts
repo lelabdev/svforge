@@ -3,10 +3,22 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const { formatFindings, isBaselined, loadBaseline, queryOsv, resolvedPackages } = await import('../scripts/audit.mjs');
+const {
+	AUDITED_LOCKFILES,
+	collectPackages,
+	formatFindings,
+	isBaselined,
+	loadBaseline,
+	queryOsv,
+	resolvedPackages,
+	staleBaselineEntries
+} = await import('../scripts/audit.mjs');
 
 const okFetch = (body: unknown) =>
 	vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(body) });
+
+const versionAtLeast = (version: string, floor: string) =>
+	version.localeCompare(floor, 'en', { numeric: true }) >= 0;
 
 describe('dependency audit (#351)', () => {
 	afterEach(() => vi.restoreAllMocks());
@@ -20,21 +32,63 @@ describe('dependency audit (#351)', () => {
 				"svforge": ["svforge@workspace:packages/svforge"],
 				"pinned": ["pinned@https://example.test/pinned.tgz"]
 			}
-		}`);
+		}`, 'bun.lock');
 
-		expect(packages).toContainEqual({ name: '@types/ws', version: '8.18.1', paths: '@types/ws' });
-		expect(packages).toContainEqual({ name: 'ws', version: '8.21.3', paths: 'ws' });
-		expect(packages).toContainEqual({ name: 'postcss', version: '8.5.16', paths: 'vite/postcss' });
+		expect(packages).toContainEqual({ name: '@types/ws', version: '8.18.1', paths: '@types/ws', lockfile: 'bun.lock' });
+		expect(packages).toContainEqual({ name: 'ws', version: '8.21.3', paths: 'ws', lockfile: 'bun.lock' });
+		expect(packages).toContainEqual({ name: 'postcss', version: '8.5.16', paths: 'vite/postcss', lockfile: 'bun.lock' });
 		// Non-registry locators are excluded: OSV can only match published versions.
 		expect(packages).toHaveLength(3);
 	});
 
+	it('audits every checked-in lockfile, including the Docker builder and consumer trees (#689)', () => {
+		const packages = collectPackages();
+		const byLockfile = new Map<string, number>();
+		for (const pkg of packages) byLockfile.set(pkg.lockfile, (byLockfile.get(pkg.lockfile) ?? 0) + 1);
+
+		expect([...byLockfile.keys()].sort()).toEqual([...AUDITED_LOCKFILES].sort());
+		// The Docker lockfiles are the reason this coverage exists: they install
+		// from their own resolved trees, not from the root workspace lockfile.
+		expect(byLockfile.get('docker/builder.bun.lock')).toBeGreaterThan(0);
+		expect(byLockfile.get('docker/examples/app/bun.lock')).toBeGreaterThan(0);
+	});
+
+	it('fails instead of silently shrinking coverage when an audited lockfile disappears', () => {
+		const root = mkdtempSync(join(tmpdir(), 'audit-lockfiles-'));
+		try {
+			writeFileSync(join(root, 'bun.lock'), '{"packages":{"ws":["ws@8.21.3","",{},"digest"]}}');
+
+			expect(() => collectPackages(['bun.lock', 'docker/builder.bun.lock'], root)).toThrow(
+				/Audited lockfile is missing: docker\/builder\.bun\.lock/
+			);
+		} finally {
+			rmSync(root, { recursive: true, force: true });
+		}
+	});
+
+	it('keeps every resolved selector parser copy on its patched 6.1.5 / 7.1.6 security floor (#689)', () => {
+		const copies = collectPackages().filter((pkg) => pkg.name === 'postcss-selector-parser');
+
+		expect(copies.length).toBeGreaterThan(0);
+		for (const pkg of copies) {
+			const floor = pkg.version.startsWith('6.') ? '6.1.5' : '7.1.6';
+			expect(versionAtLeast(pkg.version, floor), `${pkg.lockfile}: ${pkg.name}@${pkg.version}`).toBe(true);
+		}
+	});
+
+	it('keeps the Docker consumer fixture above the patched zod floor of Dependabot #26', () => {
+		const copies = collectPackages(['docker/examples/app/bun.lock']).filter((pkg) => pkg.name === 'zod');
+
+		expect(copies).toHaveLength(1);
+		expect(versionAtLeast(copies[0].version, '4.6.6')).toBe(true);
+	});
+
 	it('keeps every resolved devalue version on the patched 5.9.3+ line (#485)', () => {
-		const packages = resolvedPackages().filter((pkg) => pkg.name === 'devalue');
+		const packages = collectPackages(['bun.lock']).filter((pkg) => pkg.name === 'devalue');
 
 		expect(packages.length).toBeGreaterThan(0);
 		for (const pkg of packages) {
-			expect(pkg.version.localeCompare('5.9.3', 'en', { numeric: true })).toBeGreaterThanOrEqual(0);
+			expect(versionAtLeast(pkg.version, '5.9.3')).toBe(true);
 		}
 	});
 
@@ -63,18 +117,38 @@ describe('dependency audit (#351)', () => {
 		);
 	});
 
+	it('queries OSV in batches and keeps results aligned with the package order (#689)', async () => {
+		const fetchImpl = vi
+			.fn()
+			.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ results: [{}, { vulns: [{ id: 'GHSA-a' }] }] }) })
+			.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ results: [{ vulns: [{ id: 'GHSA-b' }] }] }) });
+		const packages = [
+			{ name: 'a', version: '1.0.0', paths: 'a', lockfile: 'bun.lock' },
+			{ name: 'b', version: '1.0.0', paths: 'b', lockfile: 'bun.lock' },
+			{ name: 'c', version: '1.0.0', paths: 'c', lockfile: 'docker/builder.bun.lock' }
+		];
+
+		const results = await queryOsv(packages, fetchImpl as unknown as typeof fetch, { batchSize: 2 });
+
+		expect(fetchImpl).toHaveBeenCalledTimes(2);
+		expect(formatFindings(packages, results).map((finding) => `${finding.name}:${finding.lockfile}`)).toEqual([
+			'b:bun.lock',
+			'c:docker/builder.bun.lock'
+		]);
+	});
+
 	it('parses JSONC lockfiles with comments and trailing commas', () => {
 		const lockfile = `// Bun lockfile\n// generated\n{\n\t// root workspace\n\t"packages": {\n\t\t"ws": ["ws@8.21.3", ""], // trailing\n\t\t"postcss": ["postcss@8.5.16", ""]\n\t}\n}`;
-		const packages = resolvedPackages(lockfile);
+		const packages = resolvedPackages(lockfile, 'bun.lock');
 
-		expect(packages).toContainEqual({ name: 'ws', version: '8.21.3', paths: 'ws' });
-		expect(packages).toContainEqual({ name: 'postcss', version: '8.5.16', paths: 'postcss' });
+		expect(packages).toContainEqual({ name: 'ws', version: '8.21.3', paths: 'ws', lockfile: 'bun.lock' });
+		expect(packages).toContainEqual({ name: 'postcss', version: '8.5.16', paths: 'postcss', lockfile: 'bun.lock' });
 	});
 
 	it('does not treat comment markers inside string values as comments', () => {
 		const lockfile = '{"packages":{"ws":["ws@8.21.3","https://example.test/a"]}}';
 
-		expect(resolvedPackages(lockfile)).toEqual([{ name: 'ws', version: '8.21.3', paths: 'ws' }]);
+		expect(resolvedPackages(lockfile, 'bun.lock')).toEqual([{ name: 'ws', version: '8.21.3', paths: 'ws', lockfile: 'bun.lock' }]);
 	});
 
 	it('fails after retries on a persistently unreachable OSV API instead of passing silently', async () => {
@@ -87,8 +161,8 @@ describe('dependency audit (#351)', () => {
 		expect(fetchImpl).toHaveBeenCalledTimes(3);
 	});
 
-	it('reports vulnerable packages with name, version, path, and advisory', () => {
-		const packages = [{ name: 'nanoid', version: '3.3.15', paths: 'nanoid' }];
+	it('reports vulnerable packages with name, version, path, lockfile and advisory', () => {
+		const packages = [{ name: 'nanoid', version: '3.3.15', paths: 'nanoid', lockfile: 'docker/examples/app/bun.lock' }];
 		const results = {
 			results: [{ vulns: [{ id: 'GHSA-xxxx', aliases: ['CVE-2026-0000'], summary: '  insecure generation  ' }] }]
 		};
@@ -98,6 +172,7 @@ describe('dependency audit (#351)', () => {
 				name: 'nanoid',
 				version: '3.3.15',
 				path: 'nanoid',
+				lockfile: 'docker/examples/app/bun.lock',
 				package: 'nanoid@3.3.15',
 				advisory: 'GHSA-xxxx, CVE-2026-0000',
 				ids: ['GHSA-xxxx', 'CVE-2026-0000'],
@@ -106,46 +181,78 @@ describe('dependency audit (#351)', () => {
 		]);
 	});
 
-	it('scopes baseline matching to package + version + path + advisory (#359)', () => {
+	it('scopes baseline matching to lockfile + package + version + path + advisory (#359, #689)', () => {
 		const finding = {
 			name: 'nanoid',
 			version: '3.3.15',
 			path: 'nanoid',
+			lockfile: 'bun.lock',
 			package: 'nanoid@3.3.15',
 			advisory: 'GHSA-xxxx',
 			ids: ['GHSA-xxxx', 'CVE-2026-0000'],
 			summary: 'x'
 		};
-		const baseline = [{ package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: 'dev-only transitive' }];
+		const baseline = [
+			{
+				lockfile: 'bun.lock',
+				package: 'nanoid',
+				version: '3.3.15',
+				path: 'nanoid',
+				advisory: 'GHSA-xxxx',
+				reason: '2026-10-30: dev-only transitive'
+			}
+		];
 
 		expect(isBaselined(finding, baseline)).toBe(true);
 		// Same advisory, different version: NOT covered.
 		expect(isBaselined({ ...finding, version: '3.3.16' }, baseline)).toBe(false);
 		// Same package/version, introduced through another dependency path: NOT covered.
 		expect(isBaselined({ ...finding, path: 'vite/nanoid' }, baseline)).toBe(false);
+		// Same package/version/path in another lockfile: NOT covered.
+		expect(isBaselined({ ...finding, lockfile: 'docker/builder.bun.lock' }, baseline)).toBe(false);
 		// Same package, different advisory: NOT covered.
 		expect(isBaselined({ ...finding, ids: ['GHSA-yyyy'], advisory: 'GHSA-yyyy' }, baseline)).toBe(false);
 	});
 
-	it('rejects baseline entries without a full scope and justification', () => {
+	it('flags baseline entries that no longer match a resolved package', () => {
+		const packages = [{ name: 'nanoid', version: '3.3.15', paths: 'nanoid', lockfile: 'bun.lock' }];
+		const baseline = [
+			{ lockfile: 'bun.lock', package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: '2026-10-30: why' },
+			{ lockfile: 'bun.lock', package: 'nanoid', version: '3.3.14', path: 'nanoid', advisory: 'GHSA-xxxx', reason: '2026-10-30: why' },
+			{ lockfile: 'bun.lock', package: 'nanoid', version: '3.3.15', path: 'vite/nanoid', advisory: 'GHSA-xxxx', reason: '2026-10-30: why' },
+			{ lockfile: 'docker/builder.bun.lock', package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: '2026-10-30: why' }
+		];
+
+		expect(staleBaselineEntries(baseline, packages)).toEqual([baseline[1], baseline[2], baseline[3]]);
+	});
+
+	it('rejects baseline entries without a full scope, review date and justification', () => {
 		const root = mkdtempSync(join(tmpdir(), 'audit-baseline-'));
 		try {
 			const missing = join(root, 'absent.json');
 			expect(loadBaseline(missing)).toEqual([]);
 
 			const invalidPath = join(root, 'invalid.json');
-			writeFileSync(invalidPath, JSON.stringify([{ package: 'nanoid', advisory: 'GHSA-xxxx' }]));
+			writeFileSync(invalidPath, JSON.stringify([{ lockfile: 'bun.lock', package: 'nanoid', advisory: 'GHSA-xxxx' }]));
 			expect(() => loadBaseline(invalidPath)).toThrow(/needs a non-empty string version/);
+
+			const noLockfile = join(root, 'no-lockfile.json');
+			writeFileSync(noLockfile, JSON.stringify([{ package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: '2026-10-30: why' }]));
+			expect(() => loadBaseline(noLockfile)).toThrow(/needs a non-empty string lockfile/);
+
+			const undated = join(root, 'undated.json');
+			writeFileSync(undated, JSON.stringify([{ lockfile: 'bun.lock', package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: 'dev-only transitive' }]));
+			expect(() => loadBaseline(undated)).toThrow(/must start with its review date/);
 
 			const todoPath = join(root, 'todo.json');
 			writeFileSync(todoPath, JSON.stringify([
-				{ package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: 'TODO: justify this exception before the next release.' }
+				{ lockfile: 'bun.lock', package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: 'TODO: justify this exception before the next release.' }
 			]));
 			expect(() => loadBaseline(todoPath)).toThrow(/unjustified baseline entry/);
 
 			const validPath = join(root, 'valid.json');
 			writeFileSync(validPath, JSON.stringify([
-				{ package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: 'dev-only transitive via postcss' }
+				{ lockfile: 'bun.lock', package: 'nanoid', version: '3.3.15', path: 'nanoid', advisory: 'GHSA-xxxx', reason: '2026-10-30: dev-only transitive via postcss' }
 			]));
 			expect(loadBaseline(validPath)).toHaveLength(1);
 		} finally {
@@ -153,9 +260,18 @@ describe('dependency audit (#351)', () => {
 		}
 	});
 
-	it('reports no findings on a clean OSV response for the real bun.lock', async () => {
+	it('accepts the checked-in baseline for the checked-in lockfiles', () => {
+		const baseline = loadBaseline();
+		const packages = collectPackages();
+
+		// Any entry that no longer matches a resolved package is an obsolete
+		// exception and must be removed, not silently carried forward (#689).
+		expect(staleBaselineEntries(baseline, packages)).toEqual([]);
+	});
+
+	it('reports no findings on a clean OSV response for the real lockfiles', async () => {
 		const fetchImpl = okFetch({ results: [] });
-		const packages = resolvedPackages();
+		const packages = collectPackages();
 		const results = await queryOsv(packages, fetchImpl as unknown as typeof fetch);
 
 		expect(packages.length).toBeGreaterThan(0);
