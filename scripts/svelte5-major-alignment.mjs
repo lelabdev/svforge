@@ -70,11 +70,11 @@ export function alignSvelte5GeneratedVersion(root, { iteration = null } = {}) {
 	if (iteration === null) {
 		changelogPath = join(root, 'packages/svforge/CHANGELOG.md');
 		changelog = readFileSync(changelogPath, 'utf8');
-		const header = '# svforge\\n\\n## 3.0.0\\n';
+		const header = '# svforge\n\n## 3.0.0\n';
 		if (!changelog.startsWith(header)) {
 			throw new Error('Svelte 5 major alignment requires a newly generated 3.0.0 changelog entry.');
 		}
-		nextChangelog = changelog.replace(header, '# svforge\\n\\n## 5.0.0\\n');
+		nextChangelog = changelog.replace(header, '# svforge\n\n## 5.0.0\n');
 	}
 	writeFileSync(manifestPath, updated);
 	if (iteration === null) writeFileSync(changelogPath, nextChangelog);
