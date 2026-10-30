@@ -12,7 +12,7 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "ast_hash": "f54ab714d92fd25e9578a15c1d18450d",
+    "ast_hash": "387880550792ac7a273f605b14200350",
     "semantic_hash": ""
   },
   "packages/addon-kit/package.json": {
@@ -2068,7 +2068,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/docs/llms-snapshots.json": {
-    "ast_hash": "358e948d8ca5029a157f3ec5521e5097",
+    "ast_hash": "e5116d03064bc8a35db1957364a4f9a8",
     "semantic_hash": ""
   },
   "scripts/check-release-docs.mjs": {
