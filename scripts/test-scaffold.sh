@@ -982,7 +982,9 @@ if [ "$TEMPLATE" = "dashboard" ]; then
 		[ "$favicon_status" = "200" ] || fail "/favicon.ico returned HTTP $favicon_status (#325)"
 		favicon_type=$(curl -s -o /dev/null -w '%{content_type}' "$ORIGIN/favicon.ico")
 		case "$favicon_type" in image/x-icon*) ;; *) fail "/favicon.ico served unexpected Content-Type: $favicon_type (#613)" ;; esac
-		favicon_magic=$(curl -s "$ORIGIN/favicon.ico" | head -c 4 | od -An -tx1 | tr -d ' \n')
+		# Keep draining after head reads the ICO signature: under pipefail,
+		# closing the curl pipe early can exit 23 even for a valid favicon.
+		favicon_magic=$(curl -s "$ORIGIN/favicon.ico" | { head -c 4; cat >/dev/null; } | od -An -tx1 | tr -d ' \n')
 		[ "$favicon_magic" = "00000100" ] || fail "/favicon.ico is not a real ICO (magic: $favicon_magic) (#613)"
 		png_status=$(curl -s -o /dev/null -w '%{http_code}' "$ORIGIN/favicon/favicon-32x32.png")
 		[ "$png_status" = "200" ] || fail "/favicon/favicon-32x32.png returned HTTP $png_status (#613)"
