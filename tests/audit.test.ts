@@ -38,6 +38,22 @@ describe('dependency audit (#351)', () => {
 		}
 	});
 
+	it('keeps selector parser v6 patched while preserving v7 consumers', () => {
+		const selectorParsers = resolvedPackages().filter((pkg) => pkg.name === 'postcss-selector-parser');
+		expect(selectorParsers.length).toBeGreaterThanOrEqual(2);
+
+		const typography = selectorParsers.find((pkg) => pkg.paths === 'postcss-selector-parser');
+		expect(typography?.version).toBe('6.1.5');
+
+		for (const pkg of selectorParsers) {
+			const [major, minor, patch] = pkg.version.split('.').map(Number);
+			const patched = (major === 6 && (minor > 1 || (minor === 1 && patch >= 5)))
+				|| (major === 7 && (minor > 1 || (minor === 1 && patch >= 6)))
+				|| major > 7;
+			expect(patched, `${pkg.paths} uses vulnerable postcss-selector-parser@${pkg.version}`).toBe(true);
+		}
+	});
+
 	it('sends version beside package, per the official querybatch schema (#359)', async () => {
 		const fetchImpl = okFetch({ results: [] });
 
