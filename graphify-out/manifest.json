@@ -1,6 +1,6 @@
 {
   "docs/audit-baseline.json": {
-    "ast_hash": "dd52b6aabb7c8a33ff66c9217296b0ea",
+    "ast_hash": "0962f18755bbac7ba87b6e63c848d3ff",
     "semantic_hash": ""
   },
   "docs/release-plan.schema.json": {
@@ -12,11 +12,11 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "ast_hash": "dbc4228d98f0ab516bb62cf683fce033",
+    "ast_hash": "f54ab714d92fd25e9578a15c1d18450d",
     "semantic_hash": ""
   },
   "packages/addon-kit/package.json": {
-    "ast_hash": "7745a109ecff8822c47aeeffc0e15ed2",
+    "ast_hash": "e2fc2d13d6bc47d03f880c70066ea19e",
     "semantic_hash": ""
   },
   "packages/addon-kit/src/capabilities.ts": {
@@ -44,7 +44,7 @@
     "semantic_hash": ""
   },
   "packages/audit/package.json": {
-    "ast_hash": "a77a8ca92cf6582465bf6ddd60c7594d",
+    "ast_hash": "e2d38fd3f1990f2fdcebda76333c14a3",
     "semantic_hash": ""
   },
   "packages/audit/scripts/prebuild.ts": {
@@ -124,7 +124,7 @@
     "semantic_hash": ""
   },
   "packages/chat/package.json": {
-    "ast_hash": "6e349c45bc498d43ab4a11bade940b68",
+    "ast_hash": "33c8b1eaa50e3ff3df668a4cb39a8c44",
     "semantic_hash": ""
   },
   "packages/chat/scripts/prebuild.ts": {
@@ -172,7 +172,7 @@
     "semantic_hash": ""
   },
   "packages/dnd/package.json": {
-    "ast_hash": "3ae9bdc643acbd899bf6a1420fa37746",
+    "ast_hash": "0785f78df2aac7a3996cf19fd8322ed7",
     "semantic_hash": ""
   },
   "packages/dnd/scripts/prebuild.ts": {
@@ -236,7 +236,7 @@
     "semantic_hash": ""
   },
   "packages/graph/package.json": {
-    "ast_hash": "18115d027c3fb848ce7af74009fb55ab",
+    "ast_hash": "5bcbdc5cf5364c76625b97f71946b9e6",
     "semantic_hash": ""
   },
   "packages/graph/scripts/prebuild.ts": {
@@ -404,7 +404,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/package.json": {
-    "ast_hash": "4296d48ac1da0acd852ebb623c97db8d",
+    "ast_hash": "e68dbe52a6def883acd9e5ef3d5b4444",
     "semantic_hash": ""
   },
   "packages/svforge/scripts/fetch-llms-docs.sh": {
@@ -432,7 +432,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/changelog.ts": {
-    "ast_hash": "84b8327caf35c42c21a597f888636377",
+    "ast_hash": "39c4af34647afb9fb5e1e00b9aed745c",
     "semantic_hash": ""
   },
   "packages/svforge/src/design-system.ts": {
@@ -468,11 +468,11 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/module-recipes.ts": {
-    "ast_hash": "134443bdf616e3186ee9edb48984e1d9",
+    "ast_hash": "22e00a3860bb46b125d9121da9ec8b84",
     "semantic_hash": ""
   },
   "packages/svforge/src/recipe-version.ts": {
-    "ast_hash": "d91520f2067950a66f05a5bfbc90e022",
+    "ast_hash": "739ba77812d6e1d4657385ac084ffc9d",
     "semantic_hash": ""
   },
   "packages/svforge/src/scaffolded-agents.ts": {
@@ -504,7 +504,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/package.json": {
-    "ast_hash": "22a792451d35a26e555c84aa903def76",
+    "ast_hash": "2b31d8ce4c217fac1ab6748f4bb0d2dd",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/eslint-plugin-svforge.mjs": {
@@ -672,7 +672,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/package.json": {
-    "ast_hash": "24ee57553cc0e3bf67e3167ac9305156",
+    "ast_hash": "7d7b74d8f76aab90a09f86d08a77db5b",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/root/scripts/create-admin.ts": {
@@ -856,7 +856,7 @@
     "semantic_hash": ""
   },
   "packages/tiptap/package.json": {
-    "ast_hash": "9abce7de929b509272f575c74aa71374",
+    "ast_hash": "a5cbb119c0773358b6e72a7057057a1e",
     "semantic_hash": ""
   },
   "packages/tiptap/scripts/prebuild.ts": {
@@ -900,7 +900,7 @@
     "semantic_hash": ""
   },
   "packages/ui_toast/package.json": {
-    "ast_hash": "faae665d178679d5a0fcdfc9a769babe",
+    "ast_hash": "72099ba295837b8d88aac531a0e51d9d",
     "semantic_hash": ""
   },
   "packages/ui_toast/scripts/prebuild.ts": {
@@ -928,7 +928,7 @@
     "semantic_hash": ""
   },
   "packages/uploads/package.json": {
-    "ast_hash": "b564324f4968b60e5bcac23892dcd43c",
+    "ast_hash": "858a32a1f7ecd818021693c4b5445958",
     "semantic_hash": ""
   },
   "packages/uploads/scripts/prebuild.ts": {
@@ -968,11 +968,11 @@
     "semantic_hash": ""
   },
   "scripts/audit.mjs": {
-    "ast_hash": "e3b34b95c7cef6fb3d66fa3886375ed4",
+    "ast_hash": "927c81885c12bd8749503ee3f609054a",
     "semantic_hash": ""
   },
   "scripts/better-auth-audit.mjs": {
-    "ast_hash": "1d1b8b62bd434c55501f3b47497f4115",
+    "ast_hash": "0a453e1967588fe309e6ed492ba9c8f6",
     "semantic_hash": ""
   },
   "scripts/canary-issue.mjs": {
@@ -1012,7 +1012,7 @@
     "semantic_hash": ""
   },
   "scripts/test-scaffold.sh": {
-    "ast_hash": "22c9ae8f744f73a8399fd8ed92e7a8d3",
+    "ast_hash": "e69a8f5559d24a8892a0c1e4c97f350f",
     "semantic_hash": ""
   },
   "tests/a11y-reactivity.test.ts": {
@@ -1056,7 +1056,7 @@
     "semantic_hash": ""
   },
   "tests/audit.test.ts": {
-    "ast_hash": "122e27210ba990d8d3556159b564cff6",
+    "ast_hash": "a6d09cdf103af612ab4ae1c9c3478ca8",
     "semantic_hash": ""
   },
   "tests/auth-schema-check.test.ts": {
@@ -1072,7 +1072,7 @@
     "semantic_hash": ""
   },
   "tests/better-auth-audit.test.ts": {
-    "ast_hash": "6d200c524819598a491b8b1873a696ca",
+    "ast_hash": "358ab69b6a9d20a7015f2d819f54ba36",
     "semantic_hash": ""
   },
   "tests/blog-mdsvex.test.ts": {
@@ -1404,11 +1404,11 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "ast_hash": "abe5fefaf69e210f453a2a8b39a47ac5",
+    "ast_hash": "1c0f876bd10fbc052e4894f7449ca89f",
     "semantic_hash": ""
   },
   ".github/workflows/publish.yml": {
-    "ast_hash": "eb58544501afceb7377db42755a836c4",
+    "ast_hash": "f2116ac2a3472abfe3e5756eba7c5ef0",
     "semantic_hash": ""
   },
   "AGENTS.md": {
@@ -1576,7 +1576,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/src/compat-manifest.ts": {
-    "ast_hash": "db907a0421a69b290e01bdf031c35f90",
+    "ast_hash": "916fe578c200824b7e9d6ba62f584144",
     "semantic_hash": ""
   },
   "packages/svforge/src/compat.ts": {
@@ -1784,11 +1784,11 @@
     "semantic_hash": ""
   },
   "packages/addon-kit/CHANGELOG.md": {
-    "ast_hash": "54416606eaf6b580a770ef69ea2046ef",
+    "ast_hash": "62fb8f6b2e6c61131ef303e287344f63",
     "semantic_hash": ""
   },
   "packages/audit/CHANGELOG.md": {
-    "ast_hash": "dd2256df2674737d541852d2f1d54cb8",
+    "ast_hash": "536a3b4640ec21b039635895deb19d9f",
     "semantic_hash": ""
   },
   "packages/blog/CHANGELOG.md": {
@@ -1796,11 +1796,11 @@
     "semantic_hash": ""
   },
   "packages/chat/CHANGELOG.md": {
-    "ast_hash": "35c802c35b6c198a9c0fcd8ca14f736e",
+    "ast_hash": "8c7ff74f04f4c54be6645c957926f501",
     "semantic_hash": ""
   },
   "packages/dnd/CHANGELOG.md": {
-    "ast_hash": "0e506b48549034bfb9cb137863255995",
+    "ast_hash": "ec83af507f4fa27dc884a8611809b2bc",
     "semantic_hash": ""
   },
   "packages/email/CHANGELOG.md": {
@@ -1808,7 +1808,7 @@
     "semantic_hash": ""
   },
   "packages/graph/CHANGELOG.md": {
-    "ast_hash": "811014889e86f7b4ffae057b4e2d369c",
+    "ast_hash": "ee50c6434921226310dca97feaebf269",
     "semantic_hash": ""
   },
   "packages/jobs/CHANGELOG.md": {
@@ -1828,19 +1828,19 @@
     "semantic_hash": ""
   },
   "packages/svforge/CHANGELOG.md": {
-    "ast_hash": "b4e6e9f2b9f18fd056245b09bb3417f8",
+    "ast_hash": "9922e1ac0ef029cc6200f428087b8759",
     "semantic_hash": ""
   },
   "packages/tiptap/CHANGELOG.md": {
-    "ast_hash": "4f18faeca93a99fff19bd505267e3389",
+    "ast_hash": "9b95d079e00a48c128838c926d29713b",
     "semantic_hash": ""
   },
   "packages/ui_toast/CHANGELOG.md": {
-    "ast_hash": "72acf033173f763c15b5d3ce423759f5",
+    "ast_hash": "9d9b375c6d5c99f07268f84723e880d7",
     "semantic_hash": ""
   },
   "packages/uploads/CHANGELOG.md": {
-    "ast_hash": "eb55a703233a5162b0b32d008c2d1289",
+    "ast_hash": "f183d78a2931efa66ddb1c04ee9fbeb4",
     "semantic_hash": ""
   },
   ".github/workflows/ecosystem-drift.yml": {
@@ -1856,7 +1856,7 @@
     "semantic_hash": ""
   },
   "scripts/version-packages.mjs": {
-    "ast_hash": "4861c40998255328faeb5d9806de94a4",
+    "ast_hash": "2c225a40209810b5e1e5e2d9e3515434",
     "semantic_hash": ""
   },
   "tests/finalize-releases.test.ts": {
@@ -1880,7 +1880,7 @@
     "semantic_hash": ""
   },
   "scripts/canary-snapshots.mjs": {
-    "ast_hash": "2dc8ba3739fa705c2f8717bf450a4672",
+    "ast_hash": "27f181da8f40ec0fd46f13621c39ae53",
     "semantic_hash": ""
   },
   "tests/canary-artifacts.test.ts": {
@@ -1904,7 +1904,7 @@
     "semantic_hash": ""
   },
   ".changeset/release-candidates.json": {
-    "ast_hash": "8c2cebb70106d039e025026dcd2dd6c0",
+    "ast_hash": "ecc5fb63c1ff8275da0dd045fe63780b",
     "semantic_hash": ""
   },
   "packages/svforge/bin/prompts.mjs": {
@@ -2008,7 +2008,7 @@
     "semantic_hash": ""
   },
   "docker/README.md": {
-    "ast_hash": "1ad8227077cf1feaee50a1c174c053e6",
+    "ast_hash": "60d284ec94c79bebfeec5382c1168885",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/src/lib/assets/brand-favicons.ts": {
@@ -2175,28 +2175,24 @@
     "ast_hash": "f61beb71d5d676ea236a4dbb376049a5",
     "semantic_hash": ""
   },
-  ".changeset/608-sveltekit-3.md": {
-    "ast_hash": "b938de2f3c368e4c0bdfd14857188b23",
-    "semantic_hash": ""
-  },
   "docker/consumer-smoke.sh": {
-    "ast_hash": "0b4a5810ade433095053ab7298c35bf0",
+    "ast_hash": "e8357bae10e010f10f55b150d67ee249",
     "semantic_hash": ""
   },
   "docker/examples/app/package.json": {
-    "ast_hash": "173807d33cfda8b106242add7b535170",
+    "ast_hash": "52a734f1a1afc176c2d7f08256764405",
     "semantic_hash": ""
   },
   "docker/examples/app/src/routes/+page.server.ts": {
-    "ast_hash": "0a8bddd403ec09a8f5c5ff449ccbc5dc",
+    "ast_hash": "954c5d256b0a2f5a6322c57ff0144823",
     "semantic_hash": ""
   },
   "docker/examples/app/src/routes/+page.svelte": {
-    "ast_hash": "16dff3da569dbc5aaea5863e91bc94f9",
+    "ast_hash": "5d8701fcf3c6f8da3a104053512791c8",
     "semantic_hash": ""
   },
   "docker/examples/app/vite.config.ts": {
-    "ast_hash": "9e605c812b2a1adc9349ea83c9d53895",
+    "ast_hash": "5f4da4db80d9c1a063dc6b735dc48bda",
     "semantic_hash": ""
   },
   "docker/examples/app/src/app.html": {
@@ -2205,14 +2201,6 @@
   },
   "scripts/test-local-setup.sh": {
     "ast_hash": "f7b706ef2662bf94271bc920640f9507",
-    "semantic_hash": ""
-  },
-  ".changeset/589-local-dashboard-setup.md": {
-    "ast_hash": "8645c46b9a7a5e0b6177f65742ac0dfc",
-    "semantic_hash": ""
-  },
-  ".changeset/610-local-s3.md": {
-    "ast_hash": "ec9490d1a499276be794f3f186b6fd52",
     "semantic_hash": ""
   },
   "tests/skeleton-baseline.test.ts": {
@@ -2231,10 +2219,6 @@
     "ast_hash": "e510f30ee4fe86082fcf2f70d5169eeb",
     "semantic_hash": ""
   },
-  ".changeset/placeholder-hint-token.md": {
-    "ast_hash": "b38ae520c2211066be77abb9478204d2",
-    "semantic_hash": ""
-  },
   "packages/svforge/templates/base/src/lib/components/svforge/ui/LocaleSwitcher.svelte": {
     "ast_hash": "a6e2817224f5ecfaa137f488f8f2d407",
     "semantic_hash": ""
@@ -2251,10 +2235,6 @@
     "ast_hash": "a38c4c378e7ec1c0878664266ecc35b8",
     "semantic_hash": ""
   },
-  ".changeset/english-default-locale-switcher.md": {
-    "ast_hash": "8dd3be1913c8d6e76d30539dae9b6967",
-    "semantic_hash": ""
-  },
   "packages/dnd/templates/src/routes/showcase/dnd/+page.svelte": {
     "ast_hash": "03e3737f29d5c87ad8b70d51e5e52392",
     "semantic_hash": ""
@@ -2268,11 +2248,7 @@
     "semantic_hash": ""
   },
   "tests/showcase.test.ts": {
-    "ast_hash": "7ff9bae1f0ab13792338a543fc28b3fb",
-    "semantic_hash": ""
-  },
-  ".changeset/showcase-module-demos.md": {
-    "ast_hash": "f9394d1b2942ef658005bb5bfb7df00b",
+    "ast_hash": "31a8005f1a8cd133078e8cad6bc50a82",
     "semantic_hash": ""
   },
   "packages/ui_toast/templates/src/routes/showcase/ui-toast/+page.svelte": {
@@ -2283,10 +2259,6 @@
     "ast_hash": "887cf998f8392f1e78d5a40946ceace1",
     "semantic_hash": ""
   },
-  ".changeset/showcase-ui-toast-demo.md": {
-    "ast_hash": "d63eb8bc4307ca914f68126cf1e8cf40",
-    "semantic_hash": ""
-  },
   "packages/tiptap/templates/src/routes/showcase/tiptap/+page.svelte": {
     "ast_hash": "dc27a0cfa6b7a85dce1b7815fc8f65e2",
     "semantic_hash": ""
@@ -2295,20 +2267,12 @@
     "ast_hash": "30ad6067972414a46e15f81059443f4e",
     "semantic_hash": ""
   },
-  ".changeset/showcase-tiptap-demo.md": {
-    "ast_hash": "9e45c7040850bcd30e0cf132a9a4328c",
-    "semantic_hash": ""
-  },
   "packages/graph/templates/src/routes/showcase/graph/+page.svelte": {
     "ast_hash": "46cd95a8d2c547ec6fa085b637c78db0",
     "semantic_hash": ""
   },
   "packages/graph/templates/src/routes/showcase/graph/meta.ts": {
     "ast_hash": "615394389a3552826c9cd1247b2fa20e",
-    "semantic_hash": ""
-  },
-  ".changeset/showcase-graph-demo.md": {
-    "ast_hash": "e127d3afe77c81a71aa725471446767e",
     "semantic_hash": ""
   },
   "packages/uploads/templates/src/lib/uploads/policy.ts": {
@@ -2339,28 +2303,12 @@
     "ast_hash": "009a06231dffcce57c6ffa9708096b47",
     "semantic_hash": ""
   },
-  ".changeset/showcase-uploads-demo.md": {
-    "ast_hash": "b875faf8c12aa6590ba8bb1152bc2bd4",
-    "semantic_hash": ""
-  },
   "tests/dashboard-base-composition.test.ts": {
     "ast_hash": "02bca4f867297b962afe0c8595b35214",
     "semantic_hash": ""
   },
-  ".changeset/restore-skeleton-placeholder.md": {
-    "ast_hash": "e71931f2ff8d978e034da5ba690ab28d",
-    "semantic_hash": ""
-  },
   "packages/svforge/docs/dashboard-composition.md": {
     "ast_hash": "b036eb65fa51e723968fdfd221a5c8df",
-    "semantic_hash": ""
-  },
-  ".changeset/dashboard-base-composition.md": {
-    "ast_hash": "e73f67685ca9e00f1f0c8cf2c7e67255",
-    "semantic_hash": ""
-  },
-  ".changeset/vitest-single-authority.md": {
-    "ast_hash": "22ceacead1eab6bab053bf3f7b50a2d7",
     "semantic_hash": ""
   },
   "docs/ci-affected-scope.md": {
@@ -2369,6 +2317,18 @@
   },
   "tests/helpers/build-scope.ts": {
     "ast_hash": "108716abce810ea6452e02fe0bbebe93",
+    "semantic_hash": ""
+  },
+  "scripts/svelte5-major-alignment.mjs": {
+    "ast_hash": "fb4cd0aeaf52311c39735d11ea3993a5",
+    "semantic_hash": ""
+  },
+  "tests/svelte5-major-alignment.test.ts": {
+    "ast_hash": "d3595bc116b26f44397be96604e32021",
+    "semantic_hash": ""
+  },
+  ".changeset/patched-selector-parser-and-audit-coverage.md": {
+    "ast_hash": "361c5c5167c3deeb0d124b2b95c54929",
     "semantic_hash": ""
   }
 }
