@@ -59,22 +59,22 @@ export function alignSvelte5GeneratedVersion(root, { iteration = null } = {}) {
 	if (manifest.name !== 'svforge' || manifest.version !== calculated) {
 		throw new Error(`Svelte 5 major alignment expected svforge@${calculated} from Changesets; got ${manifest.version}.`);
 	}
-	const pattern = new RegExp('(^[\\t ]*"version"[\\t ]*:[\\t ]*")' + calculated.replace(/\\./g, '\\\\.') + '(")', 'm');
-	if (!pattern.test(original)) {
-		throw new Error('Svelte 5 major alignment could not locate the package manifest version.');
+	const match = original.match(/^([ \t]*"version"[ \t]*:[ \t]*")([^"]+)(")/m);
+	if (!match || match[2] !== calculated) {
+		throw new Error('Svelte 5 major alignment could not locate the calculated package manifest version.');
 	}
-	const updated = original.replace(pattern, (_, prefix, quote) => `${prefix}${target}${quote}`);
+	const updated = original.replace(match[0], `${match[1]}${target}${match[3]}`);
 	let changelogPath;
 	let changelog;
 	let nextChangelog;
 	if (iteration === null) {
 		changelogPath = join(root, 'packages/svforge/CHANGELOG.md');
 		changelog = readFileSync(changelogPath, 'utf8');
-		const header = /^# svforge\\r?\\n\\r?\\n## 3\\.0\\.0(?=\\r?\\n)/;
-		if (!header.test(changelog)) {
+		const header = '# svforge\\n\\n## 3.0.0\\n';
+		if (!changelog.startsWith(header)) {
 			throw new Error('Svelte 5 major alignment requires a newly generated 3.0.0 changelog entry.');
 		}
-		nextChangelog = changelog.replace(header, (match) => match.replace('## 3.0.0', '## 5.0.0'));
+		nextChangelog = changelog.replace(header, '# svforge\\n\\n## 5.0.0\\n');
 	}
 	writeFileSync(manifestPath, updated);
 	if (iteration === null) writeFileSync(changelogPath, nextChangelog);
