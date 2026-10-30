@@ -57,6 +57,6 @@
 		"node": ">=22.17"
 	},
 	"overrides": {
-		"postcss-selector-parser": "6.1.5"
+		"postcss-selector-parser": "7.1.7"
 	}
 }

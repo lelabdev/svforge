@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -11,7 +11,8 @@ const {
 	loadBaseline,
 	queryOsv,
 	resolvedPackages,
-	staleBaselineEntries
+	staleBaselineEntries,
+	stripJsonc
 } = await import('../scripts/audit.mjs');
 
 const okFetch = (body: unknown) =>
@@ -66,13 +67,69 @@ describe('dependency audit (#351)', () => {
 		}
 	});
 
-	it('keeps every resolved selector parser copy on its patched 6.1.5 / 7.1.6 security floor (#689)', () => {
+	/**
+	 * Bun 1.3.x supports GLOBAL overrides only: nested (`parent>child`) and
+	 * version-scoped (`pkg@range`) keys are rejected or silently ignored (#689),
+	 * so a single version must satisfy every consumer. `@tailwindcss/typography`
+	 * pins the vulnerable 6.0.10 exactly, while `svelte-eslint-parser` and
+	 * `postcss-nested` require ^7 — therefore the patched v7 line is the only
+	 * resolution that keeps every declared major satisfied and ships no
+	 * vulnerable copy (#689, CVE-2026-104844).
+	 */
+	const PATCHED_SELECTOR_PARSER_FLOOR = '7.1.6';
+
+	it('keeps every resolved selector parser copy on the patched 7.1.6+ line (#689)', () => {
 		const copies = collectPackages().filter((pkg) => pkg.name === 'postcss-selector-parser');
 
 		expect(copies.length).toBeGreaterThan(0);
 		for (const pkg of copies) {
-			const floor = pkg.version.startsWith('6.') ? '6.1.5' : '7.1.6';
-			expect(versionAtLeast(pkg.version, floor), `${pkg.lockfile}: ${pkg.name}@${pkg.version}`).toBe(true);
+			// A 6.x copy (e.g. the legacy 6.1.5 backport) would force the major DOWN
+			// on packages that declare ^7, which Bun cannot scope per consumer.
+			expect(pkg.version.startsWith('7.'), `${pkg.lockfile}: forced ${pkg.name}@${pkg.version}`).toBe(true);
+			expect(
+				versionAtLeast(pkg.version, PATCHED_SELECTOR_PARSER_FLOOR),
+				`${pkg.lockfile}: ${pkg.name}@${pkg.version}`
+			).toBe(true);
+		}
+	});
+
+	it('declares the selector parser override as a patched v7 pin wherever it is set (#689)', () => {
+		// Regression guard: re-introducing a global v6 override would silently
+		// downgrade every ^7 consumer again.
+		const manifests = ['package.json', 'packages/svforge/templates/base/package.json', 'packages/svforge/templates/dashboard/package.json'];
+
+		for (const manifest of manifests) {
+			const pinned = JSON.parse(readFileSync(join(process.cwd(), manifest), 'utf8')).overrides?.['postcss-selector-parser'];
+			if (pinned === undefined) continue;
+
+			expect(pinned.startsWith('7.'), `${manifest}: ${pinned}`).toBe(true);
+			expect(versionAtLeast(pinned.replace(/^[\^~]/, ''), PATCHED_SELECTOR_PARSER_FLOOR), `${manifest}: ${pinned}`).toBe(true);
+		}
+	});
+
+	it('serves every dependent that declares postcss-selector-parser a patched copy (#689)', () => {
+		// Structural check on the resolved trees rather than on our own test list:
+		// every dependent that declares the package must receive a patched copy.
+		// `@tailwindcss/typography`'s exact `6.0.10` pin is deliberately overridden
+		// to the patched v7 line because a v6 copy cannot coexist with the ^7
+		// consumers under Bun's global-only overrides (see the test above).
+		const floor = PATCHED_SELECTOR_PARSER_FLOOR;
+
+		for (const lockfile of AUDITED_LOCKFILES) {
+			const lock = JSON.parse(stripJsonc(readFileSync(join(process.cwd(), lockfile), 'utf8')));
+			for (const [key, entry] of Object.entries<unknown[]>(lock.packages ?? {})) {
+				const declared = (entry[2] as { dependencies?: Record<string, string> } | undefined)?.dependencies?.['postcss-selector-parser'];
+				if (!declared) continue;
+
+				const nested = lock.packages?.[`${key}/postcss-selector-parser`];
+				const hoisted = lock.packages?.['postcss-selector-parser'];
+				const resolved = (nested ?? hoisted)?.[0]?.split('@').pop();
+				expect(resolved, `${lockfile}: no copy for ${key}`).toBeTruthy();
+				expect(
+					versionAtLeast(resolved, floor),
+					`${lockfile}: ${key} declares ${declared} but resolves ${resolved}`
+				).toBe(true);
+			}
 		}
 	});
 
