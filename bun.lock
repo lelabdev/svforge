@@ -37,7 +37,7 @@
     },
     "packages/addon-kit": {
       "name": "@svforge/addon-kit",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "devDependencies": {
         "tsdown": "^0.22.14",
         "typescript": "^6.0.3",
@@ -45,7 +45,7 @@
     },
     "packages/audit": {
       "name": "@svforge/audit",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^1.1.0",
@@ -71,7 +71,7 @@
     },
     "packages/chat": {
       "name": "@svforge/chat",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^1.1.0",
@@ -84,7 +84,7 @@
     },
     "packages/dnd": {
       "name": "@svforge/dnd",
-      "version": "2.2.1",
+      "version": "2.3.0",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^1.1.0",
@@ -111,7 +111,7 @@
     },
     "packages/graph": {
       "name": "@svforge/graph",
-      "version": "2.2.1",
+      "version": "2.3.0",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^1.1.0",
@@ -138,7 +138,7 @@
     },
     "packages/notifications": {
       "name": "@svforge/notifications",
-      "version": "2.2.1",
+      "version": "2.2.2",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^1.1.0",
@@ -177,7 +177,7 @@
     },
     "packages/svforge": {
       "name": "svforge",
-      "version": "2.2.6",
+      "version": "5.0.0",
       "bin": {
         "svforge": "./bin/svforge.mjs",
       },
@@ -193,7 +193,7 @@
     },
     "packages/tiptap": {
       "name": "@svforge/tiptap",
-      "version": "2.2.1",
+      "version": "2.3.0",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^1.1.0",
@@ -207,7 +207,7 @@
     },
     "packages/ui_toast": {
       "name": "@svforge/ui_toast",
-      "version": "2.2.1",
+      "version": "2.3.0",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^1.1.0",
@@ -221,7 +221,7 @@
     },
     "packages/uploads": {
       "name": "@svforge/uploads",
-      "version": "2.2.1",
+      "version": "2.3.0",
       "devDependencies": {
         "@svforge/addon-kit": "workspace:*",
         "sv": "^1.1.0",
@@ -236,6 +236,7 @@
   "overrides": {
     "brace-expansion": "^5.0.12",
     "devalue": "^5.9.3",
+    "postcss-selector-parser": "6.1.5",
     "source-map-js": "^1.2.2",
     "undici": "^8.12.3",
     "vite": "^8.3.4",
@@ -943,7 +944,7 @@
 
     "postcss-scss": ["postcss-scss@4.0.9", "", { "peerDependencies": { "postcss": "^8.4.29" } }, "sha512-AjKOeiwAitL/MXxQW2DliT28EKukvvbEWx3LBmJIRN8KfBGZbRTxNYW0kSqi1COiTZ57nZ9NW06S6ux//N1c9A=="],
 
-    "postcss-selector-parser": ["postcss-selector-parser@6.0.10", "", { "dependencies": { "cssesc": "^3.0.0", "util-deprecate": "^1.0.2" } }, "sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w=="],
+    "postcss-selector-parser": ["postcss-selector-parser@6.1.5", "", { "dependencies": { "cssesc": "^3.0.0", "util-deprecate": "^1.0.2" } }, "sha512-TEHFzb5KRDKaOgJ4TYE+0jyJtFbjLvkdVOu0fZ2b6MTWzoqZd4Le+61aEppWkvTlYePgOX4ATL1wsAIPMLTw6Q=="],
 
     "prelude-ls": ["prelude-ls@1.2.1", "", {}, "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="],
 
@@ -1113,8 +1114,6 @@
 
     "mlly/pkg-types": ["pkg-types@1.3.1", "", { "dependencies": { "confbox": "^0.1.8", "mlly": "^1.7.4", "pathe": "^2.0.1" } }, "sha512-/Jm5M4RvtBFVkKWRu2BLUTNP8/M2a+UwuAX+ae4770q1qVGtfjG+WTCupoZixokjmHiry8uI+dlY8KXYV5HVVQ=="],
 
-    "postcss-nested/postcss-selector-parser": ["postcss-selector-parser@7.1.6", "", { "dependencies": { "cssesc": "^3.0.0", "util-deprecate": "^1.0.2" } }, "sha512-7qASPzhKF2l2KLboRZux8CCTRMdGiV08vWmyKzPz22qZ7ZjQBOeY7rNzNoCLSUiftJ7HUq0GERHmxw/t0dCdMw=="],
-
     "qified/hookified": ["hookified@2.2.0", "", {}, "sha512-p/LgFzRN5FeoD3DLS6bkUapeye6E4SI6yJs6KetENd18S+FBthqYq2amJUWpt5z0EQwwHemidjY5OqJGEKm5uA=="],
 
     "svelte-eslint-parser/eslint-scope": ["eslint-scope@8.4.0", "", { "dependencies": { "esrecurse": "^4.3.0", "estraverse": "^5.2.0" } }, "sha512-sNXOfKCn74rt8RICKMvJS7XKV/Xk9kA7DyJr8mJik3S7Cwgy3qlkkmyS2uQB3jiJg6VNdZd/pDBJu0nvG2NlTg=="],
@@ -1122,8 +1121,6 @@
     "svelte-eslint-parser/eslint-visitor-keys": ["eslint-visitor-keys@4.2.1", "", {}, "sha512-Uhdk5sfqcee/9H/rCOJikYz67o0a2Tw2hGRPOG2Y1R2dg7brRe1uG0yaNQDHu+TO/uQPF/5eCapvYSmHUjt7JQ=="],
 
     "svelte-eslint-parser/espree": ["espree@10.4.0", "", { "dependencies": { "acorn": "^8.15.0", "acorn-jsx": "^5.3.2", "eslint-visitor-keys": "^4.2.1" } }, "sha512-j6PAQ2uUr79PZhBjP5C5fhl8e39FmRnOjsD5lGnWrFU8i2G776tBK7+nP8KuQUTTyAZUwfQqXAgrVH5MbH9CYQ=="],
-
-    "svelte-eslint-parser/postcss-selector-parser": ["postcss-selector-parser@7.1.6", "", { "dependencies": { "cssesc": "^3.0.0", "util-deprecate": "^1.0.2" } }, "sha512-7qASPzhKF2l2KLboRZux8CCTRMdGiV08vWmyKzPz22qZ7ZjQBOeY7rNzNoCLSUiftJ7HUq0GERHmxw/t0dCdMw=="],
 
     "vite/postcss": ["postcss@8.5.31", "", { "dependencies": { "nanoid": "^3.3.20", "picocolors": "^1.1.1", "source-map-js": "^1.2.2" } }, "sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg=="],
 
