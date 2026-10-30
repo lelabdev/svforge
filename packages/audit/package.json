@@ -1,6 +1,6 @@
 {
 	"name": "@svforge/audit",
-	"version": "2.2.1",
+	"version": "2.2.2",
 	"type": "module",
 	"description": "SVForge Audit — business action audit trail (append-only)",
 	"author": "Ludo (https://lelab.dev)",

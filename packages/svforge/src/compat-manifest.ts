@@ -12,23 +12,23 @@ export const COMPAT_MANIFEST: CompatManifest = {
   "schema": 1,
   "template": {
     "name": "svforge",
-    "version": "2.3.0"
+    "version": "5.0.0"
   },
   "packages": {
-    "@svforge/addon-kit": "2.2.1",
-    "@svforge/audit": "2.2.1",
+    "@svforge/addon-kit": "2.2.2",
+    "@svforge/audit": "2.2.2",
     "@svforge/blog": "2.2.1",
-    "@svforge/chat": "2.2.1",
-    "@svforge/dnd": "2.2.1",
+    "@svforge/chat": "2.2.2",
+    "@svforge/dnd": "2.3.0",
     "@svforge/email": "2.2.1",
-    "@svforge/graph": "2.2.1",
+    "@svforge/graph": "2.3.0",
     "@svforge/jobs": "2.2.1",
     "@svforge/notifications": "2.2.2",
     "@svforge/oauth": "2.2.1",
     "@svforge/realtime": "2.2.1",
-    "@svforge/tiptap": "2.2.2",
-    "@svforge/ui_toast": "2.2.1",
-    "@svforge/uploads": "2.2.1",
-    "svforge": "2.3.0"
+    "@svforge/tiptap": "2.3.0",
+    "@svforge/ui_toast": "2.3.0",
+    "@svforge/uploads": "2.3.0",
+    "svforge": "5.0.0"
   }
 };
