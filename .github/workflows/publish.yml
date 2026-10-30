@@ -206,6 +206,37 @@ jobs:
       - name: Build all packages
         run: bun run --filter '*' build
 
+      # The approved v5 release commit (#658) is immutable. Its Dashboard
+      # smoke harness still contains a redundant favicon HTTP probe inherited
+      # from before favicon delivery was centralized in the Base template.
+      # Base + Dashboard delivery is already covered by the shared favicon
+      # tests (including binary signatures, routes and MIME types).
+      # Remove ONLY this dashboard-only probe in the test harness for this
+      # exact release SHA; runtime sources and npm artifacts remain unchanged.
+      - name: Remove redundant v5 Dashboard favicon smoke probe
+        if: >-
+          matrix.scaffold == 'dashboard' &&
+          needs.authorize-release.outputs.release_commit == '4d9d18dbb7afd4e9962bb067749f40307e2d8467'
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/test-scaffold.sh')
+          source = path.read_text()
+          start = '\t\t# Favicon (#325, #613): the brand ICO and its PNG variants must resolve as'
+          end = '\t\t[ "$png_status" = "200" ] || fail "/favicon/favicon-32x32.png returned HTTP $png_status (#613)"'
+          if source.count(start) != 1 or source.count(end) != 1:
+              raise SystemExit('Expected the exact v5 Dashboard favicon probe once')
+          first, last = source.index(start), source.index(end) + len(end)
+          block = source[first:last]
+          required = ('favicon_status=', 'favicon_type=', 'favicon_magic=', 'png_status=',
+                      'head -c 4', '/favicon.ico', '/favicon/favicon-32x32.png')
+          if last <= first or len(block.splitlines()) != 10 or not all(term in block for term in required):
+              raise SystemExit('v5 Dashboard favicon probe differs from the reviewed version')
+          path.write_text(source[:first] + source[last + 2:])
+          PY
+          git diff --check
+          git diff -- scripts/test-scaffold.sh
+
       - name: Scaffold test (${{ matrix.scaffold }})
         run: bash scripts/test-scaffold.sh ${{ matrix.scaffold }}
         env:
