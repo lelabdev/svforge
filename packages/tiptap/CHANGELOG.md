@@ -1,5 +1,11 @@
 # @svforge/tiptap
 
+## 2.3.0
+
+### Minor Changes
+
+- [#671](https://github.com/lelabdev/svforge/pull/671) [`bf24d6a`](https://github.com/lelabdev/svforge/commit/bf24d6a75dfa42c06f9e2947c6d9c4d5f32c3fc3) Thanks [@LudoLoops](https://github.com/LudoLoops)! - `@svforge/tiptap` now ships its own interactive showcase page: `/showcase/tiptap` runs the module's real editor and toolbar over a local document and renders the sanitized preview of the same content as you type, with a reset control and English/French copy merged into `messages/*.json` on install (the module now declares `ui.skeleton`, `ui.svforge` and `i18n.messages`). Nothing is sent or persisted; the showcase index lists the demo automatically next to the existing DnD and toast demos.
+
 ## 2.2.2
 
 ### Patch Changes

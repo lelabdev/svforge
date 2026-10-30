@@ -2,18 +2,53 @@
   "schemaVersion": 1,
   "packages": [
     {
+      "name": "@svforge/addon-kit",
+      "version": "2.2.2",
+      "directory": "packages/addon-kit"
+    },
+    {
+      "name": "@svforge/audit",
+      "version": "2.2.2",
+      "directory": "packages/audit"
+    },
+    {
+      "name": "@svforge/chat",
+      "version": "2.2.2",
+      "directory": "packages/chat"
+    },
+    {
+      "name": "@svforge/dnd",
+      "version": "2.3.0",
+      "directory": "packages/dnd"
+    },
+    {
+      "name": "@svforge/graph",
+      "version": "2.3.0",
+      "directory": "packages/graph"
+    },
+    {
       "name": "@svforge/notifications",
       "version": "2.2.2",
       "directory": "packages/notifications"
     },
     {
       "name": "@svforge/tiptap",
-      "version": "2.2.2",
+      "version": "2.3.0",
       "directory": "packages/tiptap"
     },
     {
-      "name": "svforge",
+      "name": "@svforge/ui_toast",
       "version": "2.3.0",
+      "directory": "packages/ui_toast"
+    },
+    {
+      "name": "@svforge/uploads",
+      "version": "2.3.0",
+      "directory": "packages/uploads"
+    },
+    {
+      "name": "svforge",
+      "version": "5.0.0",
       "directory": "packages/svforge"
     }
   ]
