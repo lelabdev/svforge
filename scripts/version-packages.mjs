@@ -3,6 +3,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { alignSvelte5GeneratedVersion, assertSvelte5AlignmentBaseline, hasSvelte5AlignmentChangeset } from './svelte5-major-alignment.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const CANDIDATE_PATH = '.changeset/release-candidates.json';
@@ -53,7 +54,10 @@ export function needsInitialBaseline(packages) {
 
 export function runChangesetsVersion(root, before, run) {
 	if (!needsInitialBaseline(before)) {
+		const alignSvelte5 = hasSvelte5AlignmentChangeset(root);
+		if (alignSvelte5) assertSvelte5AlignmentBaseline(before);
 		run('bun', ['x', 'changeset', 'version']);
+		if (alignSvelte5) alignSvelte5GeneratedVersion(root);
 		return false;
 	}
 
