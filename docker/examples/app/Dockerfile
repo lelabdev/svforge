@@ -14,15 +14,32 @@ RUN test -f node_modules/svelte/package.json \
  && test -d "$BUN_INSTALL_CACHE_DIR" \
  && test "$BUN_INSTALL_CACHE_DIR" = "/bun-cache"
 
+# Remember the builder's own zod version before the app install replaces it, so
+# the guard below can prove which layer actually won (#689).
+RUN bun -e 'const fs = require("node:fs"); fs.writeFileSync("/tmp/builder-zod", JSON.parse(fs.readFileSync("node_modules/zod/package.json", "utf8")).version);'
+
 COPY package.json bun.lock ./
 # The application's own lockfile stays authoritative: matching packages are
 # reused from the image/cache, different pins are installed here, and
 # app-specific dependencies are added in this layer.
 RUN bun install --frozen-lockfile --ignore-scripts
 
-# Fixture-only guard: prove the app pin (zod 3.x) won over the builder's 4.x and
-# that an app-only dependency (nanoid) is installed. Drop this in a real app.
-RUN bun -e 'const fs = require("node:fs"); const v = (p) => JSON.parse(fs.readFileSync(`node_modules/${p}/package.json`, "utf8")).version; const zod = v("zod"); const nanoid = v("nanoid"); if (!zod.startsWith("3.")) throw new Error(`app lockfile not respected: zod@${zod}`); console.log(`app-deps zod@${zod} nanoid@${nanoid}`);'
+# Fixture-only guard (drop this in a real app): prove the app's manifest and
+# lockfile won version ownership over the builder, that the winning zod is on a
+# patched release (>= 4.6.6, GHSA-mrhx-c7xc-m3w5), and that an app-only
+# dependency (nanoid) was installed.
+RUN bun -e '\
+const fs = require("node:fs");\
+const read = (p) => JSON.parse(fs.readFileSync(p, "utf8"));\
+const declared = read("package.json").dependencies.zod.replace(/^[\^~]/, "");\
+const app = read("node_modules/zod/package.json").version;\
+const builder = fs.readFileSync("/tmp/builder-zod", "utf8").trim();\
+const nanoid = read("node_modules/nanoid/package.json").version;\
+if (app !== declared) throw new Error(`app lockfile not respected: zod@${app}, manifest declares ${declared}`);\
+if (app === builder) throw new Error(`version-ownership contract broken: builder and app both resolved zod@${app}`);\
+if (app.localeCompare("4.6.6", "en", { numeric: true }) < 0) throw new Error(`zod@${app} is below the patched floor 4.6.6`);\
+console.log(`app-deps zod@${app} (builder zod@${builder}) nanoid@${nanoid}`);\
+'
 
 COPY . .
 RUN bun run build
