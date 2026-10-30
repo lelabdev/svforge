@@ -12,7 +12,7 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "ast_hash": "387880550792ac7a273f605b14200350",
+    "ast_hash": "9f2f57ee664b1c3df18ddb24313653ec",
     "semantic_hash": ""
   },
   "packages/addon-kit/package.json": {
@@ -504,7 +504,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/package.json": {
-    "ast_hash": "2b31d8ce4c217fac1ab6748f4bb0d2dd",
+    "ast_hash": "1339057249b84b6326a14b31586ef64e",
     "semantic_hash": ""
   },
   "packages/svforge/templates/base/root/eslint-plugin-svforge.mjs": {
@@ -672,7 +672,7 @@
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/package.json": {
-    "ast_hash": "7d7b74d8f76aab90a09f86d08a77db5b",
+    "ast_hash": "cbeab54c0fcf8a11aa2a11c214df6fcb",
     "semantic_hash": ""
   },
   "packages/svforge/templates/dashboard/root/scripts/create-admin.ts": {
@@ -1056,7 +1056,7 @@
     "semantic_hash": ""
   },
   "tests/audit.test.ts": {
-    "ast_hash": "a6d09cdf103af612ab4ae1c9c3478ca8",
+    "ast_hash": "81a0aee3388292f8251d475298baff73",
     "semantic_hash": ""
   },
   "tests/auth-schema-check.test.ts": {
@@ -2328,7 +2328,7 @@
     "semantic_hash": ""
   },
   ".changeset/patched-selector-parser-and-audit-coverage.md": {
-    "ast_hash": "361c5c5167c3deeb0d124b2b95c54929",
+    "ast_hash": "4d8a9772eae22793d0315db57d3ab4c4",
     "semantic_hash": ""
   }
 }
