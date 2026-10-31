@@ -15,7 +15,7 @@ const ADMIN_USERS = join(ROOT, DASHBOARD, 'src/lib/server/admin-users.ts');
 const CLIENT = join(ROOT, DASHBOARD, 'src/lib/server/db/client.ts');
 const SETUP_SERVER = join(ROOT, DASHBOARD, 'src/routes/setup/+page.server.ts');
 const CREATE_ADMIN = join(ROOT, DASHBOARD, 'root/scripts/create-admin.ts');
-const PACKAGE_README = join(ROOT, 'packages/svforge/README.md');
+const DASHBOARD_GUIDE = join(ROOT, 'packages/svforge/docs/usage-guide.md');
 const SCAFFOLD_AGENTS = join(ROOT, 'packages/svforge/src/scaffolded-agents.ts');
 
 const read = (path: string) => readFileSync(path, 'utf-8');
@@ -66,7 +66,7 @@ describe('sign-up policy is server-side and fails closed (#318)', () => {
 		// #547: the official integrations own .env.example; SVForge appends the
 		// sign-up policy to it.
 		const envExample = patchDotEnv(OFFICIAL_FOUNDATION_FILES['.env.example']);
-		for (const doc of [envExample, read(PACKAGE_README)]) {
+		for (const doc of [envExample, read(DASHBOARD_GUIDE)]) {
 			expect(doc).toMatch(/closed/);
 			expect(doc).toMatch(/invite-only/);
 			expect(doc).toMatch(/self-service/);

@@ -77,7 +77,7 @@ describe('showcase route convention (#586)', () => {
 	});
 
 	it('documents demos as optional and how to exclude them from production (#586)', () => {
-		const readme = readFileSync(join(ROOT, 'packages/svforge/README.md'), 'utf-8');
+		const readme = readFileSync(join(ROOT, 'packages/svforge/docs/usage-guide.md'), 'utf-8');
 		const guidance = readFileSync(join(ROOT, 'packages/svforge/src/scaffolded-agents.ts'), 'utf-8');
 
 		expect(readme).toMatch(/Demos are optional/i);

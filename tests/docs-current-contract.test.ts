@@ -6,6 +6,29 @@ const root = process.cwd();
 const read = (file: string) => readFileSync(join(root, file), 'utf8');
 
 describe('maintained documentation contracts (#632)', () => {
+	it('keeps the published npm README a concise, actionable CLI introduction', () => {
+		const landing = read('packages/svforge/README.md');
+		const guide = read('packages/svforge/docs/usage-guide.md');
+		expect(landing.length).toBeLessThan(3500);
+		expect(landing).toContain('npx svforge create my-app --template base');
+		expect(landing).toContain('npx svforge create my-dashboard --template dashboard');
+		expect(landing).toContain('npx svforge add blog ui_toast');
+		expect(landing).toContain('packages/svforge/docs/usage-guide.md');
+		expect(landing).not.toContain('SVForge supports `sv` 1.x');
+		const rootReadme = read('README.md');
+		expect(rootReadme).toContain('npx svforge create my-app --template base');
+		expect(rootReadme).toContain('npx svforge add blog ui_toast');
+		expect(rootReadme).toContain('npm run auth:schema');
+		expect(rootReadme).toContain('npm run db:push');
+		expect(rootReadme).toContain('registration is **closed by default**');
+		expect(rootReadme).not.toContain('npx sv add "paraglide=');
+		expect(guide).toContain('<!-- MODULES-TABLE:START -->');
+		expect(guide).toContain('<!-- PRESETS-TABLE:START -->');
+		expect(guide).toContain('## Project context and checks');
+		const generator = read('scripts/gen-modules-table.mjs');
+		expect(generator).toContain("join(ROOT, 'packages/svforge/docs/usage-guide.md')");
+	});
+
 	it('names the real scheduled ecosystem drift workflow, separate from manual npm canaries', () => {
 		const report = read('packages/svforge/docs/sveltekit-compatibility.md');
 		const workflow = '.github/workflows/ecosystem-drift.yml';

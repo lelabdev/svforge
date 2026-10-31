@@ -350,28 +350,25 @@ describe('external user journey smoke test (#462, #465)', () => {
 		expect(journey).toContain('auth:schema did not generate the SVForge role column');
 	});
 
-	it('documents the supported official-first manual install (#669)', () => {
-		// The canary failed because the documented path skipped the official
-		// foundation. Both READMEs must show it first, or they advertise an
-		// install that correctly fails closed.
+	it('documents the supported official-first manual install in the detailed guide (#669)', () => {
+		// Manual sv add must install the official foundations in order.
+		// The GitHub/npm landing READMEs instead lead with svforge create.
 		const root = readFileSync(join(process.cwd(), 'README.md'), 'utf8');
 		const pkg = readFileSync(join(process.cwd(), 'packages', 'svforge', 'README.md'), 'utf8');
-
-		const rootParaglide = root.indexOf('paraglide=languageTags');
-		const rootAdd = root.indexOf('sv add svforge=template:base');
-		expect(rootParaglide).toBeGreaterThanOrEqual(0);
-		expect(rootAdd).toBeGreaterThan(rootParaglide);
-
-		const pkgParaglide = pkg.indexOf('paraglide=languageTags');
-		const pkgDrizzle = pkg.indexOf('drizzle=database:postgresql');
-		const pkgAuth = pkg.indexOf('better-auth=demo:');
-		const pkgBaseAdd = pkg.indexOf('sv add svforge=template:base');
-		const pkgDashboardAdd = pkg.indexOf('sv add svforge=template:dashboard');
-		expect(pkgParaglide).toBeGreaterThanOrEqual(0);
-		expect(pkgBaseAdd).toBeGreaterThan(pkgParaglide);
-		expect(pkgDrizzle).toBeGreaterThan(pkgParaglide);
-		expect(pkgAuth).toBeGreaterThan(pkgDrizzle);
-		expect(pkgDashboardAdd).toBeGreaterThan(pkgAuth);
+		const guide = readFileSync(join(process.cwd(), 'packages', 'svforge', 'docs', 'usage-guide.md'), 'utf8');
+		expect(root).toContain('npx svforge create my-app --template base');
+		expect(pkg).toContain('npx svforge create my-app --template base');
+		expect(root).toContain('packages/svforge/docs/usage-guide.md');
+		const paraglide = guide.indexOf('paraglide=languageTags');
+		const drizzle = guide.indexOf('drizzle=database:postgresql');
+		const auth = guide.indexOf('better-auth=demo:');
+		const baseAdd = guide.indexOf('sv add svforge=template:base');
+		const dashboardAdd = guide.indexOf('sv add svforge=template:dashboard');
+		expect(paraglide).toBeGreaterThanOrEqual(0);
+		expect(baseAdd).toBeGreaterThan(paraglide);
+		expect(drizzle).toBeGreaterThan(paraglide);
+		expect(auth).toBeGreaterThan(drizzle);
+		expect(dashboardAdd).toBeGreaterThan(auth);
 	});
 
 	it('keeps the heavy journey out of PR CI and exercises Lefthook in the release journey (#413)', () => {
