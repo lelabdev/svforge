@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-// Generate the Modules + Presets markdown tables for the published package README from the
+// Generate the Modules + Presets markdown tables for the detailed usage guide from the
 // machine-readable contract (svforge-modules.json, #236) so the docs can never
 // drift from what SvelteForge actually installs (#257).
 //
 // Usage: node scripts/gen-modules-table.mjs   (prints the markdown block)
-//        node scripts/gen-modules-table.mjs --write  (updates packages/svforge/README.md)
+//        node scripts/gen-modules-table.mjs --write  (updates packages/svforge/docs/usage-guide.md)
 //        node scripts/gen-modules-table.mjs --write README.md  (select another target)
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -55,7 +55,7 @@ ${presetsTable()}
 
 if (process.argv.includes('--write')) {
 	const target = process.argv[process.argv.indexOf('--write') + 1];
-	const readmePath = target ? join(ROOT, target) : join(ROOT, 'packages/svforge/README.md');
+	const readmePath = target ? join(ROOT, target) : join(ROOT, 'packages/svforge/docs/usage-guide.md');
 	let readme = readFileSync(readmePath, 'utf-8');
 
 	function replaceBlock(readme, block) {
@@ -64,7 +64,7 @@ if (process.argv.includes('--write')) {
 		const start = readme.indexOf(marker);
 		const end = readme.indexOf(endMarker);
 		if (start === -1 || end === -1) {
-			console.error(`README.md is missing ${marker}`);
+			console.error(`The documentation target is missing ${marker}`);
 			process.exit(1);
 		}
 		return readme.slice(0, start) + block + readme.slice(end + endMarker.length);
@@ -73,7 +73,7 @@ if (process.argv.includes('--write')) {
 	readme = replaceBlock(readme, modulesBlock);
 	readme = replaceBlock(readme, presetsBlock);
 	writeFileSync(readmePath, readme);
-	console.log('✅ README.md modules table updated');
+	console.log('✅ usage guide modules table updated');
 } else {
 	console.log(modulesBlock + '\n\n' + presetsBlock);
 }
