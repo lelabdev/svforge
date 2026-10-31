@@ -96,11 +96,14 @@ Want the manual `sv add` workflow instead? It's supported too. [See the full usa
 | [Deployment](packages/svforge/docs/deployment-profiles.md) | Static, server and worker requirements |
 | [Compatibility](packages/svforge/docs/sveltekit-compatibility.md) | Tested SvelteKit versions and migrations |
 
-<details>
-<summary><strong>Contributing, security and license</strong></summary>
+## Contributing
 
-SVForge is a workspace containing the CLI, template sources and independent `@svforge/*` addons. See [CONTRIBUTING.md](CONTRIBUTING.md) and [release instructions](docs/RELEASE.md).
+SVForge is a workspace containing the CLI, templates and independent `@svforge/*` addons. Read [CONTRIBUTING.md](CONTRIBUTING.md) or the [release guide](docs/RELEASE.md).
 
-Report vulnerabilities privately via [GitHub Security Advisories](https://github.com/lelabdev/svforge/security/advisories/new); see [SECURITY.md](SECURITY.md). Licensed under [MIT](LICENSE).
+## Security
 
-</details>
+Report vulnerabilities privately through [GitHub Security Advisories](https://github.com/lelabdev/svforge/security/advisories/new). See [SECURITY.md](SECURITY.md).
+
+## License
+
+[MIT](LICENSE)
