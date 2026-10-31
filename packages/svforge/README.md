@@ -1,12 +1,31 @@
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/lelabdev/svforge/main/packages/svforge/brand/android-chrome-192x192.png" alt="SVForge icon" width="76">
+
 # SVForge
 
-**Start SvelteKit projects with editable foundations and optional modules.**
+**Your SvelteKit starting point. Your code, your choices.**
 
-SVForge is a CLI for creating and extending SvelteKit applications. It brings together Skeleton UI, Tailwind CSS, project conventions, and application features without locking you into a framework of its own. It uses the official Svelte tools internally, but **you use SVForge directly**.
+Create an editable app, add features as you go, and stay in control of the source.
+SVForge is a CLI built on the official Svelte tooling — not a separate framework.
+
+[![npm version](https://img.shields.io/npm/v/svforge?logo=npm&label=npm)](https://www.npmjs.com/package/svforge)
+[![MIT license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/lelabdev/svforge/blob/main/LICENSE)
+
+[Quick start](#quick-start) · [Templates](#choose-your-foundation) · [Modules](#add-features) · [Docs](#learn-more)
+
+</div>
+
+---
+
+| **Create** | **Add** | **Check** |
+| :--- | :--- | :--- |
+| `svforge create` | `svforge add` | `svforge check` |
+| Start with working foundations | Install compatible modules | Inspect your project |
 
 ## Quick start
 
-Create a Base app:
+Create a **Base** SvelteKit app with Skeleton UI, Tailwind CSS, theming and FR/EN:
 
 ```bash
 npx svforge create my-app --template base
@@ -14,16 +33,15 @@ cd my-app
 npm run dev
 ```
 
-No global installation needed. The generated project is an ordinary SvelteKit app, and its source code is yours to edit.
+No global install needed. The generated SvelteKit source is yours to edit. Fresh SvelteKit 3 projects need Node.js 22.17+.
 
-## Choose a starting point
+## Choose your foundation
 
-| Template | Includes |
-| --- | --- |
-| **Base** | Skeleton UI, Tailwind CSS, theming, FR/EN, layouts, SEO and tests |
-| **Dashboard** | Everything in Base, plus Better Auth, Drizzle/PostgreSQL, protected admin pages and user management |
+| **Base** | **Dashboard** |
+| :--- | :--- |
+| Skeleton UI, Tailwind, themes, layouts, SEO, FR/EN, tests | Everything in Base + Better Auth, Drizzle/PostgreSQL, protected admin pages |
 
-To create a Dashboard:
+For **Dashboard**, start here:
 
 ```bash
 npx svforge create my-dashboard --template dashboard
@@ -31,7 +49,7 @@ cd my-dashboard
 bash scripts/setup.sh
 ```
 
-Dashboard needs a running PostgreSQL database. Configure `DATABASE_URL` in `.env`, then initialize the schema:
+Start PostgreSQL, configure `DATABASE_URL` in `.env`, then initialize the schema **before running the app**:
 
 ```bash
 npm run auth:schema
@@ -39,30 +57,28 @@ npm run db:push
 npm run dev
 ```
 
-See the [Dashboard setup guide](https://github.com/lelabdev/svforge/blob/main/packages/svforge/docs/usage-guide.md#install) for prerequisites and safe database setup.
+Registration is closed by default; see the [Dashboard setup guide](https://github.com/lelabdev/svforge/blob/main/packages/svforge/docs/usage-guide.md#install) for administrator setup and database safety.
 
-## Add features as you need them
+## Add features
 
-From a generated project, use the SVForge CLI to add compatible modules:
+In a generated project, install compatible modules with the SVForge CLI:
 
 ```bash
 npx svforge add blog ui_toast
 ```
 
-Other modules cover rich text, drag and drop, uploads, email, OAuth, notifications, jobs, audit logs, realtime, chat and graphs. Some require Dashboard, PostgreSQL or a long-lived server.
-
-SVForge also provides project checks and upgrades:
+More modules cover rich text, uploads, email, OAuth, notifications, chat, jobs, audit logs, realtime, drag and drop and graphs. Some require a database, authentication or a long-lived Node runtime.
 
 ```bash
 npx svforge check
 npx svforge upgrade base --dry-run
 ```
 
-## Documentation
+## Learn more
 
-- [Full usage guide and modules](https://github.com/lelabdev/svforge/blob/main/packages/svforge/docs/usage-guide.md)
-- [Deployment requirements](https://github.com/lelabdev/svforge/blob/main/packages/svforge/docs/deployment-profiles.md)
+- [Full usage guide and module requirements](https://github.com/lelabdev/svforge/blob/main/packages/svforge/docs/usage-guide.md)
+- [Deployment profiles](https://github.com/lelabdev/svforge/blob/main/packages/svforge/docs/deployment-profiles.md)
 - [SvelteKit compatibility](https://github.com/lelabdev/svforge/blob/main/packages/svforge/docs/sveltekit-compatibility.md)
-- [Source code and issues](https://github.com/lelabdev/svforge)
+- [Source, issues and contributions](https://github.com/lelabdev/svforge)
 
-**License:** MIT
+MIT licensed.
