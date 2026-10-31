@@ -114,14 +114,19 @@ describe('npm consumer smoke test (#330)', () => {
 		expect(REGISTRY_AVAILABILITY_MAX_ATTEMPTS).toBe(180);
 		let attempts = 0;
 		let pauses = 0;
-		await expect(waitForRegistryAvailability({
-			packages: [{ name: 'svforge', version: '5.0.1' }]
-		}, {
-			probe: () => { attempts++; return false; },
-			pause: async () => { pauses++; }
-		})).rejects.toThrow(/Check each exact package version in npmjs\.com Versions\/Staged Packages/);
-		expect(attempts).toBe(180);
-		expect(pauses).toBe(179);
+		const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+		try {
+			await expect(waitForRegistryAvailability({
+				packages: [{ name: 'svforge', version: '5.0.1' }]
+			}, {
+				probe: () => { attempts++; return false; },
+				pause: async () => { pauses++; }
+			})).rejects.toThrow(/Check each exact package version in npmjs\.com Versions\/Staged Packages/);
+			expect(attempts).toBe(180);
+			expect(pauses).toBe(179);
+		} finally {
+			log.mockRestore();
+		}
 	});
 
 	it('never retries an unavailable registry or network failure', async () => {
