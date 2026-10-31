@@ -5,17 +5,17 @@
 [![npm: svforge](https://img.shields.io/npm/v/svforge?label=svforge&logo=npm)](https://www.npmjs.com/package/svforge)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**SvelteKit foundations you can build on.**
+**Create and extend SvelteKit apps with foundations you can actually edit.**
 
-SVForge extends the official [Svelte CLI](https://github.com/sveltejs/cli) with an editable Skeleton-based UI, optional application foundations, and composable modules. Start with SvelteKit, keep the generated source, and add only what your project needs.
+SVForge is a CLI for SvelteKit projects: start with a ready-to-use UI or dashboard, add only the features you need, and keep ownership of the generated code. It uses the official Svelte CLI under the hood; it is **not** a separate framework or just an `sv` addon.
 
-[Get started](#quick-start) · [Choose a template](#templates) · [Explore modules](#optional-modules) · [Documentation](packages/svforge/docs/usage-guide.md) · [Website](https://svforge.dev)
+[Quick start](#quick-start) · [Templates](#choose-a-template) · [Modules](#add-modules) · [Docs](packages/svforge/docs/usage-guide.md)
 
 </div>
 
 ## Quick start
 
-Create a project with the SVForge CLI:
+Create a Base project with Skeleton UI, Tailwind CSS, theming, FR/EN internationalization and tests:
 
 ```bash
 npx svforge create my-app --template base
@@ -23,101 +23,67 @@ cd my-app
 npm run dev
 ```
 
-`svforge create` orchestrates the official `sv create` and `sv add` commands. It is **not** a separate SvelteKit generator.
+No global installation is required. The result is a regular, editable SvelteKit project. For fresh SvelteKit 3 projects, use Node.js 22.17 or later.
 
-Prefer using the Svelte CLI directly? The same foundations are available as an `sv` community addon. The **official** integrations run first — SVForge extends them and fails closed (writing nothing) if they are missing:
+## Choose a template
 
-```bash
-npx sv create my-app
-cd my-app
-npx sv add "paraglide=languageTags:en,fr+demo:no"   # official foundation first
-npx sv add svforge=template:base+testing:vitest --no-git-check
-npm run dev
-```
+| | Base | Dashboard |
+| --- | --- | --- |
+| **Built in** | Skeleton UI, Tailwind, theme, layouts, SEO, FR/EN, tests | Everything in Base, plus Better Auth, Drizzle/PostgreSQL, protected admin routes and user management |
+| **Best for** | Websites and custom apps | Apps needing accounts, a database and administration |
 
-`--no-git-check` is expected here: the official add-on just wrote files, so the tree is legitimately dirty (interactive shells can also accept the prompt).
-
-For authentication, a database, and protected administration routes, start with the dashboard instead:
+To create a Dashboard:
 
 ```bash
 npx svforge create my-dashboard --template dashboard
 cd my-dashboard
 bash scripts/setup.sh
+```
+
+Before starting, **run PostgreSQL and set `DATABASE_URL` in `.env`**. Then prepare the authentication schema and database:
+
+```bash
+npm run auth:schema
+npm run db:push
 npm run dev
 ```
 
-The dashboard requires PostgreSQL and environment configuration; check the generated `.env.example` and the [dashboard setup guide](packages/svforge/docs/usage-guide.md#install).
+Dashboard registration is **closed by default**. Create the first administrator through `/setup` in development or `npm run admin:create`. See the [Dashboard setup instructions](packages/svforge/docs/usage-guide.md#install) for details before changing a real database.
 
-## Svelte first, SVForge where it adds value
+## Add modules
 
-SVForge is a **starter and collection of optional addons**, not a new framework, component library, or replacement for the Svelte toolchain.
-
-| Official Svelte tooling | SVForge |
-| --- | --- |
-| `sv create` creates the SvelteKit application | Adds editable `base` and `dashboard` project foundations |
-| Official `sv add` addons provide general integrations when they compose safely | Adds Skeleton UI conventions, FR/EN Paraglide content, and product-specific modules |
-| `sv migrate` handles Svelte and SvelteKit migrations | `svforge upgrade` handles only SVForge-owned recipes |
-| SvelteKit controls runtime and deployment | Adds project checks and context for developers and coding agents |
-
-The goal is to **reuse upstream tools, not duplicate them**. Your generated app remains a normal SvelteKit project; you own its source and can adapt or remove the SVForge defaults.
-
-## Templates
-
-| Starting point | What you get |
-| --- | --- |
-| **`base`** | Svelte 5, Skeleton UI, Tailwind CSS, theme and dark mode, layouts, SEO, Paraglide EN/FR (English default), a `/showcase` gallery with per-module demos, and Vitest |
-| **`dashboard`** | Everything in base, plus Better Auth, Drizzle/PostgreSQL, guarded admin routes, user management, and setup scripts |
-
-Both are starting points rather than fixed application architectures. The dashboard does not enable public sign-up by default; see the [template and authentication details](packages/svforge/docs/usage-guide.md#templates).
-
-## Optional modules
-
-Install only the capabilities you need using the same official addon workflow:
+In a generated project, add features with the SVForge CLI:
 
 ```bash
-# In a base project
-npx sv add @svforge/blog @svforge/ui_toast
-
-# In a dashboard project with the required auth/database foundations
-npx sv add @svforge/uploads @svforge/notifications
+npx svforge add blog ui_toast
 ```
 
-Available capabilities include blog, rich-text editing, email, OAuth, uploads, notifications, audit logs, jobs, realtime, chat, drag-and-drop, graph visualization, and toast notifications. Modules declare their prerequisites; some require PostgreSQL, authentication, or a long-lived Node runtime.
+Modules include a blog, rich-text editor, uploads, OAuth, email, notifications, chat, jobs, audit logging, realtime, drag and drop, and graphs. Some require authentication, PostgreSQL or a long-lived Node.js runtime. SVForge checks module prerequisites and compatible versions.
 
-Want a predefined combination? Run `npx svforge preset saas` in a dashboard project or `npx svforge preset community` in a base project. **A preset only prints a suggested `sv add` command; it does not install or change anything.** Copy and run the printed `sv add` command to apply those modules. See the [complete module matrix](packages/svforge/docs/usage-guide.md#optional-modules) and [deployment profiles](packages/svforge/docs/deployment-profiles.md) before selecting runtime-dependent modules.
+See the [complete module list and requirements](packages/svforge/docs/usage-guide.md#optional-modules).
 
-## Built for developers and coding agents
+## Check and evolve your project
 
-Generated projects include `AGENTS.md`, `.svforge.json`, `llms.txt`, and a component catalog/checker so developers and agents can discover existing conventions and reuse components instead of inventing parallel UI patterns.
+SVForge generates editable files plus project conventions for developers and coding agents (`AGENTS.md`, `.svforge.json`, and `llms.txt`).
 
 ```bash
+npx svforge doctor
 npx svforge check
-npx svforge context
 npx svforge upgrade base --dry-run
 ```
 
-`svforge check` validates project/design-system conventions. `svforge context` refreshes managed project context, while `svforge upgrade` previews or applies changes to SVForge-owned recipes and reports conflicts with user edits. Use the official `sv migrate` for SvelteKit framework migrations.
+SVForge can also be used as an `sv add` community addon. For manual official-first installation, advanced configuration and upgrade behavior, see the [full usage guide](packages/svforge/docs/usage-guide.md). Use the official `sv migrate` for framework migrations.
 
-Read the [CLI and project guide](packages/svforge/docs/usage-guide.md#project-context-and-checks) for the full behavior and options.
+## Documentation
+
+- [Full usage guide](packages/svforge/docs/usage-guide.md) — manual installation, dashboard setup, modules and upgrades
+- [Deployment requirements](packages/svforge/docs/deployment-profiles.md) — static, server and worker constraints
+- [SvelteKit compatibility](packages/svforge/docs/sveltekit-compatibility.md) — tested versions and migrations
 
 ## Contributing
 
-SVForge is a Bun workspace containing the CLI, templates, and independently packaged addons. To work on the repository:
+This repository contains the SVForge CLI, the template sources and separately versioned `@svforge/*` addons. To contribute, follow [CONTRIBUTING.md](CONTRIBUTING.md). Release instructions are in [docs/RELEASE.md](docs/RELEASE.md).
 
-```bash
-bun install
-bun run build:all
-bun run test
-bun run lint
-bun run typecheck
-```
+## Security and license
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for branches, PRs, and checks, and [the upstream ownership guide](packages/svforge/docs/structural-duplication.md) for decisions about official Svelte integrations. Release and versioning procedures are maintained in [docs/RELEASE.md](docs/RELEASE.md).
-
-## Security
-
-Report vulnerabilities privately through [GitHub Security Advisories](https://github.com/lelabdev/svforge/security/advisories/new), not public issues. See [SECURITY.md](SECURITY.md).
-
-## License
-
-[MIT](LICENSE)
+Report security issues privately using [GitHub Security Advisories](https://github.com/lelabdev/svforge/security/advisories/new); see [SECURITY.md](SECURITY.md). Licensed under [MIT](LICENSE).
