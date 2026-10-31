@@ -9,7 +9,7 @@
 
 SVForge extends the official [Svelte CLI](https://github.com/sveltejs/cli) with an editable Skeleton-based UI, optional application foundations, and composable modules. Start with SvelteKit, keep the generated source, and add only what your project needs.
 
-[Get started](#quick-start) · [Choose a template](#templates) · [Explore modules](#optional-modules) · [Documentation](packages/svforge/README.md) · [Website](https://svforge.dev)
+[Get started](#quick-start) · [Choose a template](#templates) · [Explore modules](#optional-modules) · [Documentation](packages/svforge/docs/usage-guide.md) · [Website](https://svforge.dev)
 
 </div>
 
@@ -46,7 +46,7 @@ bash scripts/setup.sh
 npm run dev
 ```
 
-The dashboard requires PostgreSQL and environment configuration; check the generated `.env.example` and the [dashboard setup guide](packages/svforge/README.md#install).
+The dashboard requires PostgreSQL and environment configuration; check the generated `.env.example` and the [dashboard setup guide](packages/svforge/docs/usage-guide.md#install).
 
 ## Svelte first, SVForge where it adds value
 
@@ -68,7 +68,7 @@ The goal is to **reuse upstream tools, not duplicate them**. Your generated app 
 | **`base`** | Svelte 5, Skeleton UI, Tailwind CSS, theme and dark mode, layouts, SEO, Paraglide EN/FR (English default), a `/showcase` gallery with per-module demos, and Vitest |
 | **`dashboard`** | Everything in base, plus Better Auth, Drizzle/PostgreSQL, guarded admin routes, user management, and setup scripts |
 
-Both are starting points rather than fixed application architectures. The dashboard does not enable public sign-up by default; see the [template and authentication details](packages/svforge/README.md#templates).
+Both are starting points rather than fixed application architectures. The dashboard does not enable public sign-up by default; see the [template and authentication details](packages/svforge/docs/usage-guide.md#templates).
 
 ## Optional modules
 
@@ -84,7 +84,7 @@ npx sv add @svforge/uploads @svforge/notifications
 
 Available capabilities include blog, rich-text editing, email, OAuth, uploads, notifications, audit logs, jobs, realtime, chat, drag-and-drop, graph visualization, and toast notifications. Modules declare their prerequisites; some require PostgreSQL, authentication, or a long-lived Node runtime.
 
-Want a predefined combination? Run `npx svforge preset saas` in a dashboard project or `npx svforge preset community` in a base project. **A preset only prints a suggested `sv add` command; it does not install or change anything.** Copy and run the printed `sv add` command to apply those modules. See the [complete module matrix](packages/svforge/README.md#optional-modules) and [deployment profiles](packages/svforge/docs/deployment-profiles.md) before selecting runtime-dependent modules.
+Want a predefined combination? Run `npx svforge preset saas` in a dashboard project or `npx svforge preset community` in a base project. **A preset only prints a suggested `sv add` command; it does not install or change anything.** Copy and run the printed `sv add` command to apply those modules. See the [complete module matrix](packages/svforge/docs/usage-guide.md#optional-modules) and [deployment profiles](packages/svforge/docs/deployment-profiles.md) before selecting runtime-dependent modules.
 
 ## Built for developers and coding agents
 
@@ -98,7 +98,7 @@ npx svforge upgrade base --dry-run
 
 `svforge check` validates project/design-system conventions. `svforge context` refreshes managed project context, while `svforge upgrade` previews or applies changes to SVForge-owned recipes and reports conflicts with user edits. Use the official `sv migrate` for SvelteKit framework migrations.
 
-Read the [CLI and project guide](packages/svforge/README.md#project-context-and-checks) for the full behavior and options.
+Read the [CLI and project guide](packages/svforge/docs/usage-guide.md#project-context-and-checks) for the full behavior and options.
 
 ## Contributing
 
