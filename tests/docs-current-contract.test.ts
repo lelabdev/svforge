@@ -15,6 +15,13 @@ describe('maintained documentation contracts (#632)', () => {
 		expect(landing).toContain('npx svforge add blog ui_toast');
 		expect(landing).toContain('packages/svforge/docs/usage-guide.md');
 		expect(landing).not.toContain('SVForge supports `sv` 1.x');
+		const rootReadme = read('README.md');
+		expect(rootReadme).toContain('npx svforge create my-app --template base');
+		expect(rootReadme).toContain('npx svforge add blog ui_toast');
+		expect(rootReadme).toContain('npm run auth:schema');
+		expect(rootReadme).toContain('npm run db:push');
+		expect(rootReadme).toContain('registration is **closed by default**');
+		expect(rootReadme).not.toContain('npx sv add "paraglide=');
 		expect(guide).toContain('<!-- MODULES-TABLE:START -->');
 		expect(guide).toContain('<!-- PRESETS-TABLE:START -->');
 		expect(guide).toContain('## Project context and checks');
