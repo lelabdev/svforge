@@ -1,5 +1,11 @@
 # svforge
 
+## 5.0.2
+
+### Patch Changes
+
+- [#694](https://github.com/lelabdev/svforge/pull/694) [`1f5c46d`](https://github.com/lelabdev/svforge/commit/1f5c46d8e3a58178a092c816fc28da5301592d56) Thanks [@LudoLoops](https://github.com/LudoLoops)! - Make the npm package README a short, CLI-first quick start for Base, Dashboard and optional modules, with detailed installation, compatibility and module documentation linked separately.
+
 ## 5.0.1
 
 ### Patch Changes
