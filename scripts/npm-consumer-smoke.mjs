@@ -202,6 +202,9 @@ export async function registryReleaseConsumable(spec, npm = 'npm', options = {})
 	return tarballAvailable(spec, npm, options);
 }
 
+/** npm publish-time malware scanning can delay public availability 15+ minutes. */
+export const REGISTRY_AVAILABILITY_MAX_ATTEMPTS = 180;
+
 /**
  * @param {{packages: Array<{name: string, version: string, tarball?: string}>}} plan
  * @param {{
@@ -210,9 +213,6 @@ export async function registryReleaseConsumable(spec, npm = 'npm', options = {})
  *  pause?: (ms: number) => Promise<unknown>
  * }} [options]
  */
-/** npm publish-time malware scanning can delay public availability 15+ minutes. */
-export const REGISTRY_AVAILABILITY_MAX_ATTEMPTS = 180;
-
 export async function waitForRegistryAvailability(plan, {
 	registryOnly = false,
 	maxAttempts = REGISTRY_AVAILABILITY_MAX_ATTEMPTS,
