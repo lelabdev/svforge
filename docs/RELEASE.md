@@ -27,11 +27,16 @@ and create GitHub Releases from the package changelogs. Ordinary merges never pu
 After Changesets reports a successful npm publish, the workflow **must** verify the
 exact versions are visible from the public registry before running the clean
 consumer install, published user journey, and golden path. Registry metadata can
-lag npm's publish acknowledgment: the visibility gate checks fresh npm metadata
-(with an isolated temporary cache for every probe) for up to approximately ten
-minutes. Only E404/ETARGET or a stale version response may be retried; unexpected
+lag npm's publish acknowledgment because npm scans newly published packages
+before they become installable (typically around five minutes, sometimes 15+
+minutes). The visibility gate checks fresh npm metadata (with an isolated
+temporary cache for every probe) for up to approximately **30 minutes**.
+Only E404/ETARGET or a stale version response may be retried; unexpected
 npm/authentication/network/parsing failures still fail immediately. A timeout
-fails the workflow without claiming the release was not published.
+fails the workflow without claiming the release was not published; check the
+exact package versions and their scan/review state in npmjs.com before
+retrying the original approved release PR. Do not bump the package versions
+or create a new release PR solely because npm visibility was delayed.
 
 The gate also fetches the **exact tarball** named by that metadata and verifies
 its mandatory sha512 `dist.integrity` and complete gzip structure before installing (#628): npm can expose
