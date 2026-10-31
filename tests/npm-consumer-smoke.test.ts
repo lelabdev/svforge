@@ -5,7 +5,7 @@ import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
-const { consumerInstallSpecs, consumerSource, consumerTsConfig, packageTypePath, validateInstalledTypes, waitForRegistryAvailability, registryVersionVisible, tarballAvailable, registryReleaseConsumable } = await import('../scripts/npm-consumer-smoke.mjs');
+const { consumerInstallSpecs, consumerSource, consumerTsConfig, packageTypePath, validateInstalledTypes, waitForRegistryAvailability, REGISTRY_AVAILABILITY_MAX_ATTEMPTS, registryVersionVisible, tarballAvailable, registryReleaseConsumable } = await import('../scripts/npm-consumer-smoke.mjs');
 
 describe('npm consumer smoke test (#330)', () => {
 	it('resolves the declared type entry for every exact package', () => {
@@ -106,6 +106,27 @@ describe('npm consumer smoke test (#330)', () => {
 			pause: async () => { waits++; }
 		})).rejects.toThrow('npm registry propagation timed out after 3 checks: @svforge/audit@2.2.0');
 		expect(waits).toBe(2);
+	});
+
+	it('allows npm publish-time scanning beyond the former ten-minute window without real delays', async () => {
+		// npm scans accepted publications before they become installable. The
+		// registry can return E404 for 15+ minutes even after Changesets succeeds.
+		expect(REGISTRY_AVAILABILITY_MAX_ATTEMPTS).toBe(180);
+		let attempts = 0;
+		let pauses = 0;
+		const log = vi.spyOn(console, 'log').mockImplementation(() => {});
+		try {
+			await expect(waitForRegistryAvailability({
+				packages: [{ name: 'svforge', version: '5.0.1' }]
+			}, {
+				probe: () => { attempts++; return false; },
+				pause: async () => { pauses++; }
+			})).rejects.toThrow(/Check each exact package version in npmjs\.com Versions\/Staged Packages/);
+			expect(attempts).toBe(180);
+			expect(pauses).toBe(179);
+		} finally {
+			log.mockRestore();
+		}
 	});
 
 	it('never retries an unavailable registry or network failure', async () => {

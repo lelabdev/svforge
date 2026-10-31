@@ -202,6 +202,9 @@ export async function registryReleaseConsumable(spec, npm = 'npm', options = {})
 	return tarballAvailable(spec, npm, options);
 }
 
+/** npm publish-time malware scanning can delay public availability 15+ minutes. */
+export const REGISTRY_AVAILABILITY_MAX_ATTEMPTS = 180;
+
 /**
  * @param {{packages: Array<{name: string, version: string, tarball?: string}>}} plan
  * @param {{
@@ -212,7 +215,7 @@ export async function registryReleaseConsumable(spec, npm = 'npm', options = {})
  */
 export async function waitForRegistryAvailability(plan, {
 	registryOnly = false,
-	maxAttempts = 60,
+	maxAttempts = REGISTRY_AVAILABILITY_MAX_ATTEMPTS,
 	intervalMs = 10000,
 	probe = registryReleaseConsumable,
 	pause = sleep
@@ -229,7 +232,9 @@ export async function waitForRegistryAvailability(plan, {
 		}
 		if (missing.length === 0) return;
 		if (attempt === maxAttempts) {
-			throw new Error(`npm registry propagation timed out after ${maxAttempts} checks: ${missing.join(', ')}`);
+			throw new Error(`npm registry propagation timed out after ${maxAttempts} checks: ${missing.join(', ')}. ` +
+					'Changesets publishing may have succeeded while npm publish-time scanning is still pending, held for manual review, or blocked. ' +
+					'Check each exact package version in npmjs.com Versions/Staged Packages and any maintainer notifications before retrying the same approved release; do not bump versions.');
 		}
 		console.log(`Waiting for npm registry propagation (check ${attempt}/${maxAttempts}): ${missing.join(', ')}`);
 		await pause(intervalMs);
