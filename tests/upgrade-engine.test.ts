@@ -109,6 +109,54 @@ describe('baseline initialization on fresh install (#327)', () => {
 		expect(readFileSync(join(project, 'src/lib/b.ts'), 'utf-8')).toBe('v1 + user edit\n'); // preserved
 	});
 
+	it('preserves a project-owned theme and its import during upgrades without --force', () => {
+		const templateTheme = '/* template theme */\n';
+		const templateLayout = "@import '../lib/styles/svelteforge-theme.css';\n";
+		const installed = {
+			'/lib/styles/svelteforge-theme.css': templateTheme,
+			'/routes/layout.css': templateLayout
+		};
+		mkdirSync(join(project, 'src/lib/styles'), { recursive: true });
+		mkdirSync(join(project, 'src/routes'), { recursive: true });
+		writeFileSync(join(project, 'src/lib/styles/svelteforge-theme.css'), templateTheme);
+		writeFileSync(join(project, 'src/routes/layout.css'), templateLayout);
+		writeFileSync(join(project, TRACKING_FILE), initTrackingJson('base', '1.0.0', installed));
+
+		// Consumer owns their own CSS theme; the template does not track that path.
+		const customTheme = '[data-theme="denden"] { --color-primary-500: red; }\n';
+		writeFileSync(join(project, 'src/lib/styles/denden-theme.css'), customTheme);
+		const customLayout = templateLayout + "@import '../lib/styles/denden-theme.css';\n";
+		writeFileSync(join(project, 'src/routes/layout.css'), customLayout);
+
+		const recipe = makeRecipe({
+			id: 'base',
+			files: {
+				'/lib/styles/svelteforge-theme.css': '/* updated template */\n',
+				'/routes/layout.css': templateLayout + '/* updated */\n'
+			}
+		});
+		const plan = planUpgrade(recipe, project);
+		expect(plan.operations.find((op) => op.path === 'src/routes/layout.css')?.resolution).toBe('conflict');
+		expect(plan.operations.some((op) => op.path === 'src/lib/styles/denden-theme.css')).toBe(false);
+		const result = applyPlan(recipe, plan, project);
+		expect(result.rolledBack).toBe(false);
+		expect(readFileSync(join(project, 'src/lib/styles/denden-theme.css'), 'utf8')).toBe(customTheme);
+		expect(readFileSync(join(project, 'src/routes/layout.css'), 'utf8')).toBe(customLayout);
+		expect(readFileSync(join(project, 'src/lib/styles/svelteforge-theme.css'), 'utf8')).toBe('/* updated template */\n');
+
+		// A directly edited template theme also conflicts instead of getting replaced.
+		writeFileSync(join(project, 'src/lib/styles/svelteforge-theme.css'), '/* user edits */\n');
+		const next = makeRecipe({
+			id: 'base',
+			version: '3.0.0',
+			files: { '/lib/styles/svelteforge-theme.css': '/* template v3 */\n' }
+		});
+		const nextPlan = planUpgrade(next, project);
+		expect(nextPlan.operations[0]?.resolution).toBe('conflict');
+		applyPlan(next, nextPlan, project);
+		expect(readFileSync(join(project, 'src/lib/styles/svelteforge-theme.css'), 'utf8')).toBe('/* user edits */\n');
+	});
+
 	it('a LEGACY 32-bit baseline degrades to "no baseline" — the file is preserved, never silently overwritten', () => {
 		mkdirSync(join(project, 'src/lib'), { recursive: true });
 		writeFileSync(join(project, 'src/lib/a.ts'), 'old installed content\n');
