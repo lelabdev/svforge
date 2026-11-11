@@ -105,6 +105,23 @@ Dashboard sign-up is closed by default; `SIGNUP_MODE` can be set to `invite-only
 
 Skeleton is the visual and primitive source of truth. The theme is in `src/lib/styles/svelteforge-theme.css`; global CSS wiring is in `src/routes/layout.css`. Static UI text uses Paraglide message catalogs. These are editable defaults, not restrictions on a consumer project.
 
+### Project-owned Skeleton themes
+
+A scaffold ships \`src/lib/styles/svelteforge-theme.css\` as an **editable reference theme**. For an application with its own visual identity (for example DenDen), **keep that reference unchanged** and add a separate \`src/lib/styles/denden-theme.css\` defining a complete theme with a different selector:
+
+\`\`\`css
+/* src/lib/styles/denden-theme.css */
+[data-theme='denden'] {
+  /* Project-owned Skeleton v5 tokens, including light/dark values. */
+}
+\`\`\`
+
+Import both themes in \`src/routes/layout.css\` (template first, application second), then select the application theme in \`src/app.html\` with \`data-theme="denden"\`. Both remain available for comparison without copying project tweaks into the template reference. The original theme is not an inheritance chain: a custom theme must provide the complete required token set.
+
+The upgrade engine records SHA-256 checksums in \`.svforge-versions.json\` for **template-delivered files**. The project-owned theme is never in the recipe and therefore is not overwritten by an ordinary SVForge upgrade. If the project's \`layout.css\` differs from the installed baseline, an upgrade reports a **conflict** rather than silently reverting its imports. Likewise, direct edits to the provided theme are protected from ordinary upgrades. **\`--force\` explicitly overrides those safeguards**: always inspect \`svforge upgrade ... --dry-run\` and back up before forcing.
+
+Do not rename the template's own theme just to customize branding. A separate theme preserves a clean reference to evaluate template upgrades; updating that reference does not automatically change the application theme.
+
 ## Optional modules
 
 Add only the capabilities your application needs. **Requires** names the template or capability that must already be present; optional integrations compose with other modules.
